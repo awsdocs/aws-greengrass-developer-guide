@@ -1,49 +1,32 @@
 # OTA Updates of AWS Greengrass Core Software<a name="core-ota-update"></a>
 
-This feature is available for AWS Greengrass Core v1\.3\.0 only\.
+This feature is available for AWS Greengrass Core v1\.3\.0 and greater\.
 
 The AWS Greengrass core software comes packaged with an OTA Update Agent that is capable of updating the core's software or the OTA Update Agent itself to the latest respective versions\. You can start an update by invoking the CreateSoftwareUpdateJob API or from the Greengrass console\. Updating the Greengrass core software provides the following benefits:
-
 + Fix security vulnerabilities\.
-
 + Address software stability issues\.
-
 + Deploy new or improved features\.
 
 An OTA update makes all these benefits available without having to perform the update manually or having the device which is running the core software physically present\. The OTA Update Agent also performs a rollback in case of a failed OTA update\. Performing an OTA update is optional but can help you manage your AWS Greengrass core devices\. Look for announcements of new versions of the core's software on the Greengrass developer forum\.
 
 In order to support an OTA update of Greengrass core software by using the OTA Update Agent, your Greengrass core device must:
-
 + Have available local storage three times the amount of the core's runtime usage requirement\. 
-
 + Not have trusted boot enabled in the partition containing the Greengrass core platform software\. \(The AWS Greengrass core can be installed and run on a partition with trusted boot enabled, but cannot perform an OTA update\.\) 
-
 + Have read/write permissions on the partition containing the Greengrass core platform software\.
-
 + Have a connection to the AWS cloud\.
-
 + Have a correctly configured AWS Greengrass core and appropriate certificates\.
 
 Before launching an OTA Update of Greengrass core software, it is important to note the impact that it will have on the devices in your Greengrass group, both on the core device and on client devices connected locally to that core:
-
 + The core will be shut down during the update\.
-
 + Any Lambda functions running on the core will be shut down\. If those functions write to local resources, they might leave those resources in an incorrect state unless shut down properly\.
-
 + During the core's downtime, all its connections with the cloud will be lost and messages routed through the core by client devices will be lost\.
-
 + Credential caches will be lost\.
-
 + Queues which hold pending work for Lambda functions will be lost\.
-
 + Long\-lived Lambdas will lose their dynamic state information and all pending work will be dropped\. 
 
 The following state information will be preserved during an OTA Update:
-
 + Local shadows
-
 + Greengrass logs
-
 + OTA Agent logs
 
 ## Greengrass OTA Agent<a name="ota-agent"></a>
@@ -230,13 +213,9 @@ As the OTA Agent prepares to do an AWS Greengrass core update, if the `managedRe
 After the OTA Agent completes the update, it will attempt to run the `ggc_post_update.sh` script from the `./greengrass/usr/scripts` directory\.
 
 Note:
-
 + The user\-defined scripts in `./greengrass/usr/scripts` should be owned by root and executable by root only\.
-
 + If `managedRespawn` is set to `true`, the scripts must exist and return a successful return code\.
-
 + If `managedRespawn` is set to `false`, the scripts will not be run even if present on the device\.
-
 + It is imperative that a device which is the target of an update not run two OTA agents for the same AWS IoT thing\. Doing so will cause the two OTA Agents to process the same jobs which will lead to conflicts\.
 
 ## OTA Agent Self\-Update<a name="agent-self-update"></a>
@@ -266,7 +245,3 @@ To perform an AWS Greengrass core software update follow these steps:
 1. Create an OTA self update job in the cloud with the CreateSoftwareUpdateJob API \(`aws greengrass create-software-update-job`\), making sure the `--software-to-update` parameter is set to `core`\.
 
 1. The OTA Agent will perform an update of AWS Greengrass core software\.
-
-## Limitations<a name="ota-limitations"></a>
-
-When the OTA Agent is started, it expects to be able to establish a connection to the AWS cloud to perform initialization\. If the connection is unavailable within 30 seconds, the Greengrass OTA Agent will exit\. If you want to start the OTA Agent in a disconnected environment, a workaround is to have an init script respawn the OTA Agent if it exits during startup with a return code of `ETIMEDOUT` \(\-110\)\.

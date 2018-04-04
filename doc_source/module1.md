@@ -76,13 +76,6 @@ If your computer is connected to a remote network using VPN \(such as a work rel
    sudo addgroup --system ggc_group
    ```
 
-   Next, run the following commands to install `sqlite3`:
-
-   ```
-   sudo apt-get update
-   sudo apt-get install sqlite3
-   ```
-
 1. Run the following commands to update the Linux kernel version of your Raspberry Pi\. 
 
    ```
@@ -141,7 +134,7 @@ If your computer is connected to a remote network using VPN \(such as a work rel
    cd /home/pi/Downloads
    git clone https://github.com/aws-samples/aws-greengrass-samples.git
    cd aws-greengrass-samples
-   cd greengrass-dependency-checker-GGCv1.3.0
+   cd greengrass-dependency-checker-GGCv1.5.0
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```
@@ -219,7 +212,7 @@ Your Raspberry Pi configuration is complete\. Continue to [Module 2: Installing 
    sudo yum install git
    git clone https://github.com/aws-samples/aws-greengrass-samples.git
    cd aws-greengrass-samples
-   cd greengrass-dependency-checker-GGCv1.3.0 
+   cd greengrass-dependency-checker-GGCv1.5.0
    sudo ./check_ggc_dependencies
    ```
 
@@ -233,7 +226,7 @@ If you are new to AWS Greengrass, we recommend that you use a Raspberry Pi or an
 
    ```
    git clone https://github.com/aws-samples/aws-greengrass-samples.git
-   cd greengrass-dependency-checker-GGCv1.3.0 
+   cd greengrass-dependency-checker-GGCv1.5.0 
    sudo ./check_ggc_dependencies
    ```
 
@@ -247,46 +240,172 @@ If you are new to AWS Greengrass, we recommend that you use a Raspberry Pi or an
 **Note**  
 If no errors appear in the output, AWS Greengrass should be able to run successfully on your device\.
 
-These are the AWS Greengrass dependencies:
+   For the list of AWS Greengrass requirements and dependencies, see [Supported Platforms and Requirements](what-is-gg.md#gg-platforms)\.
 
-**Required items:**
+### Configuring NVIDIA Jetson TX2 for AWS Greengrass<a name="setup-jetson"></a>
 
-+ For best security and performance, Linux kernel version 4\.4 or later\.
+If your core device is an NVIDIA Jetson TX2, it must be configured before you can install the AWS Greengrass\. The following steps describe how to flash the firmware to a JetPack installer and rebuild the kernel so that the device is ready to install the AWS Greengrass core software\.
 
-+ `libc` C library, version 2\.14 or later\.
+**Note**  
+The JetPack installer version that you use is based on your target CUDA Toolkit version\. The following instructions assume that you're using JetPack 3\.1 and CUDA Toolkit 8\.0, because the binaries for TensorFlow v1\.4\.0 that AWS Greengrass provides for machine learning \(ML\) inference are compiled against this version of CUDA\. For more information about AWS Greengrass ML inference, see [Perform Machine Learning Inference](ml-inference.md)\.
 
-+ The `/var/run` directory must be present on the device\. 
+#### Flash the JetPack 3\.1 Firmware<a name="jetson-flash-firmware"></a>
 
-+ Hardlink/softlink protection must be enabled on the device\. Otherwise, AWS Greengrass can only be run in insecure mode, using the `-i` flag\.
+1. On a physical desktop that is running Ubuntu 14 or 16, flash the firmware to JetPack 3\.1, as described in [Download and Install JetPack L4T](http://docs.nvidia.com/jetpack-l4t/index.html#developertools/mobile/jetpack/l4t/3.0/jetpack_l4t_install.htm)\.
 
-+ `ggc_user` and `ggc_group` must be present on the device\.
+   Follow the instructions in the installer to install all the packages and dependencies on the Jetson board, which must be connected to the desktop with a Micro\-B cable\. Start the device in forced recovery mode\.
+**Note**  
+After the JetPack installation, you must use *ubuntu* credentials to log onto the device\. The SSH agent hangs when it tries to log in using any other account, even if you SSH directly to the board using this account\.
 
-+ The following Linux kernel configurations must be enabled on the device:
+1. Reboot your board in normal mode, and then connect a display to the board\.
 
-  + Namespace: `CONFIG_IPC_NS`, `CONFIG_UTS_NS`, `CONFIG_USER_NS`, `CONFIG_PID_NS` 
+#### Rebuild the NVIDIA Jetson TX2 Kernel<a name="jetson-kernel-config"></a>
 
-  + Cgroups: `CONFIG_CGROUP_DEVICE`, `CONFIG_CGROUPS, CONFIG_MEMCG`
+Run the following commands on the Jetson board\.
 
-  + Others: `CONFIG_POSIX_MQUEUE`, `CONFIG_OVERLAY_FS`, `CONFIG_HAVE_ARCH_SECCOMP_FILTER`, `CONFIG_SECCOMP_FILTER`, `CONFIG_KEYS`, `CONFIG_SECCOMP` 
+1. Check the kernel configurations:
 
-+ The `sqlite3` package is required for AWS IoT device shadows\. Make sure it is added to your `PATH` environment variable\.
+   ```
+   nvidia@tegra-ubuntu:~$ zcat /proc/config.gz | grep -e CONFIG_KEYS -e CONFIG_POSIX_MQUEUE -e CONFIG_OF_OVERLAY -e CONFIG_OVERLAY_FS -e CONFIG_HAVE_ARCH_SECCOMP_FILTER -e CONFIG_SECCOMP_FILTER -e CONFIG_SECCOMP -e CONFIG_DEVPTS_MULTIPLE_INSTANCES -e CONFIG_IPC_NS -e CONFIG_NET_NS -e CONFIG_UTS_NS -e CONFIG_USER_NS -e CONFIG_PID_NS -e CONFIG_CGROUPS –e CONFIG_MEMCG -e CONFIG_CGROUP_FREEZER -e CONFIG_CGROUP_DEVICE
+   # CONFIG_POSIX_MQUEUE is not set
+   CONFIG_CGROUPS=y
+   CONFIG_CGROUP_FREEZER=y
+   # CONFIG_CGROUP_DEVICE is not set
+   # CONFIG_MEMCG is not set
+   CONFIG_UTS_NS=y
+   CONFIG_IPC_NS=y
+   # CONFIG_USER_NS is not set
+   CONFIG_PID_NS=y
+   CONFIG_NET_NS=y
+   CONFIG_HAVE_ARCH_SECCOMP_FILTER=y
+   CONFIG_SECCOMP_FILTER=y
+   CONFIG_SECCOMP=y
+   # CONFIG_OF_OVERLAY is not set
+   CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
+   # CONFIG_OVERLAY_FS is not set
+   # CONFIG_KEYS is not set
+   ```
 
-+ `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
+1. Check the performance and power settings:
 
-+ The Linux kernel must support cgroups\.
+   ```
+   nvidia@tegra-ubuntu:~$ sudo nvpmodel –q
+   NV Power Mode: MAXP_CORE_ARM
+   3
+   ```
 
-+ The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambda functions\.
+1. Put the Jetson into high performance mode:
 
-+ The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
+   ```
+   nvidia@tegra-ubuntu:~$ sudo nvpmodel –m 0
+   ```
 
-**Optional or feature\-dependent items:**
+1. Clone the git repository:
 
-+ The *devices* `cgroup` must be enabled and mounted if Lambda functions with local resource access are used to open device files\.
+   ```
+   nvidia@tegra-ubuntu:~$ cd /
+   nvidia@tegra-ubuntu:~$ sudo git clone https://github.com/jetsonhacks/buildJetsonTX2Kernel.git
+   ```
 
-+ If you are using Python Lambda functions, Python 2\.7 is required\. Make sure it is added to your `PATH` environment variable\.
+1. Modify the `getKernelSources.sh` script, based on the following diff of the changes:
 
-+ If you are using Node\.JS Lambda functions, Node\.JS 6\.10 or later is required\. Make sure it is added to your `PATH` environment variable\.
+   ```
+   index f47f28d..3dd863a 100755
+   --- a/scripts/getKernelSources.sh
+   +++ b/scripts/getKernelSources.sh
+   @@ -1,12 +1,15 @@
+    #!/bin/bash
+    apt-add-repository universe
+    apt-get update
+   -apt-get install qt5-default pkg-config -y
+   +apt-get install qt5-default pkg-config libncurses5-dev libssl-dev -y
+    cd /usr/src
+    wget http://developer.download.nvidia.com/embedded/L4T/r28_Release_v1.0/BSP/source_release.tbz2
+    tar -xvf source_release.tbz2 sources/kernel_src-tx2.tbz2
+    tar -xvf sources/kernel_src-tx2.tbz2
+    cd kernel/kernel-4.4
+   +make clean
+    zcat /proc/config.gz > .config
+   -make xconfig
+   +echo "type something to continue"
+   +read
+   +make menuconfig
+   ```
 
-+ If you are using Java Lambda functions, Java 8 or later is required\. Make sure it is added to your `PATH` environment variable\.
+1. Run the `getKernelSources` script:
 
-+ OpenSSL 1\.0\.1 or later and the following commands are required for the over\-the\-air \(OTA\) agent: `wget`, `realpath`, `tar`, `readlink`, `basename`, `dirname`, `pidof`, `df`, `grep`, and `umount`\.
+   ```
+   nvidia@tegra-ubuntu:~$ cd /buildJetsonTX2Kernel
+   nvidia@tegra-ubuntu:~$ sudo ./getKernelSources.sh
+   ```
+
+1. When prompted for "type something to continue", press **CTRL \+ Z** to background the script\.
+
+1. Go to /usr/src/kernel/kernel\-4\.4/security/keys and edit the `Kconfig` file by adding the following lines between `KEYS` and `PERSISTENT_KEYRINGS`:
+
+   ```
+   config KEYS_COMPAT
+       def_bool y
+       depends on COMPAT && KEYS
+   ```
+
+1. Unpause the script:
+
+   ```
+   nvidia@tegra-ubuntu:~$ cd /usr/src/kernel/kernel-4.4/
+   nvidia@tegra-ubuntu:~$ fg
+   ```
+
+   Type some characters to unblock the script\.
+
+1. In the setup window that opens, choose **Enable loadable module support**, and then open the submenu to enable **optionModule** signature verification\. Use the arrow keys to move and the spacebar to select any option\. Then, save the change and exit\.
+
+1. Verify that `KEYS_COMPAT` is enabled:
+
+   ```
+   nvidia@tegra-ubuntu:~$ grep --color KEYS_COMPAT /usr/src/kernel/kernel-4.4/.config
+   ```
+
+1. Open the kernel configuration interface and enable kernel configurations:
+
+   ```
+   nvidia@tegra-ubuntu:~$ sudo make xconfig
+   ```
+
+   A window opens that shows all the kernel configurations\. Use **FIND** to search for the following keywords and tick\-mark them\.
+
+   ```
+   CONFIG_POSIX_MQUEUE
+   CONFIG_OF_OVERLAY
+   CONFIG_OVERLAY_FS
+   CONFIG_USER_NS
+   CONFIG_MEMCG
+   CONFIG_CGROUP_DEVICE
+   ```
+
+1. Build the kernel:
+
+   ```
+   nvidia@tegra-ubuntu:~$ cd /buildJetsonTX2Kernel
+   nvidia@tegra-ubuntu:~$ sudo ./makeKernel.sh
+   ```
+
+1. Verify that the kernel configurations are enabled:
+
+   ```
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_POSIX_MQUEUE /usr/src/kernel/kernel-4.4/.config
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_OF_OVERLAY /usr/src/kernel/kernel-4.4/.config
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_OVERLAY_FS /usr/src/kernel/kernel-4.4/.config
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_USER_NS /usr/src/kernel/kernel-4.4/.config
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_MEMCG /usr/src/kernel/kernel-4.4/.config
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_CGROUP_DEVICE /usr/src/kernel/kernel-4.4/.config
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_KEYS_COMPAT /usr/src/kernel/kernel-4.4/.config
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_COMPAT /usr/src/kernel/kernel-4.4/.config
+   nvidia@tegra-ubuntu:~$ grep --color CONFIG_KEYS /usr/src/kernel/kernel-4.4/.config
+   ```
+
+1. Copy the image:
+
+   ```
+   nvidia@tegra-ubuntu:~$ sudo ./copyImage.sh
+   ```

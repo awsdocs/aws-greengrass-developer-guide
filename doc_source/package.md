@@ -23,11 +23,8 @@ For UNIX\-like systems, you can run the following Terminal command to download t
 1. Upload your Lambda function deployment package, as follows:
 
    1. On the **Configuration** tab, under **Function code**, set the following fields:
-
       + **Code entry type** \- choose **Upload a \.ZIP file**\.
-
       + **Runtime** \- choose **Python 2\.7**\.
-
       + **Handler** \- type **greengrassHelloWorldCounter\.function\_handler**\.
 
    1. Choose **Upload**, and then choose `hello_world_counter_python_lambda.zip`\.  
@@ -44,9 +41,7 @@ For UNIX\-like systems, you can run the following Terminal command to download t
 1. Create an alias for the function version, as follows:
 
    1. From the **Actions** menu, choose **Create alias**, and set the following values:
-
       + **Name** \- type **GG\_HW\_Counter**\.
-
       + **Version** \- choose **1**\.
 
    1. Choose **Create**\.  

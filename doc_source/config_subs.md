@@ -5,9 +5,7 @@ In this step, you create a subscription that enables the GG\_TrafficLight shadow
 1. On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.
 
 1. On the **Select your source and target** page, set the following values:
-
    + **Select a source** \- choose **Services** and then choose **Local Shadow Service**\.
-
    + **Select a target** \- choose **Lambdas** and then choose **GG\_Car\_Aggregator**\.
 
    Choose **Next**\.  

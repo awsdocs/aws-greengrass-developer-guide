@@ -36,17 +36,15 @@ For more information, see [Troubleshooting AWS Greengrass Applications](gg-troub
 
 You have reached the end of this tutorial and should now understand the AWS Greengrass programming model and its fundamental concepts, including AWS Greengrass cores, groups, subscriptions, and the deployment process for Lambda functions running at the edge\.
 
-You can delete the DynamoDB table and stop communications between the AWS Greengrass core device and the AWS IoT cloud\. To stop communications, open a terminal on the AWS Greengrass core device and run **one** of the following commands:
-
+You can delete the DynamoDB table, delete the Lambda functions, and stop communications between the AWS Greengrass core device and the AWS IoT cloud\. To stop communications, open a terminal on the AWS Greengrass core device and run **one** of the following commands:
 + To shut down the AWS Greengrass core device:
 
   ```
   sudo halt
   ```
-
 + To stop the AWS Greengrass daemon:
 
   ```
-  cd /greengrass/ggc/packages/1.3.0/
+  cd /greengrass/ggc/core/
   sudo ./greengrassd stop
   ```

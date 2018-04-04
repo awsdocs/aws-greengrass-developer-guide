@@ -24,18 +24,17 @@
 
 1. <a name="gg-core-download"></a>On the confirmation page, download your core's security resources and the AWS Greengrass Core software, as follows:
 
-   1. Under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz** to download the required security resources for your AWS Greengrass core\.
+   1. Under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz** to download the required security resources for your AWS Greengrass core\.  
+![\[The Connect your Core device page with Download these resources as a tar.gz highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.png)
 
-   1. Under **Download the current Greengrass Core software**, choose the CPU architecture of your core device:
-
-      + If you're using a Raspberry Pi, choose **ARMv7l**\.
-
-      + If you're using an Amazon EC2 instance, choose **x86\_64**\.
-
-   1. Choose **Download Greengrass version 1\.3\.0** to download the AWS Greengrass core binary\.
+   1. Under **Download the current Greengrass Core software**, choose the CPU architecture \(and operating system, if necessary\) that best describes your core device:
+      + If you're using a Raspberry Pi, download the ARMv7l for Raspbian Jessie package\.
+      + If you're using an Amazon EC2 instance, download one of the x86\_64 packages\.  
+![\[The Connect your Core device page with Download and Finish highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.1.png)
 **Important**  
-You must download both the security resources *and* the AWS Greengrass Core software before you choose **Finish**\.  
-![\[The Connect your Core device page with Download these resources as a tar.gz, ARMv71, Download Greengrass version 1.3.0, and the Finish button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.png)
+You must download both the security resources *and* the AWS Greengrass Core software before you choose **Finish**\.
 
-1. After downloading the security resources and the AWS Greengrass Core software, choose **Finish**\. The group configuration page is displayed in the console:  
+1. After downloading the security resources and the AWS Greengrass Core software, choose **Finish**\.
+
+   The group configuration page is displayed in the console:  
 ![\[Empty group configuration page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.2.png)

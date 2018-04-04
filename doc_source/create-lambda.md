@@ -1,61 +1,53 @@
 # Create and Package a Lambda Function<a name="create-lambda"></a>
 
 In order for a Python Lambda function to run on an AWS Greengrass core, it must be packaged with specific folders from the Python AWS Greengrass Core SDK\. In the following, you will:
-
 + Download the Python AWS Greengrass Core SDK to your computer \(not the AWS Greengrass core device\)\.
-
 + Decompress the downloaded SDK file\.
-
 + Obtain the Python Lambda function \(named `greengrassHelloWorld.py`\) from the decompressed SDK\.
-
 + Create a Lambda function deployment package named `hello_world_python_lambda.zip` that contains `greengrassHelloWorld.py` and three required SDK folders\.
-
 + Upload the `hello_world_python_lambda.zip` package by using the Lambda console\. 
-
 + Transfer the package to the AWS Greengrass core device by using the AWS Greengrass console\.
 
 1. In the AWS IoT console, choose **Software**\.  
-![\[The left navigation pane of the AWS IoT console page with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-014.png)
+![\[The left navigation pane of the AWS IoT console page with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-iot-software.png)
 
-   To get the AWS Greengrass Core SDK, on the home page, scroll down to **SDKs**, and choose **Configure download**\.  
-![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-015.png)
+1. Under **SDKs**, for **AWS Greengrass Core SDK**, choose **Configure download**\.  
+![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
 
-   From the drop\-down list, choose **Python 2\.7 version 1\.0\.0**, and then choose **Download Greengrass Core SDK**\.  
-![\[Python 2.7 version 1.0.0 and Download Greengrass Core SDK.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
+1. Choose **Python 2\.7 version 1\.1\.0**, and then choose **Download Greengrass Core SDK**\.  
+![\[Python 2.7 version 1.1.0 and Download Greengrass Core SDK.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
 
-1. Based on your operating system, choose a tab to decompress the downloaded SDK\.
+1. Decompress the downloaded SDK\. For instructions, choose the tab that corresponds to your operating system\.
 
 ------
 #### [ Windows ]
 
-   Use a tool for decompressing `.tar.gz` files on Windows such as [7\-Zip](http://www.7-zip.org/), [WinZip](http://www.winzip.com/), or similar\. As an example, the 7\-Zip tool can be used to decompress `greengrass-core-python-sdk-1.0.0.tar.gz` as follows:
+   Use a tool for decompressing `.tar.gz` files on Windows such as [7\-Zip](http://www.7-zip.org/), [WinZip](http://www.winzip.com/), or similar\. As an example, the 7\-Zip tool can be used to decompress `greengrass-core-python-sdk-1.1.0.tar.gz` as follows:
 
-   1. After installing 7\-Zip, navigate to the `greengrass-core-python-sdk-1.0.0.tar.gz` file using Windows File Explorer \(Windows logo key \+ E\), right\-click the file, choose **7\-Zip**, then choose **Open archive**\.
+   1. After installing 7\-Zip, navigate to the `greengrass-core-python-sdk-1.1.0.tar.gz` file using Windows File Explorer \(Windows logo key \+ E\), right\-click the file, choose **7\-Zip**, then choose **Open archive**\.
 
-   1. In the resulting 7\-Zip window, double\-click `greegrass-core-python-sdk-1.0.0.tar`, `aws_greengrass_core_sdk`, `examples`, `HelloWorld`, and then `greengrassHelloWorld.zip`\.
+   1. In the resulting 7\-Zip window, double\-click `greegrass-core-python-sdk-1.1.0.tar`, `aws_greengrass_core_sdk`, `examples`, `HelloWorld`, and then `greengrassHelloWorld.zip`\.
 
    1. Optionally using the Ctrl key, select the three SDK folders `greengrasssdk`, `greengrass_common`, `greengrass_ipc_python_sdk` and the Python `greengrassHelloWorld.py` Lambda file\. Next, choose **Extract**, pick a location to extract the files to, and choose **OK**\.
 
 ------
 #### [ macOS ]
 
-   1. Using Finder, navigate to the `greengrass-core-python-sdk-1.0.0.tar.gz` file and double\-click it\. This creates the `aws_greengrass_core_sdk` folder\.
+   1. Using Finder, navigate to the `greengrass-core-python-sdk-1.1.0.tar.gz` file and double\-click it\. This creates the `aws_greengrass_core_sdk` folder\.
 
    1. Expand the `aws_greengrass_core_sdk` folder, then the `examples` folder, and then the `HelloWorld` folder\.
 
    1. Double\-click the `greengrassHelloWorld.zip` file\. This creates the `greengrassHelloWorld` folder – expand this folder\.
 
-   1. Note the three SDK subfolders `greengrasssdk`, `greengrass_common`, `greengrass_ipc_python_sdk` and the Python `greengrassHelloWorld.py` Lambda script file\. 
-
 ------
 #### [ UNIX\-like system ]
 
-   1. Open a terminal window and navigate to the directory containing the `greengrass-core-python-sdk-1.0.0.tar.gz` file\.
+   1. Open a terminal window and navigate to the directory containing the `greengrass-core-python-sdk-1.1.0.tar.gz` file\.
 
    1. Run the following command to decompress the file:
 
       ```
-      sudo tar -xzf greengrass-core-python-sdk-1.0.0.tar.gz
+      sudo tar -xzf greengrass-core-python-sdk-1.1.0.tar.gz
       ```
 
       This creates the `aws_greengrass_core_sdk` directory\. Next, run the following commands:
@@ -65,11 +57,11 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
       sudo unzip greengrassHelloWorld.zip
       ```
 
-      This creates the three SDK folders `greengrass_common`, `greengrass_ipc_python_sdk`, `greengrasssdk` and the Python `greengrassHelloWorld.py` Lambda file\.
-
 ------
 
-   Note that the `greengrassHelloWorld.py` Python Lambda function publishes one of two possible messages every 5 seconds to the `hello/world` topic, as shown next \(to save space, all code comments have been removed\):
+   You use the three SDK folders \(`greengrass_common`, `greengrass_ipc_python_sdk`, and `greengrasssdk`\) and the Python `greengrassHelloWorld.py` Lambda function code in the next step\.
+
+   Note that every five seconds, the `greengrassHelloWorld.py` Lambda function publishes one of two possible messages to the `hello/world` topic, as shown in the following code \(to save space, all code comments have been removed\):
 
    ```
    import greengrasssdk
@@ -99,7 +91,7 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
    For UNIX\-like systems \(including the Mac terminal\), this can be accomplished with the following command:
 
    ```
-   zip -r hello_world_python_lambda.zip greengrass_common/greengrass_ipc_python_sdk/greengrasssdk/greengrassHelloWorld.py
+   sudo zip -r hello_world_python_lambda.zip greengrass_common greengrass_ipc_python_sdk greengrasssdk greengrassHelloWorld.py
    ```
 **Note**  
 Depending on your distribution, you may need to install `zip` first\. For example, `sudo apt-get install zip` \(this installation command may differ for your distribution\)\.
@@ -111,11 +103,8 @@ Depending on your distribution, you may need to install `zip` first\. For exampl
 1. Choose **Author from scratch**\.
 
 1. Name your function **Greengrass\_HelloWorld**, and set the remaining fields as follows:
-
    + **Runtime** \- choose **Python 2\.7**\.
-
    + **Role** \- choose **Create new role from templates\(s\)**\.
-
    + **Role name** \- type a unique name for the role\.
 
      Note that this role isn't used by AWS Greengrass, so you can optionally use any existing role\.
@@ -126,11 +115,8 @@ Depending on your distribution, you may need to install `zip` first\. For exampl
 1. Upload your Lambda function deployment package, as follows:
 
    1. On the **Configuration** tab, under **Function code**, set the following fields:
-
       + **Code entry type** \- choose **Upload a \.ZIP file**\.
-
       + **Runtime** \- choose **Python 2\.7**\.
-
       + **Handler** \- type **greengrassHelloWorld\.function\_handler**\.
 
    1. Choose **Upload**, and then choose `hello_world_python_lambda.zip`\. Your `hello_world_python_lambda.zip` file size may vary\.  

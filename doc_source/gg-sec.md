@@ -47,15 +47,10 @@ You can also use existing AWS IoT things and certificates\.
 ## Device Connection Workflow<a name="gg-sec-connection"></a>
 
 This section describes how devices connect to the AWS Greengrass cloud service and AWS Greengrass core devices\.
-
 + An AWS Greengrass core device uses its device certificate, private key, and the AWS IoT root CA certificate to connect to the Greengrass cloud service \.
-
 + The AWS Greengrass core device downloads group membership information from the Greengrass service\.
-
 + When a deployment is made to the AWS Greengrass core device, the Device Certificate Manager \(DCM\) handles certificate management for the AWS Greengrass core device\.
-
 + An AWS IoT device connects to the Greengrass cloud service using its device certificate, private key, and the AWS IoT root CA\. After making the connection, the AWS IoT device uses the Greengrass Discovery Service to find the IP address of its AWS Greengrass core device\. The device can also download the group's root CA certificate, which can be used to authenticate the Greengrass core device\.
-
 + An AWS IoT device attempts to connect to the AWS Greengrass core, passing its device certificate and client ID\. If the client ID matches the thing name of the device and the certificate is valid, the connection is made\. Otherwise, the connection is terminated\. 
 
 ## Greengrass Messaging Workflow<a name="gg-msg-workflow"></a>

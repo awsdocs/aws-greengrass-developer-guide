@@ -44,6 +44,8 @@ To install the SDK onto your computer, with all required components, choose the 
    ```
 
    Note the OpenSSL version value\. 
+**Note**  
+Use `print(ssl.OPENSSL_VERSION)` if you're running Python 3\.
 
    To close the Python shell, run the following command:
 
@@ -120,7 +122,7 @@ Follow the installation prompts and be aware that the download for the Xcode com
       ```
       brew update
       brew install openssl
-      brew install python
+      brew install python@2
       ```
 
       Recall that the AWS IoT Device SDK for Python requires OpenSSL version 1\.0\.1 \(or later\) compiled with the Python executable\. The prior `brew install python` command installs a `python2` executable that meets this requirement\. The `python2` executable is installed in the `/usr/local/bin` directory, which should be part of the `PATH` environment variable\. To confirm this, run the following command:

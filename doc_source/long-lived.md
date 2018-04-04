@@ -17,9 +17,7 @@ You are now ready to configure your Lambda function for AWS Greengrass\.
 ![\[Screenshot of the Group Configuration page with Lambdas in the left nav and Edit Configuration highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-050.png)
 
 1. On the configuration page, edit the following properties:
-
    + **Timeout** \- set to 25 seconds\. This Lambda function sleeps for 20 seconds before each invocation\.
-
    + **Lambda lifecycle** \- choose **Make this function long\-lived and keep it running indefinitely**\.
 
       

@@ -1,11 +1,8 @@
 # Greengrass Discovery RESTful API<a name="gg-discover-api"></a>
 
 All devices that communicate with an AWS Greengrass core must be a member of a Greengrass group\. Each group must have an AWS Greengrass core\. The Discovery API enables devices to retrieve information required to connect to an AWS Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS Greengrass cloud service and use the Discovery API to find:
-
 + The group to which it belongs\.
-
 + The IP address and port for the AWS Greengrass core in the group\.
-
 + The group's root CA certificate, which can be used to authenticate the AWS Greengrass core device\.
 
 To use this API, send HTTP requests to the following URI:

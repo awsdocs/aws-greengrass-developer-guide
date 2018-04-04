@@ -20,11 +20,8 @@ In this step, you create a Lambda function that tracks the number of cars that p
 1. Compress the contents of the `car_aggregator` folder into a `.zip` file named `car_aggregator.zip`\. This is your Lambda function deployment package\.
 
 1. In the Lambda console, create a function named **GG\_Car\_Aggregator**, and set the remaining fields as follows:
-
    + **Runtime** \- choose **Python 2\.7**\.
-
    + **Role** \- choose **Choose an existing role**\.
-
    + **Existing role** \- choose **Lambda\_DynamoDB\_Role**\.
 
    Then, choose **Create function**\.  
@@ -33,11 +30,8 @@ In this step, you create a Lambda function that tracks the number of cars that p
 1. Upload your Lambda function deployment package, as follows:
 
    1. On the **Configuration** tab, under **Function code**, set the following fields:
-
       + **Code entry type** \- choose **Upload a \.ZIP file**\.
-
       + **Runtime** \- choose **Python 2\.7**\.
-
       + **Handler** \- type **carAggregator\.function\_handler**\.
 
    1. Choose **Upload**, and then choose `car_aggregator.zip`\.

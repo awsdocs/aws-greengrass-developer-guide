@@ -10,12 +10,12 @@
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.3.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.5.0/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 
       ```
-      cd /greengrass/ggc/packages/1.3.0/
+      cd /greengrass/ggc/core/
       sudo ./greengrassd start
       ```
 

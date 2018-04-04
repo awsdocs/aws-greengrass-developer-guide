@@ -5,11 +5,8 @@ Greengrass supports OPC\-UA, an information exchange standard for industrial com
 The Greengrass implementation of OPC\-UA supports certificate\-based authentication\. It is based on an open source implementation, and is fully customizable\. You can also bring your own implementation of OPC\-UA, and implement your own support for other custom, legacy, and proprietary messaging protocols\.
 
 In this section we will cover the following steps: 
-
 + Connect to an existing OPC\-UA server\.
-
 + Monitor an existing OPC\-UA node within that server\.
-
 + Get called back when the monitored node's value changes\.
 
 ## Architectural Overview<a name="opcua-archi"></a>
@@ -68,11 +65,8 @@ skipping installation of cpu_usage and memory_usage nodes
 ```
 
 ## Make sure your Greengrass Group is ready<a name="opcua-group"></a>
-
 + Create a Greengrass group \(find more details in [Configure AWS Greengrass on AWS IoT](gg-config.md)\.\) 
-
 + Set up a Greengrass Core on one of the supported platforms \(Raspberry\-pi for [example](module1.md#setup-filter.rpi)\) 
-
 + [Set up](what-is-gg.md#gg-platforms) your Greengrass Core to be able to run nodejs6\.x Lambda functions
 
 ## Use Greengrass OPC\-UA to Interact with your OPC\-UA Server<a name="opcua-interact"></a>
@@ -127,9 +121,7 @@ skipping installation of cpu_usage and memory_usage nodes
    The [OPC\-UA library](https://github.com/node-opcua/node-opcua) used in this example supports three modes of Authentication to your OPC\-UA server\. The most secure method is Certificate Based Authentication, but the library also allows you to specify username/password or no authentication\.
 
    Here is how to set Certificate Based Authentication:
-
    + Package your certificate and private key with your Lambda function, for example under a directory named `certs/`\.
-
    + Change the `clientOptions` variable to contain certificateFile, privateKeyFile and securityModes, securityPolicies options: 
 
      ```
@@ -171,9 +163,7 @@ skipping installation of cpu_usage and memory_usage nodes
 1. Configure and Deploy the Lambda function to your Greengrass Group
 
    After creating your AWS Lambda function, you add it to your Greengrass Group\. Follow the instructions in same section as above\. 
-
    + Make sure to specify the Lambda function as Long\-Running\.
-
    + Give it at least 64MB of memory size\.
 
    You can now create a deployment with your latest configuration\. You can find details in [Deploy Cloud Configurations to an AWS Greengrass Core Device](configs-core.md)\.
@@ -183,7 +173,6 @@ skipping installation of cpu_usage and memory_usage nodes
 As described in the [Architecture section](#opcua-archi), your Lambda function should start receiving messages from your OPC\-UA server\. If you are using your own custom OPC\-UA server, make sure you trigger a change in the OPC\-UA node Id you specified, so that you see the change received by your Lambda function\. If you are using the example server above, the PumpSpeed node is configured to simulate a series of consecutive updates, so you should expect your Lambda function to receive multiple messages a second\.
 
 You can see messages received by your Lambda function in one of two ways: 
-
 + Watch the Lambda function’s logs 
 
    You can view the logs from your Lambda function by running the following command: 
@@ -203,15 +192,12 @@ You can see messages received by your Lambda function in one of two ways:
   
   [2017-11-15T23:49:34.752Z][INFO]-Publishing message on topic "/opcua/server/node/MyPumpSpeed" with Payload "{"id":"ns=1;s=PumpSpeed","value":{"dataType":"Double","arrayType":"Scalar","value":237.5250759433095}}"
   ```
-
 + Configure Greengrass to forward messages from your Lambda function to the IoT Cloud\.
 
-  Follow the steps outlined in [Verify the Lambda Function Is Running on the Device](lambda-check.md) to receive messages on the IoT console\. 
+  Follow the steps outlined in [Verify the Lambda Function Is Running on the Device](lambda-check.md) to receive messages on the AWS IoT console\.
 
 **Note:**
-
 + Make sure there is a Subscription from your Lambda function going to the IoT Cloud\. Details are in [Configure the Lambda Function for AWS Greengrass](config-lambda.md)\.
-
 + Since messages are forwarded to the cloud, make sure you terminate either the example server you configured above, or stop the Greengrass core, so that you don't end up publishing a lot of messages to IoT cloud and getting charged for them\!
 
 ## Next Steps<a name="opcua-next"></a>

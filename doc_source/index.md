@@ -50,6 +50,8 @@ Amazon's trademarks and trade dress may not be used in
 + [Access Local Resources with Lambda Functions](access-local-resources.md)
    + [How to Configure Local Resource Access Using the AWS Command Line Interface](lra-cli.md)
    + [How to Configure Local Resource Access Using the AWS Management Console](lra-console.md)
++ [Perform Machine Learning Inference](ml-inference.md)
+   + [How to Configure Machine Learning Inference Using the AWS Management Console](ml-console.md)
 + [Greengrass Discovery RESTful API](gg-discover-api.md)
 + [Use Greengrass OPC-UA to Communicate with Industrial Equipment](opcua.md)
 + [AWS Greengrass Security](gg-sec.md)
