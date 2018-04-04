@@ -114,7 +114,7 @@ The IAM role which is used to presign the S3 url which links to the Greengrass s
                 "arn:aws:s3:::us-east-1-greengrass-updates/*",
                 "arn:aws:s3:::ap-northeast-1-greengrass-updates/*",
                 "arn:aws:s3:::us-west-2-greengrass-updates/*",
-                "arn:aws:s3:::ap-southeast-2-greengrass-updates/*",
+                "arn:aws:s3:::ap-southeast-2-greengrass-updates/*"
             ]
         }
     ]
