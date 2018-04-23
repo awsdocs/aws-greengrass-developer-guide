@@ -141,7 +141,7 @@ You can see your code in the **Function code** section by choosing **Edit code i
 Next, publish the first version of your Lambda function\. Then, create an [alias for the version](http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 
 **Note**  
-Greengrass groups can reference a Lambda function by version or by alias\. Using an alias makes it easier to manage code updates because you don't have to change your group definition\. When the function is updated, you can just point the alias to the new version\.
+Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
 1. From the **Actions** menu, choose **Publish new version**\.  
 ![\[The Publish new version option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-publish-function-option.png)

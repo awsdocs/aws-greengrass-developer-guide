@@ -87,23 +87,25 @@ This tutorial uses libraries for the MXNet ML framework, but libraries for Tenso
 
 1. In the **Machine learning libraries** section, for ** MXNet/TensorFlow precompiled libraries**, choose **Configure download**\.
 
-1. Download the MXNet precompiled libraries for Raspberry Pi, as follows:
+1. On the **Machine learning libraries** page, under **Software configurations**, for MXNet Raspberry Pi version 0\.11\.0, choose **Download**\.
+**Note**  
+By downloading this software you agree to the [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0)\.
 
-   1. At the top of the GitHub page, choose **aws\-greengrass\-samples** to go to the repository level\.
-
-   1. Choose **Clone or download**, and then choose **Download ZIP**\.
-
-   1. Unzip `aws-greengrass-samples-master.zip`, and then open the aws\-greengrass\-samples\-master/ml\-at\-edge\-examples/pre\-built\-libraries/MxNet/v0\.11\.0 folder\.
-
-1. Transfer the ggc\-mxnet\-v0\.11\.0\-python\-raspi folder from your computer to your Raspberry Pi\.
+1. Transfer the downloaded `ggc-mxnet-v0.11.0-python-raspi.tar.gz` file from your computer to your Raspberry Pi\.
 **Note**  
 For ways that you can do this on different platforms, see [this step](gg-device-start.md) in the Getting Started section\. For example, you might use the following `scp` command:  
 
    ```
-   scp -rp ggc-mxnet-v0.11.0-python-raspi pi@IP-address:/home/pi
+   scp ggc-mxnet-v0.11.0-python-raspi.tar.gz pi@IP-address:/home/pi
    ```
 
-1. In your Raspberry Pi terminal, from the transferred folder, install the MDXNet framework by running the following command:
+1. In your Raspberry Pi terminal, unpack the transferred file\.
+
+   ```
+   tar -xzf ggc-mxnet-v0.11.0-python-raspi.tar.gz
+   ```
+
+1. Install the MDXNet framework\.
 
    ```
    ./mxnet_installer.sh
@@ -186,7 +188,7 @@ Now, upload your Lambda function deployment package and register the handler\.
 Next, publish the first version of your Lambda function\. Then, create an [alias for the version](http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 
 **Note**  
-Greengrass groups can reference a Lambda function by version or by alias\. Using an alias makes it easier to manage code updates because you don't have to change your group definition\. When the function is updated, you can just point the alias to the new version\.
+Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
 1. From the **Actions** menu, choose **Publish new version**\.  
 ![\[The Publish new version option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-publish-version.png)

@@ -351,7 +351,7 @@ The AWS Greengrass core software is supported on the platforms listed below, and
     + Namespace: CONFIG\_IPC\_NS, CONFIG\_UTS\_NS, CONFIG\_USER\_NS, CONFIG\_PID\_NS
     + CGroups: CONFIG\_CGROUP\_DEVICE, CONFIG\_CGROUPS, CONFIG\_MEMCG
     + Others: CONFIG\_POSIX\_MQUEUE, CONFIG\_OVERLAY\_FS, CONFIG\_HAVE\_ARCH\_SECCOMP\_FILTER, CONFIG\_SECCOMP\_FILTER, CONFIG\_KEYS, CONFIG\_SECCOMP
-  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderrmus` must be enabled\.
+  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
   + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups)\.
   + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambda functions\.
   + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
@@ -381,7 +381,7 @@ The AWS Greengrass core software is supported on the platforms listed below, and
     + CGroups: CONFIG\_CGROUP\_DEVICE, CONFIG\_CGROUPS, CONFIG\_MEMCG
     + Others: CONFIG\_POSIX\_MQUEUE, CONFIG\_OVERLAY\_FS, CONFIG\_HAVE\_ARCH\_SECCOMP\_FILTER, CONFIG\_SECCOMP\_FILTER, CONFIG\_KEYS, CONFIG\_SECCOMP
   +  The [https://www.sqlite.org/](https://www.sqlite.org/) package is required for AWS IoT device shadows\. Ensure it’s added to your `PATH` environment variable\.
-  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderrmus` must be enabled\.
+  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
   + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups)\.
   + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambdas\.
   + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
@@ -411,7 +411,7 @@ The AWS Greengrass core software is supported on the platforms listed below, and
     + CGroups: CONFIG\_CGROUP\_DEVICE, CONFIG\_CGROUPS, CONFIG\_MEMCG
     + Others: CONFIG\_POSIX\_MQUEUE, CONFIG\_OVERLAY\_FS, CONFIG\_HAVE\_ARCH\_SECCOMP\_FILTER, CONFIG\_SECCOMP\_FILTER, CONFIG\_KEYS, CONFIG\_SECCOMP
   +  The [https://www.sqlite.org/](https://www.sqlite.org/) package is required for AWS IoT device shadows\. Ensure it’s added to your `PATH` environment variable\.
-  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderrmus` must be enabled\.
+  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
   + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups)\.
   + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambdas\.
   + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
@@ -439,7 +439,7 @@ The AWS Greengrass core software is supported on the platforms listed below, and
     + CGroups: CONFIG\_CGROUP\_DEVICE, CONFIG\_CGROUPS, CONFIG\_MEMCG
     + Others: CONFIG\_POSIX\_MQUEUE, CONFIG\_OVERLAY\_FS, CONFIG\_HAVE\_ARCH\_SECCOMP\_FILTER, CONFIG\_SECCOMP\_FILTER, CONFIG\_KEYS, CONFIG\_SECCOMP
   +  The [https://www.sqlite.org/](https://www.sqlite.org/) package is required for AWS IoT device shadows\. Ensure it’s added to your `PATH` environment variable\.
-  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderrmus` must be enabled\.
+  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
   + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups)\.
   + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambdas\.
   + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.

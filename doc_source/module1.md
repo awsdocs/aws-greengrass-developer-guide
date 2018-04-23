@@ -11,9 +11,11 @@ This module should take less than 30 minutes to complete\.
 
 If you are setting up a Raspberry Pi for the first time, you must follow all of these steps\. If you are using an existing Raspberry Pi, you can skip to step 9\. However, we recommend that you re\-image your Raspberry Pi with the operating system as recommended in step 2\.
 
-1. Download and install an SD card formater such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where your have inserted your SD card\. You can quick format the SD card\.
+1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where your have inserted your SD card\. You can quick format the SD card\.
 
-1. Download the [Raspbian Jessie](https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-03-03/) operating system as a `.zip` file \(only 2017\-03\-02\-raspbian\-jessie\.zip is currently supported by AWS Greengrass\)\. Using [Etcher](https://etcher.io/) or another SD card\-writing tool, flash the downloaded `.zip` file onto the SD card \(do not unzip this file\)\. Because the operating system image is large, this step might take some time\. Eject your SD card from your computer, and install the microSD card onto your Raspberry Pi\.
+1. Download the [Raspbian Jessie](https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-03-03/) operating system as a `.zip` file\. Only `2017-03-02-raspbian-jessie.zip` is currently supported by AWS Greengrass\.
+
+1. Using an SD card\-writing tool \(such as [Etcher](https://etcher.io/)\), follow the tool's instructions to flash the downloaded `2017-03-02-raspbian-jessie.zip` file onto the SD card\. Because the operating system image is large, this step might take some time\. Eject your SD card from your computer, and insert the microSD card into your Raspberry Pi\.
 
 1. For the first boot, we recommend that you connect the Raspberry Pi to a monitor \(through HDMI\), a keyboard, and a mouse\. Next, connect your Pi to a micro USB power source and the Raspbian operating system should start up\. 
 
@@ -373,15 +375,14 @@ Run the following commands on the Jetson board\.
    ```
 
    A window opens that shows all the kernel configurations\. Use **FIND** to search for the following keywords and tick\-mark them\.
-
-   ```
-   CONFIG_POSIX_MQUEUE
-   CONFIG_OF_OVERLAY
-   CONFIG_OVERLAY_FS
-   CONFIG_USER_NS
-   CONFIG_MEMCG
-   CONFIG_CGROUP_DEVICE
-   ```
+**Note**  
+Keywords vary by configuration\. The following list contains alternative versions in parentheses that can help you find the equivalent keywords for your configuration\.
+   + CONFIG\_POSIX\_MQUEUE  \(POSIX Message Queue\)
+   + CONFIG\_OF\_OVERLAY  \(Overlay Filesystem Support\)
+   + CONFIG\_OVERLAY\_FS  \(Overlay Filesystem Support\)
+   + CONFIG\_USER\_NS  \(User Namespace\)
+   + CONFIG\_MEMCG  \(Memory Resource Controller for Control Group\)
+   + CONFIG\_CGROUP\_DEVICE  \(Device Controller for cgroups\)
 
 1. Build the kernel:
 

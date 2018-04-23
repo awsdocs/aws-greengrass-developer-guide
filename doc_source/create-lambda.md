@@ -85,7 +85,7 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
        return
    ```
 
-1. In order to run the Python `greengrassHelloWorld.py` Lambda function in the cloud, you must package it with the AWS Greengrass core SDK\.\. Therefore, after you have extracted the SDK folders `greengrass_common`, `greengrass_ipc_python_sdk`, `greengrasssdk` and the `greengrassHelloWorld.py` Python Lambda file, package them into a compressed `.zip` file named `hello_world_python_lambda.zip`:   
+1. In order to run the Python `greengrassHelloWorld.py` Lambda function in the cloud, you must package it with the AWS Greengrass core SDK\. Therefore, after you have extracted the SDK folders `greengrass_common`, `greengrass_ipc_python_sdk`, `greengrasssdk` and the `greengrassHelloWorld.py` Python Lambda file, package them into a compressed `.zip` file named `hello_world_python_lambda.zip`:   
 ![\[Screenshot showing greengrass_common, greengrass_ipc_python_sdk, greengrasssdk, and greengrassHelloWorld.py getting compressed into the file hello_world_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-019.png)
 
    For UNIX\-like systems \(including the Mac terminal\), this can be accomplished with the following command:
@@ -135,14 +135,14 @@ To see your uploaded code, choose **Edit code inline** from the **Code entry typ
    1. For **Version description**, type **First version**, and then choose **Publish**:  
 ![\[Screenshot with the Version description field set to First version and the Publish button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-027.png)
 
-   Next, create an alias for the Lambda function version\. Aliases create a single entity for your Lambda function that AWS Greengrass devices can subscribe to without having to update subscriptions with Lambda version numbers every time a function is modified\. If future versions of this Lambda are published, you must point the alias to the new version\.
+1. <a name="create-version-alias"></a>Create an [alias](http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html) for the Lambda function version, as follows:
 **Note**  
-AWS Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
-
-1. <a name="create-version-alias"></a>Create an alias, as follows:
+Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
    1. From the **Actions** menu, choose **Create alias**\.  
 ![\[Screenshot of the Actions menu set to Create alias.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-028.png)
 
    1. Name the alias **GG\_HelloWorld**, set the version to **1** \(which corresponds to the version that you just published\), and then choose **Create**\.  
 ![\[Screenshot of Create a new alias with the Name field set to GG_HelloWorld, the Version field set to 1, and the Create button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-029.png)
+**Note**  
+AWS Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
