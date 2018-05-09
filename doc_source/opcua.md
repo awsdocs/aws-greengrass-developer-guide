@@ -107,14 +107,14 @@ skipping installation of cpu_usage and memory_usage nodes
        },  
        subscriptions: [
            {   
-           name: 'MyPumpSeed',
-           nodeId: 'ns=1;s=PumpSeed',
+           name: 'MyPumpSpeed',
+           nodeId: 'ns=1;s=PumpSpeed',
            },  
        ],  
    };
    ```
 
-   In this case, we are connecting to an OPC\-UA server running on the same host as our Greengrass Core, on port 26543, and monitoring one node that has an OPC\-UA Id `'ns=1;s=PumpSeed'`\. 
+   In this case, we are connecting to an OPC\-UA server running on the same host as our Greengrass Core, on port 26543, and monitoring one node that has an OPC\-UA Id `'ns=1;s=PumpSpeed'`\. 
 
 1. Configure the authentication mode
 
@@ -186,7 +186,7 @@ You can see messages received by your Lambda function in one of two ways:
   ```
   [2017-11-14T16:33:09.05Z][INFO]-started subscription : 305964
   
-  [2017-11-14T16:33:09.05Z][INFO]-monitoring node id =  ns=1;s=PumpSeed
+  [2017-11-14T16:33:09.05Z][INFO]-monitoring node id =  ns=1;s=PumpSpeed
   
   [2017-11-14T16:33:09.099Z][INFO]-monitoredItem initialized
   
