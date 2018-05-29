@@ -2,7 +2,7 @@
 
 1. <a name="repeated-step"></a>Open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows on your computer \(not the AWS Greengrass core device\)\. One command\-line window is for the GG\_Switch device and the other is for the GG\_TrafficLight device\. Both scripts, when executed for the first time, will run the AWS Greengrass discovery service to connect to the AWS Greengrass core \(through the internet\)\. After a device has discovered and successfully connected to the AWS Greengrass core, future operations can be executed locally\. Before running the following commands, make sure that your computer and the AWS Greengrass core are connected to the internet using the *same* network\.
 
-   For the GG\_Swtich command\-line window, run the following:
+   For the GG\_Switch command\-line window, run the following:
 
    ```
    cd path-to-certs-folder
