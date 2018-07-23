@@ -32,3 +32,5 @@
 The first deployment might take a few minutes\. When the deployment is complete, you should see **Successfully completed** in the **Status** column on the **Deployments** page:
 
 ![\[Screenshot showing a status of Successfully completed.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-042.png)
+
+For help troubleshooting any issues that you encounter, see [Troubleshooting AWS Greengrass Applications](gg-troubleshooting.md)\.

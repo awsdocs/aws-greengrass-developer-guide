@@ -4,7 +4,7 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
 + Download the Python AWS Greengrass Core SDK to your computer \(not the AWS Greengrass core device\)\.
 + Decompress the downloaded SDK file\.
 + Obtain the Python Lambda function \(named `greengrassHelloWorld.py`\) from the decompressed SDK\.
-+ Create a Lambda function deployment package named `hello_world_python_lambda.zip` that contains `greengrassHelloWorld.py` and three required SDK folders\.
++ Create a Lambda function deployment package named `hello_world_python_lambda.zip` that contains `greengrassHelloWorld.py` and the `greengrasssdk` folder\.
 + Upload the `hello_world_python_lambda.zip` package by using the Lambda console\. 
 + Transfer the package to the AWS Greengrass core device by using the AWS Greengrass console\.
 
@@ -28,7 +28,7 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
 
    1. In the resulting 7\-Zip window, double\-click `greegrass-core-python-sdk-1.1.0.tar`, `aws_greengrass_core_sdk`, `examples`, `HelloWorld`, and then `greengrassHelloWorld.zip`\.
 
-   1. Optionally using the Ctrl key, select the three SDK folders `greengrasssdk`, `greengrass_common`, `greengrass_ipc_python_sdk` and the Python `greengrassHelloWorld.py` Lambda file\. Next, choose **Extract**, pick a location to extract the files to, and choose **OK**\.
+   1. Optionally using the Ctrl key, select the `greengrasssdk` folder and the Python `greengrassHelloWorld.py` Lambda file\. Next, choose **Extract**, pick a location to extract the files to, and choose **OK**\.
 
 ------
 #### [ macOS ]
@@ -59,7 +59,7 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
 
 ------
 
-   You use the three SDK folders \(`greengrass_common`, `greengrass_ipc_python_sdk`, and `greengrasssdk`\) and the Python `greengrassHelloWorld.py` Lambda function code in the next step\.
+   You use the `greengrasssdk` folder and the Python `greengrassHelloWorld.py` Lambda function code in the next step\.
 
    Note that every five seconds, the `greengrassHelloWorld.py` Lambda function publishes one of two possible messages to the `hello/world` topic, as shown in the following code \(to save space, all code comments have been removed\):
 
@@ -85,18 +85,18 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
        return
    ```
 
-1. In order to run the Python `greengrassHelloWorld.py` Lambda function in the cloud, you must package it with the AWS Greengrass core SDK\. Therefore, after you have extracted the SDK folders `greengrass_common`, `greengrass_ipc_python_sdk`, `greengrasssdk` and the `greengrassHelloWorld.py` Python Lambda file, package them into a compressed `.zip` file named `hello_world_python_lambda.zip`:   
-![\[Screenshot showing greengrass_common, greengrass_ipc_python_sdk, greengrasssdk, and greengrassHelloWorld.py getting compressed into the file hello_world_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-019.png)
+1. To create the `greengrassHelloWorld.py` Lambda function, you must package the `greengrassHelloWorld.py` file and the `greengrasssdk` folder into a compressed `.zip` file\. This is your Lambda function deployment package\. For this tutorial, name the package `hello_world_python_lambda.zip`:   
+![\[Screenshot showing greengrasssdk and greengrassHelloWorld.py compressed into the file hello_world_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-019.png)
 
    For UNIX\-like systems \(including the Mac terminal\), this can be accomplished with the following command:
 
    ```
-   sudo zip -r hello_world_python_lambda.zip greengrass_common greengrass_ipc_python_sdk greengrasssdk greengrassHelloWorld.py
+   sudo zip -r hello_world_python_lambda.zip greengrasssdk greengrassHelloWorld.py
    ```
 **Note**  
 Depending on your distribution, you may need to install `zip` first\. For example, `sudo apt-get install zip` \(this installation command may differ for your distribution\)\.
 
-   Now you're ready to create your Lambda function and upload the function code\.
+   Now you're ready to create your Lambda function and upload the deployment package\.
 
 1. Open the Lambda console and choose **Create function**\.
 
@@ -142,7 +142,9 @@ Greengrass groups can reference a Lambda function by alias \(recommended\) or by
    1. From the **Actions** menu, choose **Create alias**\.  
 ![\[Screenshot of the Actions menu set to Create alias.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-028.png)
 
-   1. Name the alias **GG\_HelloWorld**, set the version to **1** \(which corresponds to the version that you just published\), and then choose **Create**\.  
-![\[Screenshot of Create a new alias with the Name field set to GG_HelloWorld, the Version field set to 1, and the Create button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-029.png)
+   1. Name the alias **GG\_HelloWorld**, set the version to **1** \(which corresponds to the version that you just published\), and then choose **Create**\.
 **Note**  
 AWS Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
+
+         
+![\[Screenshot of Create a new alias with the Name field set to GG_HelloWorld, the Version field set to 1, and the Create button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-029.png)

@@ -50,7 +50,9 @@ def function_handler(event, context):
    Note that with the daemon running, the prior `greengrassHelloWorld.py` Lambda function will continue to send messages to the `hello/world` topic \(in the AWS IoT cloud\)\. This does not, however, interfere with the messages sent from the `greengrassHelloWorldCounter.py` Lambda function to the AWS IoT cloud, since they're directed to a different topic, namely `hello/world/counter`\.
 
 1. On the group configuration page, from the **Actions** menu, choose **Deploy** to deploy the updated group configuration to your AWS Greengrass core device\.   
-![\[Deployments and Deploy (under the Actions" menu) are highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-055.png)
+![\[Deployments and Deploy (under the Actions menu) are highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-055.png)
+
+   For help troubleshooting any issues that you encounter, see [Troubleshooting AWS Greengrass Applications](gg-troubleshooting.md)\.
 
 1. After your deployment is complete, in the AWS IoT console, choose **Test**\. In **Subscription topic**, type **hello/world/counter**\. For **Quality of Service**, select **0**\. For **MQTT payload display**, select **Display payloads as strings**, and then choose **Subscribe to topic**\.  
 ![\[Subscriptions screenshot with hello/world/counter, 0, Display payloads as string, and the Subscribe to topic button all highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-056.png)

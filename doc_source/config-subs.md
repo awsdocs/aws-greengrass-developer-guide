@@ -18,3 +18,5 @@ You may delete subscriptions from the earlier modules\. To do so, choose **Subsc
 ![\[On the Deployments page, the Actions drop-down menu with Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-074.png)
 
    To confirm a successful deployment, choose **Deployments** and you should see a **Successfully completed** message near the time you initiated the deployment\.
+
+   For help troubleshooting any issues that you encounter, see [Troubleshooting AWS Greengrass Applications](gg-troubleshooting.md)\.

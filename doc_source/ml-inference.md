@@ -102,9 +102,10 @@ The following requirements apply for creating and using machine learning resourc
 
 ## Precompiled Libraries for ML Frameworks<a name="precompiled-ml-libraries"></a>
 
-To help you quickly get started experimenting with ML inference, AWS Greengrass provides precompiled libraries for the following ML frameworks under the [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0):
-+ [Apache MXNet](https://aws.amazon.com/mxnet/)
-+ [ TensorFlow](https://aws.amazon.com/tensorflow/)
+To help you quickly get started experimenting with ML inference, AWS Greengrass provides precompiled libraries for the following ML frameworks\.
++ [Apache MXNet](https://aws.amazon.com/mxnet/) \(Apache License 2\.0\)
++ [ TensorFlow](https://aws.amazon.com/tensorflow/) \(Apache License 2\.0\)
++ Chainer \(MIT License\)
 
 The precompiled MXNet and TensorFlow libraries can be installed on NVIDIA Jetson TX2, Intel Atom, and Raspberry Pi platforms\. The libraries are available from the **Software** page of the AWS IoT console\. You can install them directly on your core or include them as part of the software in your Greengrass group\.
 

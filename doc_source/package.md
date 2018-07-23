@@ -7,7 +7,7 @@
    1. Choose **Raw** to open the unformatted version of the file\.  
 ![\[GitHub controls with the Raw button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-045.1.png)
 
-   1. Use Ctrl \+ S \(or Command \+ S for the Mac\) to save a copy of the `greengrassHelloWorldCounter.py` file\. Save the file to the folder that contains the `greengrasssdk`, `greengrass_common`, and `greengrass_ipc_python_sdk` SDK folders\.
+   1. Use Ctrl \+ S \(or Command \+ S for the Mac\) to save a copy of the `greengrassHelloWorldCounter.py` file\. Save the file to a folder that contains the `greengrasssdk` folder\.
 **Note**  
 For UNIX\-like systems, you can run the following Terminal command to download the `greengrassHelloWorldCounter.py` file:  
 
@@ -15,7 +15,7 @@ For UNIX\-like systems, you can run the following Terminal command to download t
    sudo wget https://raw.githubusercontent.com/aws-samples/aws-greengrass-samples/master/hello-world-counter-python/greengrassHelloWorldCounter.py
    ```
 
-1. Package the `greengrassHelloWorldCounter.py` file with the three SDK folders into a `.zip` file, as described in [Module 3 \(Part 1\)](module3-I.md)\. Name the package **hello\_world\_counter\_python\_lambda\.zip**\.  
+1. Package the `greengrassHelloWorldCounter.py` file with the SDK into a `.zip` file, as described in [Module 3 \(Part 1\)](module3-I.md)\. Name the package **hello\_world\_counter\_python\_lambda\.zip**\.  
 ![\[Screenshot showing zipped contents of hello_word_counter_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-046.png)
 
 1. In the Lambda console, create a Python 2\.7 function named **Greengrass\_HelloWorld\_Counter**, as described in [Module 3 \(Part 1\)](module3-I.md)\. You can use the existing role\.

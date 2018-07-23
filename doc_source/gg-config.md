@@ -27,7 +27,7 @@
    1. Under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz** to download the required security resources for your AWS Greengrass core\.  
 ![\[The Connect your Core device page with Download these resources as a tar.gz highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.png)
 
-   1. Under **Download the current Greengrass Core software**, choose the CPU architecture \(and operating system, if necessary\) that best describes your core device:
+   1. Under **Software configurations** for the AWS Greengrass core software, choose the CPU architecture and distribution \(and operating system, if necessary\) that best describes your core device:
       + If you're using a Raspberry Pi, download the ARMv7l for Raspbian Jessie package\.
       + If you're using an Amazon EC2 instance, download one of the x86\_64 packages\.  
 ![\[The Connect your Core device page with Download and Finish highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.1.png)

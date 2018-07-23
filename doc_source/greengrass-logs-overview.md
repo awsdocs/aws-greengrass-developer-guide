@@ -81,7 +81,7 @@ To allow AWS Greengrass to write logs to CloudWatch Logs, your group role must a
 
 ### Configure Logging \(Console\)<a name="config-logs-console"></a>
 
-You configure logging on the group's **Settings** page\.
+You can configure logging on the group's **Settings** page\.
 
 1. In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
 

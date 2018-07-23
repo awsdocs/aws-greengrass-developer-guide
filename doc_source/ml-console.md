@@ -374,6 +374,8 @@ If prompted, grant permission to create the AWS Greengrass service role on your 
 
    The **Deployments** page shows the deployment time stamp, version ID, and status\. When completed, the deployment should show a **Successfully completed** status\.
 
+   For help troubleshooting any issues that you encounter, see [Troubleshooting AWS Greengrass Applications](gg-troubleshooting.md)\.
+
 ## Test the Inference App<a name="test-app"></a>
 
 Now you can verify whether the deployment is configured correctly\. To test, you subscribe to the **hello/world** topic and view the prediction results that are published by the Lambda function\.

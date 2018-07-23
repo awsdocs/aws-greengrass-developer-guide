@@ -1,8 +1,6 @@
 # Configure Devices and Subscriptions<a name="config-dev-subs"></a>
 
-1. Create two devices in your AWS Greengrass group, **GG\_Switch** and **GG\_TrafficLight**\. Use the default security settings\. 
-**Note**  
-You can detach devices used in earlier modules\.  
+1. Create two devices in your AWS Greengrass group, **GG\_Switch** and **GG\_TrafficLight**\. Use the default security settings\.   
 ![\[Screenshot showing the two devices, GG_TrafficLight and GG_Switch.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-078.png)
 
    Save the certificates for the devices to your computer – note the GUID\-like filename component for the **GG\_Switch** and **GG\_TrafficLight** devices, these will be needed later\. You can reuse the previous root CA from VeriSign or download a new one\.
@@ -24,3 +22,5 @@ Each device has its own device shadow service\. For more information, see [Shado
 
 1. On the group configuration page, from the **Actions** menu, choose **Deploy** to deploy the updated group configuration to your AWS Greengrass core device\.  
 ![\[Screenshot of the Deployments page with Deploy highlighted under the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-081.png)
+
+   For help troubleshooting any issues that you encounter, see [Troubleshooting AWS Greengrass Applications](gg-troubleshooting.md)\.

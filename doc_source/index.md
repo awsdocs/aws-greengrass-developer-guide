@@ -57,3 +57,4 @@ Amazon's trademarks and trade dress may not be used in
 + [AWS Greengrass Security](gg-sec.md)
 + [Monitoring with AWS Greengrass Logs](greengrass-logs-overview.md)
 + [Troubleshooting AWS Greengrass Applications](gg-troubleshooting.md)
++ [Document History for AWS Greengrass](doc-history.md)

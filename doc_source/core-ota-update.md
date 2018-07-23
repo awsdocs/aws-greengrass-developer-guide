@@ -22,7 +22,7 @@ Before launching an OTA Update of Greengrass core software, it is important to n
 + During the core's downtime, all its connections with the cloud will be lost and messages routed through the core by client devices will be lost\.
 + Credential caches will be lost\.
 + Queues which hold pending work for Lambda functions will be lost\.
-+ Long\-lived Lambdas will lose their dynamic state information and all pending work will be dropped\. 
++ Long\-lived Lambda functions will lose their dynamic state information and all pending work will be dropped\. 
 
 The following state information will be preserved during an OTA Update:
 + Local shadows
@@ -31,7 +31,7 @@ The following state information will be preserved during an OTA Update:
 
 ## Greengrass OTA Agent<a name="ota-agent"></a>
 
-The Greengrass OTA Agent is the software component on the device which handles update jobs created and deployed in the cloud\. The Greengrass OTA Agent is distributed in the same software package as the Greengrass core software\. The agent is located in `./greengrass/ota/ota_agent/ggc-ota` and creates its logs in `/var/log/greengrass/ota/ggc-ota.txt`\.
+The Greengrass OTA Agent is the software component on the device which handles update jobs created and deployed in the cloud\. The Greengrass OTA Agent is distributed in the same software package as the Greengrass core software\. The agent is located in `./greengrass/ota/ota_agent/ggc-ota` and creates its logs in `/var/log/greengrass/ota/ggc_ota.txt`\.
 
 You can start the Greengrass OTA Agent by executing the binary manually or by integrating it as part of an init script such as a systemd service file\. The binary should be run as root\. Once started, the Greengrass OTA Agent will begin listening for Greengrass update jobs from the cloud and execute them sequentially\. The Greengrass OTA Agent will ignore all other IoT job types\.
 
@@ -208,7 +208,7 @@ After the OTA Agent completes the update, it will attempt to run the `ota_post_u
 
 ### AWS Greengrass core Update with Managed Respawn<a name="managed-respawn-ggc"></a>
 
-As the OTA Agent prepares to do an AWS Greengrass core update, if the `managedRespawn` flag is set to `true`, then the OTA Agent will look in the `./greengrass/usr/scripts` directory for the `ggc_pre_update_script.sh` script and run it\.
+As the OTA Agent prepares to do an AWS Greengrass core update, if the `managedRespawn` flag is set to `true`, then the OTA Agent will look in the `./greengrass/usr/scripts` directory for the `ggc_pre_update.sh` script and run it\.
 
 After the OTA Agent completes the update, it will attempt to run the `ggc_post_update.sh` script from the `./greengrass/usr/scripts` directory\.
 

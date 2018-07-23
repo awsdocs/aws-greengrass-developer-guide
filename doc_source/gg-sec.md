@@ -67,6 +67,8 @@ When AWS IoT devices are disconnected from a core, they have to wait a short per
 
 ## AWS Greengrass Cipher Suites<a name="gg-cipher-suites"></a>
 
-As opposed to the AWS IoT cloud, the AWS Greengrass core supports the following *local network* [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) [cipher suites](https://en.wikipedia.org/wiki/Cipher_suite):
+AWS Greengrass uses the AWS IoT transport security model to encrypt communication with the cloud by using [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) [cipher suites](https://en.wikipedia.org/wiki/Cipher_suite)\. In addition, AWS Greengrass data is encrypted when at rest \(in the cloud\)\. For more information about AWS IoT transport security and supported cipher suites, see [ Transport Security](http://docs.aws.amazon.com/iot/latest/developerguide/iot-security-identity.html#transport-security) in the *AWS IoT Developer Guide*\.
+
+As opposed to the AWS IoT cloud, the AWS Greengrass core supports the following *local network* TLS cipher suites:
 
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-sec.html)

@@ -1,6 +1,6 @@
 # Test Communications<a name="test-comms"></a>
 
-1. Make sure that your computer and the AWS Greengrass core device are connected to the internet and are using the *the same network*\. The following procedure can be used to confirm this:
+1. Make sure that your computer and the AWS Greengrass core device are connected to the internet and are using the same network\. The following procedure can be used to confirm this:
 
    1. Determine the IP address of the AWS Greengrass core by running the following command:
 

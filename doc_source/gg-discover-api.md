@@ -8,26 +8,17 @@ All devices that communicate with an AWS Greengrass core must be a member of a G
 To use this API, send HTTP requests to the following URI:
 
 ```
-https://your-aws-endpoint/greengrass/discover/thing/thing-name
+https://greengrass.iot.aws-region.amazonaws.com/greengrass/discover/thing/thing-name
 ```
 
-The endpoint is specific to your AWS account\. To retrieve your endpoint, use the `aws iot describe-endpoint` CLI command:
-
-```
-$ aws iot describe-endpoint
-{
-    "endpointAddress": "a1b2c3d4e5f6g7.iot.us-west-2.amazonaws.com"
-}
-```
-
-Use port `8443` when connecting\. For a list of region\-specific endpoints, see [AWS IoT Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#iot_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints used for working with rules, certificates, and policies do not support the Discovery API\.
+Use port `8443` when connecting\. For a list of supported regions and endpoints for the AWS Greengrass Discovery API, see [AWS Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
 
 ## Request<a name="gg-discover-request"></a>
 
-The request contains the standard HTTP headers and is sent to the following URI:
+The request contains the standard HTTP headers and is sent to the Greengrass Discovery endpoint:
 
 ```
-HTTP GET https://your-aws-endpoint/greengrass/discover/thing/thingName
+HTTP GET https://greengrass.iot.aws-region.amazonaws.com/greengrass/discover/thing/thing-name
 ```
 
 ## Response<a name="gg-discover-response"></a>

@@ -383,13 +383,13 @@ The AWS Greengrass core software is supported on the platforms listed below, and
   +  The [https://www.sqlite.org/](https://www.sqlite.org/) package is required for AWS IoT device shadows\. Ensure it’s added to your `PATH` environment variable\.
   + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
   + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups)\.
-  + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambdas\.
+  + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambda functions\.
   + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
 + The following items may be optional:
-  + The *devices* `cgroup` must be enabled and mounted if Lambdas with [Local Resource Access \(LRA\)](access-local-resources.md) are used to open files on the AWS Greengrass core device\.
-  + [Python](https://www.python.org/) version 2\.7 is required if Python Lambdas are used\. If so, ensure that it's added to your `PATH` environment variable\.
-  + [NodeJS](https://www.nodejs.org/) version 6\.10 or greater is required if Node\.JS Lambdas are used\. If so, ensure that it's added to your `PATH` environment variable\.
-  + [ Java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) version 8 or greater is required if Java Lambdas are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + The *devices* `cgroup` must be enabled and mounted if Lambda functions with [Local Resource Access \(LRA\)](access-local-resources.md) are used to open files on the AWS Greengrass core device\.
+  + [Python](https://www.python.org/) version 2\.7 is required if Python Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [NodeJS](https://www.nodejs.org/) version 6\.10 or greater is required if Node\.JS Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [ Java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) version 8 or greater is required if Java Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
   + [OpenSSL](https://www.openssl.org/) 1\.01 or greater is required for [Greengrass OTA Agent](core-ota-update.md#ota-agent) as well as the following commands: `wget`, `realpath`, `tar`, `readlink`, `basename`, `dirname`, `pidof`, `df`, `grep`, and `umount`\.
 
 ------
@@ -413,12 +413,12 @@ The AWS Greengrass core software is supported on the platforms listed below, and
   +  The [https://www.sqlite.org/](https://www.sqlite.org/) package is required for AWS IoT device shadows\. Ensure it’s added to your `PATH` environment variable\.
   + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
   + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups)\.
-  + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambdas\.
+  + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambda functions\.
   + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
 + The following items may be optional:
-  + [Python](https://www.python.org/) version 2\.7 is required if Python Lambdas are used\. If so, ensure that it's added to your `PATH` environment variable\.
-  + [NodeJS](https://www.nodejs.org/) version 6\.10 or greater is required if Node\.JS Lambdas are used\. If so, ensure that it's added to your `PATH` environment variable\.
-  + [ Java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) version 8 or greater is required if Java Lambdas are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [Python](https://www.python.org/) version 2\.7 is required if Python Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [NodeJS](https://www.nodejs.org/) version 6\.10 or greater is required if Node\.JS Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [ Java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) version 8 or greater is required if Java Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
 
 ------
 #### [ GGC v1\.0\.0 ]
@@ -441,9 +441,9 @@ The AWS Greengrass core software is supported on the platforms listed below, and
   +  The [https://www.sqlite.org/](https://www.sqlite.org/) package is required for AWS IoT device shadows\. Ensure it’s added to your `PATH` environment variable\.
   + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
   + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups)\.
-  + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambdas\.
+  + The *memory* `cgroup` must be enabled and mounted to allow AWS Greengrass to set the memory limit for Lambda functions\.
   + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
 + The following items may be optional:
-  + [Python](https://www.python.org/) version 2\.7 is required if Python Lambdas are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [Python](https://www.python.org/) version 2\.7 is required if Python Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
 
 ------
