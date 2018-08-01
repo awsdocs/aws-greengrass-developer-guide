@@ -130,13 +130,13 @@ If your computer is connected to a remote network using VPN \(such as a work rel
 
    You should see `fs.protected_hardlinks = 1` and `fs.protected_symlinks = 1`\.
 
-1. Your Raspberry Pi should now be ready for AWS Greengrass\. To ensure that you have all of the dependencies required for AWS Greengrass, download the AWS Greengrass dependency checker `.zip` file from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples) and run it on the Pi as follows:
+1. Your Raspberry Pi should now be ready for AWS Greengrass\. To ensure that you have all of the dependencies required for AWS Greengrass, download the AWS Greengrass dependency checker from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples) and run it on the Pi as follows:
 
    ```
    cd /home/pi/Downloads
    git clone https://github.com/aws-samples/aws-greengrass-samples.git
    cd aws-greengrass-samples
-   cd greengrass-dependency-checker-GGCv1.5.0
+   cd greengrass-dependency-checker-GGCv1.6.0
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```
@@ -214,7 +214,7 @@ Your Raspberry Pi configuration is complete\. Continue to [Module 2: Installing 
    sudo yum install git
    git clone https://github.com/aws-samples/aws-greengrass-samples.git
    cd aws-greengrass-samples
-   cd greengrass-dependency-checker-GGCv1.5.0
+   cd greengrass-dependency-checker-GGCv1.6.0
    sudo ./check_ggc_dependencies
    ```
 
@@ -229,7 +229,7 @@ If you are new to AWS Greengrass, we recommend that you use a Raspberry Pi or an
    ```
    git clone https://github.com/aws-samples/aws-greengrass-samples.git
    cd aws-greengrass-samples
-   cd greengrass-dependency-checker-GGCv1.5.0 
+   cd greengrass-dependency-checker-GGCv1.6.0 
    sudo ./check_ggc_dependencies
    ```
 

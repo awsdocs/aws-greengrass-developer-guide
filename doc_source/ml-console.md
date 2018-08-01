@@ -1,6 +1,6 @@
 # How to Configure Machine Learning Inference Using the AWS Management Console<a name="ml-console"></a>
 
-This feature is available for AWS Greengrass Core v1\.5\.0 only\.
+This feature is available for AWS Greengrass Core v1\.5\.0 and later\.
 
 You can perform machine learning \(ML\) inference locally on a Greengrass core device using data from connected devices\. For information, including requirements and constraints, see [Perform Machine Learning Inference](ml-inference.md)\.
 
@@ -237,8 +237,8 @@ Next, configure the lifecycle of the Lambda function\.
 
 1. On the **Group\-specific Lambda configuration** page, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
-**Note**  
-A *long\-lived*—or *pinned*—Lambda function starts automatically after AWS Greengrass starts and keeps running in its own container \(or sandbox\)\. This is in contrast to an *on\-demand* Lambda function, which starts only when invoked and stops when there are no tasks left to execute\. When possible, you should use on\-demand Lambda functions because they are less resource intensive than long\-lived functions\. However, the Lambda function in this tutorial requires a long\-lived lifecycle\.  
+
+   For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.  
 ![\[The greengrassObjectClassification page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-config.png)
 
 1. At the bottom of the page, choose **Update**\.
@@ -252,7 +252,7 @@ First, create two local device resources for the camera: one for shared memory a
 1. On the group configuration page, choose **Resources**\.  
 ![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
 
-1. For **Local resources**, choose **Add**\.
+1. On the **Local Resources** tab, choose **Add local resource**\.
 
 1. On the **Create a local resource** page, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
@@ -285,7 +285,7 @@ First, create two local device resources for the camera: one for shared memory a
 
 Now, add the inference model as a machine learning resource\. This step includes uploading the `squeezenet.zip` model package to Amazon S3\.
 
-1. For **Machine learning resources**, choose **Add**\.
+1. On the **Machine Learning** tab, choose **Add machine learning resource**\.
 
 1. On the **Create a machine learning resource** page, for **Resource name**, type **squeezenet\_model**\.
 
@@ -351,7 +351,7 @@ In this step, you deploy the current version of the group definition to the Gree
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.5.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.6.0/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS Greengrass Core software version that's installed on your core device\.
 

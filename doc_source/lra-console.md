@@ -1,6 +1,6 @@
 # How to Configure Local Resource Access Using the AWS Management Console<a name="lra-console"></a>
 
-This feature is available for AWS Greengrass Core v1\.3\.0 and greater\.
+This feature is available for AWS Greengrass Core v1\.3\.0 and later\.
 
 You can configure Lambda functions to securely access local resources on the host Greengrass core device\. *Local resources* refer to buses and peripherals that are physically on the host, or file system volumes on the host OS\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
 
@@ -23,7 +23,7 @@ For a tutorial that uses the AWS Command Line Interface \(CLI\), see [How to Con
 ## Prerequisites<a name="lra-console-prerequisites"></a>
 
 To complete this tutorial, you need:
-+ A Greengrass group and a Greengrass core \(v1\.3\.0 or greater\)\. To learn how to create a Greengrass group or core, see [Getting Started with AWS Greengrass](gg-gs.md)\.
++ A Greengrass group and a Greengrass core \(v1\.3\.0 or later\)\. To learn how to create a Greengrass group or core, see [Getting Started with AWS Greengrass](gg-gs.md)\.
 + The following directories created on the Greengrass core device:
   + /src/LRAtest
   + /dest/LRAtest
@@ -72,7 +72,7 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
        return
    ```
 
-1. Download the AWS Greengrass Core SDK Python 2\.7 version 1\.1\.0, as follows:
+1. Download the AWS Greengrass Core SDK Python 2\.7 version 1\.2\.0, as follows:
 
    1. In the [AWS IoT console](https://console.aws.amazon.com//iotv2/home), in the left pane, choose **Software**\.  
 ![\[The left pane of the AWS IoT console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-iot-software.png)
@@ -80,18 +80,18 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
    1. Under **SDKs**, for **AWS Greengrass Core SDK**, choose **Configure download**\.  
 ![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
 
-   1. Choose **Python 2\.7 version 1\.1\.0**, and then choose **Download Greengrass Core SDK**\.  
-![\[The AWS Greengrass Core SDK page with Python 2.7 version 1.1.0 and Download Greengrass Core SDK highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
+   1. Choose **Python 2\.7 version 1\.2\.0**, and then choose **Download Greengrass Core SDK**\.  
+![\[The AWS Greengrass Core SDK page with Python 2.7 version 1.2.0 and Download Greengrass Core SDK highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
 
-1. Unpack the `greengrass-core-python-sdk-1.1.0.tar.gz` file\.
+1. Unpack the `greengrass-core-python-sdk-1.2.0.tar.gz` file\.
 **Note**  
 For ways that you can do this on different platforms, see [this step](create-lambda.md) in the Getting Started section\. For example, you might use the following `tar` command:  
 
    ```
-   tar -xzf greengrass-core-python-sdk-1.1.0.tar.gz
+   tar -xzf greengrass-core-python-sdk-1.2.0.tar.gz
    ```
 
-1. Open the extracted aws\_greengrass\_core\_sdk/sdk folder, and unzip `python_sdk_1_1_0.zip`\.
+1. Open the extracted aws\_greengrass\_core\_sdk/sdk folder, and unzip `python_sdk_1_2_0.zip`\.
 
 1. Zip the following items into a file named `lraTestLambda.zip`:
    + **lraTest\.py**\. App logic\.
@@ -193,8 +193,8 @@ Next, configure the lifecycle of the Lambda function\.
 
 1. On the **Group\-specific Lambda configuration** page, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
-**Note**  
-A *long\-lived*—or *pinned*—Lambda function starts automatically after AWS Greengrass starts and keeps running in its own container \(or sandbox\)\. This is in contrast to an *on\-demand* Lambda function, which starts only when invoked and stops when there are no tasks left to execute\. When possible, you should use on\-demand Lambda functions because they are less resource intensive than long\-lived functions\. However, the Lambda in this tutorial requires a long\-lived lifecycle\.  
+
+   For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.  
 ![\[The TestLRA page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-config-lambda.png)
 
 1. At the bottom of the page, choose **Update**\.
@@ -206,12 +206,12 @@ In this step, you add a local volume resource to a Greengrass group and grant th
 1. On the group configuration page, choose **Resources**\.  
 ![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
 
-1. For **Local resources**, choose **Add**\.
+1. On the **Local Resources** tab, choose **Add local resource**\.
 
 1. On the **Create a local resource** page, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
 
-   The **Source path** is the local absolute path of the resource on the file system of the core device\. This path can't start with /proc or /sys\.
+   The **Source path** is the local absolute path of the resource on the file system of the core device\. This path can't start with /sys\.
 
    The **Destination path** is the absolute path of the resource in the Lambda namespace\.
 
@@ -280,7 +280,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.5.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.6.0/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS Greengrass Core software version that's installed on your core device\.
 

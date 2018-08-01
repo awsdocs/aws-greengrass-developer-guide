@@ -15,6 +15,7 @@ Amazon's trademarks and trade dress may not be used in
 -----
 ## Contents
 + [What Is AWS Greengrass?](what-is-gg.md)
+   + [Configure the AWS Greengrass Core](gg-core.md)
 + [Getting Started with AWS Greengrass](gg-gs.md)
    + [Module 1: Environment Setup for Greengrass](module1.md)
    + [Module 2: Installing the Greengrass Core Software](module2.md)
@@ -47,6 +48,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Test Communications](comms-test.md)
 + [OTA Updates of AWS Greengrass Core Software](core-ota-update.md)
 + [Reset Deployments](reset-deployments-scenario.md)
++ [Run Lambda Functions on the AWS Greengrass Core](lambda-functions.md)
 + [Access Local Resources with Lambda Functions](access-local-resources.md)
    + [How to Configure Local Resource Access Using the AWS Command Line Interface](lra-cli.md)
    + [How to Configure Local Resource Access Using the AWS Management Console](lra-console.md)

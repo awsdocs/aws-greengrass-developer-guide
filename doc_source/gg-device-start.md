@@ -1,7 +1,7 @@
 # Start AWS Greengrass on the Core Device<a name="gg-device-start"></a>
 
 1. In the [prior step](gg-config.md#gg-core-download), you downloaded two files from the AWS Greengrass console:
-   + `greengrass-OS-architecture-1.5.0.tar.gz` \- this compressed file contains the AWS Greengrass core software that runs on the AWS Greengrass core device\.
+   + `greengrass-OS-architecture-1.6.0.tar.gz` \- this compressed file contains the AWS Greengrass core software that runs on the AWS Greengrass core device\.
    + `GUID-setup.tar.gz` \- this compressed file contains security certificates enabling secure communications with the AWS IoT cloud and `config.json` which contains configuration information specific to your AWS Greengrass core and the AWS IoT endpoint\.
 
    If you don't recall the IP address of your AWS Greengrass core device, open a terminal on the AWS Greengrass core device and run the following command:
@@ -21,7 +21,7 @@ Recall that the default login and password for the Raspberry Pi is **pi** and **
 
    ```
    cd path-to-downloaded-files
-   pscp -pw Pi-password greengrass-OS-architecture-1.5.0.tar.gz pi@IP-address:/home/pi
+   pscp -pw Pi-password greengrass-OS-architecture-1.6.0.tar.gz pi@IP-address:/home/pi
    pscp -pw Pi-password GUID-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -39,7 +39,7 @@ You may be prompted for two passwords\. If so, the first password is for the Mac
 
    ```
    cd path-to-downloaded-files
-   sudo scp greengrass-OS-architecture-1.5.0.tar.gz pi@IP-address:/home/pi
+   sudo scp greengrass-OS-architecture-1.6.0.tar.gz pi@IP-address:/home/pi
    sudo scp GUID-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -50,7 +50,7 @@ You may be prompted for two passwords\. If so, the first password is for the Mac
 
    ```
    cd path-to-downloaded-files
-   sudo scp greengrass-OS-architecture-1.5.0.tar.gz pi@IP-address:/home/pi
+   sudo scp greengrass-OS-architecture-1.6.0.tar.gz pi@IP-address:/home/pi
    sudo scp GUID-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -70,11 +70,11 @@ You may be prompted for two passwords\. If so, the first password is for the Mac
    Next, run the following commands to decompress the AWS Greengrass core binary file and the security resources \(certificates, etc\.\) file:
 
    ```
-   sudo tar -xzvf greengrass-OS-architecture-1.5.0.tar.gz -C /
+   sudo tar -xzvf greengrass-OS-architecture-1.6.0.tar.gz -C /
    sudo tar -xzvf GUID-setup.tar.gz -C /greengrass
    ```
 
-   Among other things, the first command creates the `/greengrass` directory in the root folder of the AWS Greengrass core device \(via the `-C /` argument\)\. The second command copies the certificates into the `/greengrass/certs` folder and the `config.json` file into the `/greengrass/config` folder \(via the `-C /greengrass` argument\)\. For more information, see [`config.json` Parameter Summary](#config.json-params)\.
+   Among other things, the first command creates the `/greengrass` directory in the root folder of the AWS Greengrass core device \(via the `-C /` argument\)\. The second command copies the certificates into the `/greengrass/certs` folder and the `config.json` file into the `/greengrass/config` folder \(via the `-C /greengrass` argument\)\. For more information, see [AWS Greengrass Core Configuration File](gg-core.md#config-json)\.
 
 1. Install the [Symantec VeriSign root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) onto your device\. This certificate enables your device to communicate with AWS IoT using the MQTT messaging protocol over TLS\. Make sure the AWS Greengrass core device is connected to the internet, then run the following commands \(note that `-O` is the capital letter `O`\):
 
@@ -100,6 +100,8 @@ You may be prompted for two passwords\. If so, the first password is for the Mac
 
    You should see output similar to the following \(note the PID number\):  
 ![\[Screenshot of Raspberry Pi output showing AWS Greengrass running as indicated by "Greengrass successfully started with PID: 2244".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-010.png)
+**Note**  
+To set up your core device to start AWS Greengrass on system boot, see [Configure the Init System to Start the Greengrass Daemon](gg-core.md#start-on-boot)\.
 
    Next, run the following command to confirm that the AWS Greengrass core software \(daemon\) is functioning\. Replace *PID\-number* with your own PID number:
 
@@ -107,170 +109,4 @@ You may be prompted for two passwords\. If so, the first password is for the Mac
    ps aux | grep PID-number
    ```
 
-   You should see a path to the running AWS Greengrass daemon, as in `/greengrass/ggc/packages/1.5.0/bin/daemon`\. If you run into issues starting AWS Greengrass, see [Troubleshooting AWS Greengrass Applications](gg-troubleshooting.md)\.
-
-## `config.json` Parameter Summary<a name="config.json-params"></a>
-
-The AWS Greengrass `config.json` file is contained in the `/greengrass/config` directory \(or `/greengrass/configuration` for AWS Greengrass version 1\.0\.0\) and should be ready to go as\-is\. You can optionally review the contents of this file by running the following command \(replace `config` with `configuration` for v1\.0\.0\):
-
-```
-cat /greengrass/config/config.json
-```
-
-------
-#### [ GGC v1\.5\.0 ]
-
-```
-{
-   "coreThing": {
-       "caPath": "ROOT_CA_PEM_HERE",
-       "certPath": "CLOUD_PEM_CRT_HERE",
-       "keyPath": "CLOUD_PEM_KEY_HERE",
-       "thingArn": "THING_ARN_HERE",
-       "iotHost": "HOST_PREFIX_HERE.iot.AWS_REGION_HERE.amazonaws.com",
-       "ggHost": "greengrass.iot.AWS_REGION_HERE.amazonaws.com",
-       "keepAlive": 600
-   },
-   "runtime": {
-       "cgroup": {
-           "useSystemd": "yes|no"
-       }
-   },
-   "managedRespawn": true
-}
-```
-
-The `config.json` file appears in `/greengrass/config/` and contains the following parameters:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass/certs` folder\.  |  Save the file under the `/greengrass/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass/certs` folder\.  | Save the file under the /greengrass/certs folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to /greengrass/certs folder\. | Save the file under the /greengrass/certs folder\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT thing\. | 
-| iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
-| ggHost | Your AWS endpoint\. | You can find it in the AWS IoT console under Settings with greengrass\. prepended\. | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
-| useSystemd | A binary flag, if your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Values are yes or no\. Use the dependency script in [Module 1](module1.md) to see if your device uses systemd\. | 
-|  `managedRespawn`  |  An optional over\-the\-air \(OTA\) updates feature, this indicates that the OTA agent needs to run custom code before an update\.  |  For more information, see [OTA Updates of AWS Greengrass Core Software](core-ota-update.md)\.  | 
-
-------
-#### [ GGC v1\.3\.0 ]
-
-```
-{
-   "coreThing": {
-       "caPath": "ROOT_CA_PEM_HERE",
-       "certPath": "CLOUD_PEM_CRT_HERE",
-       "keyPath": "CLOUD_PEM_KEY_HERE",
-       "thingArn": "THING_ARN_HERE",
-       "iotHost": "HOST_PREFIX_HERE.iot.AWS_REGION_HERE.amazonaws.com",
-       "ggHost": "greengrass.iot.AWS_REGION_HERE.amazonaws.com",
-       "keepAlive": 600
-   },
-   "runtime": {
-       "cgroup": {
-           "useSystemd": "yes|no"
-       }
-   },
-   "managedRespawn": true
-}
-```
-
-The `config.json` file appears in `/greengrass/config/` and contains the following parameters:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass/certs` folder\.  |  Save the file under the `/greengrass/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass/certs` folder\.  | Save the file under the /greengrass/certs folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to /greengrass/certs folder\. | Save the file under the /greengrass/certs folder\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT thing\. | 
-| iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
-| ggHost | Your AWS endpoint\. | You can find it in the AWS IoT console under Settings with greengrass\. prepended\. | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
-| useSystemd | A binary flag, if your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Values are yes or no\. Use the dependency script in [Module 1](module1.md) to see if your device uses systemd\. | 
-|  `managedRespawn`  |  An optional over\-the\-air \(OTA\) updates feature, this indicates that the OTA agent needs to run custom code before an update\.  |  For more information, see [OTA Updates of AWS Greengrass Core Software](core-ota-update.md)\.  | 
-
-------
-#### [ GGC v1\.1\.0 ]
-
-```
-{
-   "coreThing": {
-       "caPath": "ROOT_CA_PEM_HERE",
-       "certPath": "CLOUD_PEM_CRT_HERE",
-       "keyPath": "CLOUD_PEM_KEY_HERE",
-       "thingArn": "THING_ARN_HERE",
-       "iotHost": "HOST_PREFIX_HERE.iot.AWS_REGION_HERE.amazonaws.com",
-       "ggHost": "greengrass.iot.AWS_REGION_HERE.amazonaws.com",
-       "keepAlive": 600
-   },
-   "runtime": {
-       "cgroup": {
-           "useSystemd": "yes|no"
-       }
-   }
-}
-```
-
-The `config.json` file exists in `/greengrass/config/` and contains the following parameters:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass/certs` folder\.  |  Save the file under the `/greengrass/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass/certs` folder\.  | Save the file under the /greengrass/certs folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to the /greengrass/certs folder\. | Save the file under the /greengrass/certs folder\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT thing\. | 
-| iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
-| ggHost | Your AWS endpoint\. | You can find it in the AWS IoT console under Settings with greengrass\. prepended\. | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
-| useSystemd | A binary flag, if your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Values are yes or no\. Use the dependency script in [Module 1](module1.md) to see if your device uses systemd\. | 
-
-------
-#### [ GGC v1\.0\.0 ]
-
-```
-{
-   "coreThing": {
-       "caPath": "ROOT_CA_PEM_HERE",
-       "certPath": "CLOUD_PEM_CRT_HERE",
-       "keyPath": "CLOUD_PEM_KEY_HERE",
-       "thingArn": "THING_ARN_HERE",
-       "iotHost": "HOST_PREFIX_HERE.iot.AWS_REGION_HERE.amazonaws.com",
-       "ggHost": "greengrass.iot.AWS_REGION_HERE.amazonaws.com",
-       "keepAlive": 600
-   },
-   "runtime": {
-       "cgroup": {
-           "useSystemd": "yes|no"
-       }
-   }
-}
-```
-
-The `config.json` file exists in `/greengrass/configuration/` and contains the following parameters:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass/configuration/certs` folder\.  |  Save the file under the `/greengrass/configuration/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass/configuration/certs` folder\.  | Save the file under the /greengrass/configuration/certs folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to the /greengrass/configuration/certs folder\. | Save the file under the /greengrass/configuration/certs folder\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT hing\. | 
-| iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
-| ggHost | Your AWS endpoint\. |  You can find it in the AWS IoT console under **Settings** with `greengrass.` prepended\.  | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
-| useSystemd | A binary flag if your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Values are yes or no\. Use the dependency script in [Module 1](module1.md) to see if your device uses systemd\. | 
-
-------
+   You should see a path to the running AWS Greengrass daemon, as in `/greengrass/ggc/packages/1.6.0/bin/daemon`\. If you run into issues starting AWS Greengrass, see [Troubleshooting AWS Greengrass Applications](gg-troubleshooting.md)\.

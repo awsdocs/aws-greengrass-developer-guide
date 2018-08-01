@@ -1,6 +1,6 @@
 # Perform Machine Learning Inference<a name="ml-inference"></a>
 
-This feature is available for AWS Greengrass Core v1\.5\.0 only\.
+This feature is available for AWS Greengrass Core v1\.5\.0 and later\.
 
 With AWS Greengrass, you can perform machine learning \(ML\) inference at the edge on locally generated data using cloud\-trained models\. This lets you benefit from the low latency and cost savings of running local inference, yet still take advantage of cloud computing power for training models and complex processing\.
 
@@ -33,7 +33,7 @@ The following requirements apply to model sources:
 + S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS Greengrass ML inference currently supports only SSE\-S3 or SSE\-KMS encryption options\. For more information about server\-side encryption options, see [ Protecting Data Using Server\-Side Encryption](http://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the * Amazon Simple Storage Service Developer Guide*\.
 + The names of S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not include periods \("`.`"\)\. For more information, see the rule about using virtual hosted–style buckets with SSL in [ Rules for Bucket Naming](http://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the * Amazon Simple Storage Service Developer Guide*\.
 + Service\-level region support must be available, as follows:
-  + Amazon SageMaker model sources are supported only in regions that have both [ AWS Greengrass support](http://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [ Amazon SageMaker support](http://docs.aws.amazon.com/general/latest/gr/rande.html#sagemaker_region)\.
+  + Amazon SageMaker model sources are supported only in the following regions: US East \(N\. Virginia\), US West \(Oregon\), and Asia Pacific \(Tokyo\)\.
   + Amazon S3 model sources are supported only in regions that have both [ AWS Greengrass support](http://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [ Amazon S3 support](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region)\.
 + AWS Greengrass must have `read` permission to the model source, as described in the following sections\.
 
@@ -94,7 +94,7 @@ To enable AWS Greengrass to access models that are stored in Amazon S3 buckets, 
 ## Requirements<a name="ml-requirements"></a>
 
 The following requirements apply for creating and using machine learning resources:
-+ You must be using AWS Greengrass Core Software v1\.5\.0\.
++ You must be using AWS Greengrass Core Software v1\.5\.0 or later\.
 + Access to the local destination directory where the resource is stored must not require root privileges\.
 + Lambda functions can't perform privileged operations on the resource\. Only `read` or `read and write` permissions are available\.
 + You must provide the full path of the resource on the operating system of the core device\.
@@ -118,7 +118,7 @@ Apache MXNet doesn't currently ensure forward compatibility, so models that you 
 **Note**  
 We recommend using MXNet v0\.11 for AWS Greengrass ML inference\. To configure Amazon SageMaker to train models using the recommended version, see [How to Configure Amazon SageMaker to Use MXNet v0\.11](#ml-sagemaker-v011)\.
 
-### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w3ab1c15c17c13"></a>
+### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w3ab1c18c17c13"></a>
 
 TensorFlow officially only supports installation on 64\-bit laptop or desktop operating systems\. Therefore, the precompiled TensorFlow libraries that AWS Greengrass provides for 32\-bit ARM platforms \(such as Raspberry Pi\) have inherent limitations and are intended for experimentation purposes only\.
 

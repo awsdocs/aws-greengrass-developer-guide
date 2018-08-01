@@ -28,9 +28,9 @@ You are now ready to configure your Lambda function for AWS Greengrass\.
       
 ![\[Screenshot of the configuration page with 25 (seconds) and the Make this function long-lived and keep it running indefinitely radio button selected.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-035.png)
 
-   A *long\-lived* Lambda function starts automatically after AWS Greengrass starts and keeps running in its own container \(or sandbox\)\. This is in contrast to an *on\-demand* Lambda function which starts only when invoked and stops when there are no tasks left to execute\. Information about long\-lived and on\-demand Lambda functions is provided in [Module 3 \(Part 2\)](module3-II.md)\.
+   A *long\-lived* Lambda function starts automatically after AWS Greengrass starts and keeps running in its own container \(or sandbox\)\. This is in contrast to an *on\-demand* Lambda function which starts when invoked and stops when there are no tasks left to execute\. For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.
 **Note**  
-The Lambda function in this tutorial accepts **JSON** input payloads, but AWS Greengrass Lambda functions also support **Binary** input payloads\. Binary support is especially useful when interacting with device data, because the restricted hardware capabilities of devices often make it difficult or impossible to construct a JSON data type\.
+The Lambda function in this tutorial accepts **JSON** input payloads, but Greengrass Lambda functions also support **Binary** input payloads\. Binary support is especially useful when interacting with device data, because the restricted hardware capabilities of devices often make it difficult or impossible to construct a JSON data type\.
 
 1. Choose **Update** to save your changes to the Lambda function configuration\.
 

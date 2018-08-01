@@ -42,7 +42,7 @@ greengrass-root/ggc/var/log
 ```
 
 **Note**  
-By default, *greengrass\-root* is the `/greengrass` directory\.
+By default, *greengrass\-root* is the `/greengrass` directory\. If a [write directory](gg-core.md#write-directory) is configured, then the logs are under that directory\.
 
 Be aware of the following considerations when using file system logs:
 + Reading AWS Greengrass logs on the file system requires root privileges\.

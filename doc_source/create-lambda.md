@@ -14,26 +14,26 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
 1. Under **SDKs**, for **AWS Greengrass Core SDK**, choose **Configure download**\.  
 ![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
 
-1. Choose **Python 2\.7 version 1\.1\.0**, and then choose **Download Greengrass Core SDK**\.  
-![\[Python 2.7 version 1.1.0 and Download Greengrass Core SDK.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
+1. Choose **Python 2\.7 version 1\.2\.0**, and then choose **Download Greengrass Core SDK**\.  
+![\[Python 2.7 version 1.2.0 and Download Greengrass Core SDK.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
 
 1. Decompress the downloaded SDK\. For instructions, choose the tab that corresponds to your operating system\.
 
 ------
 #### [ Windows ]
 
-   Use a tool for decompressing `.tar.gz` files on Windows such as [7\-Zip](http://www.7-zip.org/), [WinZip](http://www.winzip.com/), or similar\. As an example, the 7\-Zip tool can be used to decompress `greengrass-core-python-sdk-1.1.0.tar.gz` as follows:
+   Use a tool for decompressing `.tar.gz` files on Windows such as [7\-Zip](http://www.7-zip.org/), [WinZip](http://www.winzip.com/), or similar\. As an example, the 7\-Zip tool can be used to decompress `greengrass-core-python-sdk-1.2.0.tar.gz` as follows:
 
-   1. After installing 7\-Zip, navigate to the `greengrass-core-python-sdk-1.1.0.tar.gz` file using Windows File Explorer \(Windows logo key \+ E\), right\-click the file, choose **7\-Zip**, then choose **Open archive**\.
+   1. After installing 7\-Zip, navigate to the `greengrass-core-python-sdk-1.2.0.tar.gz` file using Windows File Explorer \(Windows logo key \+ E\), right\-click the file, choose **7\-Zip**, then choose **Open archive**\.
 
-   1. In the resulting 7\-Zip window, double\-click `greegrass-core-python-sdk-1.1.0.tar`, `aws_greengrass_core_sdk`, `examples`, `HelloWorld`, and then `greengrassHelloWorld.zip`\.
+   1. In the resulting 7\-Zip window, double\-click `greegrass-core-python-sdk-1.2.0.tar`, `aws_greengrass_core_sdk`, `examples`, `HelloWorld`, and then `greengrassHelloWorld.zip`\.
 
    1. Optionally using the Ctrl key, select the `greengrasssdk` folder and the Python `greengrassHelloWorld.py` Lambda file\. Next, choose **Extract**, pick a location to extract the files to, and choose **OK**\.
 
 ------
 #### [ macOS ]
 
-   1. Using Finder, navigate to the `greengrass-core-python-sdk-1.1.0.tar.gz` file and double\-click it\. This creates the `aws_greengrass_core_sdk` folder\.
+   1. Using Finder, navigate to the `greengrass-core-python-sdk-1.2.0.tar.gz` file and double\-click it\. This creates the `aws_greengrass_core_sdk` folder\.
 
    1. Expand the `aws_greengrass_core_sdk` folder, then the `examples` folder, and then the `HelloWorld` folder\.
 
@@ -42,12 +42,12 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
 ------
 #### [ UNIX\-like system ]
 
-   1. Open a terminal window and navigate to the directory containing the `greengrass-core-python-sdk-1.1.0.tar.gz` file\.
+   1. Open a terminal window and navigate to the directory containing the `greengrass-core-python-sdk-1.2.0.tar.gz` file\.
 
    1. Run the following command to decompress the file:
 
       ```
-      sudo tar -xzf greengrass-core-python-sdk-1.1.0.tar.gz
+      sudo tar -xzf greengrass-core-python-sdk-1.2.0.tar.gz
       ```
 
       This creates the `aws_greengrass_core_sdk` directory\. Next, run the following commands:
@@ -107,7 +107,7 @@ Depending on your distribution, you may need to install `zip` first\. For exampl
    + **Role** \- choose **Create new role from templates\(s\)**\.
    + **Role name** \- type a unique name for the role\.
 
-     Note that this role isn't used by AWS Greengrass, so you can optionally use any existing role\.
+     Note that this role isn't used by AWS Greengrass\.
 
    Then, choose **Create function**\.  
 ![\[The "Author from scratch" region with the "Name" field set to "Greengrass_HelloWorld", the "Runtime" field set to "Python 2.7", the "Role" field set to "Create new role from templates(s)".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023.png)

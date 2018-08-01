@@ -1,6 +1,14 @@
 # Document History for AWS Greengrass<a name="doc-history"></a>
 
-The following table describes important changes to the AWS Greengrass Developer Guide\.
+The following table describes important changes to the AWS Greengrass Developer Guide after June 2018\. For notification about updates to this documentation, you can subscribe to an RSS feed\.
+
+| Change | Description | Date | 
+| --- |--- |--- |
+| [AWS Greengrass Version 1\.6\.0 Released](http://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html#ggc-versions) | New features: Lambda executables, configurable message queue, configurable reconnect retry interval, volume resources under /proc, and configurable write directory\. | July 26, 2018 | 
+
+## Earlier Updates<a name="doc-history-archive"></a>
+
+The following table describes important changes to the AWS Greengrass Developer Guide before July 2018\.
 
 
 ****  

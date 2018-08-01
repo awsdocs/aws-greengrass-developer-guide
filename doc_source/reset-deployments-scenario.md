@@ -1,6 +1,6 @@
 # Reset Deployments<a name="reset-deployments-scenario"></a>
 
-This feature is available for AWS Greengrass Core v1\.1\.0 and greater\.
+This feature is available for AWS Greengrass Core v1\.1\.0 and later\.
 
 You may want to reset a group's deployments in order to:
 + Delete the group \(for example, when the group's core has been reimaged\.\)

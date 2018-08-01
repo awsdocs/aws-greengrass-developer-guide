@@ -1,6 +1,6 @@
 # Test Long\-Lived Lambda Functions<a name="long-testing"></a>
 
-A *long\-lived Lambda function* starts automatically when the AWS Greengrass core starts \(and runs in a single container or sandbox\)\. Any variables or preprocessing that are defined outside of the function handler are retained for every invocation of the function handler\. Multiple invocations of the function handler are queued until earlier invocations have been executed\. The `greengrassHelloWorldCounter.py` Lambda function is similar to the `greengrassHelloWorld.py` function except there is a variable, `my_counter`, that is outside of the `function_handler(event, context)` method \(code comments were removed for brevity\):
+A *long\-lived Lambda function* starts automatically when the AWS Greengrass core starts and runs in a single container \(or sandbox\)\. Any variables or preprocessing that are defined outside of the function handler are retained for every invocation of the function handler\. Multiple invocations of the function handler are queued until earlier invocations have been executed\. The `greengrassHelloWorldCounter.py` Lambda function is similar to the `greengrassHelloWorld.py` function except there is a variable, `my_counter`, that is outside of the `function_handler(event, context)` method \(code comments were removed for brevity\):
 
 ```
 import greengrasssdk

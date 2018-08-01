@@ -1,6 +1,6 @@
 # OTA Updates of AWS Greengrass Core Software<a name="core-ota-update"></a>
 
-This feature is available for AWS Greengrass Core v1\.3\.0 and greater\.
+This feature is available for AWS Greengrass Core v1\.3\.0 and later\.
 
 The AWS Greengrass core software comes packaged with an OTA Update Agent that is capable of updating the core's software or the OTA Update Agent itself to the latest respective versions\. You can start an update by invoking the CreateSoftwareUpdateJob API or from the Greengrass console\. Updating the Greengrass core software provides the following benefits:
 + Fix security vulnerabilities\.
@@ -206,7 +206,7 @@ As the OTA Agent prepares to do a self\-update, if the `managedRespawn` flag is 
 
 After the OTA Agent completes the update, it will attempt to run the `ota_post_update.sh` script from the `./greengrass/usr/scripts` directory\.
 
-### AWS Greengrass core Update with Managed Respawn<a name="managed-respawn-ggc"></a>
+### AWS Greengrass Core Update with Managed Respawn<a name="managed-respawn-ggc"></a>
 
 As the OTA Agent prepares to do an AWS Greengrass core update, if the `managedRespawn` flag is set to `true`, then the OTA Agent will look in the `./greengrass/usr/scripts` directory for the `ggc_pre_update.sh` script and run it\.
 

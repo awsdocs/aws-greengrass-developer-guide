@@ -1,16 +1,16 @@
 # How to Configure Local Resource Access Using the AWS Command Line Interface<a name="lra-cli"></a>
 
-This feature is available for AWS Greengrass Core v1\.3\.0 and greater\.
+This feature is available for AWS Greengrass Core v1\.3\.0 and later\.
 
-In order to use a local resource, you must add a resource definition to the group definition which will be deployed to your Greengrass core device\. The group definition must also contain a Lambda function definition in which you grant access permissions for local resources to your Lambda functions\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
+To use a local resource, you must add a resource definition to the group definition that is deployed to your Greengrass core device\. The group definition must also contain a Lambda function definition in which you grant access permissions for local resources to your Lambda functions\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
 
-This tutorial describes the process of creating a local resource and configuring access to it using the AWS Command Line Interface \(CLI\)\. It assumes that you've already created a Greengrass group as described in [Getting Started with AWS Greengrass](gg-gs.md)\. 
+This tutorial describes the process for creating a local resource and configuring access to it using the AWS Command Line Interface \(CLI\)\. To follow the steps in the tutorial, you must have already created a Greengrass group as described in [Getting Started with AWS Greengrass](gg-gs.md)\. 
 
 For a tutorial that uses the AWS Management Console, see [How to Configure Local Resource Access Using the AWS Management Console](lra-console.md)\.
 
 ## Create Local Resources<a name="lra-cli-create-resources"></a>
 
-First, you create a resource definition that specifies the resources to be accessed by using the command `[CreateResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)`\. In this example, we create two resources `TestDirectory` and `TestCamera`:
+First, you use the `[CreateResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)` command to create a resource definition that specifies the resources to be accessed\. In this example, we create two resources, `TestDirectory` and `TestCamera`:
 
 ```
 aws greengrass create-resource-definition  --cli-input-json '{
@@ -51,23 +51,23 @@ aws greengrass create-resource-definition  --cli-input-json '{
 
 **Resources**: A list of `Resource` objects in the Greengrass group\. One Greengrass group can have up to 50 resources\.
 
-**Resource\#Id**: The unique identifier of the resource\. The id is used to refer a resource in the Lambda function configuration\. Max length 128 characters\. Pattern: \[a\-zA\-Z0\-9:\_\-\]\+\. 
+**Resource\#Id**: The unique identifier of the resource\. The ID is used to refer to a resource in the Lambda function configuration\. Max length 128 characters\. Pattern: \[a\-zA\-Z0\-9:\_\-\]\+\. 
 
-**Resource\#Name**: The name of the resource\. The resource name is displayed on the Greengrass console\. Max length 128 characters\. Pattern: \[a\-zA\-Z0\-9:\_\-\]\+\.
+**Resource\#Name**: The name of the resource\. The resource name is displayed in the Greengrass console\. Max length 128 characters\. Pattern: \[a\-zA\-Z0\-9:\_\-\]\+\.
 
-**LocalVolumeResourceData\#SourcePath**: The local absolute path of the volume resource on the Greengrass core device\. The source path for a volume resource type cannot start with `/proc` or `/sys`\.
+**LocalVolumeResourceData\#SourcePath**: The local absolute path of the volume resource on the Greengrass core device\. The source path for a volume resource type cannot start with `/sys`\.
 
-**LocalDeviceResourceData\#SourcePath**: The local absolute path of the device resource\. The source path for a device resource can only refer to a character device or block device under `/dev`\.
+**LocalDeviceResourceData\#SourcePath**: The local absolute path of the device resource\. The source path for a device resource can refer only to a character device or block device under `/dev`\.
 
 **LocalVolumeResourceData\#DestinationPath**: The absolute path of the volume resource inside the Lambda environment\.
 
 **GroupOwnerSetting**: Allows you to configure additional group privileges for the Lambda process\. This field is optional\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.
 
-**GroupOwnerSetting\#AutoAddGroupOwner**: If true, Greengrass automatically adds the specified Linux OS group owner of the resource to the Lambda process privileges\. Thus the Lambda process will have the file access permissions of the added Linux group\.
+**GroupOwnerSetting\#AutoAddGroupOwner**: If true, Greengrass automatically adds the specified Linux OS group owner of the resource to the Lambda process privileges\. Thus the Lambda process has the file access permissions of the added Linux group\.
 
-**GroupOwnerSetting\#GroupOwner**: Specifies the name of the Linux OS group whose privileges will be added to the Lambda process\. This field is optional\. 
+**GroupOwnerSetting\#GroupOwner**: Specifies the name of the Linux OS group whose privileges are added to the Lambda process\. This field is optional\. 
 
-A resource definition version ARN will be returned by `[CreateResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)` and should be used when updating a group definition\. For example:
+A resource definition version ARN is returned by `[CreateResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)`\. The ARN should be used when updating a group definition\. For example:
 
 ```
 {
@@ -83,7 +83,7 @@ A resource definition version ARN will be returned by `[CreateResourceDefinition
 
 ## Create the Greengrass Function<a name="lra-cli-create-function"></a>
 
-After the resources are created, create the Greengrass function using `[CreateFunctionDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` and grant the function access to the resource: 
+After the resources are created, use the `[CreateFunctionDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` command to create the Greengrass function and grant the function access to the resource: 
 
 ```
  
@@ -118,13 +118,13 @@ aws greengrass create-function-definition --cli-input-json '{
 }'
 ```
 
-**ResourceAccessPolicies**: Contains the `resourceId` and `permission` which grant the Lambda access to the resource\. A Lambda function can have at most 10 resources\.
+**ResourceAccessPolicies**: Contains the `resourceId` and `permission` which grant the Lambda access to the resource\. A Lambda function can have a maximum of 10 resources\.
 
-**ResourceAccessPolicy\#Permission**: Specifies which permissions the Lambda has on the resource\. The available options are `rw` \(read/write\) or `ro` \(readonly\)\. 
+**ResourceAccessPolicy\#Permission**: Specifies which permissions the Lambda has on the resource\. The available options are `rw` \(read/write\) or `ro` \(read\-only\)\. 
 
 **AccessSysfs**: If true, the Lambda process can have read access to the `/sys` folder on the Greengrass core device\. This is used in cases where the Greengrass Lambda needs to read device information from `/sys`\.
 
-Again, a function definition version ARN is returned by `[CreateFunctionDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` and should be used in your group definition version\. 
+Again, `[CreateFunctionDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` returns a function definition version ARN\. The ARN should be used in your group definition version\. 
 
 ```
 {
@@ -163,7 +163,7 @@ A new group version is returned:
 
 Your Greengrass group now contains the *lraTest* Lambda function that has access to two resources: TestDirectory and TestCamera\.
 
-Here is an example Lambda function, `lraTest.py`, written in Python, which writes to the local volume resource: 
+This example Lambda function, `lraTest.py`, written in Python, writes to the local volume resource: 
 
 ```
 # lraTest.py
@@ -215,7 +215,7 @@ These commands are provided by the Greengrass API to create and manage resource 
       ggc_user or [ggc_group root tty] don't have ro permission on the file: /dev/tty0
   ```
 
-  **A:** This error indicates that the Lambda process doesn't have permission to access the specified resource\. The solution is to change the file permission of the resource so that Lambda can access it \(see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner) for more details\)\.
+  **A:** This error indicates that the Lambda process doesn't have permission to access the specified resource\. The solution is to change the file permission of the resource so that Lambda can access it\. \(See [Group Owner File Access Permission](access-local-resources.md#lra-group-owner) for details\)\.
 + **Q:** When I configure `/var/run` as a volume resource, why does the Lambda function fail to start with an error message in the runtime\.log: 
 
   ```
@@ -226,7 +226,7 @@ These commands are provided by the Greengrass API to create and manage resource 
   ```
 
   **A:** AWS Greengrass core currently doesn't support the configuration of `/var`, `/var/run`, and `/var/lib` as volume resources\. One workaround is to first mount `/var`, `/var/run` or `/var/lib` in a different folder and then configure the folder as a volume resource\.
-+ **Q:** When I configure `/dev/shm` as a volume resource with readonly permission, why does the Lambda function fail to start with an error in the runtime\.log: 
++ **Q:** When I configure `/dev/shm` as a volume resource with read\-only permission, why does the Lambda function fail to start with an error in the runtime\.log: 
 
   ```
   [ERROR]-container_process.go:39,Runtime execution error: unable to start lambda container. 
@@ -235,4 +235,4 @@ These commands are provided by the Greengrass API to create and manage resource 
   caused \\\"operation not permitted\\\"\""”
   ```
 
-  **A:** `/dev/shm` can only be configured as read/write\. Changing the resource permission to rw will resolve the issue\.
+  **A:** `/dev/shm` can only be configured as read/write\. Change the resource permission to `rw` to resolve the issue\.

@@ -10,7 +10,7 @@ This tutorial includes six modules, each designed to show you AWS Greengrass bas
 To complete this tutorial, you will need the following:
 + A Mac, Windows PC, or UNIX\-like system\.
 + An Amazon Web Services \(AWS\) account\. If you don’t have an AWS account, see [Create an AWS Account](#create-aws-account)\.
-+ The use of an AWS [region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS Greengrass such as US East \(N\. Virginia\), US West \(Oregon\), EU \(Frankfurt\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\) – for more information, see [AWS Greengrass FAQs](https://aws.amazon.com/greengrass/faqs/)\. 
++ The use of an AWS [region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS Greengrass\. For the list of supported regions for AWS Greengrass, see [AWS Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\.
 **Important**  
 Make note of your region to ensure that it is consistently used throughout this tutorial – inadvertently switching regions midway through the tutorial would be problematic\. Note that the last exercise in this tutorial assumes the US East \(N\. Virgina\) region, so you may want to only use the US East \(N\. Virgina\) region, as possible\.
 + A [Raspberry Pi 3 Model B](https://www.amazon.com/Raspberry-Model-1-2GHz-64-bit-quad-core/dp/B01CD5VC92/ref=sr_1_3?ie=UTF8&qid=1510013943&sr=8-3&keywords=Raspberry+Pi+Model+3&dpID=51wEoDfvlIL&preST=_SX300_QL70_&dpSrc=srch) with a 8 GB microSD card, or an Amazon EC2 instance\. Because AWS Greengrass is intended to be used with physical hardware, we recommend that you use a Raspberry Pi\. 
