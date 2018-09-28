@@ -60,8 +60,8 @@ The `config.json` file supports the following properties:
 | Field | Description | Notes | 
 | --- | --- | --- | 
 | caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/certs` directory\.  |  Save the file under `/greengrass-root/certs`\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` directory\.  | Save the file under /greengrass\-root/certs\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to /greengrass/certs directory\. | Save the file under /greengrass\-root/certs\. | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` directory\.  | Save the file under `/greengrass-root/certs`\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to `/greengrass-root/certs` directory\. | Save the file under `/greengrass-root/certs`\. | 
 | thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core device\. | Find this for your core in the AWS Greengrass console under Cores, or by running the [http://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html](http://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html) CLI command\. | 
 | iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under Settings, or by running the [http://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](http://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. | 
 | ggHost | Your AWS Greengrass endpoint\. | This value uses the format greengrass\.iot\.region\.amazonaws\.com\. Use the same region as iotHost\. | 
@@ -94,16 +94,16 @@ The `config.json` file supports the following properties:
 }
 ```
 
-The `config.json` file appears in `/greengrass/config/` and contains the following parameters:
+The `config.json` file appears in `/greengrass-root/config/` and contains the following parameters:
 
 
 ****  
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass/certs` folder\.  |  Save the file under the `/greengrass/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass/certs` folder\.  | Save the file under the /greengrass/certs folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to /greengrass/certs folder\. | Save the file under the /greengrass/certs folder\. | 
+| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the `/greengrass-root/certs` folder\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to `/greengrass-root/certs folder`\. | Save the file under the `/greengrass-root/certs` folder\. | 
 | thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\. | Find this for your core in the AWS Greengrass console under Cores, or by running the [http://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html](http://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html) command\. | 
 | iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under Settings, or by running the [http://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](http://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) command\. | 
 | ggHost | Your AWS Greengrass endpoint\. | This value uses the format greengrass\.iot\.region\.amazonaws\.com\. Use the same region as iotHost\. | 
@@ -134,16 +134,16 @@ The `config.json` file appears in `/greengrass/config/` and contains the followi
 }
 ```
 
-The `config.json` file appears in `/greengrass/config/` and contains the following parameters:
+The `config.json` file appears in `/greengrass-root/config/` and contains the following parameters:
 
 
 ****  
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass/certs` folder\.  |  Save the file under the `/greengrass/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass/certs` folder\.  | Save the file under the /greengrass/certs folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to /greengrass/certs folder\. | Save the file under the /greengrass/certs folder\. | 
+| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the `/greengrass-root/certs` folder\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to `/greengrass-root/certs` folder\. | Save the file under the `/greengrass-root/certs` folder\. | 
 | thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT thing\. | 
 | iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
 | ggHost | Your AWS Greengrass endpoint\. | You can find it in the AWS IoT console under Settings with greengrass\. prepended\. | 
@@ -173,16 +173,16 @@ The `config.json` file appears in `/greengrass/config/` and contains the followi
 }
 ```
 
-The `config.json` file exists in `/greengrass/config/` and contains the following parameters:
+The `config.json` file exists in `/greengrass-root/config/` and contains the following parameters:
 
 
 ****  
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass/certs` folder\.  |  Save the file under the `/greengrass/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass/certs` folder\.  | Save the file under the /greengrass/certs folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to the /greengrass/certs folder\. | Save the file under the /greengrass/certs folder\. | 
+| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the `/greengrass-root/certs` folder\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to the `/greengrass-root/certs` folder\. | Save the file under the `/greengrass-root/certs` folder\. | 
 | thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT thing\. | 
 | iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
 | ggHost | Your AWS Greengrass endpoint\. | You can find it in the AWS IoT console under Settings with greengrass\. prepended\. | 
@@ -211,16 +211,16 @@ The `config.json` file exists in `/greengrass/config/` and contains the followin
 }
 ```
 
-The `config.json` file exists in `/greengrass/configuration/` and contains the following parameters:
+The `config.json` file exists in `/greengrass-root/configuration/` and contains the following parameters:
 
 
 ****  
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass/configuration/certs` folder\.  |  Save the file under the `/greengrass/configuration/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass/configuration/certs` folder\.  | Save the file under the /greengrass/configuration/certs folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to the /greengrass/configuration/certs folder\. | Save the file under the /greengrass/configuration/certs folder\. | 
+| caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/configuration/certs` folder\.  |  Save the file under the `/greengrass-root/configuration/certs` folder\.  | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/configuration/certs` folder\.  | Save the file under the `/greengrass-root/configuration/certs` folder\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to the `/greengrass-root/configuration/certs` folder\. | Save the file under the `/greengrass-root/configuration/certs` folder\. | 
 | thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT hing\. | 
 | iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
 | ggHost | Your AWS Greengrass endpoint\. |  You can find it in the AWS IoT console under **Settings** with `greengrass.` prepended\.  | 
