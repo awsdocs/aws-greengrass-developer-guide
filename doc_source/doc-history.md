@@ -4,7 +4,8 @@ The following table describes important changes to the AWS Greengrass Developer 
 
 | Change | Description | Date | 
 | --- |--- |--- |
-| [AWS Greengrass Version 1\.6\.0 Released](http://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html#ggc-versions) | New features: Lambda executables, configurable message queue, configurable reconnect retry interval, volume resources under /proc, and configurable write directory\. | July 26, 2018 | 
+| [Support for MXNet v1\.2 Machine Learning Resources](https://docs.aws.amazon.com/greengrass/latest/developerguide/ml-inference.html#precompiled-ml-libraries) | AWS Greengrass supports machine learning models that are trained using MXNet v1\.2\. | August 29, 2018 | 
+| [AWS Greengrass Version 1\.6\.0 Released](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html#ggc-versions) | New features: Lambda executables, configurable message queue, configurable reconnect retry interval, volume resources under /proc, and configurable write directory\. | July 26, 2018 | 
 
 ## Earlier Updates<a name="doc-history-archive"></a>
 

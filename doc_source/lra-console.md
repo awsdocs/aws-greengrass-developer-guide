@@ -75,7 +75,7 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
 1. Download the AWS Greengrass Core SDK Python 2\.7 version 1\.2\.0, as follows:
 
    1. In the [AWS IoT console](https://console.aws.amazon.com//iotv2/home), in the left pane, choose **Software**\.  
-![\[The left pane of the AWS IoT console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-iot-software.png)
+![\[The left pane of the AWS IoT console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
 
    1. Under **SDKs**, for **AWS Greengrass Core SDK**, choose **Configure download**\.  
 ![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
@@ -117,7 +117,7 @@ First, create the Lambda function\.
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
 
 1. At the bottom of the page, choose **Create function**\.  
-![\[The Create function page with Create function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-create-function.png)
+![\[The Create function page with Create function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/create-function.png)
 
  
 
@@ -127,29 +127,29 @@ Now, upload your Lambda function deployment package and register the handler\.
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
 
 1. Choose **Upload**\.  
-![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-upload-deployment-package.png)
+![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/upload-deployment-package.png)
 
 1. Choose your `lraTestLambda.zip` deployment package\.
 
 1. At the top of the page, choose **Save**\.  
-![\[The TestLRA function page with Save highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-save-function.png)
+![\[The TestLRA function page with Save highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/save-function.png)
 **Tip**  
 You can see your code in the **Function code** section by choosing **Edit code inline** from the **Code entry type** menu\.
 
  
 
-Next, publish the first version of your Lambda function\. Then, create an [alias for the version](http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
+Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 
 **Note**  
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
 1. From the **Actions** menu, choose **Publish new version**\.  
-![\[The Publish new version option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-publish-function-option.png)
+![\[The Publish new version option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/publish-function-option.png)
 
 1. For **Version description**, type **First version**, and then choose **Publish**\.
 
 1. On the **TestLRA: 1** configuration page, from the **Actions** menu, choose **Create alias**\.  
-![\[The Create alias option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-create-alias-option.png)
+![\[The Create alias option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/create-alias-option.png)
 
 1. On the **Create a new alias** page, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
@@ -157,7 +157,7 @@ Greengrass groups can reference a Lambda function by alias \(recommended\) or by
 AWS Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
 1. Choose **Create**\.  
-![\[The Create a new alias page with Create highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-create-alias.png)
+![\[The Create a new alias page with Create highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/create-alias.png)
 
    You can now add the Lambda function to your Greengrass group\.
 
@@ -187,7 +187,7 @@ First, add the Lambda function to your Greengrass group\.
 Next, configure the lifecycle of the Lambda function\.
 
 1. On the **Lambdas** page, choose the TestLRA Lambda function\.   
-![\[The Lambdas page with the TestLRA Lambda function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-new-lambda.png)
+![\[The Lambdas page with the TestLRA Lambda function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/new-lambda.png)
 
 1. On the **TestLRA** configuration page, choose **Edit**\.
 
@@ -195,7 +195,7 @@ Next, configure the lifecycle of the Lambda function\.
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
 
    For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.  
-![\[The TestLRA page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-config-lambda.png)
+![\[The TestLRA page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/config-lambda.png)
 
 1. At the bottom of the page, choose **Update**\.
 
@@ -216,12 +216,12 @@ In this step, you add a local volume resource to a Greengrass group and grant th
    The **Destination path** is the absolute path of the resource in the Lambda namespace\.
 
    The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.  
-![\[The Create a local resource page with Save highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-create-local-resource.png)
+![\[The Create a local resource page with Save highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/create-local-resource.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
 
 1. Choose **TestLRA**, choose **Read and write access**, and then choose **Done**\.  
-![\[Lambda function affiliation properties with Done highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-create-local-resource-lambda.png)
+![\[Lambda function affiliation properties with Done highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/create-local-resource-lambda.png)
 
 1. At the bottom of the page, choose **Save**\. The **Resources** page displays the new testDirectory resource\.
 
@@ -241,10 +241,10 @@ First, create a subscription for the Lambda function to send messages to AWS Gre
    1. For **Select a target**, choose **Services**, and then choose **IoT Cloud**\.
 
    1. Choose **Next**\.  
-![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-inbound-subscription.png)
+![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/inbound-subscription.png)
 
 1. On the **Filter your data with a topic** page, for **Optional topic filter**, type **LRA/test**, and then choose **Next**\.  
-![\[The Filter your data with a topic page with LRA/test and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-inbound-subscription-filter.png)
+![\[The Filter your data with a topic page with LRA/test and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/inbound-subscription-filter.png)
 
 1. Choose **Finish**\. The **Subscriptions** page displays the new subscription\.
 
@@ -261,10 +261,10 @@ Next, configure a subscription that invokes the function from AWS IoT\.
    1. For **Select a target**, choose **Lambdas**, and then choose **TestLRA**\.
 
    1. Choose **Next**\.  
-![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-outbound-subscription.png)
+![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/outbound-subscription.png)
 
 1. On the **Filter your data with a topic** page, for **Optional topic filter**, type **invoke/LRAFunction**, and then choose **Next**\.  
-![\[The Filter your data with a topic page with invoke/LRAFunction and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-outbound-subscription-filter.png)
+![\[The Filter your data with a topic page with invoke/LRAFunction and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/outbound-subscription-filter.png)
 
 1. Choose **Finish**\. The **Subscriptions** page displays both subscriptions\.
 
@@ -310,16 +310,16 @@ If prompted, grant permission to create the AWS Greengrass service role on your 
 Now you can verify whether the local resource access is configured correctly\. To test, you subscribe to the **LRA/test** topic and publish to the **invoke/LRAFunction** topic\. The test is successful if the Lambda function sends the expected payload to AWS IoT\.
 
 1. On the AWS IoT console home page, in the left pane, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test2.png)
+![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. In the **Subscriptions** section, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
 
 1. Choose **Subscribe to topic**\. Your Lambda function publishes to the LRA/test topic\.  
-![\[The Subscriptions page with Subscribe to topic highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-test-subscribe.png)
+![\[The Subscriptions page with Subscribe to topic highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/test-subscribe.png)
 
 1. In the **Publish** section, type **invoke/LRAFunction**, and then choose **Publish to topic** to invoke your Lambda function\. The test is successful if the page displays the function's three message payloads\.  
-![\[The Subscriptions page with the invoke/LRAFunction topic and Publish to topic highlighted, and test results with message data.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console-test-publish.png)
+![\[The Subscriptions page with the invoke/LRAFunction topic and Publish to topic highlighted, and test results with message data.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/test-publish.png)
 
 You can see the test file that the Lambda creates by looking in the /src/LRAtest directory on the Greengrass core device\. Although the Lambda writes to a file in the /dest/LRAtest directory, that file is visible in the Lambda namespace only—you cant' see it in a regular Linux namespace\. However, any changes to the destination path are reflected in the source path on the actual file system\.
 

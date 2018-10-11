@@ -9,7 +9,7 @@ In order for a Python Lambda function to run on an AWS Greengrass core, it must 
 + Transfer the package to the AWS Greengrass core device by using the AWS Greengrass console\.
 
 1. In the AWS IoT console, choose **Software**\.  
-![\[The left navigation pane of the AWS IoT console page with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-iot-software.png)
+![\[The left navigation pane of the AWS IoT console page with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
 
 1. Under **SDKs**, for **AWS Greengrass Core SDK**, choose **Configure download**\.  
 ![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
@@ -135,7 +135,7 @@ To see your uploaded code, choose **Edit code inline** from the **Code entry typ
    1. For **Version description**, type **First version**, and then choose **Publish**:  
 ![\[Screenshot with the Version description field set to First version and the Publish button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-027.png)
 
-1. <a name="create-version-alias"></a>Create an [alias](http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html) for the Lambda function version, as follows:
+1. <a name="create-version-alias"></a>Create an [alias](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html) for the Lambda function version, as follows:
 **Note**  
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 

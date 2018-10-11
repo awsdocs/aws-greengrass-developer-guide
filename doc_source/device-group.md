@@ -24,12 +24,12 @@
    You should now have two devices in your AWS Greengrass group:  
 ![\[Screenshot showing the HelloWorld_Publisher and HelloWorld_Subscriber devices.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-071.png)
 
-1. Download another [AWS IoT root certificate from Symantec](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) and save it as `root-ca-cert.pem` in the folder you just created\. For this module, this certificate and the certificates and keys for both devices should be in one folder on your computer \(not on the AWS Greengrass core device\)\.
+1. Review the documentation on [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html), follow the links to download the appropriate CA certificate, and then save it as `root-ca-cert.pem` in the folder you just created\. For this module, this certificate and the certificates and keys for both devices should be in one folder on your computer \(not on the AWS Greengrass core device\)\.
 **Note**  
-If you're using a web browser on the Mac and you receive a This certificate is already installed as a certificate authority alert, you can open a Terminal window and run the following commands to download the certificate into the folder containing the HelloWorld\_Publisher and HelloWorld\_Subscriber device certificates/keys:  
+If you're using a web browser on the Mac and you receive a This certificate is already installed as a certificate authority alert, you can open a Terminal window and run the following commands to download the certificate into the folder that contains the **HelloWorld\_Publisher** and **HelloWorld\_Subscriber** device certificates and keys:  
 
    ```
    cd path-to-folder-containing-device-certificates
-   curl -o ./root-ca-cert.pem http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem
+   curl -o ./root-ca-cert.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
    ```
 Run `cat root-ca-cert.pem` to ensure that the file is not empty\. If so, check the URL and try the `curl` command again\.

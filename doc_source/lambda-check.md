@@ -2,7 +2,7 @@
 
 From the left pane of the AWS IoT console, choose **Test**\.
 
-![\[Screenshot of AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-043.png)
+![\[Screenshot of AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 In **Subscription topic** field, type **hello/world** \(don't choose **Subscribe to topic** yet\)\. For **Quality of Service**, select **0**\. For **MQTT payload display**, select **Display payloads as strings \(more accurate\)**\. 
 

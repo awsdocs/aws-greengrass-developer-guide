@@ -1,6 +1,6 @@
 # How to Configure Machine Learning Inference Using the AWS Management Console<a name="ml-console"></a>
 
-This feature is available for AWS Greengrass Core v1\.5\.0 and later\.
+To follow this tutorial, you must be using AWS Greengrass Core v1\.6\.0\.
 
 You can perform machine learning \(ML\) inference locally on a Greengrass core device using data from connected devices\. For information, including requirements and constraints, see [Perform Machine Learning Inference](ml-inference.md)\.
 
@@ -38,7 +38,7 @@ This tutorial uses a Raspberry Pi, but AWS Greengrass supports other platforms, 
 
 In this step, you update the Rasbian operating system, install the camera module software and Python dependencies, and enable the camera interface\. Run the following commands in your Raspberry Pi terminal\.
 
-1. Update Raspbian Jessie\.
+1. Update Raspbian\.
 
    ```
    sudo apt-get update
@@ -87,22 +87,22 @@ This tutorial uses libraries for the MXNet ML framework, but libraries for Tenso
 
 1. In the **Machine learning libraries** section, for ** MXNet/TensorFlow precompiled libraries**, choose **Configure download**\.
 
-1. On the **Machine learning libraries** page, under **Software configurations**, for MXNet Raspberry Pi version 0\.11\.0, choose **Download**\.
+1. On the **Machine learning libraries** page, under **Software configurations**, for MXNet Raspberry Pi version 1\.2\.1, choose **Download**\.
 **Note**  
 By downloading this software you agree to the [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0)\.
 
-1. Transfer the downloaded `ggc-mxnet-v0.11.0-python-raspi.tar.gz` file from your computer to your Raspberry Pi\.
+1. Transfer the downloaded `ggc-mxnet-v1.2.1-python-raspi.tar.gz` file from your computer to your Raspberry Pi\.
 **Note**  
 For ways that you can do this on different platforms, see [this step](gg-device-start.md) in the Getting Started section\. For example, you might use the following `scp` command:  
 
    ```
-   scp ggc-mxnet-v0.11.0-python-raspi.tar.gz pi@IP-address:/home/pi
+   scp ggc-mxnet-v1.2.1-python-raspi.tar.gz pi@IP-address:/home/pi
    ```
 
 1. In your Raspberry Pi terminal, unpack the transferred file\.
 
    ```
-   tar -xzf ggc-mxnet-v0.11.0-python-raspi.tar.gz
+   tar -xzf ggc-mxnet-v1.2.1-python-raspi.tar.gz
    ```
 
 1. Install the MDXNet framework\.
@@ -185,7 +185,7 @@ Now, upload your Lambda function deployment package and register the handler\.
 
  
 
-Next, publish the first version of your Lambda function\. Then, create an [alias for the version](http://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
+Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 
 **Note**  
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
@@ -384,7 +384,7 @@ Now you can verify whether the deployment is configured correctly\. To test, you
 If a monitor is attached to the Raspberry Pi, the live camera feed is displayed in a preview window\.
 
 1. On the AWS IoT console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test2.png)
+![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)

@@ -56,4 +56,4 @@ An AWS Greengrass Lambda function process normally runs as `ggc_user` and `ggc_g
 An AWS Greengrass Lambda function process inherits all of the file system permissions of `ggc_user`, `ggc_group`, and the Linux group \(if added\)\. For the Lambda function to access a resource, the Lambda function process must have the required permissions to the resource\. You can use the `chmod(1)` command to change the permission of the resource, if necessary\.
 
 ### See Also<a name="lra-seealso"></a>
-+ [ AWS Greengrass Limits](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_greengrass) in the *AWS General Reference*
++ [ AWS Greengrass Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_greengrass) in the *AWS General Reference*

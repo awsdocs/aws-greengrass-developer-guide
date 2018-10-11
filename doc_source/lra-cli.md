@@ -10,7 +10,7 @@ For a tutorial that uses the AWS Management Console, see [How to Configure Local
 
 ## Create Local Resources<a name="lra-cli-create-resources"></a>
 
-First, you use the `[CreateResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)` command to create a resource definition that specifies the resources to be accessed\. In this example, we create two resources, `TestDirectory` and `TestCamera`:
+First, you use the `[CreateResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)` command to create a resource definition that specifies the resources to be accessed\. In this example, we create two resources, `TestDirectory` and `TestCamera`:
 
 ```
 aws greengrass create-resource-definition  --cli-input-json '{
@@ -67,7 +67,7 @@ aws greengrass create-resource-definition  --cli-input-json '{
 
 **GroupOwnerSetting\#GroupOwner**: Specifies the name of the Linux OS group whose privileges are added to the Lambda process\. This field is optional\. 
 
-A resource definition version ARN is returned by `[CreateResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)`\. The ARN should be used when updating a group definition\. For example:
+A resource definition version ARN is returned by `[CreateResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)`\. The ARN should be used when updating a group definition\. For example:
 
 ```
 {
@@ -83,7 +83,7 @@ A resource definition version ARN is returned by `[CreateResourceDefinition](htt
 
 ## Create the Greengrass Function<a name="lra-cli-create-function"></a>
 
-After the resources are created, use the `[CreateFunctionDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` command to create the Greengrass function and grant the function access to the resource: 
+After the resources are created, use the `[CreateFunctionDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` command to create the Greengrass function and grant the function access to the resource: 
 
 ```
  
@@ -124,7 +124,7 @@ aws greengrass create-function-definition --cli-input-json '{
 
 **AccessSysfs**: If true, the Lambda process can have read access to the `/sys` folder on the Greengrass core device\. This is used in cases where the Greengrass Lambda needs to read device information from `/sys`\.
 
-Again, `[CreateFunctionDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` returns a function definition version ARN\. The ARN should be used in your group definition version\. 
+Again, `[CreateFunctionDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` returns a function definition version ARN\. The ARN should be used in your group definition version\. 
 
 ```
 {
@@ -140,7 +140,7 @@ Again, `[CreateFunctionDefinition](http://docs.aws.amazon.com/greengrass/latest/
 
 ## Add the Lambda Function to the Group<a name="lra-cli-add-function"></a>
 
-Finally, use `[CreateGroupVersion](http://docs.aws.amazon.com/greengrass/latest/apireference/creategroupversion-post.html)` to add the function to the group\. For example:
+Finally, use `[CreateGroupVersion](https://docs.aws.amazon.com/greengrass/latest/apireference/creategroupversion-post.html)` to add the function to the group\. For example:
 
 ```
 aws greengrass create-group-version --group-id "b36a3aeb-3243-47ff-9fa4-7e8d98cd3cf5" \
@@ -198,14 +198,14 @@ def function_handler(event, context):
 ```
 
 These commands are provided by the Greengrass API to create and manage resource definitions and resource definition versions:
-+ [CreateResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)
-+ [CreateResourceDefinitionVersion](http://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinitionversion-post.html)
-+  [DeleteResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/deleteresourcedefinition-delete.html)
-+  [GetResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/getresourcedefinition-get.html)
-+  [GetResourceDefinitionVersion](http://docs.aws.amazon.com/greengrass/latest/apireference/getresourcedefinitionversion-get.html)
-+  [ListResourceDefinitions](http://docs.aws.amazon.com/greengrass/latest/apireference/listresourcedefinitions-get.html)
-+  [ListResourceDefinitionVersions](http://docs.aws.amazon.com/greengrass/latest/apireference/listresourcedefinitionversions-get.html)
-+  [UpdateResourceDefinition](http://docs.aws.amazon.com/greengrass/latest/apireference/updateresourcedefinition-put.html)
++ [CreateResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)
++ [CreateResourceDefinitionVersion](https://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinitionversion-post.html)
++  [DeleteResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/deleteresourcedefinition-delete.html)
++  [GetResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/getresourcedefinition-get.html)
++  [GetResourceDefinitionVersion](https://docs.aws.amazon.com/greengrass/latest/apireference/getresourcedefinitionversion-get.html)
++  [ListResourceDefinitions](https://docs.aws.amazon.com/greengrass/latest/apireference/listresourcedefinitions-get.html)
++  [ListResourceDefinitionVersions](https://docs.aws.amazon.com/greengrass/latest/apireference/listresourcedefinitionversions-get.html)
++  [UpdateResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/updateresourcedefinition-put.html)
 
 ## Troubleshooting<a name="lra-faqs"></a>
 + **Q:** Why does my Greengrass group deployment fail with an error similar to:

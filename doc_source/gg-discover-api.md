@@ -11,7 +11,7 @@ To use this API, send HTTP requests to the following URI:
 https://greengrass.iot.aws-region.amazonaws.com/greengrass/discover/thing/thing-name
 ```
 
-Use port `8443` when connecting\. For a list of supported regions and endpoints for the AWS Greengrass Discovery API, see [AWS Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
+Use port `8443` when connecting\. For a list of supported regions and endpoints for the AWS Greengrass Discovery API, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
 
 ## Request<a name="gg-discover-request"></a>
 

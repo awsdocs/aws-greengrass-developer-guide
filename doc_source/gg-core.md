@@ -13,14 +13,14 @@ The AWS Greengrass core software consists of:
 
 ## AWS Greengrass Core Configuration File<a name="config-json"></a>
 
-The configuration file for the AWS Greengrass core software is the `config.json` file, which is located in the /*greengrass\-root*/config directory\. You can review the contents of this file by running the following command:
+The configuration file for the AWS Greengrass core software is the `config.json` file, which is located in the `/greengrass-root/config` directory\. You can review the contents of this file by running the following command:
 
 ```
 cat /greengrass-root/config/config.json
 ```
 
 **Note**  
-In AWS Greengrass Core v1\.0\.0, `config.json` is deployed to /*greengrass\-root*/configuration\.
+In AWS Greengrass Core v1\.0\.0, `config.json` is deployed to `/greengrass-root/configuration`\.
 
 The following is an example `config.json` file\.
 
@@ -50,7 +50,7 @@ The following is an example `config.json` file\.
 ```
 
 **Note**  
-If you use the **Easy group creation** option from the AWS Greengrass console, then the config\.json file is deployed to the core device in a working state that specifies the default configuration\.
+If you use the **Easy group creation** option from the AWS Greengrass console, then the `config.json` file is deployed to the core device in a working state that specifies the default configuration\.
 
 The `config.json` file supports the following properties:
 
@@ -60,10 +60,10 @@ The `config.json` file supports the following properties:
 | Field | Description | Notes | 
 | --- | --- | --- | 
 | caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/certs` directory\.  |  Save the file under `/greengrass-root/certs`\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` directory\.  | Save the file under `/greengrass-root/certs`\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to `/greengrass-root/certs` directory\. | Save the file under `/greengrass-root/certs`\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core device\. | Find this for your core in the AWS Greengrass console under Cores, or by running the [http://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html](http://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html) CLI command\. | 
-| iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under Settings, or by running the [http://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](http://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` directory\.  | Save the file under /greengrass\-root/certs\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to /greengrass\-root/certs directory\. | Save the file under /greengrass\-root/certs\. | 
+| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core device\. | Find this for your core in the AWS Greengrass console under Cores, or by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html) CLI command\. | 
+| iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under Settings, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. | 
 | ggHost | Your AWS Greengrass endpoint\. | This value uses the format greengrass\.iot\.region\.amazonaws\.com\. Use the same region as iotHost\. | 
 | keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default is 600\. | 
 |  `mqttMaxConnectionRetryInterval`  |  The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. This is an optional value\. The default is `60`\.  | 
@@ -94,7 +94,7 @@ The `config.json` file supports the following properties:
 }
 ```
 
-The `config.json` file appears in `/greengrass-root/config/` and contains the following parameters:
+The `config.json` file appears in `/greengrass-root/config` and contains the following parameters:
 
 
 ****  
@@ -102,10 +102,10 @@ The `config.json` file appears in `/greengrass-root/config/` and contains the fo
 | Field | Description | Notes | 
 | --- | --- | --- | 
 | caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the `/greengrass-root/certs` folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to `/greengrass-root/certs folder`\. | Save the file under the `/greengrass-root/certs` folder\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\. | Find this for your core in the AWS Greengrass console under Cores, or by running the [http://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html](http://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html) command\. | 
-| iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under Settings, or by running the [http://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](http://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) command\. | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the /greengrass\-root/certs folder\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to /greengrass\-root/certs folder\. | Save the file under the /greengrass\-root/certs folder\. | 
+| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\. | Find this for your core in the AWS Greengrass console under Cores, or by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/list-core-definitions.html) command\. | 
+| iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under Settings, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) command\. | 
 | ggHost | Your AWS Greengrass endpoint\. | This value uses the format greengrass\.iot\.region\.amazonaws\.com\. Use the same region as iotHost\. | 
 | keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
 | useSystemd | Indicates whether your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Values are yes or no\. Use the dependency script in [Module 1](module1.md) to see if your device uses systemd\. | 
@@ -134,7 +134,7 @@ The `config.json` file appears in `/greengrass-root/config/` and contains the fo
 }
 ```
 
-The `config.json` file appears in `/greengrass-root/config/` and contains the following parameters:
+The `config.json` file appears in `/greengrass-root/config` and contains the following parameters:
 
 
 ****  
@@ -142,8 +142,8 @@ The `config.json` file appears in `/greengrass-root/config/` and contains the fo
 | Field | Description | Notes | 
 | --- | --- | --- | 
 | caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the `/greengrass-root/certs` folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to `/greengrass-root/certs` folder\. | Save the file under the `/greengrass-root/certs` folder\. | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the /greengrass\-root/certs folder\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to /greengrass\-root/certs folder\. | Save the file under the /greengrass\-root/certs folder\. | 
 | thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT thing\. | 
 | iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
 | ggHost | Your AWS Greengrass endpoint\. | You can find it in the AWS IoT console under Settings with greengrass\. prepended\. | 
@@ -173,7 +173,7 @@ The `config.json` file appears in `/greengrass-root/config/` and contains the fo
 }
 ```
 
-The `config.json` file exists in `/greengrass-root/config/` and contains the following parameters:
+The `config.json` file exists in `/greengrass-root/config` and contains the following parameters:
 
 
 ****  
@@ -181,8 +181,8 @@ The `config.json` file exists in `/greengrass-root/config/` and contains the fol
 | Field | Description | Notes | 
 | --- | --- | --- | 
 | caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the `/greengrass-root/certs` folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to the `/greengrass-root/certs` folder\. | Save the file under the `/greengrass-root/certs` folder\. | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the /greengrass\-root/certs folder\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to the /greengrass\-root/certs folder\. | Save the file under the /greengrass\-root/certs folder\. | 
 | thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT thing\. | 
 | iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
 | ggHost | Your AWS Greengrass endpoint\. | You can find it in the AWS IoT console under Settings with greengrass\. prepended\. | 
@@ -211,7 +211,7 @@ The `config.json` file exists in `/greengrass-root/config/` and contains the fol
 }
 ```
 
-The `config.json` file exists in `/greengrass-root/configuration/` and contains the following parameters:
+The `config.json` file exists in `/greengrass-root/configuration` and contains the following parameters:
 
 
 ****  
@@ -219,8 +219,8 @@ The `config.json` file exists in `/greengrass-root/configuration/` and contains 
 | Field | Description | Notes | 
 | --- | --- | --- | 
 | caPath |  The path to the [AWS IoT root CA](http://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem) relative to the `/greengrass-root/configuration/certs` folder\.  |  Save the file under the `/greengrass-root/configuration/certs` folder\.  | 
-| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/configuration/certs` folder\.  | Save the file under the `/greengrass-root/configuration/certs` folder\. | 
-| keyPath | The path to the AWS Greengrass core private key relative to the `/greengrass-root/configuration/certs` folder\. | Save the file under the `/greengrass-root/configuration/certs` folder\. | 
+| certPath |  The path to the AWS Greengrass core certificate relative to the `/greengrass-root/configuration/certs` folder\.  | Save the file under the /greengrass\-root/configuration/certs folder\. | 
+| keyPath | The path to the AWS Greengrass core private key relative to the /greengrass\-root/configuration/certs folder\. | Save the file under the /greengrass\-root/configuration/certs folder\. | 
 | thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS Greengrass core\.  | You can find it in the AWS Greengrass console under the definition for your AWS IoT hing\. | 
 | iotHost | Your AWS IoT endpoint\. | You can find it in the AWS IoT console under Settings\. | 
 | ggHost | Your AWS Greengrass endpoint\. |  You can find it in the AWS IoT console under **Settings** with `greengrass.` prepended\.  | 
@@ -234,7 +234,7 @@ The `config.json` file exists in `/greengrass-root/configuration/` and contains 
 This feature is available for AWS Greengrass Core v1\.6\.0 only\.
 
 By default, the AWS Greengrass core software is deployed under a single root directory where AWS Greengrass performs all read and write operations\. However, you can configure AWS Greengrass to use a separate directory for all write operations, including creating directories and files\. In this case, AWS Greengrass uses two top\-level directories:
-+ The *greengrass\-root* directory, which you can leave as read\-write or optionally make read\-only\. This contains the AWS Greengrass core software and other critical components that should remain immutable during runtime, such as certificates and config\.json\.
++ The *greengrass\-root* directory, which you can leave as read\-write or optionally make read\-only\. This contains the AWS Greengrass core software and other critical components that should remain immutable during runtime, such as certificates and `config.json`\.
 + The specified write directory\. This contains writable content, such as logs, state information, and deployed user\-defined Lambda functions\.
 
 This configuration results in the following directory structure\.
@@ -383,7 +383,7 @@ The following environment variables for the `GGCloudSpooler` Lambda function are
 
 To configure AWS Greengrass to cache messages to the file system so they persist across core restarts, you create a function definition version where the `GGCloudSpooler` function specifies the `FileSystem` storage type\. You must use the AWS Greengrass API to configure the local storage cache\. You can't do this in the console\.
 
-The following procedure uses the [ `create-function-definition-version`](http://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure the spooler to save queued messages to the file system\. It also configures a 2\.6 MB queue size\.
+The following procedure uses the [ `create-function-definition-version`](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure the spooler to save queued messages to the file system\. It also configures a 2\.6 MB queue size\.
 
 **Note**  
 This procedure assumes that you're updating the configuration of the latest group version of an existing group\.
@@ -410,12 +410,12 @@ This procedure assumes that you're updating the configuration of the latest grou
 
 1. <a name="parse-function-def-id"></a>From the `FunctionDefinitionVersionArn` in the output, copy the ID of the function definition\. The ID is the GUID that follows the `functions` segment in the ARN\.
 **Note**  
-You can optionally create a function definition by running the [http://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html](http://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html) command, and then copy the ID from the output\.
+You can optionally create a function definition by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html) command, and then copy the ID from the output\.
 
 1. Add a function definition version to the function definition\.
    + Replace *function\-definition\-id* with the `Id` that you copied for the function definition\.
    + Replace *arbitrary\-function\-id* with a name for the function, such as **spooler\-function**\.
-   + Add any Lambda functions that you want to include in this version to the `functions` array\. You can use the [http://docs.aws.amazon.com/cli/latest/reference/greengrass/get-function-definition-version.html](http://docs.aws.amazon.com/cli/latest/reference/greengrass/get-function-definition-version.html) command to get the Greengrass Lambda functions from an existing function definition version\.
+   + Add any Lambda functions that you want to include in this version to the `functions` array\. You can use the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-function-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-function-definition-version.html) command to get the Greengrass Lambda functions from an existing function definition version\.
 **Warning**  
 Make sure that you specify a value for `GG_CONFIG_MAX_SIZE_BYTES` that's **greater than or equal to 262144**\. A smaller size prevents the AWS Greengrass core software from starting\.
 

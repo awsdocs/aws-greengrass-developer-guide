@@ -4,11 +4,8 @@ You are now ready to configure your Lambda function for AWS Greengrass\.
 
 1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
 
-1. On the group configuration page, choose **Lambdas**\.  
-![\[Screenshot of the Group Overview page with Lambdas highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-030.png)
-
-1. Choose **Add your first Lambda**\.  
-![\[Screenshot of the Bring Lambda functions to the Edge widget with the Add your first Lambda button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-031.png)
+1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
+![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas.png)
 
 1. Choose **Use existing Lambda**\.  
 ![\[Screenshot of Add a Lambda to your Greengrass Group with the Use existing Lambda button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-032.png)

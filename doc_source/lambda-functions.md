@@ -20,7 +20,7 @@ The following table lists each supported language or platform and the versions o
 Enables local Lambda functions to make direct calls to AWS services, such as Amazon S3, DynamoDB, AWS IoT, and AWS Greengrass\. To use the AWS SDK in a Greengrass Lambda function, you must include it in your deployment package\. When you use the AWS Greengrass Core SDK and the AWS SDK in the same package, make sure that your Lambda functions use the correct namespaces\. Greengrass Lambda functions can't communicate with cloud services when the core is offline\.  
 + Download the AWS SDK from the [ Getting Started Resource Center](https://aws.amazon.com/getting-started/tools-sdks/)\.
 
-For more information about creating a deployment package, see [Create and Package a Lambda Function](create-lambda.md) in the Getting Started tutorial or [Creating a Deployment Package](http://docs.aws.amazon.com/lambda/latest/dg/deployment-package-v2.html) in the *AWS Lambda Developer Guide*\.
+For more information about creating a deployment package, see [Create and Package a Lambda Function](create-lambda.md) in the Getting Started tutorial or [Creating a Deployment Package](https://docs.aws.amazon.com/lambda/latest/dg/deployment-package-v2.html) in the *AWS Lambda Developer Guide*\.
 
 ### Migrating Cloud\-Based Lambda Functions<a name="lambda-migrate-sdks"></a>
 
@@ -87,7 +87,7 @@ The expected encoding type of the input payload for the function, either JSON or
 Accepting binary input data can be useful for functions that interact with device data, because the restricted hardware capabilities of devices often make it difficult or impossible for them to construct a JSON data type\. Support for the binary encoding type is available starting in AWS Greengrass Core Software v1\.5\.0 and AWS Greengrass Core SDK v1\.1\.0\.
 
 **Environment variables**  
-Key\-value pairs that can dynamically pass settings to function code and libraries\. Local environment variables work the same way as [AWS Lambda function environment variables](http://docs.aws.amazon.com/lambda/latest/dg/env_variables.html), but are available in the core environment\.
+Key\-value pairs that can dynamically pass settings to function code and libraries\. Local environment variables work the same way as [AWS Lambda function environment variables](https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html), but are available in the core environment\.
 
 **Resource access policies**  
 A list of up to 10 [local resources](access-local-resources.md) and [machine learning resources](ml-inference.md) that the Lambda function is allowed to access, and the corresponding `read-only` or `read-write` permission\. In the console, these *affiliated* resources are listed on the function's **Resources** page\.
@@ -182,13 +182,13 @@ After you compile your code along with the SDK, use the AWS Lambda API to create
 **Note**  
 Your function must be compiled with a C89 compatible compiler\.
 
-The following example uses the [create\-function](http://docs.aws.amazon.com/cli/latest/reference/lambda/create-function.html) CLI command to create a Lambda executable\. The command specifies:
+The following example uses the [create\-function](https://docs.aws.amazon.com/cli/latest/reference/lambda/create-function.html) CLI command to create a Lambda executable\. The command specifies:
 + The name of the executable for the handler\. This must be the exact name of your compiled executable\.
 + The path to the `.zip` file that contains the compiled executable\.
 + `arn:aws:greengrass:::runtime/function/executable` for the runtime\. This is the runtime for all Lambda executables\.
 
 **Note**  
-For `role`, you can specify the ARN of any Lambda execution role\. AWS Greengrass doesn't use this role but the parameter is required to create the function\. For more information about Lambda execution roles, see [AWS Lambda Permissions Model](http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html) in the *AWS Lambda Developer Guide*\.
+For `role`, you can specify the ARN of any Lambda execution role\. AWS Greengrass doesn't use this role but the parameter is required to create the function\. For more information about Lambda execution roles, see [AWS Lambda Permissions Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html) in the *AWS Lambda Developer Guide*\.
 
 ```
 aws lambda create-function \
@@ -201,14 +201,14 @@ aws lambda create-function \
 ```
 
 Next, use the AWS Lambda API to publish a version and create an alias\.
-+ Use [publish\-version](http://docs.aws.amazon.com/cli/latest/reference/lambda/publish-version.html) to publish a function version\.
++ Use [publish\-version](https://docs.aws.amazon.com/cli/latest/reference/lambda/publish-version.html) to publish a function version\.
 
   ```
   aws lambda publish-version \
   --function-name function-name \
   --region aws-region
   ```
-+ Use [create\-alias](http://docs.aws.amazon.com/cli/latest/reference/lambda/create-alias.html) to create an alias the points to the version you just published\. We recommend that you reference Lambda functions by alias when you add them to a Greengrass group\.
++ Use [create\-alias](https://docs.aws.amazon.com/cli/latest/reference/lambda/create-alias.html) to create an alias the points to the version you just published\. We recommend that you reference Lambda functions by alias when you add them to a Greengrass group\.
 
   ```
   aws lambda create-alias \

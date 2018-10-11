@@ -149,7 +149,7 @@ skipping installation of cpu_usage and memory_usage nodes
    
    #  Install Greengrass SDK in the node_modules directory
    tar -zxvf aws-greengrass-core-sdk-js-*.tar.gz -C /tmp/
-   unzip /tmp/aws_greengrass_core_sdk_js/sdk/aws-greengrass-core-sdk.zip -d node_modules
+   unzip /tmp/aws_greengrass_core_sdk_js/sdk/aws-greengrass-core-sdk-js.zip -d node_modules
    
    # Archive the whole directory as a zip file
    zip -r opcuaLambda.zip * -x \*.git\*

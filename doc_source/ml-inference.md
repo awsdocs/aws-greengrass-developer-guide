@@ -1,6 +1,6 @@
 # Perform Machine Learning Inference<a name="ml-inference"></a>
 
-This feature is available for AWS Greengrass Core v1\.5\.0 and later\.
+This feature is available for AWS Greengrass Core v1\.5\.0 and later\. To use the precompiled library for MXNet v1\.2\.1, you must be using AWS Greengrass Core v1\.6\.0\.
 
 With AWS Greengrass, you can perform machine learning \(ML\) inference at the edge on locally generated data using cloud\-trained models\. This lets you benefit from the low latency and cost savings of running local inference, yet still take advantage of cloud computing power for training models and complex processing\.
 
@@ -30,16 +30,18 @@ To update a locally deployed model, first update the source model \(in the cloud
 AWS Greengrass supports Amazon SageMaker and Amazon S3 model sources for machine learning resources\.
 
 The following requirements apply to model sources:
-+ S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS Greengrass ML inference currently supports only SSE\-S3 or SSE\-KMS encryption options\. For more information about server\-side encryption options, see [ Protecting Data Using Server\-Side Encryption](http://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the * Amazon Simple Storage Service Developer Guide*\.
-+ The names of S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not include periods \("`.`"\)\. For more information, see the rule about using virtual hosted–style buckets with SSL in [ Rules for Bucket Naming](http://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the * Amazon Simple Storage Service Developer Guide*\.
-+ Service\-level region support must be available, as follows:
-  + Amazon SageMaker model sources are supported only in the following regions: US East \(N\. Virginia\), US West \(Oregon\), and Asia Pacific \(Tokyo\)\.
-  + Amazon S3 model sources are supported only in regions that have both [ AWS Greengrass support](http://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [ Amazon S3 support](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region)\.
++ S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS Greengrass ML inference currently supports only SSE\-S3 or SSE\-KMS encryption options\. For more information about server\-side encryption options, see [ Protecting Data Using Server\-Side Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the * Amazon Simple Storage Service Developer Guide*\.
++ The names of S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not include periods \("`.`"\)\. For more information, see the rule about using virtual hosted–style buckets with SSL in [ Rules for Bucket Naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the * Amazon Simple Storage Service Developer Guide*\.
++ Service\-level region support must be available, as shown in the following table\.
+
+     
+****    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-inference.html)
 + AWS Greengrass must have `read` permission to the model source, as described in the following sections\.
 
 **Amazon SageMaker**  
 AWS Greengrass supports models that are saved as Amazon SageMaker training jobs\.  
-If you configured your Amazon SageMaker environment by [creating a bucket](http://docs.aws.amazon.com/sagemaker/latest/dg/gs-config-permissions.html) whose name contains `sagemaker`, then AWS Greengrass has sufficient permission to access your Amazon SageMaker training jobs\. The AWSGreengrassResourceAccessRolePolicy managed policy allows access to buckets whose name contains the string `sagemaker`\. This policy is attached to the Greengrass service role\.  
+If you configured your Amazon SageMaker environment by [creating a bucket](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-config-permissions.html) whose name contains `sagemaker`, then AWS Greengrass has sufficient permission to access your Amazon SageMaker training jobs\. The AWSGreengrassResourceAccessRolePolicy managed policy allows access to buckets whose name contains the string `sagemaker`\. This policy is attached to the Greengrass service role\.  
 Otherwise, you must grant AWS Greengrass `read` permission to the bucket where your training job is stored\. To do this, embed the following inline policy in the Greengrass service role\. You can list multiple bucket ARNs\.  
 
 ```
@@ -58,7 +60,7 @@ Otherwise, you must grant AWS Greengrass `read` permission to the bucket where y
     ]
 }
 ```
-Amazon SageMaker is a fully managed ML service that enables you to build and train models using built\-in or custom algorithms\. For more information, see [What Is Amazon SageMaker](http://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) in the *Amazon SageMaker Developer Guide*\.
+Amazon SageMaker is a fully managed ML service that enables you to build and train models using built\-in or custom algorithms\. For more information, see [What Is Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) in the *Amazon SageMaker Developer Guide*\.
 
 **Amazon S3**  
 AWS Greengrass supports models that are stored in Amazon S3 as `tar.gz` or `.zip` files\.  
@@ -89,12 +91,12 @@ To enable AWS Greengrass to access models that are stored in Amazon S3 buckets, 
   }
   ```
 
-  For more information, see [Embedding Inline Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html#embed-inline-policy-console) in the *IAM User Guide*\.
+  For more information, see [Embedding Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html#embed-inline-policy-console) in the *IAM User Guide*\.
 
 ## Requirements<a name="ml-requirements"></a>
 
 The following requirements apply for creating and using machine learning resources:
-+ You must be using AWS Greengrass Core Software v1\.5\.0 or later\.
++ You must be using AWS Greengrass Core Software v1\.5\.0 or later\. To use the precompiled library for MXNet v1\.2\.1, you must be using AWS Greengrass Core v1\.6\.0\.
 + Access to the local destination directory where the resource is stored must not require root privileges\.
 + Lambda functions can't perform privileged operations on the resource\. Only `read` or `read and write` permissions are available\.
 + You must provide the full path of the resource on the operating system of the core device\.
@@ -109,16 +111,16 @@ To help you quickly get started experimenting with ML inference, AWS Greengrass 
 
 The precompiled MXNet and TensorFlow libraries can be installed on NVIDIA Jetson TX2, Intel Atom, and Raspberry Pi platforms\. The libraries are available from the **Software** page of the AWS IoT console\. You can install them directly on your core or include them as part of the software in your Greengrass group\.
 
+**Note**  
+To use the precompiled library for MXNet v1\.2\.1, you must be using AWS Greengrass Core v1\.6\.0\.
+
 Be sure to read the following information about compatibility and limitations\.
 
 ### MXNet Versioning<a name="mxnet-version-compatibility"></a>
 
 Apache MXNet doesn't currently ensure forward compatibility, so models that you train using later versions of the framework might not work properly in earlier versions of the framework\. To avoid conflicts between the model\-training and model\-serving stages, and to provide a consistent end\-to\-end experience, use the same MXNet framework version in both stages\.
 
-**Note**  
-We recommend using MXNet v0\.11 for AWS Greengrass ML inference\. To configure Amazon SageMaker to train models using the recommended version, see [How to Configure Amazon SageMaker to Use MXNet v0\.11](#ml-sagemaker-v011)\.
-
-### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w3ab1c18c17c13"></a>
+### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac18c18c17"></a>
 
 TensorFlow officially only supports installation on 64\-bit laptop or desktop operating systems\. Therefore, the precompiled TensorFlow libraries that AWS Greengrass provides for 32\-bit ARM platforms \(such as Raspberry Pi\) have inherent limitations and are intended for experimentation purposes only\.
 
@@ -136,37 +138,3 @@ The following recommendations for improving inference results are based on our t
 
 **Note**  
 For more information about supported platforms for TensorFlow, see [Installing TensorFlow](https://www.tensorflow.org/install/#installing_from_sources) in the TensorFlow documentation\.
-
-## How to Configure Amazon SageMaker to Use MXNet v0\.11<a name="ml-sagemaker-v011"></a>
-
-This section describes how to configure Amazon SageMaker to train models using MXNet v0\.11\. This is the recommended version for AWS Greengrass ML inference\.
-
-1. Create an Amazon S3 bucket by following the [Create a Bucket](http://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-bucket.html) procedure in the *Amazon Simple Storage Service Console User Guide*\.
-
-   Make sure that you include `sagemaker` in the name \(for example, **sagemaker\-*datetime***\)\.
-
-1. Create an Amazon SageMaker notebook instance by following the [Create an Amazon SageMaker Notebook Instance](http://docs.aws.amazon.com/sagemaker/latest/dg/gs-setup-working-env.html) procedure in the *Amazon SageMaker Developer Guide*\.
-
-1. When the status of the notebook instance is **InService**, choose the **Open** action for your notebook instance\.
-
-1. Choose **New**, and then choose **conda\_mxnet\_p27** from the list of Jupyter kernels\. This opens an MXNet environment for Python 2\.7\.
-
-1. Override the default **sagemaker\.mxnet\.MXNet\.train\_image** field in the code with an MXNet v0\.11 container image, as follows:
-
-   1. In the following code, replace the *container\-image* placeholder value with the MXNet v0\.11 container image that you want to use:
-      + For MXNet v0\.11 on Python2\.7 with CPU, specify **sagemaker\-mxnet\-py2\-cpu**\.
-      + For MXNet v0\.11 on Python2\.7 with GPU, specify **sagemaker\-mxnet\-py2\-gpu**\.
-      + For MXNet v0\.11 on Python 3\.6 with CPU, specify **sagemaker\-mxnet\-py3\-cpu**\.
-      + For MXNet v0\.11 on Python 3\.6 with GPU, specify **sagemaker\-mxnet\-py3\-gpu**\.
-
-      ```
-      region = sagemaker_session.boto_session.region_name
-      mnist_estimator.train_image = lambda:'780728360657.dkr.ecr.{}.amazonaws.com/container-image:1.0'.format(region)
-      ```
-
-   1. Insert the code before the call to `sagemaker.mxnet.MXNet.fit`, which sends a `CreateTrainingJob` request to Amazon SageMaker using the MXNet v0\.11 container image\. This overrides the default v0\.12 image with the v0\.11 image\.
-
-      The following shows a sample MXNet training code snippet with the new code highlighted\.  
-![\[Jupyter notebook code screen with the code change highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/sm-mxnet-version-override.png)
-
-Now you can continue training the model as described in the Amazon SageMaker documentation\.

@@ -17,14 +17,15 @@
       Output similar to the following indicates successful communication between the computer and the AWS Greengrass core device \(note 0% packet loss\):  
 ![\[Successful ping command output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-075.5.png)
 
-1. From the AWS IoT console, choose **Settings**, and note the value of **Endpoint**:  
+1. In the AWS IoT console, choose **Settings**\.  
+![\[The Settings page selected in the AWS IoT console.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-settings.png)
+
+1. Under **Settings**, note the value of **Endpoint**\. In the following examples, this endpoint value is indicated by *AWS\_IOT\_ENDPOINT*\.  
 ![\[AWS IoT endpoint value.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-075.7.png)
 
-    In the below, the endpoint value is indicated by *AWS\_IOT\_ENDPOINT*\. 
+1. Choose **Greengrass**, **Groups**, and then choose your group\. Choose **Settings**, select **Manually manage connection information**, then choose **View Cores for specific endpoint information**\. Choose your core, then **Connectivity**\. Choose **Edit** and ensure you have only one **Endpoint** value which must be the IP address of your AWS Greengrass core device \(for port 8883\)\. Choose **Update**\. This ensures that the `basicDiscovery.py` script will connect to the correct AWS Greengrass core device IP address\.
 
-1. Choose **Greengrass**, **Groups**, and then choose your group\. Choose **Settings**, select **Manually manage connection information**, then choose **View Cores for specific endpoint information**\. Choose your core, then **Connectivity**\. Choose **Edit** and ensure your have only one **Endpoint** value which must be the IP address of your AWS Greengrass core device \(for port 8883\)\. Choose **Update**\. This ensures that the `basicDiscovery.py` script will connect to the correct AWS Greengrass core device IP address\.
-
-1. Open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows on your computer \(not the AWS Greengrass core device\)\. One command\-line window will be for the **HelloWorld\_Publisher** device and the other for the **HelloWorld\_Subscriber** device\. Every time the following script \(`basicDiscovery.py`\) is executed for the first time, the AWS Greengrass discovery service connects to the AWS Greengrass core\. After a device has discovered the AWS Greengrass core and successfully connected to it, future messaging and operations can be executed locally \(without the need for an internet connection\)\.
+1. Open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows on your computer \(not the AWS Greengrass core device\)\. One command\-line window will be for the **HelloWorld\_Publisher** device and the other for the **HelloWorld\_Subscriber** device\. Upon execution, `basicDiscovery.py` will attempt to collect information on the location of the AWS Greengrass core at the given endpoint\. Once the device has discovered the AWS Greengrass core and successfully connected to it, this information is stored\. This allows future messaging and operations to be executed locally \(without the need for an internet connection\)\.
 **Note**  
 You can run the following command from the folder containing the `basicDiscovery.py` file for detailed script usage information:  
 

@@ -113,7 +113,7 @@ You can configure logging on the group's **Settings** page\.
 
 ### Configure Logging \(API\)<a name="config-logs-api"></a>
 
-You can use AWS Greengrass logger APIs to configure logging programmatically\. For example, use the [http://docs.aws.amazon.com/greengrass/latest/apireference/createloggerdefinition-post.html](http://docs.aws.amazon.com/greengrass/latest/apireference/createloggerdefinition-post.html) action to create a logger definition based on a [http://docs.aws.amazon.com/greengrass/latest/apireference/definitions-loggerdefinitionversion.html](http://docs.aws.amazon.com/greengrass/latest/apireference/definitions-loggerdefinitionversion.html) payload, which uses the following syntax:
+You can use AWS Greengrass logger APIs to configure logging programmatically\. For example, use the [https://docs.aws.amazon.com/greengrass/latest/apireference/createloggerdefinition-post.html](https://docs.aws.amazon.com/greengrass/latest/apireference/createloggerdefinition-post.html) action to create a logger definition based on a [https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-loggerdefinitionversion.html](https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-loggerdefinitionversion.html) payload, which uses the following syntax:
 
 ```
 {
@@ -133,7 +133,7 @@ You can use AWS Greengrass logger APIs to configure logging programmatically\. F
 }
 ```
 
-`LoggerDefinitionVersion` is an array of one or more [http://docs.aws.amazon.com/greengrass/latest/apireference/definitions-logger.html](http://docs.aws.amazon.com/greengrass/latest/apireference/definitions-logger.html) objects that have the following properties:
+`LoggerDefinitionVersion` is an array of one or more [https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-logger.html](https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-logger.html) objects that have the following properties:
 
 `Id`  
 An identifier for the logger\.
@@ -206,7 +206,7 @@ If AWS Greengrass is configured to send logs to CloudWatch and a Lambda function
 
 ### Clock Skew<a name="gg-log-limit-skew"></a>
 
-When logging to CloudWatch is enabled, the logging component signs requests to CloudWatch using the normal Signature Version 4 signing process\. If the system time on the AWS Greengrass core device is out of sync by more than [15 minutes](http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html), then the requests are rejected\.
+When logging to CloudWatch is enabled, the logging component signs requests to CloudWatch using the normal Signature Version 4 signing process\. If the system time on the AWS Greengrass core device is out of sync by more than [15 minutes](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html), then the requests are rejected\.
 
 ### Disk Usage<a name="gg-log-limit-disk"></a>
 

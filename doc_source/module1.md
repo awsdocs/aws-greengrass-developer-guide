@@ -13,9 +13,11 @@ If you are setting up a Raspberry Pi for the first time, you must follow all of 
 
 1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where your have inserted your SD card\. You can quick format the SD card\.
 
-1. Download the [Raspbian Jessie](https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-03-03/) operating system as a `.zip` file\. Only `2017-03-02-raspbian-jessie.zip` is currently supported by AWS Greengrass\.
+1. Download the [Raspbian Jessie](https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-03-03/) operating system as a `.zip` file\.  
+**Note**  
+ You can choose to use **Raspbian Stretch** instead of Jessie, but this will not support [OTA Updates](core-ota-update.md)\. Using Stretch will also require additional memory set\-up\. 
 
-1. Using an SD card\-writing tool \(such as [Etcher](https://etcher.io/)\), follow the tool's instructions to flash the downloaded `2017-03-02-raspbian-jessie.zip` file onto the SD card\. Because the operating system image is large, this step might take some time\. Eject your SD card from your computer, and insert the microSD card into your Raspberry Pi\.
+1. Using an SD card\-writing tool \(such as [Etcher](https://etcher.io/)\), follow the tool's instructions to flash the downloaded `zip` file onto the SD card\. Because the operating system image is large, this step might take some time\. Eject your SD card from your computer, and insert the microSD card into your Raspberry Pi\.
 
 1. For the first boot, we recommend that you connect the Raspberry Pi to a monitor \(through HDMI\), a keyboard, and a mouse\. Next, connect your Pi to a micro USB power source and the Raspbian operating system should start up\. 
 
@@ -130,6 +132,26 @@ If your computer is connected to a remote network using VPN \(such as a work rel
 
    You should see `fs.protected_hardlinks = 1` and `fs.protected_symlinks = 1`\.
 
+1. <a name="stretch-step"></a> If using **Raspbian Stretch**, edit your command line boot file to enable and mount memory cgroups\. This allows AWS Greengrass to set the memory limit for Lambda functions\. Without this, the Greengrass daemon is unable to run\. 
+
+   1.  Navigate to your `boot` directory\. 
+
+      ```
+      cd /boot/
+      ```
+
+   1.  Use a text editor to open `cmdline.txt`\. Add the following line to the end of the file\. This option should be added in\-line\. 
+
+      ```
+      cgroup_memory=1
+      ```
+
+   1. Now reboot the Pi:
+
+      ```
+      sudo reboot
+      ```
+
 1. Your Raspberry Pi should now be ready for AWS Greengrass\. To ensure that you have all of the dependencies required for AWS Greengrass, download the AWS Greengrass dependency checker from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples) and run it on the Pi as follows:
 
    ```
@@ -151,7 +173,7 @@ Your Raspberry Pi configuration is complete\. Continue to [Module 2: Installing 
 
 ## Setting Up an Amazon EC2 Instance<a name="setup-filter.ec2"></a>
 
-1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) and launch an Amazon EC2 instance using an Amazon Linux AMI \(Amazon Machine Image\)\. For information about Amazon EC2 instances, see the [Amazon EC2 Getting Started Guide](http://docs.aws.amazon.com/AWSEC2/latest/GettingStartedGuide/)\.
+1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) and launch an Amazon EC2 instance using an Amazon Linux AMI \(Amazon Machine Image\)\. For information about Amazon EC2 instances, see the [Amazon EC2 Getting Started Guide](https://docs.aws.amazon.com/AWSEC2/latest/GettingStartedGuide/)\.
 
 1. After your Amazon EC2 instance is running, enable port 8883 to allow incoming MQTT communications so that other devices can connect with the AWS Greengrass core\. In the left pane of the Amazon EC2 console, choose **Security Groups**\.  
 ![\[Left pane with Security Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.1.png)
@@ -269,7 +291,7 @@ Run the following commands on the Jetson board\.
 1. Check the kernel configurations:
 
    ```
-   nvidia@tegra-ubuntu:~$ zcat /proc/config.gz | grep -e CONFIG_KEYS -e CONFIG_POSIX_MQUEUE -e CONFIG_OF_OVERLAY -e CONFIG_OVERLAY_FS -e CONFIG_HAVE_ARCH_SECCOMP_FILTER -e CONFIG_SECCOMP_FILTER -e CONFIG_SECCOMP -e CONFIG_DEVPTS_MULTIPLE_INSTANCES -e CONFIG_IPC_NS -e CONFIG_NET_NS -e CONFIG_UTS_NS -e CONFIG_USER_NS -e CONFIG_PID_NS -e CONFIG_CGROUPS –e CONFIG_MEMCG -e CONFIG_CGROUP_FREEZER -e CONFIG_CGROUP_DEVICE
+   nvidia@tegra-ubuntu:~$ zcat /proc/config.gz | grep -e CONFIG_KEYS -e CONFIG_POSIX_MQUEUE -e CONFIG_OF_OVERLAY -e CONFIG_OVERLAY_FS -e CONFIG_HAVE_ARCH_SECCOMP_FILTER -e CONFIG_SECCOMP_FILTER -e CONFIG_SECCOMP -e CONFIG_DEVPTS_MULTIPLE_INSTANCES -e CONFIG_IPC_NS -e CONFIG_NET_NS -e CONFIG_UTS_NS -e CONFIG_USER_NS -e CONFIG_PID_NS -e CONFIG_CGROUPS -e CONFIG_MEMCG -e CONFIG_CGROUP_FREEZER -e CONFIG_CGROUP_DEVICE
    # CONFIG_POSIX_MQUEUE is not set
    CONFIG_CGROUPS=y
    CONFIG_CGROUP_FREEZER=y

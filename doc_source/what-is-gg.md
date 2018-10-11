@@ -226,9 +226,9 @@ This allows you to test your Lambda functions in the cloud and migrate them to A
 
 **Note**  
 The AWS SDK is natively part of the environment of a Lambda function that runs in the AWS cloud\. If you want to use `boto3` in a Lambda function that's deployed to an AWS Greengrass core, make sure to include the AWS SDK in your package\. In addition, if you use both the AWS Greengrass Core SDK and the AWS SDK in the same package, make sure that your Lambda functions use the correct namespaces\. For more information about how to create your deployment package, see:  
-[Creating a Deployment Package \(Python\)](http://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html)
-[ Creating a Deployment Package \(Node\.js\)](http://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html)
-[ Creating a Deployment Package \(Java\)](http://docs.aws.amazon.com/lambda/latest/dg/lambda-java-how-to-create-deployment-package.html)
+[Creating a Deployment Package \(Python\)](https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html)
+[ Creating a Deployment Package \(Node\.js\)](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html)
+[ Creating a Deployment Package \(Java\)](https://docs.aws.amazon.com/lambda/latest/dg/lambda-java-how-to-create-deployment-package.html)
 
 ------
 #### [ GGC v1\.3\.0 ]
@@ -271,9 +271,9 @@ This allows you to test your Lambda functions in the cloud and migrate them to A
 
 **Note**  
 The AWS SDK is natively part of the environment of a Lambda function that runs in the AWS cloud\. If you want to use `boto3` in a Lambda function that's deployed to an AWS Greengrass core, make sure to include the AWS SDK in your package\. In addition, if you use both the AWS Greengrass Core SDK and the AWS SDK in the same package, make sure that your Lambda functions use the correct namespaces\. For more information about how to create your deployment package, see:  
-[Creating a Deployment Package \(Python\)](http://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html)
-[ Creating a Deployment Package \(Node\.js\)](http://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html)
-[ Creating a Deployment Package \(Java\)](http://docs.aws.amazon.com/lambda/latest/dg/lambda-java-how-to-create-deployment-package.html)
+[Creating a Deployment Package \(Python\)](https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html)
+[ Creating a Deployment Package \(Node\.js\)](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html)
+[ Creating a Deployment Package \(Java\)](https://docs.aws.amazon.com/lambda/latest/dg/lambda-java-how-to-create-deployment-package.html)
 
 ------
 #### [ GGC v1\.1\.0 ]
@@ -316,9 +316,9 @@ This allows you to test your Lambda functions in the cloud and migrate them to A
 
 **Note**  
 The AWS SDK is natively part of the environment of a Lambda function that runs in the AWS cloud\. If you want to use `boto3` in a Lambda function that's deployed to an AWS Greengrass core, make sure to include the AWS SDK in your package\. In addition, if you use both the AWS Greengrass Core SDK and the AWS SDK in the same package, make sure that your Lambda functions use the correct namespaces\. For more information about how to create your deployment package, see:  
-[Creating a Deployment Package \(Python\)](http://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html)
-[ Creating a Deployment Package \(Node\.js\)](http://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html)
-[ Creating a Deployment Package \(Java\)](http://docs.aws.amazon.com/lambda/latest/dg/lambda-java-how-to-create-deployment-package.html)
+[Creating a Deployment Package \(Python\)](https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html)
+[ Creating a Deployment Package \(Node\.js\)](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html)
+[ Creating a Deployment Package \(Java\)](https://docs.aws.amazon.com/lambda/latest/dg/lambda-java-how-to-create-deployment-package.html)
 
 ------
 #### [ GGC v1\.0\.0 ]
@@ -361,7 +361,7 @@ This allows you to test your Lambda functions in the cloud and migrate them to A
 
 **Note**  
 The AWS SDK is natively part of the environment of a Lambda function that runs in the AWS cloud\. If you want to use `boto3` in a Lambda function that's deployed to an AWS Greengrass core, make sure to include the AWS SDK in your package\. In addition, if you use both the AWS Greengrass Core SDK and the AWS SDK in the same package, make sure that your Lambda functions use the correct namespaces\. For more information about how to create your deployment package, see:  
-[Creating a Deployment Package \(Python\)](http://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html)
+[Creating a Deployment Package \(Python\)](https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html)
 
 ------
 
@@ -373,6 +373,8 @@ The AWS Greengrass core software is supported on the platforms listed here, and 
 #### [ GGC v1\.6\.0 ]
 + Supported platforms:
   + Architecture: ARMv7l; OS: Linux; Distribution: [Raspbian Jessie, 2017\-03\-02](https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-03-03/)
+**Note**  
+ You can choose to use **Raspbian Stretch** instead of Jessie, but this will not support [OTA Updates](core-ota-update.md)\. Using Stretch will also require additional memory set\-up\. For more information, see [this step](module1.md#stretch-step)\. 
   + Architecture: x86\_64; OS: Linux; Distribution: Amazon Linux \(amzn\-ami\-hvm\-2016\.09\.1\.20170119\-x86\_64\-ebs\)
   + Architecture: x86\_64; OS: Linux; Distribution: Ubuntu 14\.04 – 16\.04
   + Architecture: ARMv8 \(AArch64\); OS: Linux; Distribution: Ubuntu 14\.04 – 16\.04 \(Annapurna Alpine V2\)
@@ -402,6 +404,8 @@ The AWS Greengrass core software is supported on the platforms listed here, and 
 #### [ GGC v1\.5\.0 ]
 + Supported platforms:
   + Architecture: ARMv7l; OS: Linux; Distribution: [Raspbian Jessie, 2017\-03\-02](https://downloads.raspberrypi.org/raspbian/images/raspbian-2017-03-03/)
+**Note**  
+ You can choose to use **Raspbian Stretch** instead of Jessie, but this will not support [OTA Updates](core-ota-update.md)\. Using Stretch will also require additional memory set\-up\. For more information, see [this step](module1.md#stretch-step)\. 
   + Architecture: x86\_64; OS: Linux; Distribution: Amazon Linux \(amzn\-ami\-hvm\-2016\.09\.1\.20170119\-x86\_64\-ebs\)
   + Architecture: x86\_64; OS: Linux; Distribution: Ubuntu 14\.04 – 16\.04
   + Architecture: ARMv8 \(AArch64\); OS: Linux; Distribution: Ubuntu 14\.04 – 16\.04 \(Annapurna Alpine V2\)

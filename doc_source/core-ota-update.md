@@ -41,7 +41,7 @@ If your Greengrass core or Greengrass OTA Agent is managed by an init system, se
 
 **CreateSoftwareUpdateJob API**
 
-The CreateSoftwareUpdateJob API creates a software update for a core or for several cores\. This API can be used to update the OTA Agent as well as the Greengrass core software\. It makes use of the AWS IoT Jobs feature which provides additional commands to manage a Greengrass core software update job\. See [Jobs](http://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html) for more information on how to manage a Greengrass Update\. 
+The CreateSoftwareUpdateJob API creates a software update for a core or for several cores\. This API can be used to update the OTA Agent as well as the Greengrass core software\. It makes use of the AWS IoT Jobs feature which provides additional commands to manage a Greengrass core software update job\. See [Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html) for more information on how to manage a Greengrass Update\. 
 
 The following example shows how to create a Greengrass core software update job using the CLI: 
 
@@ -71,7 +71,7 @@ The `create-software-update-job` command has the following parameters:
 The architecture of the core device\. Must be one of `armv7l`, `x86_64` or `aarch64`\.
 
 `--update-targets`  
-A list of the targets to which the OTA update should be applied\. The list can contain the ARNS of things which are cores, and the ARNs of thing groups whose members are cores\. See [IoT thing groups](http://docs.aws.amazon.com/iot/latest/developerguide/thing-groups.html) for more information on how to place cores in an IoT thing group\. 
+A list of the targets to which the OTA update should be applied\. The list can contain the ARNS of things which are cores, and the ARNs of thing groups whose members are cores\. See [IoT thing groups](https://docs.aws.amazon.com/iot/latest/developerguide/thing-groups.html) for more information on how to place cores in an IoT thing group\. 
 
 `--update-targets-operating-system`  
 The operating system of the core device\. Must be one of `ubuntu`, `amazon_linux` or `raspbian`\.

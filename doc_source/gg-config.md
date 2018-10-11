@@ -1,20 +1,22 @@
 # Configure AWS Greengrass on AWS IoT<a name="gg-config"></a>
 
-1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT console\. If this is the first time opening this console, choose **Get started**\. 
+1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT console\. If this is the first time opening this console, choose **Get started**\.
 
-   Next, choose **Greengrass**:  
-![\[AWS IoT left navigation screenshot with Greengrass highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-003.png)
+1. Choose **Greengrass**\.  
+![\[AWS IoT left navigation screenshot with Greengrass highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-greengrass.png)
 
-1. On the **Welcome to AWS Greengrass** page, choose **Get Started**:  
+1. On the **Welcome to AWS Greengrass** page, choose **Get Started**\.  
 ![\[Welcome to AWS Greengrass console page with the Get Started button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-004.png)
 
-1. Create an AWS Greengrass group\. An AWS Greengrass group contains information about the devices and how messages are processed in the group\. Each AWS Greengrass group requires an AWS Greengrass core device that processes messages sent within the group\. An AWS Greengrass core needs a certificate and an AWS IoT policy to access AWS Greengrass and AWS Cloud Services\. On the **Set up your Greengrass group** page, choose **Use easy creation**\.  
+1. Create an AWS Greengrass group\. An AWS Greengrass group contains information about the devices and how messages are processed in the group\. Each AWS Greengrass group requires an AWS Greengrass core device that processes messages sent within the group\. An AWS Greengrass core needs a certificate and an AWS IoT policy to access AWS Greengrass and AWS Cloud Services\. On the **Set up your Greengrass group** page, choose **Use easy creation**\.
+**Tip**  
+For an example that uses the AWS Greengrass API to create and deploy a group, see the [ gg\_group\_setup](https://github.com/awslabs/aws-greengrass-group-setup) package from GitHub\.  
 ![\[Set up your Greengrass Group console page with the Use easy creation button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-005.png)
 
-1. Type a name for your group \(for example, **MyFirstGroup**\), then choose **Next**:  
+1. Type a name for your group \(for example, **MyFirstGroup**\), then choose **Next**\.  
 ![\[The Name your Group page with MyFirstGroup in the Group Name field and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-006.png)
 
-1. Use the default name for the AWS Greengrass core, and choose **Next**:  
+1. Use the default name for the AWS Greengrass core, and choose **Next**\.  
 ![\[The Every Group needs a Core to function page with MyFirstGroup_Core in the Name field and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-007.png)
 
 1. On the **Run a scripted easy Group creation** page, choose **Create Group and Core**\.  
