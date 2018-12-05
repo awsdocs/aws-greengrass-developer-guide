@@ -65,7 +65,7 @@ skipping installation of cpu_usage and memory_usage nodes
 ```
 
 ## Make sure your Greengrass Group is ready<a name="opcua-group"></a>
-+ Create a Greengrass group \(find more details in [Configure AWS Greengrass on AWS IoT](gg-config.md)\.\) 
++ Create a Greengrass group \(find more details in [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\.\) 
 + Set up a Greengrass Core on one of the supported platforms \(Raspberry\-pi for [example](module1.md#setup-filter.rpi)\) 
 + [Set up](what-is-gg.md#gg-platforms) your Greengrass Core to be able to run nodejs6\.x Lambda functions
 
@@ -141,7 +141,7 @@ skipping installation of cpu_usage and memory_usage nodes
 
 1. Upload your Lambda
 
-   Create a Greengrass Lambda function\. You can find more details on how to do that in [Configure the Lambda Function for AWS Greengrass](config-lambda.md)\. In a nutshell, create a Lambda function code archive by doing the following:
+   Create a Greengrass Lambda function\. You can find more details on how to do that in [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)\. In a nutshell, create a Lambda function code archive by doing the following:
 
    ```
    # Download the nodejs greengrass sdk from 
@@ -158,7 +158,7 @@ skipping installation of cpu_usage and memory_usage nodes
    aws lambda create-function --function-name <Function_Name> --runtime 'nodejs6.10' --role <Your_Role> --handler 'index.handler' --zip-file opcuaLambda.zip
    ```
 
-   Add this Lambda to your Greengrass Group\. Details are, again, in: [Configure the Lambda Function for AWS Greengrass](config-lambda.md)\. 
+   Add this Lambda to your Greengrass Group\. Details are, again, in: [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)\. 
 
 1. Configure and Deploy the Lambda function to your Greengrass Group
 
@@ -166,7 +166,7 @@ skipping installation of cpu_usage and memory_usage nodes
    + Make sure to specify the Lambda function as Long\-Running\.
    + Give it at least 64MB of memory size\.
 
-   You can now create a deployment with your latest configuration\. You can find details in [Deploy Cloud Configurations to an AWS Greengrass Core Device](configs-core.md)\.
+   You can now create a deployment with your latest configuration\. You can find details in [Deploy Cloud Configurations to an AWS IoT Greengrass Core Device](configs-core.md)\.
 
 ## Verify that your Lambda function is receiving OPC\-UA Publishes and posting them onto Greengrass<a name="opcua-verify-lambda"></a>
 
@@ -197,7 +197,7 @@ You can see messages received by your Lambda function in one of two ways:
   Follow the steps outlined in [Verify the Lambda Function Is Running on the Device](lambda-check.md) to receive messages on the AWS IoT console\.
 
 **Note:**
-+ Make sure there is a Subscription from your Lambda function going to the IoT Cloud\. Details are in [Configure the Lambda Function for AWS Greengrass](config-lambda.md)\.
++ Make sure there is a Subscription from your Lambda function going to the IoT Cloud\. Details are in [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)\.
 + Since messages are forwarded to the cloud, make sure you terminate either the example server you configured above, or stop the Greengrass core, so that you don't end up publishing a lot of messages to IoT cloud and getting charged for them\!
 
 ## Next Steps<a name="opcua-next"></a>

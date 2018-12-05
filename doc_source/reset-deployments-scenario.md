@@ -1,6 +1,6 @@
 # Reset Deployments<a name="reset-deployments-scenario"></a>
 
-This feature is available for AWS Greengrass Core v1\.1\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.1\.0 and later\.
 
 You may want to reset a group's deployments in order to:
 + Delete the group \(for example, when the group's core has been reimaged\.\)
@@ -11,7 +11,7 @@ You may want to reset a group's deployments in order to:
 + Deploy a new group configuration to a core without having to replace the core with another in the current group\.
 
 **Note**  
-The Reset Deployments feature is not available in AWS Greengrass Core Software v1\.0\.0\. Also, note that it's not possible to delete a group that has been deployed using v1\.0\.0\.
+The Reset Deployments feature is not available in AWS IoT Greengrass Core Software v1\.0\.0\. Also, note that it's not possible to delete a group that has been deployed using v1\.0\.0\.
 
 The `ResetDeployments` command will clean up all deployment information which is stored in the cloud for a given group\. It will then instruct the group's core device to clean up all of its deployment related information as well \(Lambda functions, user logs, shadow database and server certificate, but not the user defined config\.json or the Greengrass core certificates\.\) You cannot initiate a reset of deployments for a group if the group currently has a deployment with status `Pending` or `Building`\.
 
@@ -55,4 +55,4 @@ The output of the `get-deployment-status` CLI command will look like this:
 }
 ```
 
-The `DeploymentStatus` is set to `Building` when the reset deployment is being prepared\. When the reset deployment is ready but the AWS Greengrass core has not picked up the reset deployment, the `DeploymentStatus` is `InProgress`\.
+The `DeploymentStatus` is set to `Building` when the reset deployment is being prepared\. When the reset deployment is ready but the AWS IoT Greengrass core has not picked up the reset deployment, the `DeploymentStatus` is `InProgress`\.

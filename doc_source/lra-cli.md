@@ -1,10 +1,10 @@
 # How to Configure Local Resource Access Using the AWS Command Line Interface<a name="lra-cli"></a>
 
-This feature is available for AWS Greengrass Core v1\.3\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.3\.0 and later\.
 
 To use a local resource, you must add a resource definition to the group definition that is deployed to your Greengrass core device\. The group definition must also contain a Lambda function definition in which you grant access permissions for local resources to your Lambda functions\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
 
-This tutorial describes the process for creating a local resource and configuring access to it using the AWS Command Line Interface \(CLI\)\. To follow the steps in the tutorial, you must have already created a Greengrass group as described in [Getting Started with AWS Greengrass](gg-gs.md)\. 
+This tutorial describes the process for creating a local resource and configuring access to it using the AWS Command Line Interface \(CLI\)\. To follow the steps in the tutorial, you must have already created a Greengrass group as described in [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
 
 For a tutorial that uses the AWS Management Console, see [How to Configure Local Resource Access Using the AWS Management Console](lra-console.md)\.
 
@@ -225,7 +225,7 @@ These commands are provided by the Greengrass API to create and manage resource 
   caused \\\"invalid argument\\\"\""
   ```
 
-  **A:** AWS Greengrass core currently doesn't support the configuration of `/var`, `/var/run`, and `/var/lib` as volume resources\. One workaround is to first mount `/var`, `/var/run` or `/var/lib` in a different folder and then configure the folder as a volume resource\.
+  **A:** AWS IoT Greengrass core currently doesn't support the configuration of `/var`, `/var/run`, and `/var/lib` as volume resources\. One workaround is to first mount `/var`, `/var/run` or `/var/lib` in a different folder and then configure the folder as a volume resource\.
 + **Q:** When I configure `/dev/shm` as a volume resource with read\-only permission, why does the Lambda function fail to start with an error in the runtime\.log: 
 
   ```

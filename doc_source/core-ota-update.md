@@ -1,20 +1,20 @@
-# OTA Updates of AWS Greengrass Core Software<a name="core-ota-update"></a>
+# OTA Updates of AWS IoT Greengrass Core Software<a name="core-ota-update"></a>
 
-This feature is available for AWS Greengrass Core v1\.3\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.3\.0 and later\.
 
-The AWS Greengrass core software comes packaged with an OTA Update Agent that is capable of updating the core's software or the OTA Update Agent itself to the latest respective versions\. You can start an update by invoking the CreateSoftwareUpdateJob API or from the Greengrass console\. Updating the Greengrass core software provides the following benefits:
+The AWS IoT Greengrass core software comes packaged with an OTA Update Agent that is capable of updating the core's software or the OTA Update Agent itself to the latest respective versions\. You can start an update by invoking the CreateSoftwareUpdateJob API or from the Greengrass console\. Updating the Greengrass core software provides the following benefits:
 + Fix security vulnerabilities\.
 + Address software stability issues\.
 + Deploy new or improved features\.
 
-An OTA update makes all these benefits available without having to perform the update manually or having the device which is running the core software physically present\. The OTA Update Agent also performs a rollback in case of a failed OTA update\. Performing an OTA update is optional but can help you manage your AWS Greengrass core devices\. Look for announcements of new versions of the core's software on the Greengrass developer forum\.
+An OTA update makes all these benefits available without having to perform the update manually or having the device which is running the core software physically present\. The OTA Update Agent also performs a rollback in case of a failed OTA update\. Performing an OTA update is optional but can help you manage your AWS IoT Greengrass core devices\. Look for announcements of new versions of the core's software on the Greengrass developer forum\.
 
 In order to support an OTA update of Greengrass core software by using the OTA Update Agent, your Greengrass core device must:
 + Have available local storage three times the amount of the core's runtime usage requirement\. 
-+ Not have trusted boot enabled in the partition containing the Greengrass core platform software\. \(The AWS Greengrass core can be installed and run on a partition with trusted boot enabled, but cannot perform an OTA update\.\) 
++ Not have trusted boot enabled in the partition containing the Greengrass core platform software\. \(The AWS IoT Greengrass core can be installed and run on a partition with trusted boot enabled, but cannot perform an OTA update\.\) 
 + Have read/write permissions on the partition containing the Greengrass core platform software\.
 + Have a connection to the AWS cloud\.
-+ Have a correctly configured AWS Greengrass core and appropriate certificates\.
++ Have a correctly configured AWS IoT Greengrass core and appropriate certificates\.
 
 Before launching an OTA Update of Greengrass core software, it is important to note the impact that it will have on the devices in your Greengrass group, both on the core device and on client devices connected locally to that core:
 + The core will be shut down during the update\.
@@ -79,8 +79,8 @@ The operating system of the core device\. Must be one of `ubuntu`, `amazon_linux
 `--software-to-update`  
 Specifies whether the core's software or the OTA Agent software should be updated\. Must be one of `core` or `ota_agent`\.
 
-`--s3-url-signer-role`  
-The IAM role which is used to presign the S3 url which links to the Greengrass software update\. You must provide a role that has the appropriate policy attached\. Here is an example policy document with the minimum required permissions:  
+`--s3-url-signer-role`  <a name="s3-url-signer-role"></a>
+The IAM role which is used to presign the S3 URL which links to the Greengrass software update\. You must provide a role that has the appropriate policy attached\. Here is an example policy document with the minimum required permissions:  
 
 ```
 {
@@ -93,11 +93,12 @@ The IAM role which is used to presign the S3 url which links to the Greengrass s
                 "s3:GetObject"
             ],
             "Resource": [
-                "arn:aws:s3:::eu-central-1-greengrass-updates/*",
                 "arn:aws:s3:::us-east-1-greengrass-updates/*",
-                "arn:aws:s3:::ap-northeast-1-greengrass-updates/*",
                 "arn:aws:s3:::us-west-2-greengrass-updates/*",
-                "arn:aws:s3:::ap-southeast-2-greengrass-updates/*"
+                "arn:aws:s3:::ap-northeast-1-greengrass-updates/*",
+                "arn:aws:s3:::ap-southeast-2-greengrass-updates/*",
+                "arn:aws:s3:::eu-central-1-greengrass-updates/*",
+                "arn:aws:s3:::eu-west-1-greengrass-updates/*"
             ]
         }
     ]
@@ -168,7 +169,7 @@ raspbian/armv7l
 
 ## Integration with Init systems<a name="integration-with-init"></a>
 
-During an OTA update, binaries, some of which may be running, will be updated and restarted\. This may cause conflicts if an init system is monitoring the state of either the AWS Greengrass core software or the Greengrass OTA Agent during the update\. To help integrate the OTA update mechanism with your monitoring strategies, Greengrass provides the opportunity for user\-defined shell scripts to run before and after an update\. To tell the OTA agent to run these shell scripts, you must include the `managedRespawn = true` flag in the `./greengrass/config/config.json` file\. For example:
+During an OTA update, binaries, some of which may be running, will be updated and restarted\. This may cause conflicts if an init system is monitoring the state of either the AWS IoT Greengrass core software or the Greengrass OTA Agent during the update\. To help integrate the OTA update mechanism with your monitoring strategies, Greengrass provides the opportunity for user\-defined shell scripts to run before and after an update\. To tell the OTA agent to run these shell scripts, you must include the `managedRespawn = true` flag in the `./greengrass/config/config.json` file\. For example:
 
 ```
 {
@@ -206,9 +207,9 @@ As the OTA Agent prepares to do a self\-update, if the `managedRespawn` flag is 
 
 After the OTA Agent completes the update, it will attempt to run the `ota_post_update.sh` script from the `./greengrass/usr/scripts` directory\.
 
-### AWS Greengrass Core Update with Managed Respawn<a name="managed-respawn-ggc"></a>
+### AWS IoT Greengrass Core Update with Managed Respawn<a name="managed-respawn-ggc"></a>
 
-As the OTA Agent prepares to do an AWS Greengrass core update, if the `managedRespawn` flag is set to `true`, then the OTA Agent will look in the `./greengrass/usr/scripts` directory for the `ggc_pre_update.sh` script and run it\.
+As the OTA Agent prepares to do an AWS IoT Greengrass core update, if the `managedRespawn` flag is set to `true`, then the OTA Agent will look in the `./greengrass/usr/scripts` directory for the `ggc_pre_update.sh` script and run it\.
 
 After the OTA Agent completes the update, it will attempt to run the `ggc_post_update.sh` script from the `./greengrass/usr/scripts` directory\.
 
@@ -222,7 +223,7 @@ Note:
 
 To perform an OTA Agent self\-update follow these steps:
 
-1. Ensure that the AWS Greengrass core is correctly provisioned with valid `config.json` file entries and the necessary certificates\.
+1. Ensure that the AWS IoT Greengrass core is correctly provisioned with valid `config.json` file entries and the necessary certificates\.
 
 1. If the OTA Agent is being managed by an init system, ensure that `managedRespawn = true` in the `config.json` file and the scripts `ota_pre_update.sh` and `ota_post_update.sh` are present in the `./greengrass/usr/scripts` directory\.
 
@@ -234,14 +235,14 @@ To perform an OTA Agent self\-update follow these steps:
 
 ## Greengrass Core Software Update<a name="ggc-update"></a>
 
-To perform an AWS Greengrass core software update follow these steps:
+To perform an AWS IoT Greengrass core software update follow these steps:
 
-1. Ensure that the AWS Greengrass core is correctly provisioned with valid `config.json` file entries and the necessary certificates\.
+1. Ensure that the AWS IoT Greengrass core is correctly provisioned with valid `config.json` file entries and the necessary certificates\.
 
-1. If the AWS Greengrass core software is being managed by an init system, ensure that `managedRespawn = true` in the `config.json` file and the scripts `ggc_pre_update.sh` and `ggc_post_update.sh` are present in the `./greengrass/usr/scripts` directory\.
+1. If the AWS IoT Greengrass core software is being managed by an init system, ensure that `managedRespawn = true` in the `config.json` file and the scripts `ggc_pre_update.sh` and `ggc_post_update.sh` are present in the `./greengrass/usr/scripts` directory\.
 
 1. Start the ggc\-ota agent by running `./greengrass/ota/ota_agent/ggc-ota`\.
 
 1. Create an OTA self update job in the cloud with the CreateSoftwareUpdateJob API \(`aws greengrass create-software-update-job`\), making sure the `--software-to-update` parameter is set to `core`\.
 
-1. The OTA Agent will perform an update of AWS Greengrass core software\.
+1. The OTA Agent will perform an update of AWS IoT Greengrass core software\.

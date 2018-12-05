@@ -1,24 +1,24 @@
 # Greengrass Discovery RESTful API<a name="gg-discover-api"></a>
 
-All devices that communicate with an AWS Greengrass core must be a member of a Greengrass group\. Each group must have an AWS Greengrass core\. The Discovery API enables devices to retrieve information required to connect to an AWS Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS Greengrass cloud service and use the Discovery API to find:
+All devices that communicate with an AWS IoT Greengrass core must be a member of a Greengrass group\. Each group must have an AWS IoT Greengrass core\. The Discovery API enables devices to retrieve information required to connect to an AWS IoT Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS IoT Greengrass cloud service and use the Discovery API to find:
 + The group to which it belongs\.
-+ The IP address and port for the AWS Greengrass core in the group\.
-+ The group's root CA certificate, which can be used to authenticate the AWS Greengrass core device\.
++ The IP address and port for the AWS IoT Greengrass core in the group\.
++ The group's root CA certificate, which can be used to authenticate the AWS IoT Greengrass core device\.
 
-To use this API, send HTTP requests to the following URI:
+To use this API, send HTTP requests to the Discovery API endpoint\. For example:
 
 ```
-https://greengrass.iot.aws-region.amazonaws.com/greengrass/discover/thing/thing-name
+https://greengrass-ats.iot.aws-region.amazonaws.com:8443/greengrass/discover/thing/thing-name
 ```
 
-Use port `8443` when connecting\. For a list of supported regions and endpoints for the AWS Greengrass Discovery API, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
+Use port `8443` when connecting\. For a list of supported regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
 
 ## Request<a name="gg-discover-request"></a>
 
 The request contains the standard HTTP headers and is sent to the Greengrass Discovery endpoint:
 
 ```
-HTTP GET https://greengrass.iot.aws-region.amazonaws.com/greengrass/discover/thing/thing-name
+HTTP GET https://greengrass-ats.iot.aws-region.amazonaws.com:8443/greengrass/discover/thing/thing-name
 ```
 
 ## Response<a name="gg-discover-response"></a>
@@ -51,7 +51,7 @@ Retrieving the connectivity information requires a policy that allows the caller
 
 ## Example Discover Response Documents<a name="gg-discover-response-doc"></a>
 
-The following document shows the response for a device that is a member of a group with one AWS Greengrass core, one endpoint, and one group CA:
+The following document shows the response for a device that is a member of a group with one AWS IoT Greengrass core, one endpoint, and one group CA:
 
 ```
 {
@@ -79,7 +79,7 @@ The following document shows the response for a device that is a member of a gro
 }
 ```
 
-The following document shows the response for a device that is a member of two groups with one AWS Greengrass core, multiple endpoints, and multiple group CAs:
+The following document shows the response for a device that is a member of two groups with one AWS IoT Greengrass core, multiple endpoints, and multiple group CAs:
 
 ```
 {
@@ -136,4 +136,4 @@ The following document shows the response for a device that is a member of two g
 ```
 
 **Note**  
-An AWS Greengrass group must define exactly one AWS Greengrass core\. Any response from the AWS Greengrass cloud service that contains a list of AWS Greengrass cores only contains one AWS Greengrass core\. 
+An AWS IoT Greengrass group must define exactly one AWS IoT Greengrass core\. Any response from the AWS IoT Greengrass cloud service that contains a list of AWS IoT Greengrass cores only contains one AWS IoT Greengrass core\. 
