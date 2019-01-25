@@ -44,6 +44,12 @@ In this step, you configure SoftHSM\.
    mkdir -p ~/.config/softhsm2
    ```
 
+1. Create the token directory\. softhsm2-util will report `ERROR: Could not initialize the library.` if this step is skipped.
+
+   ```
+   mkdir -p ~/.softhsm2/tokens
+   ```
+
 1. Configure the token directory\.
 
    ```
