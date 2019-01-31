@@ -108,7 +108,7 @@ In this step, you modify the Greengrass core configuration file to use SoftHSM\.
    1. Get the list of installed packages for the library\.
 
       ```
-      sudo dpkg -L libsofthsm2-dev
+      sudo dpkg -L libsofthsm2
       ```
 
       The `libsofthsm2.so` file is located in the `softhsm` directory\.
