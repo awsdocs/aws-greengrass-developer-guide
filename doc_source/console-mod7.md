@@ -95,10 +95,18 @@ AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any val
    openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in hash.private.key -out hash.private.pem
    ```
 
-1. Import the private key into SoftHSM\.
+1. Import the private key into SoftHSM\. **NOTE: Only one of the commands below is required depending on your version of softhsm2-util.**
+
+   softhsm2-util v2.2.0 syntax (Raspbian)
 
    ```
    softhsm2-util --import hash.private.pem --token greengrass --label iotkey --id 0000 --pin 1234
+   ```
+
+   softhsm2-util v2.0.0 syntax (Ubuntu)
+
+   ```
+   softhsm2-util --import hash.private.pem --slot 0 --label iotkey --id 0000 --pin 1234
    ```
 
    This command identifies the slot as `0` and defines the key label as `iotkey`\. You use these values in the next section\.
