@@ -235,6 +235,17 @@ The final `crypto` object might look like this:
   }
 ```
 
+1. Remove the `caPath`, `certPath`, and `keyPath` values from the `coreThing` object\. The final `coreThing` object might look like this:
+
+```
+"coreThing" : {
+    "thingArn" : "arn:aws:iot:region:account-id:thing/core-thing-name",
+    "iotHost" : "host-prefix.iot.region.amazonaws.com",
+    "ggHost" : "greengrass.iot.region.amazonaws.com",
+    "keepAlive" : 600
+  }
+```
+
 ## Test the Configuration<a name="softhsm-test"></a>
 + Start the AWS Greengrass daemon\.
 
