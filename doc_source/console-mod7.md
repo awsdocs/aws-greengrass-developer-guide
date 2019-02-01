@@ -210,39 +210,39 @@ The examples in this procedure are written with the assumption that the `config.
 
    1. Check the `crypto` object. It should look similar to this:
 
-```
-  "crypto": {
-    "PKCS11": {
-      "P11Provider": "/usr/lib/x86_64-linux-gnu/softhsm/libsofthsm2.so",
-      "slotLabel": "greengrass",
-      "slotUserPin": "1234"
-    },
-    "principals": {
-      "MQTTServerCertificate": {
-        "privateKeyPath": "pkcs11:object=iotkey;type=private"
-      },
-      "SecretsManager": {
-        "privateKeyPath": "pkcs11:object=iotkey;type=private"
-      },
-      "IoTCertificate": {
-        "certificatePath": "file://certs/core.crt",
-        "privateKeyPath": "pkcs11:object=iotkey;type=private"
-      }
-    },
-    "caPath": "file://certs/root.ca.pem"
-  }
-```
+	```
+	  "crypto": {
+	    "PKCS11": {
+	      "P11Provider": "/usr/lib/x86_64-linux-gnu/softhsm/libsofthsm2.so",
+	      "slotLabel": "greengrass",
+	      "slotUserPin": "1234"
+	    },
+	    "principals": {
+	      "MQTTServerCertificate": {
+	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+	      },
+	      "SecretsManager": {
+	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+	      },
+	      "IoTCertificate": {
+	        "certificatePath": "file://certs/core.crt",
+	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+	      }
+	    },
+	    "caPath": "file://certs/root.ca.pem"
+	  }
+	```
 
 1. Remove the `caPath`, `certPath`, and `keyPath` values from the `coreThing` object\. It should look similar to this:
 
-```
-"coreThing" : {
-    "thingArn" : "arn:aws:iot:region:account-id:thing/core-thing-name",
-    "iotHost" : "host-prefix.iot.region.amazonaws.com",
-    "ggHost" : "greengrass.iot.region.amazonaws.com",
-    "keepAlive" : 600
-  }
-```
+	```
+	"coreThing" : {
+	    "thingArn" : "arn:aws:iot:region:account-id:thing/core-thing-name",
+	    "iotHost" : "host-prefix.iot.region.amazonaws.com",
+	    "ggHost" : "greengrass.iot.region.amazonaws.com",
+	    "keepAlive" : 600
+	  }
+	```
 
 **Note**  
 For this tutorial, you specify the same private key for all principals\. For more information about choosing the private key for the local MQTT server, see [Performance](hardware-security.md#hsm-performance)\. For more information about the local secrets manager, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
