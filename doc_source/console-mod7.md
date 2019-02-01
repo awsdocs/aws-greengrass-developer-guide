@@ -192,7 +192,7 @@ The examples in this procedure are written with the assumption that the `config.
 
    1. Configure the `PKCS11` object\.
       + For `P11Provider`, enter the full path to `libsofthsm2.so`\.
-      + For `slotLabel`, enter `0`\.
+      + For `slotLabel`, enter `greengrass`\.
       + For `slotUserPin`, enter `1234`\.
 
    1. Configure the private key paths in the `principals` object\. Do not edit the `certificatePath` property\.
