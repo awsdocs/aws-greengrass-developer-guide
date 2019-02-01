@@ -207,10 +207,8 @@ The examples in this procedure are written with the assumption that the `config.
         ```
         pkcs11:object=iotkey;type=private
         ```
-**Note**  
-For this tutorial, you specify the same private key for all principals\. For more information about choosing the private key for the local MQTT server, see [Performance](hardware-security.md#hsm-performance)\. For more information about the local secrets manager, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
 
-The final `crypto` object might look like this:
+   1. Check the `crypto` object. It should look similar to this:
 
 ```
   "crypto": {
@@ -235,7 +233,7 @@ The final `crypto` object might look like this:
   }
 ```
 
-1. Remove the `caPath`, `certPath`, and `keyPath` values from the `coreThing` object\. The final `coreThing` object might look like this:
+1. Remove the `caPath`, `certPath`, and `keyPath` values from the `coreThing` object\. It should look similar to this:
 
 ```
 "coreThing" : {
@@ -245,6 +243,9 @@ The final `crypto` object might look like this:
     "keepAlive" : 600
   }
 ```
+
+**Note**  
+For this tutorial, you specify the same private key for all principals\. For more information about choosing the private key for the local MQTT server, see [Performance](hardware-security.md#hsm-performance)\. For more information about the local secrets manager, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
 
 ## Test the Configuration<a name="softhsm-test"></a>
 + Start the AWS Greengrass daemon\.
