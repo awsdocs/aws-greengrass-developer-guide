@@ -38,28 +38,34 @@ In this step, you configure SoftHSM\.
    sudo su
    ```
 
-1. Create the softhsm2 configuration file in the root user's home directory\.
+1. Determine where the system-wide softhsm2.conf location is by checking the man page\. A common location is `/etc/softhsm/softhsm2.conf` but some systems may differ\.
 
    ```
-   mkdir -p ~/.config/softhsm2
+   man softhsm2.conf
    ```
 
-1. Create the token directory\. softhsm2-util will report `ERROR: Could not initialize the library.` if this step is skipped\.
+1. Create the directory for the softhsm2 configuration file in the system-wide default location\. In this example we assume it is `/etc/softhsm/softhsm2.conf`\.
 
    ```
-   mkdir -p ~/.softhsm2/tokens
+   mkdir -p /etc/softhsm
+   ```
+
+1. Create the token directory in the /greengrass directory\. softhsm2-util will report `ERROR: Could not initialize the library.` if this step is skipped\.
+
+   ```
+   mkdir -p /greengrass/softhsm2/tokens
    ```
 
 1. Configure the token directory\.
 
    ```
-   echo "directories.tokendir = $HOME/.softhsm2/tokens" > ~/.config/softhsm2/softhsm2.conf
+   echo "directories.tokendir = /greengrass/softhsm2/tokens" > /etc/softhsm/softhsm2.conf
    ```
 
 1. Configure a file\-based backend\.
 
    ```
-   echo "objectstore.backend = file" >> ~/.config/softhsm2/softhsm2.conf
+   echo "objectstore.backend = file" >> /etc/softhsm/softhsm2.conf
    ```
 
 **Note**  
