@@ -212,7 +212,7 @@ For this tutorial, you specify the same private key for all principals\. For mor
 
 The final `crypto` object might look like this:
 
-	```
+```
   "crypto": {
     "PKCS11": {
       "P11Provider": "/usr/lib/x86_64-linux-gnu/softhsm/libsofthsm2.so",
@@ -233,7 +233,7 @@ The final `crypto` object might look like this:
     },
     "caPath": "file://certs/root.ca.pem"
   }
-	```
+```
 
 ## Test the Configuration<a name="softhsm-test"></a>
 + Start the AWS Greengrass daemon\.
