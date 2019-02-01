@@ -82,10 +82,10 @@ In this step, you initialize the SoftHSM token, convert the private key format, 
 1. Initialize the SoftHSM token\.
 
    ```
-   softhsm2-util --init-token --slot 0 --label greengrass
+   softhsm2-util --init-token --slot 0 --label greengrass --so-pin 12345 --pin 1234
    ```
 
-1. When prompted, enter an SO pin of `12345` and a user pin of `1234`\.
+1. If prompted, enter an SO pin of `12345` and a user pin of `1234`\.
 **Note**  
 AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any value\.
 
