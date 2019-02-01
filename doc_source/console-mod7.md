@@ -210,6 +210,31 @@ The examples in this procedure are written with the assumption that the `config.
 **Note**  
 For this tutorial, you specify the same private key for all principals\. For more information about choosing the private key for the local MQTT server, see [Performance](hardware-security.md#hsm-performance)\. For more information about the local secrets manager, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
 
+The final `crypto` object might look like this:
+
+	```
+  "crypto": {
+    "PKCS11": {
+      "P11Provider": "/usr/lib/x86_64-linux-gnu/softhsm/libsofthsm2.so",
+      "slotLabel": "greengrass",
+      "slotUserPin": "1234"
+    },
+    "principals": {
+      "MQTTServerCertificate": {
+        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+      },
+      "SecretsManager": {
+        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+      },
+      "IoTCertificate": {
+        "certificatePath": "file://certs/core.crt",
+        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+      }
+    },
+    "caPath": "file://certs/root.ca.pem"
+  }
+	```
+
 ## Test the Configuration<a name="softhsm-test"></a>
 + Start the AWS Greengrass daemon\.
 
