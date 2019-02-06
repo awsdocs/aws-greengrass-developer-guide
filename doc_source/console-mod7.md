@@ -38,22 +38,34 @@ In this step, you configure SoftHSM\.
    sudo su
    ```
 
-1. Create the softhsm2 configuration file in the root user's home directory\.
+1. Determine where the system-wide softhsm2.conf location is by checking the man page\. A common location is `/etc/softhsm/softhsm2.conf` but some systems may differ\.
 
    ```
-   mkdir -p ~/.config/softhsm2
+   man softhsm2.conf
+   ```
+
+1. Create the directory for the softhsm2 configuration file in the system-wide default location\. In this example we assume it is `/etc/softhsm/softhsm2.conf`\.
+
+   ```
+   mkdir -p /etc/softhsm
+   ```
+
+1. Create the token directory in the /greengrass directory\. softhsm2-util will report `ERROR: Could not initialize the library.` if this step is skipped\.
+
+   ```
+   mkdir -p /greengrass/softhsm2/tokens
    ```
 
 1. Configure the token directory\.
 
    ```
-   echo "directories.tokendir = $HOME/.softhsm2/tokens" > ~/.config/softhsm2/softhsm2.conf
+   echo "directories.tokendir = /greengrass/softhsm2/tokens" > /etc/softhsm/softhsm2.conf
    ```
 
 1. Configure a file\-based backend\.
 
    ```
-   echo "objectstore.backend = file" >> ~/.config/softhsm2/softhsm2.conf
+   echo "objectstore.backend = file" >> /etc/softhsm/softhsm2.conf
    ```
 
 **Note**  
@@ -70,10 +82,10 @@ In this step, you initialize the SoftHSM token, convert the private key format, 
 1. Initialize the SoftHSM token\.
 
    ```
-   softhsm2-util --init-token --slot 0 --label greengrass
+   softhsm2-util --init-token --slot 0 --label greengrass --so-pin 12345 --pin 1234
    ```
 
-1. When prompted, enter an SO pin of `12345` and a user pin of `1234`\.
+1. If prompted, enter an SO pin of `12345` and a user pin of `1234`\.
 **Note**  
 AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any value\.
 
@@ -83,10 +95,18 @@ AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any val
    openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in hash.private.key -out hash.private.pem
    ```
 
-1. Import the private key into SoftHSM\.
+1. Import the private key into SoftHSM\. **NOTE: Only one of the commands below is required depending on your version of softhsm2-util.**
+
+   softhsm2-util v2.2.0 syntax (Raspbian)
 
    ```
-   softhsm2-util --import hash.private.pem --slot 0 --label iotkey -id 0000
+   softhsm2-util --import hash.private.pem --token greengrass --label iotkey --id 0000 --pin 1234
+   ```
+
+   softhsm2-util v2.0.0 syntax (Ubuntu)
+
+   ```
+   softhsm2-util --import hash.private.pem --slot 0 --label iotkey --id 0000 --pin 1234
    ```
 
    This command identifies the slot as `0` and defines the key label as `iotkey`\. You use these values in the next section\.
@@ -102,7 +122,7 @@ In this step, you modify the Greengrass core configuration file to use SoftHSM\.
    1. Get the list of installed packages for the library\.
 
       ```
-      sudo dpkg -L libsofthsm2-dev
+      sudo dpkg -L libsofthsm2
       ```
 
       The `libsofthsm2.so` file is located in the `softhsm` directory\.
@@ -186,7 +206,7 @@ The examples in this procedure are written with the assumption that the `config.
 
    1. Configure the `PKCS11` object\.
       + For `P11Provider`, enter the full path to `libsofthsm2.so`\.
-      + For `slotLabel`, enter `0`\.
+      + For `slotLabel`, enter `greengrass`\.
       + For `slotUserPin`, enter `1234`\.
 
    1. Configure the private key paths in the `principals` object\. Do not edit the `certificatePath` property\.
@@ -195,6 +215,43 @@ The examples in this procedure are written with the assumption that the `config.
         ```
         pkcs11:object=iotkey;type=private
         ```
+
+   1. Check the `crypto` object. It should look similar to this:
+
+	```
+	  "crypto": {
+	    "PKCS11": {
+	      "P11Provider": "/usr/lib/x86_64-linux-gnu/softhsm/libsofthsm2.so",
+	      "slotLabel": "greengrass",
+	      "slotUserPin": "1234"
+	    },
+	    "principals": {
+	      "MQTTServerCertificate": {
+	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+	      },
+	      "SecretsManager": {
+	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+	      },
+	      "IoTCertificate": {
+	        "certificatePath": "file://certs/core.crt",
+	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
+	      }
+	    },
+	    "caPath": "file://certs/root.ca.pem"
+	  }
+	```
+
+1. Remove the `caPath`, `certPath`, and `keyPath` values from the `coreThing` object\. It should look similar to this:
+
+	```
+	"coreThing" : {
+	    "thingArn" : "arn:aws:iot:region:account-id:thing/core-thing-name",
+	    "iotHost" : "host-prefix.iot.region.amazonaws.com",
+	    "ggHost" : "greengrass.iot.region.amazonaws.com",
+	    "keepAlive" : 600
+	  }
+	```
+
 **Note**  
 For this tutorial, you specify the same private key for all principals\. For more information about choosing the private key for the local MQTT server, see [Performance](hardware-security.md#hsm-performance)\. For more information about the local secrets manager, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
 
