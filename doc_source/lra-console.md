@@ -1,8 +1,8 @@
 # How to Configure Local Resource Access Using the AWS Management Console<a name="lra-console"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.3\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
-You can configure Lambda functions to securely access local resources on the host Greengrass core device\. *Local resources* refer to buses and peripherals that are physically on the host, or file system volumes on the host OS\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
+You can configure Lambda functions to securely access local resources on the host Greengrass core device\. *Local resources* refer to buses and peripherals that are physically present on the host, or file system volumes on the host OS\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
 
 This tutorial describes how to use the AWS Management Console to configure access to local resources that are present on an AWS IoT Greengrass core device\. It contains the following high\-level steps:
 
@@ -23,7 +23,7 @@ For a tutorial that uses the AWS Command Line Interface \(CLI\), see [How to Con
 ## Prerequisites<a name="lra-console-prerequisites"></a>
 
 To complete this tutorial, you need:
-+ A Greengrass group and a Greengrass core \(v1\.3\.0 or later\)\. To learn how to create a Greengrass group or core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
++ A Greengrass group and a Greengrass core \(v1\.3 or later\)\. To learn how to create a Greengrass group or core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
 + The following directories created on the Greengrass core device:
   + /src/LRAtest
   + /dest/LRAtest
@@ -41,7 +41,6 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
 1. On your computer, copy the following Python script to a local file named `lraTest.py`\. This is the app logic for the Lambda function\.
 
    ```
-   # lraTest.py
    # Demonstrates a simple use case of local resource access.
    # This Lambda function writes a file "test" to a volume mounted inside
    # the Lambda environment under "/dest/LRAtest". Then it reads the file and 
@@ -58,7 +57,7 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
    volumePath = '/dest/LRAtest'
    
    def function_handler(event, context):
-       client.publish(topic='LRA/test', payload='Sent from AWS Greengrass Core.')
+       client.publish(topic='LRA/test', payload='Sent from AWS IoT Greengrass Core.')
        try:
            volumeInfo = os.stat(volumePath)
            client.publish(topic='LRA/test', payload=str(volumeInfo))
@@ -74,10 +73,10 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
 
 1. Download the AWS IoT Greengrass Core SDK Python 2\.7 version 1\.3\.0, as follows:
 
-   1. In the [AWS IoT console](https://console.aws.amazon.com//iotv2/home), in the left pane, choose **Software**\.
+   1. In the [AWS IoT Core console](https://console.aws.amazon.com//iotv2/home), in the left pane, choose **Software**\.
 **Note**  
 You can download the SDK from the **Software** page in the console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.  
-![\[The left pane of the AWS IoT console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
+![\[The left pane of the AWS IoT Core console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
 
    1. Under **SDKs**, for **AWS IoT Greengrass Core SDK**, choose **Configure download**\.  
 ![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
@@ -98,7 +97,6 @@ For ways that you can do this on different platforms, see [this step](create-lam
 1. Zip the following items into a file named `lraTestLambda.zip`:
    + **lraTest\.py**\. App logic\.
    + **greengrasssdk**\. Required library for all Python Lambda functions\.
-   + **Greengrass AWS SW License \(IoT additiona\) vr6\.txt**\. Required Greengrass Core Software License Agreement\.
 
    The `lraTestLambda.zip` file is your Lambda function deployment package\. Now you're ready to create a Lambda function and upload the deployment package\.
 
@@ -120,9 +118,9 @@ First, create the Lambda function\.
 1. At the bottom of the page, choose **Create function**\.  
 ![\[The Create function page with Create function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/create-function.png)
 
- 
+    
 
-Now, upload your Lambda function deployment package and register the handler\.
+   Now, upload your Lambda function deployment package and register the handler\.
 
 1. On the **Configuration** tab for the TestLRA function, in **Function code**, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
@@ -134,15 +132,16 @@ Now, upload your Lambda function deployment package and register the handler\.
 
 1. At the top of the page, choose **Save**\.  
 ![\[The TestLRA function page with Save highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/save-function.png)
+**Note**  
+The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.
 **Tip**  
 You can see your code in the **Function code** section by choosing **Edit code inline** from the **Code entry type** menu\.
 
- 
+    
 
-Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
+   Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 
-**Note**  
-Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
+   Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
 1. From the **Actions** menu, choose **Publish new version**\.  
 ![\[The Publish new version option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/publish-function-option.png)
@@ -168,8 +167,8 @@ In this step, you add the TestLRA function to your group and configure the funct
 
 First, add the Lambda function to your Greengrass group\.
 
-1. In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.  
-![\[The left pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
+1. In the AWS IoT Core console, choose **Greengrass**, and then choose **Groups**\.  
+![\[The left pane in the AWS IoT Core console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
 
 1. Choose the Greengrass group where you want to add the Lambda function\.
 
@@ -183,9 +182,9 @@ First, add the Lambda function to your Greengrass group\.
 
 1. On the **Select a Lambda version** page, choose **Alias:test**, and then choose **Finish**\.
 
- 
+    
 
-Next, configure the lifecycle of the Lambda function\.
+   Next, configure the lifecycle of the Lambda function\.
 
 1. On the **Lambdas** page, choose the TestLRA Lambda function\.   
 ![\[The Lambdas page with the TestLRA Lambda function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/new-lambda.png)
@@ -198,7 +197,7 @@ Next, configure the lifecycle of the Lambda function\.
    For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.  
 ![\[The TestLRA page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/config-lambda.png)
 **Important**  
-Because this procedure uses local resources, you must run the Lambda function in a AWS IoT Greengrass container\. Deployment will fail if you try to deploy a Lambda function that uses local resources as described here\.
+Lambda functions that use local resources \(as described in this procedure\) must run in a Greengrass container\. Otherwise, deployment fails if you try to deploy the function\. For more information, see [Containerization](lambda-group-config.md#lambda-function-containerization)\.
 
 1. At the bottom of the page, choose **Update**\.
 
@@ -214,9 +213,9 @@ In this step, you add a local volume resource to a Greengrass group and grant th
 1. On the **Create a local resource** page, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)
 
-   The **Source path** is the local absolute path of the resource on the file system of the core device\. This path can't start with /sys\.
+   The **Source path** is the local absolute path of the resource on the file system of the core device\. This location is outside of the [container](lambda-group-config.md#lambda-function-containerization) that the function runs in\. The path can't start with `/sys`\.
 
-   The **Destination path** is the absolute path of the resource in the Lambda namespace\.
+   The **Destination path** is the absolute path of the resource in the Lambda namespace\. This location is inside the container that the function runs in\.
 
    The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.  
 ![\[The Create a local resource page with Save highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/create-local-resource.png)
@@ -251,9 +250,9 @@ First, create a subscription for the Lambda function to send messages to AWS IoT
 
 1. Choose **Finish**\. The **Subscriptions** page displays the new subscription\.
 
- 
+    
 
-Next, configure a subscription that invokes the function from AWS IoT\.
+   Next, configure a subscription that invokes the function from AWS IoT\.
 
 1. On the **Subscriptions** page, choose **Add Subscription**\.
 
@@ -283,7 +282,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.7.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.7.1/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -314,8 +313,8 @@ If prompted, grant permission to create the AWS IoT Greengrass service role on y
 
 Now you can verify whether the local resource access is configured correctly\. To test, you subscribe to the **LRA/test** topic and publish to the **invoke/LRAFunction** topic\. The test is successful if the Lambda function sends the expected payload to AWS IoT\.
 
-1. On the AWS IoT console home page, in the left pane, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. On the AWS IoT Core console home page, in the left pane, choose **Test**\.  
+![\[The left pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. In the **Subscriptions** section, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html)

@@ -13,7 +13,7 @@ You can use this connector to support scenarios such as:
 ## Requirements<a name="servicenow-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.0\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
++ AWS IoT Greengrass Core Software v1\.7\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
@@ -199,6 +199,47 @@ This connector publishes status information as output data\.
 }
 ```
 If the connector detects a retryable error \(for example, throttled or connection errors\), it retries the publish in the next batch\.
+
+## Usage Example<a name="servicenow-connector-usage"></a>
+
+The following example Lambda function sends an input message to the connector\.
+
+**Note**  
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
+
+```
+pip install greengrasssdk
+```
+
+```
+import greengrasssdk
+import json
+
+iot_client = greengrasssdk.client('iot-data')
+SEND_TOPIC = 'servicenow/metricbase/metric'
+
+def create_request_with_all_fields():
+    return {
+        "request": {
+             "subject": '2efdf6badbd523803acfae441b961961',
+             "metric_name": 'u_count',
+             "value": 1234,
+             "timestamp": '2018-10-20T20:22:20',
+             "table": 'u_greengrass_metricbase_test'
+        }
+    }
+
+def publish_basic_message():
+    messageToPublish = create_request_with_all_fields()
+    print "Message To Publish: ", messageToPublish
+    iot_client.publish(topic=SEND_TOPIC,
+        payload=json.dumps(messageToPublish))
+
+publish_basic_message()
+
+def function_handler(event, context):
+    return
+```
 
 ## Licenses<a name="servicenow-connector-license"></a>
 

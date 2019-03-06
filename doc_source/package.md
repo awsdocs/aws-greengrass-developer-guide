@@ -25,12 +25,14 @@ For UNIX\-like systems, you can run the following Terminal command to download t
    1. On the **Configuration** tab, under **Function code**, set the following fields:
       + For **Code entry type**, choose **Upload a \.zip file**\.
       + For **Runtime**, choose **Python 2\.7**\.
-      + For **Handler**, enter **greengrassHelloWorldCounter\.function\_handler**\.
+      + For **Handler**, enter **greengrassHelloWorldCounter\.function\_handler**
 
    1. Choose **Upload**, and then choose `hello_world_counter_python_lambda.zip`\.  
 ![\[Function code screenshot with Code entry type set to Upload a .zip file, Runtime set to Python 2.7, Handler set to greengrassHelloWorldCounter.function_handler, and Function package set to hello_world_counter_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-047.png)
 
    1. At the top of the page, choose **Save**\.
+**Note**  
+The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.
 
 1. Publish the first version of the function:
 

@@ -9,7 +9,7 @@ This connector is a data producer for a Kinesis delivery stream\. It receives in
 ## Requirements<a name="kinesis-firehose-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.0\.
++ AWS IoT Greengrass Core Software v1\.7\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose Delivery Stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
 + An IAM policy added to the Greengrass group role that allows the `firehose:PutRecord` action on the target delivery stream, as shown in the following example:
@@ -141,6 +141,45 @@ This connector publishes status information as output data\.
    },
    "id": "request123"
 }
+```
+
+## Usage Example<a name="kinesis-firehose-connector-usage"></a>
+
+The following example Lambda function sends an input message to the connector\. This message contains JSON data\.
+
+**Note**  
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
+
+```
+pip install greengrasssdk
+```
+
+```
+import greengrasssdk
+import time
+import json
+
+iot_client = greengrasssdk.client('iot-data')
+send_topic = 'kinesisfirehose/message'
+
+def create_request_with_all_fields():
+    return  {
+        "request": {
+            "data": "Message from Firehose Connector Test"
+        },
+        "id" : "req_123"
+    }
+
+def publish_basic_message():
+    messageToPublish = create_request_with_all_fields()
+    print "Message To Publish: ", messageToPublish
+    iot_client.publish(topic=send_topic,
+        payload=json.dumps(messageToPublish))
+
+publish_basic_message()
+
+def function_handler(event, context):
+    return
 ```
 
 ## Licenses<a name="kinesis-firehose-connector-license"></a>

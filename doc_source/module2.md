@@ -1,6 +1,6 @@
 # Module 2: Installing the Greengrass Core Software<a name="module2"></a>
 
-This module shows you how to install the AWS IoT Greengrass core software on your device\. You can download the core software from the **Software** page in the AWS IoT console or from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads\. This procedure uses the console\.
+This module shows you how to install the AWS IoT Greengrass core software on your device\. You can download the core software from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads\. This procedure uses the console\. It includes steps to create a group that uses the core\.
 
 The AWS IoT Greengrass core software provides the following functionality:
 + Deployment and local execution of connectors and Lambda functions\.
@@ -11,8 +11,8 @@ The AWS IoT Greengrass core software provides the following functionality:
 + Local shadow synchronization of devices\. Shadows can be configured to sync with the cloud\.
 + Controlled access to local device and volume resources\.
 + Deployment of cloud\-trained machine learning models for running local inference\.
-+ Automatic IP detection that enables devices to discover the Greengrass core device\.
-+ Central deployment of new or updated group configuration\. After the configuration data is downloaded, the core device is automatically restarted\.
++ Automatic IP address detection that enables devices to discover the Greengrass core device\.
++ Central deployment of new or updated group configuration\. After the configuration data is downloaded, the core device is restarted automatically\.
 + Secure, over\-the\-air software updates of user\-defined Lambda functions\.
 
 Before you begin, make sure that you have completed [Module 1](module1.md)\.

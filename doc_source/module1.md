@@ -13,7 +13,7 @@ If you are setting up a Raspberry Pi for the first time, you must follow all of 
 
 1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where you have inserted your SD card\. You can perform a quick format of the SD card\.
 
-1. Download the [Raspbian Stretch](https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-06-29/) operating system as a `.zip` file\.  
+1. Download the [Raspbian Stretch](https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-06-29/) operating system as a `.zip` file\.
 
 1. Using an SD card\-writing tool \(such as [Etcher](https://etcher.io/)\), follow the tool's instructions to flash the downloaded `zip` file onto the SD card\. Because the operating system image is large, this step might take some time\. Eject your SD card from your computer, and insert the microSD card into your Raspberry Pi\.
 
@@ -34,7 +34,7 @@ Connect your Raspberry Pi to the *same* network that your computer is connected 
    You should see the following:  
 ![\[Raspberry Pi Software Configuration Tool (raspi-config) screenshot.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-001.png)
 
-   Scroll down and choose **Interfacing Options** and then choose **P2 SSH**\. When prompted, choose **Yes**\. \(Use the Tab key followed by Enter\)\. SSH should now be enabled\. Choose **OK**\. Use Tab key to choose **Finish** and then press Enter\. Lastly, reboot your Pi by running the following command:
+   Scroll down and choose **Interfacing Options** and then choose **P2 SSH**\. When prompted, choose **Yes**\. \(Use the Tab key followed by Enter\)\. SSH should now be enabled\. Choose **OK**\. Use the Tab key to choose **Finish** and then press Enter\. If the Raspberry Pi doesn't reboot automatically, run the following command:
 
    ```
    sudo reboot
@@ -78,7 +78,7 @@ If your computer is connected to a remote network using VPN, you might have diff
    sudo addgroup --system ggc_group
    ```
 
-1. Run the following commands to update the Linux kernel version of your Raspberry Pi\. 
+1. **If you are running Raspbian Jessie**, run the following commands to update the Linux kernel version of your Raspberry Pi\. 
 
    ```
    sudo apt-get install rpi-update
@@ -100,35 +100,37 @@ If your computer is connected to a remote network using VPN, you might have diff
    You should receive output similar to the following\. In this example, the Linux Raspberry Pi version information is `4.9.30`:  
 ![\[Raspberry Pi "uname -a" command output showing kernel version.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.5.png)
 
-1. To improve security on the Pi device, run the following commands to enable hardlink and softlink protection at operating system startup\. 
+1. To improve security on the Pi device, enable hardlink and softlink protection on the operating system at start up\.
 
-   ```
-   cd /etc/sysctl.d
-   ls
-   ```
+   1. Navigate to the `98-rpi.conf` file\.
 
-   If you see the `98-rpi.conf` file, use a text editor \(such as Leafpad, GNU nano, or vi\) to add the following two lines to the end of the file\. You can run the text editor using the `sudo` command \(for example, `sudo nano 98-rpi.conf`\) to avoid write permission issues\.
+      ```
+      cd /etc/sysctl.d
+      ls
+      ```
+**Note**  
+If you don't see the `98-rpi.conf` file, follow the instructions in the `README.sysctl` file\.
 
-   ```
-   fs.protected_hardlinks = 1
-   fs.protected_symlinks = 1
-   ```
+   1. Use a text editor \(such as Leafpad, GNU nano, or vi\) to add the following two lines to the end of the file\. You might need to use the `sudo` command to edit as root \(for example, `sudo nano 98-rpi.conf`\)\.
 
-   If you do not see the `98-rpi.conf` file, follow the instructions in the `README.sysctl` file\. 
+      ```
+      fs.protected_hardlinks = 1
+      fs.protected_symlinks = 1
+      ```
 
-   Now reboot the Pi:
+   1. Reboot the Pi\.
 
-   ```
-   sudo reboot
-   ```
+      ```
+      sudo reboot
+      ```
 
-   After about a minute, connect to the Pi using SSH and then run the following commands from a Raspberry Pi terminal to confirm the hardlink/symlink change:
+      After about a minute, connect to the Pi using SSH and then run the following command to confirm the change:
 
-   ```
-   sudo sysctl -a 2> /dev/null | grep fs.protected
-   ```
+      ```
+      sudo sysctl -a 2> /dev/null | grep fs.protected
+      ```
 
-   You should see `fs.protected_hardlinks = 1` and `fs.protected_symlinks = 1`\.
+      You should see `fs.protected_hardlinks = 1` and `fs.protected_symlinks = 1`\.
 
 1. <a name="stretch-step"></a> Edit your command line boot file to enable and mount memory cgroups\. This allows AWS IoT Greengrass to set the memory limit for Lambda functions\. Without this, the Greengrass daemon is unable to run\. 
 
@@ -144,19 +146,21 @@ If your computer is connected to a remote network using VPN, you might have diff
       cgroup_enable=memory cgroup_memory=1
       ```
 
-   1. Now reboot the Pi:
+   1. Now reboot the Pi\.
 
       ```
       sudo reboot
       ```
 
-1. Your Raspberry Pi should now be ready for AWS IoT Greengrass\. To ensure that you have all of the dependencies required for AWS IoT Greengrass, download the AWS IoT Greengrass dependency checker from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples) and run it on the Pi as follows:
+   Your Raspberry Pi should now be ready for AWS IoT Greengrass\.
+
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the `Downloads` directory\.
 
    ```
    cd /home/pi/Downloads
-   git clone https://github.com/aws-samples/aws-greengrass-samples.git
-   cd aws-greengrass-samples
-   cd greengrass-dependency-checker-GGCv1.7.0
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.7.1.zip
+   unzip greengrass-dependency-checker-GGCv1.7.1.zip
+   cd greengrass-dependency-checker-GGCv1.7.1
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```
@@ -165,7 +169,7 @@ If your computer is connected to a remote network using VPN, you might have diff
 **Important**  
 This tutorial uses the AWS IoT Device SDK for Python\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node v6\.10 and Java 8 prerequisites\. You can ignore these warnings\.
 
-   For information about the modprobe command, you can run man modprobe in the terminal\. 
+   For information about the modprobe command, run man modprobe in the terminal\. 
 
 Your Raspberry Pi configuration is complete\. Continue to [Module 2: Installing the Greengrass Core Software](module2.md)\.
 
@@ -173,52 +177,72 @@ Your Raspberry Pi configuration is complete\. Continue to [Module 2: Installing 
 
 1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) and launch an Amazon EC2 instance using an Amazon Linux AMI\. For information about Amazon EC2 instances, see the [Amazon EC2 Getting Started Guide](https://docs.aws.amazon.com/AWSEC2/latest/GettingStartedGuide/)\.
 
-1. After your Amazon EC2 instance is running, enable port 8883 to allow incoming MQTT communications so that other devices can connect with the AWS IoT Greengrass core\. In the navigation pane of the Amazon EC2 console, choose **Security Groups**\.  
+1. After your Amazon EC2 instance is running, enable port 8883 to allow incoming MQTT communications so that other devices can connect with the AWS IoT Greengrass core\.
+
+   1. In the navigation pane of the Amazon EC2 console, choose **Security Groups**\.  
 ![\[Navigation pane with Security Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.1.png)
 
-   Select the instance that you just launched, and then choose the **Inbound** tab\.  
+   1. Select the security group for the instance that you just launched, and then choose the **Inbound** tab\.  
 ![\[Inbound tab highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.2.png)
 
-   By default, only one port for SSH is enabled\. To enable port 8883, choose **Edit**\. Choose **Add Rule** and create a custom TCP rule as shown here, and then choose **Save**\.  
+   1. Choose **Edit**\.
+
+      To enable port 8883, you add a custom TCP rule to the security group\. For more information, see [ Adding Rules to a Security Group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule) in the *Amazon EC2 User Guide for Linux Instances*\.
+
+   1. On the **Edit inbound rules** page, choose **Add Rule**, enter the following settings, and then choose **Save**\.
+      + For **Type**, choose **Custom TCP Rule**\.
+      + For **Port Range**, enter **8883**\.
+      + For **Source**, choose **Anywhere**\.
+      + For **Description**, enter **MQTT Communications**\.
+
+         
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.3.png)
 
-1. In the navigation pane, choose **Instances**, choose your instance, and then choose **Connect**\. Connect to your Amazon EC2 instance by using SSH\. You can use [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) for Windows or Terminal for macOS\.  
+1. Connect to your Amazon EC2 instance\.
+
+   1. In the navigation pane, choose **Instances**, choose your instance, and then choose **Connect**\.
+
+   1. Follow the instructions on the **Connect To Your Instance** page to connect to your instance [ by using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) and your private key file\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.4.png)
 
-1. After you are connected to your Amazon EC2 instance, run the following commands to create user `ggc_user` and group `ggc_group`:
+   You can use [PuTTY](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) for Windows or Terminal for macOS\. For more information, see [ Connect to Your Linux Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the *Amazon EC2 User Guide for Linux Instances*\.
+
+1. After you are connected to your Amazon EC2 instance, create user `ggc_user` and group `ggc_group`:
 
    ```
    sudo adduser --system ggc_user
    sudo groupadd --system ggc_group
    ```
 
-1. To improve security on the device, enable hardlink/softlink protection on the operating system at start\-up\. To do so, run the following commands:
+1. To improve security on the device, enable hardlink and softlink protection on the operating system at start up\.
 
-   ```
-   cd /etc/sysctl.d
-   ls
-   ```
+   1. Navigate to the `00-defaults.conf` file\.
 
-   Using your favorite text editor \(Leafpad, GNU nano, or vi\), add the following two lines to the end of the `00-defaults.conf` file, You might need to change permissions \(using the `chmod` command\) to write to the file, or use the `sudo` command to edit as root \(for example, `sudo nano 00-defaults.conf`\)\.
+      ```
+      cd /etc/sysctl.d
+      ls
+      ```
 
-   ```
-   fs.protected_hardlinks = 1
-   fs.protected_symlinks = 1
-   ```
+   1. Using your favorite text editor \(Leafpad, GNU nano, or vi\), add the following two lines to the end of the `00-defaults.conf` file\. You might need to change permissions \(using the `chmod` command\) to write to the file, or use the `sudo` command to edit as root \(for example, `sudo nano 00-defaults.conf`\)\.
 
-   Run the following command to reboot the Amazon EC2 instance\.
+      ```
+      fs.protected_hardlinks = 1
+      fs.protected_symlinks = 1
+      ```
 
-   ```
-   sudo reboot
-   ```
+   1. Reboot the Amazon EC2 instance\.
 
-   After a few minutes, connect to your instance using SSH and then run the following command to confirm the change\.
+      ```
+      sudo reboot
+      ```
 
-   ```
-   sudo sysctl -a | grep fs.protected
-   ```
+      After a few minutes, connect to your instance using SSH and then run the following command to confirm the change\.
 
-   You should see that hardlinks and softlinks are set to 1\.
+      ```
+      sudo sysctl -a | grep fs.protected
+      ```
+
+      You should see that hardlinks and softlinks are set to 1\.
 
 1. Extract and run the following script to mount [Linux control groups](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01) \(**cgroups**\)\. This is an AWS IoT Greengrass dependency\.
 
@@ -228,14 +252,15 @@ Your Raspberry Pi configuration is complete\. Continue to [Module 2: Installing 
    sudo bash ./cgroupfs-mount.sh
    ```
 
-   Your Amazon EC2 instance should now be ready for AWS IoT Greengrass\. To be sure that you have all of the dependencies, extract and run the following AWS IoT Greengrass dependency script from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples):
+   Your Amazon EC2 instance should now be ready for AWS IoT Greengrass\.
+
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   sudo yum install git
-   git clone https://github.com/aws-samples/aws-greengrass-samples.git
-   cd aws-greengrass-samples
-   cd greengrass-dependency-checker-GGCv1.7.0
-   sudo ./check_ggc_dependencies
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.7.1.zip
+   unzip greengrass-dependency-checker-GGCv1.7.1.zip
+   cd greengrass-dependency-checker-GGCv1.7.1
+   sudo ./check_ggc_dependencies | more
    ```
 **Important**  
 This tutorial uses the AWS IoT Device SDK for Python\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node v6\.10 and Java 8 prerequisites\. You can ignore these warnings\.
@@ -264,19 +289,26 @@ When you use SSH to connect to the Jetson board, use the default user name \(**n
    sudo adduser --system ggc_user
    sudo addgroup --system ggc_group
    ```
-
-1. Run the following commands to check whether the device is ready to run AWS IoT Greengrass\. This step clones the [AWS IoT Greengrass Samples repository](https://github.com/aws-samples/aws-greengrass-samples) from GitHub and runs the Greengrass dependency checker\.
+**Note**  
+If the `addgroup` command isn't available on your system, use the following command\.  
 
    ```
-   git clone https://github.com/aws-samples/aws-greengrass-samples.git
-   cd aws-greengrass-samples
-   cd greengrass-dependency-checker-GGCv1.7.0 
-   sudo ./check_ggc_dependencies
+   sudo groupadd --system ggc_group
+   ```
+
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
+
+   ```
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.7.1.zip
+   unzip greengrass-dependency-checker-GGCv1.7.1.zip
+   cd greengrass-dependency-checker-GGCv1.7.1
+   sudo ./check_ggc_dependencies | more
    ```
 **Note**  
-The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platforms and requires the following Linux system commands: `printf`, `uname`, `cat`, `ls`, `head`, `find`, `zcat`, `awk`, `sed`, `sysctl`, `wc`, `cut`, `sort`, `expr`, `grep`, `test`, `dirname`, `readlink`, `xargs`, `strings`, `uniq`\.
+The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platforms and requires the following Linux system commands: `printf`, `uname`, `cat`, `ls`, `head`, `find`, `zcat`, `awk`, `sed`, `sysctl`, `wc`, `cut`, `sort`, `expr`, `grep`, `test`, `dirname`, `readlink`, `xargs`, `strings`, `uniq`\.  
+For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.7.1/README.md#greengrass-core-v17-dependencies-checker)\.
 
-1. Install all required dependencies on your device, as indicated by the dependency script\. For missing kernel\-level dependencies, you might have to recompile your kernel\. For mounting Linux control groups \(`cgroups`\), you can run the [cgroupfs\-mount](https://raw.githubusercontent.com/tianon/cgroupfs-mount/master/cgroupfs-mount) script\.
+1. Install all required dependencies on your device, as indicated by the dependency checker output\. For missing kernel\-level dependencies, you might have to recompile your kernel\. For mounting Linux control groups \(`cgroups`\), you can run the [cgroupfs\-mount](https://raw.githubusercontent.com/tianon/cgroupfs-mount/master/cgroupfs-mount) script\.
 
    If no errors appear in the output, AWS IoT Greengrass should be able to run successfully on your device\.
 **Important**  

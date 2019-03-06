@@ -1,6 +1,6 @@
 # Getting Started with Greengrass Connectors \(Console\)<a name="connectors-console"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7\.0 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 only\.
 
 This tutorial shows how to use the AWS Management Console to work with connectors\.
 
@@ -43,7 +43,7 @@ The tutorial should take about 20 minutes to complete\.
 To complete this tutorial, you need:
 
 ### <a name="w4aac27c37c16b6"></a>
-+ A Greengrass group and a Greengrass core \(v1\.7\.0\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
++ A Greengrass group and a Greengrass core \(v1\.7\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -66,7 +66,7 @@ For more information about this process, see [ Step 1: Create and Store Your Sec
 1. Under **Specify the key/value pairs to be stored for this secret**, on the **Plaintext** tab, enter your Twilio auth token\. Remove all of the JSON formatting and enter only the token value\.  
 ![\[Specifying the secret's value in the Secrets Manager console.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/connectors/secret-twilio-auth-token.png)
 
-1. <a name="create-secret-step-encryption"></a>Keep **DefaultEncryptionKey** selected for the encryption key and choose **Next**\.
+1. <a name="create-secret-step-encryption"></a>Keep **DefaultEncryptionKey** selected for the encryption key, and then choose **Next**\.
 **Note**  
 You aren't charged by AWS KMS if you use the default AWS managed key that Secrets Manager creates in your account\.
 
@@ -74,9 +74,9 @@ You aren't charged by AWS KMS if you use the default AWS managed key that Secret
 **Note**  
 By default, the Greengrass service role allows AWS IoT Greengrass to get the value of secrets with names that start with *greengrass\-*\. For more information, see [secrets requirements](secrets.md#secrets-reqs)\.
 
-1. <a name="create-secret-step-rotation"></a>This tutorial doesn't require rotation, so choose **Disable automatic rotation** and choose **Next**\.
+1. <a name="create-secret-step-rotation"></a>This tutorial doesn't require rotation, so choose **Disable automatic rotation**, and then choose **Next**\.
 
-1. <a name="create-secret-step-review"></a>On the **Review** page, review your settings and choose **Store**\.
+1. <a name="create-secret-step-review"></a>On the **Review** page, review your settings, and then choose **Store**\.
 
    Next, you create a secret resource in your Greengrass group that references the secret\.
 
@@ -84,7 +84,7 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
 In this step, you add a *secret resource* to the Greengrass group\. This resource is a reference to the secret that you created in the previous step\.
 
-1. <a name="create-secret-resource-step-openconsole"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="create-secret-resource-step-openconsole"></a>In the AWS IoT Core console, choose **Greengrass**, and then choose **Groups**\.
 
 1. <a name="create-secret-resource-step-choosegroup"></a>Choose the group that you want to add the secret resource to\.
 
@@ -127,10 +127,10 @@ When you choose the resource, the **ARN of Twilio auth token secret** property i
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
-1. <a name="download-ggc-sdk"></a>Download the AWS IoT Greengrass Core SDK Python 2\.7 version 1\.3\.0\. You can download the SDK from the **Software** page in the AWS IoT console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
+1. <a name="download-ggc-sdk"></a>Download the AWS IoT Greengrass Core SDK Python 2\.7 version 1\.3\.0\. You can download the SDK from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
 
-   1. In the [AWS IoT console](https://console.aws.amazon.com//iotv2/home), choose **Software**\.  
-![\[The left pane of the AWS IoT console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
+   1. In the [AWS IoT Core console](https://console.aws.amazon.com//iotv2/home), choose **Software**\.  
+![\[The left pane of the AWS IoT Core console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
 
    1. Under **SDKs**, for **AWS IoT Greengrass Core SDK**, choose **Configure download**\.  
 ![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
@@ -140,7 +140,7 @@ To create a Lambda function, you must first create a Lambda function *deployment
 
 1. <a name="untar-sdk"></a>Unpack the `greengrass-core-python-sdk-1.3.0.tar.gz` file\.
 **Note**  
-For ways that you can do this on different platforms, see [this step](create-lambda.md) in the Getting Started section\. For example, you might use the following `tar` command:  
+For information about how to do this on different platforms, see [this step](create-lambda.md) in the Getting Started section\. For example, you might use the following `tar` command:  
 
    ```
    tar -xzf greengrass-core-python-sdk-1.3.0.tar.gz
@@ -199,7 +199,7 @@ For ways that you can do this on different platforms, see [this step](create-lam
 
 1. Zip the following items into a file named `temp_monitor_python.zip`\. When creating the ZIP file, include only the code and dependencies, not the containing folder\.
    + **temp\_monitor\.py**\. App logic\.
-   + **greengrasssdk**\. Required library for all Python Greengrass Lambda functions\.
+   + **greengrasssdk**\. Required library for Python Greengrass Lambda functions that publish MQTT messages\.
 
    This is your Lambda function deployment package\.
 
@@ -209,61 +209,54 @@ Now, create a Lambda function that uses the deployment package\.
 
 In this step, you use the AWS Lambda console to create a Lambda function and configure it to use your deployment package\. Then, you publish a function version and create an alias\.
 
-First, create the Lambda function\.
+1. First, create the Lambda function\.
 
-1. <a name="lambda-console-open"></a>In the AWS Management Console, choose **Services**, and open the AWS Lambda console\.
+   1. <a name="lambda-console-open"></a>In the AWS Management Console, choose **Services**, and open the AWS Lambda console\.
 
-1. <a name="lambda-console-create-function"></a>Choose **Create function**\.
+   1. <a name="lambda-console-create-function"></a>Choose **Create function** and then choose **Author from scratch**\.
 
-1. <a name="lambda-console-choose-scratch"></a>Choose **Author from scratch**\.
+   1. In the **Author from scratch** section, use the following values:
+      + For **Name**, enter **TempMonitor**\.
+      + For **Runtime**, choose **Python 2\.7**\.
+      + For **Role**, choose **Create new role from one or more templates**\.
+      + For **Role name**, enter **Greengrass\_Lambda\_empty**\. AWS IoT Greengrass doesn't use this role, so you can create or choose any Lambda execution role\.
 
-1. In the **Author from scratch** section, use the following values:
-   + For **Name**, enter **TempMonitor**\.
-   + For **Runtime**, choose **Python 2\.7**\.
-   + For **Role**, choose **Create new role from one or more templates**\.
-   + For **Role name**, enter **Greengrass\_Lambda\_empty**\. AWS IoT Greengrass doesn't use this role, so you can create or choose any Lambda execution role\.
+   1. <a name="lambda-console-save-function"></a>At the bottom of the page, choose **Create function**\.
 
-1. <a name="lambda-console-save-function"></a>At the bottom of the page, choose **Create function**\.
+1. Next, register the handler and upload your Lambda function deployment package\.
 
- 
+   1. On the **Configuration** tab for the TempMonitor function, in **Function code**, use the following values:
+      + For **Code entry type**, choose **Upload a \.zip file**\.
+      + For **Runtime**, choose **Python 2\.7**\.
+      + For **Handler**, enter **temp\_monitor\.function\_handler**
 
-Now, upload your Lambda function deployment package and register the handler\.
+   1. <a name="lambda-console-upload"></a>Choose **Upload**\.
 
-1. On the **Configuration** tab for the TempMonitor function, in **Function code**, use the following values:
-   + For **Code entry type**, choose **Upload a \.zip file**\.
-   + For **Runtime**, choose **Python 2\.7**\.
-   + For **Handler**, enter **temp\_monitor\.function\_handler**\.
+   1. Choose your `temp_monitor_python.zip` deployment package\.
 
-1. <a name="lambda-console-upload"></a>Choose **Upload**\.
-
-1. Choose your `temp_monitor_python.zip` deployment package\.
-
-1. <a name="lambda-console-save-config"></a>At the top of the page, choose **Save**\.
+   1. <a name="lambda-console-save-config"></a>Choose **Save**\.
+**Note**  
+The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.
 **Tip**  
 You can see your code in the **Function code** section by choosing **Edit code inline** from the **Code entry type** menu\.
 
- 
-
-Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
-
+1. Now, publish the first version of your Lambda function and create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 **Note**  
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
-1. <a name="shared-publish-function-version"></a>Publish the Lambda function:
+   1. <a name="shared-publish-function-version"></a>From the **Actions** menu, choose **Publish new version**\.
 
-   1. From the **Actions** menu, choose **Publish new version**\.
+   1. <a name="shared-publish-function-version-description"></a>For **Version description**, enter **First version**, and then choose **Publish**\.
 
-   1. For **Version description**, enter **First version**, and then choose **Publish**\.
+   1. On the **TempMonitor: 1** configuration page, from the **Actions** menu, choose **Create alias**\.
 
-1. On the **TempMonitor: 1** configuration page, from the **Actions** menu, choose **Create alias**\.
-
-1. On the **Create a new alias** page, use the following values:
-   + For **Name**, enter **GG\_TempMonitor**\.
-   + For **Version**, choose **1**\.
+   1. On the **Create a new alias** page, use the following values:
+      + For **Name**, enter **GG\_TempMonitor**\.
+      + For **Version**, choose **1**\.
 **Note**  
 AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
-1. Choose **Create**\.
+   1. Choose **Create**\.
 
 Now you're ready to add the Lambda function to your Greengrass group\.
 
@@ -359,8 +352,8 @@ If prompted, grant permission to create the AWS IoT Greengrass service role on y
 
 ### <a name="w4aac27c37c34b4"></a>
 
-1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. <a name="choose-test-page"></a>On the AWS IoT Core console home page, choose **Test**\.  
+![\[The left pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values, and then choose **Subscribe to topic**\. The Twilio Notifications connector publishes status information to this topic\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-console.html)

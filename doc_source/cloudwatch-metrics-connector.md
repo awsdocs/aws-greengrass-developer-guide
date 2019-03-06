@@ -4,10 +4,12 @@ The CloudWatch Metrics [connector](connectors.md) publishes custom metrics from 
 
 This connector receives metric data as MQTT messages\. The connector batches metrics that are in the same namespace and publishes them to CloudWatch at regular intervals\.
 
+**ARN**: `arn:aws:greengrass:region::/connectors/CloudWatchMetrics/versions/1`
+
 ## Requirements<a name="cloudwatch-metrics-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.0\.
++ AWS IoT Greengrass Core Software v1\.7\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + An IAM policy added to the Greengrass group role that allows the `cloudwatch:PutMetricData` action, as shown in the following example\.
 
@@ -206,6 +208,56 @@ The response includes the namespace of the metric data and the `RequestId` field
 }
 ```
 If the connector detects a retryable error \(for example, throttled or connection errors\), it retries the publish in the next batch\.
+
+## Usage Example<a name="cloudwatch-metrics-connector-usage"></a>
+
+The following example Lambda function sends an input message to the connector\.
+
+**Note**  
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
+
+```
+pip install greengrasssdk
+```
+
+```
+import greengrasssdk
+import time
+import json
+
+iot_client = greengrasssdk.client('iot-data')
+send_topic = 'cloudwatch/metric/put'
+
+def create_request_with_all_fields():
+    return  {
+        "request": {
+            "namespace": "Greengrass_CW_Connector",
+            "metricData": {
+                "metricName": "Count1",
+                "dimensions": [
+                    {
+                        "name": "test",
+                        "value": "test"
+                    }
+                ],
+                "value": 1,
+                "unit": "Seconds",
+                "timestamp": time.time()
+            }
+        }
+    }
+
+def publish_basic_message():
+    messageToPublish = create_request_with_all_fields()
+    print "Message To Publish: ", messageToPublish
+    iot_client.publish(topic=send_topic,
+        payload=json.dumps(messageToPublish))
+
+publish_basic_message()
+
+def function_handler(event, context):
+    return
+```
 
 ## Licenses<a name="cloudwatch-metrics-connector-license"></a>
 

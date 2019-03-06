@@ -1,6 +1,6 @@
 # How to Configure Machine Learning Inference Using the AWS Management Console<a name="ml-console"></a>
 
-To follow the steps in this tutorial, you must be using AWS IoT Greengrass Core v1\.6\.0 or later\.
+To follow the steps in this tutorial, you must be using AWS IoT Greengrass Core v1\.6 or later\.
 
 You can perform machine learning \(ML\) inference locally on a Greengrass core device using data from connected devices\. For information, including requirements and constraints, see [Perform Machine Learning Inference](ml-inference.md)\.
 
@@ -80,10 +80,10 @@ In this step, you download precompiled Apache MXNet libraries and install them o
 **Note**  
 This tutorial uses libraries for the MXNet ML framework, but libraries for TensorFlow are also available\. For more information, including limitations, see [Runtimes and Precompiled Framework Libraries for ML Inference](ml-inference.md#precompiled-ml-libraries)\.
 
-1. On your computer, open the [AWS IoT console](https://console.aws.amazon.com/iotv2)\.
+1. On your computer, open the [AWS IoT Core console](https://console.aws.amazon.com/iotv2)\.
 
 1. In the navigation pane, choose **Software**\.  
-![\[The AWS IoT console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
+![\[The AWS IoT Core console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
 
 1. In the **Machine learning inference** section, for ** Runtimes and precompiled framework libraries**, choose **Configure download**\.
 
@@ -108,13 +108,14 @@ For ways that you can do this on different platforms, see [this step](gg-device-
 1. Install the MXNet framework\.
 
    ```
+   cd ggc-mxnet-v1.2.1-python-raspi/
    ./mxnet_installer.sh
    ```
 **Note**  
 You can continue to [Step 3: Create an MXNet Model Package](#package-ml-model) while the framework is being installed, but you must wait until the installation is complete before you proceed to [Step 4: Create and Publish a Lambda Function](#ml-console-create-lambda)\.  
 You can optionally run unit tests to verify the installation\. To do so, add the `-u` option to the previous command\. If successful, each test logs a line in the terminal that ends with `ok`\. If all tests are successful, the final log statement contains `OK`\. Running unit tests increases the installation time\.
 
-   The script also creates a Lambda function deployment package named `greengrassObjectClassification.zip`\. This package contains the function code and dependencies, including the `mxnet` Python module required by Greengrass Lambda functions to work with MXNet models\. You upload this deployment package later\.
+   The script also creates a Lambda function deployment package named `greengrassObjectClassification.zip` that contains the function code and dependencies\. You upload this deployment package later\.
 
 1. When the installation is complete, transfer `greengrassObjectClassification.zip` to your computer\. Depending on your environment, you can use the scp command or a utility such as [WinSCP](https://winscp.net/eng/download.php)\.
 
@@ -133,25 +134,21 @@ All MXNet model packages use these three file types, but the contents of TensorF
 
 ## Step 4: Create and Publish a Lambda Function<a name="ml-console-create-lambda"></a>
 
-In this step, you create a Lambda function and configure it to use the deployment package that was created in [Step 2: Install the MXNet Framework](#install-mxnet)\. Then, you publish a function version and create an alias\.
+In this step, you create a Lambda function and configure it to use the deployment package\. Then, you publish a function version and create an alias\.
 
-The Lambda function deployment package is named `greengrassObjectClassification.zip`\. It contains an inference app that performs common tasks, such as loading models, importing Apache MXNet, and taking actions based on predictions\. The app contains the following key components:
+The Lambda function deployment package is named `greengrassObjectClassification.zip`\. This is the `zip` file that was generated during the MXNet framework installation in [Step 2: Install the MXNet Framework](#install-mxnet)\. It contains an inference app that performs common tasks, such as loading models, importing Apache MXNet, and taking actions based on predictions\. The app contains the following key components:
 + App logic:
   + **load\_model\.py**\. Loads MXNet models\.
   + **greengrassObjectClassification\.py**\. Runs predictions on images that are streamed from the camera\.
 + Dependencies:
-  + **greengrasssdk**\. Required library for all Python Lambda functions\.
-  + **mxnet**\. Required library for Python Lambda functions that run local inference using MXNet\.
-+ License:
-  + **license**\. Contains the required Greengrass Core Software License Agreement\.
-
+  + **greengrasssdk**\. The AWS IoT Greengrass Core SDK for Python, used by the function to publish MQTT messages\.
 **Note**  
-You can reuse these dependencies and license when you create new MXNet inference Lambda functions\.
+The `mxnet` library was installed on the core device during the MXNet framework installation\.
 
 First, create the Lambda function\.
 
-1. In the AWS IoT console, in the navigation pane, choose **Greengrass**, and then choose **Groups**\.  
-![\[The navigation pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
+1. In the AWS IoT Core console, in the navigation pane, choose **Greengrass**, and then choose **Groups**\.  
+![\[The navigation pane in the AWS IoT Core console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
 
 1. Choose the Greengrass group where you want to add the Lambda function\.
 
@@ -161,15 +158,15 @@ First, create the Lambda function\.
 1. On the **Add a Lambda to your Greengrass Group** page, choose **Create new Lambda**\. This opens the AWS Lambda console\.  
 ![\[The Add a Lambda to your Greengrass Group page with Create new Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas-new-lambda.png)
 
-1. Choose **Author from scratch**  and use the following values to create your function:    
+1. Choose **Author from scratch** and use the following values to create your function:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
 
 1. Choose **Create function**\.  
 ![\[The Create function page with Create function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/create-function.png)
 
- 
+    
 
-Now, upload your Lambda function deployment package and register the handler\.
+   Now, upload your Lambda function deployment package and register the handler\.
 
 1. On the **Configuration** tab for the `greengrassObjectClassification` function, for **Function code**, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
@@ -181,10 +178,9 @@ Now, upload your Lambda function deployment package and register the handler\.
 
 1. Choose **Save**\.
 
- 
+    
 
-Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
-
+   Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 **Note**  
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
@@ -212,7 +208,7 @@ In this step, you add the Lambda function to the group and then configure its li
 
 First, add the Lambda function to your Greengrass group\.
 
-1. In the AWS IoT console, open the group configuration page\.
+1. In the AWS IoT Core console, open the group configuration page\.
 
 1. Choose **Lambdas**, and then choose **Add Lambda**\.  
 ![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas.png)
@@ -224,9 +220,9 @@ First, add the Lambda function to your Greengrass group\.
 
 1. On the **Select a Lambda version** page, choose **Alias:mlTest**, and then choose **Finish**\.
 
- 
+    
 
-Next, configure the lifecycle and environment variables of the Lambda function\.
+   Next, configure the lifecycle and environment variables of the Lambda function\.
 
 1. On the **Lambdas** page, choose the **greengrassObjectClassification** Lambda function\.  
 ![\[The Lambdas page with the greengrassObjectClassification Lambda function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda.png)
@@ -239,13 +235,12 @@ Next, configure the lifecycle and environment variables of the Lambda function\.
    For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.  
 ![\[The greengrassObjectClassification page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-config.png)
 
-1. Under **Environment variables**, create a key\-value pair\. A key\-value pair is required by functions that interact with MXNet models on a Raspberry Pi\. 
-
-   For **Key**, enter **MXNET\_ENGINE\_TYPE**\. For **Value**, enter **NaiveEngine**\.
+1. Under **Environment variables**, create a key\-value pair that uses the following values\. A key\-value pair is required by functions that interact with MXNet models on a Raspberry Pi\.    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
 **Note**  
 In your own user\-defined Lambda functions, you can optionally set the environment variable in your function code\.
 
-1. Choose **Update**\.
+1. Keep the default values for all other properties and choose **Update**\.
 
 ## Step 6: Add Resources to the Greengrass Group<a name="ml-console-add-resources"></a>
 
@@ -256,7 +251,7 @@ First, create two local device resources for the camera: one for shared memory a
 1. On the group configuration page, choose **Resources**\.  
 ![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
 
-1. On the **Local Resources** tab, choose **Add local resource**\.
+1. On the **Local** tab, choose **Add a local resource**\.
 
 1. On the **Create a local resource** page, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
@@ -289,7 +284,9 @@ First, create two local device resources for the camera: one for shared memory a
 
 Now, add the inference model as a machine learning resource\. This step includes uploading the `squeezenet.zip` model package to Amazon S3\.
 
-1.  On the group configuration page for your AWS IoT Greengrass group, choose **Resources**\. Navigate to the **Machine Learning** section and choose **Add machine learning resource**\. On the **Create a machine learning resource** page, for **Resource name**, type **squeezenet\_model**\.  
+1. On the **Resources** page for your group, choose **Machine Learning**, and then choose **Add a machine learning resource**\.
+
+1. On the **Create a machine learning resource** page, for **Resource name**, enter **squeezenet\_model**\.  
 ![\[The Add Machine Learning Model page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/ml-resource-squeezenet.png)
 
 1. For **Model source**, choose **Upload a model in S3**\.
@@ -298,11 +295,11 @@ Now, add the inference model as a machine learning resource\. This step includes
 
 1.  Choose **Upload a model**\. This opens up a new tab to the Amazon S3 console\. 
 
-1.  In the Amazon S3 console tab, upload your zip file to an Amazon S3 bucket\. For information, see [ How Do I Upload Files and Folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) 
+1.  In the Amazon S3 console tab, upload the `squeezenet.zip` file to an Amazon S3 bucket\. For information, see [ How Do I Upload Files and Folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) 
 **Note**  
  Your bucket name must contain the string **greengrass** in order for the bucket to be accessible\. Choose a unique name \(such as **greengrass\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
 
-1.  In the AWS IoT Greengrass console tab, locate and choose your Amazon S3 bucket\. Locate your uploaded `squeezenet.zip` file, and choose **Select**\. You may need to refresh the page to update the list of available buckets and files\. 
+1.  In the AWS IoT Greengrass console tab, locate and choose your Amazon S3 bucket\. Locate your uploaded `squeezenet.zip` file, and choose **Select**\. You might need to choose **Refresh** to update the list of available buckets and files\. 
 
 1. For **Local path**, enter **/greengrass\-machine\-learning/mxnet/squeezenet**\.
 
@@ -338,7 +335,7 @@ In this step, you add a subscription to the group\. This subscription enables th
    1. Choose **Next**\.  
 ![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/add-subscription.png)
 
-1. On the **Filter your data with a topic** page, in **Optional topic filter**, enter **hello/world**, and then choose **Next**\.  
+1. On the **Filter your data with a topic** page, in **Topic filter**, enter **hello/world**, and then choose **Next**\.  
 ![\[The Filter your data with a topic page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/add-subscription-topic.png)
 
 1. Choose **Finish**\.
@@ -355,7 +352,7 @@ In this step, you deploy the current version of the group definition to the Gree
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.7.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.7.1/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -387,8 +384,8 @@ Now you can verify whether the deployment is configured correctly\. To test, you
 **Note**  
 If a monitor is attached to the Raspberry Pi, the live camera feed is displayed in a preview window\.
 
-1. In the AWS IoT console, choose **Test**\.  
-![\[The navigation pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. In the AWS IoT Core console, choose **Test**\.  
+![\[The navigation pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)

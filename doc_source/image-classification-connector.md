@@ -16,7 +16,7 @@ AWS IoT Greengrass provides Image Classification connectors for multiple platfor
 ## Requirements<a name="image-classification-connector-req"></a>
 
 These connectors have the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.0\.
++ AWS IoT Greengrass Core Software v1\.7\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
 + An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
@@ -160,7 +160,7 @@ These connectors don't publish MQTT messages as output data\.
 The following example Lambda function uses the [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) to interact with an Image Classification connector\.
 
 **Note**  
- You can download the SDK from the **Software** page in the AWS IoT console or from the [AWS IoT Greengrass Machine Learning SDK](what-is-gg.md#gg-ml-sdk-download) downloads\.
+ You can download the SDK from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Machine Learning SDK](what-is-gg.md#gg-ml-sdk-download) downloads\.
 
 The example initializes an SDK client and synchronously calls the SDK's `invoke_inference_service` function to invoke the local inference service\. It passes in the algorithm type, service name, image type, and image content\. Then, the example parses the service response to get the probability results \(predictions\)\.
 
@@ -168,9 +168,7 @@ The example initializes an SDK client and synchronously calls the SDK's `invoke_
 import logging
 from threading import Timer
 
-
 import numpy as np
-
 
 import greengrass_machine_learning_sdk as ml
 

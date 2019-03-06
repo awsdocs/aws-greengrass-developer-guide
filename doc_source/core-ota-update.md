@@ -1,6 +1,6 @@
 # OTA Updates of AWS IoT Greengrass Core Software<a name="core-ota-update"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.3\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
 The AWS IoT Greengrass core software comes packaged with an OTA Update Agent that is capable of updating the core's software or the OTA Update Agent itself to the latest respective versions\. You can start an update by invoking the CreateSoftwareUpdateJob API or from the Greengrass console\. Updating the Greengrass core software provides the following benefits:
 + Fix security vulnerabilities\.

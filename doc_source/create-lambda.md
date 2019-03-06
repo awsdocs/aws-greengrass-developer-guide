@@ -1,15 +1,15 @@
 # Create and Package a Lambda Function<a name="create-lambda"></a>
 
-For a Python Lambda function to run on an AWS IoT Greengrass core, it must be packaged with specific folders from the Python AWS IoT Greengrass Core SDK\. In the this section, you:
-+ Download the Python AWS IoT Greengrass Core SDK to your computer \(not the AWS IoT Greengrass core device\)\. You can download the SDK from the **Software** page in the AWS IoT console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
+For a Python Lambda function to run on an AWS IoT Greengrass core, it must be packaged with the `greengrasssdk` folder from the Python AWS IoT Greengrass Core SDK\. In the this section, you:
++ Download the Python AWS IoT Greengrass Core SDK to your computer \(not the AWS IoT Greengrass core device\)\. You can download the SDK from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
 + Decompress the downloaded SDK file\.
 + Obtain the Python Lambda function \(named `greengrassHelloWorld.py`\) from the decompressed SDK\.
 + Create a Lambda function deployment package named `hello_world_python_lambda.zip` that contains `greengrassHelloWorld.py` and the `greengrasssdk` folder\.
 + Use the Lambda console to upload the `hello_world_python_lambda.zip` package\. 
-+ Use the AWS IoT console to transfer the package to the AWS IoT Greengrass core device\.
++ Use the AWS IoT Core console to transfer the package to the AWS IoT Greengrass core device \(during group deployment\)\.
 
-1. In the AWS IoT console, choose **Software**\.  
-![\[The navigation pane of the AWS IoT console page with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
+1. In the AWS IoT Core console, choose **Software**\.  
+![\[The navigation pane of the AWS IoT Core console page with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
 
 1. Under **SDKs**, for **AWS IoT Greengrass Core SDK**, choose **Configure download**\.
 **Note**  
@@ -19,27 +19,25 @@ You can download the SDK from the **Software** page in the console or from the [
 1. Choose **Python 2\.7 version 1\.3\.0**, and then choose **Download Greengrass Core SDK**\.  
 ![\[Python 2.7 version 1.3.0 and Download Greengrass Core SDK.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
 
-1. Decompress the downloaded SDK\. For instructions, choose the tab that corresponds to your operating system\.
+1. Decompress the downloaded `greengrass-core-python-sdk-1.3.0.tar.gz` file so you can get the Lambda function code and the SDK\. For instructions, choose the tab that corresponds to your operating system\.
 
 ------
 #### [ Windows ]
 
-   Use a tool for decompressing `.tar.gz` files on Windows such as [7\-Zip](http://www.7-zip.org/), [WinZip](http://www.winzip.com/), or similar\. As an example, the 7\-Zip tool can be used to decompress `greengrass-core-python-sdk-1.3.0.tar.gz` as follows:
+   Use a tool for decompressing `.tar.gz` files on Windows such as [7\-Zip](http://www.7-zip.org/), [WinZip](http://www.winzip.com/), or similar\. For example, the following steps use 7\-Zip\.
 
-   1. After you install 7\-Zip, use Windows File Explorer \(Windows logo key \+ E\) to navigate to `greengrass-core-python-sdk-1.3.0.tar.gz`, right\-click the file, choose **7\-Zip**, and then choose **Open archive**\.
+   1. After you install 7\-Zip, use Windows File Explorer \(Windows logo key \+ E\) to navigate to `greengrass-core-python-sdk-1.3.0.tar.gz`, right\-click the file, choose **7\-Zip**, and then choose **Extract Here**\. This creates the `greengrass-core-python-sdk-1.3.0.tar` file\.
 
-   1. In the 7\-Zip window, double\-click `greegrass-core-python-sdk-1.3.0.tar`, `aws_greengrass_core_sdk`, `examples`, `HelloWorld`, and `greengrassHelloWorld.zip`\.
+   1. Right\-click the `greengrass-core-python-sdk-1.3.0.tar` file, choose **7\-Zip**, and then choose **Extract Here**\. This creates the `aws_greengrass_core_sdk` folder\.
 
-   1. \(Optional\) Using the Ctrl key, select the `greengrasssdk` folder and the Python `greengrassHelloWorld.py` Lambda file\. Choose **Extract**, choose a location to extract the files to, and then choose **OK**\.
+   1. Expand the `aws_greengrass_core_sdk` and `sdk` folders, and then unzip `python_sdk_1_3_0.zip`\.
 
 ------
 #### [ macOS ]
 
    1. Using Finder, navigate to the `greengrass-core-python-sdk-1.3.0.tar.gz` file and double\-click it\. This creates the `aws_greengrass_core_sdk` folder\.
 
-   1. Expand the `aws_greengrass_core_sdk` folder, the `examples` folder, and the `HelloWorld` folder\.
-
-   1. Double\-click the `greengrassHelloWorld.zip` file\. This creates the `greengrassHelloWorld` folder\. Expand this folder\.
+   1. Expand the `aws_greengrass_core_sdk` and `sdk` folders, and then unzip `python_sdk_1_3_0.zip`\.
 
 ------
 #### [ UNIX\-like system ]
@@ -49,21 +47,25 @@ You can download the SDK from the **Software** page in the console or from the [
    1. Run the following command to decompress the file:
 
       ```
-      sudo tar -xzf greengrass-core-python-sdk-1.3.0.tar.gz
+      tar -xzf greengrass-core-python-sdk-1.3.0.tar.gz
       ```
 
-      This creates the `aws_greengrass_core_sdk` directory\. Next, run the following commands:
+      This creates the `aws_greengrass_core_sdk` directory\.
+
+   1. Unzip the `python_sdk_1_3_0.zip` file\.
 
       ```
-      cd /aws_greengrass_core_sdk/examples/HelloWorld
-      sudo unzip greengrassHelloWorld.zip
+      cd aws_greengrass_core_sdk/sdk
+      sudo unzip python_sdk_1_3_0.zip
       ```
 
 ------
 
-   You use the `greengrasssdk` folder and the Python `greengrassHelloWorld.py` Lambda function code in the next step\.
+   The Lambda function in this module uses:
+   + The `greengrassHelloWorld.py` file in `examples\HelloWorld`\. This is your Lambda function code\.
+   + The `greengrasssdk` folder in `sdk\python_sdk_1_3_0`\. This is the SDK\.
 
-   Note that every five seconds, the `greengrassHelloWorld.py` Lambda function publishes one of two possible messages to the `hello/world` topic, as shown in the following code\. \(To save space, all code comments have been removed\.\)
+   The following code is from `greengrassHelloWorld.py`\. \(To save space, all code comments have been removed\.\) Note that every five seconds, the function publishes one of two possible messages to the `hello/world` topic\.
 
    ```
    import greengrasssdk
@@ -87,16 +89,18 @@ You can download the SDK from the **Software** page in the console or from the [
        return
    ```
 
-1. To create the `greengrassHelloWorld.py` Lambda function, you must package the `greengrassHelloWorld.py` file and the `greengrasssdk` folder into a compressed `.zip` file\. This is your Lambda function deployment package\. For this tutorial, name the package `hello_world_python_lambda.zip`:   
-![\[Screenshot showing greengrasssdk and greengrassHelloWorld.py compressed into the file hello_world_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-019.png)
+1. Copy `greengrasssdk` to the `HelloWorld` folder that contains `greengrassHelloWorld.py`\.
 
-   For UNIX\-like systems \(including the Mac terminal\), this can use the following command to package the file and folder:
+1. To create the Lambda function deployment package, save the `greengrassHelloWorld.py` file and the `greengrasssdk` folder to a compressed \.zip file named `hello_world_python_lambda.zip`\. The \.py file and SDK folder must be in the root of the directory\.  
+![\[Screenshot showing zipped contents of hello_word_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-017.png)
+
+   For UNIX\-like systems \(including the Mac terminal\), you can use the following command to package the file and folder:
 
    ```
    sudo zip -r hello_world_python_lambda.zip greengrasssdk greengrassHelloWorld.py
    ```
 **Note**  
-Depending on your distribution, you might need to install `zip` first \(for example, by running `sudo apt-get install zip`\)\. This installation command for your distribution might be different\.
+Depending on your distribution, you might need to install `zip` first \(for example, by running `sudo apt-get install zip`\)\. The installation command for your distribution might be different\.
 
    Now you're ready to create your Lambda function and upload the deployment package\.
 
@@ -112,30 +116,32 @@ Depending on your distribution, you might need to install `zip` first \(for exam
    Choose **Create function**\.  
 ![\[The "Author from scratch" section with the "Name" field set to "Greengrass_HelloWorld", the "Runtime" field set to "Python 2.7", the "Role" field set to "Create new role from one or more templates".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023.png)
 
-1. Upload your Lambda function deployment package, as follows:
+1. Upload your Lambda function deployment package:
 
    1. On the **Configuration** tab, under **Function code**, set the following fields:
       + For **Code entry type**, choose **Upload a \.zip file**\.
       + For **Runtime**, choose **Python 2\.7**\.
-      + For **Handler**, enter **greengrassHelloWorld\.function\_handler**\.
+      + For **Handler**, enter **greengrassHelloWorld\.function\_handler**
 
    1. Choose **Upload**, and then choose `hello_world_python_lambda.zip`\. \(The size of your `hello_world_python_lambda.zip` file might be different from what's shown here\.\)  
 ![\[Screenshot of the Configuration tab with Upload a .zip file, Python 2.7, greengrassHelloWorld.function_handler, and Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-024.png)
 
    1. Choose **Save**\.  
 ![\[Screenshot with the Save button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-025.png)
+**Note**  
+The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.
 **Tip**  
 To see your uploaded code, from **Code entry type**, choose **Edit code inline**\.
 
-1. <a name="publish-function-version"></a>Publish the Lambda function, as follows:
+1. <a name="publish-function-version"></a>Publish the Lambda function:
 
-   1. From **Actions**, choose **Publish new version**:  
+   1. From **Actions**, choose **Publish new version**\.  
 ![\[Screenshot of the Actions menu with Publish new version highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-026.png)
 
-   1. For **Version description**, enter **First version**, and then choose **Publish**:  
+   1. For **Version description**, enter **First version**, and then choose **Publish**\.  
 ![\[Screenshot with the Version description field set to First version and the Publish button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-027.png)
 
-1. <a name="create-version-alias"></a>Create an [alias](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html) for the Lambda function version, as follows:
+1. <a name="create-version-alias"></a>Create an [alias](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html) for the Lambda function version:
 **Note**  
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 

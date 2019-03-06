@@ -1,6 +1,6 @@
 # Deploy Secrets to the AWS IoT Greengrass Core<a name="secrets"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7\.0 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 only\.
 
 AWS IoT Greengrass lets you authenticate with services and applications from Greengrass devices without hard\-coding passwords, tokens, or other secrets\.
 
@@ -45,7 +45,7 @@ The AWS IoT Greengrass core is the only entity that has access to the private ke
 ## Requirements<a name="secrets-reqs"></a>
 
 These are the requirements for local secret support:
-+ You must be using AWS IoT Greengrass Core v1\.7\.0\.
++ You must be using AWS IoT Greengrass Core v1\.7\.
 + To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0\.
 + The private key used for local secrets encryption must be specified in the Greengrass configuration file\. By default, AWS IoT Greengrass uses the core private key stored in the file system\. To provide your own private key, see [Specify the Private Key for Secret Encryption](#secrets-config-private-key)\.
 **Note**  

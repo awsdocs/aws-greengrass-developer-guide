@@ -187,7 +187,7 @@ To allow a Greengrass Lambda function to access a local secret, you configure th
   ```
   import greengrasssdk
    
-  # Creating a greengrass core sdk client
+  # Creating a Greengrass Core SDK client
   client = greengrasssdk.client('secretsmanager')
    
   # This handler is called when the function is invoked
@@ -204,7 +204,16 @@ Make sure that your user\-defined Lambda functions handle secrets securely and d
   The current value of the secret is returned by default\. This is the version that the `AWSCURRENT` staging label is attached to\. To access a different version, pass the name of the corresponding staging label for the optional `VersionStage` argument\. For example:
 
   ```
-  response = client.get_secret_value(SecretId='greengrass-MySecret-abc', VersionStage='MyTargetLabel')
+  import greengrasssdk
+   
+  # Creating a greengrass core sdk client
+  client = greengrasssdk.client('secretsmanager')
+   
+  # This handler is called when the function is invoked
+  # It uses the secretsmanager client to get the value of a specific secret version
+  def function_handler(event, context):
+      response = client.get_secret_value(SecretId='greengrass-MySecret-abc', VersionStage='MyTargetLabel')
+      raw_secret = response.get('SecretString')
   ```
 
   For another example function that calls `get_secret_value`, see [Create a Lambda Function Deployment Package](secrets-console.md#secrets-console-create-deployment-package)\.

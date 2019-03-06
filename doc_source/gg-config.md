@@ -1,15 +1,19 @@
 # Configure AWS IoT Greengrass on AWS IoT<a name="gg-config"></a>
 
-1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT console\. If this is the first time opening this console, choose **Get started**\.
+1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT Core console\. If this is the first time opening this console, choose **Get started**\.
 
 1. Choose **Greengrass**\.  
 ![\[AWS IoT navigation pane with Greengrass highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-greengrass.png)
 
-1. On the **Welcome to AWS IoT Greengrass** page, choose **Get Started**\.
+1. On the **Welcome to AWS IoT Greengrass** page, choose **Create a Group**\.
 
-1. Create an AWS IoT Greengrass group\. An AWS IoT Greengrass group contains information about the devices and how messages are processed in the group\. Each AWS IoT Greengrass group requires an AWS IoT Greengrass core device that processes messages sent within the group\. An AWS IoT Greengrass core needs a certificate and an AWS IoT policy to access AWS IoT Greengrass and AWS services\. On the **Set up your Greengrass group** page, choose **Use easy creation**\.
+   An AWS IoT Greengrass [group](what-is-gg.md#gg-group) contains settings and other information about its components, such as devices, Lambda functions, and connectors\. A group defines how its components can interact with each other\.
 **Tip**  
-For an example that uses the AWS IoT Greengrass API to create and deploy a group, see the [ gg\_group\_setup](https://github.com/awslabs/aws-greengrass-group-setup) package from GitHub\.  
+For an example that uses the AWS IoT Greengrass API to create and deploy a group, see the [ gg\_group\_setup](https://github.com/awslabs/aws-greengrass-group-setup) package from GitHub\.
+
+1. On the **Set up your Greengrass group** page, choose **Use easy creation**\.
+
+   Each group requires an AWS IoT Greengrass [core](gg-core.md), which manages local processes\. A core needs a certificate that allows it to access AWS IoT and an AWS IoT policy that allows it to perform AWS IoT and AWS IoT Greengrass actions\. This step creates and provisions a core for the new group\.  
 ![\[Set up your Greengrass Group console page with the Use easy creation button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-005.png)
 
 1. Enter a name for your group \(for example, **MyFirstGroup**\), and then choose **Next**\.  
@@ -37,7 +41,7 @@ You can alternatively download the core software from the [AWS IoT Greengrass Co
       + For Intel Atom, download the x86\_64 for Linux package\.  
 ![\[The Connect your Core device page with Download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.1.png)
 **Important**  
-You must download both the security resources before you choose **Finish**\.
+Download both the security resources and core software before you choose **Finish**\.
 
 1. After you have downloaded the security resources and the AWS IoT Greengrass Core software, choose **Finish**\.
 

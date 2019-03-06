@@ -18,7 +18,7 @@ C \- Device certificate
 An X\.509 certificate used to authenticate an AWS IoT device\.
 
 D \- Group role  
-A role assumed by AWS IoT Greengrass when calling AWS services from a Lambda function or connector on an AWS IoT Greengrass core\.  
+A customer\-created IAM role assumed by AWS IoT Greengrass when calling AWS services from a Lambda function or connector on an AWS IoT Greengrass core\.  
 This the Lambda execution role for all the Greengrass Lambda functions and connectors that run on the core\. Use this role to specify access permissions that your user\-defined Lambda functions and connectors need to access AWS services, such as DynamoDB\.  
 AWS IoT Greengrass doesn't use the Lambda execution role that's specified in AWS Lambda for the cloud version of the function\.
 
@@ -33,7 +33,7 @@ To configure your Greengrass application's security:
 
 1. Generate a key pair and device certificate for your AWS IoT Greengrass core device\.
 
-1. Create and attach an AWS IoT policy to the device certificate\. The certificate and policy allow the AWS IoT Greengrass core device access to AWS IoT and Greengrass cloud services\. For more information, see [Minimal AWS IoT Policy for the AWS IoT Greengrass Core Device](#gg-config-sec-min-iot-policy)\.
+1. Create and attach an AWS IoT policy to the device certificate\. The certificate and policy allow the AWS IoT Greengrass core device access to AWS IoT and AWS IoT Greengrass services\. For more information, see [Minimal AWS IoT Policy for the AWS IoT Greengrass Core Device](#gg-config-sec-min-iot-policy)\.
 
 1. Create a Greengrass service role\. This IAM role authorizes AWS IoT Greengrass to access resources from other AWS services on your behalf\. This allows AWS IoT Greengrass to perform essential tasks, such as retrieving AWS Lambda functions and managing AWS IoT shadows\. You only need to create a service role once per AWS account\.
 
@@ -48,9 +48,9 @@ You can also use existing AWS IoT things and certificates\.
 
 ### Minimal AWS IoT Policy for the AWS IoT Greengrass Core Device<a name="gg-config-sec-min-iot-policy"></a>
 
-An AWS IoT policy defines the set of actions allowed for an AWS IoT thing—in this case, the Greengrass core device\. The policy is attached to the device certificate and used to access AWS IoT and Greengrass cloud services\. AWS IoT policies are JSON documents that follow the conventions of IAM policies\. For more information, see [AWS IoT Policies](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) in the *AWS IoT Developer Guide*\.
+An AWS IoT policy defines the set of actions allowed for an AWS IoT thing \(in this case, the Greengrass core device\)\. The policy is attached to the device certificate and used to access AWS IoT and AWS IoT Greengrass services\. AWS IoT policies are JSON documents that follow the conventions of IAM policies\. For more information, see [AWS IoT Policies](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) in the *AWS IoT Developer Guide*\.
 
-The following example policy includes the minimum set of actions required to support basic Greengrass functionality for your core device\. In the example, note the following:
+The following example policy includes the minimum set of actions required to support basic Greengrass functionality for your core device\. Make a note of the following:
 + The policy lists the MQTT topics and topic filters that the core device can publish messages to, subscribe to, and receive messages on, including topics used for shadow state\. To support message exchange between AWS IoT, Lambda functions, connectors, and devices in the Greengrass group, specify the topics and topic filters that you want to allow\. For more information, see [Publish/Subscribe Policy Examples](https://docs.aws.amazon.com/iot/latest/developerguide/pub-sub-policy.html) in the *AWS IoT Developer Guide*\.
 + The policy includes a section that allows AWS IoT to get, update, and delete the core device's shadow\. To allow shadow sync for other devices in the Greengrass group, specify the target ARNs in the `Resource` list \(for example, `arn:aws:iot:region:account-id:thing/device-name`\)\.
 + For the `greengrass:UpdateCoreDeploymentStatus` permission, the final segment in the `Resource` ARN is the URL\-encoded ARN of the core device\.
@@ -142,7 +142,7 @@ The following example policy includes the minimum set of actions required to sup
 }
 ```
 
-On the AWS IoT console, you can easily view and edit the policy that's attached to your core's certificate\.
+On the AWS IoT Core console, you can easily view and edit the policy that's attached to your core's certificate\.
 
 1. In the navigation pane, choose **Manage**, choose **Things**, and then choose your core\.
 
@@ -167,13 +167,15 @@ This section describes how devices connect to the AWS IoT Greengrass cloud servi
 
  A subscription table is used to define how messages are exchanged within a Greengrass group \(between AWS IoT Greengrass core devices, AWS IoT devices, Lambda functions, and connectors\)\. Each entry in the subscription table specifies a source, a destination, and an MQTT topic over which messages are sent or received\. Messages can be exchanged only if an entry exists in the subscription table specifying the source \(message sender\), the target \(message recipient\), and the MQTT topic\. Subscription table entries specify passing messages in one direction, from the source to the target\. If you want two\-way message passing, create two subscription table entries, one for each direction\. 
 
-## MQTT Core Server Certificate Rotation<a name="gg-cert-expire"></a>
+## Certificate Rotation on the MQTT Core Server<a name="gg-cert-expire"></a>
 
-The MQTT core server certificate expires, by default, in 7 days\. You can set the expiration to any value between 7 and 30 days\. When the MQTT core server certificate expires, any attempt to validate the certificate fails\. The device must be able to detect the failure and terminate the connection\. Existing connections are not affected\. When the certificate expires, the AWS IoT Greengrass core device attempts to connect to the Greengrass cloud service to obtain a new certificate\. If the connection is successful, the AWS IoT Greengrass core device downloads a new MQTT core server certificate and restarts the local MQTT service\. At this point, all AWS IoT devices connected to the core are disconnected\.
+ Greengrass edge devices use the MQTT core server certificate to authenticate with the Greengrass core device\.   By default, this certificate expires in 7 days\. Its lifetime is limited for security reasons, so that if unauthorized parties obtain the certificate, it cannot be used for long\.  
 
-If there is no internet connection when the AWS IoT Greengrass core attempts to get a new MQTT core server certificate, AWS IoT devices are unable to connect to the AWS IoT Greengrass core until the connection to the Greengrass cloud service is restored and a new MQTT core server certificate can be downloaded\.
+ For certificate rotation to occur, your Greengrass\-enabled device must be online and able to access the Greengrass cloud service directly on a regular basis\. When the certificate expires, the Greengrass core device attempts to connect to the Greengrass cloud service to obtain a new certificate\. If the connection is successful, the core device downloads a new MQTT core server certificate and restarts the local MQTT service\. At this point, all AWS IoT devices connected to the core are disconnected\. If the device is offline at the time of expiry, it does not receive the replacement certificate\. Any new attempts to connect to the core device are rejected\. Existing connections are not affected\. Devices cannot connect to the core until the connection to the Greengrass cloud service is restored and a new MQTT core server certificate can be downloaded\. 
 
-When AWS IoT devices are disconnected from a core, they have to wait a short period of time and then attempt to reconnect to the AWS IoT Greengrass core device\. 
+You can set the expiration to any value between 7 and 30 days, depending on your needs\. More frequent rotation requires more frequent cloud connection\. Less frequent rotation can pose security concerns\. If you want to set the certificate expiration to a value higher than 30 days, contact AWS Support\. 
+
+ When the MQTT core server certificate expires, any attempt to validate the certificate fails\. The device must be able to detect the failure and terminate the connection\. 
 
 ## AWS IoT Greengrass Cipher Suites<a name="gg-cipher-suites"></a>
 

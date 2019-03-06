@@ -1,6 +1,6 @@
 # Test Communications<a name="comms-test"></a>
 
-1. On your computer, open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows\. Just as in [Module 5](module5.md), one window is for the GG\_Switch device and the other is for the GG\_TrafficLight device\. These are the same commands that you ran in Module 5\.
+1. On your computer, open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows\. Just as in [Module 5](module5.md), one window is for the GG\_Switch device and the other is for the GG\_TrafficLight device\. You use them to run the same commands that you ran in Module 5\.
 
    Run the following commands for the GG\_Switch device:
 
@@ -18,7 +18,9 @@
 
    Every 20 seconds, the switch updates the shadow state to G, Y, and R, and the light displays its new state\.
 
-1. The function handler of the Lambda function is triggered on every third green light \(every three minutes\), and a new DynamoDB record is created\. After `lightController.py` and `trafficLight.py` have run for three minutes, go to the AWS Management Console, and search for and open the DynamoDB console\. Make sure that the **N\. Virginia** \(`us-east-1`\) region is selected\. Choose **Tables** and then choose the **CarStats** table\.   
+1. The function handler of the Lambda function is triggered on every third green light \(every three minutes\), and a new DynamoDB record is created\. After `lightController.py` and `trafficLight.py` have run for three minutes, go to the AWS Management Console, and open the DynamoDB console\.
+
+1. Make sure that the **N\. Virginia** \(`us-east-1`\) region is selected\. Choose **Tables** and then choose the **CarStats** table\.   
 ![\[Screenshots of DynamoDB console with CarStats and Items tab highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-099.png)
 
    On the **Items** tab, you should see entries with basic statistics on cars passed \(one entry for every three minutes\)\. You might need to choose the refresh button to view updates to the table\.  

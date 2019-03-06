@@ -1,30 +1,43 @@
 # Test On\-Demand Lambda Functions<a name="on-demand"></a>
 
-An *on\-demand Lambda function* is similar in functionality to an AWS cloud Lambda function\. Multiple invocations of an on\-demand Lambda function can run in parallel\. An invocation of the Lambda function creates a separate container to process invocations or, if resources permit, reuses an existing container\. Any variables or preprocessing that are defined outside of the function handler are not retained when containers are created\. For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.
+An *[on\-demand](lambda-functions.md#lambda-lifecycle)* Lambda function is similar in functionality to a cloud\-based AWS Lambda function\. Multiple invocations of an on\-demand Lambda function can run in parallel\. An invocation of the Lambda function creates a separate container to process invocations or reuses an existing container, if resources permit\. Any variables or preprocessing that are defined outside of the function handler are not retained when containers are created\.
 
-1. On the group configuration page, choose **Lambdas**\. For the **Greengrass\_HelloWorld\_Counter** Lambda function, choose **Edit Configuration**\.   
-![\[Screenshot with Lambdas and Edit Configuration highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-059.png)
+1. On the group configuration page, choose **Lambdas**\.
 
-1. Under **Lambda lifecycle**, choose **On\-demand function**\.  
+1. For the **Greengrass\_HelloWorld\_Counter** Lambda function, choose **Edit Configuration**\.   
+![\[Screenshot with Lambdas and Edit Configuration highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-050.png)
+
+1. Under **Lambda lifecycle**, choose **On\-demand function**, and then choose **Update**\.  
 ![\[Screenshot with the On-demand function radio button selected.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-060.png)
 
-   Choose **Update**\.
+1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy** to deploy the group configuration to your AWS IoT Greengrass core device\.  
+![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)
 
-1. On the group configuration page, from **Actions**, choose **Deploy** to deploy the updated group configuration to your AWS IoT Greengrass core device\.  
-![\[Screenshot of Deploy highlighted under the Actions drop-down menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-061.png)
+   For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-1. After your deployment is complete, in the AWS IoT console, choose **Test**\. For **Subscription topic**, enter **hello/world/counter**\. For **Quality of Service**, choose **0**\. For **MQTT payload display**, choose **Display payloads as strings**\. Choose **Subscribe to topic**\.  
-![\[Screenshot of Subscriptions page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-062.png)
+1. <a name="console-test-after-deploy"></a>After your deployment is complete, return to the AWS IoT Core console home page and choose **Test**\.
 
-   You should not be able to see any messages after you subscribe\. Trigger the function to the `hello/world/counter/trigger` topic by sending any message \(the default message is fine\), then choose **Publish to topic** three times, within five seconds of each press of the button\.  
+1. Configure the following fields:
+   + For **Subscription topic**, enter **hello/world/counter**\.
+   + For **Quality of Service**, choose **0**\.
+   + For **MQTT payload display**, choose **Display payloads as strings**\.
+
+      
+![\[Screenshot of Subscriptions test page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-056.png)
+
+1. Choose **Subscribe to topic**\.
+**Note**  
+You should not see any messages after you subscribe\.
+
+1. To test the on\-demand lifecycle, invoke the function by publishing a message to the `hello/world/counter/trigger` topic\. You can use the default message\.
+
+   1. Choose **Publish to topic** three times quickly, within five seconds of each press of the button\.  
 ![\[Screenshot showing the Publish to topic button, which must be clicked rapidly three times.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-063.png)
 
-   Each publish is triggering the function handler and creating a container for each invocation\. The invocation count is not incremented for each of the three times you triggered the function because each on\-demand Lambda function has its own container/sandbox\.  
+      Each publish invokes the function handler and creates a container for each invocation\. The invocation count is not incremented for the three times you triggered the function because each on\-demand Lambda function has its own container/sandbox\.  
 ![\[Screenshot showing Invocation Count fixed at 1.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-064.png)
 
-   Wait approximately 30 seconds, and then choose **Publish to topic**\. This time you should see an incremented invocation count\.  
+   1. After approximately 30 seconds, choose **Publish to topic**\. The invocation count should be incremented to 2\. This shows that a container created from an earlier invocation is being reused, and that preprocessing variables outside of the function handler were stored\.  
 ![\[Screenshot showing Invocation Count now at 2.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-065.png)
 
-    This shows that a container, first created from an earlier invocation, is being reused, and preprocessing variables outside of the function handler have been stored\.
-
-   You should now understand the two types of Lambda functions that can run on the AWS IoT Greengrass core\. The next module, [Module 4](module4.md), shows you how devices can interact in an AWS IoT Greengrass group\.
+You should now understand the two types of Lambda functions that can run on the AWS IoT Greengrass core\. The next module, [Module 4](module4.md), shows you how devices can interact in an AWS IoT Greengrass group\.

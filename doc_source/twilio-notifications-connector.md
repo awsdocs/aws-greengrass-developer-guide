@@ -12,7 +12,7 @@ For a tutorial that shows how to use the Twilio Notifications connector, see [Ge
 ## Requirements<a name="twilio-notifications-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.0\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
++ AWS IoT Greengrass Core Software v1\.7\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
@@ -265,6 +265,50 @@ The `payload` property in the output is the response from the Twilio API when th
         'message_status':'queued'
     }
 }
+```
+
+## Usage Example<a name="twilio-notifications-connector-usage"></a>
+
+The following example Lambda function sends an input message to the connector\. This example triggers a text message\.
+
+**Note**  
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
+
+```
+pip install greengrasssdk
+```
+
+```
+import greengrasssdk
+import json
+
+iot_client = greengrasssdk.client('iot-data')
+TXT_INPUT_TOPIC = 'twilio/txt'
+CALL_INPUT_TOPIC = 'twilio/call'
+
+def publish_basic_message():
+
+    txt = {
+        "request": {
+            "recipient" : {
+                "name": "Darla",
+                "phone_number": "+12345000000",
+                "message": 'Hello from the edge'
+            },
+            "from_number" : "+19999999999"
+        },
+        "id" : "request123"
+    }
+    
+    print "Message To Publish: ", txt
+
+    client.publish(topic=TXT_INPUT_TOPIC,
+                   payload=json.dumps(txt))
+
+publish_basic_message()
+
+def function_handler(event, context):
+    return
 ```
 
 ## Licenses<a name="twilio-notifications-connector-license"></a>

@@ -22,7 +22,7 @@ This connector is not suitable for applications that have real\-time requirement
 ## Requirements<a name="raspberrypi-gpio-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.0\.
++ AWS IoT Greengrass Core Software v1\.7\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + Raspberry Pi 3, model B\. You must know the pin sequence of your Raspberry Pi\. For more information, see [GPIO Pin Sequence](#raspberrypi-gpio-connector-req-pins)\.
 + A [local device resource](access-local-resources.md) in the Greengrass group that points to `/dev/gpiomem` on the Raspberry Pi\. If you create the resource in the console, you must select the **Automatically add OS group permissions of the Linux group that owns the resource** option\. In the API, set the `GroupOwnerSetting.AutoAddGroupOwner` property to `true`\.
@@ -166,6 +166,51 @@ When publishing to this topic, the connector replaces the `+` wildcard with the 
    "error": "Invalid GPIO operation",
    "long_description": "GPIO 22 is configured as an INPUT GPIO. Write operations are not permitted."
  }
+```
+
+## Usage Example<a name="raspberrypi-gpio-connector-usage"></a>
+
+The following example Lambda function sends an input message to the connector\. This example sends read requests for a set of input GPIO pins\. It shows how to construct topics using the core thing name and pin number\.
+
+**Note**  
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
+
+```
+pip install greengrasssdk
+```
+
+```
+import greengrasssdk
+import json
+
+iot_client = greengrasssdk.client('iot-data')
+INPUT_GPIOS = [6, 17, 22]
+
+thingName = os.environ['AWS_IOT_THING_NAME']
+
+def get_read_topic(gpio_num):
+    return '/'.join(['gpio', thingName, str(gpio_num), 'read'])
+
+def get_write_topic(gpio_num):
+    return '/'.join(['gpio', thingName, str(gpio_num), 'write'])
+
+def send_message_to_connector(topic, message=''):
+    iot_client.publish(topic=topic, payload=str(message))
+
+def set_gpio_state(gpio, state):
+    send_message_to_connector(get_write_topic(gpio), str(state))
+
+def read_gpio_state(gpio):
+    send_message_to_connector(get_read_topic(gpio))
+
+def publish_basic_message():
+    for i in INPUT_GPIOS:
+    	read_gpio_state(i)
+
+publish_basic_message()
+
+def function_handler(event, context):
+    return
 ```
 
 ## Licenses<a name="raspberrypi-gpio-connector-license"></a>

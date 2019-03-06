@@ -14,7 +14,7 @@ Read requests are limited to a maximum read length of 63994 bytes\. Write reques
 ## Requirements<a name="serial-stream-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.0\.
++ AWS IoT Greengrass Core Software v1\.7\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + A [local device resource](access-local-resources.md) in the Greengrass group that points to the target serial port\.
 **Note**  
@@ -66,7 +66,7 @@ Valid values: `true, false`
 Valid pattern: `^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$`
 
 `PollingReadLength`  
-The length of data to read in each polling read operation\. This applies only when using Polling\-Read mode\.  
+The length of data \(in bytes\) to read in each polling read operation\. This applies only when using Polling\-Read mode\.  
 Display name in console: **Polling read length**  
 Required: `false`\. This property is required when `PollingRead` is `true`\.  
 Type: `string`  
@@ -264,6 +264,43 @@ Use this topic to receive response data from a read operation\. The response dat
     "data": "output of serial read operation"
     "id": "abc123"
 }
+```
+
+## Usage Example<a name="serial-stream-connector-usage"></a>
+
+The following example Lambda function sends an input message to the connector\.
+
+**Note**  
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
+
+```
+pip install greengrasssdk
+```
+
+```
+import greengrasssdk
+import json
+
+TOPIC_REQUEST = 'serial/CORE_THING_NAME/write/dev/serial1'
+
+# Creating a greengrass core sdk client
+iot_client = greengrasssdk.client('iot-data')
+
+def create_serial_stream_request():
+	request = {
+		"data": "TEST",
+		"type": "ascii",
+		"id": "abc123"
+	}
+	return request
+
+def publish_basic_request():
+	iot_client.publish(payload=json.dumps(create_serial_stream_request()), topic=TOPIC_REQUEST)
+
+publish_basic_request()
+
+def function_handler(event, context):
+	return
 ```
 
 ## Licenses<a name="serial-stream-connector-license"></a>

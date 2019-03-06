@@ -1,6 +1,6 @@
 # Access Local Resources with Lambda Functions<a name="access-local-resources"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.3\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
  Developers who use AWS IoT Greengrass can author AWS Lambda functions in the cloud and deploy them to core devices for local execution\. On Greengrass cores running Linux, these locally deployed Lambda functions can access local resources that are physically present on the Greengrass core device\. For example, to communicate with devices that are connected through Modbus or CANbus, you can enable your Lambda function to access the serial port on the core device\. To configure secure access to local resources, you must guarantee the security of your physical hardware and your Greengrass core device OS\.
 
@@ -15,7 +15,7 @@ You can access two types of local resources: volume resources and device resourc
 **Volume resources**  
 Files or directories on the root file system \(except under `/sys`, `/dev`, or `/var`\)\. These include:  
 + Folders or files used to read or write information across Greengrass Lambda functions \(for example, `/usr/lib/python2.x/site-packages/local`\)\.
-+ Folders or files under the host's /proc file system \(for example, `/proc/net` or `/proc/stat`\)\. Supported in v1\.6\.0 or later only\. For additional requirements, see [Volume Resources Under the /proc Directory](#lra-proc-resources)\.
++ Folders or files under the host's /proc file system \(for example, `/proc/net` or `/proc/stat`\)\. Supported in v1\.6 or later\. For additional requirements, see [Volume Resources Under the /proc Directory](#lra-proc-resources)\.
 To configure the `/var`, `/var/run`, and `/var/lib` directories as volume resources, first mount the directory in a different folder and then configure the folder as a volume resource\.
 
 **Device resources**  
@@ -32,7 +32,7 @@ AWS IoT Greengrass also supports resource types that are used to perform machine
 ## Requirements<a name="lra-requirements"></a>
 
 The following requirements apply to configuring secure access to local resources:
-+ You must be using AWS IoT Greengrass Core Software v1\.3\.0 or later\. To create resources for the host's /proc directory, you must be using v1\.6\.0 or later\.
++ You must be using AWS IoT Greengrass Core Software v1\.3 or later\. To create resources for the host's /proc directory, you must be using v1\.6 or later\.
 + The local resource \(including any required drivers and libraries\) must be correctly installed on the Greengrass core device and consistently available during use\.
 + The desired operation of the resource, and access to the resource, must not require root privileges\. 
 + Only `read` or `read and write` permissions are available\. Lambda functions cannot perform privileged operations on the resources\.
@@ -42,7 +42,7 @@ The following requirements apply to configuring secure access to local resources
 ### Volume Resources Under the /proc Directory<a name="lra-proc-resources"></a>
 
 The following considerations apply to volume resources that are under the host's /proc directory\.
-+ You must be using AWS IoT Greengrass Core Software v1\.6\.0 or later\.
++ You must be using AWS IoT Greengrass Core Software v1\.6 or later\.
 + You can allow read\-only access for Lambda functions, but not read\-write access\. This level of access is managed by AWS IoT Greengrass\.
 + You might also need to grant OS group permissions to enable read access in the file system\. For example, suppose your source directory or file has a 660 file permission, which means that only the owner or user in the group has read \(and write\) access\. In this case, you must add the OS group owner's permissions to the resource\. For more information, see [Group Owner File Access Permission](#lra-group-owner)\.
 + The host environment and the Lambda namespace both contain a /proc directory, so be sure to avoid naming conflicts when you specify the destination path\. For example, if /proc is the source path, you can specify /host\-proc as the destination path \(or any path name other than "*/proc*"\)\.

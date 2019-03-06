@@ -12,7 +12,7 @@ AWS provides three SDKs that can be used by Greengrass Lambda functions running 
 
 **AWS IoT Greengrass Core SDK**  <a name="lambda-sdks-core"></a>
 Current version: 1\.3\.0  
-Enables local Lambda functions The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the core device, publish messages to AWS IoT, interact with the local shadow service, invoke other deployed Lambda functions, and access secret resources\.  
+The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the core device, publish messages to AWS IoT, interact with the local shadow service, invoke other deployed Lambda functions, and access secret resources\.  
 The following table lists supported languages or platforms and the versions of AWS IoT Greengrass core software that it can run on\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
@@ -20,9 +20,15 @@ The following table lists the changes introduced in AWS IoT Greengrass Core SDK 
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
 Download the AWS IoT Greengrass Core SDK from the following locations:  
-+ AWS IoT Greengrass Core SDK for Python, Java, or Node\.js from the **Software** page of the AWS IoT console\.
++ AWS IoT Greengrass Core SDK for Python, Java, or Node\.js from the **Software** page of the AWS IoT Core console\.
 + The AWS IoT Greengrass Core SDK for C from [GitHub](https://github.com/aws/aws-greengrass-core-sdk-c)\. This SDK is used by [Lambda executables](#lambda-executables)\.
 + All AWS IoT Greengrass Core SDK languages from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\.
+If you're running Python Lambda functions, you can use [https://pypi.org/project/pip/](https://pypi.org/project/pip/) to install the AWS IoT Greengrass Core SDK for Python on the core device\. Then you can deploy your functions without including the SDK in the Lambda function deployment package\. For more information, see [greengrasssdk](https://pypi.org/project/greengrasssdk/)\.  
+To use `pip` to install the Python SDK, run the following command in your core device terminal\.  
+
+```
+pip install greengrasssdk
+```
 
 **AWS IoT Greengrass Machine Learning SDK**  <a name="lambda-sdks-ml"></a>
 Current version: 1\.0\.0  
@@ -31,12 +37,12 @@ The following table lists supported languages or platforms and the versions of A
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
 Download the AWS IoT Greengrass Machine Learning SDK for Python from the following locations:  
-+ The **Software** page of the AWS IoT console\.
++ The **Software** page of the AWS IoT Core console\.
 + The [AWS IoT Greengrass Machine Learning SDK](what-is-gg.md#gg-ml-sdk-download) downloads\.
 
-**AWS SDK**  <a name="lambda-sdks-aws"></a>
-Enables local Lambda functions to make direct calls to AWS services, such as Amazon S3, DynamoDB, AWS IoT, and AWS IoT Greengrass\. When you use the AWS IoT Greengrass Core SDK and the AWS SDK in the same package, make sure that your Lambda functions use the correct namespaces\. Greengrass Lambda functions can't communicate with cloud services when the core is offline\.  
-Download the AWS SDK from the [ Getting Started Resource Center](https://aws.amazon.com/getting-started/tools-sdks/)\.
+**AWS SDKs**  <a name="lambda-sdks-aws"></a>
+Enables local Lambda functions to make direct calls to AWS services, such as Amazon S3, DynamoDB, AWS IoT, and AWS IoT Greengrass\. To use an AWS SDK in a Greengrass Lambda function, you must include it in your deployment package\. When you use the AWS SDK in the same package as the AWS IoT Greengrass Core SDK, make sure that your Lambda functions use the correct namespaces\. Greengrass Lambda functions can't communicate with cloud services when the core is offline\.  
+Download the appropriate AWS SDKs from the [ Getting Started Resource Center](https://aws.amazon.com/getting-started/tools-sdks/)\.
 
 For more information about creating a deployment package, see [Create and Package a Lambda Function](create-lambda.md) in the Getting Started tutorial or [Creating a Deployment Package](https://docs.aws.amazon.com/lambda/latest/dg/deployment-package-v2.html) in the *AWS Lambda Developer Guide*\.
 
@@ -44,16 +50,16 @@ For more information about creating a deployment package, see [Create and Packag
 
 The AWS IoT Greengrass Core SDK follows the AWS SDK programming model, which makes it easy to port Lambda functions that are developed for the cloud to Lambda functions that run on an AWS IoT Greengrass core\.
 
-For example, the following Python Lambda function uses the AWS SDK for Python to publish a message to the topic */some/topic* in the cloud:
+For example, the following Python Lambda function uses the AWS SDK for Python to publish a message to the topic *some/topic* in the cloud:
 
 ```
 import boto3
         
 client = boto3.client('iot-data')
 response = client.publish(
-	topic = "/some/topic",
-	qos = 0,
-	payload = "Some payload".encode()
+    topic = 'some/topic',
+    qos = 0,
+    payload = 'Some payload'.encode()
 )
 ```
 
@@ -64,7 +70,7 @@ import greengrasssdk
                         
 client = greengrasssdk.client('iot-data')
 response = client.publish(
-    topic = '/some/topic',
+    topic = 'some/topic',
     qos = 0,
     payload = 'Some payload'.encode()
 )
@@ -73,7 +79,7 @@ response = client.publish(
 **Note**  
 The AWS IoT Greengrass Core SDK supports sending MQTT messages with QoS = 0 only\.
 
-The similarity between programming models also makes it possible for you to test your Lambda functions in the cloud and then migrate them to AWS IoT Greengrass with minimal effort\.Lambda executables don't run in the cloud, so you can't use the AWS SDK to test them in the cloud before deployment\.
+The similarity between programming models also makes it possible for you to develop your Lambda functions in the cloud and then migrate them to AWS IoT Greengrass with minimal effort\. [Lambda executables](#lambda-executables) don't run in the cloud, so you can't use the AWS SDK to develop them in the cloud before deployment\.
 
 ## Reference Lambda Functions by Alias or Version<a name="lambda-versions-aliases"></a>
 
@@ -85,20 +91,23 @@ A common practice for keeping your Greengrass Lambda functions updated with code
 
 ## Communication Flows for Greengrass Lambda Functions<a name="lambda-communication"></a>
 
-Greengrass Lambda functions can interact with other members of the AWS IoT Greengrass group, local services, and cloud services \(including AWS services\)\.
+Greengrass Lambda functions support several methods of communicating with other members of the AWS IoT Greengrass group, local services, and cloud services \(including AWS services\)\.
 
-### Communication Using Messages<a name="lambda-messages"></a>
+### Communication Using MQTT Messages<a name="lambda-messages"></a>
 
-Greengrass Lambda functions can exchange messages with the following entities:
+Lambda functions can send and receive MQTT messages using a publish\-subscribe pattern that's controlled by subscriptions\.
+
+This communication flow allows Lambda functions to exchange messages with the following entities:
 + Devices in the group\.
-+ Lambda functions in the group\.
++ Connectors in the group\.
++ Other Lambda functions in the group\.
 + AWS IoT\.
 + Local Device Shadow service\.
 
-This communication flow uses a publish\-subscribe pattern that's controlled by subscriptions\. A subscription defines a message source, message target, and topic filter\. Messages that are published to a Lambda function target are passed to the function's registered handler\. Subscriptions enable more security and provide predictable interactions\. For more information, see [Greengrass Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
+A subscription defines a message source, a message target, and a topic \(or subject\) that's used to route messages from the source to the target\. Messages that are published to a Lambda function are passed to the function's registered handler\. Subscriptions enable more security and provide predictable interactions\. For more information, see [Greengrass Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
 
 **Note**  
-Greengrass Lambda functions can exchange messages with devices, other functions, and local shadows when the core is offline, but messages to AWS IoT are queued\. For more information, see [MQTT Message Queue](gg-core.md#mqtt-message-queue)\.
+When the core is offline, Greengrass Lambda functions can exchange messages with devices, connectors, other functions, and local shadows, but messages to AWS IoT are queued\. For more information, see [MQTT Message Queue](gg-core.md#mqtt-message-queue)\.
 
 ### Other Communication Flows<a name="lambda-other-communication"></a>
 + To interact with local resources and machine learning models on a core device, Greengrass Lambda functions use platform\-specific operating system interfaces\. For example, you can use the `open` method in the [os](https://docs.python.org/2/library/os.html) module in Python 2\.7 functions\. To allow a function to access a resource, the function must be *affiliated* with the resource and granted `read-only` or `read-write` permission\. For more information, including AWS IoT Greengrass core version availability, see [Access Local Resources with Lambda Functions](access-local-resources.md) and [Perform Machine Learning Inference](ml-inference.md)\.
@@ -109,6 +118,77 @@ If you run your Lambda function without containerization, you cannot use attache
 
 **Note**  
 Greengrass Lambda functions can't communicate with AWS or other cloud services when the core is offline\.
+
+## Retrieve the Input MQTT Topic \(or Subject\)<a name="lambda-get-mqtt-topic"></a>
+
+AWS IoT Greengrass uses subscriptions to control the exchange of MQTT messages between devices, Lambda functions, and connectors in a group, and with AWS IoT or the local shadow service\. Subscriptions define a message source, message target, and an MQTT topic used to route messages\. When the target is a Lambda function, the function's handler is invoked when the source publishes a message\. For more information, see [Communication Using MQTT Messages](#lambda-messages)\.
+
+The following example shows how a Lambda function can get the input topic from the `context` that's passed to the handler\. It does this by accessing the `subject` key from the context hierarchy \(`context.client_context.custom['subject']`\)\. The example also parses the input JSON message and then publishes the parsed topic and message\.
+
+**Note**  
+In the AWS IoT Greengrass API, the topic of a [subscription](https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-subscription.html) is represented by the `subject` property\.
+
+```
+import greengrasssdk
+import logging
+
+client = greengrasssdk.client('iot-data')
+
+OUTPUT_TOPIC = 'test/topic_results'
+
+def get_input_topic(context):
+    try:
+        topic = context.client_context.custom['subject']
+    except Exception as e:
+        logging.error('Topic could not be parsed. ' + repr(e))
+    return topic
+    
+def get_input_message(event):
+    try:
+        message = event['test-key']
+    except Exception as e:
+        logging.error('Message could not be parsed. ' + repr(e))
+    return message
+
+def function_handler(event, context):
+    try:
+        input_topic = get_input_topic(context)
+        input_message = get_input_message(event)
+        response = 'Invoked on topic "%s" with message "%s"' % (input_topic, input_message)
+        logging.info(response)
+    except Exception as e:
+        logging.error(e)
+
+    client.publish(topic=OUTPUT_TOPIC, payload=response)
+
+    return
+```
+
+To test the function, add it to your group using the default configuration settings\. Then, add the following subscriptions and deploy the group\. For instructions, see [Module 3 \(Part 1\): Lambda Functions on AWS IoT Greengrass](module3-I.md)\.
+
+
+****  
+
+| Source | Target | Topic filter | 
+| --- | --- | --- | 
+| IoT Cloud | This function | test/input\_message | 
+| This function | IoT Cloud | test/topic\_results | 
+
+After the deployment is completed, invoke the function\.
+
+1. In the AWS IoT Core console, open the **Test** page\.
+
+1. Subscribe to the `test/topic_results` topic\.
+
+1. Publish a message to the `test/input_message` topic\. For this example, you must include the `test-key` property in the JSON messsage\.
+
+   ```
+   {
+     "test-key": "Some string value"
+   }
+   ```
+
+   If successful, the function publishes the input topic and message string to the `test/topic_results` topic\.
 
 ## Lifecycle Configuration for Greengrass Lambda Functions<a name="lambda-lifecycle"></a>
 
@@ -128,13 +208,14 @@ AWS IoT Greengrass supports the on\-demand \(default\) or long\-lived lifecycles
 
   Long\-lived Lambda functions are useful when you need to start doing work without any initial input\. For example, a long\-lived function can load and start processing an ML model to be ready when the function starts receiving device data\.
 **Note**  
-Remember that long\-lived functions have timeouts that are associated with invocations of their handler\. If you want to execute indefinitely running code, you must start it outside the handler\. Make sure that there's no blocking code outside the handler that might prevent the function from completing its initialization\.
+Remember that long\-lived functions have timeouts that are associated with invocations of their handler\. If you want to execute indefinitely running code, you must start it outside the handler\. Make sure that there's no blocking code outside the handler that might prevent the function from completing its initialization\.  
+ These functions run unless the core stops \(for example during a group deployment or a device reboot\) or the function enters an error state \(such as a handler timeout, uncaught exception, or when it exceeds its memory limits\)\.
 
 For more information about container reuse, see [Understanding Container Reuse in AWS Lambda](https://aws.amazon.com/blogs/compute/container-reuse-in-lambda/) on the AWS Compute Blog\.
 
 ## Lambda Executables<a name="lambda-executables"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.6\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.6 and later\.
 
 A Lambda executable is a type of Greengrass Lambda function that you can use to run binary code in the core environment\. It lets you execute device\-specific functionality natively, and benefit from the smaller footprint of compiled code\. Lambda executables can be invoked by events, invoke other functions, and access local resources\.
 

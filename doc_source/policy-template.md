@@ -65,26 +65,7 @@ The following is a policy template that grants the permissions required for AWS 
                 "iot:UpdateThingShadow",
                 "iot:GetThingShadow",
                 "iot:DescribeEndpoint",
-                "greengrass:GetCoreDefinitionVersion",
-                "greengrass:GetGroupVersion",
-                "greengrass:CreateLoggerDefinition",
-                "greengrass:CreateCoreDefinition",
-                "greengrass:AssociateRoleToGroup",
-                "greengrass:CreateDeployment",
-                "greengrass:GetDeploymentStatus",
-                "greengrass:CreateGroup",
-                "greengrass:CreateSoftwareUpdateJob",
-                "greengrass:GetGroup",
-                "greengrass:CreateGroupVersion",
-                "greengrass:CreateResourceDefinition",
-                "greengrass:UpdateConnectivityInfo",
-                "greengrass:CreateSubscriptionDefinition",
-                "greengrass:CreateDeviceDefinition",
-                "greengrass:DeleteDeviceDefinition",
-                "greengrass:CreateFunctionDefinition",
-                "greengrass:GetConnectivityInfo",
-                "greengrass:AssociateServiceRoleToAccount",
-                "greengrass:GetServiceRoleForAccount"
+                "greengrass:*"
             ],
             "Resource": "*"
         }

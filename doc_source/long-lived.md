@@ -2,18 +2,18 @@
 
 You are now ready to configure your Lambda function for AWS IoT Greengrass\.
 
-1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
+1. In the AWS IoT Core console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
 
 1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.
 
 1. On the **Add a Lambda to your Greengrass Group** page, choose **Use existing Lambda**\.
 
-1. On the **Use existing Lambda page**, choose **Greengrass\_HelloWorld\_Counter**, and then choose **Next**\.  
+1. On the **Use existing Lambda** page, choose **Greengrass\_HelloWorld\_Counter**, and then choose **Next**\.  
 ![\[Screenshot with Greengrass_HelloWorld_Counter and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-049.png)
 
 1. On the **Select a Lambda version** page, choose **Alias: GG\_HW\_Counter**, and then choose **Finish**\.
 
-1. On the **Lambdas** page, from the **\.\.\.** menu, choose **Edit Configuration**\.  
+1. On the **Lambdas** page, from the **…** menu, choose **Edit Configuration**\.  
 ![\[Screenshot of the Group Configuration page with Lambdas in the navigation pane and Edit Configuration highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-050.png)
 
 1. On the configuration page, edit the following properties:

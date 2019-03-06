@@ -1,6 +1,6 @@
 # How to Configure Optimized Machine Learning Inference Using the AWS Management Console<a name="ml-dlc-console"></a>
 
-To follow the steps in this tutorial, you must be using AWS IoT Greengrass Core v1\.6\.0 or later\.
+To follow the steps in this tutorial, you must be using AWS IoT Greengrass Core v1\.6 or later\.
 
  You can use the Amazon SageMaker Neo deep learning compiler to optimize the prediction efficiency of native machine learning inference models in many frameworks\. You can then download the optimized model and install the Amazon SageMaker Neo deep learning runtime and deploy them to your AWS IoT Greengrass devices for faster inference\. 
 
@@ -79,10 +79,10 @@ Run the following commands in your Raspberry Pi terminal\.
 
  In this step, you download the Neo deep learning runtime and install it onto your Raspberry Pi\. 
 
-1. On your computer, open the [AWS IoT console](https://console.aws.amazon.com/iotv2)\.
+1. On your computer, open the [AWS IoT Core console](https://console.aws.amazon.com/iotv2)\.
 
 1. In the navigation pane, choose **Software**\.  
-![\[The AWS IoT console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
+![\[The AWS IoT Core console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
 
 1. In the **Machine learning inference** section, for ** Runtimes and precompiled framework libraries**, choose **Configure download**\.
 
@@ -110,7 +110,7 @@ Run the following commands in your Raspberry Pi terminal\.
    sudo ./install-dlr.sh
    ```
 
-    This package contains an `examples` directory that contains several files you use to run this tutorial\. This directory also contains version 1\.2\.0 of the AWS IoT Greengrass Core SDK for Python\. You can also download the latest version of the SDK in the AWS IoT console\. 
+    This package contains an `examples` directory that contains several files you use to run this tutorial\. This directory also contains version 1\.2\.0 of the AWS IoT Greengrass Core SDK for Python\. You can also download the latest version of the SDK in the AWS IoT Core console\. 
 
 ## Step 3: Create an Inference Lambda Function<a name="ml-console-dlc-create-lambda"></a>
 
@@ -138,8 +138,8 @@ Run the following commands in your Raspberry Pi terminal\.
 
 1.  Now, create the Lambda function\. 
 
-    In the AWS IoT console, in the navigation pane, choose **Greengrass**, and then choose **Groups**\.   
-![\[The navigation pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
+    In the AWS IoT Core console, in the navigation pane, choose **Greengrass**, and then choose **Groups**\.   
+![\[The navigation pane in the AWS IoT Core console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
 
 1. Choose the Greengrass group where you want to add the Lambda function\.
 
@@ -245,7 +245,7 @@ Next, configure the lifecycle of the Lambda function\.
 
 1.  Under **Model from S3**, choose **Select**\. 
 **Note**  
- Currently, Amazon SageMaker models are automatically stored in Amazon S3 when optimized\. You can find your optimized model in your Amazon S3 bucket using this option\. For more information on Neo optimization and models, refer to the Neo deep learning compiler documentation in the Amazon SageMaker user guide\. 
+ Currently, Amazon SageMaker models are automatically stored in Amazon S3 when optimized\. You can find your optimized model in your Amazon S3 bucket using this option\. For more information about model optimization in Amazon SageMaker, please refer to the [Amazon SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
 
 1.  Choose **Upload a model**\. This opens up a new tab to the Amazon S3 console\. 
 
@@ -380,8 +380,8 @@ Now you can verify whether the deployment is configured correctly\. To test, you
 **Note**  
 If a monitor is attached to the Raspberry Pi, the live camera feed is displayed in a preview window\.
 
-1. On the AWS IoT console home page, choose **Test**\.  
-![\[The navigation pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. On the AWS IoT Core console home page, choose **Test**\.  
+![\[The navigation pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1.  For **Subscriptions**, choose **Subscribe to a Topic**\. Use the following values\. Leave the remaining options at their defaults:     
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
@@ -555,4 +555,4 @@ This directory and its contents are in the Lambda runtime namespace, so they are
 
 ## Next Steps<a name="next-dlc-steps"></a>
 
- Next, explore other optimized models\. You can choose models to optimize in the Amazon SageMaker console\. For information, refer to the Amazon SageMaker user guide documentation on Neo deep learning compiler optimization\.
+ Next, explore other optimized models\. For information, refer to the [Amazon SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 

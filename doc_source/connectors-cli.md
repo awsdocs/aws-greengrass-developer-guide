@@ -1,6 +1,6 @@
 # Getting Started with Greengrass Connectors \(CLI\)<a name="connectors-cli"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7\.0 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 only\.
 
 This tutorial shows how to use the AWS CLI to work with connectors\.
 
@@ -57,7 +57,7 @@ The AWS IoT Greengrass API lets you create multiple definitions for a component 
 To complete this tutorial, you need:
 
 ### <a name="w4aac27c39c26b6"></a>
-+ A Greengrass group and a Greengrass core \(v1\.7\.0\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
++ A Greengrass group and a Greengrass core \(v1\.7\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -180,10 +180,10 @@ In this step, you configure parameters for the Twilio Notifications connector\.
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
-1. <a name="download-ggc-sdk"></a>Download the AWS IoT Greengrass Core SDK Python 2\.7 version 1\.3\.0\. You can download the SDK from the **Software** page in the AWS IoT console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
+1. <a name="download-ggc-sdk"></a>Download the AWS IoT Greengrass Core SDK Python 2\.7 version 1\.3\.0\. You can download the SDK from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
 
-   1. In the [AWS IoT console](https://console.aws.amazon.com//iotv2/home), choose **Software**\.  
-![\[The left pane of the AWS IoT console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
+   1. In the [AWS IoT Core console](https://console.aws.amazon.com//iotv2/home), choose **Software**\.  
+![\[The left pane of the AWS IoT Core console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
 
    1. Under **SDKs**, for **AWS IoT Greengrass Core SDK**, choose **Configure download**\.  
 ![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
@@ -193,7 +193,7 @@ To create a Lambda function, you must first create a Lambda function *deployment
 
 1. <a name="untar-sdk"></a>Unpack the `greengrass-core-python-sdk-1.3.0.tar.gz` file\.
 **Note**  
-For ways that you can do this on different platforms, see [this step](create-lambda.md) in the Getting Started section\. For example, you might use the following `tar` command:  
+For information about how to do this on different platforms, see [this step](create-lambda.md) in the Getting Started section\. For example, you might use the following `tar` command:  
 
    ```
    tar -xzf greengrass-core-python-sdk-1.3.0.tar.gz
@@ -252,7 +252,7 @@ For ways that you can do this on different platforms, see [this step](create-lam
 
 1. Zip the following items into a file named `temp_monitor_python.zip`\. When creating the ZIP file, include only the code and dependencies, not the containing folder\.
    + **temp\_monitor\.py**\. App logic\.
-   + **greengrasssdk**\. Required library for all Python Greengrass Lambda functions\.
+   + **greengrasssdk**\. Required library for Python Greengrass Lambda functions that publish MQTT messages\.
 
    This is your Lambda function deployment package\.
 
@@ -485,7 +485,7 @@ Deploy the group to the core device\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.7.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.7.1/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 
@@ -523,8 +523,8 @@ Deploy the group to the core device\.
 
 ### <a name="w4aac27c39c46b4"></a>
 
-1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. <a name="choose-test-page"></a>On the AWS IoT Core console home page, choose **Test**\.  
+![\[The left pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values, and then choose **Subscribe to topic**\. The Twilio Notifications connector publishes status information to this topic\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-cli.html)

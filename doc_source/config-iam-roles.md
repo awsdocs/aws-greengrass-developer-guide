@@ -1,24 +1,34 @@
 # Configure IAM Roles<a name="config-iam-roles"></a>
 
-1. Because you are creating a Lambda function that accesses other AWS services, you must create an IAM role that has access to DynamoDB and AWS IoT Greengrass\. For more information about IAM, see the [AWS Identity and Access Management documentation](https://aws.amazon.com/documentation/iam/)\.
+When you create Lambda functions that access AWS services, you must grant sufficient permissions in the Greengrass group role to allow the functions to access those services\. The group role is an IAM role that you attach to your group\.
 
-   In the IAM console, choose **Roles**, and then choose **Create Role**:  
-![\[Screenshot of Roles page with Create role highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-090.png)
+In this module, you create a role that allows a Greengrass Lambda function to access DynamoDB\. For more information about IAM, see the [AWS Identity and Access Management documentation](https://aws.amazon.com/documentation/iam/)\.
 
-   Choose **AWS service**, and then choose **Greengrass**:  
-![\[Screenshot of Choose the service that will use this role with Greengrass highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-091.png)
+1. In the IAM console, in the navigation pane, choose **Roles**, and then choose **Create Role**\.
 
-   Choose **Next: Permissions**\.
+1. Under **Select type of trusted entity**, choose **AWS service**\.
 
-   On the **Attach permissions policies** page, select the following policies: **AWSGreengrassResourceAccessRolePolicy**, **AWSGreengrassFullAccess**, and **AmazonDynamoDBFullAccess**\. 
+1. Under **Choose the service that will use this role**, choose **Greengrass**, and then choose **Next: Permissions**\.
 
-   Choose **Next: Review**\. For **Role name**, enter **Greengrass\_DynamoDB\_Role**, and then choose **Create role**\.  
-![\[Screenshot of the Trusted entities field displaying AWSGreengrassResourceAccessRolePolicy, AWSGreengrassFullAccess, and AmazonDynamoDBFullAccess.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-092.png)
+1. On the **Attach permissions policies** page, select the following policies, and then choose **Next: Tags**\.
+   + **AWSGreengrassResourceAccessRolePolicy**
+   + **AWSGreengrassFullAccess**
+   + **AmazonDynamoDBFullAccess**
+
+1. Choose **Next: Review**\. You don't need to create tags for this tutorial\.
+
+1. Enter the following values, and then choose **Create role**\.
+   + For **Role name**, enter **Greengrass\_DynamoDB\_Role**\.
+   + For **Role description**, enter **Greengrass group role**\.
+
+      
+![\[Screenshot of the Review page displaying the role name, description, and selected policies.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-092.png)
 
 1. Repeat the previous step to create the role for the AWS Lambda service\. Select the same policies \(**AWSGreengrassResourceAccessRolePolicy**, **AWSGreengrassFullAccess**, and **AmazonDynamoDBFullAccess**\)\. For **Role name**, enter **Lambda\_DynamoDB\_Role**\.
 
-1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose your AWS IoT Greengrass group\. Choose **Settings**, and then choose **Add Role**:  
-![\[My1stGroup screenshot with Settings and Add Role highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-093.png)
+1. In the AWS IoT Core console, under **Greengrass**, choose **Groups**, and then choose your AWS IoT Greengrass group\.
 
-   The IAM role you just created should appear in the list\. If it does not appear, search for it, select it, and then choose **Save**:  
-![\[Your Group's IAM Role webpage with the Greengrasss_DynamoDB_Role and Save button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-094.png)
+1. Choose **Settings**, and then choose **Add Role**\.  
+![\[Group settings page with Add Role highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-093.png)
+
+1. Choose **Greengrass\_DynamoDB\_Role** from the list of roles, and then choose **Save**\.

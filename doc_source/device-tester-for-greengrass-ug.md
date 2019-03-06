@@ -1,6 +1,6 @@
 # AWS IoT Device Tester for AWS IoT Greengrass User Guide<a name="device-tester-for-greengrass-ug"></a>
 
-AWS IoT Device Tester allows you to test that AWS IoT Greengrass works locally on your device and can communicate with the AWS IoT cloud\. The components of AWS IoT Device Tester include a Test Manager and Test Cases\.
+AWS IoT Device Tester \(IDT\) allows you to test that AWS IoT Greengrass works locally on your device and can communicate with the AWS IoT cloud\. The components of AWS IoT Device Tester include a Test Manager and Test Cases\.
 
 Test Manager runs on the host computer \(Windows, Mac, or Linux\) that is connected to the device to be tested\. The Test Manager executes test cases and aggregates results\. It also provides a command line interface to manage test execution\. Test Cases contain test logic and set up the resources required for tests\.
 
@@ -8,13 +8,35 @@ Test Manager runs on the host computer \(Windows, Mac, or Linux\) that is connec
 
 AWS IoT Device Tester for AWS IoT Greengrass verifies that the combination your Linux device’s CPU architecture, kernel configuration and drivers work with AWS IoT Greengrass\. For more information about the tests AWS IoT Device Tester runs, see [Test Group Descriptions](dt-test-groups.md)\.
 
+## AWS IoT Device Tester for AWS IoT Greengrass Versions<a name="dev-test-versions"></a>
+
+The following tabs describe the versions of AWS IoT Device Tester for AWS IoT Greengrass\. By downloading the software you agree to the [AWS IoT Device Tester License agreement](https://d232ctwt5kahio.cloudfront.net/greengrass/AWS%20IoT%20Device%20Tester%20License%20Agreement.pdf)\. Each version of AWS IoT Greengrass has a corresponding version of AWS IoT Device Tester\. Newer versions of AWS IoT Device Tester will be added to this page with each new release of AWS IoT Greengrass\. Please refer to the [ AWS IoT Device Tester for AWS IoT Greengrass User Guide](https://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html) for more details about AWS IoT Device Tester for AWS IoT Greengrass\.
+
+------
+#### [ IDT for AWS IoT Greengrass v1\.7 ]
+
+**IDT for AWS IoT Greengrass v1\.7\.1 \- Current Version**  
++ IDT for AWS IoT Greengrass \- [ Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.0.190219211616.zip) \(MD5 1f89310b8c679bfeb5f7273338302545\)
++ IDT for AWS IoT Greengrass \- [ Mac](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.0.190219211616.zip) \(MD5 0bc67bf3da5a00e023641a821aa22952\)
++ IDT for AWS IoT Greengrass \- [ Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.0.190219211616.zip) \(MD5 3d470a17fb10bb996b89245a00847b64\)
+
+------
+#### [ IDT for AWS IoT Greengrass v1\.6 ]
+
+**IDT for AWS IoT Greengrass v1\.6\.1**  
++ IDT for AWS IoT Greengrass \- [ Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.0.190219211017.zip) \(MD5 2781e183d62a8d4a06b1321d5d40b2dc\)
++ IDT for AWS IoT Greengrass \- [ Mac](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.0.190219211017.zip) \(MD5 a997f89566048c124964ba26c4d7fde0\)
++ IDT for AWS IoT Greengrass \- [ Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.0.190219211017.zip) \(MD5 56d412810045ed2b63f7fb9547531d60\)
+
+------
+
 ## Prerequisites<a name="dev-tst-prereqs"></a>
 
 This section describes the prerequistes for AWS IoT Device Tester for AWS IoT Greengrass
 
 ### Download the Latest Version of AWS IoT Device Tester for AWS IoT Greengrass<a name="install-dev-tst-gg"></a>
 
-Download the latest version of [AWS IoT Device Tester](https://aws.amazon.com/greengrass/device-tester/) onto your host computer\. The software should be extracted into a location on the file system where you have read and write permissions\. Due to a path length limitation, on Microsoft Windows, extract AWS IoT Device Tester into a root directory like C:\\ or D:\\\.
+Download the latest version of AWS IoT Device Tester from [AWS IoT Device Tester for AWS IoT Greengrass Versions](#dev-test-versions)\. The software should be extracted into a location on the file system where you have read and write permissions\. Due to a path length limitation, on Microsoft Windows, extract AWS IoT Device Tester into a root directory like C:\\ or D:\\\.
 
 ### Create and Configure an AWS Account<a name="config-aws-account"></a>
 
@@ -56,7 +78,7 @@ After you create an IAM policy, you must attach it to your IAM user\.
 
 ### Configure the AWS IoT Greengrass Service Role<a name="config-gg-role"></a>
 
-To successfully deploy a AWS IoT Greengrass group, AWS IoT Greengrass requires permissions to perform actions on your behalf\. Follow these instructions to create and associate the service role\.
+To successfully deploy an AWS IoT Greengrass group, AWS IoT Greengrass requires permissions to perform actions on your behalf\. Follow these instructions to create and associate the service role\.
 
 **To create the AWS IoT Greengrass service role**
 
@@ -104,7 +126,7 @@ Each version of AWS IoT Greengrass has a corresponding AWS IoT Device Tester ver
 
 #### Download the AWS IoT Greengrass Core Software and Configure AWS IoT Device Tester to Use It<a name="download-gg"></a>
 
-You can download the AWS IoT Greengrass Core software from the **Software** page in the AWS IoT console or from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads\. The following procedure shows you how to download the AWS IoT Greengrass Core software from the AWS IoT console\.
+You can download the AWS IoT Greengrass Core software from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads\. The following procedure shows you how to download the AWS IoT Greengrass Core software from the AWS IoT console\.
 
 **To use a version of the AWS IoT Greengrass Core software downloaded from the AWS IoT console**
 
@@ -151,7 +173,7 @@ Windows does not come with an installed SSH client\. For information about insta
 
 The ssh\-keygen command prompts you for a name and path to store the key pair\. By default, the key pair files are named id\_rsa \(private key\) and id\_rsa\.pub \(public key\)\. On macOS and and Linux, the default location of these files is `~/.ssh/`\. On Windows, the default location is `C:\Users\<user-name>\.ssh`\.
 
-When you are prompted for a key phrase, just press Enter\. For more information about creating your own SSH key, see [Generate a New SSH Key](https://www.ssh.com/ssh/keygen/)\.
+When you are prompted for a key phrase, type a key phrase to protect your SSH key\. For more information about creating your own SSH key and key phrases, see [Generate a New SSH Key](https://www.ssh.com/ssh/keygen/)\.
 
 #### Adding Authorized SSH Keys to Your Device Under Test<a name="auth-keys"></a>
 
@@ -270,6 +292,13 @@ You can provide this information using the `device.json` template located in `<d
         "value": "x86_64 | armv7l | aarch64"
       }
     ],
+    "hsm": {
+      "p11Provider": "</path/to/pkcs11ProviderLibrary>",
+      "slotLabel": "<slot-label>",
+      "slotUserPin": "<pin>",
+      "privateKeyLabel": "<key-label>",
+      "openSSLEngine": "</path/to/openssl/engine>"
+    },
     "kernelConfigLocation": "",
     "greengrassLocation": "",
     "devices": [
@@ -282,7 +311,7 @@ You can provide this information using the `device.json` template located in `<d
             "method": "pki",
             "credentials": {
               "user": "<user>",
-              "privKeyPath": "C:/path/to/private/key"
+              "privKeyPath": "</path/to/private/key>"
             }
           }
         }
@@ -309,6 +338,19 @@ An array that contains the device's supported features\.
   + linux, armv7l
   + linux, aarch64
   + ubuntu, x86\_64
+
+`hsm`  
+An array that contains configuration information for testing with AWS IoT Greengrass hardware security integration\. For more information, see [Hardware Security Integration](hardware-security.md)     
+`hsm.p11Provider`  
+The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  
+`hsm.slotLabel`  
+The slot label used to identify the hardware module\.  
+`hsm.slotUserPin`  
+The user pin used to authenticate the AWS IoT Greengrass core to the module\.  
+`hsm.privateKeyLabel`  
+The label used to identify the key within the hardware module\.  
+`hsm.openSSLEngine`  
+The absolute path to the OpenSSL engine's \.so file that enables PKCS\#11 support on OpenSSL\. This is used by the AWS IoT Greengrass OTA update agent\.
 
 `devices.id`  
 A user\-defined unique identifier for the device being tested\.
@@ -417,6 +459,22 @@ The number of test cases that AWS IoT Device tester couldn't execute\.
 `disabled`  
 This attribute is not used and can be ignored\.
 
+The `GGQ_Report.xml` file contains a `<awsproduct` tag that contains information about the product being tested and the features of the product that were validated after running a suite of tests\.Attributes used in the `<awsproduct>` tag
+
+`name`  
+The name of the product tested
+
+`version`  
+The version of the product tested\.
+
+`features`  
+The features validated\. Features marked as *required* are required to submit your board for qualification\. The following snippet shows how this information is written in the GGQ\_Report\.xml file:  
+
+```
+<feature name="aws-iot-greengrass-no-container" value="supported" type="required"><
+								/feature>
+```
+
 If there are no test case failures or errors, your device meets the technical requirements to run AWS IoT Greengrass and can interoperate with AWS IoT services\. If you choose to list your device in the Partner Device Catalog, you can use this report as qualification evidence\.
 
 In the case of test case failures or errors, you can identify the test case that failed by reviewing the `<testsuites>` XML tags\. The `<testsuite>` XML tags inside the `<testsuites>` tag shows the test case result summary for a test group\. For example:
@@ -481,6 +539,39 @@ A test suite consists of groups of tests that are related to AWS IoT Greengrass 
 A test group consists of individual tests that are related to the particular feature being tested\.
 
 A test consists of individual executables and configurations used to run a test to ensure the functionality of a portion of a feature\.
+
+## Error Codes<a name="bk-error-codes"></a>
+
+The following table lists the error codes generated by AWS IoT Device Tester for AWS IoT Greengrass\.
+
+
+| Error Code | Error Code Name | Possible Root Cause | Troubleshooting | 
+| --- | --- | --- | --- | 
+|  101  |  InternalError  |  An internal error occured  |   Please contact [AWS Developer Support](https://aws.amazon.com/premiumsupport/plans/developers/)\.  | 
+|  102  |  TimeoutError  |  TimeoutError means that test case is not able to finish in a limited time range\. This can happen in several situations: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html)  |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html)  | 
+|  103  |  PlatformNotSupportError  |  Incorrect OS/architecture combination specified in device\.json\.  |  Change your configuration to one of the supported combinations: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html) For more information about device configurate, please refer to [Device Configuration](#device-config)\.  | 
+|  104  |  VersionNotSupportError  |  The AWS IoT Greengrass core software version is not supported for the version of AWS IoT device tester you are using\.  |  Find the supported version of the AWS IoT Greengrass core software by using the device\_tester\_bin version command\. For example, if you are using a Mac you would use the following command: \./devicetester\_mac\_x86\_64 version\. To find the version of AWS IoT Greengrass core software you are using: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html) You can test a different version of the AWS IoT Greengrass core software\. For more information, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.  | 
+|  105  |  LanguageNotSupportError  |  AWS IoT Device Tester only supports Python for AWS IoT Greengrass libraries and SDKs\.  |  Please make sure: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html)  | 
+|  106  |  ValidationError  |  Some fields in device\.json or config\.json file are invalid\.  |  Please check the error message at the right side of error code in report\. If the message is: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html)  | 
+|  107  |  SSHConnectionFailed  |  The test machine is not able to connect to the configured device\.  |  Verify the following fields from your device\.json file are correct: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html) For more information about device configuration, see [Device Configuration](#device-config)\.  | 
+|  108  |  RunCommandError  |  A test case failed to execute command on the device under test\.  |  Verify that root access is allowed for the configured user in device\.json\. A password is required by some devices when executing commands with root access\. Make sure root access is allowed without a password\. consult your device's documentation for more information\. Try running the failing command manually on your device and see if an error occurs\.  | 
+|  109  |  PermissionDeniedError  |  No root access\.  |  Set root access for configured user on your device\.  | 
+|  110  |  CreateFileError  |  Unable to create a file\.  |  Check your device's disk space and directory permissions\.  | 
+|  111  |  CreateDirError  |  Unable to create a directory\.  |  Check your device's disk space and directory permissions\.  | 
+|  112  |  InvalidPathError  |  The path to the AWS IoT Greengrass core software is incorrect  |  Verify that the path in the error message is valid\. Do not to edit any files under the `/test` directory\.  | 
+|  113  |  InvalidFileError  |  A file is invalid\.  |  Verify the file mentioned in error message is valid\.  | 
+|  114  |  ReadFileError  |  The specified file cannot be read\.  |  Verify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html) If you are testing on a Mac, increase the open files limit\. The default limit is 256 which is enough for testing\.  | 
+|  115  |  FileNotFoundError  |  A needed file is not found\.  |  Verify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html)  | 
+|  116  |  OpenFileFailed  |  Unable to open the specified file\.  |  Verify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html) If you are testing on a Mac, increase the open files limit\. The default limit is 256 which is enough for testing\.  | 
+|  117  |  WriteFileFailed  |  Failed to write file \(can be both device under test or test machine\)\.  |  Try to manually create a file in the directory specified in the error message\.  | 
+|  118  |  FileCleanUpError  |  A test case failed to remove the specified file, directory or to umount the specified file on the remote device\.  |  If the binary file is still running, the file may be locked\. Kill the process and delete the specified file\.  | 
+|  119  |  InvalidInputError  |  Invalid configuration\.  |  Verify your suite\.json file is valid\.  | 
+|  120  |  InvalidCredentialError  |  Invalid AWS credentials\.  |  Verify your AWS credentials\. This error can also be caused by network problems\. Check your network connection and rerun the test group\.  | 
+|  121  |  AWSSessionError  |  Failed to create an AWS session\.  |  The error can occur because of invalid AWS credentials or an unstable internet connection\. Try to call an AWS API using AWS ClI to see it works\.  | 
+|  123  |  AWSApiCallError  |  An AWS API error occured\.  |  This might happen due to network issue\. Please check your network before retry the test group\.  | 
+|  124  |  IpNotExistError  |   IP address is not included in connectivity info\.  |  Check your internet connection\. Ensure you are not using "ctrl\+c" to interrupt the test\. You can go to the AWS Greengrass console to check the connectivity information for the AWS IoT Greengrass core thing that is being used by the test\. If there are 10 endpoints included in connectivity info, you can remove some or all of them and rerun the test\. For more about connectivity info see, [Connectivity Information](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-connectivity-info.html)\.  | 
+|  125  |  OTAJobNotCompleteError  |  An OTA job did not complete\.  |  Check your internet connection and retry the OTA test group\.  | 
+|  126  |  CreateGreengrassServiceRoleError  |  One of the following occured: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html)  |  Configure the AWS IoT Greengrass service role, for more information, see [Configure the AWS IoT Greengrass Service Role](#config-gg-role)\.  | 
 
 ## Troubleshooting<a name="bk-gg-troublshooting"></a>
 

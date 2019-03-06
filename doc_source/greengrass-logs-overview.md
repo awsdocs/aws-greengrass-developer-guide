@@ -74,7 +74,7 @@ Before the first deployment, only system components write logs to the file syste
 
 ## Configure Logging for AWS IoT Greengrass<a name="config-logs"></a>
 
-You can use the AWS IoT console or the [AWS IoT Greengrass APIs](#config-logs-api) to configure AWS IoT Greengrass logging\.
+You can use the AWS IoT Core console or the [AWS IoT Greengrass APIs](#config-logs-api) to configure AWS IoT Greengrass logging\.
 
 **Note**  
 To allow AWS IoT Greengrass to write logs to CloudWatch Logs, your group role must allow the [required CloudWatch Logs actions](#gg-logs-cloudwatch-perms)\.
@@ -83,7 +83,7 @@ To allow AWS IoT Greengrass to write logs to CloudWatch Logs, your group role mu
 
 You can configure logging on the group's **Settings** page\.
 
-1. In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. In the AWS IoT Core console, choose **Greengrass**, and then choose **Groups**\.
 
 1. Choose the group where you want to configure logging\.
 

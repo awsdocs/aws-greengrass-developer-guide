@@ -1,6 +1,6 @@
 # Integrate with Services and Protocols Using Greengrass Connectors<a name="connectors"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7\.0 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 only\.
 
 Greengrass connectors are prebuilt modules that help accelerate the development lifecycle for common edge scenarios\. They make it easier to interact with local infrastructure, device protocols, AWS, and other cloud services\. With connectors, you can spend less time learning new protocols and APIs and more time focusing on the logic that matters to your business\.
 
@@ -25,7 +25,7 @@ AWS provides a set of Greengrass connectors that simplify interactions with comm
 ## Requirements<a name="connectors-reqs"></a>
 
 The following requirements apply for connectors:
-+ You must use AWS IoT Greengrass core software v1\.7\.0\.
++ You must use AWS IoT Greengrass core software v1\.7\.
 + You must meet the requirements of each connector that you're using\. These requirements might include device prerequisites, required permissions, and limits\. For more information, see [AWS\-Provided Greengrass Connectors](connectors-list.md)\.
 + A Greengrass group can contain only one configured instance of a given connector, but the instance can be used in multiple subscriptions\. For more information, see [Configuration Parameters](#connectors-parameters)\.
 + Connectors are not supported when the Greengrass group is configured to run Lambda functions without containerization\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
@@ -102,7 +102,7 @@ Many connectors also have built\-in modes of communication to interact with clou
 
 ### Input Topics<a name="connectors-multiple-topics"></a>
 
-Some connectors subscribe to multiple topics for input data\. For example, the Serial Stream connector supports two topics:
+Most connectors receive input data on MQTT topics\. Some connectors subscribe to multiple topics for input data\. For example, the Serial Stream connector supports two topics:
 + `serial/+/read/#`
 + `serial/+/write/#`
 
@@ -111,10 +111,10 @@ For this connector, read and write requests are sent to the corresponding topic\
 The `+` and `#` characters in the previous examples are wildcards\. These wildcards allow subscribers to receive messages on multiple topics and publishers to customize the topics that they publish to\.
 + The `+` wildcard can appear anywhere in the topic hierarchy\. It can be replaced by one hierarchy item\.
 
-  As an example, for a `sensor/+/input` topic, messages can be published to topics `sensor/id-123/input` but not to `sensor/group-a/id-123/input`\.
+  As an example, for topic `sensor/+/input`, messages can be published to topics `sensor/id-123/input` but not to `sensor/group-a/id-123/input`\.
 + The `#` wildcard can appear only at the end of the topic hierarchy\. It can be replaced by zero or more hierarchy items\.
 
-  As an example, for a `sensor/#` topic, messages can be published to `sensor/id-123` and `sensor/group-a/id-123`, but not to `sensor`\.
+  As an example, for topic `sensor/#`, messages can be published to `sensor/`, `sensor/id-123`, and `sensor/group-a/id-123`, but not to `sensor`\.
 
 Wildcard characters are valid only when subscribing to topics\. Messages can't be published to topics that contain wildcards\. Check the documentation for the connector to learn about its input or output topic requirements\. For more information, see [AWS\-Provided Greengrass Connectors](connectors-list.md)\.
 

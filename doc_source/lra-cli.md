@@ -1,6 +1,6 @@
 # How to Configure Local Resource Access Using the AWS Command Line Interface<a name="lra-cli"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.3\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
 To use a local resource, you must add a resource definition to the group definition that is deployed to your Greengrass core device\. The group definition must also contain a Lambda function definition in which you grant access permissions for local resources to your Lambda functions\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
 
@@ -55,11 +55,11 @@ aws greengrass create-resource-definition  --cli-input-json '{
 
 **Resource\#Name**: The name of the resource\. The resource name is displayed in the Greengrass console\. Max length 128 characters\. Pattern: \[a\-zA\-Z0\-9:\_\-\]\+\.
 
-**LocalVolumeResourceData\#SourcePath**: The local absolute path of the volume resource on the Greengrass core device\. The source path for a volume resource type cannot start with `/sys`\.
-
 **LocalDeviceResourceData\#SourcePath**: The local absolute path of the device resource\. The source path for a device resource can refer only to a character device or block device under `/dev`\.
 
-**LocalVolumeResourceData\#DestinationPath**: The absolute path of the volume resource inside the Lambda environment\.
+**LocalVolumeResourceData\#SourcePath**: The local absolute path of the volume resource on the Greengrass core device\. This location is outside of the [container](lambda-group-config.md#lambda-function-containerization) that the function runs in\. The source path for a volume resource type cannot start with `/sys`\.
+
+**LocalVolumeResourceData\#DestinationPath**: The absolute path of the volume resource inside the Lambda environment\. This location is inside the container that the function runs in\.
 
 **GroupOwnerSetting**: Allows you to configure additional group privileges for the Lambda process\. This field is optional\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.
 
@@ -166,7 +166,6 @@ Your Greengrass group now contains the *lraTest* Lambda function that has access
 This example Lambda function, `lraTest.py`, written in Python, writes to the local volume resource: 
 
 ```
-# lraTest.py
 # Demonstrates a simple use case of local resource access.
 # This Lambda function writes a file "test" to a volume mounted inside
 # the Lambda environment under "/dest/LRAtest". Then it reads the file and 
@@ -183,7 +182,7 @@ client = greengrasssdk.client('iot-data')
 volumePath = '/dest/LRAtest'
 
 def function_handler(event, context):
-    client.publish(topic='LRA/test', payload='Sent from AWS Greengrass Core.')
+    client.publish(topic='LRA/test', payload='Sent from AWS IoT Greengrass Core.')
     try:
         volumeInfo = os.stat(volumePath)
         client.publish(topic='LRA/test', payload=str(volumeInfo))

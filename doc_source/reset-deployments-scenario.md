@@ -1,6 +1,6 @@
 # Reset Deployments<a name="reset-deployments-scenario"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.1\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.1 and later\.
 
 You may want to reset a group's deployments in order to:
 + Delete the group \(for example, when the group's core has been reimaged\.\)
@@ -56,3 +56,9 @@ The output of the `get-deployment-status` CLI command will look like this:
 ```
 
 The `DeploymentStatus` is set to `Building` when the reset deployment is being prepared\. When the reset deployment is ready but the AWS IoT Greengrass core has not picked up the reset deployment, the `DeploymentStatus` is `InProgress`\.
+
+If the reset operation fails, error information is returned in the response\.
+
+## See Also<a name="reset-deployments-see-also"></a>
++ [ResetDeployments ](https://docs.aws.amazon.com/greengrass/latest/apireference/resetdeployments-post.html) in the *AWS IoT Greengrass API Reference*
++ [GetDeploymentStatus ](https://docs.aws.amazon.com/greengrass/latest/apireference/getdeploymentstatus-get.html) in the *AWS IoT Greengrass API Reference*

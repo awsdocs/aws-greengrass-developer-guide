@@ -1,6 +1,6 @@
 # Hardware Security Integration<a name="hardware-security"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7\.0 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 only\.
 
 AWS IoT Greengrass supports the use of hardware security modules \(HSM\) through the [PKCS\#11 interface](#hardware-security-see-also) for secure storage and offloading of private keys\. This prevents keys from being exposed or duplicated in software\. Private keys can be securely stored on hardware modules, such as HSMs, Trusted Platform Modules \(TPM\), or other cryptographic elements\.
 
@@ -28,9 +28,9 @@ Search for devices that are qualified for this feature in the [AWS Partner Devic
 + If you're using the Greengrass OTA update agent, the [OpenSSL libp11 PKCS\#11](https://github.com/OpenSC/libp11) wrapper library must be installed\. For more information, see [Configure Support for Over\-the\-Air Updates](#hardware-security-ota-updates)\.
 
 In addition, make sure that the following conditions are met:
-+ The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
-+ The AWS IoT Greengrass core software \(v1\.7\.0\) is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\.
-+ The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
++ The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this from the **Manage** page for the core thing in the AWS IoT Core console\.
++ The AWS IoT Greengrass core software \(v1\.7\) is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\.
++ The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT Core console\.
 
 **Note**  
 Currently, AWS IoT Greengrass doesn't support loading the CA certificate or AWS IoT client certificate directly from the HSM\. The certificates must be loaded as plain\-text files on the file system in a location that can be read by Greengrass\.
@@ -77,7 +77,7 @@ The `crypto` object contains the following properties:
 | --- | --- | --- | 
 | <a name="config-capath"></a>caPath |  The absolute path to the AWS IoT root CA\.  |  Must be a file URI of the form: `file:///absolute/path/to/file`\. Make sure that your [endpoints correspond to your certificate type](gg-core.md#certificate-endpoints)\.  | 
 | PKCS11 | 
-| OpenSSLEngine |  Optional\. The absolute path to the OpenSSL engine `.so` file to enable PKCS\#11 support on OpenSSL\. This is used by the Greengrass OTA update agent\.  |  Must be a path to a file on the file system\.  | 
+| OpenSSLEngine |  Optional\. The absolute path to the OpenSSL engine `.so` file to enable PKCS\#11 support on OpenSSL\.  |  Must be a path to a file on the file system\. This property is required if you're using the Greengrass OTA update agent with hardware security\. For more information, see [Configure Support for Over\-the\-Air Updates](#hardware-security-ota-updates)\.  | 
 | P11Provider |  The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  |  Must be a path to a file on the file system\.  | 
 | slotLabel |  The slot label that's used to identify the hardware module\.  |  Must conform to PKCS\#11 label specifications\.  | 
 | slotUserPin |  The user pin that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
@@ -99,7 +99,7 @@ The following are security and performance\-related provisioning practices\.
 **Note**  
 If you configure private keys to use with this feature \(by following the instructions provided by the hardware vendor\), be aware that AWS IoT Greengrass currently supports only the PKCS1 v1\.5 padding mechanism for encryption and decryption of [local secrets](secrets.md)\. AWS IoT Greengrass doesn't support Optimal Asymmetric Encryption Padding \(OAEP\)\.
 + Configure private keys to prohibit export\.
-+ Use the provisioning tool that's provided by the hardware vendor to generate a certificate signing request \(CSR\) using the hardware\-protected private key, and then use the AWS IoT console to generate a client certificate\.
++ Use the provisioning tool that's provided by the hardware vendor to generate a certificate signing request \(CSR\) using the hardware\-protected private key, and then use the AWS IoT Core console to generate a client certificate\.
 The practice of rotating keys doesn't apply when private keys are generated on an HSM\.
 
 **Performance**  <a name="hsm-performance"></a>
@@ -208,7 +208,7 @@ If the `OpenSSLEngine` property doesn't exist in the `PKCS11` object, then add i
 
 ## Backward Compatibility with Earlier Versions of the AWS IoT Greengrass Core Software<a name="hardware-security-backward-compatibiity"></a>
 
-The AWS IoT Greengrass core software with hardware security support is fully backward compatible with `config.json` files that are generated for v1\.6\.0 and earlier\. If the `crypto` object is not present in the `config.json` configuration file, then AWS IoT Greengrass uses the file\-based `coreThing.certPath`, `coreThing.keyPath`, and `coreThing.caPath` properties\. This backward compatibility applies to Greengrass OTA updates, which do not overwrite a file\-based configuration that's specified in `config.json`\.
+The AWS IoT Greengrass core software with hardware security support is fully backward compatible with `config.json` files that are generated for v1\.6 and earlier\. If the `crypto` object is not present in the `config.json` configuration file, then AWS IoT Greengrass uses the file\-based `coreThing.certPath`, `coreThing.keyPath`, and `coreThing.caPath` properties\. This backward compatibility applies to Greengrass OTA updates, which do not overwrite a file\-based configuration that's specified in `config.json`\.
 
 ## Hardware Without PKCS\#11 Support<a name="hardware-without-pkcs11"></a>
 

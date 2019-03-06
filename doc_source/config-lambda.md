@@ -2,7 +2,7 @@
 
 You are now ready to configure your Lambda function for AWS IoT Greengrass\.
 
-1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
+1. In the AWS IoT Core console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
 
 1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
 ![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas.png)
@@ -21,25 +21,30 @@ You are now ready to configure your Lambda function for AWS IoT Greengrass\.
 1. On the **Group\-specific Lambda configuration** page, make the following changes:
    + Set **Timeout** to 25 seconds\. This Lambda function sleeps for 20 seconds before each invocation\.
    + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
-   + Accept the default values for all other fields, such as **Run as** and **Containerization**\.
 
       
 ![\[Screenshot of the configuration page with 25 (seconds) and the Make this function long-lived and keep it running indefinitely radio button selected.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-035.png)
-
-   A *long\-lived* Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container \(or sandbox\)\. This is in contrast to an *on\-demand* Lambda function, which starts when invoked and stops when there are no tasks left to execute\. For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.
 **Note**  
-The Lambda function in this tutorial accepts JSON input payloads, but Greengrass Lambda functions also support binary input payloads\. Binary support is especially useful when interacting with device data, because the restricted hardware capabilities of devices often make it difficult or impossible to construct a JSON data type\.
+A *long\-lived* Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container \(or sandbox\)\. This is in contrast to an *on\-demand* Lambda function, which starts when invoked and stops when there are no tasks left to execute\. For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.
 
-1. Choose **Update** to save your changes to the Lambda function configuration\.
+1. Keep the default values for all other fields, such as **Run as**, **Containerization**, and **Input payload data type**, and choose **Update** to save your changes\. For information about Lambda function properties, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
 
-1. An AWS IoT Greengrass Lambda function can subscribe or publish messages \(using the [MQTT protocol](http://mqtt.org/)\):
-   + To and from other devices \(or device shadows\) in the AWS IoT Greengrass core\. Information about device shadows is provided in [Module 5](module5.md)\.
-   + To other Lambda functions\.
-   + To AWS IoT\.
+   Next, create a subscription that allows the Lambda to send [MQTT](http://mqtt.org/) messages to AWS IoT\.
 
-   The AWS IoT Greengrass group controls the way in which these components interact by using subscriptions that enable more security and to provide predictable interactions\. 
+   A Greengrass Lambda function can exchange MQTT messages with:
+   + [Devices](what-is-gg.md#greengrass-devices) in the Greengrass group\.
+   + [Connectors](connectors.md) in the group\.
+   + Other Lambda functions in the group\.
+   + AWS IoT\.
+   + The local shadow service\. For more information, see [Module 5: Interacting with Device Shadows](module5.md)\.
 
-   A *subscription* consists of a source, target, and topic\. The source is the originator of the message\. The target is the destination of the message\. The topic allows you to filter the data that is sent from the source to the target\. The source or target can be an AWS IoT Greengrass device, a Lambda function, a device shadow, or AWS IoT\. A subscription is directed in the sense that messages flow in a specific direction\. For an AWS IoT Greengrass device to send messages to and receive messages from a Lambda function, you must set up two subscriptions: one from the device to the Lambda function and another from the Lambda function to the device\. The `Greengrass_HelloWorld` Lambda function sends messages only to the `hello/world` topic in AWS IoT, as shown in the following `greengrassHelloWorld.py` code snippet:
+   The group uses subscriptions to control how these entities can communicate with each other\. Subscriptions provide predictable interactions and a layer of security\.
+
+   A subscription consists of a source, target, and topic\. The source is the originator of the message\. The target is the destination of the message\. The topic allows you to filter the data that is sent from the source to the target\. The source or target can be a Greengrass device, Lambda function, connector, device shadow, or AWS IoT\.
+**Note**  
+A subscription is directed in the sense that messages flow in a specific direction: from the source to the target\. To allow two\-way communication, you must set up two subscriptions\.
+
+   The `Greengrass_HelloWorld` Lambda function sends messages only to the `hello/world` topic in AWS IoT, as shown in the following `greengrassHelloWorld.py` code snippet:
 
    ```
    def greengrass_hello_world_run():
@@ -47,12 +52,7 @@ The Lambda function in this tutorial accepts JSON input payloads, but Greengrass
            client.publish(topic='hello/world', payload='Hello world! Sent from Greengrass Core.')
        else:
            client.publish(topic='hello/world', payload='Hello world! Sent from Greengrass Core running on platform: {}'.format(my_platform))
-   
-       # Asynchronously schedule this function to be run again in 5 seconds
        Timer(5, greengrass_hello_world_run).start()
-   
-   # Execute the function above:
-   greengrass_hello_world_run()
    ```
 
    Because the `Greengrass_HelloWorld` Lambda function sends messages only to the `hello/world` topic in AWS IoT, you only need to create one subscription from the Lambda function to AWS IoT, as shown next\.
@@ -66,7 +66,7 @@ The Lambda function in this tutorial accepts JSON input payloads, but Greengrass
 1. For **Select a target**, choose **Select**\. Then, on the **Service** tab, choose **IoT Cloud**, and then choose **Next**\.  
 ![\[The Select a target with the Services tab, IoT Cloud and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-038.png)
 
-1. In **Optional topic filter**, enter **hello/world**, and then choose **Next**\.  
-![\[Screenshot with hello/world highlighted under Optional topic filter.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-039.png)
+1. For **Topic filter**, enter **hello/world**, and then choose **Next**\.  
+![\[Screenshot with hello/world highlighted under Topic filter.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-039.png)
 
 1. Choose **Finish**\.

@@ -1,6 +1,6 @@
 # Module 7: Simulating Hardware Security Integration<a name="console-mod7"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7\.0 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 only\.
 
 This advanced module shows you how to configure a simulated hardware security module \(HSM\) for use with a Greengrass core\. The configuration uses SoftHSM, which is a pure software implementation that uses the [PKCS\#11](#console-mod7-see-also) application programming interface \(API\)\. The purpose of this module is to allow you to set up an environment where you can learn and do initial testing against a software\-only implementation of the PKCS\#11 API\. It is provided only for learning and initial testing, not for production use of any kind\.
 
@@ -30,7 +30,7 @@ If you encounter issues when using this command on your system, see [SoftHSM ver
 
 ## Configure SoftHSM<a name="softhsm-config"></a>
 
-In this step, you configure SoftHSM\.
+In this step, you [configure SoftHSM](https://github.com/opendnssec/SoftHSMv2#configure-1)\.
 
 1. Switch to the root user\.
 
@@ -38,19 +38,21 @@ In this step, you configure SoftHSM\.
    sudo su
    ```
 
-1. Determine where the system-wide softhsm2.conf location is by checking the man page\. A common location is `/etc/softhsm/softhsm2.conf` but some systems may differ\.
+1. Use the manual page to find the system\-wide `softhsm2.conf` location\. A common location is `/etc/softhsm/softhsm2.conf`, but the location might be different on some systems\.
 
    ```
    man softhsm2.conf
    ```
 
-1. Create the directory for the softhsm2 configuration file in the system-wide default location\. In this example we assume it is `/etc/softhsm/softhsm2.conf`\.
+1. Create the directory for the softhsm2 configuration file in the system\-wide location\. In this example, we assume the location is `/etc/softhsm/softhsm2.conf`\.
 
    ```
    mkdir -p /etc/softhsm
    ```
 
-1. Create the token directory in the /greengrass directory\. softhsm2-util will report `ERROR: Could not initialize the library.` if this step is skipped\.
+1. Create the token directory in the `/greengrass` directory\.
+**Note**  
+If this step is skipped, softhsm2\-util reports `ERROR: Could not initialize the library`\.
 
    ```
    mkdir -p /greengrass/softhsm2/tokens
@@ -69,7 +71,7 @@ In this step, you configure SoftHSM\.
    ```
 
 **Note**  
-These configuration settings are intended for experimentation purposes only\. To see all configuration options, open the manual page for the configuration file:  
+These configuration settings are intended for experimentation purposes only\. To see all configuration options, read the manual page for the configuration file\.  
 
 ```
 man softhsm2.conf
@@ -84,10 +86,8 @@ In this step, you initialize the SoftHSM token, convert the private key format, 
    ```
    softhsm2-util --init-token --slot 0 --label greengrass --so-pin 12345 --pin 1234
    ```
-
-1. If prompted, enter an SO pin of `12345` and a user pin of `1234`\.
 **Note**  
-AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any value\.
+If prompted, enter an SO pin of `12345` and a user pin of `1234`\. AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any value\.
 
 1. Convert the private key to a format that can be used by the SoftHSM import tool\. For this tutorial, you convert the private key that you obtained from the **Easy Group creation** option in [Module 2](module2.md) of the Getting Started tutorial\.
 
@@ -95,15 +95,13 @@ AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any val
    openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in hash.private.key -out hash.private.pem
    ```
 
-1. Import the private key into SoftHSM\. **NOTE: Only one of the commands below is required depending on your version of softhsm2-util.**
-
-   softhsm2-util v2.2.0 syntax (Raspbian)
+1. Import the private key into SoftHSM\. Run only one of the following commands, depending on your version of softhsm2\-util\.  
+**Raspbian softhsm2\-util v2\.2\.0** syntax  
 
    ```
-   softhsm2-util --import hash.private.pem --token greengrass --label iotkey --id 0000 --pin 1234
-   ```
-
-   softhsm2-util v2.0.0 syntax (Ubuntu)
+   softhsm2-util --import hash.private.pem --token greengrass --label iotkey --id 0000 --pin 12340
+   ```  
+**Ubuntu softhsm2\-util v2\.0\.0** syntax  
 
    ```
    softhsm2-util --import hash.private.pem --slot 0 --label iotkey --id 0000 --pin 1234
@@ -152,7 +150,6 @@ The examples in this procedure are written with the assumption that the `config.
 
    ```
      "PKCS11": {
-       "OpenSSLEngine": "/path-to-p11-openssl-engine",
        "P11Provider": "/path-to-pkcs11-provider-so",
        "slotLabel": "crypto-token-name",
        "slotUserPin": "crypto-token-user-pin"
@@ -179,28 +176,29 @@ The examples in this procedure are written with the assumption that the `config.
      },
      "managedRespawn" : false,
      "crypto": {
-       "PKCS11" : {
-         "OpenSSLEngine" : "/path-to-p11-openssl-engine",
-         "P11Provider" : "/path-to-pkcs11-provider-so",
-         "slotLabel" : "crypto-token-name",
-         "slotUserPin" : "crypto-token-user-pin"
+       "PKCS11": {
+         "P11Provider": "/path-to-pkcs11-provider-so",
+         "slotLabel": "crypto-token-name",
+         "slotUserPin": "crypto-token-user-pin"
        },
        "principals" : {
+         "MQTTServerCertificate": {
+           "privateKeyPath": "path-to-private-key"
+         },
          "IoTCertificate" : {
            "privateKeyPath" : "file:///greengrass/certs/hash.private.key",
            "certificatePath" : "file:///greengrass/certs/hash.cert.pem"
          },
          "SecretsManager" : {
            "privateKeyPath" : "file:///greengrass/certs/hash.private.key"
-         },
-         "MQTTServerCertificate" : {
-           "privateKeyPath" : "path-to-private-key"
          }
        },    
        "caPath" : "file:///greengrass/certs/root.ca.pem"
      }
    }
    ```
+**Note**  
+To use over\-the\-air \(OTA\) updates with hardware security, the `PKCS11` object must also contain the `OpenSSLEngine` property\. For more information, see [Configure Support for Over\-the\-Air Updates](hardware-security.md#hardware-security-ota-updates)\.
 
 1. Edit the `crypto` object:
 
@@ -216,41 +214,41 @@ The examples in this procedure are written with the assumption that the `config.
         pkcs11:object=iotkey;type=private
         ```
 
-   1. Check the `crypto` object. It should look similar to this:
+   1. Check the `crypto` object\. It should look similar to the following:
 
-	```
-	  "crypto": {
-	    "PKCS11": {
-	      "P11Provider": "/usr/lib/x86_64-linux-gnu/softhsm/libsofthsm2.so",
-	      "slotLabel": "greengrass",
-	      "slotUserPin": "1234"
-	    },
-	    "principals": {
-	      "MQTTServerCertificate": {
-	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
-	      },
-	      "SecretsManager": {
-	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
-	      },
-	      "IoTCertificate": {
-	        "certificatePath": "file://certs/core.crt",
-	        "privateKeyPath": "pkcs11:object=iotkey;type=private"
-	      }
-	    },
-	    "caPath": "file://certs/root.ca.pem"
-	  }
-	```
+      ```
+        "crypto": {
+          "PKCS11": {
+            "P11Provider": "/usr/lib/x86_64-linux-gnu/softhsm/libsofthsm2.so",
+            "slotLabel": "greengrass",
+            "slotUserPin": "1234"
+          },
+          "principals": {
+            "MQTTServerCertificate": {
+              "privateKeyPath": "pkcs11:object=iotkey;type=private"
+            },
+            "SecretsManager": {
+              "privateKeyPath": "pkcs11:object=iotkey;type=private"
+            },
+            "IoTCertificate": {
+              "certificatePath": "file://certs/core.crt",
+              "privateKeyPath": "pkcs11:object=iotkey;type=private"
+            }
+          },
+          "caPath": "file://certs/root.ca.pem"
+        }
+      ```
 
-1. Remove the `caPath`, `certPath`, and `keyPath` values from the `coreThing` object\. It should look similar to this:
+1. Remove the `caPath`, `certPath`, and `keyPath` values from the `coreThing` object\. It should look similar to the following:
 
-	```
-	"coreThing" : {
-	    "thingArn" : "arn:aws:iot:region:account-id:thing/core-thing-name",
-	    "iotHost" : "host-prefix.iot.region.amazonaws.com",
-	    "ggHost" : "greengrass.iot.region.amazonaws.com",
-	    "keepAlive" : 600
-	  }
-	```
+   ```
+   "coreThing" : {
+     "thingArn" : "arn:aws:iot:region:account-id:thing/core-thing-name",
+     "iotHost" : "host-prefix-ats.iot.region.amazonaws.com",
+     "ggHost" : "greengrass-ats.iot.region.amazonaws.com",
+     "keepAlive" : 600
+   }
+   ```
 
 **Note**  
 For this tutorial, you specify the same private key for all principals\. For more information about choosing the private key for the local MQTT server, see [Performance](hardware-security.md#hsm-performance)\. For more information about the local secrets manager, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.

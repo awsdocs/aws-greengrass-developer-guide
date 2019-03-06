@@ -1,6 +1,6 @@
 # Perform Machine Learning Inference<a name="ml-inference"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.6\.0 and later\.
+This feature is available for AWS IoT Greengrass Core v1\.6 or later\.
 
 With AWS IoT Greengrass, you can perform machine learning \(ML\) inference at the edge on locally generated data using cloud\-trained models\. This lets you benefit from the low latency and cost savings of running local inference, yet still take advantage of cloud computing power for training models and complex processing\.
 
@@ -96,7 +96,7 @@ To enable AWS IoT Greengrass to access models that are stored in Amazon S3 bucke
 ## Requirements<a name="ml-requirements"></a>
 
 The following requirements apply for creating and using machine learning resources:
-+ You must be using AWS IoT Greengrass Core v1\.6\.0 or later\.
++ You must be using AWS IoT Greengrass Core v1\.6 or later\.
 + Lambda functions can't perform privileged operations on the resource\. Only `read` or `read and write` permissions are available\.
 + Lambda functions configured with access to ML model resources cannot be running in non\-containerized mode\. 
 + You must provide the full path of the resource on the operating system of the core device\.
@@ -110,13 +110,13 @@ To help you quickly get started experimenting with ML inference, AWS IoT Greengr
 + [ TensorFlow](https://aws.amazon.com/tensorflow/) \(Apache License 2\.0\)
 + Chainer \(MIT License\)
 
-These runtimes and precompiled libraries can be installed on NVIDIA Jetson TX2, Intel Atom, and Raspberry Pi platforms\. The runtimes and libraries are available from the **Software** page of the AWS IoT console\. You can install them directly on your core or include them as part of the software in your Greengrass group\.
+These runtimes and precompiled libraries can be installed on NVIDIA Jetson TX2, Intel Atom, and Raspberry Pi platforms\. The runtimes and libraries are available from the **Software** page of the AWS IoT Core console\. You can install them directly on your core or include them as part of the software in your Greengrass group\.
 
 Be sure to read the following information about compatibility and limitations\.
 
 ### Amazon SageMaker Neo deep learning runtime<a name="dlc-optimize-info"></a>
 
- You can use the Amazon SageMaker Neo deep learning runtime to perform inference with optimized machine learning models on your AWS IoT Greengrass devices\. These models are optimized using the Amazon SageMaker Neo deep learning compiler to improve machine learning inference prediction speeds\. For more information about model optimization in Amazon SageMaker, please refer to the Neo deep learning compiler documentation in the Amazon SageMaker user guide\. 
+ You can use the Amazon SageMaker Neo deep learning runtime to perform inference with optimized machine learning models on your AWS IoT Greengrass devices\. These models are optimized using the Amazon SageMaker Neo deep learning compiler to improve machine learning inference prediction speeds\. For more information about model optimization in Amazon SageMaker, please refer to the [Amazon SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
 
 **Note**  
  Currently, you can only optimize machine learning models using the Neo deep learning compiler in the US West \(Oregon\), US East \(N\. Virginia\), and EU \(Ireland\) AWS Regions\. However, you can use the Neo deep learning runtime with optimized models in all AWS IoT Greengrass core supported regions\. For information, see [How to Configure Optimized Machine Learning Inference](ml-dlc-console.md)\. 

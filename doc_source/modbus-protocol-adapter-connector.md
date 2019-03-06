@@ -9,7 +9,7 @@ This connector receives parameters for a Modbus RTU request from a user\-defined
 ## Requirements<a name="modbus-protocol-adapter-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.0\.
++ AWS IoT Greengrass Core Software v1\.7\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + A physical connection between the AWS IoT Greengrass core and the Modbus devices\. The core must be physically connected to the Modbus RTU network through a serial port \(for example, a USB port\)\.
 + A [local device resource](access-local-resources.md) in the Greengrass group that points to the physical Modbus serial port\.
@@ -170,6 +170,7 @@ The following common operations are supported\.
 | Operation | Function Code | 
 | --- | --- | 
 | ReadCoilsRequest | 01 | 
+| ReadDiscreteInputsRequest | 02 | 
 | ReadHoldingRegistersRequest | 03 | 
 | ReadInputRegistersRequest | 04 | 
 | WriteSingleCoilRequest | 05 | 
@@ -201,14 +202,45 @@ Read Coils
 
 ```
 {
-    "response" : {
-        "status" : "success",
+    "response": {
+        "status": "success",
         "device": 1,
     	"operation": "ReadCoilsRequest",
     	"payload": {
         	"function_code": 1,
         	"bits": [1]
     	}
+     },
+     "id" : "TestRequest"
+}
+```
+
+Read Discrete Inputs  
+**Request example:**  
+
+```
+{
+    "request": {
+        "operation": "ReadDiscreteInputsRequest",
+        "device": 1,
+        "address": 0x01,
+        "count": 1
+    },
+    "id": "TestRequest"
+}
+```
+**Response example:**  
+
+```
+{
+    "response": {
+        "status": "success",
+        "device": 1,
+        "operation": "ReadDiscreteInputsRequest",
+        "payload": {
+            "function_code": 2,
+            "bits": [1]
+        }
      },
      "id" : "TestRequest"
 }
@@ -232,8 +264,8 @@ Read Holding Registers
 
 ```
 {
-    "response" : {
-        "status" : "success",
+    "response": {
+        "status": "success",
         "device": 1,
     	"operation": "ReadHoldingRegistersRequest",
     	"payload": {
@@ -278,8 +310,8 @@ Write Single Coil
 
 ```
 {
-    "response" : {
-        "status" : "success",
+    "response": {
+        "status": "success",
         "device": 1,
     	"operation": "WriteSingleCoilRequest",
     	"payload": {
@@ -324,8 +356,8 @@ Write Multiple Coils
 
 ```
 {
-    "response" : {
-        "status" : "success",
+    "response": {
+        "status": "success",
         "device": 1,
     	"operation": "WriteMultipleCoilsRequest",
     	"payload": {
@@ -356,8 +388,8 @@ Write Multiple Registers
 
 ```
 {
-    "response" : {
-        "status" : "success",
+    "response": {
+        "status": "success",
         "device": 1,
     	"operation": "WriteMultipleRegistersRequest",
     	"payload": {
@@ -389,8 +421,8 @@ Mask Write Register
 
 ```
 {
-    "response" : {
-        "status" : "success",
+    "response": {
+        "status": "success",
         "device": 1,
     	"operation": "MaskWriteRegisterRequest",
     	"payload": {
@@ -423,8 +455,8 @@ Read Write Multiple Registers
 
 ```
 {
-    "response" : {
-        "status" : "success",
+    "response": {
+        "status": "success",
         "device": 1,
     	"operation": "ReadWriteMultipleRegistersRequest",
     	"payload": {
@@ -504,6 +536,47 @@ If the request targets a nonexistent device or if the Modbus RTU network is not 
      },
      "id" : "TestRequest"
 }
+```
+
+## Usage Example<a name="modbus-protocol-adapter-connector-usage"></a>
+
+The following example Lambda function sends an input message to the connector\.
+
+**Note**  
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
+
+```
+pip install greengrasssdk
+```
+
+```
+import greengrasssdk
+import json
+
+TOPIC_REQUEST = 'modbus/adapter/request'
+
+# Creating a greengrass core sdk client
+iot_client = greengrasssdk.client('iot-data')
+
+def create_read_coils_request():
+	request = {
+		"request": {
+			"operation": "ReadCoilsRequest",
+			"device": 1,
+			"address": 0x01,
+			"count": 1
+		},
+		"id": "TestRequest"
+	}
+	return request
+
+def publish_basic_request():
+	iot_client.publish(payload=json.dumps(create_read_coils_request()), topic=TOPIC_REQUEST)
+
+publish_basic_request()
+
+def function_handler(event, context):
+	return
 ```
 
 ## Licenses<a name="modbus-protocol-adapter-connector-license"></a>
