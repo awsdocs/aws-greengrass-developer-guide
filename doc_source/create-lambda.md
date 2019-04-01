@@ -1,23 +1,14 @@
 # Create and Package a Lambda Function<a name="create-lambda"></a>
 
 For a Python Lambda function to run on an AWS IoT Greengrass core, it must be packaged with the `greengrasssdk` folder from the Python AWS IoT Greengrass Core SDK\. In the this section, you:
-+ Download the Python AWS IoT Greengrass Core SDK to your computer \(not the AWS IoT Greengrass core device\)\. You can download the SDK from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
++ Download the Python AWS IoT Greengrass Core SDK to your computer \(not the AWS IoT Greengrass core device\)\. You can download the SDK  from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. 
 + Decompress the downloaded SDK file\.
 + Obtain the Python Lambda function \(named `greengrassHelloWorld.py`\) from the decompressed SDK\.
 + Create a Lambda function deployment package named `hello_world_python_lambda.zip` that contains `greengrassHelloWorld.py` and the `greengrasssdk` folder\.
 + Use the Lambda console to upload the `hello_world_python_lambda.zip` package\. 
 + Use the AWS IoT Core console to transfer the package to the AWS IoT Greengrass core device \(during group deployment\)\.
 
-1. In the AWS IoT Core console, choose **Software**\.  
-![\[The navigation pane of the AWS IoT Core console page with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
-
-1. Under **SDKs**, for **AWS IoT Greengrass Core SDK**, choose **Configure download**\.
-**Note**  
-You can download the SDK from the **Software** page in the console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.  
-![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
-
-1. Choose **Python 2\.7 version 1\.3\.0**, and then choose **Download Greengrass Core SDK**\.  
-![\[Python 2.7 version 1.3.0 and Download Greengrass Core SDK.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
+1.  Download the SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. Locate the **Python 2\.7** section, and choose ** v1\.3\.0 \- current version** to download the SDK\. 
 
 1. Decompress the downloaded `greengrass-core-python-sdk-1.3.0.tar.gz` file so you can get the Lambda function code and the SDK\. For instructions, choose the tab that corresponds to your operating system\.
 

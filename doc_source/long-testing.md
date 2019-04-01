@@ -60,10 +60,10 @@ In this step, you create subscriptions that allow the Lambda function and AWS Io
 
 1. Make sure that the AWS IoT Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
 
-1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy** to deploy the group configuration to your AWS IoT Greengrass core device\.  
+1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)
 
-   For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+   This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
 1. <a name="console-test-after-deploy"></a>After your deployment is complete, return to the AWS IoT Core console home page and choose **Test**\.
 

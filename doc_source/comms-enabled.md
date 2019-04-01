@@ -9,10 +9,10 @@ For this test, you configure the GG\_TrafficLight device shadow to sync to AWS I
 
    You should receive a notification that the device shadow was updated\.
 
-1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy** to deploy the group configuration to your AWS IoT Greengrass core device\.  
+1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)
 
-   For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+   This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
 1. In your two command\-line windows, run the commands from the previous test for the [GG\_Switch](comms-disabled.md#run-switch-device) and [GG\_TrafficLight](comms-disabled.md#run-trafficlight-device) devices\.
 

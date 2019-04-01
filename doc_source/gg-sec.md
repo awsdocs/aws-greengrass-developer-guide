@@ -9,7 +9,7 @@ AWS IoT devices require an AWS IoT thing, a device certificate, and an AWS IoT p
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-security.png)
 
 A \- Greengrass service role  
-A customer\-created IAM role that allows AWS IoT Greengrass access to your AWS IoT, Lambda, and other AWS resources\.
+A customer\-created IAM role that allows AWS IoT Greengrass access to your AWS IoT, Lambda, and other AWS resources\. For more information, see [Greengrass Service Role](service-role.md)\.
 
 B \- Core device certificate  
 An X\.509 certificate used to authenticate an AWS IoT Greengrass core\.
@@ -35,7 +35,7 @@ To configure your Greengrass application's security:
 
 1. Create and attach an AWS IoT policy to the device certificate\. The certificate and policy allow the AWS IoT Greengrass core device access to AWS IoT and AWS IoT Greengrass services\. For more information, see [Minimal AWS IoT Policy for the AWS IoT Greengrass Core Device](#gg-config-sec-min-iot-policy)\.
 
-1. Create a Greengrass service role\. This IAM role authorizes AWS IoT Greengrass to access resources from other AWS services on your behalf\. This allows AWS IoT Greengrass to perform essential tasks, such as retrieving AWS Lambda functions and managing AWS IoT shadows\. You only need to create a service role once per AWS account\.
+1. Create a Greengrass service role\. This IAM role authorizes AWS IoT Greengrass to access resources from other AWS services on your behalf\. This allows AWS IoT Greengrass to perform essential tasks, such as retrieving AWS Lambda functions and managing AWS IoT shadows\. You can use the same service role across AWS Regions, but it must be associated with every AWS Region where you use AWS IoT Greengrass\. For more information, see [Greengrass Service Role](service-role.md)\.
 
 1. \(Optional\) Create a Greengrass group role\. This role grants permission to Lambda functions and connectors running on an AWS IoT Greengrass core to call other AWS services \(in the cloud\)\. You need to do this for each Greengrass group you create\.
 

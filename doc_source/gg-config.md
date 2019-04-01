@@ -2,7 +2,9 @@
 
 1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT Core console\. If this is the first time opening this console, choose **Get started**\.
 
-1. Choose **Greengrass**\.  
+1. Choose **Greengrass**\.
+**Note**  
+If you don't see the **Greengrass** node in the navigation pane, change to an AWS Region that supports AWS IoT Greengrass\. For the list of supported regions, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\.  
 ![\[AWS IoT navigation pane with Greengrass highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-greengrass.png)
 
 1. On the **Welcome to AWS IoT Greengrass** page, choose **Create a Group**\.
@@ -27,19 +29,16 @@ For an example that uses the AWS IoT Greengrass API to create and deploy a group
 
    AWS IoT creates an AWS IoT Greengrass group with default security policies and configuration files for you to load onto your device\.
 
-1. <a name="gg-core-download"></a>On the confirmation page, download your core's security resources and the AWS IoT Greengrass core software:
-**Note**  
-You can alternatively download the core software from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads\.
+1. <a name="gg-core-download"></a>Now, download your core's security resources and the AWS IoT Greengrass core software:
 
-   1. Under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz** to download the required security resources for your AWS IoT Greengrass core\.  
+   1. On the confirmation page, under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz** to download the required security resources for your AWS IoT Greengrass core\.  
 ![\[The Connect your Core device page with Download these resources as a tar.gz highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.png)
 
-   1. Under **Software configurations**, choose the CPU architecture and distribution \(and operating system, if necessary\) that best describes your core device\. For example:
+   1. Download the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) installation package\. Choose the CPU architecture and distribution \(and operating system, if necessary\) that best describes your core device\. For example:
       + For Raspberry Pi, download the ARMv7l for Raspbian package\.
       + For an Amazon EC2 instance, download the x86\_64 for Linux package\.
       + For NVIDIA Jetson TX2, download the ARMv8 \(AArch64\) for Ubuntu package\.
-      + For Intel Atom, download the x86\_64 for Linux package\.  
-![\[The Connect your Core device page with Download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.1.png)
+      + For Intel Atom, download the x86\_64 for Linux package\.
 **Important**  
 Download both the security resources and core software before you choose **Finish**\.
 

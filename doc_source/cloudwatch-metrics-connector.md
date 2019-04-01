@@ -9,7 +9,7 @@ This connector receives metric data as MQTT messages\. The connector batches met
 ## Requirements<a name="cloudwatch-metrics-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.
++ AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + An IAM policy added to the Greengrass group role that allows the `cloudwatch:PutMetricData` action, as shown in the following example\.
 
@@ -207,7 +207,7 @@ The response includes the namespace of the metric data and the `RequestId` field
    }
 }
 ```
-If the connector detects a retryable error \(for example, throttled or connection errors\), it retries the publish in the next batch\.
+If the connector detects a retryable error \(for example, connection errors\), it retries the publish in the next batch\.
 
 ## Usage Example<a name="cloudwatch-metrics-connector-usage"></a>
 

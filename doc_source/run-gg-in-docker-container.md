@@ -1,17 +1,15 @@
 # Running AWS IoT Greengrass in a Docker Container<a name="run-gg-in-docker-container"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 AWS IoT Greengrass can be configured to run in a [Docker](https://www.docker.com/) container\. 
 
 **Note**  
-Connectors, local resource access, and local machine learning models can't be used in a Docker container\. These features aren't supported when the Lambda runtime environment for the Greengrass group is set to [**No container**](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\.
+Local resource access and local machine learning models can't be used in a Docker container\. These features aren't supported when the Lambda runtime environment for the Greengrass group is set to [**No container**](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\.
 
-You can download a Dockerfile [through Amazon CloudFront](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.7.1/aws-greengrass-docker-1.7.1.tar.gz) that has the AWS IoT Greengrass core software and dependencies installed\.
+You can download a Dockerfile [through Amazon CloudFront](what-is-gg.md#gg-docker-download) that has the AWS IoT Greengrass core software and dependencies installed\. To modify the Docker image to run on different platform architectures or reduce the size of the Docker image, see the `README` file in the Docker package download\.
 
-To modify the Docker image to run on different platform architectures or reduce the size of the Docker image, see the `README` file in the Docker package download\.
-
-To help you get started quickly and experiment with AWS IoT Greengrass, AWS also provides a prebuilt Docker image that has the core software and dependencies installed\. This topic describes how to download the prebuilt image from [Amazon Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) \(Amazon ECR\) and run it on Windows, macOS, and Linux \(x86\_64\) platforms\. It contains the following steps:
+To help you get started quickly and experiment with AWS IoT Greengrass, AWS also provides a prebuilt Docker image that has the core software and dependencies installed\. You can download the prebuilt image from [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or [Amazon Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) \(Amazon ECR\) and run it on Windows, macOS, and Linux \(x86\_64\) platforms\. This topic describes how to download the image from Amazon ECR\. It contains the following steps:
 
 1. [Get the AWS IoT Greengrass Container Image from Amazon ECR](#docker-pull-image)
 
@@ -29,7 +27,7 @@ To help you get started quickly and experiment with AWS IoT Greengrass, AWS also
 
 To complete this tutorial, the following software and versions must be installed on your host computer\.
 + [Docker](https://docs.docker.com/install/), version 18\.09 or later\. Earlier versions might also work, but version 18\.09 or later is preferred\.
-+ [Python](https://www.python.org/downloads), version 3\.6 or later\.
++ [Python](https://www.python.org/downloads/), version 3\.6 or later\.
 + [pip](https://pip.pypa.io/en/stable/installing) version 18\.1 or later\.
 + AWS CLI version 1\.16 or later\.
   + To install and configure the CLI, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) and [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) in the *AWS Command Line Interface User Guide*\.

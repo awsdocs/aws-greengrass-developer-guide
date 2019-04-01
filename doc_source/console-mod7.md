@@ -1,6 +1,6 @@
 # Module 7: Simulating Hardware Security Integration<a name="console-mod7"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This advanced module shows you how to configure a simulated hardware security module \(HSM\) for use with a Greengrass core\. The configuration uses SoftHSM, which is a pure software implementation that uses the [PKCS\#11](#console-mod7-see-also) application programming interface \(API\)\. The purpose of this module is to allow you to set up an environment where you can learn and do initial testing against a software\-only implementation of the PKCS\#11 API\. It is provided only for learning and initial testing, not for production use of any kind\.
 

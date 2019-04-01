@@ -9,7 +9,7 @@ This connector receives SNS message information on an MQTT topic, and then sends
 ## Requirements<a name="sns-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.
++ AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + A configured SNS topic\. For more information, see [Create a Topic](https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html) in the *Amazon Simple Notification Service Developer Guide*\.
 + An IAM policy added to the Greengrass group role that allows the `sns:Publish` action on the target SNS topic, as shown in the following example:

@@ -6,27 +6,52 @@ Test Manager runs on the host computer \(Windows, Mac, or Linux\) that is connec
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/devicetester_gg.png)
 
-AWS IoT Device Tester for AWS IoT Greengrass verifies that the combination your Linux device’s CPU architecture, kernel configuration and drivers work with AWS IoT Greengrass\. For more information about the tests AWS IoT Device Tester runs, see [Test Group Descriptions](dt-test-groups.md)\.
+AWS IoT Device Tester for AWS IoT Greengrass verifies that the combination of your Linux device’s CPU architecture, kernel configuration and drivers work with AWS IoT Greengrass\. For more information about the tests AWS IoT Device Tester runs, see [Test Group Descriptions](dt-test-groups.md)\.
 
 ## AWS IoT Device Tester for AWS IoT Greengrass Versions<a name="dev-test-versions"></a>
 
 The following tabs describe the versions of AWS IoT Device Tester for AWS IoT Greengrass\. By downloading the software you agree to the [AWS IoT Device Tester License agreement](https://d232ctwt5kahio.cloudfront.net/greengrass/AWS%20IoT%20Device%20Tester%20License%20Agreement.pdf)\. Each version of AWS IoT Greengrass has a corresponding version of AWS IoT Device Tester\. Newer versions of AWS IoT Device Tester will be added to this page with each new release of AWS IoT Greengrass\. Please refer to the [ AWS IoT Device Tester for AWS IoT Greengrass User Guide](https://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html) for more details about AWS IoT Device Tester for AWS IoT Greengrass\.
 
 ------
+#### [ IDT for AWS IoT Greengrass v1\.8 ]
+
+**IDT v1\.1 for AWS IoT Greengrass v1\.8\.0 \- Current Version**  
++ IDT for AWS IoT Greengrass \- [ Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.1.190312213046.zip) \(MD5 e7224916bc24a5b61f995da342e60c7b\)
++ IDT for AWS IoT Greengrass \- [ Mac](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.1.190312213046.zip) \(MD5 05c4a626782180e0f5634f2f8d479f38\)
++ IDT for AWS IoT Greengrass \- [ Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.1.190312213046.zip) \(MD5 640e331f2e36bc25668c2fb25dd4bbf2\)
+
+**Release Notes:**
++ Added support for AWS IoT Greengrass Hardware Security Integration \(HSI\)\.
++ Added support for AWS IoT Greengrass container and no container\.
++ Added automated AWS IoT Greengrass Service Role creation\.
++ Improved test resource clean\-up\.
++ Added test execution summary report\.
+
+------
 #### [ IDT for AWS IoT Greengrass v1\.7 ]
 
-**IDT for AWS IoT Greengrass v1\.7\.1 \- Current Version**  
-+ IDT for AWS IoT Greengrass \- [ Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.0.190219211616.zip) \(MD5 1f89310b8c679bfeb5f7273338302545\)
-+ IDT for AWS IoT Greengrass \- [ Mac](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.0.190219211616.zip) \(MD5 0bc67bf3da5a00e023641a821aa22952\)
-+ IDT for AWS IoT Greengrass \- [ Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.0.190219211616.zip) \(MD5 3d470a17fb10bb996b89245a00847b64\)
+**IDT v1\.1 for AWS IoT Greengrass v1\.7\.1**  
++ IDT for AWS IoT Greengrass \- [ Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.1.190307215806.zip) \(MD5 e4bc0263dbf0d1dbc16e6deead6a4350\)
++ IDT for AWS IoT Greengrass \- [ Mac](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.1.190307215806.zip) \(MD5 526048a648701933096db3ffc892b200\)
++ IDT for AWS IoT Greengrass \- [ Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.1.190307215806.zip) \(MD5 afe76a18d9a6f086338c7ba557628e35\)
+
+**Release Notes:**
++ Added support for AWS IoT Greengrass Hardware Security Integration \(HSI\)\.
++ Added support for AWS IoT Greengrass container and no container\.
++ Added automated AWS IoT Greengrass Service Role creation\.
++ Improved test resource clean\-up\.
++ Added test execution summary report\.
 
 ------
 #### [ IDT for AWS IoT Greengrass v1\.6 ]
 
-**IDT for AWS IoT Greengrass v1\.6\.1**  
-+ IDT for AWS IoT Greengrass \- [ Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.0.190219211017.zip) \(MD5 2781e183d62a8d4a06b1321d5d40b2dc\)
-+ IDT for AWS IoT Greengrass \- [ Mac](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.0.190219211017.zip) \(MD5 a997f89566048c124964ba26c4d7fde0\)
-+ IDT for AWS IoT Greengrass \- [ Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.0.190219211017.zip) \(MD5 56d412810045ed2b63f7fb9547531d60\)
+**IDT 1\.0 \(Updated 3/11/19\) for AWS IoT Greengrass v1\.6\.1**  
++ IDT for AWS IoT Greengrass \- [ Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.0.190308190416.zip) \(MD5 483054a824af95c340cfbf6b1d7d86fd\)
++ IDT for AWS IoT Greengrass \- [ Mac](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.0.190308190416.zip) \(MD5 9591285342784d77cefaa9efd112a91d\)
++ IDT for AWS IoT Greengrass \- [ Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.0.190308190416.zip) \(MD5 9d65aa6b50780a3e582616dfab94e09d\)
+
+**Release Notes:**
++ Includes OTA testcase bug fix for future AWS IoT Greengrass version compatibility\.
 
 ------
 
@@ -78,6 +103,9 @@ After you create an IAM policy, you must attach it to your IAM user\.
 
 ### Configure the AWS IoT Greengrass Service Role<a name="config-gg-role"></a>
 
+**Important**  
+This step is not required for AWS IoT Device Tester v1\.1 for AWS IoT Greengrass version 1\.7\.1 or greater because IDT automatically creates the service role for you\.
+
 To successfully deploy an AWS IoT Greengrass group, AWS IoT Greengrass requires permissions to perform actions on your behalf\. Follow these instructions to create and associate the service role\.
 
 **To create the AWS IoT Greengrass service role**
@@ -118,7 +146,7 @@ Before AWS IoT Device Tester can test your devices, make sure that you have set 
 ### Configure the AWS IoT Greengrass Software<a name="config-gg"></a>
 
 AWS IoT Device Tester tests your device for compatibility with a specific version of AWS IoT Greengrass\. AWS IoT Device Tester provides you two options to test AWS IoT Greengrass on your devices:
-+ Use a version of the AWS IoT Greengrass Core software downloaded from the AWS IoT console\. AWS IoT Device Tester installs the software for you\.
++ Download and use a version of the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab)\. AWS IoT Device Tester installs the software for you\.
 + Use a version of the AWS IoT Greengrass Core software already installed on your device\.
 
 **Note**  
@@ -126,17 +154,9 @@ Each version of AWS IoT Greengrass has a corresponding AWS IoT Device Tester ver
 
 #### Download the AWS IoT Greengrass Core Software and Configure AWS IoT Device Tester to Use It<a name="download-gg"></a>
 
-You can download the AWS IoT Greengrass Core software from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads\. The following procedure shows you how to download the AWS IoT Greengrass Core software from the AWS IoT console\.
+You can download the AWS IoT Greengrass Core software from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads page\. 
 
-**To use a version of the AWS IoT Greengrass Core software downloaded from the AWS IoT console**
-
-1. Browse to the [AWS IoT console](https://console.aws.amazon.com/iot/)\.
-
-1. In the navigation pane, choose **Software**\.
-
-1. In **AWS IoT Greengrass Core Software**, choose **Configure download**\.
-
-1. From the available configurations, find the correct architecture and Linux distribution, and then choose **Download**\.
+1. On the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads page, find the correct architecture and Linux distribution, and then choose **Download**\.
 
 1. Copy the tar\.gz file to the `<device-tester-extract-location>/products/greengrass/ggc`\.
 
@@ -179,7 +199,7 @@ When you are prompted for a key phrase, type a key phrase to protect your SSH ke
 
 AWS IoT Device Tester must use your SSH private key to sign in to your device under test\. To authorize your SSH private key to sign in to your device under test, use the ssh\-copy\-id command from your host computer\. This command adds your public key into the `~/.ssh/authorized_keys` file on your device under test\. For example:
 
-$ ssh\-copy\-id*<remote\-ssh\-user>*@*<remote\-device\-ip>*
+$ ssh\-copy\-id *<remote\-ssh\-user>*@*<remote\-device\-ip>*
 
 Where *remote\-ssh\-user* is the user name used to sign in to your device under test and *remote\-device\-ip* is the IP address of the device under test to run tests against\. For example:
 
@@ -374,7 +394,7 @@ The user name for signing in to the device being tested\.
 The full path to the private key used to sign in to the device being tested\.
 
 `greengrassLocation`  
-\(Optional\) The location of AWS IoT Greengrass Core software on your devices\. Use this attribute to tell &IoT; Device Tester to use the version of the AWS IoT Greengrass Core software installed on your devices\.
+\(Optional\) The location of AWS IoT Greengrass Core software on your devices\. Use this attribute to tell AWS IoT Device Tester to use the version of the AWS IoT Greengrass Core software installed on your devices\.
 
 `kernelConfigLocation`  
 \(Optional\) The path to the kernel configuration file\. AWS IoT Device Tester uses this file to check whether the devices have the required kernel features enabled\. If not specified, AWS IoT Device Tester uses one of the following paths: `/proc/config.gz` or `/boot/config-<kernel-version>`\.
@@ -474,8 +494,14 @@ The features validated\. Features marked as *required* are required to submit yo
 <feature name="aws-iot-greengrass-no-container" value="supported" type="required"><
 								/feature>
 ```
+Features marked as *optional* are not required for qualification\. The following snippets show optional features:  
 
-If there are no test case failures or errors, your device meets the technical requirements to run AWS IoT Greengrass and can interoperate with AWS IoT services\. If you choose to list your device in the Partner Device Catalog, you can use this report as qualification evidence\.
+```
+<feature name="aws-iot-greengrass-container" value="supported" type="optional"></feature> 
+<feature name="aws-iot-greengrass-hsi" value="not-supported" type="optional"></feature>
+```
+
+If there are no test case failures or errors for the required features, your device meets the technical requirements to run AWS IoT Greengrass and can interoperate with AWS IoT services\. If you choose to list your device in the Partner Device Catalog, you can use this report as qualification evidence\.
 
 In the case of test case failures or errors, you can identify the test case that failed by reviewing the `<testsuites>` XML tags\. The `<testsuite>` XML tags inside the `<testsuites>` tag shows the test case result summary for a test group\. For example:
 
@@ -513,16 +539,6 @@ Contains logs generated from the Test Manager component of AWS IoT Device Tester
 
 `<test_case_id>.log (for example, ota.log)`  
 The logs of the test group, including logs from the device under test\. When a test case fails, a tar\.gz file that contains the logs of the device under test for the test case is created \(for example, `ota_prod_test_1_ggc_logs.tar.gz`\)\.
-
-#### Viewing Logs<a name="view-logs"></a>
-
-AWS IoT Device Tester generates logs and writes them to `<devicetester-extract-location>/results/<execution-id>/logs`\. Two sets of logs are generated:
-
-`test_manager.log`  
-Contains the logs generated from the AWS IoT Device Tester Test Manager\. These logs contain log\-related configuration, test sequencing, and test reports\.
-
-`<test_case_id>`  
-Contains the test group logs, including logs from the device under test\.
 
 ## Testing Infrastructure<a name="testing-infrastructure"></a>
 
@@ -572,6 +588,7 @@ The following table lists the error codes generated by AWS IoT Device Tester for
 |  124  |  IpNotExistError  |   IP address is not included in connectivity info\.  |  Check your internet connection\. Ensure you are not using "ctrl\+c" to interrupt the test\. You can go to the AWS Greengrass console to check the connectivity information for the AWS IoT Greengrass core thing that is being used by the test\. If there are 10 endpoints included in connectivity info, you can remove some or all of them and rerun the test\. For more about connectivity info see, [Connectivity Information](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-connectivity-info.html)\.  | 
 |  125  |  OTAJobNotCompleteError  |  An OTA job did not complete\.  |  Check your internet connection and retry the OTA test group\.  | 
 |  126  |  CreateGreengrassServiceRoleError  |  One of the following occured: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/device-tester-for-greengrass-ug.html)  |  Configure the AWS IoT Greengrass service role, for more information, see [Configure the AWS IoT Greengrass Service Role](#config-gg-role)\.  | 
+|  127  |  InvalidHSMConfiguration  |  The provided hsm/pkcs configuration is incorrect\.  |  Provide the correct configuration needed to interact with the HSM using PKCS\#11 in your device\.json file\.  | 
 
 ## Troubleshooting<a name="bk-gg-troublshooting"></a>
 
@@ -622,7 +639,9 @@ Follow these steps to allow sudo access without typing a password\.
 
 1. Sign out and then sign in for changes to take effect\.
 
-1. Open `/etc/sudoers` file and then add the following line to the end of the file: `<ssh-username> ALL=(ALL) NOPASSWD: ALL"`
+1. Open `/etc/sudoers` file and then add the following line to the end of the file: `<ssh-username> ALL=(ALL) NOPASSWD: ALL`
+**Note**  
+For best practices we recommend you use sudo visudo when editing `/etc/sudoers`\.
 
 #### SSH Connection Errors<a name="connect-errors"></a>
 

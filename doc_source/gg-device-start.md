@@ -1,7 +1,7 @@
 # Start AWS IoT Greengrass on the Core Device<a name="gg-device-start"></a>
 
 In the [previous step](gg-config.md#gg-core-download), you downloaded two files to your computer:
-+ `greengrass-OS-architecture-1.7.1.tar.gz`\. This compressed file contains the AWS IoT Greengrass core software that runs on the core device\.
++ `greengrass-OS-architecture-1.8.0.tar.gz`\. This compressed file contains the AWS IoT Greengrass core software that runs on the core device\.
 + `hash-setup.tar.gz`\. This compressed file contains security certificates that enable secure communications between AWS IoT and the `config.json` file that contains configuration information specific to your AWS IoT Greengrass core and the AWS IoT endpoint\.
 
 1. If you don't recall the IP address of your AWS IoT Greengrass core device, open a terminal on the AWS IoT Greengrass core device and run the following command:
@@ -22,7 +22,7 @@ For an NVIDIA Jetson TX2, the default user name is **nvidia** and the default pa
 
    ```
    cd path-to-downloaded-files
-   pscp -pw Pi-password greengrass-OS-architecture-1.7.1.tar.gz pi@IP-address:/home/pi
+   pscp -pw Pi-password greengrass-OS-architecture-1.8.0.tar.gz pi@IP-address:/home/pi
    pscp -pw Pi-password hash-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -40,7 +40,7 @@ You might be prompted for two passwords\. If so, the first password is for the M
 
    ```
    cd path-to-downloaded-files
-   sudo scp greengrass-OS-architecture-1.7.1.tar.gz pi@IP-address:/home/pi
+   sudo scp greengrass-OS-architecture-1.8.0.tar.gz pi@IP-address:/home/pi
    sudo scp hash-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -51,7 +51,7 @@ You might be prompted for two passwords\. If so, the first password is for the M
 
    ```
    cd path-to-downloaded-files
-   sudo scp greengrass-OS-architecture-1.7.1.tar.gz pi@IP-address:/home/pi
+   sudo scp greengrass-OS-architecture-1.8.0.tar.gz pi@IP-address:/home/pi
    sudo scp hash-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -73,7 +73,7 @@ You might be prompted for two passwords\. If so, the first password is for the M
    + The second command copies the certificates into the `/greengrass/certs` folder and the [`config.json`](gg-core.md#config-json) file into the `/greengrass/config` folder \(through the `-C /greengrass` argument\)\.
 
    ```
-   sudo tar -xzvf greengrass-OS-architecture-1.7.1.tar.gz -C /
+   sudo tar -xzvf greengrass-OS-architecture-1.8.0.tar.gz -C /
    sudo tar -xzvf hash-setup.tar.gz -C /greengrass
    ```
 
@@ -113,4 +113,4 @@ To set up your core device to start AWS IoT Greengrass on system boot, see [Conf
    ps aux | grep PID-number
    ```
 
-   You should see an entry for the PID with a path to the running Greengrass daemon \(for example, `/greengrass/ggc/packages/1.7.1/bin/daemon`\)\. If you run into issues starting AWS IoT Greengrass, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+   You should see an entry for the PID with a path to the running Greengrass daemon \(for example, `/greengrass/ggc/packages/1.8.0/bin/daemon`\)\. If you run into issues starting AWS IoT Greengrass, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.

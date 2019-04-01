@@ -145,7 +145,7 @@ skipping installation of cpu_usage and memory_usage nodes
 
    ```
    # Download the nodejs greengrass sdk from 
-   #   https://console.aws.amazon.com/iotv2/home?region=us-east-1#/software/greengrass/sdk.
+   #   https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html#gg-core-sdk-download.
    
    #  Install Greengrass SDK in the node_modules directory
    tar -zxvf aws-greengrass-core-sdk-js-*.tar.gz -C /tmp/

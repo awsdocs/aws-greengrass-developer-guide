@@ -78,28 +78,6 @@ If your computer is connected to a remote network using VPN, you might have diff
    sudo addgroup --system ggc_group
    ```
 
-1. **If you are running Raspbian Jessie**, run the following commands to update the Linux kernel version of your Raspberry Pi\. 
-
-   ```
-   sudo apt-get install rpi-update
-   sudo rpi-update b81a11258fc911170b40a0b09bbd63c84bc5ad59
-   ```
-
-   Although several kernel versions might work with AWS IoT Greengrass, for the best security and performance, we recommend that you use the kernel version indicated in step 2\. To activate the new firmware, reboot your Raspberry Pi:
-
-   ```
-   sudo reboot
-   ```
-
-   After about a minute, reconnect to the Raspberry Pi using SSH\. Next, run the following command to ensure you have the correct kernel version:
-
-   ```
-   uname -a
-   ```
-
-   You should receive output similar to the following\. In this example, the Linux Raspberry Pi version information is `4.9.30`:  
-![\[Raspberry Pi "uname -a" command output showing kernel version.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.5.png)
-
 1. To improve security on the Pi device, enable hardlink and softlink protection on the operating system at start up\.
 
    1. Navigate to the `98-rpi.conf` file\.
@@ -140,7 +118,7 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
       cd /boot/
       ```
 
-   1.  Use a text editor to open `cmdline.txt`\. Add the following line to the end of the file\. 
+   1.  Use a text editor to open `cmdline.txt`\. Append the following to the end of the existing line, not as a new line\.
 
       ```
       cgroup_enable=memory cgroup_memory=1
@@ -158,9 +136,9 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    ```
    cd /home/pi/Downloads
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.7.1.zip
-   unzip greengrass-dependency-checker-GGCv1.7.1.zip
-   cd greengrass-dependency-checker-GGCv1.7.1
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.0.zip
+   unzip greengrass-dependency-checker-GGCv1.8.0.zip
+   cd greengrass-dependency-checker-GGCv1.8.0
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```
@@ -257,9 +235,9 @@ Your Raspberry Pi configuration is complete\. Continue to [Module 2: Installing 
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.7.1.zip
-   unzip greengrass-dependency-checker-GGCv1.7.1.zip
-   cd greengrass-dependency-checker-GGCv1.7.1
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.0.zip
+   unzip greengrass-dependency-checker-GGCv1.8.0.zip
+   cd greengrass-dependency-checker-GGCv1.8.0
    sudo ./check_ggc_dependencies | more
    ```
 **Important**  
@@ -299,14 +277,14 @@ If the `addgroup` command isn't available on your system, use the following comm
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.7.1.zip
-   unzip greengrass-dependency-checker-GGCv1.7.1.zip
-   cd greengrass-dependency-checker-GGCv1.7.1
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.0.zip
+   unzip greengrass-dependency-checker-GGCv1.8.0.zip
+   cd greengrass-dependency-checker-GGCv1.8.0
    sudo ./check_ggc_dependencies | more
    ```
 **Note**  
 The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platforms and requires the following Linux system commands: `printf`, `uname`, `cat`, `ls`, `head`, `find`, `zcat`, `awk`, `sed`, `sysctl`, `wc`, `cut`, `sort`, `expr`, `grep`, `test`, `dirname`, `readlink`, `xargs`, `strings`, `uniq`\.  
-For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.7.1/README.md#greengrass-core-v17-dependencies-checker)\.
+For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.8.0/README.md#greengrass-core-v17-dependencies-checker)\.
 
 1. Install all required dependencies on your device, as indicated by the dependency checker output\. For missing kernel\-level dependencies, you might have to recompile your kernel\. For mounting Linux control groups \(`cgroups`\), you can run the [cgroupfs\-mount](https://raw.githubusercontent.com/tianon/cgroupfs-mount/master/cgroupfs-mount) script\.
 

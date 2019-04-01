@@ -8,22 +8,32 @@ All devices that communicate with an AWS IoT Greengrass core must be a member of
 To use this API, send HTTP requests to the Discovery API endpoint\. For example:
 
 ```
-https://greengrass-ats.iot.aws-region.amazonaws.com:8443/greengrass/discover/thing/thing-name
+https://greengrass-ats.iot.region.amazonaws.com:port/greengrass/discover/thing/thing-name
 ```
 
-Use port `8443` when connecting\. For a list of supported regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
+For a list of supported AWS Regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
 
 ## Request<a name="gg-discover-request"></a>
 
-The request contains the standard HTTP headers and is sent to the Greengrass Discovery endpoint:
+The request contains the standard HTTP headers and is sent to the Greengrass Discovery endpoint, as shown in the following examples\.
+
+The port number depends on whether the core is configured to send HTTPS traffic over port 8443 or port 443\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
+
+Port 8443  
 
 ```
-HTTP GET https://greengrass-ats.iot.aws-region.amazonaws.com:8443/greengrass/discover/thing/thing-name
+HTTP GET https://greengrass-ats.iot.region.amazonaws.com:8443/greengrass/discover/thing/thing-name
 ```
+
+Port 443  
+
+```
+HTTP GET https://greengrass-ats.iot.region.amazonaws.com:443/greengrass/discover/thing/thing-name
+```
+Clients that connect on port 443 must implement the [ Application Layer Protocol Negotiation \(ALPN\)](https://tools.ietf.org/html/rfc7301) TLS extension and pass `x-amzn-http-ca` as the `ProtocolName` in the `ProtocolNameList`\. For more information, see [Protocols](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html) in the *AWS IoT Developer Guide*\.  
+These examples use the Amazon Trust Services \(ATS\) endpoint, which is used with ATS root CA certificates \(recommended\)\. Endpoints must match the root CA certificate type\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
 
 ## Response<a name="gg-discover-response"></a>
-
-*Response*
 
 Upon success, the response includes the standard HTTP headers plus the following code and body:
 
@@ -32,7 +42,7 @@ HTTP 200
 BODY: response document
 ```
 
-For more information see, [Example Discover Response Documents](#gg-discover-response-doc)\.
+For more information, see [Example Discover Response Documents](#gg-discover-response-doc)\.
 
 ## Authorization<a name="gg-discover-auth"></a>
 
@@ -44,7 +54,7 @@ Retrieving the connectivity information requires a policy that allows the caller
     "Statement": [{
         "Effect": "Allow",
         "Action": "greengrass:Discover",
-        "Resource": ["arn:aws:iot:aws-region:aws-account:thing/thing-name"]
+        "Resource": ["arn:aws:iot:us-west-2:123456789012:thing/MyThingName"]
      }]
 }
 ```

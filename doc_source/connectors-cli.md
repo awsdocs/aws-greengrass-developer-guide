@@ -1,10 +1,10 @@
 # Getting Started with Greengrass Connectors \(CLI\)<a name="connectors-cli"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS CLI to work with connectors\.
 
-## <a name="w4aac27c39b8"></a>
+## <a name="w4aac26c39b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 
@@ -56,8 +56,8 @@ The AWS IoT Greengrass API lets you create multiple definitions for a component 
 
 To complete this tutorial, you need:
 
-### <a name="w4aac27c39c26b6"></a>
-+ A Greengrass group and a Greengrass core \(v1\.7\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
+### <a name="w4aac26c39c26b6"></a>
++ A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -147,7 +147,7 @@ In this step, you configure parameters for the Twilio Notifications connector\.
        "Connectors": [
            {
                "Id": "MyTwilioNotificationsConnector",
-               "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/1",
+               "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/2",
                "Parameters": {
                    "TWILIO_ACCOUNT_SID": "account-sid",
                    "TwilioAuthTokenSecretArn": "secret-arn",
@@ -165,7 +165,7 @@ In this step, you configure parameters for the Twilio Notifications connector\.
    ```
    aws greengrass create-connector-definition \
    --name MyGreengrassConnectors \
-   --initial-version '{"Connectors": [{"Id": "MyTwilioNotificationsConnector", "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/1", "Parameters": {"TWILIO_ACCOUNT_SID": "account-sid", "TwilioAuthTokenSecretArn": "secret-arn", "TwilioAuthTokenSecretArn-ResourceId": "TwilioAuthToken", "DefaultFromPhoneNumber": "phone-number"}}]}'
+   --initial-version '{"Connectors": [{"Id": "MyTwilioNotificationsConnector", "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/2", "Parameters": {"TWILIO_ACCOUNT_SID": "account-sid", "TwilioAuthTokenSecretArn": "secret-arn", "TwilioAuthTokenSecretArn-ResourceId": "TwilioAuthToken", "DefaultFromPhoneNumber": "phone-number"}}]}'
    ```
 
 ------
@@ -176,20 +176,11 @@ In this step, you configure parameters for the Twilio Notifications connector\.
 
 ## Step 4: Create a Lambda Function Deployment Package<a name="connectors-cli-create-deployment-package"></a>
 
-### <a name="w4aac27c39c34b4"></a>
+### <a name="w4aac26c39c34b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
-1. <a name="download-ggc-sdk"></a>Download the AWS IoT Greengrass Core SDK Python 2\.7 version 1\.3\.0\. You can download the SDK from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
-
-   1. In the [AWS IoT Core console](https://console.aws.amazon.com//iotv2/home), choose **Software**\.  
-![\[The left pane of the AWS IoT Core console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
-
-   1. Under **SDKs**, for **AWS IoT Greengrass Core SDK**, choose **Configure download**\.  
-![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
-
-   1. Choose **Python 2\.7 version 1\.3\.0**, and then choose **Download Greengrass Core SDK**\.  
-![\[The AWS IoT Greengrass Core SDK page with Python 2.7 version 1.3.0 and Download Greengrass Core SDK highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
+1. <a name="download-ggc-sdk"></a>Download the Python 2\.7 1\.3\.0 SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. Locate the **Python 2\.7** section, and choose ** v1\.3\.0 \- current version** to download the SDK\. 
 
 1. <a name="untar-sdk"></a>Unpack the `greengrass-core-python-sdk-1.3.0.tar.gz` file\.
 **Note**  
@@ -485,7 +476,7 @@ Deploy the group to the core device\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.7.1/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.8.0/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 
@@ -521,7 +512,7 @@ Deploy the group to the core device\.
 
 ## Test the Solution<a name="connectors-cli-test-solution"></a>
 
-### <a name="w4aac27c39c46b4"></a>
+### <a name="w4aac26c39c46b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT Core console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)

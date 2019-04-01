@@ -1,6 +1,6 @@
 # Hardware Security Integration<a name="hardware-security"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 AWS IoT Greengrass supports the use of hardware security modules \(HSM\) through the [PKCS\#11 interface](#hardware-security-see-also) for secure storage and offloading of private keys\. This prevents keys from being exposed or duplicated in software\. Private keys can be securely stored on hardware modules, such as HSMs, Trusted Platform Modules \(TPM\), or other cryptographic elements\.
 
@@ -29,7 +29,7 @@ Search for devices that are qualified for this feature in the [AWS Partner Devic
 
 In addition, make sure that the following conditions are met:
 + The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this from the **Manage** page for the core thing in the AWS IoT Core console\.
-+ The AWS IoT Greengrass core software \(v1\.7\) is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\.
++ The AWS IoT Greengrass core software \(v1\.7 or later\) is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\.
 + The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT Core console\.
 
 **Note**  
@@ -71,6 +71,24 @@ When using hardware security, the `crypto` object is used to specify paths to ce
 ```
 
 The `crypto` object contains the following properties:
+
+
+| Field | Description | Notes | 
+| --- | --- | --- | 
+| <a name="config-capath"></a>caPath |  The absolute path to the AWS IoT root CA\.  |  Must be a file URI of the form: `file:///absolute/path/to/file`\. Make sure that your [endpoints correspond to your certificate type](gg-core.md#certificate-endpoints)\.  | 
+| PKCS11 | 
+| OpenSSLEngine |  Optional\. The absolute path to the OpenSSL engine `.so` file to enable PKCS\#11 support on OpenSSL\.  |  Must be a path to a file on the file system\. This property is required if you're using the Greengrass OTA update agent with hardware security\. For more information, see [Configure Support for Over\-the\-Air Updates](#hardware-security-ota-updates)\.  | 
+| P11Provider |  The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  |  Must be a path to a file on the file system\.  | 
+| slotLabel |  The slot label that's used to identify the hardware module\.  |  Must conform to PKCS\#11 label specifications\.  | 
+| slotUserPin |  The user pin that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
+| principals | 
+| IoTCertificate | The certificate and private key that the core uses to make requests to AWS IoT\. | 
+| IoTCertificate  \.privateKeyPath  |  The path to the core private key\.  |  For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\.  | 
+| IoTCertificate  \.certificatePath |  The absolute path to the core device certificate\.  |  Must be a file URI of the form: `file:///absolute/path/to/file`\.  | 
+| MQTTServerCertificate | Optional\. The private key that the core uses in combination with the certificate to act as an MQTT server or gateway\. | 
+| MQTTServerCertificate  \.privateKeyPath |  The path to the local MQTT server private key\.  |  Use this value to specify your own private key for the local MQTT server\. For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\. If this property is omitted, AWS IoT Greengrass rotates the key based your rotation settings\. If specified, the customer is responsible for rotating the key\.  | 
+| SecretsManager | The private key that secures the data key used for encryption\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\. | 
+| SecretsManager  \.privateKeyPath |  The path to the local secrets manager private key\.  |  For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\. The private key must be generated using the [PKCS\#1 v1\.5](https://tools.ietf.org/html/rfc2313) padding mechanism\.  | 
 
 
 | Field | Description | Notes | 
@@ -157,7 +175,7 @@ To enable over\-the\-air \(OTA\) updates of the AWS IoT Greengrass core core sof
    sudo ./greengrassd stop
    ```
 **Note**  
-*greengrass\-root* represents the path where the AWS IoT Greengrass core software is installed on your device\. If you installed the software by following the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
+*greengrass\-root* represents the path where the AWS IoT Greengrass core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
 
 1. Install the OpenSSL engine\.
 

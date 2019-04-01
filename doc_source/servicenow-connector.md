@@ -13,7 +13,7 @@ You can use this connector to support scenarios such as:
 ## Requirements<a name="servicenow-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
++ AWS IoT Greengrass Core Software v1\.7 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
@@ -198,7 +198,7 @@ This connector publishes status information as output data\.
     }
 }
 ```
-If the connector detects a retryable error \(for example, throttled or connection errors\), it retries the publish in the next batch\.
+If the connector detects a retryable error \(for example, connection errors\), it retries the publish in the next batch\.
 
 ## Usage Example<a name="servicenow-connector-usage"></a>
 

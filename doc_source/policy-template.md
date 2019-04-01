@@ -65,7 +65,8 @@ The following is a policy template that grants the permissions required for AWS 
                 "iot:UpdateThingShadow",
                 "iot:GetThingShadow",
                 "iot:DescribeEndpoint",
-                "greengrass:*"
+                "greengrass:*",
+                "iam:ListAttachedRolePolicies"
             ],
             "Resource": "*"
         }

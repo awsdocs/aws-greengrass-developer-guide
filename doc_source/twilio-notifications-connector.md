@@ -4,15 +4,23 @@ The Twilio Notifications [connector](connectors.md) makes automated phone calls 
 
 This connector receives Twilio message information on an MQTT topic, and then triggers a Twilio notification\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/1`
-
 **Note**  
 For a tutorial that shows how to use the Twilio Notifications connector, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md) or [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)\.
+
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | arn:aws:greengrass:*region*::/connectors/TwilioNotifications/versions/2 | 
+| 1 | arn:aws:greengrass:*region*::/connectors/TwilioNotifications/versions/1 | 
+
+For information about version changes, see the [Changelog](#twilio-notifications-connector-changelog)\.
 
 ## Requirements<a name="twilio-notifications-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
++ AWS IoT Greengrass Core Software v1\.7 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
@@ -68,7 +76,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyTwilioNotificationsConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/2",
             "Parameters": {
                 "TWILIO_ACCOUNT_SID": "abcd12345xyz",
                 "TwilioAuthTokenSecretArn": "arn:aws:secretsmanager:region:account-id:secret:greengrass-secret-hash",
@@ -317,6 +325,18 @@ The Twilio Notifications connector includes the following third\-party software/
 + [twilio\-python](https://github.com/twilio/twilio-python) / MIT
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="twilio-notifications-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Minor bug fixes and improvements\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="twilio-notifications-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

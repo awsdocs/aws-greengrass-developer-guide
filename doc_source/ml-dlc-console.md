@@ -27,7 +27,7 @@ The tutorial contains the following high\-level steps:
 ## Prerequisites<a name="ml-inference-prerequisites"></a>
 
  To complete this tutorial, you need: 
-+  [Raspberry Pi 3 Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/#buy-now-modal) set up and configured for use with AWS IoT Greengrass\. To learn how to set up your Raspberry Pi with AWS IoT Greengrass, see [Module 1](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html) and [Module 2](https://docs.aws.amazon.com/greengrass/latest/developerguide/module2.html) of [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
++  Raspberry Pi 3 [Model B\+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/) or [Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/), set up and configured for use with AWS IoT Greengrass\. To learn how to set up your Raspberry Pi with AWS IoT Greengrass, see [Module 1](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html) and [Module 2](https://docs.aws.amazon.com/greengrass/latest/developerguide/module2.html) of [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
 +  [Raspberry Pi Camera Module V2 \- 8 Megapixel, 1080p](https://www.amazon.com/Raspberry-Pi-Camera-Module-Megapixel/dp/B01ER2SKFS)\. To learn how to set up the camera, see [Connecting the camera](https://www.raspberrypi.org/documentation/usage/camera/) in the Raspberry Pi documentation\. 
 +  A Greengrass group and a Greengrass core\. To learn how to create a Greengrass group or core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
 
@@ -81,8 +81,7 @@ Run the following commands in your Raspberry Pi terminal\.
 
 1. On your computer, open the [AWS IoT Core console](https://console.aws.amazon.com/iotv2)\.
 
-1. In the navigation pane, choose **Software**\.  
-![\[The AWS IoT Core console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
+1. On the side navigation pane, choose **Software**\.
 
 1. In the **Machine learning inference** section, for ** Runtimes and precompiled framework libraries**, choose **Configure download**\.
 
@@ -110,7 +109,7 @@ Run the following commands in your Raspberry Pi terminal\.
    sudo ./install-dlr.sh
    ```
 
-    This package contains an `examples` directory that contains several files you use to run this tutorial\. This directory also contains version 1\.2\.0 of the AWS IoT Greengrass Core SDK for Python\. You can also download the latest version of the SDK in the AWS IoT Core console\. 
+    This package contains an `examples` directory that contains several files you use to run this tutorial\. This directory also contains version 1\.2\.0 of the AWS IoT Greengrass Core SDK for Python\. You can also download the latest version of the SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. 
 
 ## Step 3: Create an Inference Lambda Function<a name="ml-console-dlc-create-lambda"></a>
 
@@ -366,7 +365,7 @@ In this step, you deploy the current version of the group definition to the Gree
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
-If prompted, grant permission to create the AWS IoT Greengrass service role on your behalf, which allows AWS IoT Greengrass to access other AWS services\. You need to do this only one time per account\.
+If prompted, grant permission to create the [AWS IoT Greengrass service role](service-role.md) on your behalf\. This role allows AWS IoT Greengrass to access your resources in AWS services\. You need to do this only one time for your AWS account \(per AWS Region\)\.
 
     The **Deployments** page shows the deployment time stamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.   
 ![\[The Deployments page with a successful deployment status highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-ml2-successful-deployment.png)

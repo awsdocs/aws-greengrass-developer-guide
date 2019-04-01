@@ -33,8 +33,9 @@ AWS IoT Greengrass consists of:
   + Discovery service
   + Over\-the\-air update agent
   + Local resource access
-  + Machine learning inference
+  + Local machine learning inference
   + Local secrets manager
+  + Connectors with built\-in integration with services, protocols, and software
 
 ## AWS IoT Greengrass Core Software<a name="gg-core-software"></a>
 
@@ -58,9 +59,20 @@ AWS IoT Greengrass core instances are configured through AWS IoT Greengrass APIs
 The following tabs describe what's new and changed in AWS IoT Greengrass core software versions\.
 
 ------
+#### [ GGC v1\.8 ]
+
+1\.8\.0 \- Current version\.  
+New features:  
++ Configurable default access identity for Lambda functions in the group\. This group\-level setting determines the default permissions that are used to run Lambda functions\. You can set the user ID, group ID, or both\. Individual Lambda functions can override the default access identity of their group\. For more information, see [Setting the Default Access Identity for Lambda Functions in a Group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
++ HTTPS traffic over port 443\. HTTPS communication can be configured to travel over port 443 instead of the default port 8443\. This complements AWS IoT Greengrass support for the Application Layer Protocol Network \(ALPN\) TLS extension and allows all Greengrass messaging traffic—both MQTT and HTTPS—to use port 443\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
++ Predictably named client IDs for AWS IoT connections\. This change enables support for AWS IoT Device Defender and [AWS IoT Lifecycle events](https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html), so you can receive notifications for connect, disconnect, subscribe, and unsubscribe events\. Predictable naming also makes it easier to create logic around connection IDs \(for example, to create [subscribe policy](https://docs.aws.amazon.com/iot/latest/developerguide/pub-sub-policy.html#pub-sub-policy-cert) templates based on certificate attributes\)\. For more information, see [Client IDs for MQTT Connections with AWS IoT](gg-core.md#connection-client-id)\.
+Bug fixes and improvements:  
++ General performance improvements and bug fixes\.
+
+------
 #### [ GGC v1\.7 ]
 
-1\.7\.1 \- Current version\.  
+1\.7\.1  
 New features:  
 + Greengrass connectors provide built\-in integration with local infrastructure, device protocols, AWS, and other cloud services\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 + AWS IoT Greengrass extends AWS Secrets Manager to core devices, which makes your passwords, tokens, and other secrets available to connectors and Lambda functions\. Secrets are encrypted in transit and at rest\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
@@ -74,7 +86,7 @@ Bug fixes and improvements:
 + General performance improvements and bug fixes\.
 In addition, the following features are available with this release:  
 + The AWS IoT Device Tester for AWS IoT Greengrass, which you can use to verify that your CPU architecture, kernel configuration, and drivers work with AWS IoT Greengrass\. For more information, see [ AWS IoT Device Tester for AWS IoT Greengrass User Guide](device-tester-for-greengrass-ug.md)\.
-+ The AWS IoT Greengrass Core Software, AWS IoT Greengrass Core SDK, and AWS IoT Greengrass Machine Learning SDK packages are available for dowload through Amazon CloudFront\. For more information, see [AWS IoT Greengrass Downloads](#gg-downloads)\.
++ The AWS IoT Greengrass Core Software, AWS IoT Greengrass Core SDK, and AWS IoT Greengrass Machine Learning SDK packages are available for download through Amazon CloudFront\. For more information, see [AWS IoT Greengrass Downloads](#gg-downloads)\.
 
 ------
 #### [ GGC v1\.6 ]
@@ -96,7 +108,7 @@ Bug fixes and improvements:
 1\.5\.0  
 New features:  
 + AWS IoT Greengrass Machine Learning \(ML\) Inference is generally available\. You can perform ML inference locally on AWS IoT Greengrass devices using models that are built and trained in the cloud\. For more information, see [Perform Machine Learning Inference](ml-inference.md)\.
-+ Greengrass Lambda functions now support binary data as input payload, in addition to JSON\. To use this feature, you must upgrade to AWS IoT Greengrass Core SDK version 1\.1\.0, which you can download from the **Software** page in the AWS IoT console\.
++ Greengrass Lambda functions now support binary data as input payload, in addition to JSON\. To use this feature, you must upgrade to AWS IoT Greengrass Core SDK version 1\.1\.0, which you can download from the [AWS IoT Greengrass Core SDK](#gg-core-sdk-download) downloads page\. 
 Bug fixes and improvements:  
 + Reduced the overall memory footprint\.
 + Performance improvements for sending messages to the cloud\.
@@ -197,12 +209,28 @@ The AWS IoT Greengrass core device stores certificates in two locations:
 The following AWS\-provided SDKs are used to work with AWS IoT Greengrass:
 
 ------
-#### [ GGC 1\.7 ]
+#### [ GGC 1\.8 ]
 
 AWS SDK  
 Use the AWS SDK to build applications that interact with any AWS service, including Amazon S3, Amazon DynamoDB, AWS IoT, AWS IoT Greengrass, and more\. In the context of AWS IoT Greengrass, you can use the AWS SDK in deployed Lambda functions to make direct calls to any AWS service\. For more information, see [AWS SDKs](lambda-functions.md#lambda-sdks-aws)\.
 
 AWS IoT Device SDK  <a name="iot-device-sdk"></a>
+The AWS IoT Device SDK helps devices connect to AWS IoT or AWS IoT Greengrass services\. Devices must know which AWS IoT Greengrass group they belong to and the IP address of the AWS IoT Greengrass core that they should connect to\.   
+Although you can use any of the AWS IoT Device SDK platforms to connect to an AWS IoT Greengrass core, only the C\+\+ and Python SDKs provide AWS IoT Greengrass\-specific functionality, such as access to the AWS IoT Greengrass Discovery Service and AWS IoT Greengrass core root CA downloads\. For more information, see [AWS IoT Device SDK](https://aws.amazon.com/iot-core/resources/#AWS_IoT_Device_SDKs)\.
+
+AWS IoT Greengrass Core SDK  
+The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the Greengrass core, publish messages to AWS IoT, interact with the local shadow service, invoke other deployed Lambda functions, and access secret resources\. This SDK is used by Lambda functions that run on an AWS IoT Greengrass core\. For more information, see [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core)\.
+
+AWS IoT Greengrass Machine Learning SDK  
+The AWS IoT Greengrass Machine Learning SDK enables Lambda functions to consume machine learning models that are deployed to the Greengrass core as machine learning resources\. This SDK is used by Lambda functions that run on an AWS IoT Greengrass core and interact with a local inference service\. For more information, see [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml)\.
+
+------
+#### [ GGC 1\.7 ]
+
+AWS SDK  
+Use the AWS SDK to build applications that interact with any AWS service, including Amazon S3, Amazon DynamoDB, AWS IoT, AWS IoT Greengrass, and more\. In the context of AWS IoT Greengrass, you can use the AWS SDK in deployed Lambda functions to make direct calls to any AWS service\. For more information, see [AWS SDKs](lambda-functions.md#lambda-sdks-aws)\.
+
+AWS IoT Device SDK  
 The AWS IoT Device SDK helps devices connect to AWS IoT or AWS IoT Greengrass services\. Devices must know which AWS IoT Greengrass group they belong to and the IP address of the AWS IoT Greengrass core that they should connect to\.   
 Although you can use any of the AWS IoT Device SDK platforms to connect to an AWS IoT Greengrass core, only the C\+\+ and Python SDKs provide AWS IoT Greengrass\-specific functionality, such as access to the AWS IoT Greengrass Discovery Service and AWS IoT Greengrass core root CA downloads\. For more information, see [AWS IoT Device SDK](https://aws.amazon.com/iot-core/resources/#AWS_IoT_Device_SDKs)\.
 
@@ -236,7 +264,7 @@ The AWS IoT Device SDKs helps devices connect to AWS IoT or AWS IoT Greengrass s
 Although you can use any of the AWS IoT Device SDKs to connect to an AWS IoT Greengrass core, only the C\+\+ and Python Device SDKs provide AWS IoT Greengrass\-specific functionality, such as access to the AWS IoT Greengrass Discovery Service and AWS IoT Greengrass core root CA downloads\. For more information, see [AWS IoT Device SDK](https://aws.amazon.com/iot/sdk/)\.
 
 AWS IoT Greengrass Core SDK  
-The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the AWS IoT Greengrass core on which they run in order to publish messages, interact with the local Device Shadow service, or invoke other deployed Lambda functions\. This SDK is used exclusively for writing Lambda functions running in the Lambda runtime on an AWS IoT Greengrass core\. Lambda functions running on an AWS IoT Greengrass core can interact with AWS cloud services directly using the AWS SDK\. The AWS IoT Greengrass Core SDK and the AWS SDK are contained in different packages, so you can use both packages simultaneously\. You can download the AWS IoT Greengrass Core SDK from the **Software** page of the [AWS IoT console](https://console.aws.amazon.com/iot/home)\.  
+The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the AWS IoT Greengrass core on which they run in order to publish messages, interact with the local Device Shadow service, or invoke other deployed Lambda functions\. This SDK is used exclusively for writing Lambda functions running in the Lambda runtime on an AWS IoT Greengrass core\. Lambda functions running on an AWS IoT Greengrass core can interact with AWS cloud services directly using the AWS SDK\. The AWS IoT Greengrass Core SDK and the AWS SDK are contained in different packages, so you can use both packages simultaneously\. You can download the AWS IoT Greengrass Core SDK from the [AWS IoT Greengrass Core SDK](#gg-core-sdk-download) downloads page\.  
 The AWS IoT Greengrass Core SDK follows the AWS SDK programming model\. It allows you to easily port Lambda functions developed for the cloud to Lambda functions that run on an AWS IoT Greengrass core\. For example, using the AWS SDK, the following Lambda function publishes a message to the topic `"/some/topic"` in the cloud:   
 
 ```
@@ -281,7 +309,7 @@ The AWS IoT Device SDKs helps devices connect to AWS IoT or AWS IoT Greengrass s
 Although you can use any of the AWS IoT Device SDKs to connect to an AWS IoT Greengrass core, only the C\+\+ and Python Device SDKs provide AWS IoT Greengrass\-specific functionality, such as access to the AWS IoT Greengrass Discovery Service and AWS IoT Greengrass core root CA downloads\. For more information, see [AWS IoT Device SDK](https://aws.amazon.com/iot/sdk/)\.
 
 AWS IoT Greengrass Core SDK  
-The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the AWS IoT Greengrass core on which they run in order to publish messages, interact with the local Device Shadow service, or invoke other deployed Lambda functions\. This SDK is used exclusively for writing Lambda functions running in the Lambda runtime on an AWS IoT Greengrass core\. Lambda functions running on an AWS IoT Greengrass core can interact with AWS cloud services directly using the AWS SDK\. The AWS IoT Greengrass Core SDK and the AWS SDK are contained in different packages, so you can use both packages simultaneously\. You can download the AWS IoT Greengrass Core SDK from the **Software** page of the [AWS IoT console](https://console.aws.amazon.com/iot/home)\.  
+The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the AWS IoT Greengrass core on which they run in order to publish messages, interact with the local Device Shadow service, or invoke other deployed Lambda functions\. This SDK is used exclusively for writing Lambda functions running in the Lambda runtime on an AWS IoT Greengrass core\. Lambda functions running on an AWS IoT Greengrass core can interact with AWS cloud services directly using the AWS SDK\. The AWS IoT Greengrass Core SDK and the AWS SDK are contained in different packages, so you can use both packages simultaneously\. You can download the AWS IoT Greengrass Core SDK from the [AWS IoT Greengrass Core SDK](#gg-core-sdk-download) downloads page\.  
 The AWS IoT Greengrass Core SDK follows the AWS SDK programming model\. It allows you to easily port Lambda functions developed for the cloud to Lambda functions that run on an AWS IoT Greengrass core\. For example, using the AWS SDK, the following Lambda function publishes a message to the topic `"/some/topic"` in the cloud:   
 
 ```
@@ -326,7 +354,7 @@ The AWS IoT Device SDKs helps devices connect to AWS IoT or AWS IoT Greengrass s
 Although you can use any of the AWS IoT Device SDKs to connect to an AWS IoT Greengrass core, only the C\+\+ and Python Device SDKs provide AWS IoT Greengrass\-specific functionality, such as access to the AWS IoT Greengrass Discovery Service and AWS IoT Greengrass core root CA downloads\. For more information, see [AWS IoT Device SDK](https://aws.amazon.com/iot/sdk/)\.
 
 AWS IoT Greengrass Core SDK  
-The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the AWS IoT Greengrass core on which they run in order to publish messages, interact with the local Device Shadow service, or invoke other deployed Lambda functions\. This SDK is used exclusively for writing Lambda functions running in the Lambda runtime on an AWS IoT Greengrass core\. Lambda functions running on an AWS IoT Greengrass core can interact with AWS cloud services directly using the AWS SDK\. The AWS IoT Greengrass Core SDK and the AWS SDK are contained in different packages, so you can use both packages simultaneously\. You can download the AWS IoT Greengrass Core SDK from the **Software** page of the [AWS IoT console](https://console.aws.amazon.com/iot/home)\.  
+The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the AWS IoT Greengrass core on which they run in order to publish messages, interact with the local Device Shadow service, or invoke other deployed Lambda functions\. This SDK is used exclusively for writing Lambda functions running in the Lambda runtime on an AWS IoT Greengrass core\. Lambda functions running on an AWS IoT Greengrass core can interact with AWS cloud services directly using the AWS SDK\. The AWS IoT Greengrass Core SDK and the AWS SDK are contained in different packages, so you can use both packages simultaneously\. You can download the AWS IoT Greengrass Core SDK from the [AWS IoT Greengrass Core SDK](#gg-core-sdk-download) downloads page\.  
 The AWS IoT Greengrass Core SDK follows the AWS SDK programming model\. It allows you to easily port Lambda functions developed for the cloud to Lambda functions that run on an AWS IoT Greengrass core\. For example, using the AWS SDK, the following Lambda function publishes a message to the topic `"/some/topic"` in the cloud:   
 
 ```
@@ -371,7 +399,7 @@ The AWS IoT Device SDKs helps devices connect to AWS IoT or AWS IoT Greengrass s
 Although you can use any of the AWS IoT Device SDKs to connect to an AWS IoT Greengrass core, only the C\+\+ and Python Device SDKs provide AWS IoT Greengrass\-specific functionality, such as access to the AWS IoT Greengrass Discovery Service and AWS IoT Greengrass core root CA downloads\. For more information, see [AWS IoT Device SDK](https://aws.amazon.com/iot/sdk/)\.
 
 AWS IoT Greengrass Core SDK  
-The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the AWS IoT Greengrass core on which they run in order to publish messages, interact with the local Device Shadow service, or invoke other deployed Lambda functions\. This SDK is used exclusively for writing Lambda functions running in the Lambda runtime on an AWS IoT Greengrass core\. Lambda functions running on an AWS IoT Greengrass core can interact with AWS cloud services directly using the AWS SDK\. The AWS IoT Greengrass Core SDK and the AWS SDK are contained in different packages, so you can use both packages simultaneously\. You can download the AWS IoT Greengrass Core SDK from the **Software** page of the [AWS IoT console](https://console.aws.amazon.com/iot/home)\.  
+The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the AWS IoT Greengrass core on which they run in order to publish messages, interact with the local Device Shadow service, or invoke other deployed Lambda functions\. This SDK is used exclusively for writing Lambda functions running in the Lambda runtime on an AWS IoT Greengrass core\. Lambda functions running on an AWS IoT Greengrass core can interact with AWS cloud services directly using the AWS SDK\. The AWS IoT Greengrass Core SDK and the AWS SDK are contained in different packages, so you can use both packages simultaneously\. You can download the AWS IoT Greengrass Core SDK from the [AWS IoT Greengrass Core SDK](#gg-core-sdk-download) downloads page\.  
 The AWS IoT Greengrass Core SDK follows the AWS SDK programming model\. It allows you to easily port Lambda functions developed for the cloud to Lambda functions that run on an AWS IoT Greengrass core\. For example, using the AWS SDK, the following Lambda function publishes a message to the topic `"/some/topic"` in the cloud:   
 
 ```
@@ -410,7 +438,35 @@ The AWS SDK is natively part of the environment of a Lambda function that runs i
 The AWS IoT Greengrass core software is supported on the platforms listed here, and requires a few dependencies\.
 
 **Note**  
-You can download the core software from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core Software](#gg-core-download-tab) downloads\.
+You can download the core software  from the [AWS IoT Greengrass Core Software](#gg-core-download-tab) downloads\.
+
+------
+#### [ GGC v1\.8 ]
++ Supported platforms:
+  + Architecture: ARMv7l; OS: Linux; Distribution: [Raspbian Stretch, 2018\-06\-29](https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-06-29/)\. While several versions may work with AWS IoT Greengrass, we recommend this as it is the officially supported distribution\.
+  + Architecture: x86\_64; OS: Linux; Distribution: Amazon Linux \(amzn\-ami\-hvm\-2016\.09\.1\.20170119\-x86\_64\-ebs\), Ubuntu 14\.04 – 16\.04
+  + Architecture: ARMv8 \(AArch64\); OS: Linux; Distribution: Arch Linux
+  + Windows, macOS, and Linux platforms can run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\. 
++ The following items are required:
+  + Minimum 128 MB RAM allocated to the AWS IoT Greengrass core device\.
+  + Linux kernel version 4\.4 or greater: while several versions may work with AWS IoT Greengrass, for optimal security and performance, we recommend version 4\.4 or greater\. The minimum required version is 3\.17\.
+  + [Glibc library](https://www.gnu.org/software/libc/) version 2\.14 or greater\.
+  + The `/var/run` directory must be present on the device\.
+  + AWS IoT Greengrass requires hardlink and softlink protection to be enabled on the device\. Without this, AWS IoT Greengrass can only be run in insecure mode, using the `-i` flag\.
+  + The following Linux kernel configurations must be enabled on the device: 
+    + Namespace: CONFIG\_IPC\_NS, CONFIG\_UTS\_NS, CONFIG\_USER\_NS, CONFIG\_PID\_NS
+    + CGroups: CONFIG\_CGROUP\_DEVICE, CONFIG\_CGROUPS, CONFIG\_MEMCG
+    + Others: CONFIG\_POSIX\_MQUEUE, CONFIG\_OVERLAY\_FS, CONFIG\_HAVE\_ARCH\_SECCOMP\_FILTER, CONFIG\_SECCOMP\_FILTER, CONFIG\_KEYS, CONFIG\_SECCOMP
+  + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
+  + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups) in order to run AWS IoT Greengrass with containers\.
+  + The *memory* `cgroup` must be enabled and mounted to allow AWS IoT Greengrass to set the memory limit for Lambda functions\.
+  + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
++ The following items may be optional:
+  + The *devices* `cgroup` must be enabled and mounted if Lambda functions with [Local Resource Access \(LRA\)](access-local-resources.md) are used to open files on the AWS IoT Greengrass core device\.
+  + [Python](https://www.python.org/) version 2\.7 is required if Python Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [NodeJS](https://www.nodejs.org/) version 6\.10 or greater is required if Node\.JS Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [ Java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) version 8 or greater is required if Java Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + The following commands are required for [Greengrass OTA Agent](core-ota-update.md#ota-agent): `wget`, `realpath`, `tar`, `readlink`, `basename`, `dirname`, `pidof`, `df`, `grep`, and `umount`\.
 
 ------
 #### [ GGC v1\.7 ]
@@ -591,54 +647,135 @@ You can download the core software from the **Software** page in the AWS IoT Cor
 
 ## AWS IoT Greengrass Downloads<a name="gg-downloads"></a>
 
- You can use the following information to locate and download software for use with AWS IoT Greengrass\. 
+ You can use the following information to find and download software for use with AWS IoT Greengrass\. 
 
 ### AWS IoT Greengrass Core Software<a name="gg-core-download-tab"></a>
 
  The AWS IoT Greengrass core software extends AWS functionality onto an AWS IoT Greengrass core device, enabling local devices to act locally on the data they generate\. 
 
 ------
+#### [  v1\.8\.0  ]
++ <a name="what-new-v180"></a>New features:
+  + Configurable default access identity for Lambda functions in the group\. This group\-level setting determines the default permissions that are used to run Lambda functions\. You can set the user ID, group ID, or both\. Individual Lambda functions can override the default access identity of their group\. For more information, see [Setting the Default Access Identity for Lambda Functions in a Group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
+  + HTTPS traffic over port 443\. HTTPS communication can be configured to travel over port 443 instead of the default port 8443\. This complements AWS IoT Greengrass support for the Application Layer Protocol Network \(ALPN\) TLS extension and allows all Greengrass messaging traffic—both MQTT and HTTPS—to use port 443\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
+  + Predictably named client IDs for AWS IoT connections\. This change enables support for AWS IoT Device Defender and [AWS IoT Lifecycle events](https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html), so you can receive notifications for connect, disconnect, subscribe, and unsubscribe events\. Predictable naming also makes it easier to create logic around connection IDs \(for example, to create [subscribe policy](https://docs.aws.amazon.com/iot/latest/developerguide/pub-sub-policy.html#pub-sub-policy-cert) templates based on certificate attributes\)\. For more information, see [Client IDs for MQTT Connections with AWS IoT](gg-core.md#connection-client-id)\.
+
+  Bug fixes and improvements:
+  + General performance improvements and bug fixes\.
+
+To install Greengrass on your core device, download the package for your architecture and distribution, and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
+
+
+| Architecture | Distribution | OS | Link | 
+| --- | --- | --- | --- | 
+| ARMv8 \(AArch64\) | Ubuntu 14\.04 \- 16\.04 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.0/greengrass-linux-aarch64-1.8.0.tar.gz) | 
+| ARMv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.0/greengrass-linux-armv7l-1.8.0.tar.gz) | 
+| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.0/greengrass-linux-x86-64-1.8.0.tar.gz) | 
+
+------
 #### [  v1\.7\.1  ]
-+ [ Architecture: AArch64, OS: Linux](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.7.1/greengrass-linux-aarch64-1.7.1.tar.gz)\.
-+ [ Architecture: ARMv7l, OS: Linux](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.7.1/greengrass-linux-armv7l-1.7.1.tar.gz)\.
-+ [ Architecture: x86\_64; OS: Linux](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.7.1/greengrass-linux-x86-64-1.7.1.tar.gz)\.
++ New features:
+  + Greengrass connectors provide built\-in integration with local infrastructure, device protocols, AWS, and other cloud services\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
+  + AWS IoT Greengrass extends AWS Secrets Manager to core devices, which makes your passwords, tokens, and other secrets available to connectors and Lambda functions\. Secrets are encrypted in transit and at rest\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
+  + Support for a hardware root of trust security option\. For more information, see [Hardware Security Integration](hardware-security.md)\.
+  + Isolation and permission settings that allow Lambda functions to run without Greengrass containers and to use the permissions of a specified user and group\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
+  + You can run AWS IoT Greengrass in a Docker container \(on Windows, macOS, or Linux\) by configuring your Greengrass group to run with no containerization\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
+  + MQTT messaging on port 443 with Application Layer Protocol Negotiation \(ALPN\) or connection through a network proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
+  + The Amazon SageMaker Neo deep learning runtime, which supports machine learning models that have been optimized by the Amazon SageMaker Neo deep learning compiler\. For information about the Neo deep learning runtime, see [Runtimes and Precompiled Framework Libraries for ML Inference](ml-inference.md#precompiled-ml-libraries)\.
+  + Support for Raspbian Stretch \(2018\-06\-27\) on Raspberry Pi core devices\.
+
+  Bug fixes and improvements:
+  + General performance improvements and bug fixes\.
+
+  In addition, the following features are available with this release:
+  + The AWS IoT Device Tester for AWS IoT Greengrass, which you can use to verify that your CPU architecture, kernel configuration, and drivers work with AWS IoT Greengrass\. For more information, see [ AWS IoT Device Tester for AWS IoT Greengrass User Guide](device-tester-for-greengrass-ug.md)\.
+  + The AWS IoT Greengrass Core Software, AWS IoT Greengrass Core SDK, and AWS IoT Greengrass Machine Learning SDK packages are available for download through Amazon CloudFront\. For more information, see [AWS IoT Greengrass Downloads](#gg-downloads)\.
+
+To install Greengrass on your core device, download the package for your architecture and distribution, and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
+
+
+| Architecture | Distribution | OS | Link | 
+| --- | --- | --- | --- | 
+| ARMv8 \(AArch64\) | Ubuntu 14\.04 \- 16\.04 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.7.1/greengrass-linux-aarch64-1.7.1.tar.gz) | 
+| ARMv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.7.1/greengrass-linux-armv7l-1.7.1.tar.gz) | 
+| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.7.1/greengrass-linux-x86-64-1.7.1.tar.gz) | 
 
 ------
 #### [  v1\.6\.1  ]
-+ [ Architecture: AArch64; OS: Linux](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.6.1/greengrass-linux-aarch64-1.6.1.tar.gz)\.
-+ [ Architecture: ARMv7l; OS: Linux](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.6.1/greengrass-linux-armv7l-1.6.1.tar.gz)\.
-+ [ Architecture: x86\_64; OS: Linux](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.6.1/greengrass-linux-x86-64-1.6.1.tar.gz)\.
-+ [ Architecture: x86\_64; OS: Ubuntu](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.6.1/greengrass-ubuntu-x86-64-1.6.1.tar.gz)\.
++ New features:
+  + Lambda executables that run binary code on the Greengrass core\. Use the new AWS IoT Greengrass Core SDK for C to write Lambda executables in C and C\+\+\. For more information, see [Lambda Executables](lambda-functions.md#lambda-executables)\.
+  + Optional local storage message cache that can persist across restarts\. You can configure the storage settings for MQTT messages that are queued for processing\. For more information, see [MQTT Message Queue](gg-core.md#mqtt-message-queue)\.
+  + Configurable maximum reconnect retry interval for when the core device is disconnected\. For more information, see the `mqttMaxConnectionRetryInterval` property in [AWS IoT Greengrass Core Configuration File](gg-core.md#config-json)\.
+  + Local resource access to the host /proc directory\. For more information, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
+  + Configurable write directory\. The AWS IoT Greengrass core software can be deployed to read\-only and read\-write locations\. For more information, see [Configure a Write Directory for AWS IoT Greengrass](gg-core.md#write-directory)\.
+
+  Bug fixes and improvements:
+  + Performance improvement for publishing messages in the Greengrass core and between devices and the core\.
+  + Reduced the compute resources required to process logs generated by user\-defined Lambda functions\.
+
+To install Greengrass on your core device, download the package for your architecture and distribution, and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
+
+
+| Architecture | Distribution | OS | Link | 
+| --- | --- | --- | --- | 
+| ARMv8 \(AArch64\) | Ubuntu 14\.04 \- 16\.04 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.6.1/greengrass-linux-aarch64-1.6.1.tar.gz) | 
+| ARMv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.6.1/greengrass-linux-armv7l-1.6.1.tar.gz) | 
+| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.6.1/greengrass-linux-x86-64-1.6.1.tar.gz) | 
+| x86\_64 | Linux | Ubuntu | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.6.1/greengrass-ubuntu-x86-64-1.6.1.tar.gz) | 
 
 ------
+
+ By downloading this software you agree to the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\. 
+
+ 
 
 ### AWS IoT Greengrass Core SDK Software<a name="gg-core-sdk-download"></a>
 
  The [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) enables Lambda functions to interact with the AWS IoT Greengrass core on which they run\. 
 
-------
-#### [  v1\.3\.0  ]
-+  [ Java 8](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/java/8/aws-greengrass-core-sdk-java-1.3.0.tar.gz)\. 
-+  [ Node JS 6\.10](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/nodejs/6.10/aws-greengrass-core-sdk-js-1.3.0.tar.gz)\. 
-+  [ Python 2\.7](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/python/2.7/greengrass-core-python-sdk-1.3.0.tar.gz)\. 
+Download the SDK for your language or platform\.
 
-------
-#### [  v1\.2\.0  ]
-+  [ Java 8](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/java/8/aws-greengrass-core-sdk-java-1.2.0.tar.gz)\. 
-+  [ Node JS 6\.10](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/nodejs/6.10/aws-greengrass-core-sdk-js-1.2.0.tar.gz)\. 
-+  [ Python 2\.7](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/python/2.7/greengrass-core-python-sdk-1.2.0.tar.gz)\. 
+  
+Java 8  
++  [ v1\.3\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/java/8/aws-greengrass-core-sdk-java-1.3.1.tar.gz) \- Current version\. 
++  [ v1\.3\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/java/8/aws-greengrass-core-sdk-java-1.3.0.tar.gz)\. 
++  [ v1\.2\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/java/8/aws-greengrass-core-sdk-java-1.2.0.tar.gz)\. 
 
-------
+  
+Node\.js 6\.10  
++  [ v1\.3\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/nodejs/6.10/aws-greengrass-core-sdk-js-1.3.1.tar.gz) \- Current version\. 
++  [ v1\.3\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/nodejs/6.10/aws-greengrass-core-sdk-js-1.3.0.tar.gz)\. 
++  [ v1\.2\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/nodejs/6.10/aws-greengrass-core-sdk-js-1.2.0.tar.gz)\. 
+
+  
+Python 2\.7  
++  [ v1\.3\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/python/2.7/greengrass-core-python-sdk-1.3.0.tar.gz) \- Current version\. 
++  [ v1\.2\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-sdk/downloads/python/2.7/greengrass-core-python-sdk-1.2.0.tar.gz)\. 
+
+  
+C, C\+\+  
++  [ v1\.1\.0](https://github.com/aws/aws-greengrass-core-sdk-c) \- Current version \(on GitHub\)\. 
+
+ 
 
 ### AWS IoT Greengrass Docker Software<a name="gg-docker-download"></a>
 
  The AWS IoT Greengrass Docker Software download enables you to run AWS IoT Greengrass in a Docker container\. Instructions are provided in the Docker file\. 
 
 ------
+#### [  v1\.8\.0  ]
++  [ Docker v1\.8\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.0/aws-greengrass-docker-1.8.0.tar.gz)\. 
++  [ Docker v1\.8\.0 \(Docker Hub\) ](https://hub.docker.com/r/amazon/aws-iot-greengrass)\. 
+
+------
 #### [  v1\.7\.1  ]
 +  [ Docker v1\.7\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.7.1/aws-greengrass-docker-1.7.1.tar.gz)\. 
 
 ------
+
+To help you get started quickly and experiment with AWS IoT Greengrass, AWS also provides a prebuilt Docker image that has the core software and dependencies installed\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
+
+ 
 
 ### AWS IoT Greengrass ML SDK Software<a name="gg-ml-sdk-download"></a>
 

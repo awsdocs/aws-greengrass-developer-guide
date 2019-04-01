@@ -14,7 +14,7 @@ Read requests are limited to a maximum read length of 63994 bytes\. Write reques
 ## Requirements<a name="serial-stream-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.
++ AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + A [local device resource](access-local-resources.md) in the Greengrass group that points to the target serial port\.
 **Note**  

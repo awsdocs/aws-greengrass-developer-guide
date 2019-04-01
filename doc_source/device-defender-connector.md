@@ -9,7 +9,7 @@ This connector reads system metrics from the `/proc` directory on the core devic
 ## Requirements<a name="device-defender-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7\.
++ AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + AWS IoT Device Defender configured to use the Detect feature to keep track of violations\. For more information, see [Detect](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html) in the *AWS IoT Developer Guide*\.
 + A [local volume resource](access-local-resources.md) in the Greengrass group that points to the `/proc` directory\. The resource must use the following properties:

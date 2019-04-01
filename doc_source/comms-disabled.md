@@ -22,8 +22,7 @@ On Windows host computers, in the Windows Firewall with Advanced Security app, y
 
 1. Get your AWS IoT endpoint\.
 
-   1. <a name="iot-settings"></a>On the home page of the AWS IoT Core console, choose **Settings**\.  
-![\[The Settings page selected in the AWS IoT Core console.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-settings.png)
+   1. <a name="iot-settings"></a>On the navigation pane on the home page of the AWS IoT Core console, choose **Settings**\.
 
    1. <a name="iot-settings-endpoint"></a>Under **Settings**, make a note of the value of **Endpoint**\. You use this value to replace the *AWS\_IOT\_ENDPOINT* placeholder in the commands in the following steps\.  
 ![\[AWS IoT endpoint value.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-075.7.png)

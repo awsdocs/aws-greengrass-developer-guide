@@ -1,6 +1,6 @@
 # Deploy Secrets to the AWS IoT Greengrass Core<a name="secrets"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 AWS IoT Greengrass lets you authenticate with services and applications from Greengrass devices without hard\-coding passwords, tokens, or other secrets\.
 
@@ -45,7 +45,7 @@ The AWS IoT Greengrass core is the only entity that has access to the private ke
 ## Requirements<a name="secrets-reqs"></a>
 
 These are the requirements for local secret support:
-+ You must be using AWS IoT Greengrass Core v1\.7\.
++ You must be using AWS IoT Greengrass Core v1\.7 or later\.
 + To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0\.
 + The private key used for local secrets encryption must be specified in the Greengrass configuration file\. By default, AWS IoT Greengrass uses the core private key stored in the file system\. To provide your own private key, see [Specify the Private Key for Secret Encryption](#secrets-config-private-key)\.
 **Note**  
@@ -62,7 +62,7 @@ Follow this procedure only if you want to change the default configuration, whic
 
 1. Open the [`config.json`](gg-core.md#config-json) file that's located in the `/greengrass-root/config` directory\.
 **Note**  
-*greengrass\-root* represents the path where the AWS IoT Greengrass core software is installed on your device\. If you installed the software by following the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
+*greengrass\-root* represents the path where the AWS IoT Greengrass core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
 
 1. In the `crypto.principals.SecretsManager` object, for the `privateKeyPath` property, enter the path of the private key:
    + If your private key is stored in the file system, specify the absolute path to the key\. For example:

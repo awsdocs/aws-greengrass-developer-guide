@@ -1,10 +1,10 @@
 # Getting Started with Greengrass Connectors \(Console\)<a name="connectors-console"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7 only\.
+This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS Management Console to work with connectors\.
 
-## <a name="w4aac27c37b8"></a>
+## <a name="w4aac26c37b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 
@@ -42,8 +42,8 @@ The tutorial should take about 20 minutes to complete\.
 
 To complete this tutorial, you need:
 
-### <a name="w4aac27c37c16b6"></a>
-+ A Greengrass group and a Greengrass core \(v1\.7\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
+### <a name="w4aac26c37c16b6"></a>
++ A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -123,20 +123,11 @@ When you choose the resource, the **ARN of Twilio auth token secret** property i
 
 ## Step 4: Create a Lambda Function Deployment Package<a name="connectors-console-create-deployment-package"></a>
 
-### <a name="w4aac27c37c24b4"></a>
+### <a name="w4aac26c37c24b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
-1. <a name="download-ggc-sdk"></a>Download the AWS IoT Greengrass Core SDK Python 2\.7 version 1\.3\.0\. You can download the SDK from the **Software** page in the AWS IoT Core console or from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\. This procedure uses the console\.
-
-   1. In the [AWS IoT Core console](https://console.aws.amazon.com//iotv2/home), choose **Software**\.  
-![\[The left pane of the AWS IoT Core console with Software highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software.png)
-
-   1. Under **SDKs**, for **AWS IoT Greengrass Core SDK**, choose **Configure download**\.  
-![\[The SDKs section with Configure download highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-software-ggc-sdk.png)
-
-   1. Choose **Python 2\.7 version 1\.3\.0**, and then choose **Download Greengrass Core SDK**\.  
-![\[The AWS IoT Greengrass Core SDK page with Python 2.7 version 1.3.0 and Download Greengrass Core SDK highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-016.png)
+1. <a name="download-ggc-sdk"></a>Download the Python 2\.7 1\.3\.0 SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. Locate the **Python 2\.7** section, and choose ** v1\.3\.0 \- current version** to download the SDK\. 
 
 1. <a name="untar-sdk"></a>Unpack the `greengrass-core-python-sdk-1.3.0.tar.gz` file\.
 **Note**  
@@ -342,7 +333,7 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
-If prompted, grant permission to create the AWS IoT Greengrass service role on your behalf, which allows AWS IoT Greengrass to access other AWS services\. You need to do this only one time per account\.
+If prompted, grant permission to create the [AWS IoT Greengrass service role](service-role.md) on your behalf\. This role allows AWS IoT Greengrass to access your resources in AWS services\. You need to do this only one time for your AWS account \(per AWS Region\)\.
 
    The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the deployment should show a **Successfully completed** status\.
 
@@ -350,7 +341,7 @@ If prompted, grant permission to create the AWS IoT Greengrass service role on y
 
 ## Test the Solution<a name="connectors-console-test-solution"></a>
 
-### <a name="w4aac27c37c34b4"></a>
+### <a name="w4aac26c37c34b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT Core console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
