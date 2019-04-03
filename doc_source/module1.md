@@ -153,6 +153,11 @@ Your Raspberry Pi configuration is complete\. Continue to [Module 2: Installing 
 
 ## Setting Up an Amazon EC2 Instance<a name="setup-filter.ec2"></a>
 
+This section provides instructions for setting up your Amazon EC2 instance\.
+
+**Note**  
+ Although you can complete these modules using an Amazon EC2 instance, AWS IoT Greengrass should ideally be used with physical hardware\. We recommend that you use a Raspberry Pi for these tutorials\. 
+
 1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) and launch an Amazon EC2 instance using an Amazon Linux AMI\. For information about Amazon EC2 instances, see the [Amazon EC2 Getting Started Guide](https://docs.aws.amazon.com/AWSEC2/latest/GettingStartedGuide/)\.
 
 1. After your Amazon EC2 instance is running, enable port 8883 to allow incoming MQTT communications so that other devices can connect with the AWS IoT Greengrass core\.

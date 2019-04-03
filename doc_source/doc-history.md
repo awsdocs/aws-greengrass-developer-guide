@@ -4,6 +4,7 @@ The following table describes important changes to the AWS IoT Greengrass Develo
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [AWS IoT Greengrass Snap Available on Snapcraft](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html#gg-snapstore-download) | Use the AWS IoT Greengrass Snap Store app to quickly design, test, and deploy software on Linux devices with AWS IoT Greengrass\. | April 1, 2019 | 
 | [Support for More Access Control Using Tag\-Based Permissions](https://docs.aws.amazon.com/greengrass/latest/developerguide/tagging.html) | You can use tags in AWS Identity and Access Management \(IAM\) policies to control access to your AWS IoT Greengrass resources\. | March 29, 2019 | 
 | [IoT Analytics Connector Released](https://docs.aws.amazon.com/greengrass/latest/developerguide//iot-analytics-connector.html) | Use the IoT Analytics connector to send local device data to AWS IoT Analytics channels\. | March 15, 2019 | 
 | [Batch Support in Kinesis Firehose Connector](https://docs.aws.amazon.com/greengrass/latest/developerguide//kinesis-firehose-connector.html) | The Kinesis Firehose connector supports sending batched data records to Amazon Kinesis Data Firehose at a specified interval\. | March 15, 2019 | 

@@ -1,16 +1,21 @@
 # Start AWS IoT Greengrass on the Core Device<a name="gg-device-start"></a>
 
+**Note**  
+This tutorial provides instructions for starting AWS IoT Greengrass on your Raspberry Pi, but you can use any supported device\.
+
 In the [previous step](gg-config.md#gg-core-download), you downloaded two files to your computer:
 + `greengrass-OS-architecture-1.8.0.tar.gz`\. This compressed file contains the AWS IoT Greengrass core software that runs on the core device\.
 + `hash-setup.tar.gz`\. This compressed file contains security certificates that enable secure communications between AWS IoT and the `config.json` file that contains configuration information specific to your AWS IoT Greengrass core and the AWS IoT endpoint\.
 
-1. If you don't recall the IP address of your AWS IoT Greengrass core device, open a terminal on the AWS IoT Greengrass core device and run the following command:
+1. If you don't know the IP address of your AWS IoT Greengrass core device, open a terminal on the AWS IoT Greengrass core device and run the following command:
+**Note**  
+This command might not return the correct IP address for some devices\. Consult the documentation for your device to retrieve your device IP address\.
 
    ```
    hostname -I
    ```
 
-1. Transfer the two compressed files from your computer to the AWS IoT Greengrass core device\. For steps that show how to transfer files, choose your operating system:
+1. Transfer the two compressed files from your computer to the AWS IoT Greengrass core device\. Choose your operating system for steps that show how to transfer files to your Raspberry Pi device\. The file transfer steps vary, depending on device  or EC2 instance\.
 **Note**  
 For a Raspberry Pi, the default user name is **pi** and the default password is **raspberry**\.  
 For an NVIDIA Jetson TX2, the default user name is **nvidia** and the default password is **nvidia**\.

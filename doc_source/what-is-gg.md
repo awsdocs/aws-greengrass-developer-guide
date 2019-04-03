@@ -443,14 +443,15 @@ You can download the core software  from the [AWS IoT Greengrass Core Software](
 ------
 #### [ GGC v1\.8 ]
 + Supported platforms:
-  + Architecture: ARMv7l; OS: Linux; Distribution: [Raspbian Stretch, 2018\-06\-29](https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-06-29/)\. While several versions may work with AWS IoT Greengrass, we recommend this as it is the officially supported distribution\.
+  + Architecture: ARMv7l; OS: Linux; Distribution: [Raspbian Stretch, 2018\-06\-29](https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-06-29/)\. Other versions might work with AWS IoT Greengrass, but we recommend this because it is the officially supported distribution\.
   + Architecture: x86\_64; OS: Linux; Distribution: Amazon Linux \(amzn\-ami\-hvm\-2016\.09\.1\.20170119\-x86\_64\-ebs\), Ubuntu 14\.04 – 16\.04
   + Architecture: ARMv8 \(AArch64\); OS: Linux; Distribution: Arch Linux
   + Windows, macOS, and Linux platforms can run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\. 
+  + Linux platforms can run AWS IoT Greengrass using the Greengrass snap, which is available through [Snapcraft](https://snapcraft.io/aws-iot-greengrass)\. For more information, see [AWS IoT Greengrass Snap Software](#gg-snapstore-download)\.
 + The following items are required:
   + Minimum 128 MB RAM allocated to the AWS IoT Greengrass core device\.
-  + Linux kernel version 4\.4 or greater: while several versions may work with AWS IoT Greengrass, for optimal security and performance, we recommend version 4\.4 or greater\. The minimum required version is 3\.17\.
-  + [Glibc library](https://www.gnu.org/software/libc/) version 2\.14 or greater\.
+  + Linux kernel version 4\.4 or later: Other versions might work with AWS IoT Greengrass, but for optimal security and performance, we recommend version 4\.4 or later\. The minimum required version is 3\.17\.
+  + [Glibc library](https://www.gnu.org/software/libc/) version 2\.14 or later\.
   + The `/var/run` directory must be present on the device\.
   + AWS IoT Greengrass requires hardlink and softlink protection to be enabled on the device\. Without this, AWS IoT Greengrass can only be run in insecure mode, using the `-i` flag\.
   + The following Linux kernel configurations must be enabled on the device: 
@@ -458,14 +459,14 @@ You can download the core software  from the [AWS IoT Greengrass Core Software](
     + CGroups: CONFIG\_CGROUP\_DEVICE, CONFIG\_CGROUPS, CONFIG\_MEMCG
     + Others: CONFIG\_POSIX\_MQUEUE, CONFIG\_OVERLAY\_FS, CONFIG\_HAVE\_ARCH\_SECCOMP\_FILTER, CONFIG\_SECCOMP\_FILTER, CONFIG\_KEYS, CONFIG\_SECCOMP
   + `/dev/stdin`, `/dev/stdout`, and `/dev/stderr` must be enabled\.
-  + The Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups) in order to run AWS IoT Greengrass with containers\.
+  + To run AWS IoT Greengrass with containers, the Linux kernel must support [cgroups](https://en.wikipedia.org/wiki/Cgroups)\.
   + The *memory* `cgroup` must be enabled and mounted to allow AWS IoT Greengrass to set the memory limit for Lambda functions\.
   + The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
-+ The following items may be optional:
++ The following items might be optional:
   + The *devices* `cgroup` must be enabled and mounted if Lambda functions with [Local Resource Access \(LRA\)](access-local-resources.md) are used to open files on the AWS IoT Greengrass core device\.
   + [Python](https://www.python.org/) version 2\.7 is required if Python Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
-  + [NodeJS](https://www.nodejs.org/) version 6\.10 or greater is required if Node\.JS Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
-  + [ Java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) version 8 or greater is required if Java Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [NodeJS](https://www.nodejs.org/) version 6\.10 or later is required if Node\.js Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
+  + [Java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) version 8 or later is required if Java Lambda functions are used\. If so, ensure that it's added to your `PATH` environment variable\.
   + The following commands are required for [Greengrass OTA Agent](core-ota-update.md#ota-agent): `wget`, `realpath`, `tar`, `readlink`, `basename`, `dirname`, `pidof`, `df`, `grep`, and `umount`\.
 
 ------
@@ -757,6 +758,86 @@ C, C\+\+
 +  [ v1\.1\.0](https://github.com/aws/aws-greengrass-core-sdk-c) \- Current version \(on GitHub\)\. 
 
  
+
+### AWS IoT Greengrass Snap Software<a name="gg-snapstore-download"></a>
+
+ The AWS IoT Greengrass snap software download makes it possible for you to run AWS IoT Greengrass on Linux cloud, desktop, and IoT environments through convenient containerized software packages\. These packages, or snaps, contain the AWS IoT Greengrass software and its dependencies, and can be downloaded and used on your Linux environments as\-is\. 
+
+ The AWS IoT Greengrass snap is updated automatically with new versions of the AWS IoT Greengrass core software and associated dependencies\. You can turn off these automatic updates at any time\.   
+
+------
+#### [  v1\.8  ]
++  [ AWS IoT Greengrass snap](https://snapcraft.io/aws-iot-greengrass)\. 
++  [ Snap 2\.38](https://launchpad.net/ubuntu/+source/snapd/2.38)\. 
+
+------
+
+#### Getting Started with AWS IoT Greengrass Snap<a name="gg-snap-setup"></a>
+
+ Because the prepackaged AWS IoT Greengrass snap is designed to use system defaults, you might need to perform these other steps: 
++  The AWS IoT Greengrass snap is configured to use default Greengrass user and group configurations\. This allows it to work easily with Greengrass groups or Lambda functions that run as root\. If you need to use Greengrass groups or Lambda functions that do not run as root, you need to update these configurations and add them to your system\. 
++  The AWS IoT Greengrass snap uses many interfaces that must be connected before it can operate normally\. These interfaces are connected automatically during setup\. If you use other options while you set up your snap, you might need to connect these interfaces manually\. 
+
+ For more information about the AWS IoT Greengrass snap and these modifications, see [Greengrass Snap Release Notes](https://assets.ubuntu.com/v1/15d52dd3-greengrass-snap-release-notes.pdf)\. 
+
+1.  Use the download link to install snapd version 2\.38 or later\. 
+
+1.  If you need to use Greengrass groups or Lambda functions that do not run as root, update your default Greengrass user and group configurations, and add them to your system\. For more information about updating user and group configurations with AWS IoT Greengrass, see [Setting the Default Access Identity for Lambda Functions in a Group](lambda-group-config.md#lambda-access-identity-groupsettings)\. 
+   +  To add the `ggc_user` user to an Ubuntu Core system, use: 
+
+     ```
+     sudo adduser --extrausers --system ggc_user
+     ```
+   +  To add the `ggc_user` user to an Ubuntu classic system, omit the \-\-extrausers flag and use: 
+
+     ```
+     sudo adduser --system ggc_user
+     ```
+   +  To add the `ggc_group` group to an Ubuntu Core system, use: 
+
+     ```
+     sudo adduser --extrausers --system ggc_user
+     ```
+   +  To add the `ggc_group` to an Ubuntu classic system, omit the \-\-extrausers flag and use: 
+
+     ```
+     sudo adduser --system ggc_user
+     ```
+
+1.  In your terminal, run the following command to install the Greengrass snap: 
+
+   ```
+   snap install aws-iot-greengrass
+   ```
+**Note**  
+ If you are installing locally from a file and do not have the associated assertions, use the `--dangerous` flag:   
+
+   ```
+   snap install --dangerous aws-iot-greengrass*.snap
+   ```
+ The `--dangerous` flag interferes with the AWS IoT Greengrass snap's ability to connect its required interfaces\. If you use this flag, you need to manually connect the required interfaces using the snap connect command\.   For more information, see [Greengrass Snap Release Notes](https://assets.ubuntu.com/v1/15d52dd3-greengrass-snap-release-notes.pdf)\. 
+
+1.  After the snap is installed, run the following command to add your Greengrass certificate and configuration files: 
+
+   ```
+   snap set aws-iot-greengrass gg-certs=/path-to-the-certs/22e592db.tgz
+   ```
+
+1.  Run the following command to validate that your setup is functioning correctly: 
+
+   ```
+   $ snap services aws-iot-greengrass
+   ```
+
+   You should see the following response:
+
+   ```
+   Service Startup Current Note
+   ```
+
+ Your Greengrass setup is now complete\. You can now use the AWS IoT Greengrass console, AWS REST API, or AWS CLI to deploy the Greengrass groups associated with this snap\. For information about using the console to deploy a Greengrass group, see the [ Deploy Cloud Configurations to an AWS IoT Greengrass Core Device](https://docs.aws.amazon.com/greengrass/latest/developerguide/configs-core.html)\. For information about using the CLI or REST API to deploy a Greengrass group, see [CreateDeployment](https://docs.aws.amazon.com/greengrass/latest/apireference/createdeployment-post.html) in the AWS IoT Greengrass API Reference\. 
+
+ For more information about configuring local resource access with snap AppArmor confinement, using the snapd REST API, and configuring snap interfaces, see [Greengrass Snap Release Notes](https://assets.ubuntu.com/v1/15d52dd3-greengrass-snap-release-notes.pdf)\. 
 
 ### AWS IoT Greengrass Docker Software<a name="gg-docker-download"></a>
 

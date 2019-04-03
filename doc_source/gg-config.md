@@ -1,6 +1,6 @@
 # Configure AWS IoT Greengrass on AWS IoT<a name="gg-config"></a>
 
-1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT Core console\. If this is the first time opening this console, choose **Get started**\.
+1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT Core console\. If this is your first time opening this console, choose **Get started**\.
 
 1. Choose **Greengrass**\.
 **Note**  

@@ -13,7 +13,7 @@ To complete this tutorial, you need the following:
 + The use of an AWS [Region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS IoT Greengrass\. For the list of supported regions for AWS IoT Greengrass, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\.
 **Important**  
 Make a note of your AWS Region to ensure that it is consistently used throughout this tutorial\. Inadvertently switching regions during the tutorial can create problems\. The last exercise in this tutorial assumes you are using the US East \(N\. Virgina\) Region\.
-+ A Raspberry Pi 3 [Model B\+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/) or [Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/) with a 8 GB microSD card, or an Amazon EC2 instance\. Because AWS IoT Greengrass is intended to be used with physical hardware, we recommend that you use a Raspberry Pi\. The architecture of your Pi must be `armv7l` or later\.
++ A Raspberry Pi 3 [Model B\+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/) or [Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/) with a 8 GB microSD card, or an Amazon EC2 instance\. Because AWS IoT Greengrass should ideally be used with physical hardware, we recommend that you use a Raspberry Pi\. The architecture of your Pi must be `armv7l` or later\.
 **Note**  
 Run the following command to get the model of your Rasberry Pi:  
 
@@ -29,7 +29,7 @@ Run the following command to determine the architecture of your Raspberry Pi:
 The result must be greater than or equal to `armv71`\.
 + Basic familiarity with Python 2\.7\.
 
-Although this tutorial focuses on running AWS IoT Greengrass on a Raspberry Pi or an Amazon EC2 instance, other platforms are supported\. For more information, see [Supported Platforms and Requirements](what-is-gg.md#gg-platforms)\.
+Although this tutorial provides steps for running AWS IoT Greengrass on a Raspberry Pi , you can use other platforms\. For more information, see [Supported Platforms and Requirements](what-is-gg.md#gg-platforms)\.
 
 ## Create an AWS Account<a name="create-aws-account"></a>
 
