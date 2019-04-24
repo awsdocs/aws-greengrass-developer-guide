@@ -136,9 +136,9 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    ```
    cd /home/pi/Downloads
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.0.zip
-   unzip greengrass-dependency-checker-GGCv1.8.0.zip
-   cd greengrass-dependency-checker-GGCv1.8.0
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.x.zip
+   unzip greengrass-dependency-checker-GGCv1.8.x.zip
+   cd greengrass-dependency-checker-GGCv1.8.x
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```
@@ -240,9 +240,9 @@ This section provides instructions for setting up your Amazon EC2 instance\.
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.0.zip
-   unzip greengrass-dependency-checker-GGCv1.8.0.zip
-   cd greengrass-dependency-checker-GGCv1.8.0
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.x.zip
+   unzip greengrass-dependency-checker-GGCv1.8.x.zip
+   cd greengrass-dependency-checker-GGCv1.8.x
    sudo ./check_ggc_dependencies | more
    ```
 **Important**  
@@ -282,14 +282,14 @@ If the `addgroup` command isn't available on your system, use the following comm
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.0.zip
-   unzip greengrass-dependency-checker-GGCv1.8.0.zip
-   cd greengrass-dependency-checker-GGCv1.8.0
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.x.zip
+   unzip greengrass-dependency-checker-GGCv1.8.x.zip
+   cd greengrass-dependency-checker-GGCv1.8.x
    sudo ./check_ggc_dependencies | more
    ```
 **Note**  
 The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platforms and requires the following Linux system commands: `printf`, `uname`, `cat`, `ls`, `head`, `find`, `zcat`, `awk`, `sed`, `sysctl`, `wc`, `cut`, `sort`, `expr`, `grep`, `test`, `dirname`, `readlink`, `xargs`, `strings`, `uniq`\.  
-For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.8.0/README.md#greengrass-core-v17-dependencies-checker)\.
+For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.8.x/README.md#greengrass-core-v17-dependencies-checker)\.
 
 1. Install all required dependencies on your device, as indicated by the dependency checker output\. For missing kernel\-level dependencies, you might have to recompile your kernel\. For mounting Linux control groups \(`cgroups`\), you can run the [cgroupfs\-mount](https://raw.githubusercontent.com/tianon/cgroupfs-mount/master/cgroupfs-mount) script\.
 
