@@ -111,7 +111,7 @@ Valid pattern: `^[a-zA-Z0-9_]$`
 
 ### Create Connector Example \(CLI\)<a name="iot-analytics-connector-create"></a>
 
-The following CLI command creates an `ConnectorDefinition` with an initial version that contains the IoT Analytics connector\.
+The following CLI command creates a `ConnectorDefinition` with an initial version that contains the IoT Analytics connector\.
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{

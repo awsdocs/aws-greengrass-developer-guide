@@ -65,13 +65,13 @@ skipping installation of cpu_usage and memory_usage nodes
 ```
 
 ## Make sure your Greengrass Group is ready<a name="opcua-group"></a>
-+ Create a Greengrass group \(find more details in [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\.\) 
++ Create a Greengrass group\. For information, see [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\. 
 + Set up a Greengrass Core on one of the supported platforms \(Raspberry\-pi for [example](module1.md#setup-filter.rpi)\) 
-+ [Set up](what-is-gg.md#gg-platforms) your Greengrass Core to be able to run nodejs6\.x Lambda functions
++ [Set up](what-is-gg.md#gg-platforms) your Greengrass Core to be able to run nodejs8\.x Lambda functions
 
 ## Use Greengrass OPC\-UA to Interact with your OPC\-UA Server<a name="opcua-interact"></a>
 
-1. Prepare your Lambda function
+1. Prepare your Lambda function\.
 
    Get the code for an OPC\-UA adapter Lambda function from GitHub: 
 
@@ -95,7 +95,7 @@ skipping installation of cpu_usage and memory_usage nodes
    sed -i '109s/.*/    var generated_source_is_outdated = (!generated_source_exists);/' node_modules/node-opcua/lib/misc/factories.js
    ```
 
-1. Configure the server and monitored nodes
+1. Configure the server and monitored nodes\.
 
    Change the `configSet` variable inside the `index.js` file of the OPC\-UA Lambda function to contain the server IP and Port that you want to connect to, as well as the node Ids you would like to monitor\. By default it comes with the following example configuration: 
 
@@ -116,7 +116,7 @@ skipping installation of cpu_usage and memory_usage nodes
 
    In this case, we are connecting to an OPC\-UA server running on the same host as our Greengrass Core, on port 26543, and monitoring one node that has an OPC\-UA Id `'ns=1;s=PumpSpeed'`\. 
 
-1. Configure the authentication mode
+1. Configure the authentication mode\.
 
    The [OPC\-UA library](https://github.com/node-opcua/node-opcua) used in this example supports three modes of Authentication to your OPC\-UA server\. The most secure method is Certificate Based Authentication, but the library also allows you to specify username/password or no authentication\.
 
@@ -139,15 +139,15 @@ skipping installation of cpu_usage and memory_usage nodes
      };
      ```
 
-1. Upload your Lambda
+1. Download the NodeJS AWS IoT Greengrass SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads\.
 
-   Create a Greengrass Lambda function\. You can find more details on how to do that in [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)\. In a nutshell, create a Lambda function code archive by doing the following:
+1. Upload your Lambda function\.
+
+   Create a Greengrass Lambda function\. For information, see [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)\. You can create a Lambda function code archive by doing the following:
 
    ```
-   # Download the nodejs greengrass sdk from 
-   #   https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html#gg-core-sdk-download.
-   
-   #  Install Greengrass SDK in the node_modules directory
+   #  Install Greengrass SDK in the node_modules directory. If you used the curl command to download the SDK, replace the tar.gz filename 
+   #  with the name you used.
    tar -zxvf aws-greengrass-core-sdk-js-*.tar.gz -C /tmp/
    unzip /tmp/aws_greengrass_core_sdk_js/sdk/aws-greengrass-core-sdk-js.zip -d node_modules
    
@@ -155,10 +155,10 @@ skipping installation of cpu_usage and memory_usage nodes
    zip -r opcuaLambda.zip * -x \*.git\*
    
    # Create an AWS Lambda with the created zip
-   aws lambda create-function --function-name <Function_Name> --runtime 'nodejs6.10' --role <Your_Role> --handler 'index.handler' --zip-file opcuaLambda.zip
+   aws lambda create-function --function-name function-name --runtime 'nodejs8.10' --role your_role --handler 'index.handler' --zip-file opcuaLambda.zip
    ```
 
-   Add this Lambda to your Greengrass Group\. Details are, again, in: [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)\. 
+   Add this Lambda to your Greengrass Group\. For information, see [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)\. 
 
 1. Configure and Deploy the Lambda function to your Greengrass Group
 
@@ -166,14 +166,14 @@ skipping installation of cpu_usage and memory_usage nodes
    + Make sure to specify the Lambda function as Long\-Running\.
    + Give it at least 64MB of memory size\.
 
-   You can now create a deployment with your latest configuration\. You can find details in [Deploy Cloud Configurations to an AWS IoT Greengrass Core Device](configs-core.md)\.
+   You can now create a deployment with your latest configuration\. For information, see [Deploy Cloud Configurations to an AWS IoT Greengrass Core Device](configs-core.md)\.
 
 ## Verify that your Lambda function is receiving OPC\-UA Publishes and posting them onto Greengrass<a name="opcua-verify-lambda"></a>
 
 As described in the [Architecture section](#opcua-archi), your Lambda function should start receiving messages from your OPC\-UA server\. If you are using your own custom OPC\-UA server, make sure you trigger a change in the OPC\-UA node Id you specified, so that you see the change received by your Lambda function\. If you are using the example server above, the PumpSpeed node is configured to simulate a series of consecutive updates, so you should expect your Lambda function to receive multiple messages a second\.
 
 You can see messages received by your Lambda function in one of two ways: 
-+ Watch the Lambda function’s logs 
++ Watch the Lambda function’s logs\. 
 
    You can view the logs from your Lambda function by running the following command: 
 

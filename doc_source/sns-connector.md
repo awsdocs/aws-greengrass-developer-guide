@@ -48,7 +48,7 @@ Valid pattern: `arn:aws:sns:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):([a-zA-Z0-9-_]+)$`
 
 ### Create Connector Example \(CLI\)<a name="sns-connector-create"></a>
 
-The following CLI command creates an `ConnectorDefinition` with an initial version that contains the SNS connector\.
+The following CLI command creates a `ConnectorDefinition` with an initial version that contains the SNS connector\.
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{

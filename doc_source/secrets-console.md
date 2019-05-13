@@ -39,7 +39,7 @@ To complete this tutorial, you need:
 + AWS IoT Greengrass must be configured to support local secrets\. For more information, see [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
-+ To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0\.
++ To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0 or later\.
 
 ## Step 1: Create a Secrets Manager Secret<a name="secrets-console-create-secret"></a>
 
@@ -101,26 +101,11 @@ This tutorial requires the AWSCURRENT label only\. You can optionally include la
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
 **Note**  
-To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0\.
+To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0 or later\.
 
-1. <a name="download-ggc-sdk"></a>Download the Python 2\.7 1\.3\.0 SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. Locate the **Python 2\.7** section, and choose ** v1\.3\.0 \- current version** to download the SDK\. 
+1. <a name="download-ggc-sdk"></a> Download the AWS IoT Greengrass Core SDK for Python from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. In the **Python** section, choose ** v1\.4\.0 \- Current version \(on GitHub\)** and then download the SDK\. 
 
-1. <a name="untar-sdk"></a>Unpack the `greengrass-core-python-sdk-1.3.0.tar.gz` file\.
-**Note**  
-For information about how to do this on different platforms, see [this step](create-lambda.md) in the Getting Started section\. For example, you might use the following `tar` command:  
-
-   ```
-   tar -xzf greengrass-core-python-sdk-1.3.0.tar.gz
-   ```
-
-1. <a name="open-sdk-folder"></a>Open the extracted aws\_greengrass\_core\_sdk/sdk directory\.
-
-   ```
-   cd aws_greengrass_core_sdk
-   cd sdk
-   ```
-
-1. <a name="unzip-sdk"></a>Unzip `python_sdk_1_3_0.zip`\.
+1. <a name="unzip-ggc-sdk"></a>Unzip the downloaded package to get the SDK\. The SDK is the `greengrasssdk` folder\.
 
 1. Save the following Python code function in a local file named `secret_test.py`\.
 
@@ -302,7 +287,7 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
-If prompted, grant permission to create the [AWS IoT Greengrass service role](service-role.md) on your behalf\. This role allows AWS IoT Greengrass to access your resources in AWS services\. You need to do this only one time for your AWS account \(per AWS Region\)\.
+If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\. Only one Greengrass service role is required per AWS account, but it must be associated with your AWS account in each AWS Region where you use AWS IoT Greengrass\.
 
    The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the deployment should show a **Successfully completed** status\.
 

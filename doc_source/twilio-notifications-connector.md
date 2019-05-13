@@ -69,7 +69,7 @@ Valid pattern: `^$|\+[0-9]+`
 
 ### Create Connector Example \(CLI\)<a name="twilio-notifications-connector-create"></a>
 
-The following example CLI command creates an `ConnectorDefinition` with an initial version that contains the Twilio Notifications connector\.
+The following example CLI command creates a `ConnectorDefinition` with an initial version that contains the Twilio Notifications connector\.
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{

@@ -1,10 +1,14 @@
 # AWS IoT Greengrass Security<a name="gg-sec"></a>
 
-AWS IoT Greengrass uses X\.509 certificates, managed subscriptions, AWS IoT policies, and IAM policies and roles to ensure your Greengrass applications are secure\. AWS IoT Greengrass core devices require an AWS IoT thing, a device certificate, and an AWS IoT policy to communicate with the Greengrass cloud service\.
+AWS IoT Greengrass uses X\.509 certificates, managed subscriptions, AWS IoT policies, and IAM policies and roles to secure your Greengrass applications\.
+
+AWS IoT Greengrass core devices require an AWS IoT thing, a device certificate, and an AWS IoT policy to communicate with the Greengrass cloud service\.
 
 This allows AWS IoT Greengrass core devices to securely connect to the AWS IoT cloud services\. It also allows the Greengrass cloud service to deploy configuration information, Lambda functions, connectors, and managed subscriptions to AWS IoT Greengrass core devices\.
 
-AWS IoT devices require an AWS IoT thing, a device certificate, and an AWS IoT policy to connect to the Greengrass service\. This allows AWS IoT devices to use the Greengrass Discovery Service to find and connect to an AWS IoT Greengrass core device\. AWS IoT devices use the same device certificate used to connect to AWS IoT device gateway and AWS IoT Greengrass core devices\. The following diagram shows the components of the AWS IoT Greengrass security model:
+[Greengrass devices](what-is-gg.md#greengrass-devices) require an AWS IoT thing, a device certificate, and an AWS IoT policy to connect to the Greengrass service\. This allows Greengrass devices to use the Greengrass Discovery service to find and connect to an AWS IoT Greengrass core device\. Greengrass devices use the same device certificate to connect to AWS IoT device gateway and AWS IoT Greengrass core devices\.
+
+The following diagram shows the components of the AWS IoT Greengrass security model:
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-security.png)
 
@@ -15,7 +19,7 @@ B \- Core device certificate
 An X\.509 certificate used to authenticate an AWS IoT Greengrass core\.
 
 C \- Device certificate  
-An X\.509 certificate used to authenticate an AWS IoT device\.
+An X\.509 certificate used to authenticate an AWS IoT Greengrass device\.
 
 D \- Group role  
 A customer\-created IAM role assumed by AWS IoT Greengrass when calling AWS services from a Lambda function or connector on an AWS IoT Greengrass core\.  
@@ -23,7 +27,7 @@ This the Lambda execution role for all the Greengrass Lambda functions and conne
 AWS IoT Greengrass doesn't use the Lambda execution role that's specified in AWS Lambda for the cloud version of the function\.
 
 E \- Group CA  
-A root CA certificate used by AWS IoT Greengrass devices to validate the certificate presented by an AWS IoT Greengrass core device during TLS mutual authentication\.
+A root CA certificate used by AWS IoT Greengrass devices to validate the certificate presented by an AWS IoT Greengrass core device during Transport Layer Security \(TLS\) mutual authentication\.
 
 ## Configuring Greengrass Security<a name="gg-config-sec"></a>
 
@@ -37,11 +41,11 @@ To configure your Greengrass application's security:
 
 1. Create a Greengrass service role\. This IAM role authorizes AWS IoT Greengrass to access resources from other AWS services on your behalf\. This allows AWS IoT Greengrass to perform essential tasks, such as retrieving AWS Lambda functions and managing AWS IoT shadows\. You can use the same service role across AWS Regions, but it must be associated with every AWS Region where you use AWS IoT Greengrass\. For more information, see [Greengrass Service Role](service-role.md)\.
 
-1. \(Optional\) Create a Greengrass group role\. This role grants permission to Lambda functions and connectors running on an AWS IoT Greengrass core to call other AWS services \(in the cloud\)\. You need to do this for each Greengrass group you create\.
+1. \(Optional\) Create a Greengrass group role\. This IAM role grants permission to Lambda functions and connectors running on an AWS IoT Greengrass core to call AWS services\. For example, the [Kinesis Firehose connector](kinesis-firehose-connector.md) requires permission to write records to an Amazon Kinesis Data Firehose delivery stream\. You create a separate group role for each Greengrass group\.
 
 1. Create an AWS IoT thing for each device that will connect to your AWS IoT Greengrass core\.
 
-1. Create device certificates, key pairs, and AWS IoT policies for each device that will connect to your AWS IoT Greengrass core\.
+1. Create device certificates, key pairs, and AWS IoT policies for each device that connects to your AWS IoT Greengrass core\.
 
 **Note**  
 You can also use existing AWS IoT things and certificates\.
@@ -154,6 +158,46 @@ On the AWS IoT Core console, you can easily view and edit the policy that's atta
 
    If you want to edit the policy, choose **Edit policy document**\.
 
+## AWS IoT Greengrass Core Security Principals<a name="gg-principals"></a>
+
+The AWS IoT Greengrass core uses the following security principals: AWS IoT client, local MQTT server, and local secrets manager\. The configuration for these principals is stored in the `crypto` object in the `config.json` configuration file\. For more information, see [AWS IoT Greengrass Core Configuration File](gg-core.md#config-json)\.
+
+This configuration includes the path to the private key used by the principal component for authentication and encryption\. AWS IoT Greengrass supports two modes of private key storage: hardware\-based or file system\-based \(default\)\. For more information about storing keys on hardware security modules, see [Hardware Security Integration](hardware-security.md)\.
+
+**AWS IoT Client**  
+The AWS IoT client manages communication over the internet between the Greengrass core and AWS IoT\. AWS IoT Greengrass uses X\.509 certificates with public and private keys for mutual authentication when establishing TLS connections for this communication\. For more information, see [X\.509 Certificates and AWS IoT](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html) in the *AWS IoT Developer Guide*\.  
+The IoT client supports RSA and EC certificates and keys\. The certificate and private key path are specified for the `IoTCertificate` principal in `config.json`\.
+
+**MQTT Server**  
+The local MQTT server manages communication over the local network between the Greengrass core and other Greengrass devices in the group\. AWS IoT Greengrass uses X\.509 certificates with public and private keys for mutual authentication when establishing TLS connections for this communication\.  
+By default, AWS IoT Greengrass generates an RSA private key for you\. To configure the core to use a different private key, you must provide the key path for the `MQTTServerCertificate` principal in `config.json`\.    
+**Private Key Support**    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-sec.html)
+The configuration of the private key determines related processes\. For the list of cipher suites that the Greengrass core supports as a server, see [AWS IoT Greengrass Cipher Suites](#gg-cipher-suites)\.    
+**If no private key is specified** \(default\)  
++ AWS IoT Greengrass rotates the key based on your rotation settings\.
++ The core generates an RSA key, which is used to generate the certificate\.
++ The MQTT server certificate has an RSA public key and an SHA\-256 RSA signature\.  
+**If an RSA private key is specified** \(requires GGC v1\.7 or later\)  
++ You are responsible for rotating the key\.
++ The core uses the specified key to generate the certificate\.
++ The RSA key must have a minimum length of 2048 bits\.
++ The MQTT server certificate has an RSA public key and an SHA\-256 RSA signature\.  
+**If an EC private key is specified** \(requires GGC v1\.9\)  
++ You are responsible for rotating the key\.
++ The core uses the specified key to generate the certificate\.
++ The EC private key must use an NIST P\-256 or NIST P\-384 curve\.
++ The MQTT server certificate has an EC public key and an SHA\-256 RSA signature\.
+
+  The MQTT server certificate presented by the core has an SHA\-256 RSA signature, regardless of the key type\. For this reason, clients must support SHA\-256 RSA certificate validation to establish a secure connection with the core\.
+
+**Secrets Manager**  
+The local secrets manager securely manages local copies of secrets that you create in AWS Secrets Manager\. It uses a private key to secure the data key that's used to encrypt the secrets\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.  
+By default, the IoT client private key is used, but you can specify a different private key for the `SecretsManager` principal in `config.json`\. Only the RSA key type is supported\. For more information, see [Specify the Private Key for Secret Encryption](secrets.md#secrets-config-private-key)\.  
+Currently, AWS IoT Greengrass supports only the [PKCS\#1 v1\.5](https://tools.ietf.org/html/rfc2313) padding mechanism for encryption and decryption of local secrets when using hardware\-based private keys\. If you're following vendor\-provided instructions to manually generate hardware\-based private keys, make sure to choose PKCS\#1 v1\.5\. AWS IoT Greengrass doesn't support Optimal Asymmetric Encryption Padding \(OAEP\)\.  
+**Private Key Support**    
+<a name="secrets-manager-private-key-support"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-sec.html)
+
 ## Device Connection Workflow<a name="gg-sec-connection"></a>
 
 This section describes how devices connect to the AWS IoT Greengrass cloud service and AWS IoT Greengrass core devices\.
@@ -165,13 +209,15 @@ This section describes how devices connect to the AWS IoT Greengrass cloud servi
 
 ## Greengrass Messaging Workflow<a name="gg-msg-workflow"></a>
 
- A subscription table is used to define how messages are exchanged within a Greengrass group \(between AWS IoT Greengrass core devices, AWS IoT devices, Lambda functions, and connectors\)\. Each entry in the subscription table specifies a source, a destination, and an MQTT topic over which messages are sent or received\. Messages can be exchanged only if an entry exists in the subscription table specifying the source \(message sender\), the target \(message recipient\), and the MQTT topic\. Subscription table entries specify passing messages in one direction, from the source to the target\. If you want two\-way message passing, create two subscription table entries, one for each direction\. 
+AWS IoT Greengrass uses a subscription table to define how MQTT messages can be exchanged between devices, functions, and connectors in a Greengrass group, and with AWS IoT or the local shadow service\. Each subscription specifies a source, target, and MQTT topic \(or subject\) over which messages are sent or received\. AWS IoT Greengrass allows messages to be sent from a source to a target only if a corresponding subscription is defined\.
+
+A subscription defines the message flow in one direction only, from the source to the target\. To support two\-way message exchange, you must create two subscriptions, one for each direction\.
 
 ## Certificate Rotation on the MQTT Core Server<a name="gg-cert-expire"></a>
 
- Greengrass edge devices use the MQTT core server certificate to authenticate with the Greengrass core device\.   By default, this certificate expires in 7 days\. Its lifetime is limited for security reasons, so that if unauthorized parties obtain the certificate, it cannot be used for long\.  
+ Greengrass devices use the MQTT core server certificate to authenticate with the Greengrass core device\.   By default, this certificate expires in seven days\. Its lifetime is limited for security reasons, so that if unauthorized parties obtain the certificate, it cannot be used for long\.  
 
- For certificate rotation to occur, your Greengrass\-enabled device must be online and able to access the Greengrass cloud service directly on a regular basis\. When the certificate expires, the Greengrass core device attempts to connect to the Greengrass cloud service to obtain a new certificate\. If the connection is successful, the core device downloads a new MQTT core server certificate and restarts the local MQTT service\. At this point, all AWS IoT devices connected to the core are disconnected\. If the device is offline at the time of expiry, it does not receive the replacement certificate\. Any new attempts to connect to the core device are rejected\. Existing connections are not affected\. Devices cannot connect to the core until the connection to the Greengrass cloud service is restored and a new MQTT core server certificate can be downloaded\. 
+ For certificate rotation to occur, your Greengrass\-enabled device must be online and able to access the Greengrass cloud service directly on a regular basis\. When the certificate expires, the Greengrass core device attempts to connect to the Greengrass cloud service to obtain a new certificate\. If the connection is successful, the core device downloads a new MQTT core server certificate and restarts the local MQTT service\. At this point, all Greengrass devices connected to the core are disconnected\. If the device is offline at the time of expiry, it does not receive the replacement certificate\. Any new attempts to connect to the core device are rejected\. Existing connections are not affected\. Devices cannot connect to the core until the connection to the Greengrass cloud service is restored and a new MQTT core server certificate can be downloaded\. 
 
 You can set the expiration to any value between 7 and 30 days, depending on your needs\. More frequent rotation requires more frequent cloud connection\. Less frequent rotation can pose security concerns\. If you want to set the certificate expiration to a value higher than 30 days, contact AWS Support\. 
 
@@ -181,9 +227,8 @@ You can set the expiration to any value between 7 and 30 days, depending on your
 
 AWS IoT Greengrass uses the AWS IoT transport security model to encrypt communication with the cloud by using [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) [cipher suites](https://en.wikipedia.org/wiki/Cipher_suite)\. In addition, AWS IoT Greengrass data is encrypted when at rest \(in the cloud\)\. For more information about AWS IoT transport security and supported cipher suites, see [ Transport Security](https://docs.aws.amazon.com/iot/latest/developerguide/iot-security-identity.html#transport-security) in the *AWS IoT Developer Guide*\.
 
-As opposed to the AWS IoT cloud, the AWS IoT Greengrass core supports the following *local network* TLS cipher suites:
+**Supported Cipher Suites for Local Network Communication**
+
+As opposed to the AWS IoT cloud, the AWS IoT Greengrass core supports the following *local network* TLS cipher suites for certificate\-signing algorithms\. All of these cipher suites are supported when private keys are stored on the file system\. A subset are supported when the core is configured to use hardware security modules \(HSM\)\. For more information, see [AWS IoT Greengrass Core Security Principals](#gg-principals) and [Hardware Security Integration](hardware-security.md)\. The table also includes the minimum version of AWS IoT Greengrass core software required for support\.
 
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-sec.html)
-
-**Note**  
-Only a subset of cipher suites are supported when hardware security is configured\. For more information, see [Supported Cipher Suites for Hardware Security Integration](hardware-security.md#cipher-suites-for-hsm)\.

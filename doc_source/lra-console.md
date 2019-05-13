@@ -71,17 +71,9 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
        return
    ```
 
-1. Download the Python 2\.7 1\.3\.0 SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. Locate the **Python 2\.7** section, and choose ** v1\.3\.0 \- current version** to download the SDK\. 
+1. <a name="download-ggc-sdk"></a> Download the AWS IoT Greengrass Core SDK for Python from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. In the **Python** section, choose ** v1\.4\.0 \- Current version \(on GitHub\)** and then download the SDK\. 
 
-1. Unpack the `greengrass-core-python-sdk-1.3.0.tar.gz` file\.
-**Note**  
-For ways that you can do this on different platforms, see [this step](create-lambda.md) in the Getting Started section\. For example, you might use the following `tar` command:  
-
-   ```
-   tar -xzf greengrass-core-python-sdk-1.3.0.tar.gz
-   ```
-
-1. Open the extracted aws\_greengrass\_core\_sdk/sdk folder, and unzip `python_sdk_1_3_0.zip`\.
+1. <a name="unzip-ggc-sdk"></a>Unzip the downloaded package to get the SDK\. The SDK is the `greengrasssdk` folder\.
 
 1. Zip the following items into a file named `lraTestLambda.zip`:
    + **lraTest\.py**\. App logic\.
@@ -271,7 +263,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.8.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.0/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -292,7 +284,7 @@ Deployment will fail if you run your Lambda function without containerization an
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
-If prompted, grant permission to create the [AWS IoT Greengrass service role](service-role.md) on your behalf\. This role allows AWS IoT Greengrass to access your resources in AWS services\. You need to do this only one time for your AWS account \(per AWS Region\)\.
+If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\. Only one Greengrass service role is required per AWS account, but it must be associated with your AWS account in each AWS Region where you use AWS IoT Greengrass\.
 
    The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the deployment should show a **Successfully completed** status\.
 

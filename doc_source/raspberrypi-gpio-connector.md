@@ -77,7 +77,7 @@ Valid pattern: `.+`
 
 ### Create Connector Example \(CLI\)<a name="raspberrypi-gpio-connector-create"></a>
 
-The following CLI command creates an `ConnectorDefinition` with an initial version that contains the Raspberry Pi GPIO connector\.
+The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Raspberry Pi GPIO connector\.
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{

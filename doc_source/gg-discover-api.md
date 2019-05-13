@@ -146,4 +146,13 @@ The following document shows the response for a device that is a member of two g
 ```
 
 **Note**  
-An AWS IoT Greengrass group must define exactly one AWS IoT Greengrass core\. Any response from the AWS IoT Greengrass cloud service that contains a list of AWS IoT Greengrass cores only contains one AWS IoT Greengrass core\. 
+An AWS IoT Greengrass group must define exactly one AWS IoT Greengrass core\. Any response from the AWS IoT Greengrass cloud service that contains a list of AWS IoT Greengrass cores contains only one AWS IoT Greengrass core\. 
+
+If you have `cURL` installed, you can test the discovery request\. For example:
+
+```
+$ curl --cert 1a23bc4d56.cert.pem --key 1a23bc4d56.private.key https://greengrass-ats.iot.us-west-2.amazonaws.com:8443/greengrass/discover/thing/MyDevice
+{"GGGroups":[{"GGGroupId":"1234a5b6-78cd-901e-2fgh-3i45j6k1789","Cores":[{"thingArn":"arn:aws:iot:us-west-2:1234567
+89012:thing/MyFirstGroup_Core","Connectivity":[{"Id":"AUTOIP_192.168.1.4_1","HostAddress":"192.168.1.5","PortNumber
+":8883,"Metadata":""}]}],"CAs":["-----BEGIN CERTIFICATE-----\ncert-contents\n-----END CERTIFICATE-----\n"]}]}
+```

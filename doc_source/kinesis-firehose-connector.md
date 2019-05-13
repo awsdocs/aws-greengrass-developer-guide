@@ -114,7 +114,7 @@ Valid pattern: `[0-9]|[1-9]\\d|[1-9]\\d\\d|900`
 
 **Example**  <a name="kinesis-firehose-connector-create"></a>
 **Create Connector Example \(CLI\)**  
-The following CLI command creates an `ConnectorDefinition` with an initial version that contains the connector\.  
+The following CLI command creates a `ConnectorDefinition` with an initial version that contains the connector\.  
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{
@@ -148,7 +148,7 @@ Valid pattern: `arn:aws:firehose:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):deliverystream
 
 **Example**  <a name="kinesis-firehose-connector-create"></a>
 **Create Connector Example \(CLI\)**  
-The following CLI command creates an `ConnectorDefinition` with an initial version that contains the connector\.  
+The following CLI command creates a `ConnectorDefinition` with an initial version that contains the connector\.  
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{

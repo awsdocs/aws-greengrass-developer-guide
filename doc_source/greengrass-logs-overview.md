@@ -51,7 +51,7 @@ Be aware of the following considerations when using file system logs:
 + Disk usage limitations apply\. For more information, see [Logging Limitations](#gg-log-limits)\.
 
 **Note**  
-Logs for AWS IoT Greengrass Core Software v1\.0\.0 are stored under the *greengrass\-root*/var/log directory\.
+Logs for AWS IoT Greengrass Core Software v1\.0 are stored under the *greengrass\-root*/var/log directory\.
 
 ## Default Logging Configuration<a name="config-logs-default"></a>
 

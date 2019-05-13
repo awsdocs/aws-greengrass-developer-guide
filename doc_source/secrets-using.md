@@ -180,7 +180,7 @@ To allow a Greengrass Lambda function to access a local secret, you configure th
 
    
 
-  To access local secrets at runtime, Greengrass Lambda functions call the `get_secret_value` function from the `secretsmanager` client in the AWS IoT Greengrass Core SDK \(v1\.3\.0\)\.
+  To access local secrets at runtime, Greengrass Lambda functions call the `get_secret_value` function from the `secretsmanager` client in the AWS IoT Greengrass Core SDK \(v1\.3\.0 or later\)\.
 
   The following example shows how to use the AWS IoT Greengrass Core SDK for Python to get a secret\. It passes the name of the secret to the `get_secret_value` function\. `SecretId` can be the name or ARN of the Secrets Manager secret \(not the secret resource\)\.
 

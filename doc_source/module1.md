@@ -110,7 +110,7 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
       You should see `fs.protected_hardlinks = 1` and `fs.protected_symlinks = 1`\.
 
-1. <a name="stretch-step"></a> Edit your command line boot file to enable and mount memory cgroups\. This allows AWS IoT Greengrass to set the memory limit for Lambda functions\. Without this, the Greengrass daemon is unable to run\. 
+1. <a name="stretch-step"></a> Edit your command line boot file to enable and mount memory cgroups\. This allows AWS IoT Greengrass to set the memory limit for Lambda functions\. Cgroups are also required to run AWS IoT Greengrass in the default [containerization](lambda-group-config.md#lambda-containerization-considerations) mode\.
 
    1.  Navigate to your `boot` directory\. 
 
@@ -136,17 +136,17 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    ```
    cd /home/pi/Downloads
-   mkdir greengrass-dependency-checker
-   cd greengrass-dependency-checker
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.x.zip
-   unzip greengrass-dependency-checker-GGCv1.8.x.zip
+   mkdir greengrass-dependency-checker-GGCv1.9.0
+   cd greengrass-dependency-checker-GGCv1.9.0
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.0.zip
+   unzip greengrass-dependency-checker-GGCv1.9.0.zip
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```
 
    Where `more` appears, press the Spacebar key to display another screen of text\. 
 **Important**  
-This tutorial uses the AWS IoT Device SDK for Python\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node v6\.10 and Java 8 prerequisites\. You can ignore these warnings\.
+This tutorial requires Python 2\.7\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node\.js and Java prerequisites\. You can ignore these warnings\.
 
    For information about the modprobe command, run man modprobe in the terminal\. 
 
@@ -228,7 +228,7 @@ This section provides instructions for setting up your Amazon EC2 instance\.
 
       You should see that hardlinks and softlinks are set to 1\.
 
-1. Extract and run the following script to mount [Linux control groups](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01) \(**cgroups**\)\. This is an AWS IoT Greengrass dependency\.
+1. Extract and run the following script to mount [Linux control groups](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01) \(**cgroups**\)\. This allows AWS IoT Greengrass to set the memory limit for Lambda functions\. Cgroups are also required to run AWS IoT Greengrass in the default [containerization](lambda-group-config.md#lambda-containerization-considerations) mode\.
 
    ```
    curl https://raw.githubusercontent.com/tianon/cgroupfs-mount/951c38ee8d802330454bdede20d85ec1c0f8d312/cgroupfs-mount > cgroupfs-mount.sh
@@ -241,13 +241,14 @@ This section provides instructions for setting up your Amazon EC2 instance\.
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.x.zip
-   unzip greengrass-dependency-checker-GGCv1.8.x.zip
-   cd greengrass-dependency-checker-GGCv1.8.x
+   mkdir greengrass-dependency-checker-GGCv1.9.0
+   cd greengrass-dependency-checker-GGCv1.9.0
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.0.zip
+   unzip greengrass-dependency-checker-GGCv1.9.0.zip
    sudo ./check_ggc_dependencies | more
    ```
 **Important**  
-This tutorial uses the AWS IoT Device SDK for Python\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node v6\.10 and Java 8 prerequisites\. You can ignore these warnings\.
+This tutorial requires Python 2\.7\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node\.js and Java prerequisites\. You can ignore these warnings\.
 
 Your Amazon EC2 instance configuration is complete\. Continue to [Module 2: Installing the Greengrass Core Software](module2.md)\.
 
@@ -283,19 +284,20 @@ If the `addgroup` command isn't available on your system, use the following comm
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.x.zip
-   unzip greengrass-dependency-checker-GGCv1.8.x.zip
-   cd greengrass-dependency-checker-GGCv1.8.x
+   mkdir greengrass-dependency-checker-GGCv1.9.0
+   cd greengrass-dependency-checker-GGCv1.9.0
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.0.zip
+   unzip greengrass-dependency-checker-GGCv1.9.0.zip
    sudo ./check_ggc_dependencies | more
    ```
 **Note**  
 The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platforms and requires the following Linux system commands: `printf`, `uname`, `cat`, `ls`, `head`, `find`, `zcat`, `awk`, `sed`, `sysctl`, `wc`, `cut`, `sort`, `expr`, `grep`, `test`, `dirname`, `readlink`, `xargs`, `strings`, `uniq`\.  
-For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.8.x/README.md#greengrass-core-v17-dependencies-checker)\.
+For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.9.0/README.md)\.
 
-1. Install all required dependencies on your device, as indicated by the dependency checker output\. For missing kernel\-level dependencies, you might have to recompile your kernel\. For mounting Linux control groups \(`cgroups`\), you can run the [cgroupfs\-mount](https://raw.githubusercontent.com/tianon/cgroupfs-mount/master/cgroupfs-mount) script\.
+1. Install all required dependencies on your device, as indicated by the dependency checker output\. For missing kernel\-level dependencies, you might have to recompile your kernel\. For mounting Linux control groups \(`cgroups`\), you can run the [cgroupfs\-mount](https://raw.githubusercontent.com/tianon/cgroupfs-mount/master/cgroupfs-mount) script\. This allows AWS IoT Greengrass to set the memory limit for Lambda functions\. Cgroups are also required to run AWS IoT Greengrass in the default [containerization](lambda-group-config.md#lambda-containerization-considerations) mode\.
 
    If no errors appear in the output, AWS IoT Greengrass should be able to run successfully on your device\.
 **Important**  
-This tutorial uses the AWS IoT Device SDK for Python\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node v6\.10 and Java 8 prerequisites\. You can ignore these warnings\.
+This tutorial requires Python 2\.7\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node\.js and Java prerequisites\. You can ignore these warnings\.
 
    For the list of AWS IoT Greengrass requirements and dependencies, see [Supported Platforms and Requirements](what-is-gg.md#gg-platforms)\.

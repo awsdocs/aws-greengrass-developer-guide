@@ -35,7 +35,7 @@ Although this tutorial provides steps for running AWS IoT Greengrass on a Raspbe
 
 If you don't have an AWS account, follow these steps:
 
-1. Open the [AWS home page](http://aws.amazon.com/), and choose **Create an AWS Account**\. 
+1. Open the [AWS home page](https://aws.amazon.com/), and choose **Create an AWS Account**\. 
 **Note**  
 If you've signed in to AWS recently, you might see **Sign In to the Console** instead\.
 

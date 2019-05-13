@@ -70,7 +70,7 @@ Valid pattern: `^([2-9]\d{3}|[1-9]\d{4,})$`
 
 ### Create Connector Example \(CLI\)<a name="cloudwatch-metrics-connector-create"></a>
 
-The following CLI command creates an `ConnectorDefinition` with an initial version that contains the CloudWatch Metrics connector\.
+The following CLI command creates a `ConnectorDefinition` with an initial version that contains the CloudWatch Metrics connector\.
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{

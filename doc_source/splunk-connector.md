@@ -78,7 +78,7 @@ Valid pattern: `^$|/.*`
 
 ### Create Connector Example \(CLI\)<a name="splunk-connector-create"></a>
 
-The following CLI command creates an `ConnectorDefinition` with an initial version that contains the Splunk Integration connector\.
+The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Splunk Integration connector\.
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{

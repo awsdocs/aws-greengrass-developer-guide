@@ -110,7 +110,7 @@ To help you quickly get started experimenting with ML inference, AWS IoT Greengr
 + [ TensorFlow](https://aws.amazon.com/tensorflow/) \(Apache License 2\.0\)
 + Chainer \(MIT License\)
 
-These runtimes and precompiled libraries can be installed on NVIDIA Jetson TX2, Intel Atom, and Raspberry Pi platforms\. The runtimes and libraries are available from the **Software** page of the AWS IoT Core console\. You can install them directly on your core or include them as part of the software in your Greengrass group\.
+These runtimes and precompiled libraries can be installed on NVIDIA Jetson TX2, Intel Atom, and Raspberry Pi platforms\. The runtimes and libraries are available from the [AWS IoT Greengrass Machine Learning Runtimes and Precompiled Libraries](what-is-gg.md#gg-ml-runtimes-pc-libs) downloads page\. You can install them directly on your core or include them as part of the software in your Greengrass group\.
 
 Be sure to read the following information about compatibility and limitations\.
 

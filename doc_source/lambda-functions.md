@@ -4,22 +4,36 @@ AWS IoT Greengrass provides a containerized Lambda runtime environment for user\
 
 To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the group role\.
 
-You can configure parameters that determine how the Lambda functions run, including permissions, isolation, memory limits, and more\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\. These settings can also enable you to run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
+You can configure parameters that determine how the Lambda functions run, including permissions, isolation, memory limits, and more\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
+
+**Note**  
+These settings can also enable you to run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
+
+The following table lists supported AWS Lambda runtimes and the versions of AWS IoT Greengrass core software that they can run on\.
+
+
+****  
+
+| Language or platform | GGC version | 
+| --- | --- | 
+| Python 2\.7 | 1\.0 or later | 
+| Python 3\.7 | 1\.9 | 
+| Java 8 | 1\.1 or later | 
+| Node\.js 6\.10 | 1\.1 or later | 
+| Node\.js 8\.10 | 1\.9 | 
+| C, C\+\+ | 1\.6 or later | 
 
 ## SDKs for Greengrass Lambda Functions<a name="lambda-sdks"></a>
 
-AWS provides three SDKs that can be used by Greengrass Lambda functions running on an AWS IoT Greengrass core\. These SDKs are contained in different packages, so functions can use them simultaneously\. To use an SDK in a Greengrass Lambda function, you must include it in your deployment package\.
+AWS provides three SDKs that can be used by Greengrass Lambda functions running on an AWS IoT Greengrass core\. These SDKs are contained in different packages, so functions can use them simultaneously\. To use an SDK in a Greengrass Lambda function, you include it in your deployment package\.
 
 **AWS IoT Greengrass Core SDK**  <a name="lambda-sdks-core"></a>
 The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the core device, publish messages to AWS IoT, interact with the local shadow service, invoke other deployed Lambda functions, and access secret resources\.  
-The following table lists supported languages or platforms and the versions of AWS IoT Greengrass core software that it can run on\.    
-****    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
 The following table lists the changes introduced in AWS IoT Greengrass Core SDK versions for Java, Node\.js, and Python\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
 For download information, see [AWS IoT Greengrass Core SDK Software](what-is-gg.md#gg-core-sdk-download)\.  
-If you're running Python Lambda functions, you can use [https://pypi.org/project/pip/](https://pypi.org/project/pip/) to install the AWS IoT Greengrass Core SDK for Python on the core device\. Then you can deploy your functions without including the SDK in the Lambda function deployment package\. For more information, see [greengrasssdk](https://pypi.org/project/greengrasssdk/)\.  
+If you're running Python Lambda functions, you can also use [https://pypi.org/project/pip/](https://pypi.org/project/pip/) to install the AWS IoT Greengrass Core SDK for Python on the core device\. Then you can deploy your functions without including the SDK in the Lambda function deployment package\. For more information, see [greengrasssdk](https://pypi.org/project/greengrasssdk/)\.  
 To use `pip` to install the Python SDK, run the following command in your core device terminal\.  
 
 ```
@@ -205,7 +219,7 @@ AWS IoT Greengrass supports the on\-demand \(default\) or long\-lived lifecycles
 Remember that long\-lived functions have timeouts that are associated with invocations of their handler\. If you want to execute indefinitely running code, you must start it outside the handler\. Make sure that there's no blocking code outside the handler that might prevent the function from completing its initialization\.  
  These functions run unless the core stops \(for example during a group deployment or a device reboot\) or the function enters an error state \(such as a handler timeout, uncaught exception, or when it exceeds its memory limits\)\.
 
-For more information about container reuse, see [Understanding Container Reuse in AWS Lambda](https://aws.amazon.com/blogs/compute/container-reuse-in-lambda/) on the AWS Compute Blog\.
+For more information about container reuse, see [Understanding Container Reuse in AWS Lambda](http://aws.amazon.com/blogs/compute/container-reuse-in-lambda/) on the AWS Compute Blog\.
 
 ## Lambda Executables<a name="lambda-executables"></a>
 

@@ -180,24 +180,9 @@ In this step, you configure parameters for the Twilio Notifications connector\.
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
-1. <a name="download-ggc-sdk"></a>Download the Python 2\.7 1\.3\.0 SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. Locate the **Python 2\.7** section, and choose ** v1\.3\.0 \- current version** to download the SDK\. 
+1. <a name="download-ggc-sdk"></a> Download the AWS IoT Greengrass Core SDK for Python from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. In the **Python** section, choose ** v1\.4\.0 \- Current version \(on GitHub\)** and then download the SDK\. 
 
-1. <a name="untar-sdk"></a>Unpack the `greengrass-core-python-sdk-1.3.0.tar.gz` file\.
-**Note**  
-For information about how to do this on different platforms, see [this step](create-lambda.md) in the Getting Started section\. For example, you might use the following `tar` command:  
-
-   ```
-   tar -xzf greengrass-core-python-sdk-1.3.0.tar.gz
-   ```
-
-1. <a name="open-sdk-folder"></a>Open the extracted aws\_greengrass\_core\_sdk/sdk directory\.
-
-   ```
-   cd aws_greengrass_core_sdk
-   cd sdk
-   ```
-
-1. <a name="unzip-sdk"></a>Unzip `python_sdk_1_3_0.zip`\.
+1. <a name="unzip-ggc-sdk"></a>Unzip the downloaded package to get the SDK\. The SDK is the `greengrasssdk` folder\.
 
 1. Save the following Python code function in a local file named `temp_monitor.py`\.
 
@@ -476,7 +461,7 @@ Deploy the group to the core device\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.8.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.0/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 

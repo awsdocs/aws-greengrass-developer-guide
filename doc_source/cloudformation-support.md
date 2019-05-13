@@ -16,9 +16,11 @@ AWS CloudFormation templates are JSON or YAML documents that describe the proper
 + Subscriptions
 + Loggers \(logging configurations\)
 
-In AWS CloudFormation templates, the structure and syntax of Greengrass resources are based on the AWS IoT Greengrass API\. For example, the [example template](#cloudformation-support-example) associates a top\-level `DeviceDefinition` with a `DeviceDefinitionVersion` that contains an individual device\. For more information, see [AWS IoT Greengrass Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-reference-greengrass.html) in the *AWS CloudFormation User Guide*\.
+In AWS CloudFormation templates, the structure and syntax of Greengrass resources are based on the AWS IoT Greengrass API\. For example, the [example template](#cloudformation-support-example) associates a top\-level `DeviceDefinition` with a `DeviceDefinitionVersion` that contains an individual device\. For more information, see [AWS IoT Greengrass Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Greengrass.html) in the *AWS CloudFormation User Guide*\.
 
 When you use AWS CloudFormation templates to create AWS resources, we recommend that you manage them only from AWS CloudFormation\. For example, you should update your template if you want to add, change, or remove a device \(instead of using the AWS IoT Greengrass API or AWS IoT Core console\)\. This allows you to use rollback and other AWS CloudFormation change management features\. For more information about using AWS CloudFormation to create and manage your resources and stacks, see [Working with Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) in the *AWS CloudFormation User Guide*\.
+
+For a walkthrough that shows how to create and deploy AWS IoT Greengrass resources in an AWS CloudFormation template, see [ Automating AWS IoT Greengrass Setup With AWS CloudFormation](https://aws.amazon.com/blogs/iot/automating-aws-iot-greengrass-setup-with-aws-cloudformation/) on The Internet of Things on AWS – Official Blog\.
 
 ## Deploying Resources<a name="cloudformation-support-deploy"></a>
 

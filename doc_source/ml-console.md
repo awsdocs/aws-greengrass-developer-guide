@@ -28,6 +28,8 @@ The tutorial contains the following high\-level steps:
 
 To complete this tutorial, you need:
 + Raspberry Pi 3 [Model B\+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/) or [Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/), set up and configured for use with AWS IoT Greengrass\. To learn how to set up your Raspberry Pi with AWS IoT Greengrass, see [Module 1](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html) and [Module 2](https://docs.aws.amazon.com/greengrass/latest/developerguide/module2.html) of [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
+**Note**  
+The Raspberry Pi might require a 2\.5A [power supply](https://www.raspberrypi.org/documentation/hardware/raspberrypi/power/) to run the deep learning frameworks that are typically used for image classification\. A lower rated power supply might cause the device to reboot\.
 + [Raspberry Pi Camera Module V2 \- 8 Megapixel, 1080p](https://www.amazon.com/Raspberry-Pi-Camera-Module-Megapixel/dp/B01ER2SKFS)\. To learn how to set up the camera, see [Connecting the camera](https://www.raspberrypi.org/documentation/usage/camera/) in the Raspberry Pi documentation\. 
 + A Greengrass group and a Greengrass core\. To learn how to create a Greengrass group or core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
 
@@ -80,13 +82,7 @@ In this step, you download precompiled Apache MXNet libraries and install them o
 **Note**  
 This tutorial uses libraries for the MXNet ML framework, but libraries for TensorFlow are also available\. For more information, including limitations, see [Runtimes and Precompiled Framework Libraries for ML Inference](ml-inference.md#precompiled-ml-libraries)\.
 
-1. On your computer, open the [AWS IoT Core console](https://console.aws.amazon.com/iotv2)\.
-
-1. On the side navigation pane, choose **Software**\.
-
-1. In the **Machine learning inference** section, for ** Runtimes and precompiled framework libraries**, choose **Configure download**\.
-
-1. On the **Machine learning inference** page, under **Software configurations**, for MXNet Raspberry Pi version 1\.2\.1, choose **Download**\.
+1. On the [AWS IoT Greengrass Machine Learning Runtimes and Precompiled Libraries](what-is-gg.md#gg-ml-runtimes-pc-libs) downloads page, locate MXNet version 1\.2\.1 for Raspberry Pi\. Choose **Download**\.
 **Note**  
 By downloading this software you agree to the [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0)\.
 
@@ -123,9 +119,9 @@ You can optionally run unit tests to verify the installation\. To do so, add the
 In this step, you download files for a sample pretrained MXNet model, and then save them as a `.zip` file\. AWS IoT Greengrass can use models from Amazon S3, provided that they use the `tar.gz` or `.zip` format\.
 
 1. Download the following files to your computer:
-   + [squeezenet\_v1\.1\-0000\.params](http://data.dmlc.ml/mxnet/models/imagenet/squeezenet/squeezenet_v1.1-0000.params)\. A parameter file that describes weights of the connectivity\.
-   + [squeezenet\_v1\.1\-symbol\.json](http://data.dmlc.ml/mxnet/models/imagenet/squeezenet/squeezenet_v1.1-symbol.json)\. A symbol file that describes the neural network structure\.
-   + [synset\.txt](http://data.dmlc.ml/mxnet/models/imagenet/synset.txt)\. A synset file that maps recognized class IDs to human\-readable class names\.
+   + [squeezenet\_v1\.1\-0000\.params](https://s3.amazonaws.com/model-server/model_archive_1.0/examples/squeezenet_v1.1/squeezenet_v1.1-0000.params)\. A parameter file that describes weights of the connectivity\.
+   + [squeezenet\_v1\.1\-symbol\.json](https://s3.amazonaws.com/model-server/model_archive_1.0/examples/squeezenet_v1.1/squeezenet_v1.1-symbol.json)\. A symbol file that describes the neural network structure\.
+   + [synset\.txt](https://s3.amazonaws.com/model-server/model_archive_1.0/examples/squeezenet_v1.1/synset.txt)\. A synset file that maps recognized class IDs to human\-readable class names\.
 **Note**  
 All MXNet model packages use these three file types, but the contents of TensorFlow model packages vary\.
 
@@ -351,7 +347,7 @@ In this step, you deploy the current version of the group definition to the Gree
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.8.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.0/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -370,7 +366,7 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
-If prompted, grant permission to create the [AWS IoT Greengrass service role](service-role.md) on your behalf\. This role allows AWS IoT Greengrass to access your resources in AWS services\. You need to do this only one time for your AWS account \(per AWS Region\)\.
+If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\. Only one Greengrass service role is required per AWS account, but it must be associated with your AWS account in each AWS Region where you use AWS IoT Greengrass\.
 
    The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.
 

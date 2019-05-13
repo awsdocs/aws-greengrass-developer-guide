@@ -114,7 +114,7 @@ Valid pattern: `^(|[NEOSMneosm])$`
 
 ### Create Connector Example \(CLI\)<a name="serial-stream-connector-create"></a>
 
-The following CLI command creates an `ConnectorDefinition` with an initial version that contains the Serial Stream connector\. It configures the connector for Polling\-Read mode\.
+The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Serial Stream connector\. It configures the connector for Polling\-Read mode\.
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{

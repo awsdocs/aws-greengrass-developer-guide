@@ -46,8 +46,8 @@ The AWS IoT Greengrass core is the only entity that has access to the private ke
 
 These are the requirements for local secret support:
 + You must be using AWS IoT Greengrass Core v1\.7 or later\.
-+ To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0\.
-+ The private key used for local secrets encryption must be specified in the Greengrass configuration file\. By default, AWS IoT Greengrass uses the core private key stored in the file system\. To provide your own private key, see [Specify the Private Key for Secret Encryption](#secrets-config-private-key)\.
++ To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0 or later\.
++ The private key used for local secrets encryption must be specified in the Greengrass configuration file\. By default, AWS IoT Greengrass uses the core private key stored in the file system\. To provide your own private key, see [Specify the Private Key for Secret Encryption](#secrets-config-private-key)\. Only the RSA key type is supported\.
 **Note**  
 Currently, AWS IoT Greengrass supports only the [PKCS\#1 v1\.5](https://tools.ietf.org/html/rfc2313) padding mechanism for encryption and decryption of local secrets when using hardware\-based private keys\. If you're following vendor\-provided instructions to manually generate hardware\-based private keys, make sure to choose PKCS\#1 v1\.5\. AWS IoT Greengrass doesn't support Optimal Asymmetric Encryption Padding \(OAEP\)\.
 + AWS IoT Greengrass must be granted permission to get your secret values\. This allows AWS IoT Greengrass to fetch the values during group deployment\. If you're using the default Greengrass service role, then AWS IoT Greengrass already has access to secrets with names that start with *greengrass\-*\. To customize access, see [Allow AWS IoT Greengrass to Get Secret Values](#secrets-config-service-role)\.
@@ -56,7 +56,9 @@ We recommend that you use this naming convention to identify the secrets that AW
 
 ## Specify the Private Key for Secret Encryption<a name="secrets-config-private-key"></a>
 
-In this procedure, you provide the path to the private key that's used for local secret encryption\. AWS IoT Greengrass supports two modes of private key storage: hardware\-based or file system\-based \(default\)\. For more information, see [Secrets Encryption](#secrets-encryption)\.
+In this procedure, you provide the path to a private key that's used for local secret encryption\. This must be an RSA key with a minimum length of 2048 bits\. For more information about private keys used on the AWS IoT Greengrass core, see [AWS IoT Greengrass Core Security Principals](gg-sec.md#gg-principals)\. 
+
+AWS IoT Greengrass supports two modes of private key storage: hardware\-based or file system\-based \(default\)\. For more information, see [Secrets Encryption](#secrets-encryption)\.
 
 Follow this procedure only if you want to change the default configuration, which uses the core private key in the file system\. These steps are written with the assumption that you created your group and core as described in [Module 2](module2.md) of the Getting Started tutorial\.
 

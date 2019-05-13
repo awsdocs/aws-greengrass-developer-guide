@@ -2,6 +2,9 @@
 
 Tags can help you organize and manage your AWS IoT Greengrass groups\. You can use tags to assign metadata to groups, bulk deployments, and the cores, devices, and other resources that are added to groups\. Tags can also be used in IAM policies to define conditional access to your Greengrass resources\.
 
+**Note**  
+Currently, Greengrass resource tags are not supported for AWS IoT billing groups or cost allocation reports\.
+
 ## Tag Basics<a name="tagging-basics"></a>
 
 Tags allow you to categorize your AWS IoT Greengrass resources, for example, by purpose, owner, and environment\. When you have many resources of the same type, you can quickly identify a resource based on the tags that are attached to it\. A tag consists of a key and optional value, both of which you define\. We recommend that you design a set of tag keys for each resource type\. Using a consistent set of tag keys makes it easier for you to manage your resources\. For example, you can define a set of tags for your groups that helps you track the factory location of your core devices\. For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies)\.

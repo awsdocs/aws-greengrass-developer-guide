@@ -183,13 +183,13 @@ Run the following commands in your computer terminal\.
    tar xvzf hash-setup.tar.gz -C /tmp/
    ```
 
-1. <a name="docker-root-ca"></a>Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. <a name="docker-root-ca"></a>Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 
-   Download the root CA certificate to the directory where you decompressed the certificates and configuration file by running the following commands\. Certificates enable your device to connect to AWS IoT over TLS\.
+   Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
 
    Replace `/tmp` with the path to the directory\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Therefore, you must use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
    + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
 
      ```
@@ -238,13 +238,13 @@ Run the following commands in your computer terminal\.
    tar xvzf hash-setup.tar.gz -C /tmp/
    ```
 
-1. <a name="docker-root-ca"></a>Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. <a name="docker-root-ca"></a>Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 
-   Download the root CA certificate to the directory where you decompressed the certificates and configuration file by running the following commands\. Certificates enable your device to connect to AWS IoT over TLS\.
+   Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
 
    Replace `/tmp` with the path to the directory\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Therefore, you must use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
    + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
 
      ```
@@ -289,11 +289,11 @@ The `wget -O` parameter is the capital letter O\.
 
    Locate the downloaded `hash-setup.tar.gz` file on your computer and then decompress the file into `C:\Users\%USERNAME%\Downloads\`\.
 
-1. Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 
-   Download the root CA certificate to the directory where you decompressed the certificates and configuration file by running the following commands\. Certificates enable your device to connect to AWS IoT over TLS\.
+   Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Therefore, you must use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
    + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
      + If you have [curl](https://curl.haxx.se/download.html) installed, run the following commands in your command prompt\.
 
@@ -338,7 +338,7 @@ If the container doesn't open the shell and exits immediately, you can debug the
 
 ## Step 4: Configure "No container" Containerization for the Greengrass Group<a name="docker-no-container"></a>
 
-When you run AWS IoT Greengrass in a Docker container, all Lambda functions must run without containerization\. In this step, you set the the default containerization for the group to **No container**\. You must do this before you deploy the group for the first time\.
+When you run AWS IoT Greengrass in a Docker container, all Lambda functions must run without containerization\. In this step, you set the default containerization for the group to **No container**\. You must do this before you deploy the group for the first time\.
 
 1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
 
@@ -347,6 +347,8 @@ When you run AWS IoT Greengrass in a Docker container, all Lambda functions must
 1. <a name="group-choose-settings"></a>Choose **Settings**\.
 
 1. Under **Lambda runtime environment**, choose **No container**\.
+
+1. Choose **Update default Lambda execution configuration**\. Review the message in the confirmation window, and then choose **Continue**\.
 
 For more information, see [Setting Default Containerization for Lambda Functions in a Group](lambda-group-config.md#lambda-containerization-groupsettings)\.
 

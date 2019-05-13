@@ -12,7 +12,7 @@
 For UNIX\-like systems, you can run the following Terminal command to download the `greengrassHelloWorldCounter.py` file:  
 
    ```
-   sudo wget https://raw.githubusercontent.com/aws-samples/aws-greengrass-samples/master/hello-world-counter-python/greengrassHelloWorldCounter.py
+   wget https://raw.githubusercontent.com/aws-samples/aws-greengrass-samples/master/hello-world-counter-python/greengrassHelloWorldCounter.py
    ```
 
 1. Package the `greengrassHelloWorldCounter.py` file with the SDK into a `.zip` file, as described in [Module 3 \(Part 1\)](module3-I.md)\. Name the package **hello\_world\_counter\_python\_lambda\.zip**\.  

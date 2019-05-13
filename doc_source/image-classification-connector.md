@@ -95,7 +95,7 @@ Valid values: `CPU` or `GPU`
 
 ### Create Connector Example \(CLI\)<a name="image-classification-connector-create"></a>
 
-The following CLI commands create an `ConnectorDefinition` with an initial version that contains an Image Classification connector\.
+The following CLI commands create a `ConnectorDefinition` with an initial version that contains an Image Classification connector\.
 
 **Example: CPU Instance**  
 This example creates an instance of the Image Classification ARMv7l connector\.  
@@ -363,7 +363,7 @@ Before installing the MXNet dependencies, make sure that the required [system li
 1. From the directory where you saved the file, run the following command:
 
    ```
-   sudo armv7l.sh
+   sudo bash armv7l.sh
    ```
 **Note**  
 On a Raspberry Pi, installing `scipy` using `pip` is a memory\-intensive operation that can cause the device to run out of memory and become unresponsive\. As a workaround, you can temporarily increase the swap size:  

@@ -142,9 +142,9 @@ You can use the AWS IoT Greengrass dependency checker to determine which isolati
 1. Download and run the AWS IoT Greengrass dependency checker from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples)\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.8.0.zip
-   unzip greengrass-dependency-checker-GGCv1.8.0.zip
-   cd greengrass-dependency-checker-GGCv1.8.0
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.0.zip
+   unzip greengrass-dependency-checker-GGCv1.9.0.zip
+   cd greengrass-dependency-checker-GGCv1.9.0
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```
@@ -155,7 +155,7 @@ For information about the modprobe command, run man modprobe in the terminal\.
 
 ## Setting the Default Access Identity for Lambda Functions in a Group<a name="lambda-access-identity-groupsettings"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.8 only\.
+This feature is available for AWS IoT Greengrass Core v1\.8 and later\.
 
 For more control over access to device resources, you can configure the default access identity used to run Lambda functions in the group\. This setting determines the default permissions given to your Lambda functions when they run on the core device\. To override the setting for individual functions in the group, you can use the function's **Run as** property\. For more information, see [Run as](#lambda-access-identity)\.
 
