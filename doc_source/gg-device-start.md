@@ -4,7 +4,7 @@
 This tutorial provides instructions for starting AWS IoT Greengrass on your Raspberry Pi, but you can use any supported device\.
 
 In the [previous step](gg-config.md#gg-core-download), you downloaded two files to your computer:
-+ `greengrass-OS-architecture-1.9.1.tar.gz`\. This compressed file contains the AWS IoT Greengrass core software that runs on the core device\.
++ `greengrass-OS-architecture-1.9.1.tar.gz`\. This compressed file contains the AWS IoT Greengrass Core software that runs on the core device\.
 + `hash-setup.tar.gz`\. This compressed file contains security certificates that enable secure communications between AWS IoT and the `config.json` file that contains configuration information specific to your AWS IoT Greengrass core and the AWS IoT endpoint\.
 
 1. If you don't know the IP address of your AWS IoT Greengrass core device, open a terminal on the AWS IoT Greengrass core device and run the following command:
@@ -73,7 +73,7 @@ You might be prompted for two passwords\. If so, the first password is for the M
    cd path-to-compressed-files
    ```
 
-1. Decompress the AWS IoT Greengrass core software and the security resources\.
+1. Decompress the AWS IoT Greengrass Core software and the security resources\.
    + The first command creates the `/greengrass` directory in the root folder of the AWS IoT Greengrass core device \(through the `-C /` argument\)\.
    + The second command copies the certificates into the `/greengrass/certs` folder and the [`config.json`](gg-core.md#config-json) file into the `/greengrass/config` folder \(through the `-C /greengrass` argument\)\.
 
@@ -121,7 +121,7 @@ For legacy endpoints, download a Verisign root CA certificate\. Although legacy 
 **Note**  
 To set up your core device to start AWS IoT Greengrass on system boot, see [Configure the Init System to Start the Greengrass Daemon](gg-core.md#start-on-boot)\.
 
-   You can run the following command to confirm that the AWS IoT Greengrass core software \(daemon\) is functioning\. Replace *PID\-number* with your PID:
+   You can run the following command to confirm that the AWS IoT Greengrass Core software \(daemon\) is functioning\. Replace *PID\-number* with your PID:
 
    ```
    ps aux | grep PID-number

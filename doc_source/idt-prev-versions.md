@@ -1,6 +1,6 @@
-# Previous IDT Versions for AWS IoT Greengrass<a name="idt-prev-versions"></a>
+# Earlier IDT Versions for AWS IoT Greengrass<a name="idt-prev-versions"></a>
 
-This section contains download links for previous versions of IDT\.
+This section contains download links for earlier versions of IDT\.
 
 ### IDT for AWS IoT Greengrass v1\.8<a name="idt-gg-v1.8"></a>
 
@@ -10,7 +10,7 @@ This section contains download links for previous versions of IDT\.
 + IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.2.190419180823.zip)
 
 **Release Notes:**
-+ Added a configurable timeout\-multipler to address and troubleshoot timeout issues \(for example, low bandwidth connections\)\.
++ Added a configurable timeout multiplier to address and troubleshoot timeout issues \(for example, low bandwidth connections\)\.
 
 **IDT v1\.1 for AWS IoT Greengrass v1\.8\.0**  
 + IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.1.190312213046.zip) 
@@ -46,4 +46,4 @@ This section contains download links for previous versions of IDT\.
 + IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.0.190308190416.zip) 
 
 **Release Notes:**
-+ Includes OTA test case bug fix for future AWS IoT Greengrass version compatibility\.
++ Includes OTA test bug fix for future AWS IoT Greengrass version compatibility\.

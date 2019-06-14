@@ -23,7 +23,7 @@ This connector has the following requirements:
 + <a name="req-ggc-v170"></a>AWS IoT Greengrass Core Software v1\.7 or later\.
 + <a name="req-python-runtime"></a>[Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose Delivery Stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
-+ An IAM policy added to the Greengrass group role that allows the `firehose:PutRecords` and `firehose:PutRecord` actions on the target delivery stream, as shown in the following example:
++ An IAM policy added to the Greengrass group role that allows the `firehose:PutRecord` and `firehose:PutRecordBatch` actions on the target delivery stream, as shown in the following example:
 
   ```
   {
@@ -33,7 +33,7 @@ This connector has the following requirements:
               "Sid":"Stmt1528133056761",
               "Action":[
                   "firehose:PutRecord",
-                  "firehose:PutRecords"
+                  "firehose:PutRecordBatch"
               ],
               "Effect":"Allow",
               "Resource":[
@@ -84,7 +84,7 @@ This connector provides the following parameters:
 
 `DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
 The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
-The group role must allow the `firehose:PutRecord` action on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
+The group role must allow the appropriate actions on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
 Display name in console: **Default delivery stream ARN**  
 Required: `true`  
 Type: `string`  
@@ -140,7 +140,7 @@ In the AWS IoT Greengrass console, you can add a connector from the group's **Co
 
 `DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
 The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
-The group role must allow the `firehose:PutRecord` action on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
+The group role must allow the appropriate actions on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
 Display name in console: **Default delivery stream ARN**  
 Required: `true`  
 Type: `string`  

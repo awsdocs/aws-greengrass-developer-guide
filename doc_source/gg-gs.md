@@ -1,6 +1,6 @@
 # Getting Started with AWS IoT Greengrass<a name="gg-gs"></a>
 
-This tutorial includes six modules, each designed to show you AWS IoT Greengrass basics and help you get started in as few steps as possible\. This tutorial covers:
+This tutorial includes several modules designed to show you AWS IoT Greengrass basics and help you get started quickly\. This tutorial covers:
 + The AWS IoT Greengrass programming model\.
 +  Fundamental concepts, such as AWS IoT Greengrass cores, groups, and subscriptions\.
 + The deployment process for running AWS Lambda functions at the edge\.
@@ -41,4 +41,4 @@ If you've signed in to AWS recently, you might see **Sign In to the Console** in
 
 1. Follow the online instructions\. Part of the sign\-up procedure involves receiving a phone call and entering a PIN using your phone keypad\.
 **Important**  
-Before you begin, make sure that your account has administrative privileges\.
+Before you begin, make sure that your account has administrative permissions\.

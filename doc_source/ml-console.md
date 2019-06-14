@@ -156,6 +156,8 @@ First, create the Lambda function\.
 1. Choose **Author from scratch** and use the following values to create your function:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
 
+   For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
+
 1. Choose **Create function**\.  
 ![\[The Create function page with Create function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/create-function.png)
 
@@ -241,7 +243,7 @@ In your own user\-defined Lambda functions, you can optionally set the environme
 
 In this step, you create resources for the camera module and the ML inference model\. You also affiliate the resources with the Lambda function, which makes it possible for the function to access the resources on the core device\.
 
-First, create two local device resources for the camera: one for shared memory and one for the device interface\. For more information about local resource access, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
+First, create two local device resources for the camera: one for shared memory and one for the device interface\. For more information about local resource access, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md)\.
 
 1. On the group configuration page, choose **Resources**\.  
 ![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
@@ -347,7 +349,7 @@ In this step, you deploy the current version of the group definition to the Gree
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.1/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -499,7 +501,7 @@ Next, explore other inference apps\. AWS IoT Greengrass provides other Lambda fu
 
 To run this tutorial on an NVIDIA Jetson TX2, you provide source images and configure the Lambda function\. If you're using the GPU, you must also add local device resources\.
 
-To learn how to configure your Jetson so you can install the AWS IoT Greengrass core software, see [Setting Up Other Devices](module1.md#setup-filter.other)\.
+To learn how to configure your Jetson so you can install the AWS IoT Greengrass Core software, see [Setting Up Other Devices](setup-filter.other.md)\.
 
 1. Download static PNG or JPG images for the Lambda function to use for image classification\. The app works best with small image files\. Alternatively, you can instrument a camera on the Jetson board to capture the source images\.
 

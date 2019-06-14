@@ -7,3 +7,9 @@ This advanced module shows you how AWS IoT Greengrass devices can interact with 
 Before you begin, make sure that you have completed [Module 1](module1.md), [Module 2](module2.md), [Module 3 \(Part 1\)](module3-I.md), and [Module 3 \(Part 2\)](module3-II.md)\. You should also understand how to connect devices to an AWS IoT Greengrass core \([Module 4](module4.md)\)\. You do not need other components or devices\.
 
 This module should take about 30 minutes to complete\.
+
+**Topics**
++ [Configure Devices and Subscriptions](config-dev-subs.md)
++ [Download Required Files](file-download.md)
++ [Test Communications \(Device Syncs Disabled\)](comms-disabled.md)
++ [Test Communications \(Device Syncs Enabled\)](comms-enabled.md)

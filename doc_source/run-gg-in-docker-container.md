@@ -5,11 +5,11 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 AWS IoT Greengrass can be configured to run in a [Docker](https://www.docker.com/) container\. 
 
 **Note**  
-Local resource access and local machine learning models can't be used in a Docker container\. These features aren't supported when the Lambda runtime environment for the Greengrass group is set to [**No container**](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\.
+Connectors, local device and volume resources, and local machine learning model resources can't be used in a Docker container\. These features aren't supported when the Lambda runtime environment for the Greengrass group is set to [**No container**](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\.
 
-You can download a Dockerfile [through Amazon CloudFront](what-is-gg.md#gg-docker-download) that has the AWS IoT Greengrass core software and dependencies installed\. To modify the Docker image to run on different platform architectures or reduce the size of the Docker image, see the `README` file in the Docker package download\.
+You can download a Dockerfile [through Amazon CloudFront](what-is-gg.md#gg-docker-download) that has the AWS IoT Greengrass Core software and dependencies installed\. To modify the Docker image to run on different platform architectures or reduce the size of the Docker image, see the `README` file in the Docker package download\.
 
-To help you get started quickly and experiment with AWS IoT Greengrass, AWS also provides a prebuilt Docker image that has the core software and dependencies installed\. You can download the prebuilt image from [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or [Amazon Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) \(Amazon ECR\) and run it on Windows, macOS, and Linux \(x86\_64\) platforms\. This topic describes how to download the image from Amazon ECR\. It contains the following steps:
+To help you get started quickly and experiment with AWS IoT Greengrass, AWS also provides a prebuilt Docker image that has the AWS IoT Greengrass Core software and dependencies installed\. You can download the prebuilt image from [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or [Amazon Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) \(Amazon ECR\) and run it on Windows, macOS, and Linux \(x86\_64\) platforms\. This topic describes how to download the image from Amazon ECR\. It contains the following steps:
 
 1. [Get the AWS IoT Greengrass Container Image from Amazon ECR](#docker-pull-image)
 
@@ -43,7 +43,7 @@ To upgrade to a newer CLI version, you must repeat the MSI installation process\
 
 ## Step 1: Get the AWS IoT Greengrass Container Image from Amazon ECR<a name="docker-pull-image"></a>
 
-AWS IoT Greengrass provides a Docker image that has the AWS IoT Greengrass core software installed\. For steps that show how to pull the container image from Amazon ECR, choose your operating system:
+AWS IoT Greengrass provides a Docker image that has the AWS IoT Greengrass Core software installed\. For steps that show how to pull the container image from Amazon ECR, choose your operating system:
 
 ### Pull the Container Image \(Linux\)<a name="docker-pull-image-linux"></a>
 
@@ -166,8 +166,8 @@ The `latest` tag corresponds to the latest AWS IoT Greengrass container\. You ca
 
 ## Step 2: Create and Configure the Greengrass Group and Core<a name="docker-config-gg"></a>
 
-The Docker image has the AWS IoT Greengrass core software installed, but you must create a Greengrass group and core\. This includes downloading certificates and the core configuration file\.
-+ Follow the steps in [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\. Skip step 8b where you download the AWS IoT Greengrass core software\. The core software and its runtime dependencies are already set up in the Docker image\.
+The Docker image has the AWS IoT Greengrass Core software installed, but you must create a Greengrass group and core\. This includes downloading certificates and the core configuration file\.
++ Follow the steps in [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\. Skip step 8b where you download the AWS IoT Greengrass Core software\. The software and its runtime dependencies are already set up in the Docker image\.
 
 ## Step 3: Run AWS IoT Greengrass Locally<a name="docker-run-gg"></a>
 
@@ -376,9 +376,9 @@ Use the following information to help troubleshoot issues with running AWS IoT G
 
 | Symptom | Solution | 
 | --- | --- | 
-|  You receive the error `"Unknown options: -no-include-email"` when running the `aws ecr get-login` command\.  |  Make sure that you have the latest AWS CLI version installed \(for example, run: `pip install awscli --upgrade --user`\)\. If you're using Windows and you installed the CLI using the MSI installer, you must repeat the installation process\. For more information, see [Installing the AWS Command Line Interface on Microsoft Windows](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html) in the *AWS Command Line Interface User Guide*\.  | 
-|  You receive an error such as `WARNING: IPv4 is disabled. Networking will not work` on a Linux computer\.  |  Enable IPv4 network forwarding as described in this [step](#docker-linux-enable-ipv4)\. AWS IoT Greengrass cloud deployment and MQTT communications don't work when IPv4 forwarding isn't enabled\. For more information, see [Configure namespaced kernel parameters \(sysctls\) at runtime](https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime) in the Docker documentation\.  | 
-|  You receive the message `Firewall Detected while Sharing Drives` when running Docker on a Windows computer\.  |  See the [Error: A firewall is blocking file sharing between Windows and the containers](https://success.docker.com/article/error-a-firewall-is-blocking-file-sharing-between-windows-and-the-containers) Docker support issue\. This error can also occur if you are signed in on a virtual private network \(VPN\) and your network settings are preventing the shared drive from being mounted\. In that situation, turn off VPN and re\-run the Docker container\.  | 
+| <a name="docker-troubleshooting-cli-version"></a> You receive the error: `Unknown options: -no-include-email` when running the `aws ecr get-login` command\.  |  Make sure that you have the latest AWS CLI version installed \(for example, run: `pip install awscli --upgrade --user`\)\. If you're using Windows and you installed the CLI using the MSI installer, you must repeat the installation process\. For more information, see [Installing the AWS Command Line Interface on Microsoft Windows](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html) in the *AWS Command Line Interface User Guide*\.  | 
+| <a name="docker-troubleshooting-ipv4-disabled"></a> You receive an error such as: `WARNING: IPv4 is disabled. Networking will not work` on a Linux computer\.  |  Enable IPv4 network forwarding as described in this [step](#docker-linux-enable-ipv4)\. AWS IoT Greengrass cloud deployment and MQTT communications don't work when IPv4 forwarding isn't enabled\. For more information, see [Configure namespaced kernel parameters \(sysctls\) at runtime](https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime) in the Docker documentation\.  | 
+| <a name="docker-troubleshooting-firewall"></a> You receive the message: `Firewall Detected while Sharing Drives` when running Docker on a Windows computer\.  |  See the [Error: A firewall is blocking file sharing between Windows and the containers](https://success.docker.com/article/error-a-firewall-is-blocking-file-sharing-between-windows-and-the-containers) Docker support issue\. This error can also occur if you are signed in on a virtual private network \(VPN\) and your network settings are preventing the shared drive from being mounted\. In that situation, turn off VPN and re\-run the Docker container\.  | 
 
 For general AWS IoT Greengrass troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 

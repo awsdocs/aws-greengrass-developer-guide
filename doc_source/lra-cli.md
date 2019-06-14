@@ -2,7 +2,7 @@
 
 This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
-To use a local resource, you must add a resource definition to the group definition that is deployed to your Greengrass core device\. The group definition must also contain a Lambda function definition in which you grant access permissions for local resources to your Lambda functions\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions](access-local-resources.md)\.
+To use a local resource, you must add a resource definition to the group definition that is deployed to your Greengrass core device\. The group definition must also contain a Lambda function definition in which you grant access permissions for local resources to your Lambda functions\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md)\.
 
 This tutorial describes the process for creating a local resource and configuring access to it using the AWS Command Line Interface \(CLI\)\. To follow the steps in the tutorial, you must have already created a Greengrass group as described in [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
 

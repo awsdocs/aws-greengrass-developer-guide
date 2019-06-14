@@ -1,8 +1,8 @@
 # Monitoring with AWS IoT Greengrass Logs<a name="greengrass-logs-overview"></a>
 
-AWS IoT Greengrass consists of the cloud service and the AWS IoT Greengrass core software\. The core software can write logs to CloudWatch and to the local file system of your core device\. Logging is configured at the group level\.
+AWS IoT Greengrass consists of the cloud service and the AWS IoT Greengrass Core software\. The AWS IoT Greengrass Core software can write logs to Amazon CloudWatch and to the local file system of your core device\. You can use logs to monitor events and troubleshoot issues\. All AWS IoT Greengrass log entries include a timestamp, log level, and information about the event\.
 
-All AWS IoT Greengrass log entries include a time stamp, log level, and information about the event\.
+Logging is configured at the group level\. For steps that show how to configure logging for an AWS IoT Greengrass group, see [Configure Logging for AWS IoT Greengrass](#config-logs)\.
 
 ## CloudWatch Logs<a name="gg-logs-cloudwatch"></a>
 
@@ -13,24 +13,42 @@ If you configure CloudWatch logging, you can view the logs on the **Logs** page 
 /aws/greengrass/Lambda/aws-region/account-id/lambda-function-name
 ```
 
-Under each log group, you see log streams with the following structure:
+Each log group contains log streams that use the following naming convention:
 
 ```
 date/account-id/greengrass-group-id/name-of-core-that-generated-log
 ```
 
-Be aware of the following considerations when using CloudWatch Logs:
-+ <a name="gg-logs-cloudwatch-perms"></a>To enable logging to CloudWatch Logs, the following actions must be allowed in the AWS IoT Greengrass group role:
-  + logs:PutLogEvents
-  + logs:CreateLogGroup
-  + logs:CreateLogStream
-  + logs:DescribeLogStreams
+The following considerations apply when you use CloudWatch Logs:
++ <a name="gg-logs-cloudwatch-perms"></a>Your Greengrass group role must allow AWS IoT Greengrass to write to CloudWatch Logs\. To grant permissions, [ embed the following inline policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html#embed-inline-policy-console) in your group role\.
+
+  ```
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Effect": "Allow",
+              "Action": [
+                  "logs:CreateLogGroup",
+                  "logs:CreateLogStream",
+                  "logs:PutLogEvents",
+                  "logs:DescribeLogStreams"
+              ],
+              "Resource": [
+                  "arn:aws:logs:*:*:*"
+              ]
+          }
+      ]
+  }
+  ```
+
+  You can grant more granular access to your log resources\. For more information, see [ Using Identity\-Based Policies \(IAM Policies\) for CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/iam-identity-based-access-control-cwl.html) in the *Amazon CloudWatch User Guide*\.
 + Logs are sent to CloudWatch Logs with a limited number of retries in case there's no internet connectivity\. After the retries are exhausted, the event is dropped\.
 + Transaction, memory, and other limitations apply\. For more information, see [Logging Limitations](#gg-log-limits)\.
 
 ## File System Logs<a name="gg-logs-local"></a>
 
-If you configure file system logging, the log files are stored under *greengrass\-root*/ggc/var/log on the core device, with the following high\-level directory structure:
+If you configure file system logging, the log files are stored under `greengrass-root/ggc/var/log` on the core device\. The following is the high\-level directory structure:
 
 ```
 greengrass-root/ggc/var/log
@@ -44,14 +62,14 @@ greengrass-root/ggc/var/log
 **Note**  
 By default, *greengrass\-root* is the `/greengrass` directory\. If a [write directory](gg-core.md#write-directory) is configured, then the logs are under that directory\.
 
-Be aware of the following considerations when using file system logs:
-+ Reading AWS IoT Greengrass logs on the file system requires root privileges\.
+The following considerations apply when you use file system logs:
++ Reading AWS IoT Greengrass logs on the file system requires root permissions\.
 + AWS IoT Greengrass supports size\-based rotation and automatic cleanup when the amount of log data is close to the configured limit\.
 + The `crash.log` file is available in file system logs only\. This log isn't written to CloudWatch Logs\.
 + Disk usage limitations apply\. For more information, see [Logging Limitations](#gg-log-limits)\.
 
 **Note**  
-Logs for AWS IoT Greengrass Core Software v1\.0 are stored under the *greengrass\-root*/var/log directory\.
+Logs for AWS IoT Greengrass Core software v1\.0 are stored under the `greengrass-root/var/log` directory\.
 
 ## Default Logging Configuration<a name="config-logs-default"></a>
 
@@ -224,7 +242,7 @@ Where:
 The maximum amount of local storage for the AWS IoT Greengrass system component logs\.
 
 `lambda-space`  
-The maximum amount of local storage for Lambda logs\.
+The maximum amount of local storage for Lambda function logs\.
 
 `lambda-count`  
 The number of deployed Lambda functions\.

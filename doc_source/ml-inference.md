@@ -140,7 +140,7 @@ For general use of the MXNet framework, such as running a third\-party code exam
 
 ### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac22c18c17"></a>
 
-TensorFlow officially only supports installation on 64\-bit laptop or desktop operating systems\. Therefore, the precompiled TensorFlow libraries that AWS IoT Greengrass provides for 32\-bit ARM platforms \(such as Raspberry Pi\) have inherent limitations and are intended for experimentation purposes only\.
+Currently, the AWS IoT Greengrass TensorFlow installer only supports installation on 32\-bit laptop or desktop operating systems\. To build TensorFlow on 64\-bit platforms, see [ Installing TensorFlow](https://www.tensorflow.org/install/#installing_from_sources) in the TensorFlow documentation\.
 
 The following recommendations for improving inference results are based on our tests with the 32\-bit ARM precompiled libraries on the Raspberry Pi platform\. These recommendations are intended for advanced users for reference only, without guarantees of any kind\.
 + Models that are trained using the [Checkpoint](https://www.tensorflow.org/get_started/checkpoints) format should be "frozen" to the protocol buffer format before serving\. For an example, see the [TensorFlow\-Slim image classification model library](https://github.com/tensorflow/models/tree/master/research/slim)\.

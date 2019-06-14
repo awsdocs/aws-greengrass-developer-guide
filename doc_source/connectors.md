@@ -25,9 +25,10 @@ AWS provides a set of Greengrass connectors that simplify interactions with comm
 ## Requirements<a name="connectors-reqs"></a>
 
 The following requirements apply for connectors:
-+ You must use AWS IoT Greengrass core software v1\.7 or later\.
++ You must use AWS IoT Greengrass Core software v1\.7 or later\.
 + You must meet the requirements of each connector that you're using\. These requirements might include device prerequisites, required permissions, and limits\. For more information, see [AWS\-Provided Greengrass Connectors](connectors-list.md)\.
 + A Greengrass group can contain only one configured instance of a given connector, but the instance can be used in multiple subscriptions\. For more information, see [Configuration Parameters](#connectors-parameters)\.
++ Connectors aren't supported when the Greengrass group is configured to run without containerization\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
 
 ## Using AWS IoT Greengrass Connectors<a name="use-applications"></a>
 

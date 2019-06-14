@@ -13,9 +13,9 @@ If you don't see the **Greengrass** node in the navigation pane, change to an AW
 **Tip**  
 For an example that uses the AWS IoT Greengrass API to create and deploy a group, see the [ gg\_group\_setup](https://github.com/awslabs/aws-greengrass-group-setup) package from GitHub\.
 
-1. On the **Set up your Greengrass group** page, choose **Use easy creation**\.
+1. On the **Set up your Greengrass group** page, choose **Use easy creation** to create a group and an AWS IoT Greengrass [core](gg-core.md)\.
 
-   Each group requires an AWS IoT Greengrass [core](gg-core.md), which manages local processes\. A core needs a certificate that allows it to access AWS IoT and an AWS IoT policy that allows it to perform AWS IoT and AWS IoT Greengrass actions\. This step creates and provisions a core for the new group\.  
+   Each group requires a core, which is a device that manages local IoT processes\. A core needs a certificate and keys that allow it to access AWS IoT and an AWS IoT policy that allows it to perform AWS IoT and AWS IoT Greengrass actions\. When you choose the **Use easy creation** option, these security resources are created for you and the core is provisioned in the AWS IoT registry\.  
 ![\[Set up your Greengrass Group console page with the Use easy creation button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-005.png)
 
 1. Enter a name for your group \(for example, **MyFirstGroup**\), and then choose **Next**\.  
@@ -29,20 +29,18 @@ For an example that uses the AWS IoT Greengrass API to create and deploy a group
 
    AWS IoT creates an AWS IoT Greengrass group with default security policies and configuration files for you to load onto your device\.
 
-1. <a name="gg-core-download"></a>Now, download your core's security resources and the AWS IoT Greengrass core software:
-
-   1. On the confirmation page, under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz** to download the required security resources for your AWS IoT Greengrass core\.  
+1. <a name="gg-core-download"></a>Download your core's security resources and configuration file\. On the confirmation page, under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz**\.  
 ![\[The Connect your Core device page with Download these resources as a tar.gz highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.png)
-
-   1. Download the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) installation package\. Choose the CPU architecture and distribution \(and operating system, if necessary\) that best describes your core device\. For example:
-      + For Raspberry Pi, download the ARMv7l for Raspbian package\.
-      + For an Amazon EC2 instance, download the x86\_64 for Linux package\.
-      + For NVIDIA Jetson TX2, download the ARMv8 \(AArch64\) for Ubuntu package\.
-      + For Intel Atom, download the x86\_64 for Linux package\.
 **Important**  
-Download both the security resources and core software before you choose **Finish**\.
+Download the security resources before you choose **Finish**\.
 
-1. After you have downloaded the security resources and the AWS IoT Greengrass Core software, choose **Finish**\.
+1. After you download the security resources, choose **Finish**\.
 
    The group configuration page is displayed in the console:  
 ![\[Empty group configuration page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.2.png)
+
+1. Download the [AWS IoT Greengrass Core software](what-is-gg.md#gg-core-download-tab) installation package\. Choose the CPU architecture and distribution \(and operating system, if necessary\) that best describe your core device\. For example:
+   + For Raspberry Pi, download the ARMv7l for Raspbian package\.
+   + For an Amazon EC2 instance, download the x86\_64 for Linux package\.
+   + For NVIDIA Jetson TX2, download the ARMv8 \(AArch64\) for Ubuntu package\.
+   + For Intel Atom, download the x86\_64 for Linux package\.

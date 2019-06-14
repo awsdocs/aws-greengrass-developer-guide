@@ -21,11 +21,10 @@ In this step, you create a Lambda function that tracks the number of cars that p
 
 1. In the Lambda console, create a function named **GG\_Car\_Aggregator**, and set the remaining fields as follows:
    + For **Runtime**, choose **Python 2\.7**\.
-   + For **Role**, choose **Choose an existing role**\.
-   + For **Existing role**, choose **Lambda\_DynamoDB\_Role**\.
+   + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    Choose **Create function**\.  
-![\[Author from scratch panel with Name set to GG_Car_Aggregator, Runtime to Python 2.7, Role to Choose an existing role and Existing role to Lambda_DynamoDB_Role.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-095.5.png)
+![\[Basic information section with Function name set to GG_Car_Aggregator and Runtime set to Python 2.7.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-095.5.png)
 
 1. Upload your Lambda function deployment package:
 

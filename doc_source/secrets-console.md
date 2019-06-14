@@ -35,7 +35,7 @@ The tutorial should take about 20 minutes to complete\.
 ## Prerequisites<a name="secrets-console-prerequisites"></a>
 
 To complete this tutorial, you need:
-+ A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass core software\.
++ A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 + AWS IoT Greengrass must be configured to support local secrets\. For more information, see [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -153,11 +153,10 @@ In this step, you use the AWS Lambda console to create a Lambda function and con
 
    1. <a name="lambda-console-create-function"></a>Choose **Create function** and then choose **Author from scratch**\.
 
-   1. In the **Author from scratch** section, use the following values:
-      + For **Name**, enter **SecretTest**\.
+   1. In the **Basic information** section, use the following values:
+      + For **Function name**, enter **SecretTest**\.
       + For **Runtime**, choose **Python 2\.7**\.
-      + For **Role**, choose **Create new role from one or more templates**\.
-      + For **Role name**, enter **Greengrass\_Lambda\_empty**\. AWS IoT Greengrass doesn't use this role, so you can create or choose any Lambda execution role\.
+      + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    1. <a name="lambda-console-save-function"></a>At the bottom of the page, choose **Create function**\.
 

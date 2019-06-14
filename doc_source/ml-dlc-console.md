@@ -145,8 +145,10 @@ Run the following commands in your Raspberry Pi terminal\.
 ![\[The Add a Lambda to your Greengrass Group page with Create new Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas-new-lambda.png)
 
 1. Choose **Author from scratch** and use the following values to create your function:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)  
-![\[The Author from Scratch section of the Create function page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-dlr-lambda-creation.png)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
+
+   For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.  
+![\[The Basic information section of the Create function page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-dlr-lambda-creation.png)
 
 1.  Choose **Create function**\. 
 
@@ -425,7 +427,7 @@ If a monitor is attached to the Raspberry Pi, the live camera feed is displayed 
 
  To run this tutorial on an NVIDIA Jetson TX2, you provide source images and configure the Lambda function\. In order to use the GPU for inference, you must install CUDA 9\.0 and cuDNN 7\.0 on your device when you image your board with Jetpack 3\.3\. You must also add local device resources\. 
 
- To learn how to configure your Jetson so you can install the AWS IoT Greengrass core software, see [Setting Up Other Devices](module1.md#setup-filter.other)\.
+ To learn how to configure your Jetson so you can install the AWS IoT Greengrass Core software, see [Setting Up Other Devices](setup-filter.other.md)\.
 
 1. Download static PNG or JPG images for the Lambda function to use for image classification\. The example works best with small image files\. 
 

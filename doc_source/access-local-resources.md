@@ -1,8 +1,8 @@
-# Access Local Resources with Lambda Functions<a name="access-local-resources"></a>
+# Access Local Resources with Lambda Functions and Connectors<a name="access-local-resources"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
- Developers who use AWS IoT Greengrass can author AWS Lambda functions in the cloud and deploy them to core devices for local execution\. On Greengrass cores running Linux, these locally deployed Lambda functions can access local resources that are physically present on the Greengrass core device\. For example, to communicate with devices that are connected through Modbus or CANbus, you can enable your Lambda function to access the serial port on the core device\. To configure secure access to local resources, you must guarantee the security of your physical hardware and your Greengrass core device OS\.
+With AWS IoT Greengrass, you can author AWS Lambda functions and configure [connectors](connectors.md) in the cloud and deploy them to core devices for local execution\. On Greengrass cores running Linux, these locally deployed Lambda functions and connectors can access local resources that are physically present on the Greengrass core device\. For example, to communicate with devices that are connected through Modbus or CANbus, you can enable your Lambda function to access the serial port on the core device\. To configure secure access to local resources, you must guarantee the security of your physical hardware and your Greengrass core device OS\.
 
 To get started accessing local resources, see the following tutorials:
 + [How to Configure Local Resource Access Using the AWS Command Line Interface](lra-cli.md)

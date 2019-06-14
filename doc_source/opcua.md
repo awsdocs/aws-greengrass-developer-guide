@@ -66,7 +66,7 @@ skipping installation of cpu_usage and memory_usage nodes
 
 ## Make sure your Greengrass Group is ready<a name="opcua-group"></a>
 + Create a Greengrass group\. For information, see [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\. 
-+ Set up a Greengrass Core on one of the supported platforms \(Raspberry\-pi for [example](module1.md#setup-filter.rpi)\) 
++ Set up a Greengrass Core on one of the supported platforms \(Raspberry\-pi for [example](setup-filter.rpi.md)\) 
 + [Set up](what-is-gg.md#gg-platforms) your Greengrass Core to be able to run nodejs8\.x Lambda functions
 
 ## Use Greengrass OPC\-UA to Interact with your OPC\-UA Server<a name="opcua-interact"></a>

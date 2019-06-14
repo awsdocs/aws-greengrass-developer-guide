@@ -243,7 +243,7 @@ Before installing the MXNet dependencies, make sure that the required [system li
 ------
 #### [ NVIDIA Jetson TX2 ]
 
-1. Install CUDA Toolkit 9\.0 and cuDNN 7\.0\. You can follow the instructions in [Setting Up Other Devices](module1.md#setup-filter.other) in the Getting Started tutorial\.
+1. Install CUDA Toolkit 9\.0 and cuDNN 7\.0\. You can follow the instructions in [Setting Up Other Devices](setup-filter.other.md) in the Getting Started tutorial\.
 
 1. Enable universe repositories so the connector can install community\-maintained open software\. For more information, see [ Repositories/Ubuntu](https://help.ubuntu.com/community/Repositories/Ubuntu) in the Ubuntu documentation\.
 

@@ -7,3 +7,9 @@ Part 1 of this module shows you how to deploy a Lambda function on the AWS IoT G
 Before you begin, make sure that you have completed [Module 1](module1.md) and [Module 2](module2.md) and have a running AWS IoT Greengrass core device\.
 
 [Module 3 \(Part 1\)](#module3-I) and [Module 3 \(Part 2\)](module3-II.md) should take approximately 30 minutes each to complete\.
+
+**Topics**
++ [Create and Package a Lambda Function](create-lambda.md)
++ [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)
++ [Deploy Cloud Configurations to an AWS IoT Greengrass Core Device](configs-core.md)
++ [Verify the Lambda Function Is Running on the Device](lambda-check.md)

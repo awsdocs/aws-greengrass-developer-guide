@@ -9,7 +9,7 @@ You can configure parameters that determine how the Lambda functions run, includ
 **Note**  
 These settings can also enable you to run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
 
-The following table lists supported AWS Lambda runtimes and the versions of AWS IoT Greengrass core software that they can run on\.
+The following table lists supported AWS Lambda runtimes and the versions of AWS IoT Greengrass Core software that they can run on\.
 
 
 ****  
@@ -43,7 +43,7 @@ pip install greengrasssdk
 **AWS IoT Greengrass Machine Learning SDK**  <a name="lambda-sdks-ml"></a>
 Current version: 1\.0\.0  
 The AWS IoT Greengrass Machine Learning SDK enables Lambda functions to consume machine learning models that are deployed to the Greengrass core as machine learning resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. For more information, including a code example that uses the SDK, see the [Image Classification](image-classification-connector.md) connector\.  
-The following table lists supported languages or platforms and the versions of AWS IoT Greengrass core software that it can run on\.    
+The following table lists supported languages or platforms and the versions of AWS IoT Greengrass Core software that it can run on\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
 For download information, see [AWS IoT Greengrass ML SDK Software](what-is-gg.md#gg-ml-sdk-download)\.
@@ -118,7 +118,7 @@ A subscription defines a message source, a message target, and a topic \(or subj
 When the core is offline, Greengrass Lambda functions can exchange messages with devices, connectors, other functions, and local shadows, but messages to AWS IoT are queued\. For more information, see [MQTT Message Queue](gg-core.md#mqtt-message-queue)\.
 
 ### Other Communication Flows<a name="lambda-other-communication"></a>
-+ To interact with local resources and machine learning models on a core device, Greengrass Lambda functions use platform\-specific operating system interfaces\. For example, you can use the `open` method in the [os](https://docs.python.org/2/library/os.html) module in Python 2\.7 functions\. To allow a function to access a resource, the function must be *affiliated* with the resource and granted `read-only` or `read-write` permission\. For more information, including AWS IoT Greengrass core version availability, see [Access Local Resources with Lambda Functions](access-local-resources.md) and [Perform Machine Learning Inference](ml-inference.md)\.
++ To interact with local resources and machine learning models on a core device, Greengrass Lambda functions use platform\-specific operating system interfaces\. For example, you can use the `open` method in the [os](https://docs.python.org/2/library/os.html) module in Python 2\.7 functions\. To allow a function to access a resource, the function must be *affiliated* with the resource and granted `read-only` or `read-write` permission\. For more information, including AWS IoT Greengrass core version availability, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md) and [Perform Machine Learning Inference](ml-inference.md)\.
 **Note**  
 If you run your Lambda function without containerization, you cannot use attached local resources and must access those resources directly\. Machine learning resources are not available for Lambda functions that run without containerization\.
 + Greengrass Lambda functions can use the AWS SDK to communicate with AWS services\. For more information, see [AWS SDK](#aws-sdk)\.

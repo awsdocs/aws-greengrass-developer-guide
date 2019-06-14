@@ -229,6 +229,6 @@ AWS IoT Greengrass uses the AWS IoT transport security model to encrypt communic
 
 **Supported Cipher Suites for Local Network Communication**
 
-As opposed to the AWS IoT cloud, the AWS IoT Greengrass core supports the following *local network* TLS cipher suites for certificate\-signing algorithms\. All of these cipher suites are supported when private keys are stored on the file system\. A subset are supported when the core is configured to use hardware security modules \(HSM\)\. For more information, see [AWS IoT Greengrass Core Security Principals](#gg-principals) and [Hardware Security Integration](hardware-security.md)\. The table also includes the minimum version of AWS IoT Greengrass core software required for support\.
+As opposed to the AWS IoT cloud, the AWS IoT Greengrass core supports the following *local network* TLS cipher suites for certificate\-signing algorithms\. All of these cipher suites are supported when private keys are stored on the file system\. A subset are supported when the core is configured to use hardware security modules \(HSM\)\. For more information, see [AWS IoT Greengrass Core Security Principals](#gg-principals) and [Hardware Security Integration](hardware-security.md)\. The table also includes the minimum version of AWS IoT Greengrass Core software required for support\.
 
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-sec.html)

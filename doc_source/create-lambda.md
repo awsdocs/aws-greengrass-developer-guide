@@ -65,11 +65,10 @@ Depending on your distribution, you might need to install `zip` first \(for exam
 
 1. Name your function **Greengrass\_HelloWorld**, and set the remaining fields as follows:
    + For **Runtime**, choose **Python 2\.7**\.
-   + For **Role**, choose **Create new role from one or more templates**\.
-   + For **Role name**, enter a unique name for the role\. \(This role isn't used by AWS IoT Greengrass\.\)
+   + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    Choose **Create function**\.  
-![\[The "Author from scratch" section with the "Name" field set to "Greengrass_HelloWorld", the "Runtime" field set to "Python 2.7", the "Role" field set to "Create new role from one or more templates".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023.png)
+![\[The "Basic information" section with the "Function name" field set to "Greengrass_HelloWorld" and the "Runtime" field set to "Python 2.7".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023.png)
 
 1. Upload your Lambda function deployment package:
 

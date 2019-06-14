@@ -32,7 +32,7 @@ Search for devices that are qualified for this feature in the [AWS Partner Devic
 
 In addition, make sure that the following conditions are met:
 + The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this from the **Manage** page for the core thing in the AWS IoT Core console\.
-+ The AWS IoT Greengrass core software v1\.7 or later is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\. Version 1\.9 is required to use an EC key for the MQTT server\.
++ The AWS IoT Greengrass Core software v1\.7 or later is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\. Version 1\.9 is required to use an EC key for the MQTT server\.
 + The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT Core console\.
 
 **Note**  
@@ -110,7 +110,7 @@ The following diagram shows the AWS IoT client component and local MQTT server o
 AWS IoT Greengrass doesn't impose any limits on the number of keys that you store on the HSM, so you can store private keys for the IoT client, MQTT server, and secrets manager components\. However, some HSM vendors might impose limits on the number of keys you can store in a slot\.
 
 ![\[\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/multi-key-diagram.png)
-In general, the IoT client key is not used very frequently because the Greengrass core software maintains long\-lived connections to the cloud\. However, the MQTT server key is used every time that a Greengrass device connects to the core\. These interactions directly affect performance\.  
+In general, the IoT client key is not used very frequently because the AWS IoT Greengrass Core software maintains long\-lived connections to the cloud\. However, the MQTT server key is used every time that a Greengrass device connects to the core\. These interactions directly affect performance\.  
 When the MQTT server key is stored on the HSM, the rate at which devices can connect depends on the number of RSA signature operations per second that the HSM can perform\. For example, if the HSM takes 300 milliseconds to perform an RSASSA\-PKCS1\-v1\.5 signature on an RSA\-2048 private key, then only three devices can connect to the Greengrass core per second\. After the connections are made, the HSM is no longer used and the standard [Greengrass limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_greengrass) apply\.  
 To mitigate performance bottlenecks, you can store the private key for the MQTT server on the file system instead of on the HSM\. With this configuration, the MQTT server behaves as if hardware security isn't enabled\.  
 AWS IoT Greengrass supports multiple key\-storage configurations for the IoT client and MQTT server components, so you can optimize for your security and performance requirements\. The following table includes example configurations\.      
@@ -147,7 +147,7 @@ When connecting to the Greengrass core from Greengrass devices over the local ne
 
 ## Configure Support for Over\-the\-Air Updates<a name="hardware-security-ota-updates"></a>
 
-To enable over\-the\-air \(OTA\) updates of the AWS IoT Greengrass core core software when using hardware security, you must install the OpenSC libp11 [PKCS\#11 wrapper library](https://github.com/OpenSC/libp11) and edit the Greengrass configuration file\. For more information about OTA updates, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.
+To enable over\-the\-air \(OTA\) updates of the AWS IoT Greengrass Core software when using hardware security, you must install the OpenSC libp11 [PKCS\#11 wrapper library](https://github.com/OpenSC/libp11) and edit the Greengrass configuration file\. For more information about OTA updates, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.
 
 1. Stop the AWS Greengrass daemon\.
 
@@ -156,7 +156,7 @@ To enable over\-the\-air \(OTA\) updates of the AWS IoT Greengrass core core sof
    sudo ./greengrassd stop
    ```
 **Note**  
-*greengrass\-root* represents the path where the AWS IoT Greengrass core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
+*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
 
 1. Install the OpenSSL engine\.
 
@@ -207,7 +207,7 @@ If the `OpenSSLEngine` property doesn't exist in the `PKCS11` object, then add i
 
 ## Backward Compatibility with Earlier Versions of the AWS IoT Greengrass Core Software<a name="hardware-security-backward-compatibiity"></a>
 
-The AWS IoT Greengrass core software with hardware security support is fully backward compatible with `config.json` files that are generated for v1\.6 and earlier\. If the `crypto` object is not present in the `config.json` configuration file, then AWS IoT Greengrass uses the file\-based `coreThing.certPath`, `coreThing.keyPath`, and `coreThing.caPath` properties\. This backward compatibility applies to Greengrass OTA updates, which do not overwrite a file\-based configuration that's specified in `config.json`\.
+The AWS IoT Greengrass Core software with hardware security support is fully backward compatible with `config.json` files that are generated for v1\.6 and earlier\. If the `crypto` object is not present in the `config.json` configuration file, then AWS IoT Greengrass uses the file\-based `coreThing.certPath`, `coreThing.keyPath`, and `coreThing.caPath` properties\. This backward compatibility applies to Greengrass OTA updates, which do not overwrite a file\-based configuration that's specified in `config.json`\.
 
 ## Hardware Without PKCS\#11 Support<a name="hardware-without-pkcs11"></a>
 

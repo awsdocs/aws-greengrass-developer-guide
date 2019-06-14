@@ -7,3 +7,9 @@ This module shows you how AWS IoT devices can connect to and communicate with an
 Before you begin, make sure that you have completed [Module 1](module1.md), [Module 2](module2.md), [Module 3 \(Part 1\)](module3-I.md), and [Module 3 \(Part 2\)](module3-II.md)\. You do not need other components or devices\.
 
 This module should take less than 30 minutes to complete\.
+
+**Topics**
++ [Create AWS IoT Devices in an AWS IoT Greengrass Group](device-group.md)
++ [Configure Subscriptions](config-subs.md)
++ [Install the AWS IoT Device SDK for Python](IoT-SDK.md)
++ [Test Communications](test-comms.md)

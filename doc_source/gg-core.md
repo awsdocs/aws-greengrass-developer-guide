@@ -2,7 +2,7 @@
 
 An AWS IoT Greengrass core is an AWS IoT thing \(device\)\. Like other AWS IoT devices, a core exists in the registry, has a device shadow, and uses a device certificate to authenticate with AWS IoT\. The core device runs the AWS IoT Greengrass core software, which enables it to manage local processes for Greengrass groups, such as communication, shadow sync, and token exchange\.
 
-The AWS IoT Greengrass core software provides the following functionality:
+The AWS IoT Greengrass Core software provides the following functionality:
 + Deployment and local execution of connectors and Lambda functions\.
 + Secure, encrypted storage of local secrets and controlled access by connectors and Lambda functions\.
 + MQTT messaging over the local network between devices, connectors, and Lambda functions using managed subscriptions\.
@@ -17,10 +17,10 @@ The AWS IoT Greengrass core software provides the following functionality:
 
 ## AWS IoT Greengrass Core Configuration File<a name="config-json"></a>
 
-The configuration file for the AWS IoT Greengrass core software is `config.json`\. It is located in the `/greengrass-root/config` directory\.
+The configuration file for the AWS IoT Greengrass Core software is `config.json`\. It is located in the `/greengrass-root/config` directory\.
 
 **Note**  
-*greengrass\-root* represents the path where the AWS IoT Greengrass core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.  
+*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.  
 If you use the **Easy group creation** option from the AWS IoT Greengrass console, then the `config.json` file is deployed to the core device in a working state\.
 
  You can review the contents of this file by running the following command:
@@ -742,8 +742,8 @@ Communication between Greengrass devices and AWS IoT or AWS IoT Greengrass must 
 
 This feature is available for AWS IoT Greengrass Core v1\.6 and later\.
 
-By default, the AWS IoT Greengrass core software is deployed under a single root directory where AWS IoT Greengrass performs all read and write operations\. However, you can configure AWS IoT Greengrass to use a separate directory for all write operations, including creating directories and files\. In this case, AWS IoT Greengrass uses two top\-level directories:
-+ The *greengrass\-root* directory, which you can leave as read\-write or optionally make read\-only\. This contains the AWS IoT Greengrass core software and other critical components that should remain immutable during runtime, such as certificates and `config.json`\.
+By default, the AWS IoT Greengrass Core software is deployed under a single root directory where AWS IoT Greengrass performs all read and write operations\. However, you can configure AWS IoT Greengrass to use a separate directory for all write operations, including creating directories and files\. In this case, AWS IoT Greengrass uses two top\-level directories:
++ The *greengrass\-root* directory, which you can leave as read\-write or optionally make read\-only\. This contains the AWS IoT Greengrass Core software and other critical components that should remain immutable during runtime, such as certificates and `config.json`\.
 + The specified write directory\. This contains writable content, such as logs, state information, and deployed user\-defined Lambda functions\.
 
 This configuration results in the following directory structure\.
@@ -837,9 +837,9 @@ You can update the `writeDirectory` setting as often as you want\. After the set
 
 **To make the Greengrass root directory read\-only**
 
-1. Grant required access to the AWS IoT Greengrass:
-**Note**  
-This step is required only if you want to make the Greengrass root directory read\-only\. The write directory must be configured before you begin this procedure\.
+Follow these steps only if you want to make the Greengrass root directory read\-only\. The write directory must be configured before you begin\.
+
+1. Grant access permissions to required directories:
 
    1. Give read and write permissions to the `config.json` owner\.
 
@@ -858,7 +858,7 @@ The ggc\_user and ggc\_group accounts are used by default to run system Lambda f
 
 1. Make the *greengrass\-root* directory read\-only by using your preferred mechanism\.
 **Note**  
-One way to make the *greengrass\-root* directory read\-only is to mount the directory as read\-only\. However, to apply over\-the\-air \(OTA\) updates to core software in a mounted directory, the directory must first be unmounted, and then remounted after the update\. You can add these `umount` and `mount` operations to the `ota_pre_update` and `ota_post_update` scripts\. For more information about OTA updates, see [Greengrass OTA Agent](core-ota-update.md#ota-agent) and [AWS IoT Greengrass Core Update with Managed Respawn](core-ota-update.md#managed-respawn-ggc)\.
+One way to make the *greengrass\-root* directory read\-only is to mount the directory as read\-only\. However, to apply over\-the\-air \(OTA\) updates to the AWS IoT Greengrass Core software in a mounted directory, the directory must first be unmounted, and then remounted after the update\. You can add these `umount` and `mount` operations to the `ota_pre_update` and `ota_post_update` scripts\. For more information about OTA updates, see [Greengrass OTA Agent](core-ota-update.md#ota-agent) and [AWS IoT Greengrass Core Update with Managed Respawn](core-ota-update.md#managed-respawn-ggc)\.
 
 1. Start the daemon\.
 
@@ -868,6 +868,16 @@ One way to make the *greengrass\-root* directory read\-only is to mount the dire
    ```
 
    If the permissions from step 1 aren't set correctly, then the daemon won't start\.
+
+## Message Quality of Service<a name="message-quality-of-service"></a>
+
+In the AWS IoT Greengrass environment, local devices, Lambda functions, connectors, and system components can communicate with each other and with the cloud\. All communication goes through the core\. Messages destined for local targets use a quality of service \(QoS\) level that is different from messages destined for the cloud\.
++  **Messages with local targets use QoS 0\.** The core makes one attempt to send a message to its target\. It doesn't store messages or confirm delivery\. Messages can be dropped anywhere between components\.
+**Note**  
+Although direct communication between Lambda functions doesn't use MQTT messaging, the behavior is the same\.
++ **Messages with cloud targets use QoS 1\.** The core sends these messages to the spooler system component, which sends them to the cloud using QoS 1\. This allows the spooler to manage the [MQTT message queue](#mqtt-message-queue.title)\. If message delivery isn't confirmed by AWS IoT, the message is spooled to be retried later \(unless the queue is full\)\. For more information, see [MQTT Message Queue](#mqtt-message-queue)\.
+**Note**  
+Although QoS 1 is used internally to manage the queue, message publishers can send MQTT messages with QoS 0 only\.
 
 ## MQTT Message Queue<a name="mqtt-message-queue"></a>
 
@@ -888,7 +898,7 @@ The following environment variables for the `GGCloudSpooler` Lambda function are
   + `Memory` \(default\)\. Store unprocessed messages in memory\. When the core restarts, queued messages are lost\.
 
     This option is optimized for devices with restricted hardware capabilities\. When using this configuration, we recommend that you deploy groups or restart the device when the service disruption is the lowest\.
-+ **GG\_CONFIG\_MAX\_SIZE\_BYTES**\. The storage size, in bytes\. This value can be any non\-negative integer **greater than or equal to 262144** \(256 KB\); a smaller size prevents the AWS IoT Greengrass core software from starting\. The default size is 2\.5 MB\. When the size limit is reached, the oldest queued messages are replaced by new messages\.
++ **GG\_CONFIG\_MAX\_SIZE\_BYTES**\. The storage size, in bytes\. This value can be any non\-negative integer **greater than or equal to 262144** \(256 KB\); a smaller size prevents the AWS IoT Greengrass Core software from starting\. The default size is 2\.5 MB\. When the size limit is reached, the oldest queued messages are replaced by new messages\.
 
 #### To Cache Messages in Local Storage<a name="configure-local-storage-cache"></a>
 
@@ -934,7 +944,7 @@ You can optionally create a function definition by running the [https://docs.aws
    + Replace *arbitrary\-function\-id* with a name for the function, such as **spooler\-function**\.
    + Add any Lambda functions that you want to include in this version to the `functions` array\. You can use the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-function-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-function-definition-version.html) command to get the Greengrass Lambda functions from an existing function definition version\.
 **Warning**  
-Make sure that you specify a value for `GG_CONFIG_MAX_SIZE_BYTES` that's **greater than or equal to 262144**\. A smaller size prevents the AWS IoT Greengrass core software from starting\.
+Make sure that you specify a value for `GG_CONFIG_MAX_SIZE_BYTES` that's **greater than or equal to 262144**\. A smaller size prevents the AWS IoT Greengrass Core software from starting\.
 
    ```
    aws greengrass create-function-definition-version \
@@ -1147,7 +1157,7 @@ For information about how to create and enable a service file for systemd on a R
 
 ## Archive an AWS IoT Greengrass Core Software Installation<a name="archive-ggc-version"></a>
 
-When you upgrade to a new version of the AWS IoT Greengrass core software, you can archive the currently installed version\. This preserves your current installation environment so you can test a new software version on the same hardware\. This also makes it easy to roll back to your archived version for any reason\.
+When you upgrade to a new version of the AWS IoT Greengrass Core software, you can archive the currently installed version\. This preserves your current installation environment so you can test a new software version on the same hardware\. This also makes it easy to roll back to your archived version for any reason\.
 
 **To archive the current installation and install a new version**
 
@@ -1169,7 +1179,7 @@ You copy your current certificates, keys, and configuration file to the new inst
 
       If the output contains a `root` entry for `/greengrass/ggc/packages/ggc-version/bin/daemon`, then the daemon is running\.
 **Note**  
-This procedure is written with the assumption that the core software is installed in the `/greengrass` directory\.
+This procedure is written with the assumption that the AWS IoT Greengrass Core software is installed in the `/greengrass` directory\.
 
    1. To stop the daemon:
 
@@ -1184,7 +1194,7 @@ This procedure is written with the assumption that the core software is installe
    sudo mv /greengrass /greengrass_backup
    ```
 
-1. Untar the new core software on the core device\. Replace the *os\-architecture* and *version* placeholders in the command\.
+1. Untar the new software on the core device\. Replace the *os\-architecture* and *version* placeholders in the command\.
 
    ```
    sudo tar –zxvf greengrass-os-architecture-version.tar.gz –C /
