@@ -14,31 +14,40 @@ The JetPack installer version that you use is based on your target CUDA Toolkit 
 **Note**  
 When you use SSH to connect to the Jetson board, use the default user name \(**nvidia**\) and the default password \(**nvidia**\)\.
 
-1. Run the following commands to create user `ggc_user` and group `ggc_group`\.
+1. Run the following commands to create user `ggc_user` and group `ggc_group`\. The commands you run differ, depending on the distribution installed on your core device\.
+   + If your core device is running OpenWrt, run the following commands:
 
-   ```
-   sudo adduser --system ggc_user
-   sudo addgroup --system ggc_group
-   ```
+     ```
+     opkg install shadow-useradd
+     opkg install shadow-groupadd
+     useradd --system ggc_user
+     groupadd --system ggc_group
+     ```
+   + Otherwise, run the following commands:
+
+     ```
+     sudo adduser --system ggc_user
+     sudo addgroup --system ggc_group
+     ```
 **Note**  
 If the `addgroup` command isn't available on your system, use the following command\.  
 
-   ```
-   sudo groupadd --system ggc_group
-   ```
+     ```
+     sudo groupadd --system ggc_group
+     ```
 
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   mkdir greengrass-dependency-checker-GGCv1.9.0
-   cd greengrass-dependency-checker-GGCv1.9.0
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.0.zip
-   unzip greengrass-dependency-checker-GGCv1.9.0.zip
+   mkdir greengrass-dependency-checker-GGCv1.9.x
+   cd greengrass-dependency-checker-GGCv1.9.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip
+   unzip greengrass-dependency-checker-GGCv1.9.x.zip
    sudo ./check_ggc_dependencies | more
    ```
 **Note**  
 The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platforms and requires the following Linux system commands: `printf`, `uname`, `cat`, `ls`, `head`, `find`, `zcat`, `awk`, `sed`, `sysctl`, `wc`, `cut`, `sort`, `expr`, `grep`, `test`, `dirname`, `readlink`, `xargs`, `strings`, `uniq`\.  
-For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.9.0/README.md)\.
+For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.9.x/README.md)\.
 
 1. Install all required dependencies on your device, as indicated by the dependency checker output\. For missing kernel\-level dependencies, you might have to recompile your kernel\. For mounting Linux control groups \(`cgroups`\), you can run the [cgroupfs\-mount](https://raw.githubusercontent.com/tianon/cgroupfs-mount/master/cgroupfs-mount) script\. This allows AWS IoT Greengrass to set the memory limit for Lambda functions\. Cgroups are also required to run AWS IoT Greengrass in the default [containerization](lambda-group-config.md#lambda-containerization-considerations) mode\.
 

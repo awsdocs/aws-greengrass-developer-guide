@@ -2,20 +2,26 @@
 
 This section contains download links for earlier versions of IDT\.
 
-### IDT for AWS IoT Greengrass v1\.8<a name="idt-gg-v1.8"></a>
+****IDT v1\.3\.1 for AWS IoT Greengrass v1\.9\.1, v1\.9\.0, and v1\.8\.2 ****
++ IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.3.1.zip)
++ IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.3.1.zip)
++ IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.3.1.zip)
 
-**IDT v1\.2 for AWS IoT Greengrass v1\.8\.1 **  
+**Release Notes:**
++ Added support for AWS IoT Greengrass v1\.9\.1
+
+****IDT v1\.2 for AWS IoT Greengrass v1\.8\.1 ****
 + IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.2.190419180823.zip) 
-+ IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.2.190419180823.zip) 
++ IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.2.190419180823.zip)
 + IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.2.190419180823.zip)
 
 **Release Notes:**
 + Added a configurable timeout multiplier to address and troubleshoot timeout issues \(for example, low bandwidth connections\)\.
 
-**IDT v1\.1 for AWS IoT Greengrass v1\.8\.0**  
-+ IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.1.190312213046.zip) 
-+ IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.1.190312213046.zip) 
-+ IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.1.190312213046.zip) 
+****IDT v1\.1 for AWS IoT Greengrass v1\.8\.0****
++ IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.1.190312213046.zip)
++ IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.1.190312213046.zip)
++ IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.1.190312213046.zip)
 
 **Release Notes:**
 + Added support for AWS IoT Greengrass Hardware Security Integration \(HSI\)\.
@@ -24,9 +30,7 @@ This section contains download links for earlier versions of IDT\.
 + Improved test resource cleanup\.
 + Added test execution summary report\.
 
-### IDT for AWS IoT Greengrass v1\.7<a name="idt-gg-v1.7"></a>
-
-**IDT v1\.1 for AWS IoT Greengrass v1\.7\.1**  
+****IDT v1\.1 for AWS IoT Greengrass v1\.7\.1****
 + IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.1.190307215806.zip) 
 + IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.1.190307215806.zip) 
 + IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.1.190307215806.zip) 
@@ -38,9 +42,7 @@ This section contains download links for earlier versions of IDT\.
 + Improved test resource cleanup\.
 + Added test execution summary report\.
 
-### IDT for AWS IoT Greengrass v1\.6<a name="idt-gg-v1.6"></a>
-
-**IDT 1\.0 \(Updated 3/11/19\) for AWS IoT Greengrass v1\.6\.1**  
+****IDT 1\.0 \(Updated 3/11/19\) for AWS IoT Greengrass v1\.6\.1****
 + IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.0.190308190416.zip) 
 + IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.0.190308190416.zip) 
 + IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.0.190308190416.zip) 

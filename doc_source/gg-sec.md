@@ -23,7 +23,7 @@ An X\.509 certificate used to authenticate an AWS IoT Greengrass device\.
 
 D \- Group role  
 A customer\-created IAM role assumed by AWS IoT Greengrass when calling AWS services from a Lambda function or connector on an AWS IoT Greengrass core\.  
-This the Lambda execution role for all the Greengrass Lambda functions and connectors that run on the core\. Use this role to specify access permissions that your user\-defined Lambda functions and connectors need to access AWS services, such as DynamoDB\.  
+This is the Lambda execution role for all the Greengrass Lambda functions and connectors that run on the core\. Use this role to specify access permissions that your user\-defined Lambda functions and connectors need to access AWS services, such as DynamoDB\.  
 AWS IoT Greengrass doesn't use the Lambda execution role that's specified in AWS Lambda for the cloud version of the function\.
 
 E \- Group CA  

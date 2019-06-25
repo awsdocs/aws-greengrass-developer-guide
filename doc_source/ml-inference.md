@@ -138,7 +138,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac22c18c17"></a>
+### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac23c18c17"></a>
 
 Currently, the AWS IoT Greengrass TensorFlow installer only supports installation on 32\-bit laptop or desktop operating systems\. To build TensorFlow on 64\-bit platforms, see [ Installing TensorFlow](https://www.tensorflow.org/install/#installing_from_sources) in the TensorFlow documentation\.
 

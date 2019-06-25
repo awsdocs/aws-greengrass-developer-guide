@@ -87,10 +87,10 @@ This section provides instructions for setting up your Amazon EC2 instance\.
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
 
    ```
-   mkdir greengrass-dependency-checker-GGCv1.9.0
-   cd greengrass-dependency-checker-GGCv1.9.0
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.0.zip
-   unzip greengrass-dependency-checker-GGCv1.9.0.zip
+   mkdir greengrass-dependency-checker-GGCv1.9.x
+   cd greengrass-dependency-checker-GGCv1.9.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip
+   unzip greengrass-dependency-checker-GGCv1.9.x.zip
    sudo ./check_ggc_dependencies | more
    ```
 **Important**  

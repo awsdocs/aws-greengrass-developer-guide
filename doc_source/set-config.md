@@ -84,7 +84,7 @@ You must provide this information using the `device.json` template located in ` 
     "features": [
       {
         "name": "os",
-        "value": "linux | ubuntu"
+        "value": "linux | ubuntu | openwrt"
       },
       {
         "name": "arch",
@@ -101,24 +101,29 @@ You must provide this information using the `device.json` template located in ` 
     "kernelConfigLocation": "",
     "greengrassLocation": "",
     "devices": [
-      {
-        "id": "<device-id>",
-        "connectivity": {
-          "protocol": "ssh",
-          "ip": "<ip-address>",
-          "auth": {
-            "method": "pki",
-            "credentials": {
-              "user": "<user>",
-              "privKeyPath": "</path/to/private/key>"
-            }
-          }
-        }
-      }
+		{
+			"id": "<device-id>",
+			"connectivity": {
+				"protocol": "ssh",
+				"ip": "<ip-address>",
+				"auth": {
+					"method": "pki" | "password",
+					"credentials": {
+						"user": "<user>",
+						"privKeyPath": "</path/to/private/key>",
+						"password": "<your-password>
+					}
+				}
+			}
+		}
     ]
   }
 ]
 ```
+
+**Note**  
+Specify `privKeyPath` only if `method` is set to `pki`\.  
+Specify `password` only if `method` is set to `password`
 
 All fields that contain values are required as described here:
 
@@ -137,6 +142,8 @@ An array that contains the device's supported features\.
   + Linux, ARMv7l
   + Linux, AArch64
   + Ubuntu, x86\_64
+  + OpenWRT, ARMv7l
+  + OpenWRT, AArch64
 
 `hsm (optional)`  
 Contains configuration information for testing with a AWS IoT Greengrass Hardware Security Module \(HSM\), otherwise the `<hsm>` element should be omitted\. For more information, see [Hardware Security Integration](hardware-security.md)\.    
@@ -161,7 +168,15 @@ The communication protocol used to communicate with this device\. Currently the 
 The IP address of the device being tested\.
 
 `connectivity.auth.method`  
-The authorization method used to access a device over the given connectivity protocol\. Currently the only supported value is `pki`\.
+The authorization method used to access a device over the given connectivity protocol\. Supported values are:  
++ `pki`
++ `password`
+
+`connectivity.auth.credentials.password`  
+The password used for signing in to the device being tested\. Specify this value only if `connectivity.auth.method` is set to `password`\.
+
+`connectivity.auth.credentials.privKeyPath`  
+The full path to the private key used to sign into the device under test\. Specify this value only if `connectivity.auth.method` is set to `pki`\.
 
 `connectivity.auth.credentials.user`  
 The user name for signing in to the device being tested\.

@@ -91,6 +91,8 @@ Amazon's trademarks and trade dress may not be used in
 + [Tagging Your AWS IoT Greengrass Resources](tagging.md)
 + [AWS CloudFormation Support for AWS IoT Greengrass](cloudformation-support.md)
 + [Using AWS IoT Device Tester for AWS IoT Greengrass](device-tester-for-greengrass-ug.md)
+   + [AWS IoT Device Tester for AWS IoT Greengrass Versions](dev-test-versions.md)
+      + [Earlier IDT Versions for AWS IoT Greengrass](idt-prev-versions.md)
    + [Prerequisites](dev-tst-prereqs.md)
       + [Using IDT for Greengrass 1.6.1 and Earlier](old-idt.md)
       + [Configure Your Device](device-config-setup.md)
