@@ -244,7 +244,7 @@ def function_handler(event, context):
 ## Licenses<a name="servicenow-connector-license"></a>
 
 The ServiceNow MetricBase Integration connector includes the following third\-party software/licensing:
-+ [pysnow](https://github.com/rbw/pysnow) / MIT
++ [pysnow](https://github.com/rbw/pysnow)/MIT
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
 

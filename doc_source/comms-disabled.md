@@ -31,35 +31,37 @@ Make sure that your [endpoints correspond to your certificate type](gg-core.md#c
 
 1. <a name="repeated-step"></a>On your computer \(not the AWS IoT Greengrass core device\), open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) \(terminal or command prompt\) windows\. One window represents the GG\_Switch device and the other represents the GG\_TrafficLight device\.
 
-   When executed for the first time, each device script runs the AWS IoT Greengrass discovery service to connect to the AWS IoT Greengrass core \(through the internet\)\. After a device has discovered and successfully connected to the AWS IoT Greengrass core, future operations can be executed locally\.
+   1. <a name="run-switch-device"></a>From the GG\_Switch device window, run the following commands\.
+      + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and Python files\.
+      + Replace *AWS\_IOT\_ENDPOINT* with your endpoint\.
+      + Replace the two *switch* instances with the hash in the file name for your GG\_Switch device\.
 
-1. <a name="run-switch-device"></a>From the GG\_Switch device window, run the following commands\.
-   + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and Python files\.
-   + Replace *AWS\_IOT\_ENDPOINT* with your endpoint\.
-   + Replace the two *switch* instances with the hash in the file name for your GG\_Switch device\.
+      ```
+      cd path-to-certs-folder
+      python lightController.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert switch.cert.pem --key switch.private.key --thingName GG_TrafficLight --clientId GG_Switch
+      ```
 
-   ```
-   cd path-to-certs-folder
-   python lightController.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert switch.cert.pem --key switch.private.key --thingName GG_TrafficLight --clientId GG_Switch
-   ```
+   1. <a name="run-trafficlight-device"></a>From the GG\_TrafficLight device window, run the following commands\.
+      + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and Python files\.
+      + Replace *AWS\_IOT\_ENDPOINT* with your endpoint\.
+      + Replace the two *light* instances with the hash in the file name for your GG\_TrafficLight device\.
 
-1. <a name="run-trafficlight-device"></a>From the GG\_TrafficLight device window, run the following commands\.
-   + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and Python files\.
-   + Replace *AWS\_IOT\_ENDPOINT* with your endpoint\.
-   + Replace the two *light* instances with the hash in the file name for your GG\_TrafficLight device\.
+      ```
+      cd path-to-certs-folder
+      python trafficLight.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert light.cert.pem --key light.private.key --thingName GG_TrafficLight --clientId GG_TrafficLight
+      ```
 
-   ```
-   cd path-to-certs-folder
-   python trafficLight.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert light.cert.pem --key light.private.key --thingName GG_TrafficLight --clientId GG_TrafficLight
-   ```
+      Every 20 seconds, the switch updates the shadow state to G, Y, and R, and the light displays its new state, as shown next\.
 
-   Every 20 seconds, the switch updates the shadow state to G, Y, and R, and the light displays its new state, as shown next\.
-
-   GG\_Switch output:  
+      GG\_Switch output:  
 ![\[Screenshot of the output associated with GG_Switch.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-083.png)
 
-   GG\_TrafficLight output:  
+      GG\_TrafficLight output:  
 ![\[Screenshot of the output associated with GG_TrafficLight.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-084.png)
+
+   When executed for the first time, each device script runs the AWS IoT Greengrass discovery service to connect to the AWS IoT Greengrass core \(through the internet\)\. After a device has discovered and successfully connected to the AWS IoT Greengrass core, future operations can be executed locally\.
+**Note**  
+<a name="check-connection-info"></a> The `lightController.py` and `trafficLight.py` scripts store connection information in the `groupCA` folder, which is created in the same folder as the scripts\. If you receive connection errors, make sure that the IP address in the `ggc-host` file matches the single IP address endpoint that you configured for your core in [this step](config-dev-subs.md#configure-ip-address)\.
 
 1. In the AWS IoT Core console, choose your AWS IoT Greengrass group, choose **Devices**, and then choose **GG\_TrafficLight**\.  
 ![\[Screenshot of Devices page with GG_TrafficLIght highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-085.png)

@@ -211,7 +211,7 @@ def function_handler(event, context):
 ## Licenses<a name="sns-connector-license"></a>
 
 The SNS connector includes the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3) / Apache 2\.0
++ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
 

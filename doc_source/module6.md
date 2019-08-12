@@ -12,7 +12,7 @@ This module should take approximately 30 minutes to complete\.
 This module creates and updates a table in DynamoDB\. Although most of the operations are small and fall within the AWS Free Tier, performing some of the steps in this module might result in charges to your account\. For information about pricing, see [DynamoDB pricing documentation](https://aws.amazon.com/dynamodb/pricing/)\.
 
 **Topics**
-+ [Configure IAM Roles](config-iam-roles.md)
++ [Configure the Group Role](config-iam-roles.md)
 + [Create and Configure the Lambda Function](create-config-lambda.md)
 + [Configure Subscriptions](config_subs.md)
 + [Test Communications](comms-test.md)

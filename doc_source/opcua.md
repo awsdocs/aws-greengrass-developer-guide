@@ -28,7 +28,7 @@ Use the following commands to set up a test OPC\-UA server\. Or, if you already 
 ```
 git clone git://github.com/node-opcua/node-opcua.git
 cd node-opcua
-git checkout v0.0.64
+git checkout v0.0.65
 npm install
 node bin/simple_server
 ```
@@ -80,8 +80,8 @@ skipping installation of cpu_usage and memory_usage nodes
    cd aws-greengrass-samples/greengrass-opcua-adapter-nodejs
    npm install
    ```
-
-   **Note:**This Lambda function uses the node\-opcua library \(v0\.0\.64\), which attempts to re\-generate some model files at runtime\. That doesn't work when running as a Lambda function on Greengrass, because Lambda functions start with a Read\-Only file system, so any code trying to generate other code would not work\. The next step fixes this\.
+**Note**  
+This Lambda function uses the node\-opcua library \(v0\.0\.65\), which attempts to re\-generate some model files at runtime\. That doesn't work when running as a Lambda function on Greengrass, because Lambda functions start with a Read\-Only file system, so any code trying to generate other code would not work\. The next step fixes this\.
 
 1. Change the file at `node_modules/node-opcua/lib/misc/factories.js`: line 109 to this: 
 

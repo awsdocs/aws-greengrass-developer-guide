@@ -36,13 +36,14 @@ If the `addgroup` command isn't available on your system, use the following comm
      sudo groupadd --system ggc_group
      ```
 
-1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com//aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script\.
 
    ```
    mkdir greengrass-dependency-checker-GGCv1.9.x
    cd greengrass-dependency-checker-GGCv1.9.x
    wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip
    unzip greengrass-dependency-checker-GGCv1.9.x.zip
+   cd greengrass-dependency-checker-GGCv1.9.x
    sudo ./check_ggc_dependencies | more
    ```
 **Note**  

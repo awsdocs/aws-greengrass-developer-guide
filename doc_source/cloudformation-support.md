@@ -4,6 +4,14 @@ AWS CloudFormation is a service that can help you create, manage, and replicate 
 
 The resources and infrastructure that you generate from a template is called a *stack*\. You can define all of your resources in one template or refer to resources from other stacks\. For more information about AWS CloudFormation templates and features, see [What Is AWS CloudFormation?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) in the *AWS CloudFormation User Guide*\.
 
+Currently, you can create and manage AWS IoT Greengrass resources only in the following [AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region):
++ US East \(N\. Virginia\)
++ US West \(Oregon\)
++ Asia Pacific \(Sydney\)
++ Asia Pacific \(Tokyo\)
++ EU \(Frankfurt\)
++ EU \(Ireland\)
+
 ## Creating Resources<a name="cloudformation-support-create"></a>
 
 AWS CloudFormation templates are JSON or YAML documents that describe the properties and relationships of AWS resources\. The following AWS IoT Greengrass resources are supported:

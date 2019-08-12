@@ -44,16 +44,26 @@ This section provides instructions for setting up your Amazon EC2 instance\.
    sudo groupadd --system ggc_group
    ```
 
-1. To improve security on the device, enable hardlink and softlink protection on the operating system at start up\.
+1. To improve security on the device, ensure that hardlink and softlink protections are enabled on the operating system at start up\.
+**Note**  
+ The steps for enabling hardlink and softlink protection vary by operating system\. Consult the documentation for your distribution\. 
 
-   1. Navigate to the `00-defaults.conf` file\.
+   1.  Run the following command to check if hardlink and softlink protections are enabled: 
+
+      ```
+      sudo sysctl -a | grep fs.protected
+      ```
+
+       If hardlinks and softlinks are set to `1`, your protections are enabled correctly\. Proceed to step 6\. 
+
+   1. If hardlinks and softlinks are not set to `1`, enable these protections\. Navigate to your system configuration file\. 
 
       ```
       cd /etc/sysctl.d
       ls
       ```
 
-   1. Using your favorite text editor \(Leafpad, GNU nano, or vi\), add the following two lines to the end of the `00-defaults.conf` file\. You might need to change permissions \(using the `chmod` command\) to write to the file, or use the `sudo` command to edit as root \(for example, `sudo nano 00-defaults.conf`\)\.
+   1. Using your favorite text editor \(Leafpad, GNU nano, or vi\), add the following two lines to the end of the system configuration file\. On Amazon Linux 1, this is the `00-defaults.conf` file\. On Amazon Linux 2, this is the `99-amazon.conf` file\. You might need to change permissions \(using the `chmod` command\) to write to the file, or use the `sudo` command to edit as root \(for example, `sudo nano 00-defaults.conf`\)\.
 
       ```
       fs.protected_hardlinks = 1
@@ -84,13 +94,14 @@ This section provides instructions for setting up your Amazon EC2 instance\.
 
    Your Amazon EC2 instance should now be ready for AWS IoT Greengrass\.
 
-1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the current directory\.
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com//aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script\.
 
    ```
    mkdir greengrass-dependency-checker-GGCv1.9.x
    cd greengrass-dependency-checker-GGCv1.9.x
    wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip
    unzip greengrass-dependency-checker-GGCv1.9.x.zip
+   cd greengrass-dependency-checker-GGCv1.9.x
    sudo ./check_ggc_dependencies | more
    ```
 **Important**  

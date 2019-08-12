@@ -25,7 +25,7 @@ On Windows, you can decompress `.tar.gz` files using a tool such as [7\-Zip](htt
 1. Make sure that the devices are set to use local shadows\. If not, choose the ellipsis \(**…**\), and then choose **Make local only**\.  
 ![\[Screenshot with LOCAL SHADOW ONLY highlighted for both devices.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-079.png)
 
-1. The function code used in this module requires that you manually configure the core's endpoint\.
+1. <a name="configure-ip-address"></a>The function code used in this module requires that you manually configure the core's endpoint\.
 
    1. On the group configuration page, choose **Settings**\. 
 

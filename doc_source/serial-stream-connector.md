@@ -9,7 +9,15 @@ This connector supports two modes of operation:
 **Note**  
 Read requests are limited to a maximum read length of 63994 bytes\. Write requests are limited to a maximum data length of 128000 bytes\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/SerialStream/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | arn:aws:greengrass:*region*::/connectors/SerialStream/versions/2 | 
+| 1 | arn:aws:greengrass:*region*::/connectors/SerialStream/versions/1 | 
+
+For information about version changes, see the [Changelog](#serial-stream-connector-changelog)\.
 
 ## Requirements<a name="serial-stream-connector-req"></a>
 
@@ -121,7 +129,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MySerialStreamConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SerialStream/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SerialStream/versions/2",
             "Parameters": {
                 "BaudRate" : "9600",
                 "Timeout" : "25",
@@ -306,9 +314,21 @@ def function_handler(event, context):
 ## Licenses<a name="serial-stream-connector-license"></a>
 
 The Serial Stream connector includes the following third\-party software/licensing:
-+ [pyserial](https://github.com/pyserial/pyserial) / BSD
++ [pyserial](https://github.com/pyserial/pyserial)/BSD
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="serial-stream-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Updated connector ARN for AWS Region support\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="serial-stream-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

@@ -71,7 +71,7 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
        return
    ```
 
-1. <a name="download-ggc-sdk"></a> Download the AWS IoT Greengrass Core SDK for Python from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. In the **Python** section, choose ** v1\.4\.0 \- Current version \(on GitHub\)** and then download the SDK\. 
+1. <a name="download-ggc-sdk"></a> Download the AWS IoT Greengrass Core SDK for Python from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\.
 
 1. <a name="unzip-ggc-sdk"></a>Unzip the downloaded package to get the SDK\. The SDK is the `greengrasssdk` folder\.
 
@@ -114,7 +114,7 @@ First, create the Lambda function\.
 
    1. For **Runtime**, choose **Python 2\.7**\.
 
-   1. For **Handler**, choose **lraTest\.function\_handler**\.
+   1. For **Handler**, enter **lraTest\.function\_handler**\.
 
 1. Choose **Upload**\.  
 ![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/upload-deployment-package.png)
@@ -191,7 +191,7 @@ Lambda functions that use local resources \(as described in this procedure\) mus
 
 ## Step 4: Add a Local Resource to the Greengrass Group<a name="lra-console-create-resource"></a>
 
-In this step, you add a local volume resource to a Greengrass group and grant the function read and write access to the resource\. A local resource has a group\-level scope, which makes it accessible by all Lambda functions in the group\.
+In this step, you add a local volume resource to the Greengrass group and grant the function read and write access to the resource\. A local resource has a group\-level scope\. You can grant permissions for any Lambda function in the group to access the resource\.
 
 1. On the group configuration page, choose **Resources**\.  
 ![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
@@ -228,7 +228,7 @@ In this step, you add a local volume resource to a Greengrass group and grant th
 
 In this step, you add two subscriptions to the Greengrass group\. These subscriptions enable bidirectional communication between the Lambda function and AWS IoT\.
 
-First, create a subscription for the Lambda function to send messages to AWS IoT Greengrass\.
+First, create a subscription for the Lambda function to send messages to AWS IoT\.
 
 1. On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.  
 ![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-subscriptions.png)

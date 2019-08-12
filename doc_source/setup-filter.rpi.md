@@ -69,7 +69,7 @@ If your computer is connected to a remote network using VPN, you might have diff
    sudo addgroup --system ggc_group
    ```
 
-1. To improve security on the Pi device, enable hardlink and softlink protection on the operating system at start up\.
+1. To improve security on the Pi device, enable hardlink and softlink protection on the operating system at startup\.
 
    1. Navigate to the `98-rpi.conf` file\.
 
@@ -123,7 +123,7 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    Your Raspberry Pi should now be ready for AWS IoT Greengrass\.
 
-1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the `Downloads` directory\.
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com//aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the `Downloads` directory\.
 
    ```
    cd /home/pi/Downloads
@@ -131,6 +131,7 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
    cd greengrass-dependency-checker-GGCv1.9.x
    wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip
    unzip greengrass-dependency-checker-GGCv1.9.x.zip
+   cd greengrass-dependency-checker-GGCv1.9.x
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```

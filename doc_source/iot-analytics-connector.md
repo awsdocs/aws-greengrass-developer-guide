@@ -261,6 +261,7 @@ This connector is subject to the following limits\.
   + Maximum message queue size in the Greengrass core router is 2\.5 MB\.
   + Maximum length of a topic string is 256 bytes of UTF\-8 encoded characters\.
 + This connector can be used only in AWS Regions that are supported by both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/rande.html#iotanalytics_region)\. Currently, this includes the following Regions:
+  + US East \(Ohio\) \- us\-east\-2
   + US East \(N\. Virginia\) \- us\-east\-1
   + US West \(Oregon\) \- us\-west\-2
   + Asia Pacific \(Tokyo\) \- ap\-northeast\-1
@@ -270,7 +271,7 @@ This connector is subject to the following limits\.
 ## Licenses<a name="iot-analytics-connector-license"></a>
 
 The IoT Analytics connector includes the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3) / Apache 2\.0
++ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
 

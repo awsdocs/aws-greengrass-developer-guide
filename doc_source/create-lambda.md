@@ -12,7 +12,7 @@ In this section, you:
 + Use the Lambda console to upload the `hello_world_python_lambda.zip` package\. 
 + Use the AWS IoT Core console to transfer the package to the AWS IoT Greengrass core device \(during group deployment\)\.
 
-1. <a name="download-ggc-sdk"></a> Download the AWS IoT Greengrass Core SDK for Python from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. In the **Python** section, choose ** v1\.4\.0 \- Current version \(on GitHub\)** and then download the SDK\. 
+1. <a name="download-ggc-sdk"></a> Download the AWS IoT Greengrass Core SDK for Python from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\.
 
 1. Unzip the downloaded package to get the Lambda function code and the SDK\.
 

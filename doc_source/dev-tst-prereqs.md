@@ -16,4 +16,4 @@ Follow these steps to create and configure an AWS account, create an IAM user, a
 
 1. [Create an IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) in your AWS account and attach the policy you just created\.
 
-If you are using AWS IoT Greengrass 1\.6\.1 or later, see [Using IDT for Greengrass 1\.6\.1 and Earlier](old-idt.md)\.
+If you are using AWS IoT Greengrass 1\.6\.1 or earlier, see [Using IDT for Greengrass 1\.6\.1 and Earlier](old-idt.md)\.

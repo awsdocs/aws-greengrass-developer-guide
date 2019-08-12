@@ -30,6 +30,8 @@
  In this step, you create a deployment input file and upload it to your Amazon S3 bucket\. This file is a serialized, line\-delimited JSON file that contains information about each group in your bulk deployment\. AWS IoT Greengrass uses this information to deploy each group on your behalf when you initialize your bulk group deployment\. 
 
 1.  Run the following command to get the `groupId` for each group you want to deploy\. You enter the `groupId` into your bulk deployment input file so that AWS IoT Greengrass can identify each group to be deployed\. 
+**Note**  
+<a name="find-group-ids-console"></a>In the AWS IoT Core console, you can also find the group ID on the group's **Settings** page and group version IDs on the **Deployments** page\.
 
    ```
    aws greengrass list-groups

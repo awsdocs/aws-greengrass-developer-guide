@@ -17,7 +17,12 @@ You can use this connector for many scenarios, such as:
 **Note**  
 This connector is not suitable for applications that have real\-time requirements\. Events with short durations might be missed\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/RaspberryPiGPIO/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 1 | arn:aws:greengrass:*region*::/connectors/RaspberryPiGPIO/versions/1 | 
 
 ## Requirements<a name="raspberrypi-gpio-connector-req"></a>
 

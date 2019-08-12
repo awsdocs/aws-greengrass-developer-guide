@@ -4,7 +4,15 @@ The Modbus\-RTU Protocol Adapter [connector](connectors.md) polls information fr
 
 This connector receives parameters for a Modbus RTU request from a user\-defined Lambda function\. It sends the corresponding request, and then publishes the response from the target device as an MQTT message\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/ModbusRTUProtocolAdapter/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | arn:aws:greengrass:*region*::/connectors/ModbusRTUProtocolAdapter/versions/2 | 
+| 1 | arn:aws:greengrass:*region*::/connectors/ModbusRTUProtocolAdapter/versions/1 | 
+
+For information about version changes, see the [Changelog](#modbus-protocol-adapter-connector-changelog)\.
 
 ## Requirements<a name="modbus-protocol-adapter-connector-req"></a>
 
@@ -43,7 +51,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyModbusRTUProtocolAdapterConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ModbusRTUProtocolAdapter/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ModbusRTUProtocolAdapter/versions/2",
             "Parameters": {
                 "ModbusSerialDevice-ResourceId": "MyLocalModbusSerialPort",
                 "ModbusSerialDevice": "/path-to-port"
@@ -57,6 +65,9 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 The Lambda function in this connector has a [long\-lived](lambda-functions.md#lambda-lifecycle) lifecycle\.
 
 In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+
+**Note**  
+After you deploy the Modbus\-RTU Protocol Adapter connector, you can use AWS IoT Things Graph to orchestrate interactions between devices in your group\. For more information, see [Modbus](https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-protocols-modbus.html) in the *AWS IoT Things Graph User Guide*\.
 
 ## Input Data<a name="modbus-protocol-adapter-connector-data-input"></a>
 
@@ -582,10 +593,22 @@ def function_handler(event, context):
 ## Licenses<a name="modbus-protocol-adapter-connector-license"></a>
 
 The Modbus\-RTU Protocol Adapter connector includes the following third\-party software/licensing:
-+ [pymodbus](https://github.com/riptideio/pymodbus/blob/master/README.rst) / BSD
-+ [pyserial](https://github.com/pyserial/pyserial) / BSD
++ [pymodbus](https://github.com/riptideio/pymodbus/blob/master/README.rst)/BSD
++ [pyserial](https://github.com/pyserial/pyserial)/BSD
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="modbus-protocol-adapter-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Updated connector ARN for AWS Region support\. Improved error logging\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="modbus-protocol-adapter-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

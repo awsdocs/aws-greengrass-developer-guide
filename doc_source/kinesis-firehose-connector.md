@@ -112,6 +112,19 @@ Type: `string`
 Valid values: `0 - 900`  
 Valid pattern: `[0-9]|[1-9]\\d|[1-9]\\d\\d|900`
 
+------
+#### [ Version 1 ]
+
+`DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
+The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
+The group role must allow the appropriate actions on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
+Display name in console: **Default delivery stream ARN**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `arn:aws:firehose:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):deliverystream/([a-zA-Z0-9_\-.]+)$`
+
+------
+
 **Example**  <a name="kinesis-firehose-connector-create"></a>
 **Create Connector Example \(CLI\)**  
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the connector\.  
@@ -134,39 +147,6 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 ```
 
 In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
-
-------
-#### [ Version 1 ]
-
-`DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
-The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
-The group role must allow the appropriate actions on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
-Display name in console: **Default delivery stream ARN**  
-Required: `true`  
-Type: `string`  
-Valid pattern: `arn:aws:firehose:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):deliverystream/([a-zA-Z0-9_\-.]+)$`
-
-**Example**  <a name="kinesis-firehose-connector-create"></a>
-**Create Connector Example \(CLI\)**  
-The following CLI command creates a `ConnectorDefinition` with an initial version that contains the connector\.  
-
-```
-aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{
-    "Connectors": [
-        {
-            "Id": "MyKinesisFirehoseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/1",
-            "Parameters": {
-                "DefaultDeliveryStreamArn": "arn:aws:firehose:region:account-id:deliverystream/stream-name"
-            }
-        }
-    ]
-}'
-```
-
-In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
-
-------
 
 ## Input Data<a name="kinesis-firehose-connector-data-input"></a>
 
@@ -371,8 +351,8 @@ def function_handler(event, context):
 
 ## Licenses<a name="kinesis-firehose-connector-license"></a>
 
-The Kinesis Firehose connector includes the following third\-party software and licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3) / Apache 2\.0
+The Kinesis Firehose connector includes the following third\-party software/licensing:
++ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
 

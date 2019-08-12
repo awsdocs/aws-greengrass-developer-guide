@@ -2,6 +2,16 @@
 
 This section contains download links for earlier versions of IDT\.
 
+**IDT v1\.3\.2 for AWS IoT Greengrass v1\.9\.2, v1\.9\.1, v1\.9\.0, v1\.8\.3, and v1\.8\.2**
++ IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.3.2.zip)
++ IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.3.2.zip)
++ IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_1.3.2.zip)
+
+**Release Notes:**
++ Added support for Greengrass v1\.9\.2 and v1\.8\.3\.
++ Added support for Greengrass OpenWRT\.
++ Added SSH username/password device login\.
+
 ****IDT v1\.3\.1 for AWS IoT Greengrass v1\.9\.1, v1\.9\.0, and v1\.8\.2 ****
 + IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.3.1.zip)
 + IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.3.1.zip)

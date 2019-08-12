@@ -45,7 +45,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Test Communications (Device Syncs Disabled)](comms-disabled.md)
       + [Test Communications (Device Syncs Enabled)](comms-enabled.md)
    + [Module 6: Accessing Other AWS Services](module6.md)
-      + [Configure IAM Roles](config-iam-roles.md)
+      + [Configure the Group Role](config-iam-roles.md)
       + [Create and Configure the Lambda Function](create-config-lambda.md)
       + [Configure Subscriptions](config_subs.md)
       + [Test Communications](comms-test.md)

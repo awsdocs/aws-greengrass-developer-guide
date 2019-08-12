@@ -164,7 +164,7 @@ The examples in this procedure are written with the assumption that the `config.
        "caPath" : "root.ca.pem",
        "certPath" : "hash.cert.pem",
        "keyPath" : "hash.private.key",
-       "thingArn" : "arn:aws:iot:region:account-id:thing/core-thing-name",
+       "thingArn" : "arn:partition:iot:region:account-id:thing/core-thing-name",
        "iotHost" : "host-prefix.iot.region.amazonaws.com",
        "ggHost" : "greengrass.iot.region.amazonaws.com",
        "keepAlive" : 600
@@ -243,7 +243,7 @@ To use over\-the\-air \(OTA\) updates with hardware security, the `PKCS11` objec
 
    ```
    "coreThing" : {
-     "thingArn" : "arn:aws:iot:region:account-id:thing/core-thing-name",
+     "thingArn" : "arn:partition:iot:region:account-id:thing/core-thing-name",
      "iotHost" : "host-prefix-ats.iot.region.amazonaws.com",
      "ggHost" : "greengrass-ats.iot.region.amazonaws.com",
      "keepAlive" : 600

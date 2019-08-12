@@ -25,14 +25,20 @@ The following table lists supported AWS Lambda runtimes and the versions of AWS 
 
 ## SDKs for Greengrass Lambda Functions<a name="lambda-sdks"></a>
 
-AWS provides three SDKs that can be used by Greengrass Lambda functions running on an AWS IoT Greengrass core\. These SDKs are contained in different packages, so functions can use them simultaneously\. To use an SDK in a Greengrass Lambda function, you include it in your deployment package\.
+AWS provides three SDKs that can be used by Greengrass Lambda functions running on an AWS IoT Greengrass core\. These SDKs are contained in different packages, so functions can use them simultaneously\. To use an SDK in a Greengrass Lambda function, include it in your deployment package\.
 
 **AWS IoT Greengrass Core SDK**  <a name="lambda-sdks-core"></a>
-The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the core device, publish messages to AWS IoT, interact with the local shadow service, invoke other deployed Lambda functions, and access secret resources\.  
-The following table lists the changes introduced in AWS IoT Greengrass Core SDK versions for Java, Node\.js, and Python\.    
-****    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
-For download information, see [AWS IoT Greengrass Core SDK Software](what-is-gg.md#gg-core-sdk-download)\.  
+Enables local Lambda functions to interact with the core to:  <a name="gg-core-sdk-functionality"></a>
++ Exchange MQTT messages with AWS IoT\.
++ Exchange MQTT messages with connectors, devices, and other Lambda functions in the Greengrass group\.
++ Interact with the local shadow service\.
++ Invoke other local Lambda functions\.
++ Access [secret resources](secrets.md)\.
+AWS IoT Greengrass provides the AWS IoT Greengrass Core SDK in the following languages and platforms on GitHub\.  <a name="gg-core-sdk-download-list"></a>
++ [ AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/)
++ [ AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/)
++ [ AWS IoT Greengrass Core SDK for Python](https://github.com/aws/aws-greengrass-core-sdk-python/)
++ [ AWS IoT Greengrass Core SDK for C](https://github.com/aws/aws-greengrass-core-sdk-c/)
 If you're running Python Lambda functions, you can also use [https://pypi.org/project/pip/](https://pypi.org/project/pip/) to install the AWS IoT Greengrass Core SDK for Python on the core device\. Then you can deploy your functions without including the SDK in the Lambda function deployment package\. For more information, see [greengrasssdk](https://pypi.org/project/greengrasssdk/)\.  
 To use `pip` to install the Python SDK, run the following command in your core device terminal\.  
 
@@ -41,8 +47,7 @@ pip install greengrasssdk
 ```
 
 **AWS IoT Greengrass Machine Learning SDK**  <a name="lambda-sdks-ml"></a>
-Current version: 1\.0\.0  
-The AWS IoT Greengrass Machine Learning SDK enables Lambda functions to consume machine learning models that are deployed to the Greengrass core as machine learning resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. For more information, including a code example that uses the SDK, see the [Image Classification](image-classification-connector.md) connector\.  
+Enables local Lambda functions to consume machine learning models that are deployed to the Greengrass core as machine learning resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. For more information, including a code example that uses the SDK, see the [Image Classification](image-classification-connector.md) connector\.  
 The following table lists supported languages or platforms and the versions of AWS IoT Greengrass Core software that it can run on\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)

@@ -98,7 +98,7 @@ By default, Lambda functions run inside an AWS IoT Greengrass container\. That c
 We recommend that you run Lambda functions in a Greengrass container unless your use case requires them to run without containerization\. By running your Lambda functions in a Greengrass container, you have more control over restricting access to resources\.
 
 Here are some example use cases for running without containerization:
-+ You want to run AWS IoT Greengrass on a device where you cannot make changes to the underlying kernel\. This might be due to company security policies or because the OS version does not allow it\.
++ You want to run AWS IoT Greengrass on a device that does not support container mode \(for example, because you are using a special Linux distribution or have a kernel version that is too old\)\.
 + You want to run your Lambda function in another container environment with its own OverlayFS, but encounter OverlayFS conflicts when you run in a Greengrass container\.
 + You need access to local resources with paths that can't be determined at deployment time or whose paths can change after deployment, such as pluggable devices\.
 + You have a legacy application that was written as a process and you have encountered issues when running it as a containerized Lambda function\.
@@ -139,7 +139,7 @@ You can use the AWS IoT Greengrass dependency checker to determine which isolati
 
 **To run the AWS IoT Greengrass dependency checker**
 
-1. Download and run the AWS IoT Greengrass dependency checker from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples)\.
+1. Download and run the AWS IoT Greengrass dependency checker from the [GitHub repository](https://github.com//aws-samples/aws-greengrass-samples)\.
 
    ```
    wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip

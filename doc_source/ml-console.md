@@ -153,8 +153,9 @@ First, create the Lambda function\.
 1. On the **Add a Lambda to your Greengrass Group** page, choose **Create new Lambda**\. This opens the AWS Lambda console\.  
 ![\[The Add a Lambda to your Greengrass Group page with Create new Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas-new-lambda.png)
 
-1. Choose **Author from scratch** and use the following values to create your function:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+1. Choose **Author from scratch** and use the following values to create your function:
+   + For **Function name**, enter **greengrassObjectClassification**\.
+   + For **Runtime**, choose **Python 2\.7**\.
 
    For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
@@ -165,8 +166,10 @@ First, create the Lambda function\.
 
    Now, upload your Lambda function deployment package and register the handler\.
 
-1. On the **Configuration** tab for the `greengrassObjectClassification` function, for **Function code**, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+1. On the **Configuration** tab for the `greengrassObjectClassification` function, for **Function code**, use the following values:
+   + For **Code entry type**, choose **Upload a \.zip file**\. 
+   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Handler**, enter **greengrassObjectClassification\.function\_handler**\.
 
 1. Choose **Upload**\.  
 ![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/upload-deployment-package.png)
@@ -189,8 +192,9 @@ Greengrass groups can reference a Lambda function by alias \(recommended\) or by
 1. On the **greengrassObjectClassification: 1** configuration page, from the **Actions** menu, choose **Create alias**\.  
 ![\[The Create alias option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-create-alias.png)
 
-1. On the **Create a new alias** page, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+1. On the **Create a new alias** page, use the following values:
+   + For **Name**, enter **mlTest**\.
+   + For **Version**, enter **1**\.
 **Note**  
 AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
@@ -226,14 +230,18 @@ First, add the Lambda function to your Greengrass group\.
 
 1. On the **greengrassObjectClassification** configuration page, choose **Edit**\.
 
-1. On the **Group\-specific Lambda configuration** page, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+1. On the **Group\-specific Lambda configuration** page, use the following values:
+   + For **Memory limit**, enter **96 MB**\.
+   + For **Timeout**, enter **10 seconds**\.
+   + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
+   + For **Read access to /sys directory**, choose **Enable**\.
 
    For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.  
 ![\[The greengrassObjectClassification page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-config.png)
 
-1. Under **Environment variables**, create a key\-value pair that uses the following values\. A key\-value pair is required by functions that interact with MXNet models on a Raspberry Pi\.    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+1. Under **Environment variables**, create a key\-value pair\. A key\-value pair is required by functions that interact with MXNet models on a Raspberry Pi\.
+
+   For the key, use MXNET\_ENGINE\_TYPE\. For the value, use NaiveEngine\. 
 **Note**  
 In your own user\-defined Lambda functions, you can optionally set the environment variable in your function code\.
 
@@ -250,12 +258,15 @@ First, create two local device resources for the camera: one for shared memory a
 
 1. On the **Local** tab, choose **Add a local resource**\.
 
-1. On the **Create a local resource** page, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+1. On the **Create a local resource** page, use the following values:
+   + For **Resource name**, enter **videoCoreSharedMemory**\.
+   + For **Resource type**, choose **Device**\.
+   + For **Device path**, enter **/dev/vcsm**\.
 
-   The **Device path** is the local absolute path of the device resource\. This path can only refer to a character device or block device under /dev\.
+     The device path is the local absolute path of the device resource\. This path can only refer to a character device or block device under `/dev`\.
+   + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
 
-   The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.  
+     The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.  
 ![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/local-resource-vcsm.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
@@ -267,8 +278,11 @@ First, create two local device resources for the camera: one for shared memory a
 
 1. Choose **Add another resource**\.
 
-1. On the **Create a local resource** page, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)  
+1. On the **Create a local resource** page, use the following values:
+   + For **Resource name**, enter **videoCoreInterface**\.
+   + For **Resource type**, choose **Device**\.
+   + For **Device path**, enter **/dev/vchiq**\.
+   + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.   
 ![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/local-resource-vchiq.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
@@ -294,7 +308,7 @@ Now, add the inference model as a machine learning resource\. This step includes
 
 1.  In the Amazon S3 console tab, upload the `squeezenet.zip` file to an Amazon S3 bucket\. For information, see [ How Do I Upload Files and Folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) 
 **Note**  
- Your bucket name must contain the string **greengrass** in order for the bucket to be accessible\. Choose a unique name \(such as **greengrass\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
+For the bucket to be accessible, your bucket name must contain the string **greengrass**\. Choose a unique name \(such as **greengrass\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
 
 1.  In the AWS IoT Greengrass console tab, locate and choose your Amazon S3 bucket\. Locate your uploaded `squeezenet.zip` file, and choose **Select**\. You might need to choose **Refresh** to update the list of available buckets and files\. 
 
@@ -384,8 +398,9 @@ If a monitor is attached to the Raspberry Pi, the live camera feed is displayed 
 1. In the AWS IoT Core console, choose **Test**\.  
 ![\[The navigation pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
-1. For **Subscriptions**, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+1. For **Subscriptions**, use the following values:
+   + For the subscription topic, use hello/world\.
+   + For **MQTT payload display**,choose **Display payloads as strings**\.
 
 1. Choose **Subscribe to topic**\.
 
@@ -398,15 +413,10 @@ If the test is not successful, you can try the following troubleshooting steps\.
 
 #### Check Error Logs<a name="troubleshooting-check-logs"></a>
 
-1. Switch to the root user\.
+1. <a name="root-access-logs"></a>Switch to the root user and navigate to the `log` directory\. Access to AWS IoT Greengrass logs requires root permissions\.
 
    ```
    sudo su
-   ```
-
-1. Navigate to the `/log` directory\.
-
-   ```
    cd /greengrass/ggc/var/log
    ```
 
@@ -414,7 +424,7 @@ If the test is not successful, you can try the following troubleshooting steps\.
 
    For more information, see [Troubleshooting with Logs](gg-troubleshooting.md#troubleshooting-logs)\.
 
-##### "Unpacking" Error in runtime\.log<a name="troubleshooting-targz-unpacking"></a>
+##### Unpacking Error in Runtime\.log<a name="troubleshooting-targz-unpacking"></a>
 
 If `runtime.log` contains an error similar to the following, make sure that your `tar.gz` source model package has a parent directory\.
 
@@ -424,7 +434,7 @@ Error while unpacking the file from /tmp/greengrass/artifacts/model-arn/path to 
 error: open /greengrass/ggc/deployment/path/model-arn/squeezenet/squeezenet_v1.1-0000.params: no such file or directory
 ```
 
-If your package doesn't have a parent directory that contains the model files, use the following command to try repackaging the model:
+If your package doesn't have a parent directory that contains the model files, use the following command to repackage the model:
 
 ```
 tar -zcvf model.tar.gz ./model

@@ -1,6 +1,6 @@
 # Configure the Lambda Function for AWS IoT Greengrass<a name="config-lambda"></a>
 
-You are now ready to configure your Lambda function for AWS IoT Greengrass\.
+You are now ready to configure your Lambda function for AWS IoT Greengrass\. In this step, you also configure a subscription that allows the Lambda function to communicate with AWS IoT and configure local logging for the Greengrass group\.
 
 1. In the AWS IoT Core console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
 
@@ -70,3 +70,15 @@ A subscription is directed in the sense that messages flow in a specific directi
 ![\[Screenshot with hello/world highlighted under Topic filter.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-039.png)
 
 1. Choose **Finish**\.
+
+1. Configure the group's logging settings\. For this tutorial, you configure AWS IoT Greengrass system components and user\-defined Lambda functions to write logs to the file system of the core device\. For more information, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
+
+   1. On the group configuration page, choose **Settings**\.
+
+   1. For **Local logs configuration**, choose **Edit**\.
+
+   1. On the **Configure Group logging** page, choose **Add another log type**\.
+
+   1. For event source, choose **User Lambdas** and **Greengrass system**, and then choose **Update**\.
+
+   1. Keep the default values for logging level and disk space limit, and then choose **Save**\.

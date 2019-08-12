@@ -144,8 +144,9 @@ Run the following commands in your Raspberry Pi terminal\.
 1.  On the **Add a Lambda to your Greengrass Group** page, choose **Create new Lambda**\. This opens the AWS Lambda console\.   
 ![\[The Add a Lambda to your Greengrass Group page with Create new Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas-new-lambda.png)
 
-1. Choose **Author from scratch** and use the following values to create your function:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
+1. Choose **Author from scratch** and use the following values to create your function:
+   + For **Function name**, enter **optimizedImageClassification**\. 
+   + For **Runtime**, choose **Python 2\.7**\.
 
    For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.  
 ![\[The Basic information section of the Create function page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-dlr-lambda-creation.png)
@@ -156,8 +157,10 @@ Run the following commands in your Raspberry Pi terminal\.
 
 Now, upload your Lambda function deployment package and register the handler\.
 
-1.  On the **Configuration** tab for the `optimizedImageClassification` function, for **Function code**, use the following values:     
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
+1.  On the **Configuration** tab for the `optimizedImageClassification` function, for **Function code**, use the following values: 
+   + For **Code entry type**, choose **Upload a \.zip file**\.
+   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Handler**, enter **inference\.handler**\.
 
 1. Choose **Upload**\.  
 ![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-ml2-lambda-upload.png)
@@ -181,8 +184,9 @@ Greengrass groups can reference a Lambda function by alias \(recommended\) or by
 1. On the **optimizedImageClassification: 1** configuration page, from the **Actions** menu, choose **Create alias**\.  
 ![\[The Create alias option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-ml2-create-alias.png)
 
-1. On the **Create a new alias** page, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
+1. On the **Create a new alias** page, use the following values:
+   + For **Name**, enter **mlTestOpt**\.
+   + For **Version**, enter **1**\.
 **Note**  
 AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
@@ -212,8 +216,11 @@ Next, configure the lifecycle of the Lambda function\.
 
 1. On the **optimizedImageClassification** configuration page, choose **Edit**\.
 
-1. On the **Group\-specific Lambda configuration** page, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
+1. On the **Group\-specific Lambda configuration** page, use the following values:
+   + For **Memory limit**, enter **1024 MB**\.
+   + For **Timeout**, enter **10 seconds**\.
+   + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
+   + For **Read access to /sys directory**, choose **Enable**\.
 
    For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.
 
@@ -274,12 +281,15 @@ Next, configure the lifecycle of the Lambda function\.
 
 1. On the **Local Resources** tab, choose **Add local resource**\.
 
-1. On the **Create a local resource** page, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
+1. On the **Create a local resource** page, use the following values:
+   + For **Resource name**, enter **videoCoreSharedMemory**\.
+   + For **Resource type**, choose **Device**\.
+   + For **Device path**, enter **/dev/vcsm**\.
 
-   The **Device path** is the local absolute path of the device resource\. This path can only refer to a character device or block device under /dev\.
+     The **Device path** is the local absolute path of the device resource\. This path can only refer to a character device or block device under /dev\.
+   + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
 
-   The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.  
+     The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.  
 ![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/local-resource-vcsm.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
@@ -291,8 +301,11 @@ Next, configure the lifecycle of the Lambda function\.
 
 1. At the bottom of the page, choose **Add another resource**\.
 
-1. On the **Create a local resource** page, use the following values:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)  
+1. On the **Create a local resource** page, use the following values:
+   + For **Resource name**, enter **videoCoreInterface**\.
+   + For **Resource type**, choose **Device**\.
+   + For **device path**, enter **/dev/vchiq**\.
+   + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.  
 ![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/local-resource-vchiq.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
@@ -380,8 +393,9 @@ If a monitor is attached to the Raspberry Pi, the live camera feed is displayed 
 1. On the AWS IoT Core console home page, choose **Test**\.  
 ![\[The navigation pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
-1.  For **Subscriptions**, choose **Subscribe to a Topic**\. Use the following values\. Leave the remaining options at their defaults:     
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
+1.  For **Subscriptions**, choose **Subscribe to a Topic**\. Use the following values\. Leave the remaining options at their defaults\. 
+   + For **Subscription topic**, enter **/resnet\-50/predictions**\.
+   + For **MQTT payload display**, choose **Display payloads as strings**\.
 
 1. Choose **Subscribe to topic**\.
 
@@ -467,15 +481,10 @@ If the test is not successful, you can try the following troubleshooting steps\.
 
 ### Check Error Logs<a name="troubleshooting-check-logs"></a>
 
-1. Switch to the root user\.
+1. <a name="root-access-logs"></a>Switch to the root user and navigate to the `log` directory\. Access to AWS IoT Greengrass logs requires root permissions\.
 
    ```
    sudo su
-   ```
-
-1. Navigate to the `/log` directory\.
-
-   ```
    cd /greengrass/ggc/var/log
    ```
 
@@ -485,7 +494,7 @@ If the test is not successful, you can try the following troubleshooting steps\.
    cat system/runtime.log | grep 'ERROR'
    ```
 
-   You can also look in your user lambda log for any errors: 
+   You can also look in your user\-defined Lambda function log for any errors: 
 
    ```
    cat user/your-region/your-account-id/lambda-function-name.log | grep 'ERROR'
