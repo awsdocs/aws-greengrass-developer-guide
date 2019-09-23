@@ -46,25 +46,35 @@ On Linux devices, the default location of the AWS IoT Greengrass Core software i
 
 **Note**  
 Your device should have an installation of the AWS IoT Greengrass Core software that has not been started\.  
-Make sure you have added the `ggc_user` user and `ggc_group` on your device\. For more information, see [Environment Setup for AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html)
+Make sure you have added the `ggc_user` user and `ggc_group` on your device\. For more information, see [Environment Setup for AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html)\.
 
 ## Configure Your Host Computer to Access Your Device Under Test<a name="configure-host"></a>
 
-IDT runs on your host computer and must be able to use SSH to connect to your device\. You must create an SSH key pair and authorize your key to sign in to your device under test without having to specify a password\.
+IDT runs on your host computer and must be able to use SSH to connect to your device\. There are two options to allow IDT to gain SSH access to your devices under test:
 
-The following instructions for creating an SSH key are written with the assumption that you are using [SSH\-KEYGEN](https://www.ssh.com/ssh/keygen/)\. If you are using another SSL implementation, refer to the documentation for that implementation\.
+1. Follow the instructions here to create an SSH key pair and authorize your key to sign in to your device under test without specifying a password\.
 
-****
+1. Provide a user name and password for each device in the `device.json` file\. For more information, see [Device Configuration](set-config.md#device-config)\.
 
-1. Create an SSH Key\. IDT uses SSH keys to authenticate with your device under test\. You can use the Open SSH ssh\-keygen command to create an SSH key pair\. If you already have an SSH key pair on your host computer, it is a best practice to create a SSH key pair specifically for IDT\. This allows you to remove the ability of your host computer to connect to your device \(without entering a password\) when you have completed testing\. It also enables you to restrict access to the remote device to only those who need it\.
+You can use any SSL implementation to create an SSH key\. The following instructions show you how to use [SSH\-KEYGEN](https://www.ssh.com/ssh/keygen/) or [ PuTTYgen](https://www.ssh.com/ssh/putty/windows/puttygen) \(for Windows\)\. If you are using another SSL implementation, refer to the documentation for that implementation\.
+
+IDT uses SSH keys to authenticate with your device under test\. 
+
+**To create an SSH key with SSH\-KEYGEN**
+
+1. Create an SSH key\.
+
+   You can use the Open SSH ssh\-keygen command to create an SSH key pair\. If you already have an SSH key pair on your host computer, it is a best practice to create a SSH key pair specifically for IDT\. This way, after you have completed testing, your host computer can no longer connect to your device without entering a password\. It also allows you to restrict access to the remote device to only those who need it\.
 **Note**  
-Windows does not come with an installed SSH client\. For information about installing an SSH client on Windows, see [Download SSH Client Software](https://www.ssh.com/ssh/#sec-Download-client-software)\.
+Windows does not have an installed SSH client\. For information about installing an SSH client on Windows, see [Download SSH Client Software](https://www.ssh.com/ssh/#sec-Download-client-software)\.
 
    The ssh\-keygen command prompts you for a name and path to store the key pair\. By default, the key pair files are named `id_rsa` \(private key\) and `id_rsa.pub` \(public key\)\. On macOS and Linux, the default location of these files is `~/.ssh/`\. On Windows, the default location is `C:\Users\<user-name>\.ssh`\.
 
    When prompted, enter a key phrase to protect your SSH key\. For more information, see [Generate a New SSH Key](https://www.ssh.com/ssh/keygen/)\.
 
-1. Adding Authorized SSH Keys to Your Device Under Test\. IDT must use your SSH private key to sign in to your device under test\. To authorize your SSH private key to sign in to your device under test, use the ssh\-copy\-id command from your host computer\. This command adds your public key into the `~/.ssh/authorized_keys` file on your device under test\. For example:
+1. Add authorized SSH keys to your device under test\.
+
+   IDT must use your SSH private key to sign in to your device under test\. To authorize your SSH private key to sign in to your device under test, use the ssh\-copy\-id command from your host computer\. This command adds your public key into the `~/.ssh/authorized_keys` file on your device under test\. For example:
 
    $ ssh\-copy\-id *<remote\-ssh\-user>*@*<remote\-device\-ip>*
 
@@ -75,6 +85,142 @@ Windows does not come with an installed SSH client\. For information about insta
    When prompted, enter the password for the user name you specified in the ssh\-copy\-id command\.
 
    ssh\-copy\-id assumes the public key is named `id_rsa.pub` and is stored the default location \(on macOS and Linux, `~/.ssh/` and on Windows, `C:\Users\<user-name>\.ssh`\)\. If you gave the public key a different name or stored it in a different location, you must specify the fully qualified path to your SSH public key using the \-i option to ssh\-copy\-id \(for example, ssh\-copy\-id \-i \~/my/path/myKey\.pub\)\. For more information about creating SSH keys and copying public keys, see [SSH\-COPY\-ID](https://www.ssh.com/ssh/copy-id)\.
+
+**To create an SSH key using PuTTYgen \(Windows only\)**
+
+1. Make sure you have the OpenSSH server and client installed on your device under test\. For more information, see [OpenSSH](https://www.openssh.com/)\.
+
+1. Install [PuTTYgen](https://www.puttygen.com/) on your device under test\.
+
+1. Open PuTTYgen\.
+
+1. Choose **Generate** and move your mouse cursor inside the box to generate a private key\.
+
+1. From the **Conversions** menu, choose **Export OpenSSH key**, and save the private key with a `.pem` file extension\.
+
+1. Add the public key to the `/home/<user>/.ssh/authorized_keys` file on device under test\.
+
+   1. Copy the public key text from the PuTTYgen window\.
+
+   1. Use PuTTY to create a session on your device under test\.
+
+      1. From a command prompt or Windows Powershell window, run the following command:
+
+         C:/*<path\-to\-putty>*/putty\.exe \-ssh *<user>*@*<dut\-ip\-address>*
+
+      1. When prompted, enter your device's password\.
+
+      1. Use vi or another text editor to append the public key to the `/home/<user>/.ssh/authorized_keys` file on your device under test\.
+
+1. Update your `device.json` file with your user name, the IP address, and path to the private key file that you just saved on your host computer for each device under test\. For more information, see [ Device Configuration  In addition to AWS credentials, IDT for AWS IoT Greengrass needs information about the devices that tests are run on \(for example, IP address, login information, operating system, and CPU architecture\)\. You must provide this information using the `device.json` template located in ` <device_tester_extract_location>/configs/device.json`: 
+
+```
+[
+  {
+    "id": "<pool-id>",
+    "sku": "<sku>",
+    "features": [
+      {
+        "name": "os",
+        "value": "linux | ubuntu | openwrt"
+      },
+      {
+        "name": "arch",
+        "value": "x86_64 | armv7l | aarch64"
+      }
+    ],
+    "hsm": {
+      "p11Provider": "</path/to/pkcs11ProviderLibrary>",
+      "slotLabel": "<slot-label>",
+      "slotUserPin": "<pin>",
+      "privateKeyLabel": "<key-label>",
+      "openSSLEngine": "</path/to/openssl/engine>"
+    },
+    "kernelConfigLocation": "",
+    "greengrassLocation": "",
+    "devices": [
+		{
+			"id": "<device-id>",
+			"connectivity": {
+				"protocol": "ssh",
+				"ip": "<ip-address>",
+				"auth": {
+					"method": "pki" | "password",
+					"credentials": {
+						"user": "<user>",
+						"privKeyPath": "</path/to/private/key>",
+						"password": "<your-password>
+					}
+				}
+			}
+		}
+    ]
+  }
+]
+```  Specify `privKeyPath` only if `method` is set to `pki`\. Specify `password` only if `method` is set to `password`  All fields that contain values are required as described here:  
+
+`id`  
+A user\-defined alphanumeric ID that uniquely identifies a collection of devices called a *device pool*\. Devices that belong to a pool must have identical hardware\. When you run a suite of tests, devices in the pool are used to parallelize the workload\. Multiple devices are used to run different tests\. 
+
+`sku`  
+An alphanumeric value that uniquely identifies the device under test\. The SKU is used to track qualified boards\.  
+If you want to list your board in the AWS Partner Device Catalog, the SKU you specify here must match the SKU that you use in the listing process\. 
+
+`features`  
+An array that contains the device's supported features\.  
++ Required features: `os`, `arch`\.
++ Supported OS/architecture combinations:
+  + Linux, x86\_64
+  + Linux, ARMv7l
+  + Linux, AArch64
+  + Ubuntu, x86\_64
+  + OpenWRT, ARMv7l
+  + OpenWRT, AArch64 
+
+`hsm (optional)`  
+Contains configuration information for testing with an AWS IoT Greengrass Hardware Security Module \(HSM\)\. Otherwise, the `<hsm>` element should be omitted\. For more information, see [Hardware Security Integration](hardware-security.md)\.    
+`hsm.p11Provider`  
+The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  
+`hsm.slotLabel`  
+The slot label used to identify the hardware module\.  
+`hsm.slotUserPin`  
+The user PIN used to authenticate the AWS IoT Greengrass core to the module\.  
+`hsm.privateKeyLabel`  
+The label used to identify the key in the hardware module\.  
+`hsm.openSSLEngine`  
+The absolute path to the OpenSSL engine's `.so` file that enables PKCS\#11 support on OpenSSL\. Used by the AWS IoT Greengrass OTA update agent\. 
+
+`devices.id`  
+A user\-defined unique identifier for the device being tested\. 
+
+`connectivity.protocol`  
+The communication protocol used to communicate with this device\. Currently, the only supported value is `ssh`\. 
+
+`connectivity.ip`  
+The IP address of the device being tested\. 
+
+`connectivity.auth.method`  
+The authorization method used to access a device over the given connectivity protocol\. Supported values are:  
++ `pki`
++ `password` 
+
+`connectivity.auth.credentials.password`  
+The password used for signing in to the device being tested\. Specify this value only if `connectivity.auth.method` is set to `password`\. 
+
+`connectivity.auth.credentials.privKeyPath`  
+The full path to the private key used to sign in to the device under test\. Specify this value only if `connectivity.auth.method` is set to `pki`\. 
+
+`connectivity.auth.credentials.user`  
+The user name for signing in to the device being tested\. 
+
+`connectivity.auth.credentials.privKeyPath`  
+The full path to the private key used to sign in to the device being tested\. 
+
+`greengrassLocation`  
+The location of AWS IoT Greengrass Core software on your devices\. This value is only used when you use an existing installation of AWS IoT Greengrass\. Use this attribute to tell IDT to use the version of the AWS IoT Greengrass Core software installed on your devices\. 
+
+`kernelConfigLocation`  
+\(Optional\) The path to the kernel configuration file\. AWS IoT Device Tester uses this file to check if the devices have the required kernel features enabled\. If not specified, IDT uses the following paths to search for the kernel configuration file: `/proc/config.gz` and `/boot/config-<kernel-version>`\. AWS IoT Device Tester uses the first path it finds\.  ](set-config.md#device-config)\. Make sure you provide the full path and file name to the private key and use forward slashes \('/'\)\. For example, for the Windows path `C:\DT\privatekey.pem`, use `C:/DT/privatekey.pem` in the `device.json` file\. 
 
 ## Configure User Permissions on Your Device<a name="root-access"></a>
 
@@ -87,8 +233,12 @@ Follow these steps on the device under test to allow sudo access without being p
 
 **To add the user to the sudo group**
 
-1. On the device under test, run `sudo usermod -aG sudo <username>`
+1. On the device under test, run `sudo usermod -aG sudo <username>`\.
 
 1. Sign out and then sign back in for changes to take effect\.
 
-1. Verify your user name was added successfully, run sudo echo test\. If you are not prompted for a password, your user is configured correctly\.
+1. To verify your user name was added successfully, run sudo echo test\. If you are not prompted for a password, your user is configured correctly\.
+
+1. Open the `/etc/sudoers` file and add the following line to the end of the file:
+
+   `<ssh-username> ALL=(ALL) NOPASSWD: ALL`

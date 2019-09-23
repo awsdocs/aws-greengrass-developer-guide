@@ -136,11 +136,11 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac23c15c17"></a>
+### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac22c15c17"></a>
 
 Currently, the AWS IoT Greengrass TensorFlow installer supports installation on 32\-bit laptop or desktop operating systems only\. To build TensorFlow on 64\-bit platforms, see [Installing TensorFlow](https://www.tensorflow.org/install/#installing_from_sources) in the TensorFlow documentation\.
 
-The following recommendations for improving inference results are based on our tests with the 32\-bit ARM precompiled libraries on the Raspberry Pi platform\. These recommendations are intended for advanced users for reference only, without guarantees of any kind\.
+The following recommendations for improving inference results are based on our tests with the 32\-bit Arm precompiled libraries on the Raspberry Pi platform\. These recommendations are intended for advanced users for reference only, without guarantees of any kind\.
 + Models that are trained using the [Checkpoint](https://www.tensorflow.org/get_started/checkpoints) format should be "frozen" to the protocol buffer format before serving\. For an example, see the [TensorFlow\-Slim image classification model library](https://github.com/tensorflow/models/tree/master/research/slim)\.
 + Don't use the TF\-Estimator and TF\-Slim libraries in either training or inference code\. Instead, use the `.pb` file model\-loading pattern that's shown in the following example\.
 

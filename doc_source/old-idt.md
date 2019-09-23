@@ -4,13 +4,13 @@ If you are using a version of IDT for AWS IoT Greengrass earlier than 1\.7\.0, y
 
 ## Install the AWS Command Line Interface \(CLI\)<a name="install-cli"></a>
 
-You will need to use the CLI to perform some operations\. If you don't have the CLI installed, follow the instructions in [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\.
+You use the CLI to perform some operations\. If you don't have the CLI installed, follow the instructions in [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\.
 
 Configure the CLI for the AWS Region you want to use by running aws configure from a command line\. For information about the AWS Regions that support IDT for AWS IoT Greengrass, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#amazon-freertos-ota-control)\.
 
 ## Configure the AWS IoT Greengrass Service Role<a name="config-gg-role"></a>
 
-To successfully deploy an AWS IoT Greengrass group, AWS IoT Greengrass requires permissions to perform actions on your behalf\. If you are using IDT v1\.1 for AWS IoT Greengrass or newer, IDT creates and associates the service role with your AWS account for you\. If you are using IDT v1\.0 for AWS IoT Greengrass, follow these instructions to create and associate the service role with your AWS account\.
+To successfully deploy an AWS IoT Greengrass group, AWS IoT Greengrass requires permissions to perform actions on your behalf\. If you are using IDT v1\.1 for AWS IoT Greengrass or later, IDT creates and associates the service role with your AWS account for you\. If you are using IDT v1\.0 for AWS IoT Greengrass, follow these instructions to create and associate the service role with your AWS account\.
 
 **To create the AWS IoT Greengrass service role**
 

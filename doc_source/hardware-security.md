@@ -31,9 +31,9 @@ Search for devices that are qualified for this feature in the [AWS Partner Devic
 + If you're using the Greengrass OTA update agent, the [OpenSSL libp11 PKCS\#11](https://github.com/OpenSC/libp11) wrapper library must be installed\. For more information, see [Configure Support for Over\-the\-Air Updates](#hardware-security-ota-updates)\.
 
 In addition, make sure that the following conditions are met:
-+ The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this from the **Manage** page for the core thing in the AWS IoT Core console\.
++ The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
 + The AWS IoT Greengrass Core software v1\.7 or later is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\. Version 1\.9 is required to use an EC key for the MQTT server\.
-+ The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT Core console\.
++ The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
 
 **Note**  
 Currently, AWS IoT Greengrass doesn't support loading the CA certificate or AWS IoT client certificate directly from the HSM\. The certificates must be loaded as plain\-text files on the file system in a location that can be read by Greengrass\.
@@ -102,7 +102,7 @@ The following are security and performance\-related provisioning practices\.
 **Note**  
 If you configure private keys to use with this feature \(by following the instructions provided by the hardware vendor\), be aware that AWS IoT Greengrass currently supports only the PKCS1 v1\.5 padding mechanism for encryption and decryption of [local secrets](secrets.md)\. AWS IoT Greengrass doesn't support Optimal Asymmetric Encryption Padding \(OAEP\)\.
 + Configure private keys to prohibit export\.
-+ Use the provisioning tool that's provided by the hardware vendor to generate a certificate signing request \(CSR\) using the hardware\-protected private key, and then use the AWS IoT Core console to generate a client certificate\.
++ Use the provisioning tool that's provided by the hardware vendor to generate a certificate signing request \(CSR\) using the hardware\-protected private key, and then use the AWS IoT console to generate a client certificate\.
 The practice of rotating keys doesn't apply when private keys are generated on an HSM\.
 
 **Performance**  <a name="hsm-performance"></a>

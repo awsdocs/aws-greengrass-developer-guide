@@ -10,7 +10,7 @@
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.2/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.3/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 
@@ -21,7 +21,7 @@
 
    Now you're ready to deploy the Lambda function and subscription configurations to your AWS IoT Greengrass core device\.
 
-1. In the AWS IoT Core console, on the group configuration page, from **Actions**, choose **Deploy**\.  
+1. In the AWS IoT console, on the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with Deployments, Actions menu, and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)
 
 1. On the **Configure how devices discover your core** page, choose **Automatic detection**\. This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  

@@ -1,26 +1,47 @@
-# Image Classification<a name="image-classification-connector"></a>
+# ML Image Classification Connector<a name="image-classification-connector"></a>
 
-The Image Classification [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs image classification using a model trained by the Amazon SageMaker image classification algorithm\.
+The ML Image Classification [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs image classification using a model trained by the Amazon SageMaker image classification algorithm\.
 
 User\-defined Lambda functions use the AWS IoT Greengrass Machine Learning SDK to submit inference requests to the local inference service\. The service runs inference locally and returns probabilities that the input image belongs to specific categories\.
 
-AWS IoT Greengrass provides Image Classification connectors for multiple platforms:
+AWS IoT Greengrass provides the following versions of this connector, which is available for multiple platforms\.
+
+------
+#### [ Version 2 ]
 
 
 | Connector | Description and ARN | 
 | --- | --- | 
-| Image Classification Aarch64 JTX2 |  Image classification inference service for NVIDIA Jetson TX2\. Supports GPU acceleration\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationAarch64JTX2/versions/1` | 
-| Image Classification x86\_64 |  Image classification inference service for x86\_64 platforms\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationx86-64/versions/1` | 
-| Image Classification ARMv7 |  Image classification inference service for ARMv7 platforms\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationARMv7/versions/1` | 
+| ML Image Classification Aarch64 JTX2 |  Image classification inference service for NVIDIA Jetson TX2\. Supports GPU acceleration\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationAarch64JTX2/versions/2` | 
+| ML Image Classification x86\_64 |  Image classification inference service for x86\_64 platforms\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationx86-64/versions/2` | 
+| ML Image Classification ARMv7 |  Image classification inference service for ARMv7 platforms\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationARMv7/versions/2` | 
+
+------
+#### [ Version 1 ]
+
+
+| Connector | Description and ARN | 
+| --- | --- | 
+| ML Image Classification Aarch64 JTX2 |  Image classification inference service for NVIDIA Jetson TX2\. Supports GPU acceleration\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationAarch64JTX2/versions/1` | 
+| ML Image Classification x86\_64 |  Image classification inference service for x86\_64 platforms\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationx86-64/versions/1` | 
+| ML Image Classification Armv7 |  Image classification inference service for Armv7 platforms\. **ARN:** `arn:aws:greengrass:region::/connectors/ImageClassificationARMv7/versions/1` | 
+
+------
+
+For information about version changes, see the [Changelog](#image-classification-connector-changelog)\.
 
 ## Requirements<a name="image-classification-connector-req"></a>
 
 These connectors have the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7 or later\.
-+ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
-+ An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
-+ An IAM policy added to the Greengrass group role that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
+
+------
+#### [ Version 2 ]
++ AWS IoT Greengrass Core Software v1\.9\.3\.
++ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
++ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
++ <a name="req-image-classification-feedback"></a>The [ML Feedback connector](ml-feedback-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the connector to upload model input data and publish predictions to an MQTT topic\.
++ <a name="req-image-classification-policy"></a>An IAM policy added to the Greengrass group role that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
 
   ```
   {
@@ -38,12 +59,44 @@ These connectors have the following requirements:
   ```
 
   You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. If you change the target training job in the future, make sure to update the group role\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
++ [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) v1\.1\.0 is required to interact with this connector\.
+
+------
+#### [ Version 1 ]
++ AWS IoT Greengrass Core Software v1\.7 or later\.
++ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
++ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
++ <a name="req-image-classification-policy"></a>An IAM policy added to the Greengrass group role that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
+
+  ```
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Effect": "Allow",
+              "Action": [
+                  "sagemaker:DescribeTrainingJob"
+              ],
+              "Resource": "arn:aws:sagemaker:region:account-id:training-job:training-job-name"
+          }
+      ]
+  }
+  ```
+
+  You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. If you change the target training job in the future, make sure to update the group role\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
++ [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) v1\.0\.0 or later is required to interact with this connector\.
+
+------
 
 ## Connector Parameters<a name="image-classification-connector-param"></a>
 
 These connectors provide the following parameters\.
 
-`MLModelDestinationPath`  
+------
+#### [ Version 2 ]
+
+`MLModelDestinationPath`  <a name="param-image-classification-mdlpath"></a>
 The absolute local path of the ML resource inside the Lambda environment\. This is the destination path that's specified for the ML resource\.  
 If you created the ML resource in the console, this is the local path\.
 Display name in console: **Model destination path**  
@@ -51,83 +104,124 @@ Required: `true`
 Type: `string`  
 Valid pattern: `.+`
 
-`MLModelResourceId`  
+`MLModelResourceId`  <a name="param-image-classification-mdlresourceid"></a>
 The ID of the ML resource that references the source model\.  
 Display name in console: **SageMaker job ARN resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[a-zA-Z0-9:_-]+`
 
-`MLModelSageMakerJobArn`  
+`MLModelSageMakerJobArn`  <a name="param-image-classification-mdljobarn"></a>
 The ARN of the Amazon SageMaker training job that represents the Amazon SageMaker model source\. The model must be trained by the Amazon SageMaker image classification algorithm\.  
 Display name in console: **SageMaker job ARN**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^arn:aws:sagemaker:[a-zA-Z0-9-]+:[0-9]+:training-job/[a-zA-Z0-9][a-zA-Z0-9-]+$`
 
-`LocalInferenceServiceName`  
+`LocalInferenceServiceName`  <a name="param-image-classification-svcname"></a>
 The name for the local inference service\. User\-defined Lambda functions invoke the service by passing the name to the `invoke_inference_service` function of the AWS IoT Greengrass Machine Learning SDK\. For an example, see [Usage Example](#image-classification-connector-usage)\.  
 Display name in console: **Local inference service name**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[a-zA-Z0-9][a-zA-Z0-9-]{1,62}`
 
-`LocalInferenceServiceTimeoutSeconds`  
+`LocalInferenceServiceTimeoutSeconds`  <a name="param-image-classification-svctimeout"></a>
 The amount of time \(in seconds\) before the inference request is terminated\. The minimum value is 1\.  
 Display name in console: **Timeout \(second\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[1-9][0-9]*`
 
-`LocalInferenceServiceMemoryLimitKB`  
+`LocalInferenceServiceMemoryLimitKB`  <a name="param-image-classification-svcmemorylimit"></a>
 The amount of memory \(in KB\) that the service has access to\. The minimum value is 1\.  
 Display name in console: **Memory limit \(KB\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[1-9][0-9]*`
 
-`GPUAcceleration`  
-The CPU or GPU \(accelerated\) computing context\. This property applies to the Image Classification Aarch64 JTX2 connector only\.  
+`GPUAcceleration`  <a name="param-image-classification-gpuacceleration"></a>
+The CPU or GPU \(accelerated\) computing context\. This property applies to the ML Image Classification Aarch64 JTX2 connector only\.  
 Display name in console: **GPU acceleration**  
 Required: `true`  
 Type: `string`  
 Valid values: `CPU` or `GPU`
 
+`MLFeedbackConnectorConfigId`  <a name="param-image-classification-feedbackconfigid"></a>
+The ID of the feedback configuration to use to upload model input data\. This must match the ID of a feedback configuration defined for the [ML Feedback connector](ml-feedback-connector.md)\.  
+This parameter is required only if you want to use the ML Feedback connector to upload model input data and publish predictions to an MQTT topic\.  
+Display name in console: **ML Feedback connector configuration ID**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^$|^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}$`
+
+------
+#### [ Version 1 ]
+
+`MLModelDestinationPath`  <a name="param-image-classification-mdlpath"></a>
+The absolute local path of the ML resource inside the Lambda environment\. This is the destination path that's specified for the ML resource\.  
+If you created the ML resource in the console, this is the local path\.
+Display name in console: **Model destination path**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `.+`
+
+`MLModelResourceId`  <a name="param-image-classification-mdlresourceid"></a>
+The ID of the ML resource that references the source model\.  
+Display name in console: **SageMaker job ARN resource**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `[a-zA-Z0-9:_-]+`
+
+`MLModelSageMakerJobArn`  <a name="param-image-classification-mdljobarn"></a>
+The ARN of the Amazon SageMaker training job that represents the Amazon SageMaker model source\. The model must be trained by the Amazon SageMaker image classification algorithm\.  
+Display name in console: **SageMaker job ARN**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `^arn:aws:sagemaker:[a-zA-Z0-9-]+:[0-9]+:training-job/[a-zA-Z0-9][a-zA-Z0-9-]+$`
+
+`LocalInferenceServiceName`  <a name="param-image-classification-svcname"></a>
+The name for the local inference service\. User\-defined Lambda functions invoke the service by passing the name to the `invoke_inference_service` function of the AWS IoT Greengrass Machine Learning SDK\. For an example, see [Usage Example](#image-classification-connector-usage)\.  
+Display name in console: **Local inference service name**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `[a-zA-Z0-9][a-zA-Z0-9-]{1,62}`
+
+`LocalInferenceServiceTimeoutSeconds`  <a name="param-image-classification-svctimeout"></a>
+The amount of time \(in seconds\) before the inference request is terminated\. The minimum value is 1\.  
+Display name in console: **Timeout \(second\)**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `[1-9][0-9]*`
+
+`LocalInferenceServiceMemoryLimitKB`  <a name="param-image-classification-svcmemorylimit"></a>
+The amount of memory \(in KB\) that the service has access to\. The minimum value is 1\.  
+Display name in console: **Memory limit \(KB\)**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `[1-9][0-9]*`
+
+`GPUAcceleration`  <a name="param-image-classification-gpuacceleration"></a>
+The CPU or GPU \(accelerated\) computing context\. This property applies to the ML Image Classification Aarch64 JTX2 connector only\.  
+Display name in console: **GPU acceleration**  
+Required: `true`  
+Type: `string`  
+Valid values: `CPU` or `GPU`
+
+------
+
 ### Create Connector Example \(CLI\)<a name="image-classification-connector-create"></a>
 
-The following CLI commands create a `ConnectorDefinition` with an initial version that contains an Image Classification connector\.
+The following CLI commands create a `ConnectorDefinition` with an initial version that contains an ML Image Classification connector\.
 
 **Example: CPU Instance**  
-This example creates an instance of the Image Classification ARMv7l connector\.  
+This example creates an instance of the ML Image Classification Armv7l connector\.  
 
 ```
 aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{
     "Connectors": [
         {
             "Id": "MyImageClassificationConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ImageClassificationARMv7/versions/1",
-            "Parameters": {
-                "MLModelDestinationPath": "/path-to-model",
-                "MLModelResourceId": "my-ml-resource",
-                "MLModelSageMakerJobArn": "arn:aws:sagemaker:us-west-2:123456789012:training-job:MyImageClassifier",
-                "LocalInferenceServiceName": "imageClassification",
-                "LocalInferenceServiceTimeoutSeconds": "10",
-                "LocalInferenceServiceMemoryLimitKB": "500000"
-            }
-        }
-    ]
-}'
-```
-
-**Example: GPU Instance**  
-This example creates an instance of the Image Classification Aarch64 JTX2 connector, which supports GPU acceleration on an NVIDIA Jetson TX2 board\.  
-
-```
-aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{
-    "Connectors": [
-        {
-            "Id": "MyImageClassificationConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ImageClassificationAarch64JTX2/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ImageClassificationARMv7/versions/2",
             "Parameters": {
                 "MLModelDestinationPath": "/path-to-model",
                 "MLModelResourceId": "my-ml-resource",
@@ -135,7 +229,31 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
                 "LocalInferenceServiceName": "imageClassification",
                 "LocalInferenceServiceTimeoutSeconds": "10",
                 "LocalInferenceServiceMemoryLimitKB": "500000",
-                "GPUAcceleration": "GPU"
+                "MLFeedbackConnectorConfigId": "MyConfig0"
+            }
+        }
+    ]
+}'
+```
+
+**Example: GPU Instance**  
+This example creates an instance of the ML Image Classification Aarch64 JTX2 connector, which supports GPU acceleration on an NVIDIA Jetson TX2 board\.  
+
+```
+aws greengrass create-connector-definition --name MyGreengrassConnectors --initial-version '{
+    "Connectors": [
+        {
+            "Id": "MyImageClassificationConnector",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ImageClassificationAarch64JTX2/versions/2",
+            "Parameters": {
+                "MLModelDestinationPath": "/path-to-model",
+                "MLModelResourceId": "my-ml-resource",
+                "MLModelSageMakerJobArn": "arn:aws:sagemaker:us-west-2:123456789012:training-job:MyImageClassifier",
+                "LocalInferenceServiceName": "imageClassification",
+                "LocalInferenceServiceTimeoutSeconds": "10",
+                "LocalInferenceServiceMemoryLimitKB": "500000",
+                "GPUAcceleration": "GPU",
+                "MLFeedbackConnectorConfigId": "MyConfig0"
             }
         }
     ]
@@ -149,20 +267,91 @@ In the AWS IoT Greengrass console, you can add a connector from the group's **Co
 
 ## Input Data<a name="image-classification-connector-data-input"></a>
 
+ These connectors accept an image file as input\. Input image files must be in `jpeg` or `png` format\. For more information, see [Usage Example](#image-classification-connector-usage)\. 
+
 These connectors don't accept MQTT messages as input data\.
 
 ## Output Data<a name="image-classification-connector-data-output"></a>
+
+These connectors return a formatted prediction for the object identified in the input image:
+
+```
+[0.3,0.1,0.04,...]
+```
+
+The prediction contains a list of values that correspond with the categories used in the training dataset during model training\. Each value represents the probability that the image falls under the corresponding category\. The category with the highest probability is the dominant prediction\.
 
 These connectors don't publish MQTT messages as output data\.
 
 ## Usage Example<a name="image-classification-connector-usage"></a>
 
-The following example Lambda function uses the [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) to interact with an Image Classification connector\.
+The following example Lambda function uses the [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) to interact with an ML Image Classification connector\.
 
 **Note**  
  You can download the SDK from the [AWS IoT Greengrass Machine Learning SDK](what-is-gg.md#gg-ml-sdk-download) downloads page\.
 
 The example initializes an SDK client and synchronously calls the SDK's `invoke_inference_service` function to invoke the local inference service\. It passes in the algorithm type, service name, image type, and image content\. Then, the example parses the service response to get the probability results \(predictions\)\.
+
+------
+#### [ Python 3\.7 ]
+
+```
+import logging
+from threading import Timer
+
+import numpy as np
+
+import greengrass_machine_learning_sdk as ml
+
+# We assume the inference input image is provided as a local file
+# to this inference client Lambda function.
+with open('/test_img/test.jpg', 'rb') as f:
+    content = bytearray(f.read())
+
+client = ml.client('inference')
+
+def infer():
+    logging.info('invoking Greengrass ML Inference service')
+
+    try:
+        resp = client.invoke_inference_service(
+            AlgoType='image-classification',
+            ServiceName='imageClassification',
+            ContentType='image/jpeg',
+            Body=content
+        )
+    except ml.GreengrassInferenceException as e:
+        logging.info('inference exception {}("{}")'.format(e.__class__.__name__, e))
+        return
+    except ml.GreengrassDependencyException as e:
+        logging.info('dependency exception {}("{}")'.format(e.__class__.__name__, e))
+        return
+
+    logging.info('resp: {}'.format(resp))
+    predictions = resp['Body'].read().decode("utf-8")
+    logging.info('predictions: {}'.format(predictions))
+    
+    # The connector output is in the format: [0.3,0.1,0.04,...]
+    # Remove the '[' and ']' at the beginning and end.
+    predictions = predictions[1:-1]
+    count = len(predictions.split(','))
+    predictions_arr = np.fromstring(predictions, count=count, sep=',')
+
+    # Perform business logic that relies on the predictions_arr, which is an array
+    # of probabilities.
+    
+    # Schedule the infer() function to run again in one second.
+    Timer(1, infer).start()
+    return
+
+infer()
+
+def function_handler(event, context):
+    return
+```
+
+------
+#### [ Python 2\.7 ]
 
 ```
 import logging
@@ -219,6 +408,8 @@ def function_handler(event, context):
     return
 ```
 
+------
+
 The `invoke_inference_service` function in the AWS IoT Greengrass Machine Learning SDK accepts the following arguments\.
 
 
@@ -231,7 +422,7 @@ The `invoke_inference_service` function in the AWS IoT Greengrass Machine Learni
 
 ## Installing MXNet Dependencies on the AWS IoT Greengrass Core<a name="image-classification-connector-config"></a>
 
-To use an Image Classification connector, you must install the dependencies for the Apache MXNet framework on the core device\. The connectors use the framework to serve the ML model\.
+To use an ML Image Classification connector, you must install the dependencies for the Apache MXNet framework on the core device\. The connectors use the framework to serve the ML model\.
 
 **Note**  
 These connectors are bundled with a precompiled MXNet library, so you don't need to install the MXNet framework on the core device\. 
@@ -260,11 +451,38 @@ Before installing the MXNet dependencies, make sure that the required [system li
 
 1. Save a copy of the following installation script to a file named `nvidiajtx2.sh` on the core device\.
 
+------
+#### [ Python 3\.7 ]
+
    ```
    #!/bin/bash
    set -e
    
-   echo "Installing MXNet dependencies on the system..."
+   echo "Installing dependencies on the system..."
+   echo 'Assuming that universe repos are enabled and checking dependencies...'
+   apt-get -y update
+   apt-get -y dist-upgrade
+   apt-get install -y liblapack3 libopenblas-dev liblapack-dev libatlas-base-dev
+   apt-get install -y python3.7 python3.7-dev
+   
+   python3.7 -m pip install --upgrade pip
+   python3.7 -m pip install numpy==1.15.0
+   python3.7 -m pip install opencv-python || echo 'Error: Unable to install OpenCV with pip on this platform. Try building the latest OpenCV from source (https://github.com/opencv/opencv).'
+   
+   echo 'Dependency installation/upgrade complete.'
+   ```
+
+**Note**  
+<a name="opencv-build-from-source"></a>If [OpenCV](https://github.com/opencv/opencv) does not install successfully using this script, you can try building from source\. For more information, see [ Installation in Linux](https://docs.opencv.org/4.1.0/d7/d9f/tutorial_linux_install.html) in the OpenCV documentation, or refer to other online resources for your platform\.
+
+------
+#### [ Python 2\.7 ]
+
+   ```
+   #!/bin/bash
+   set -e
+   
+   echo "Installing dependencies on the system..."
    echo 'Assuming that universe repos are enabled and checking dependencies...'
    apt-get -y update
    apt-get -y dist-upgrade
@@ -280,6 +498,8 @@ Before installing the MXNet dependencies, make sure that the required [system li
    echo 'Dependency installation/upgrade complete.'
    ```
 
+------
+
 1. From the directory where you saved the file, run the following command:
 
    ```
@@ -291,11 +511,54 @@ Before installing the MXNet dependencies, make sure that the required [system li
 
 1. Save a copy of the following installation script to a file named `x86_64.sh` on the core device\.
 
+------
+#### [ Python 3\.7 ]
+
    ```
    #!/bin/bash
    set -e
    
-   echo "Installing MXNet dependencies on the system..."
+   echo "Installing dependencies on the system..."
+   
+   release=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+   
+   if [ "$release" == '"Ubuntu"' ]; then
+     # Ubuntu. Supports EC2 and DeepLens. DeepLens has all the dependencies installed, so
+     # this is mostly to prepare dependencies on Ubuntu EC2 instance.
+     apt-get -y update
+     apt-get -y dist-upgrade
+   
+     apt-get install -y libgfortran3 libsm6 libxext6 libxrender1
+     apt-get install -y python3.7 python3.7-dev
+   elif [ "$release" == '"Amazon Linux"' ]; then
+     # Amazon Linux. Expect python to be installed already
+     yum -y update
+     yum -y upgrade
+   
+     yum install -y compat-gcc-48-libgfortran libSM libXrender libXext
+   else
+     echo "OS Release not supported: $release"
+     exit 1
+   fi
+   
+   python3.7 -m pip install --upgrade pip
+   python3.7 -m pip install numpy==1.15.0
+   python3.7 -m pip install opencv-python || echo 'Error: Unable to install OpenCV with pip on this platform. Try building the latest OpenCV from source (https://github.com/opencv/opencv).'
+   
+   echo 'Dependency installation/upgrade complete.'
+   ```
+
+**Note**  
+<a name="opencv-build-from-source"></a>If [OpenCV](https://github.com/opencv/opencv) does not install successfully using this script, you can try building from source\. For more information, see [ Installation in Linux](https://docs.opencv.org/4.1.0/d7/d9f/tutorial_linux_install.html) in the OpenCV documentation, or refer to other online resources for your platform\.
+
+------
+#### [ Python 2\.7 ]
+
+   ```
+   #!/bin/bash
+   set -e
+   
+   echo "Installing dependencies on the system..."
    
    release=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
    
@@ -322,6 +585,8 @@ Before installing the MXNet dependencies, make sure that the required [system li
    echo 'Dependency installation/upgrade complete.'
    ```
 
+------
+
 1. From the directory where you saved the file, run the following command:
 
    ```
@@ -329,15 +594,43 @@ Before installing the MXNet dependencies, make sure that the required [system li
    ```
 
 ------
-#### [ ARMv7 \(Raspberry Pi\) ]
+#### [ Armv7 \(Raspberry Pi\) ]
 
 1. Save a copy of the following installation script to a file named `armv7l.sh` on the core device\.
+
+------
+#### [ Python 3\.7 ]
 
    ```
    #!/bin/bash
    set -e
    
-   echo "Installing MXNet dependencies on the system..."
+   echo "Installing dependencies on the system..."
+   
+   apt-get update
+   apt-get -y upgrade
+   
+   apt-get install -y liblapack3 libopenblas-dev liblapack-dev
+   apt-get install -y python3.7 python3.7-dev
+   
+   python3.7 -m pip install --upgrade pip
+   python3.7 -m pip install numpy==1.15.0
+   python3.7 -m pip install opencv-python || echo 'Error: Unable to install OpenCV with pip on this platform. Try building the latest OpenCV from source (https://github.com/opencv/opencv).'
+   
+   echo 'Dependency installation/upgrade complete.'
+   ```
+
+**Note**  
+<a name="opencv-build-from-source"></a>If [OpenCV](https://github.com/opencv/opencv) does not install successfully using this script, you can try building from source\. For more information, see [ Installation in Linux](https://docs.opencv.org/4.1.0/d7/d9f/tutorial_linux_install.html) in the OpenCV documentation, or refer to other online resources for your platform\.
+
+------
+#### [ Python 2\.7 ]
+
+   ```
+   #!/bin/bash
+   set -e
+   
+   echo "Installing dependencies on the system..."
    
    apt-get update
    apt-get -y upgrade
@@ -360,13 +653,15 @@ Before installing the MXNet dependencies, make sure that the required [system li
    echo 'Dependency installation/upgrade complete.'
    ```
 
+------
+
 1. From the directory where you saved the file, run the following command:
 
    ```
    sudo bash armv7l.sh
    ```
 **Note**  
-On a Raspberry Pi, installing `scipy` using `pip` is a memory\-intensive operation that can cause the device to run out of memory and become unresponsive\. As a workaround, you can temporarily increase the swap size:  
+On a Raspberry Pi, using `pip` to install machine learning dependencies is a memory\-intensive operation that can cause the device to run out of memory and become unresponsive\. As a workaround, you can temporarily increase the swap size:  
 In `/etc/dphys-swapfile`, increase the value of the `CONF_SWAPSIZE` variable and then run the following command to restart `dphys-swapfile`\.  
 
    ```
@@ -381,14 +676,14 @@ Depending on your group settings, event and error logs are written to CloudWatch
 
 If the AWS IoT Greengrass group is configured to write local logs, the connector writes log files to `greengrass-root/ggc/var/log/user/region/aws/`\. For more information about Greengrass logging, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
 
-Use the following information to help troubleshoot issues with the Image Classification connectors\.
+Use the following information to help troubleshoot issues with the ML Image Classification connectors\.
 
 **Required system libraries**
 
-The following tabs list the system libraries required for each Image Classification connector\.
+The following tabs list the system libraries required for each ML Image Classification connector\.
 
 ------
-#### [ Image Classification Aarch64 JTX2 ]
+#### [ ML Image Classification Aarch64 JTX2 ]
 
 
 | Library | Minimum version | 
@@ -409,7 +704,7 @@ The following tabs list the system libraries required for each Image Classificat
 | libstdc\+\+\.so\.6 | GLIBCXX\_3\.4\.21, CXXABI\_1\.3\.8 | 
 
 ------
-#### [ Image Classification x86\_64 ]
+#### [ ML Image Classification x86\_64 ]
 
 
 | Library | Minimum version | 
@@ -423,7 +718,7 @@ The following tabs list the system libraries required for each Image Classificat
 | libstdc\+\+\.so\.6 | CXXABI\_1\.3\.8, GLIBCXX\_3\.4\.21 | 
 
 ------
-#### [ Image Classification ARMv7 ]
+#### [ ML Image Classification Armv7 ]
 
 
 | Library | Minimum version | 
@@ -448,11 +743,28 @@ The following tabs list the system libraries required for each Image Classificat
 
 ## Licenses<a name="image-classification-connector-license"></a>
 
-The Image Classification connectors includes the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3) / Apache 2\.0
-+ [mxnet](https://pypi.org/project/mxnet/) / Apache 2\.0
+The ML Image Classification connectors includes the following third\-party software/licensing:
++ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
++ [Deep Neural Network Library \(DNNL\)](https://github.com/intel/mkl-dnn)/Apache 2\.0
++ [OpenMP\* Runtime Library](https://www.openmprtl.org/)/See [Intel OpenMP Runtime Library licensing](#openmp-license)\.
++ [mxnet](https://pypi.org/project/mxnet/)/Apache 2\.0
++ <a name="six-license"></a>[six](https://github.com/benjaminp/six)/MIT
+
+**Intel OpenMP Runtime Library licensing**\. The Intel® OpenMP\* runtime is dual\-licensed, with a commercial \(COM\) license as part of the Intel® Parallel Studio XE Suite products, and a BSD open source \(OSS\) license\. For more information, see [Licensing](https://www.openmprtl.org/faq/10) in the Intel® OpenMP\* Runtime Library documentation\.
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="image-classification-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Added the `MLFeedbackConnectorConfigId` parameter to support the use of the [ML Feedback connector](ml-feedback-connector.md) to upload model input data, publish predictions to an MQTT topic, and publish metrics to Amazon CloudWatch\.  | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="image-classification-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

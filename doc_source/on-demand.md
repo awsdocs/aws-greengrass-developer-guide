@@ -15,7 +15,7 @@ An *[on\-demand](lambda-functions.md#lambda-lifecycle)* Lambda function is simil
 
    This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-1. <a name="console-test-after-deploy"></a>After your deployment is complete, return to the AWS IoT Core console home page and choose **Test**\.
+1. <a name="console-test-after-deploy"></a>After your deployment is complete, return to the AWS IoT console home page and choose **Test**\.
 
 1. Configure the following fields:
    + For **Subscription topic**, enter **hello/world/counter**\.

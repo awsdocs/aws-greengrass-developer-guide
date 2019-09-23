@@ -1,4 +1,4 @@
-# ServiceNow MetricBase Integration<a name="servicenow-connector"></a>
+# ServiceNow MetricBase Integration Connector<a name="servicenow-connector"></a>
 
 The ServiceNow MetricBase Integration [connector](connectors.md) publishes time series metrics from Greengrass devices to ServiceNow MetricBase\. This allows you to store, analyze, and visualize time series data from the Greengrass core environment, and act on local events\.
 
@@ -8,7 +8,15 @@ You can use this connector to support scenarios such as:
 + Create threshold\-based alerts and alarms based on time series data collected from Greengrass devices\.
 + Use time services data from Greengrass devices with custom applications built on the ServiceNow platform\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | arn:aws:greengrass:*region*::/connectors/ServiceNowMetricBaseIntegration/versions/2 | 
+| 1 | arn:aws:greengrass:*region*::/connectors/ServiceNowMetricBaseIntegration/versions/1 | 
+
+For information about version changes, see the [Changelog](#servicenow-connector-changelog)\.
 
 ## Requirements<a name="servicenow-connector-req"></a>
 
@@ -89,7 +97,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyServiceNowMetricBaseIntegrationConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/2",
             "Parameters": {
                 "PublishInterval" : "10",
                 "PublishBatchSize" : "50",
@@ -247,6 +255,18 @@ The ServiceNow MetricBase Integration connector includes the following third\-pa
 + [pysnow](https://github.com/rbw/pysnow)/MIT
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="servicenow-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Fix to reduce excessive logging\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="servicenow-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

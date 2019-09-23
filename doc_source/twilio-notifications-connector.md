@@ -1,4 +1,4 @@
-# Twilio Notifications<a name="twilio-notifications-connector"></a>
+# Twilio Notifications Connector<a name="twilio-notifications-connector"></a>
 
 The Twilio Notifications [connector](connectors.md) makes automated phone calls or sends text messages through Twilio\. You can use this connector to send notifications in response to events in the Greengrass group\. For phone calls, the connector can forward a voice message to the recipient\.
 
@@ -12,6 +12,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 3 | arn:aws:greengrass:*region*::/connectors/TwilioNotifications/versions/3 | 
 | 2 | arn:aws:greengrass:*region*::/connectors/TwilioNotifications/versions/2 | 
 | 1 | arn:aws:greengrass:*region*::/connectors/TwilioNotifications/versions/1 | 
 
@@ -76,7 +77,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyTwilioNotificationsConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/2",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/3",
             "Parameters": {
                 "TWILIO_ACCOUNT_SID": "abcd12345xyz",
                 "TwilioAuthTokenSecretArn": "arn:aws:secretsmanager:region:account-id:secret:greengrass-secret-hash",
@@ -333,6 +334,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 3 | Fix to reduce excessive logging\. | 
 | 2 | Minor bug fixes and improvements\. | 
 | 1 | Initial release\.  | 
 

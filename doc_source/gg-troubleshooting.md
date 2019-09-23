@@ -2,7 +2,7 @@
 
 This section provides troubleshooting information and possible solutions to help resolve issues with AWS IoT Greengrass\.
 
-For information about AWS IoT Greengrass limits, see [AWS IoT Greengrass Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_greengrass) in the *Amazon Web Services General Reference*\.
+<a name="gg-limits-genref"></a>For information about AWS IoT Greengrass limits, see [AWS IoT Greengrass Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_greengrass) in the *Amazon Web Services General Reference*\.
 
 ## AWS IoT Greengrass Core Issues<a name="gg-troubleshooting-coreissues"></a>
 
@@ -31,6 +31,8 @@ Search the following symptoms and errors to find information to help troubleshoo
 + [Error: Permission denied when attempting to use role arn:aws:iam::<account\-id>:role/<role\-name> to access s3 url https://<region>\-greengrass\-updates\.s3\.<region>\.amazonaws\.com/core/<architecture>/greengrass\-core\-<distribution\-version>\.tar\.gz\.](#troubleshoot-ota-region-access)
 + [The AWS IoT Greengrass core is configured to use a [network proxy](gg-core.md#alpn-network-proxy) and your Lambda function can't make outgoing connections\.](#troubleshoot-lambda-proxy-network-connections)
 + [The core is in an infinite connect\-disconnect loop\. The runtime\.log file contains a continuous series of connect and disconnect entries\.](#config-client-id)
++ [Error: unable to start lambda container\. container\_linux\.go:259: starting container process caused "process\_linux\.go:345: container init caused \\"rootfs\_linux\.go:62: mounting \\\\\\"proc\\\\\\" to rootfs \\\\\\"](#troubleshoot-mount-proc-lambda-container)
++ [Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/ packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengr ass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}](#troubleshoot-symbolic-links)
 
  
 
@@ -226,19 +228,111 @@ To resolve this issue, you can change the client ID used by the other device for
 
  
 
+### Error: unable to start lambda container\. container\_linux\.go:259: starting container process caused "process\_linux\.go:345: container init caused \\"rootfs\_linux\.go:62: mounting \\\\\\"proc\\\\\\" to rootfs \\\\\\"<a name="troubleshoot-mount-proc-lambda-container"></a>
+
+**Solution:** On some platforms, you might see this error in `runtime.log` when AWS IoT Greengrass tries to mount the `/proc` file system to create a Lambda container\. Or, you might see similar errors, such as `operation not permitted` or `EPERM`\. These errors can occur even if tests run on the platform by the dependency checker script pass\.
+
+Try one of the following possible solutions:
++ Enable the `CONFIG_DEVPTS_MULTIPLE_INSTANCES` option in the Linux kernel\.
++ Set the `/proc` mount options on the host to `rw,relatim` only\.
++ Upgrade the Linux kernel to 4\.9 or later\.
+
+**Note**  
+This issue is not related to mounting `/proc` for local resource access\.
+
+ 
+
+### Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/ packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengr ass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}<a name="troubleshoot-symbolic-links"></a>
+
+**Solution:** You might see this error in `runtime.log` on a Raspberry Pi if you're running AWS IoT Greengrass Core software v1\.9\.2 or earlier\. \(Your software version is shown in the error message\.\) To resolve this issue, update to AWS IoT Greengrass Core software v1\.9\.3\. For information about using over\-the\-air updates, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.
+
+ 
+
 ## Deployment Issues<a name="gg-troubleshooting-deploymentissues"></a>
 
 Use the following information to help troubleshoot deployment issues\.
 
 **Topics**
++ [Your current deployment does not work and you want to revert to a previous working deployment\.](#troubleshoot-revert-deployment)
 + [You see a 403 Forbidden error on deployment in the logs\.](#troubleshoot-forbidden-deployment)
 + [A ConcurrentDeployment error occurs when you run the create\-deployment command for the first time\.](#troubleshoot-concurrent-deployment)
 + [Error: Greengrass is not authorized to assume the Service Role associated with this account, or the error: Failed: TES service role is not associated with this account\.](#troubleshoot-assume-service-role)
 + [The deployment doesn't finish\.](#troubleshoot-stuck-deployment)
 + [The deployment doesn't finish, and runtime\.log contains multiple "wait 1s for container to stop" entries\.](#troubleshoot-wait-container-stop)
-+ [Error: Deployment <guid> of type NewDeployment for group <guid> failed error: Error while processing\. group config is invalid: 112 or \[119 0\] don't have rw permission on the file: <path>\.](#troubleshoot-access-permissions-deployment)
++ [Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Error while processing\. group config is invalid: 112 or \[119 0\] don't have rw permission on the file: <path>\.](#troubleshoot-access-permissions-deployment)
 + [Error: <list\-of\-function\-arns> are configured to run as root but Greengrass is not configured to run Lambda functions with root permissions\.](#troubleshoot-root-permissions-lambda)
++ [Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Greengrass deployment error: unable to execute download step in deployment\. error while processing: unable to load the group file downloaded: could not find UID based on user name, userName: ggc\_user: user: unknown user ggc\_user\.](#troubleshoot-could-not-find-uid)
 + [Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: process start failed: container\_linux\.go:259: starting container process caused "process\_linux\.go:250: running exec setns process for init caused \\"wait: no child processes\\""\.](#troubleshoot-wait-child-processes)
++ [Error: \[WARN\]\-MQTT\[client\] dial tcp: lookup <host\-prefix>\-ats\.iot\.<region>\.amazonaws\.com: no such host \.\.\. \[ERROR\]\-Greengrass deployment error: failed to report deployment status back to cloud \.\.\. net/http: request canceled while waiting for connection \(Client\.Timeout exceeded while awaiting headers\)](#troubleshoot-dnssec-validation-failed)
+
+ 
+
+### Your current deployment does not work and you want to revert to a previous working deployment\.<a name="troubleshoot-revert-deployment"></a>
+
+**Solution:** Use the AWS IoT console or AWS IoT Greengrass API to redeploy a previous working deployment\. This deploys the corresponding group version to your core device\.
+
+**To redeploy a deployment \(console\)**
+
+1. On the group configuration page, choose **Deployments**\. This page displays the deployment history for the group, including the date and time, group version, and status of each deployment attempt\.
+
+1. Find the row that contains the deployment you want to redeploy\. In the **Status** column, choose the ellipsis \(**…**\), and then choose **Re\-deploy**\.  
+![\[Deployments page showing the Re-Deploy action for a deployment.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-redeployment.png)
+
+**To redeploy a deployment \(CLI\)**
+
+1. Use [ListDeployments](https://docs.aws.amazon.com/greengrass/latest/apireference/listdeployments-get.html) to find the ID of the deployment you want to redeploy\. For example:
+
+   ```
+   aws greengrass list-deployments --group-id 74d0b623-c2f2-4cad-9acc-ef92f61fcaf7
+   ```
+
+   The command returns the list of deployments for the group\.
+
+   ```
+   {
+       "Deployments": [
+           {
+               "DeploymentId": "8d179428-f617-4a77-8a0c-3d61fb8446a6",
+               "DeploymentType": "NewDeployment",
+               "GroupArn": "arn:aws:greengrass:us-west-2:123456789012:/greengrass/groups/74d0b623-c2f2-4cad-9acc-ef92f61fcaf7/versions/8dd1d899-4ac9-4f5d-afe4-22de086efc62",
+               "CreatedAt": "2019-07-01T20:56:49.641Z"
+           },
+           {
+               "DeploymentId": "f8e4c455-8ac4-453a-8252-512dc3e9c596",
+               "DeploymentType": "NewDeployment",
+               "GroupArn": "arn:aws:greengrass:us-west-2::123456789012:/greengrass/groups/74d0b623-c2f2-4cad-9acc-ef92f61fcaf7/versions/4ad66e5d-3808-446b-940a-b1a788898382",
+               "CreatedAt": "2019-07-01T20:41:47.048Z"
+           },
+           {
+               "DeploymentId": "e4aca044-bbd8-41b4-b697-930ca7c40f3e",
+               "DeploymentType": "NewDeployment",
+               "GroupArn": "arn:aws:greengrass:us-west-2::123456789012:/greengrass/groups/74d0b623-c2f2-4cad-9acc-ef92f61fcaf7/versions/1f3870b6-850e-4c97-8018-c872e17b235b",
+               "CreatedAt": "2019-06-18T15:16:02.965Z"
+           }
+       ]
+   }
+   ```
+**Note**  
+These AWS CLI commands use example values for the group and deployment ID\. When you run the commands, make sure to replace the example values\.
+
+1. Use [CreateDeployment](https://docs.aws.amazon.com/greengrass/latest/apireference/createdeployment-post.html) to redeploy the target deployment\. Set the deployment type to `Redeployment`\. For example:
+
+   ```
+   aws greengrass create-deployment --deployment-type Redeployment \ 
+     --group-id 74d0b623-c2f2-4cad-9acc-ef92f61fcaf7 \
+     --deployment-id f8e4c455-8ac4-453a-8252-512dc3e9c596
+   ```
+
+   The command returns the ARN and ID of the new deployment\.
+
+   ```
+   {
+       "DeploymentId": "f9ed02b7-c28e-4df6-83b1-e9553ddd0fc2",
+       "DeploymentArn": "arn:aws:greengrass:us-west-2::123456789012:/greengrass/groups/74d0b623-c2f2-4cad-9acc-ef92f61fcaf7/deployments/f9ed02b7-c28e-4df6-83b1-e9553ddd0fc2"
+   }
+   ```
+
+1. Use [GetDeploymentStatus](https://docs.aws.amazon.com/greengrass/latest/apireference/getdeploymentstatus-get.html) to get the status of the deployment\.
 
  
 
@@ -271,7 +365,7 @@ Use the following information to help troubleshoot deployment issues\.
      ps aux | grep -E 'greengrass.*daemon'
      ```
 
-     If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.2/bin/daemon`, then the daemon is running\.
+     If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.3/bin/daemon`, then the daemon is running\.
 
      The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -297,7 +391,7 @@ sudo ./greengrassd start
 
  
 
-### Error: Deployment <guid> of type NewDeployment for group <guid> failed error: Error while processing\. group config is invalid: 112 or \[119 0\] don't have rw permission on the file: <path>\.<a name="troubleshoot-access-permissions-deployment"></a>
+### Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Error while processing\. group config is invalid: 112 or \[119 0\] don't have rw permission on the file: <path>\.<a name="troubleshoot-access-permissions-deployment"></a>
 
 **Solution:** Make sure that the owner group of the *<path>* directory has read and write permissions to the directory\.
 
@@ -309,9 +403,41 @@ sudo ./greengrassd start
 
  
 
+### Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Greengrass deployment error: unable to execute download step in deployment\. error while processing: unable to load the group file downloaded: could not find UID based on user name, userName: ggc\_user: user: unknown user ggc\_user\.<a name="troubleshoot-could-not-find-uid"></a>
+
+**Solution:** If the [default access identity](lambda-group-config.md#lambda-access-identity-groupsettings) of the AWS IoT Greengrass group uses the standard system accounts, the `ggc_user` user and `ggc_group` group must be present on the device\. For instructions that show how to add the user and group, see this [step](setup-filter.rpi.md#add-ggc-user-ggc-group)\. Make sure to enter the names exactly as shown\.
+
+ 
+
 ### Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: process start failed: container\_linux\.go:259: starting container process caused "process\_linux\.go:250: running exec setns process for init caused \\"wait: no child processes\\""\.<a name="troubleshoot-wait-child-processes"></a>
 
 **Solution:** You might see this error when the deployment fails\. Retry the deployment\.
+
+ 
+
+### Error: \[WARN\]\-MQTT\[client\] dial tcp: lookup <host\-prefix>\-ats\.iot\.<region>\.amazonaws\.com: no such host \.\.\. \[ERROR\]\-Greengrass deployment error: failed to report deployment status back to cloud \.\.\. net/http: request canceled while waiting for connection \(Client\.Timeout exceeded while awaiting headers\)<a name="troubleshoot-dnssec-validation-failed"></a>
+
+**Solution:** You might see this error if you're using `systemd-resolved`, which enables the `DNSSEC` setting by default\. As a result, many public domains are not recognized\. Attempts to reach the AWS IoT Greengrass endpoint fail to find the host, so your deployments remain in the `In Progress` state\.
+
+You can use the following commands and output to test for this issue\. Replace the *region* placeholder in the endpoints with your AWS Region\.
+
+```
+$ ping greengrass-ats.iot.region.amazonaws.com
+ping: greengrass-ats.iot.region.amazonaws.com: Name or service not known
+```
+
+```
+$ systemd-resolve greengrass-ats.iot.region.amazonaws.com
+greengrass-ats.iot.region.amazonaws.com: resolve call failed: DNSSEC validation failed: failed-auxiliary
+```
+
+One possible solution is to disable `DNSSEC`\. When `DNSSEC` is `false`, DNS lookups are not `DNSSEC` validated\. For more information, see this [known issue](https://github.com/systemd/systemd/issues/9867) for `systemd`\.
+
+1. Add `DNSSEC=false` to `/etc/systemd/resolved.conf`\.
+
+1. Restart `systemd-resolved`\.
+
+For information about `resolved.conf` and `DNSSEC`, run `man resolved.conf` in your terminal\.
 
  
 
@@ -369,6 +495,21 @@ Use the following information to help troubleshoot issues with creating an AWS I
 ### Error: Execution configuration for function with arn <function\-arn> is not allowed\.<a name="troubleshoot-execution-parameters-not-supported"></a>
 
 **Solution:** This error occurs when you create a system Lambda function with `GGIPDetector` or `GGCloudSpooler` and you specified `IsolationMode` or `RunAs` configuration\. You must omit the `Execution` parameters for this system Lambda function\.
+
+ 
+
+## Discovery Issues<a name="gg-troubleshooting-discovery-issues"></a>
+
+Use the following information to help troubleshoot issues with the AWS IoT Greengrass Discovery service\.
+
+**Topics**
++ [Error: Device is a member of too many groups, devices may not be in more than 10 groups](#troubleshoot-device-in-too-many-groups)
+
+ 
+
+### Error: Device is a member of too many groups, devices may not be in more than 10 groups<a name="troubleshoot-device-in-too-many-groups"></a>
+
+**Solution:** This is a known limitation\. A [Greengrass device](what-is-gg.md#greengrass-devices) can be a member of up to 10 groups\.
 
  
 

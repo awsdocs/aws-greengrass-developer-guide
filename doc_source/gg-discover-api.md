@@ -1,7 +1,7 @@
 # Greengrass Discovery RESTful API<a name="gg-discover-api"></a>
 
 All devices that communicate with an AWS IoT Greengrass core must be a member of a Greengrass group\. Each group must have an AWS IoT Greengrass core\. The Discovery API enables devices to retrieve information required to connect to an AWS IoT Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS IoT Greengrass cloud service and use the Discovery API to find:
-+ The group to which it belongs\.
++ The group to which it belongs\. A device can be a member of up to 10 groups\.
 + The IP address and port for the AWS IoT Greengrass core in the group\.
 + The group's root CA certificate, which can be used to authenticate the AWS IoT Greengrass core device\.
 

@@ -146,7 +146,7 @@ The following example policy includes the minimum set of actions required to sup
 }
 ```
 
-On the AWS IoT Core console, you can easily view and edit the policy that's attached to your core's certificate\.
+On the AWS IoT console, you can easily view and edit the policy that's attached to your core's certificate\.
 
 1. In the navigation pane, choose **Manage**, choose **Things**, and then choose your core\.
 

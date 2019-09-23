@@ -47,8 +47,8 @@ pip install greengrasssdk
 ```
 
 **AWS IoT Greengrass Machine Learning SDK**  <a name="lambda-sdks-ml"></a>
-Enables local Lambda functions to consume machine learning models that are deployed to the Greengrass core as machine learning resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. For more information, including a code example that uses the SDK, see the [Image Classification](image-classification-connector.md) connector\.  
-The following table lists supported languages or platforms and the versions of AWS IoT Greengrass Core software that it can run on\.    
+Enables local Lambda functions to consume machine learning models that are deployed to the Greengrass core as machine learning \(ML\) resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. Lambda functions and ML connectors can also use the SDK to send data to the ML Feedback connector for uploading and publishing\. For more information, including code examples that use the SDK, see [ML Image Classification Connector](image-classification-connector.md), [ML Object Detection Connector](obj-detection-connector.md), and [ML Feedback Connector](ml-feedback-connector.md)\.  
+The following table lists supported languages or platforms for SDK versions and the versions of AWS IoT Greengrass Core software they can run on\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
 For download information, see [AWS IoT Greengrass ML SDK Software](what-is-gg.md#gg-ml-sdk-download)\.
@@ -189,7 +189,7 @@ To test the function, add it to your group using the default configuration setti
 
 After the deployment is completed, invoke the function\.
 
-1. In the AWS IoT Core console, open the **Test** page\.
+1. In the AWS IoT console, open the **Test** page\.
 
 1. Subscribe to the `test/topic_results` topic\.
 

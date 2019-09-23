@@ -1,10 +1,18 @@
-# Device Defender<a name="device-defender-connector"></a>
+# Device Defender Connector<a name="device-defender-connector"></a>
 
 The Device Defender [connector](connectors.md) notifies administrators of changes in the state of a Greengrass core device\. This can help identify unusual behavior that might indicate a compromised device\.
 
 This connector reads system metrics from the `/proc` directory on the core device, and then publishes the metrics to AWS IoT Device Defender\. For metrics reporting details, see [Device Metrics Document Specification](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html#DetectMetricsMessagesSpec) in the *AWS IoT Developer Guide*\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/DeviceDefender/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | arn:aws:greengrass:*region*::/connectors/DeviceDefender/versions/2 | 
+| 1 | arn:aws:greengrass:*region*::/connectors/DeviceDefender/versions/1 | 
+
+For information about version changes, see the [Changelog](#device-defender-connector-changelog)\.
 
 ## Requirements<a name="device-defender-connector-req"></a>
 
@@ -62,7 +70,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyDeviceDefenderConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/DeviceDefender/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/DeviceDefender/versions/2",
             "Parameters": {
                 "SampleIntervalSeconds": "600",
                 "ProcDestinationPath": "/host_proc",
@@ -160,6 +168,18 @@ For metrics reporting details, see [ Device Metrics Document Specification](http
 ## Licenses<a name="device-defender-connector-license"></a>
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="device-defender-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Fix to reduce excessive logging\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="device-defender-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

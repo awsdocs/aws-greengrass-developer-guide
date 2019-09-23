@@ -154,8 +154,8 @@ In this step, you add the function to your group and configure the function's li
 
 First, add the Lambda function to your Greengrass group\.
 
-1. In the AWS IoT Core console, choose **Greengrass**, and then choose **Groups**\.  
-![\[The left pane in the AWS IoT Core console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
+1. In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.  
+![\[The left pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
 
 1. Choose the Greengrass group where you want to add the Lambda function\.
 
@@ -279,7 +279,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.2/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.3/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -310,8 +310,8 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
 Now you can verify whether the local resource access is configured correctly\. To test, you subscribe to the `LRA/test` topic and publish to the `invoke/LRAFunction` topic\. The test is successful if the Lambda function sends the expected payload to AWS IoT\.
 
-1. On the AWS IoT Core console home page, in the left pane, choose **Test**\.  
-![\[The left pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. On the AWS IoT console home page, in the left pane, choose **Test**\.  
+![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. In the **Subscriptions** section, for **Subscription topic**, enter **LRA/test**\. For **MQTT payload display**, select **Display payloads as strings**\. 
 

@@ -9,9 +9,23 @@ Currently, Greengrass resource tags are not supported for AWS IoT billing groups
 
 Tags allow you to categorize your AWS IoT Greengrass resources, for example, by purpose, owner, and environment\. When you have many resources of the same type, you can quickly identify a resource based on the tags that are attached to it\. A tag consists of a key and optional value, both of which you define\. We recommend that you design a set of tag keys for each resource type\. Using a consistent set of tag keys makes it easier for you to manage your resources\. For example, you can define a set of tags for your groups that helps you track the factory location of your core devices\. For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies)\.
 
-### Tagging Support in the AWS IoT Greengrass API<a name="tagging-gg"></a>
+### Tagging Support in the AWS IoT Console<a name="tagging-support-console"></a>
 
-You must use the AWS IoT Greengrass API to create and manage tags for AWS IoT Greengrass resources that support tagging\.
+You can create, view, and manage tags for your Greengrass `Group` resources in the AWS IoT console\. Before you create tags, be aware of these [tag restrictions](#tagging-restrictions)\.
+
+**To assign tags when you create a group**  
+You can assign tags to a group when you create the group\. To show the tagging input fields, on the **Name your Group** dialog box, choose **Apply tags to the Group \(optional\)**\.  
+
+![\[The Apply tags to the Group section of the Name your Group page with one tag key and value defined.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-create-group-tags.png)
+
+**To view and manage tags from the group configuration page**  
+You can view and manage tags from the group configuration page\. On the **Tags** page for the group, choose **Add tags** or **Manage tags** to add, edit, or remove group tags\.  
+
+![\[The Tags page showing several tag key-value pairs.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-tags.png)
+
+### Tagging Support in the AWS IoT Greengrass API<a name="tagging-support-api"></a>
+
+You can use the AWS IoT Greengrass API to create, list, and manage tags for AWS IoT Greengrass resources that support tagging\. Before you create tags, be aware of these [tag restrictions](#tagging-restrictions)\.
 + To add tags during resource creation, define them in the `tags` property of the resource\.
 + To add tags after a resource is created, or to update tag values, use the `TagResource` action\.
 + To remove tags from a resource, use the `UntagResource` action\.

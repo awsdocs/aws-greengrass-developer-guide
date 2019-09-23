@@ -2,25 +2,25 @@
 
 This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
-The AWS IoT Greengrass Core software is packaged with an agent that can update the core's software or the agent itself to the latest version\. Although OTA updates are optional, they can help you manage your AWS IoT Greengrass core devices\. You can use the AWS IoT Greengrass console or the `CreateSoftwareUpdateJob` API to start an update\. By using an OTA update, you can:
+The AWS IoT Greengrass Core software is packaged with an agent that can update the core's software or the agent itself to the latest version\. These updates are sent over the air \(OTA\)\. OTA updates are the recommended way to update AWS IoT Greengrass software on your AWS IoT Greengrass core devices\. You can use the AWS IoT console or the `CreateSoftwareUpdateJob` API to start an update\. By using an OTA update, you can:
 + Fix security vulnerabilities\.
 + Address software stability issues\.
 + Deploy new or improved features\.
 
-You do not have to perform manual steps or have the device that is running the core software physically present\. In the event of a failed update, the OTA update agent performs a rollback\. 
+You do not have to perform manual steps or have the device that is running the Core software physically present\. In the event of a failed update, the OTA update agent performs a rollback\. 
 
-To support OTA updates of Greengrass core software, your Greengrass core device must:
-+ Have available local storage three times the amount of the core's runtime usage requirement\. 
+To support OTA updates of AWS IoT Greengrass software, your Greengrass core device must:
++ Have available local storage three times the amount of the core's runtime usage requirement\. For more information, see [AWS IoT Greengrass Core Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#gg_core_limits) in the *Amazon Web Services General Reference*\.
 + Not have trusted boot enabled in the partition that contains the Greengrass Core platform software\. \(The AWS IoT Greengrass core can be installed and run on a partition with trusted boot enabled, but cannot perform an OTA update\.\) 
-+ Not be configured to use a [network proxy](gg-core.md#alpn-network-proxy)\.
-+ Have read/write permissions on the partition containing the Greengrass Core platform software\.
++ Have read/write permissions on the partition that contains the Greengrass Core platform software\.
++ Not be configured to use a network proxy\. In AWS IoT Greengrass Core v1\.9\.3, the OTA update agent supports updates over port 443 when MQTT traffic is configured to use port 443 instead of the default port 8883\. However, the OTA update agent does not support updates through a network proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
 + Have a connection to the AWS Cloud\.
 + Have a correctly configured AWS IoT Greengrass core and appropriate certificates\.
 
 Before you launch an OTA update of Greengrass Core software, be aware of the impact on the devices in your Greengrass group, both on the core device and on client devices connected locally to that core:
 + The core shuts down during the update\.
 + Any Lambda functions running on the core are shut down\. If those functions write to local resources, they might leave those resources in an incorrect state unless shut down properly\.
-+ During the core's downtime, all its connections with the cloud are lost\. Messages routed through the core by client devices are lost\.
++ During the core's downtime, all its connections with the AWS Cloud are lost\. Messages routed through the core by client devices are lost\.
 + Credential caches are lost\.
 + Queues that hold pending work for Lambda functions are lost\.
 + Long\-lived Lambda functions lose their dynamic state information and all pending work is dropped\. 
@@ -42,7 +42,7 @@ If your Greengrass core or Greengrass OTA update agent is managed by an init sys
 
 **CreateSoftwareUpdateJob API**
 
-The `CreateSoftwareUpdateJob` API creates a software update for a core or for several cores\. This API can be used to update the OTA update agent and the Greengrass Core software\. It makes use of the AWS IoT jobs, which provide other commands to manage a software update job on a Greengrass core\. For more information, see [Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\. 
+The `CreateSoftwareUpdateJob` API creates a software update for a core or for several cores\. This API can be used to update the OTA update agent and the Greengrass Core software\. It makes use of AWS IoT jobs, which provide other commands to manage a software update job on a Greengrass core\. For more information, see [Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\. 
 
 The following example shows how to use the CLI to create a job that updates the AWS IoT Greengrass Core software on a core device:
 
@@ -57,16 +57,17 @@ aws greengrass create-software-update-job \
     --amzn-client-token myClientToken1
 ```
 
-The create\-software\-update\-job command returns a JSON object that contains the job ID and job ARN:
+The `create-software-update-job` command returns a JSON response that contains the job ID, job ARN, and software version that was installed by the update:
 
 ```
 {
     "IotJobId": "Greengrass-OTA-c3bd7f36-ee80-4d42-8321-a1da0e5b1303",
-    "IotJobArn": "arn:aws::iot:region:123456789012:job/Greengrass-OTA-c3bd7f36-ee80-4d42-8321-a1da0e5b1303"
+    "IotJobArn": "arn:aws::iot:region:123456789012:job/Greengrass-OTA-c3bd7f36-ee80-4d42-8321-a1da0e5b1303",
+    "PlatformSoftwareVersion": "1.9.2"
 }
 ```
 
-The create\-software\-update\-job command has the following parameters:
+The `create-software-update-job` command has the following parameters:
 
 `--update-targets-architecture`  
 The architecture of the core device\. Must be one of `armv7l`, `x86_64`, or `aarch64`\.

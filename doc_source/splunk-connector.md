@@ -1,4 +1,4 @@
-# Splunk Integration<a name="splunk-connector"></a>
+# Splunk Integration Connector<a name="splunk-connector"></a>
 
 The Splunk Integration [connector](connectors.md) publishes data from Greengrass devices to Splunk\. This allows you to use Splunk to monitor and analyze the Greengrass core environment, and act on local events\. The connector integrates with HTTP Event Collector \(HEC\)\. For more information, see [Introduction to Splunk HTTP Event Collector](https://dev.splunk.com/view/event-collector/SP-CAAAE6M) in the Splunk documentation\.
 
@@ -8,7 +8,15 @@ You can use this connector to support industrial scenarios, such as:
 + Operators can use periodic data from actuators and sensors \(for example, temperature, pressure, and water readings\) to trigger alarms when values exceed certain thresholds\.
 + Developers use data collected from industrial machinery to build ML models that can monitor the equipment for potential issues\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | arn:aws:greengrass:*region*::/connectors/SplunkIntegration/versions/2 | 
+| 1 | arn:aws:greengrass:*region*::/connectors/SplunkIntegration/versions/1 | 
+
+For information about version changes, see the [Changelog](#splunk-connector-changelog)\.
 
 ## Requirements<a name="splunk-connector-req"></a>
 
@@ -85,7 +93,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MySplunkIntegrationConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/2",
             "Parameters": {
                 "SplunkEndpoint": "https://myinstance.cloud.splunk.com:8088",
                 "MemorySize": 200000,
@@ -224,6 +232,18 @@ def function_handler(event, context):
 ## Licenses<a name="splunk-connector-license"></a>
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="splunk-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Fix to reduce excessive logging\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="splunk-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

@@ -1,4 +1,4 @@
-# CloudWatch Metrics<a name="cloudwatch-metrics-connector"></a>
+# CloudWatch Metrics Connector<a name="cloudwatch-metrics-connector"></a>
 
 The CloudWatch Metrics [connector](connectors.md) publishes custom metrics from Greengrass devices to Amazon CloudWatch\. The connector provides a centralized infrastructure for publishing CloudWatch metrics, which you can use to monitor and analyze the Greengrass core environment, and act on local events\. For more information, see [Using Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) in the *Amazon CloudWatch User Guide*\.
 

@@ -76,7 +76,7 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
 In this step, you configure a group resource that references the Secrets Manager secret\.
 
-1. <a name="create-secret-resource-step-openconsole"></a>In the AWS IoT Core console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="create-secret-resource-step-openconsole"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
 
 1. <a name="create-secret-resource-step-choosegroup"></a>Choose the group that you want to add the secret resource to\.
 
@@ -199,7 +199,7 @@ Now you're ready to add the Lambda function to your Greengrass group and attach 
 
 ## Step 5: Add the Lambda Function to the Greengrass Group<a name="secrets-console-create-gg-function"></a>
 
-In this step, you add the Lambda function to the Greengrass group in the AWS IoT Core console\.
+In this step, you add the Lambda function to the Greengrass group in the AWS IoT console\.
 
 1. <a name="choose-add-lambda"></a>On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
 ![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas.png)
@@ -294,8 +294,8 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
 ## Test the Function<a name="secrets-console-test-solution"></a>
 
-1. <a name="choose-test-page"></a>On the AWS IoT Core console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
+![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values, and then choose **Subscribe to topic**\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/secrets-console.html)

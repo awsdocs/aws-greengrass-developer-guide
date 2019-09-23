@@ -29,7 +29,7 @@ The tutorial contains the following high\-level steps:
 To complete this tutorial, you need:
 + Raspberry Pi 3 [Model B\+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/) or [Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/), set up and configured for use with AWS IoT Greengrass\. To learn how to set up your Raspberry Pi with AWS IoT Greengrass, see [Module 1](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html) and [Module 2](https://docs.aws.amazon.com/greengrass/latest/developerguide/module2.html) of [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
 **Note**  
-The Raspberry Pi might require a 2\.5A [power supply](https://www.raspberrypi.org/documentation/hardware/raspberrypi/power/) to run the deep learning frameworks that are typically used for image classification\. A lower rated power supply might cause the device to reboot\.
+The Raspberry Pi might require a 2\.5A [power supply](https://www.raspberrypi.org/documentation/hardware/raspberrypi/power/) to run the deep learning frameworks that are typically used for image classification\. A power supply with a lower rating might cause the device to reboot\.
 + [Raspberry Pi Camera Module V2 \- 8 Megapixel, 1080p](https://www.amazon.com/Raspberry-Pi-Camera-Module-Megapixel/dp/B01ER2SKFS)\. To learn how to set up the camera, see [Connecting the camera](https://www.raspberrypi.org/documentation/usage/camera/) in the Raspberry Pi documentation\. 
 + A Greengrass group and a Greengrass core\. To learn how to create a Greengrass group or core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
 
@@ -142,8 +142,8 @@ The `mxnet` library was installed on the core device during the MXNet framework 
 
 First, create the Lambda function\.
 
-1. In the AWS IoT Core console, in the navigation pane, choose **Greengrass**, and then choose **Groups**\.  
-![\[The navigation pane in the AWS IoT Core console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
+1. In the AWS IoT console, in the navigation pane, choose **Greengrass**, and then choose **Groups**\.  
+![\[The navigation pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
 
 1. Choose the Greengrass group where you want to add the Lambda function\.
 
@@ -209,7 +209,7 @@ In this step, you add the Lambda function to the group and then configure its li
 
 First, add the Lambda function to your Greengrass group\.
 
-1. In the AWS IoT Core console, open the group configuration page\.
+1. In the AWS IoT console, open the group configuration page\.
 
 1. Choose **Lambdas**, and then choose **Add Lambda**\.  
 ![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas.png)
@@ -363,7 +363,7 @@ In this step, you deploy the current version of the group definition to the Gree
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.2/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.3/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -395,8 +395,8 @@ Now you can verify whether the deployment is configured correctly\. To test, you
 **Note**  
 If a monitor is attached to the Raspberry Pi, the live camera feed is displayed in a preview window\.
 
-1. In the AWS IoT Core console, choose **Test**\.  
-![\[The navigation pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. In the AWS IoT console, choose **Test**\.  
+![\[The navigation pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values:
    + For the subscription topic, use hello/world\.

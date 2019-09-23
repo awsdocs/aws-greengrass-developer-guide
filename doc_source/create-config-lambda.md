@@ -38,7 +38,7 @@ In this step, you create a Lambda function that tracks the number of cars that p
 
 1. Publish the Lambda function, and then create an alias named **GG\_CarAggregator**\. For step\-by\-step instructions, see the steps to [publish the Lambda function](create-lambda.md#publish-function-version) and [create an alias](create-lambda.md#create-version-alias) in Module 3 \(Part 1\)\.
 
-1. In the AWS IoT Core console, add the Lambda function that you just created to your AWS IoT Greengrass group:
+1. In the AWS IoT console, add the Lambda function that you just created to your AWS IoT Greengrass group:
 
    1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.
 

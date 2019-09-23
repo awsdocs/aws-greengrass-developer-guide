@@ -167,7 +167,7 @@ The `latest` tag corresponds to the latest AWS IoT Greengrass container\. You ca
 ## Step 2: Create and Configure the Greengrass Group and Core<a name="docker-config-gg"></a>
 
 The Docker image has the AWS IoT Greengrass Core software installed, but you must create a Greengrass group and core\. This includes downloading certificates and the core configuration file\.
-+ Follow the steps in [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\. Skip step 8b where you download the AWS IoT Greengrass Core software\. The software and its runtime dependencies are already set up in the Docker image\.
++ Follow the steps in [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\. Skip the step where you download the AWS IoT Greengrass Core software\. The software and its runtime dependencies are already set up in the Docker image\.
 
 ## Step 3: Run AWS IoT Greengrass Locally<a name="docker-run-gg"></a>
 

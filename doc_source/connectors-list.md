@@ -9,9 +9,11 @@ AWS provides the following connectors that support common AWS IoT Greengrass sce
 | --- | --- | 
 | [CloudWatch Metrics](cloudwatch-metrics-connector.md) | Publishes custom metrics to Amazon CloudWatch\. | 
 | [Device Defender](device-defender-connector.md) | Sends system metrics to AWS IoT Device Defender\. | 
-| [Image Classification](image-classification-connector.md) | Runs a local image classification inference service\. This connector provides versions for several platforms\. | 
 | [IoT Analytics](iot-analytics-connector.md) | Sends data from devices and sensors to AWS IoT Analytics\. | 
-| [Kinesis Firehose](kinesis-firehose-connector.md) | Sends data to Amazon Kinesis Data Firehose delivery stream\. | 
+| [Kinesis Firehose](kinesis-firehose-connector.md) | Sends data to Amazon Kinesis Data Firehose delivery streams\. | 
+| [ML Feedback](ml-feedback-connector.md) | Publishes machine learning model input to the cloud and output to an MQTT topic\. | 
+| [ML Image Classification](image-classification-connector.md) | Runs a local image classification inference service\. This connector provides versions for several platforms\. | 
+| [ML Object Detection](obj-detection-connector.md) | Runs a local object detection inference service\. This connector provides versions for several platforms\. | 
 | [Modbus\-RTU Protocol Adapter](modbus-protocol-adapter-connector.md) | Sends requests to Modbus RTU devices\. | 
 | [Raspberry Pi GPIO](raspberrypi-gpio-connector.md) | Controls GPIO pins on a Raspberry Pi core device\. | 
 | [Serial Stream](serial-stream-connector.md) | Reads and writes to a serial port on the core device\. | 

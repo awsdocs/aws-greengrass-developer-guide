@@ -9,6 +9,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 3 | arn:aws:greengrass:*region*::/connectors/KinesisFirehose/versions/3 | 
 | 2 | arn:aws:greengrass:*region*::/connectors/KinesisFirehose/versions/2 | 
 | 1 | arn:aws:greengrass:*region*::/connectors/KinesisFirehose/versions/1 | 
 
@@ -19,9 +20,9 @@ For information about version changes, see the [Changelog](#kinesis-firehose-con
 This connector has the following requirements:
 
 ------
-#### [ Version 2 ]
-+ <a name="req-ggc-v170"></a>AWS IoT Greengrass Core Software v1\.7 or later\.
-+ <a name="req-python-runtime"></a>[Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
+#### [ Versions 2 and 3 ]
++ AWS IoT Greengrass Core Software v1\.7 or later\.
++ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose Delivery Stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
 + An IAM policy added to the Greengrass group role that allows the `firehose:PutRecord` and `firehose:PutRecordBatch` actions on the target delivery stream, as shown in the following example:
 
@@ -48,8 +49,8 @@ This connector has the following requirements:
 
 ------
 #### [ Version 1 ]
-+ <a name="req-ggc-v170"></a>AWS IoT Greengrass Core Software v1\.7 or later\.
-+ <a name="req-python-runtime"></a>[Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
++ AWS IoT Greengrass Core Software v1\.7 or later\.
++ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose Delivery Stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
 + An IAM policy added to the Greengrass group role that allows the `firehose:PutRecord` action on the target delivery stream, as shown in the following example:
 
@@ -80,7 +81,7 @@ This connector has the following requirements:
 This connector provides the following parameters:
 
 ------
-#### [ Version 2 ]
+#### [ Versions 2 and 3 ]
 
 `DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
 The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
@@ -134,7 +135,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyKinesisFirehoseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/2",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/3",
             "Parameters": {
                 "DefaultDeliveryStreamArn": "arn:aws:firehose:region:account-id:deliverystream/stream-name",
                 "DeliveryStreamQueueSize": "5000",
@@ -155,7 +156,7 @@ This connector accepts stream content on MQTT topics, and then sends the content
 + Binary data on the `kinesisfirehose/message/binary/#` topic\.
 
 ------
-#### [ Version 2 ]<a name="kinesis-firehose-input-data"></a>
+#### [ Versions 2 and 3 ]<a name="kinesis-firehose-input-data"></a>
 
 **Topic filter**: `kinesisfirehose/message`  
 Use this topic to send a message that contains JSON data\.    
@@ -245,7 +246,7 @@ If you don't want to map a request to a response, you can publish your messages 
 This connector publishes status information as output data\.
 
 ------
-#### [ Version 2 ]
+#### [ Versions 2 and 3 ]
 
 **Topic filter**  <a name="kinesis-firehose-output-topic-status"></a>
 `kinesisfirehose/message/status`
@@ -363,6 +364,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 3 | Fix to reduce excessive logging and other minor bug fixes\.  | 
 | 2 | Added support for sending batched data records to Kinesis Data Firehose at a specified interval\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/kinesis-firehose-connector.html)  | 
 | 1 | Initial release\.  | 
 

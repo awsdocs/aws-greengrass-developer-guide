@@ -1,6 +1,6 @@
 # Running Tests<a name="run-tests"></a>
 
-After you set the required configuration, you can start the tests\. The run time of the full test suite depends upon your hardware\. For a reference, a Raspberry Pi 3B takes approximately 30 minutes to complete\.
+After you set the required configuration, you can start the tests\. The run time of the full test suite depends on your hardware\. For reference, it takes approximately 30 minutes to complete the full test suite on a Raspberry Pi 3B\.
 
 The following example command line shows you how to run the qualification tests for a device pool \(a set of identical devices\)\. You can find these commands in the `<devicetester-extract-location>/bin` directory\.
 

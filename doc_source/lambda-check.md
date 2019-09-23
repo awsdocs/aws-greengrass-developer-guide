@@ -1,7 +1,7 @@
 # Verify the Lambda Function Is Running on the Device<a name="lambda-check"></a>
 
-1. From the navigation pane of the AWS IoT Core console, choose **Test**\.  
-![\[Screenshot of AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. From the navigation pane of the AWS IoT console, choose **Test**\.  
+![\[Screenshot of AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. Choose **Subscribe to topic**, and configure the following fields:
    + For **Subscription topic**, enter **hello/world**\. \(Don't choose **Subscribe to topic** yet\.\)

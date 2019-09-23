@@ -1,4 +1,4 @@
-# Raspberry Pi GPIO<a name="raspberrypi-gpio-connector"></a>
+# Raspberry Pi GPIO Connector<a name="raspberrypi-gpio-connector"></a>
 
 The Raspberry Pi GPIO [connector](connectors.md) controls general\-purpose input/output \(GPIO\) pins on a Raspberry Pi core device\.
 

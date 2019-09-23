@@ -4,7 +4,7 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS Management Console to work with connectors\.
 
-## <a name="w4aac28c37b8"></a>
+## <a name="w4aac27c37b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 
@@ -42,7 +42,7 @@ The tutorial should take about 20 minutes to complete\.
 
 To complete this tutorial, you need:
 
-### <a name="w4aac28c37c16b6"></a>
+### <a name="w4aac27c37c16b6"></a>
 + A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
@@ -84,7 +84,7 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
 In this step, you add a *secret resource* to the Greengrass group\. This resource is a reference to the secret that you created in the previous step\.
 
-1. <a name="create-secret-resource-step-openconsole"></a>In the AWS IoT Core console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="create-secret-resource-step-openconsole"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
 
 1. <a name="create-secret-resource-step-choosegroup"></a>Choose the group that you want to add the secret resource to\.
 
@@ -123,7 +123,7 @@ When you choose the resource, the **ARN of Twilio auth token secret** property i
 
 ## Step 4: Create a Lambda Function Deployment Package<a name="connectors-console-create-deployment-package"></a>
 
-### <a name="w4aac28c37c24b4"></a>
+### <a name="w4aac27c37c24b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -325,10 +325,10 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
 ## Test the Solution<a name="connectors-console-test-solution"></a>
 
-### <a name="w4aac28c37c34b4"></a>
+### <a name="w4aac27c37c34b4"></a>
 
-1. <a name="choose-test-page"></a>On the AWS IoT Core console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT Core console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
+![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values, and then choose **Subscribe to topic**\. The Twilio Notifications connector publishes status information to this topic\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-console.html)

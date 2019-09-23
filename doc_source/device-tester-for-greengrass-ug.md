@@ -1,6 +1,6 @@
 # Using AWS IoT Device Tester for AWS IoT Greengrass<a name="device-tester-for-greengrass-ug"></a>
 
-You can use AWS IoT Device Tester \(IDT\) for AWS IoT Greengrass to verify that the AWS IoT Greengrass Core software runs on your hardware and can communicate with the AWS IoT Cloud\. It also performs end\-to\-end tests with AWS IoT Core\. For example, it verifies your device can send and receive MQTT messages and process them correctly\. IDT for AWS IoT Greengrass generates test reports that you can submit to AWS IoT to add your hardware to the AWS Partner Device Catalog\. For more information, see [AWS Device Qualification Program](https://aws.amazon.com/partners/dqp/)\. 
+You can use AWS IoT Device Tester \(IDT\) for AWS IoT Greengrass to verify that the AWS IoT Greengrass Core software runs on your hardware and can communicate with the AWS Cloud\. It also performs end\-to\-end tests with AWS IoT Core\. For example, it verifies your device can send and receive MQTT messages and process them correctly\. IDT for AWS IoT Greengrass generates test reports that you can submit to AWS IoT to add your hardware to the AWS Partner Device Catalog\. For more information, see [AWS Device Qualification Program](https://aws.amazon.com/partners/dqp/)\. 
 
 IDT for AWS IoT Greengrass runs on your host computer \(Windows, macOS, or Linux\) connected to the device to be tested\. It runs tests and aggregates results\. It also provides a command line interface to manage the testing process\.
 
@@ -42,9 +42,9 @@ The `awsiotdevicetester_report.xml` is the qualification test report that you su
 + The aggregate summary of test results\.
 + A breakdown of test results by libraries that were tested based on the device features \(for example, local resource access, shadow, MQTT, and so on\)\.
 
-The `GGQ_Result.xml` report is in [JUnit XML format](https://llg.cubic.org/docs/junit/)\. You can integrate it into continuous integration/deployment platforms like [Jenkins](https://jenkins.io/), [Bamboo](https://www.atlassian.com/software/bamboo), and so on\. The report contains the following elements:
+The `GGQ_Result.xml` report is in [JUnit XML format](https://llg.cubic.org/docs/junit/)\. You can integrate it into continuous integration and deployment platforms like [Jenkins](https://jenkins.io/), [Bamboo](https://www.atlassian.com/software/bamboo), and so on\. The report contains the following elements:
 + Aggregate summary of test results\.
-+ Breakdown of test results by AWS IoT Greengrass functionality that was tested\.
++ Breakdown of test results by the AWS IoT Greengrass functionality that was tested\.
 
 #### Interpreting AWS IoT Device Tester Results<a name="interpreting-results-gg"></a>
 

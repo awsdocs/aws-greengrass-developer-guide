@@ -1,4 +1,4 @@
-# Serial Stream<a name="serial-stream-connector"></a>
+# Serial Stream Connector<a name="serial-stream-connector"></a>
 
 The Serial Stream [connector](connectors.md) reads and writes to a serial port on an AWS IoT Greengrass core device\.
 

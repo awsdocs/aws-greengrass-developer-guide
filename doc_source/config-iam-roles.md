@@ -54,7 +54,7 @@ First, create a customer\-managed policy that grants permissions required by the
 
    Now, attach the role to your Greengrass group\.
 
-1. In the AWS IoT Core console, under **Greengrass**, choose **Groups**, and then choose your AWS IoT Greengrass group\.
+1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose your AWS IoT Greengrass group\.
 
 1. Choose **Settings**, and then choose **Add Role**\.  
 ![\[Group settings page with Add Role highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-093.png)

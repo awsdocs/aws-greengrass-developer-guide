@@ -25,7 +25,7 @@ Use the following procedure to find out if a Greengrass service role is associat
   ```
   {
     "AssociatedAt": "time-stamp",
-    "RoleArn": "arn:aws:iam::account-id:role/service-role/role-name"
+    "RoleArn": "arn:aws:iam::account-id:role/path/role-name"
   }
   ```
 
@@ -38,7 +38,7 @@ Use the following procedures to create a Greengrass service role and associate i
 You can create one Greengrass service role that applies across AWS Regions, but you must associate it with your account in every AWS Region where you use AWS IoT Greengrass\.
 
 **Note**  
-When you deploy a Greengrass group from the AWS IoT Core console, the console checks whether a Greengrass service role is associated with your AWS account in the current AWS Region\. If not, you're prompted to allow AWS IoT Greengrass to read and write to AWS services on your behalf\. If you grant permission, the console creates a role named `Greengrass_ServiceRole` \(if it doesn't exist\) and associates it with your AWS account in the current AWS Region\.
+When you deploy a Greengrass group from the AWS IoT console, the console checks whether a Greengrass service role is associated with your AWS account in the current AWS Region\. If not, you're prompted to allow AWS IoT Greengrass to read and write to AWS services on your behalf\. If you grant permission, the console creates a role named `Greengrass_ServiceRole` \(if it doesn't exist\) and associates it with your AWS account in the current AWS Region\.
 
 **To create the service role in IAM**
 

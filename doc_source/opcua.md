@@ -194,7 +194,7 @@ You can see messages received by your Lambda function in one of two ways:
   ```
 + Configure Greengrass to forward messages from your Lambda function to the IoT Cloud\.
 
-  Follow the steps outlined in [Verify the Lambda Function Is Running on the Device](lambda-check.md) to receive messages on the AWS IoT Core console\.
+  Follow the steps outlined in [Verify the Lambda Function Is Running on the Device](lambda-check.md) to receive messages on the AWS IoT console\.
 
 **Note:**
 + Make sure there is a Subscription from your Lambda function going to the IoT Cloud\. Details are in [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)\.

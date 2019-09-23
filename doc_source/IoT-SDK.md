@@ -15,7 +15,9 @@ AWS IoT devices can use the AWS IoT Device SDK for Python to communicate with AW
 
       If no version information is returned or if the version number is less than 2\.7 for Python 2 or less than 3\.3 for Python 3, follow the instructions in [Downloading Python](https://wiki.python.org/moin/BeginnersGuide/Download) to install Python 2\.7\+ or Python 3\.3\+\. For more information, see [Using Python on Windows](https://docs.python.org/3.6/using/windows.html)\.
 
-   1. Using a web browser, [download](https://s3.amazonaws.com/aws-iot-device-sdk-python/aws-iot-device-sdk-python-latest.zip) the AWS IoT Device SDK for Python `zip` file and and save it as `aws-iot-device-sdk-python-latest.zip` \(this should be the default name\)\. The `zip` file is typically be saved to your `Downloads` folder\. Decompress `aws-iot-device-sdk-python-latest.zip` to an appropriate location, such as your home directory \(for example, `cd %HOME%`\)\. Make a note of the file path to the decompressed `aws-iot-device-sdk-python-latest` folder\. In the next step, this file path is indicated by *path\-to\-SDK\-folder*\.
+   1. Download the [AWS IoT Device SDK for Python](https://github.com/aws/aws-iot-device-sdk-python) as a `zip` file and extract it to an appropriate location on your computer\.
+
+      Make a note of the file path to the extracted `aws-iot-device-sdk-python-master` folder that contains the `setup.py` file\. In the next step, this file path is indicated by *path\-to\-SDK\-folder*\.
 
    1. From the elevated command prompt, run the following:
 

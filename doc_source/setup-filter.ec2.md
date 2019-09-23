@@ -44,7 +44,7 @@ This section provides instructions for setting up your Amazon EC2 instance\.
    sudo groupadd --system ggc_group
    ```
 
-1. To improve security on the device, ensure that hardlink and softlink protections are enabled on the operating system at start up\.
+1. To improve security on the device, ensure that hardlink and softlink \(symlink\) protections are enabled on the operating system at start up\.
 **Note**  
  The steps for enabling hardlink and softlink protection vary by operating system\. Consult the documentation for your distribution\. 
 
@@ -55,6 +55,8 @@ This section provides instructions for setting up your Amazon EC2 instance\.
       ```
 
        If hardlinks and softlinks are set to `1`, your protections are enabled correctly\. Proceed to step 6\. 
+**Note**  
+Softlinks are represented by `fs.protected_symlinks`\.
 
    1. If hardlinks and softlinks are not set to `1`, enable these protections\. Navigate to your system configuration file\. 
 

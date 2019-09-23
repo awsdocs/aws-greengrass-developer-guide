@@ -2,7 +2,7 @@
 
 You are now ready to configure your Lambda function for AWS IoT Greengrass\.
 
-1. In the AWS IoT Core console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
+1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
 
 1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.
 

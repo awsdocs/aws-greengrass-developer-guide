@@ -1,10 +1,18 @@
-# SNS<a name="sns-connector"></a>
+# SNS Connector<a name="sns-connector"></a>
 
 The SNS [connector](connectors.md) publishes messages to an Amazon SNS topic\. This enables web servers, email addresses, and other message subscribers to respond to events in the Greengrass group\.
 
 This connector receives SNS message information on an MQTT topic, and then sends the message to a specified SNS topic\. You can optionally use custom Lambda functions to implement filtering or formatting logic on messages before they are published to this connector\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/SNS/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | arn:aws:greengrass:*region*::/connectors/SNS/versions/2 | 
+| 1 | arn:aws:greengrass:*region*::/connectors/SNS/versions/1 | 
+
+For information about version changes, see the [Changelog](#sns-connector-changelog)\.
 
 ## Requirements<a name="sns-connector-req"></a>
 
@@ -55,7 +63,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MySNSConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SNS/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SNS/versions/2",
             "Parameters": {
                 "DefaultSNSArn": "arn:aws:sns:region:account-id:topic-name"
             }
@@ -214,6 +222,18 @@ The SNS connector includes the following third\-party software/licensing:
 + [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="sns-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Fix to reduce excessive logging\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="sns-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

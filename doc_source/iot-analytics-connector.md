@@ -1,4 +1,4 @@
-# IoT Analytics<a name="iot-analytics-connector"></a>
+# IoT Analytics Connector<a name="iot-analytics-connector"></a>
 
 The IoT Analytics connector sends local device data to AWS IoT Analytics\. You can use this connector as a central hub to collect data from sensors on the Greengrass core device and from [connected Greengrass devices](what-is-gg.md#greengrass-devices)\. The connector sends the data to AWS IoT Analytics channels in the current AWS account and Region\. It can send data to a default destination channel and to dynamically specified channels\.
 
@@ -9,7 +9,15 @@ The connector accepts formatted and unformatted data on [input MQTT topics](#iot
 
 This connector uses the [ `BatchPutMessage`](https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage) API to send data \(as a JSON or base64\-encoded string\) to the destination channel\. The connector can process raw data into a format that conforms to API requirements\. The connector buffers input messages in per\-channel queues and asynchronously processes the batches\. It provides parameters that allow you to control queueing and batching behavior and to restrict memory consumption\. For example, you can configure the maximum queue size, batch interval, memory size, and number of active channels\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | arn:aws:greengrass:*region*::/connectors/IoTAnalytics/versions/2 | 
+| 1 | arn:aws:greengrass:*region*::/connectors/IoTAnalytics/versions/1 | 
+
+For information about version changes, see the [Changelog](#iot-analytics-connector-changelog)\.
 
 ## Requirements<a name="iot-analytics-connector-req"></a>
 
@@ -118,7 +126,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyIoTAnalyticsApplication",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/2",
             "Parameters": {
                 "MemorySize": "65535",
                 "PublishRegion": "us-west-1",
@@ -274,6 +282,18 @@ The IoT Analytics connector includes the following third\-party software/licensi
 + [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="iot-analytics-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Fix to reduce excessive logging\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="iot-analytics-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

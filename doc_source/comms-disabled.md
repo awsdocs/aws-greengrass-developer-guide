@@ -22,7 +22,7 @@ On Windows host computers, in the Windows Firewall with Advanced Security app, y
 
 1. Get your AWS IoT endpoint\.
 
-   1. <a name="iot-settings"></a>On the navigation pane on the home page of the AWS IoT Core console, choose **Settings**\.
+   1. <a name="iot-settings"></a>On the navigation pane on the home page of the AWS IoT console, choose **Settings**\.
 
    1. <a name="iot-settings-endpoint"></a>Under **Settings**, make a note of the value of **Endpoint**\. You use this value to replace the *AWS\_IOT\_ENDPOINT* placeholder in the commands in the following steps\.  
 ![\[AWS IoT endpoint value.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-075.7.png)
@@ -63,7 +63,7 @@ Make sure that your [endpoints correspond to your certificate type](gg-core.md#c
 **Note**  
 <a name="check-connection-info"></a> The `lightController.py` and `trafficLight.py` scripts store connection information in the `groupCA` folder, which is created in the same folder as the scripts\. If you receive connection errors, make sure that the IP address in the `ggc-host` file matches the single IP address endpoint that you configured for your core in [this step](config-dev-subs.md#configure-ip-address)\.
 
-1. In the AWS IoT Core console, choose your AWS IoT Greengrass group, choose **Devices**, and then choose **GG\_TrafficLight**\.  
+1. In the AWS IoT console, choose your AWS IoT Greengrass group, choose **Devices**, and then choose **GG\_TrafficLight**\.  
 ![\[Screenshot of Devices page with GG_TrafficLIght highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-085.png)
 
 1. Choose **Shadow**\. After the GG\_Switch changes states, there should not be any updates to this shadow topic in **Shadow State**\. That's because the GG\_TrafficLight is set to **LOCAL SHADOW ONLY** as opposed to **SHADOW SYNCING TO CLOUD**\.

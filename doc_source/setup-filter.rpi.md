@@ -4,7 +4,7 @@ If you are setting up a Raspberry Pi for the first time, you must follow all of 
 
 1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where you have inserted your SD card\. You can perform a quick format of the SD card\.
 
-1. Download the [Raspbian Stretch](https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-06-29/) operating system as a `.zip` file\.
+1. Download the [Raspbian Buster](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) operating system as a `zip` file\.
 
 1. Using an SD card\-writing tool \(such as [Etcher](https://etcher.io/)\), follow the tool's instructions to flash the downloaded `zip` file onto the SD card\. Because the operating system image is large, this step might take some time\. Eject your SD card from your computer, and insert the microSD card into your Raspberry Pi\.
 
@@ -62,14 +62,14 @@ For the following, if you receive an ECDSA key fingerprint message \(`Are you su
 **Note**  
 If your computer is connected to a remote network using VPN, you might have difficulty connecting from the computer to the Raspberry Pi using SSH\.
 
-1. You are now ready to set up the Raspberry Pi for AWS IoT Greengrass\. First, run the following commands from a local Raspberry Pi terminal window or an SSH terminal window:
+1. <a name="add-ggc-user-ggc-group"></a>You are now ready to set up the Raspberry Pi for AWS IoT Greengrass\. First, run the following commands from a local Raspberry Pi terminal window or an SSH terminal window:
 
    ```
    sudo adduser --system ggc_user
    sudo addgroup --system ggc_group
    ```
 
-1. To improve security on the Pi device, enable hardlink and softlink protection on the operating system at startup\.
+1. To improve security on the Pi device, enable hardlink and softlink \(symlink\) protection on the operating system at startup\.
 
    1. Navigate to the `98-rpi.conf` file\.
 

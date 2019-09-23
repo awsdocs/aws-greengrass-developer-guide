@@ -31,7 +31,7 @@
 
 1.  Run the following command to get the `groupId` for each group you want to deploy\. You enter the `groupId` into your bulk deployment input file so that AWS IoT Greengrass can identify each group to be deployed\. 
 **Note**  
-<a name="find-group-ids-console"></a>In the AWS IoT Core console, you can also find the group ID on the group's **Settings** page and group version IDs on the **Deployments** page\.
+<a name="find-group-ids-console"></a>In the AWS IoT console, you can also find the group ID on the group's **Settings** page and group version IDs on the **Deployments** page\.
 
    ```
    aws greengrass list-groups
@@ -355,7 +355,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
  If the bulk deployment is not successful, you can try the following troubleshooting steps\. Run the commands in your terminal\. 
 
-### Troubleshoot input file errors<a name="w4aac15c23b5"></a>
+### Troubleshoot input file errors<a name="w4aac14c23b5"></a>
 
  The bulk deployment can fail in the event of syntax errors in the bulk deployment input file\. This returns a bulk deployment status of `Failed` with an error message indicating the line number of the first validation error\. There are four possible errors: 
 + 
@@ -387,7 +387,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
    This error indicates that the given input file line is not considered valid json\. 
 
-### Check for concurrent bulk deployments<a name="w4aac15c23b7"></a>
+### Check for concurrent bulk deployments<a name="w4aac14c23b7"></a>
 
  You cannot start a new bulk deployment while another one is still running or in a non\-terminal state\. This can result in a `Concurrent Deployment Error`\. You can verify that a bulk deployment is not currently running by using the ListBulkDeployments command\. This command lists your bulk deployments from most to least recent\. 
 
@@ -412,7 +412,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  This action results in a status of `Stopping` until the deployment is `Stopped`\. After the deployment has reached a `Stopped` status, you can start a new bulk deployment\. 
 
-### Check ErrorDetails<a name="w4aac15c23b9"></a>
+### Check ErrorDetails<a name="w4aac14c23b9"></a>
 
  Run the `GetBulkDeploymentStatus` command to return a JSON payload that contains detailed information about any bulk deployment execution failure\. 
 
@@ -428,7 +428,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  When exiting with an error, the `ErrorDetails` JSON payload that is returned by this call contains more information about the bulk deployment execution failure\. An error status code in the `400` series, for example, indicates an input error, either in the input parameters or the caller dependencies\. 
 
-### Check the AWS IoT Greengrass Core Log<a name="w4aac15c23c11"></a>
+### Check the AWS IoT Greengrass Core Log<a name="w4aac14c23c11"></a>
 
  You can troubleshoot issues by viewing the AWS IoT Greengrass core logs\. Use the following commands to view `runtime.log`: 
 

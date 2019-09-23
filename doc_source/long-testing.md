@@ -65,7 +65,7 @@ In this step, you create subscriptions that allow the Lambda function and AWS Io
 
    This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-1. <a name="console-test-after-deploy"></a>After your deployment is complete, return to the AWS IoT Core console home page and choose **Test**\.
+1. <a name="console-test-after-deploy"></a>After your deployment is complete, return to the AWS IoT console home page and choose **Test**\.
 
 1. Configure the following fields:
    + For **Subscription topic**, enter **hello/world/counter**\.
@@ -87,7 +87,7 @@ In this step, you create subscriptions that allow the Lambda function and AWS Io
  **Greengrass\_HelloWorld\_Counter** ignores the content of received messages\. It just runs the code in `function_handler`, which sends a message to the **hello/world/counter** topic\. To review this code, see the [ `greengrassHelloWorldCounter.py`](#greengrassHelloWorldCounter.py) code listing\.
 
 1. To test the long\-lived lifecycle, invoke the Lambda function by publishing a message to the **hello/world/counter/trigger** topic\. You can use the default message\.  
-![\[Default Hello from AWS IoT Core console message sent to hello/world/counter/trigger with the Publish to topic button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-057.png)
+![\[Default Hello from AWS IoT console message sent to hello/world/counter/trigger with the Publish to topic button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-057.png)
 
 Every time a message is published to the `hello/world/counter/trigger` topic, the `my_counter` variable is incremented\. This invocation count is shown in the messages sent from the Lambda function\. Because the function handler includes a 20\-second sleep cycle \(`time.sleep(20)`\), repeatedly triggering the handler queues up responses from the AWS IoT Greengrass core\.
 

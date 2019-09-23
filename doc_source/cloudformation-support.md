@@ -26,13 +26,13 @@ AWS CloudFormation templates are JSON or YAML documents that describe the proper
 
 In AWS CloudFormation templates, the structure and syntax of Greengrass resources are based on the AWS IoT Greengrass API\. For example, the [example template](#cloudformation-support-example) associates a top\-level `DeviceDefinition` with a `DeviceDefinitionVersion` that contains an individual device\. For more information, see [AWS IoT Greengrass Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Greengrass.html) in the *AWS CloudFormation User Guide*\.
 
-When you use AWS CloudFormation templates to create AWS resources, we recommend that you manage them only from AWS CloudFormation\. For example, you should update your template if you want to add, change, or remove a device \(instead of using the AWS IoT Greengrass API or AWS IoT Core console\)\. This allows you to use rollback and other AWS CloudFormation change management features\. For more information about using AWS CloudFormation to create and manage your resources and stacks, see [Working with Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) in the *AWS CloudFormation User Guide*\.
+When you use AWS CloudFormation templates to create AWS resources, we recommend that you manage them only from AWS CloudFormation\. For example, you should update your template if you want to add, change, or remove a device \(instead of using the AWS IoT Greengrass API or AWS IoT console\)\. This allows you to use rollback and other AWS CloudFormation change management features\. For more information about using AWS CloudFormation to create and manage your resources and stacks, see [Working with Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) in the *AWS CloudFormation User Guide*\.
 
 For a walkthrough that shows how to create and deploy AWS IoT Greengrass resources in an AWS CloudFormation template, see [ Automating AWS IoT Greengrass Setup With AWS CloudFormation](https://aws.amazon.com/blogs/iot/automating-aws-iot-greengrass-setup-with-aws-cloudformation/) on The Internet of Things on AWS – Official Blog\.
 
 ## Deploying Resources<a name="cloudformation-support-deploy"></a>
 
-After you create an AWS CloudFormation stack that contains your group version, you can use the AWS CLI or AWS IoT Core console to deploy it\.
+After you create an AWS CloudFormation stack that contains your group version, you can use the AWS CLI or AWS IoT console to deploy it\.
 
 **Note**  
 To deploy a group, you must have a Greengrass service role associated with your AWS account\. The service role allows AWS IoT Greengrass to access your resources in AWS Lambda and other AWS services\. This role should exist if you already deployed a Greengrass group in the current AWS Region\. For more information, see [Greengrass Service Role](service-role.md)\.
@@ -65,7 +65,7 @@ The template includes parameters that let you specify the certificate ARNs for t
 
 The template also defines two AWS IoT devices \(things\), which represent the core and device that are added to the Greengrass group\.
 
-After you create the stack with your Greengrass resources, you can use the AWS CLI or the AWS IoT Core console to [deploy the group](#cloudformation-support-deploy)\.
+After you create the stack with your Greengrass resources, you can use the AWS CLI or the AWS IoT console to [deploy the group](#cloudformation-support-deploy)\.
 
 **Note**  
 The `CommandToDeployGroup` statement in the example shows how to output a complete create\-deployment CLI command that you can use to deploy your group\.

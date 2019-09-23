@@ -1,4 +1,4 @@
-# Modbus\-RTU Protocol Adapter<a name="modbus-protocol-adapter-connector"></a>
+# Modbus\-RTU Protocol Adapter Connector<a name="modbus-protocol-adapter-connector"></a>
 
 The Modbus\-RTU Protocol Adapter [connector](connectors.md) polls information from Modbus RTU devices that are in the AWS IoT Greengrass group\.
 

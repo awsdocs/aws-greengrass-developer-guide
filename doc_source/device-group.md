@@ -1,6 +1,6 @@
 # Create AWS IoT Devices in an AWS IoT Greengrass Group<a name="device-group"></a>
 
-1. In the AWS IoT Core console, choose **Greengrass**, choose **Groups**, and then choose your group\.
+1. In the AWS IoT console, choose **Greengrass**, choose **Groups**, and then choose your group\.
 
 1. On the group configuration page, choose **Devices**, and then choose **Add your first Device**\.  
 ![\[Screenshot of the Devices page with the Add your first Device button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-066.png)

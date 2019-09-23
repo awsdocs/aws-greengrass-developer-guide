@@ -1,6 +1,6 @@
 # Configure AWS IoT Greengrass on AWS IoT<a name="gg-config"></a>
 
-1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT Core console\. If this is your first time opening this console, choose **Get started**\.
+1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT console\. If this is your first time opening this console, choose **Get started**\.
 
 1. Choose **Greengrass**\.
 **Note**  
@@ -40,7 +40,7 @@ Download the security resources before you choose **Finish**\.
 ![\[Empty group configuration page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.2.png)
 
 1. Download the [AWS IoT Greengrass Core software](what-is-gg.md#gg-core-download-tab) installation package\. Choose the CPU architecture and distribution \(and operating system, if necessary\) that best describe your core device\. For example:
-   + For Raspberry Pi, download the ARMv7l for Raspbian package\.
+   + For Raspberry Pi Model B or B\+, download the Armv7l for Raspbian package\.
    + For an Amazon EC2 instance, download the x86\_64 for Linux package\.
-   + For NVIDIA Jetson TX2, download the ARMv8 \(AArch64\) for Ubuntu package\.
+   + For NVIDIA Jetson TX2, download the Armv8 \(AArch64\) for Ubuntu package\.
    + For Intel Atom, download the x86\_64 for Linux package\.
