@@ -1,4 +1,4 @@
-# Create Bulk Deployments For Groups<a name="bulk-deploy-cli"></a>
+# Create Bulk Deployments for Groups<a name="bulk-deploy-cli"></a>
 
  You can use simple API calls to deploy large numbers of Greengrass groups at once\. These deployments are triggered with an adaptive rate that has a fixed upper limit\. 
 
@@ -21,7 +21,7 @@
  To complete this tutorial, you need: 
 +  One or more deployable Greengrass groups\. For more information about creating AWS IoT Greengrass groups and cores, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
 +  The AWS CLI installed and configured on your machine\. For information, see the [ AWS CLI User Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)\. 
-+ An S3 bucket created in the same region as AWS IoT Greengrass\. For information, see [ Creating and Configuring an S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-configure-bucket.html)\. 
++ An S3 bucket created in the same AWS Region as AWS IoT Greengrass\. For information, see [ Creating and Configuring an S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-configure-bucket.html)\. 
 **Note**  
  Currently, SSE KMS enabled buckets are not supported\. 
 
@@ -31,7 +31,7 @@
 
 1.  Run the following command to get the `groupId` for each group you want to deploy\. You enter the `groupId` into your bulk deployment input file so that AWS IoT Greengrass can identify each group to be deployed\. 
 **Note**  
-<a name="find-group-ids-console"></a>In the AWS IoT console, you can also find the group ID on the group's **Settings** page and group version IDs on the **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is shown on the group's **Settings** page\. Group version IDs are shown on the group's **Deployments** page\.
 
    ```
    aws greengrass list-groups
@@ -126,7 +126,7 @@
    }
    ```
 **Note**  
- This policy must have a resource for each group or group version in your bulk deployment input file to be deployed by AWS IoT Greengrass\. To allow access to all groups, for Resource, specify an asterisk:   
+ This policy must have a resource for each group or group version in your bulk deployment input file to be deployed by AWS IoT Greengrass\. To allow access to all groups, for `Resource`, specify an asterisk:   
 
    ```
    "Resource": ["*"]
@@ -250,6 +250,8 @@ aws s3api get-bucket-policy --bucket my-bucket
    ```
 
     Make a note of the bulk deployment ID\. It can be used to check the status of your bulk deployment\. 
+**Note**  
+Although bulk deployment operations are not currently supported, you can create Amazon EventBridge event rules to get notifications about deployment status changes for individual groups\. For more information, see [Get Deployment Notifications](deployment-notifications.md)\.
 
 1.  Use the following command to check the status of your bulk deployment\. 
 
@@ -284,7 +286,7 @@ aws s3api get-bucket-policy --bucket my-bucket
    + `Completed`\. The bulk deployment execution has finished processing all records\.
    + `Stopping`\. The bulk deployment execution has received a command to stop and will terminate shortly\. You can't start a new bulk deployment while a previous deployment is in the `Stopping` state\.
    + `Stopped`\. The bulk deployment execution has been manually stopped\.
-   + `Failed`\. The bulk deployment execution has encountered an error and terminated\. Error details can be found in the `ErrorDetails` field\.
+   + `Failed`\. The bulk deployment execution has encountered an error and terminated\. You can find error details in the `ErrorDetails` field\.
 
     The JSON payload also includes statistical information about the progress of the bulk deployment\. You can use this information to determine how many groups have been processed and how many have failed\. The statistical information includes: 
    +  `RecordsProcessed`: The number of group records that were attempted\. 
@@ -297,7 +299,7 @@ aws s3api get-bucket-policy --bucket my-bucket
 
 ## Step 5: Test the Deployment<a name="bulk-deploy-cli-test"></a>
 
- If needed, find the ID of your bulk deployment by using ListBulkDeployments command\. 
+ Use the ListBulkDeployments command to find the ID of your bulk deployment\. 
 
 ```
 aws greengrass list-bulk-deployments
@@ -355,7 +357,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
  If the bulk deployment is not successful, you can try the following troubleshooting steps\. Run the commands in your terminal\. 
 
-### Troubleshoot input file errors<a name="w4aac14c23b5"></a>
+### Troubleshoot input file errors<a name="w4aac12c28c23b5"></a>
 
  The bulk deployment can fail in the event of syntax errors in the bulk deployment input file\. This returns a bulk deployment status of `Failed` with an error message indicating the line number of the first validation error\. There are four possible errors: 
 + 
@@ -387,9 +389,9 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
    This error indicates that the given input file line is not considered valid json\. 
 
-### Check for concurrent bulk deployments<a name="w4aac14c23b7"></a>
+### Check for concurrent bulk deployments<a name="w4aac12c28c23b7"></a>
 
- You cannot start a new bulk deployment while another one is still running or in a non\-terminal state\. This can result in a `Concurrent Deployment Error`\. You can verify that a bulk deployment is not currently running by using the ListBulkDeployments command\. This command lists your bulk deployments from most to least recent\. 
+ You cannot start a new bulk deployment while another one is still running or in a non\-terminal state\. This can result in a `Concurrent Deployment Error`\. You can use the ListBulkDeployments command to verify that a bulk deployment is not currently running\. This command lists your bulk deployments from most to least recent\. 
 
 ```
 {
@@ -412,9 +414,9 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  This action results in a status of `Stopping` until the deployment is `Stopped`\. After the deployment has reached a `Stopped` status, you can start a new bulk deployment\. 
 
-### Check ErrorDetails<a name="w4aac14c23b9"></a>
+### Check ErrorDetails<a name="w4aac12c28c23b9"></a>
 
- Run the `GetBulkDeploymentStatus` command to return a JSON payload that contains detailed information about any bulk deployment execution failure\. 
+ Run the `GetBulkDeploymentStatus` command to return a JSON payload that contains information about any bulk deployment execution failure\. 
 
 ```
   "Message": "string",
@@ -428,7 +430,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  When exiting with an error, the `ErrorDetails` JSON payload that is returned by this call contains more information about the bulk deployment execution failure\. An error status code in the `400` series, for example, indicates an input error, either in the input parameters or the caller dependencies\. 
 
-### Check the AWS IoT Greengrass Core Log<a name="w4aac14c23c11"></a>
+### Check the AWS IoT Greengrass core log<a name="w4aac12c28c23c11"></a>
 
  You can troubleshoot issues by viewing the AWS IoT Greengrass core logs\. Use the following commands to view `runtime.log`: 
 
@@ -439,7 +441,7 @@ sudo cat system/runtime.log | more
 
 For more information about AWS IoT Greengrass logging, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\. 
 
-## Additional Resources<a name="bulk-deploy-cli-see-also"></a>
+## See Also<a name="bulk-deploy-cli-see-also"></a>
 
 For more information, see the following resources:
 + [AWS IoT Greengrass CLI Reference](https://docs.aws.amazon.com/cli/latest/reference/greengrass/index.html)

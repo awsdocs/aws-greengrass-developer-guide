@@ -17,11 +17,10 @@ You can use the ML Feedback connector in the following scenarios:
 ## Requirements<a name="ml-feedback-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.9\.3\.
++ AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + One or more Amazon S3 buckets\. The number of buckets you use depends on your sampling strategy\.
-+ The [CloudWatch Metrics connector](cloudwatch-metrics-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the metrics reporting feature\.
-+ An IAM policy added to the Greengrass group role that allows the `s3:PutObject` action on the destination Amazon S3 bucket, as shown in the following example\.
++ An IAM policy added to the Greengrass group role that allows the `s3:PutObject` action on objects in the destination Amazon S3 bucket, as shown in the following example\.
 
   ```
   {
@@ -31,7 +30,7 @@ This connector has the following requirements:
               "Effect": "Allow",
               "Action": "s3:PutObject",
               "Resource": [
-                  "arn:aws:s3:::bucket-name"
+                  "arn:aws:s3:::bucket-name/*"
               ]
           }
       ]
@@ -39,6 +38,7 @@ This connector has the following requirements:
   ```
 
   The policy should include all destination buckets as resources\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
++ The [CloudWatch Metrics connector](cloudwatch-metrics-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the metrics reporting feature\.
 + [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) v1\.1\.0 is required to interact with this connector\.
 
 ## Parameters<a name="ml-feedback-connector-param"></a>
@@ -89,18 +89,18 @@ Type: A well\-formed JSON string that contains the following properties\.
 The name of the sampling strategy\.  
 Required: `true`  
 Type: `string`  
-Valid values: `RANDOM_SAMPLING`, `LEAST_CONFIDENT`, `MARGIN`, or `ENTROPY`  
+Valid values: `RANDOM_SAMPLING`, `LEAST_CONFIDENCE`, `MARGIN`, or `ENTROPY`  
 `rate`  
 The rate for the [Random](#ml-feedback-connector-sampling-strategies-random) sampling strategy\.  
 Required: `true` if `strategy-name` is `RANDOM_SAMPLING`\.  
 Type: `number`  
 Valid values: `0.0 - 1.0`  
 `threshold`  
-The threshold for the [Least Confident](#ml-feedback-connector-sampling-strategies-least-confident), [Margin](#ml-feedback-connector-sampling-strategies-margin), or [Entropy](#ml-feedback-connector-sampling-strategies-entropy) sampling strategy\.  
-Required: `true` if `strategy-name` is `LEAST_CONFIDENT`, `MARGIN`, or `ENTROPY`\.  
+The threshold for the [Least Confidence](#ml-feedback-connector-sampling-strategies-least-confidence), [Margin](#ml-feedback-connector-sampling-strategies-margin), or [Entropy](#ml-feedback-connector-sampling-strategies-entropy) sampling strategy\.  
+Required: `true` if `strategy-name` is `LEAST_CONFIDENCE`, `MARGIN`, or `ENTROPY`\.  
 Type: `number`  
 Valid values:  
-+ `0.0 - 1.0` for the `LEAST_CONFIDENT` or `MARGIN` strategy\.
++ `0.0 - 1.0` for the `LEAST_CONFIDENCE` or `MARGIN` strategy\.
 + `0.0 - no limit` for the `ENTROPY` strategy\.
 
 `RequestLimit`  
@@ -189,7 +189,7 @@ The connector supports four sampling strategies that determine whether to upload
 Randomly uploads samples based on the supplied rate\. It uploads a sample if a randomly generated value is less than the rate\. The higher the rate, the more samples are uploaded\.  
 This strategy disregards any model prediction that is supplied\.
 
-`LEAST_CONFIDENT`  <a name="ml-feedback-connector-sampling-strategies-least-confident"></a>
+`LEAST_CONFIDENCE`  <a name="ml-feedback-connector-sampling-strategies-least-confidence"></a>
 Uploads samples whose maximum confidence probability falls below the supplied threshold\.    
 Example scenario:  
 Threshold: `.6`  

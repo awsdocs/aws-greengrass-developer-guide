@@ -2,6 +2,9 @@
 
 The following is a policy template that grants the permissions required for IDT for AWS IoT Greengrass to run tests\.
 
+**Important**  
+The following policy template grants permission to create roles, create policies, and attach policies to roles\. IDT for AWS IoT Greengrass uses these permissions for tests that need to create roles\. Although the policy template does not provide administrator privileges to the user, the permissions can be potentially used to gain administrator access to your AWS account\.
+
 ------
 #### [ IDT v2\.0\.0 ]
 

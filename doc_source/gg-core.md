@@ -1,6 +1,6 @@
 # Configure the AWS IoT Greengrass Core<a name="gg-core"></a>
 
-An AWS IoT Greengrass core is an AWS IoT thing \(device\)\. Like other AWS IoT devices, a core exists in the registry, has a device shadow, and uses a device certificate to authenticate with AWS IoT\. The core device runs the AWS IoT Greengrass core software, which enables it to manage local processes for Greengrass groups, such as communication, shadow sync, and token exchange\.
+An AWS IoT Greengrass core is an AWS IoT thing \(device\)\. Like other AWS IoT devices, a core exists in the registry, has a device shadow, and uses a device certificate to authenticate with AWS IoT\. The core device runs the AWS IoT Greengrass Core software, which enables it to manage local processes for Greengrass groups, such as communication, shadow sync, and token exchange\.
 
 The AWS IoT Greengrass Core software provides the following functionality:
 + Deployment and local execution of connectors and Lambda functions\.
@@ -316,6 +316,11 @@ The following configuration properties are also supported:
 | <a name="shared-config-writedirectory"></a> `writeDirectory`  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
 
 ------
+#### [ Deprecated versions ]
+
+The following versions of the AWS IoT Greengrass Core software are not supported\. This information is included for reference purposes only\.
+
+------
 #### [ GGC v1\.6 ]
 
 ```
@@ -363,7 +368,7 @@ The `config.json` file supports the following properties:
 |  `writeDirectory`  |  The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  This is an optional value\. For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
 
 ------
-#### [ GGC v1\.5\.0 ]
+#### [ GGC v1\.5 ]
 
 ```
 {
@@ -522,6 +527,8 @@ The `config.json` file exists in `/greengrass-root/configuration` and contains t
 
 ------
 
+------
+
 ## Endpoints Must Match the Certificate Type<a name="certificate-endpoints"></a>
 
 Your AWS IoT and AWS IoT Greengrass endpoints must correspond to the certificate type of the root CA certificate on your device\.
@@ -583,7 +590,7 @@ To enable communication in these scenarios, AWS IoT Greengrass allows the follow
 
   AWS IoT Greengrass uses the [ Application Layer Protocol Network](https://tools.ietf.org/html/rfc7301) \(ALPN\) TLS extension to enable this connection\. As with the default configuration, MQTT over TLS on port 443 uses certificate\-based client authentication\.
 
-  When configured to use a direct connection to port 443, the core supports [over\-the\-air \(OTA\) updates](core-ota-update.md) for AWS IoT Greengrass software\. This support requires AWS IoT Greengrass Core v1\.9\.3\.
+  When configured to use a direct connection to port 443, the core supports [over\-the\-air \(OTA\) updates](core-ota-update.md) for AWS IoT Greengrass software\. This support requires AWS IoT Greengrass Core v1\.9\.3 or later\.
 + **HTTPS communication over port 443**\. AWS IoT Greengrass sends HTTPS traffic over port 8443 by default, but you can configure it to use port 443\.
 + **Connection through a network proxy**\. You can configure a network proxy server to act as an intermediary for connecting to the AWS IoT Greengrass core\. Only basic authentication and HTTP and HTTPS proxies are supported\.
 
@@ -859,7 +866,7 @@ Follow these steps only if you want to make the Greengrass root directory read\-
 
       ```
       sudo chown -R ggc_user:ggc_group /greengrass-root/certs/
-      sudo chown -R ggc_user:ggc_group /greengrass-root/ggc/packages/1.9.3/lambda/
+      sudo chown -R ggc_user:ggc_group /greengrass-root/ggc/packages/1.9.4/lambda/
       ```
 **Note**  
 The ggc\_user and ggc\_group accounts are used by default to run system Lambda functions\. If you configured the group\-level [default access identity](lambda-group-config.md#lambda-access-identity-groupsettings) to use different accounts, you should give permissions to that user \(UID\) and group \(GID\) instead\.
@@ -914,24 +921,21 @@ To configure AWS IoT Greengrass to cache messages to the file system so they per
 
 The following procedure uses the [ `create-function-definition-version`](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure the spooler to save queued messages to the file system\. It also configures a 2\.6 MB queue size\.
 
-**Note**  
-This procedure assumes that you're updating the configuration of the latest group version of an existing group\.
-
-1. <a name="get-group-id-latestversion"></a>Get the IDs of the target Greengrass group and group version\.
+1. <a name="get-group-id-latestversion"></a>Get the IDs of the target Greengrass group and group version\. In this procedure, we assume that you're updating the configuration of the latest group and group version\. The following command returns the most recently created group\.
 
    ```
-   aws greengrass list-groups
+   aws greengrass list-groups --query "reverse(sort_by(Groups, &CreationTimestamp))[0]"
    ```
-**Note**  
- The list\-groups command only returns 50 groups at a time\. If you have more than 50 groups, specify the max\-results option with the desired number of results \(such as **100**\) to find your group:   
+
+   Or, you can query by name\. Group names are not required to be unique, so multiple groups might be returned\.
 
    ```
-   aws greengrass list-groups --max-results 100
+   aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
    ```
 **Note**  
-<a name="find-group-ids-console"></a>In the AWS IoT console, you can also find the group ID on the group's **Settings** page and group version IDs on the **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is shown on the group's **Settings** page\. Group version IDs are shown on the group's **Deployments** page\.
 
-1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` properties of your target group from the output\.
+1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` values from the target group in the output\.
 
 1. <a name="get-latest-group-version"></a>Get the latest group version\.
    + Replace *group\-id* with the `Id` that you copied\.
@@ -945,7 +949,11 @@ This procedure assumes that you're updating the configuration of the latest grou
 
 1. <a name="copy-group-component-arns-except-function"></a>From the `Definition` object in the output, copy the `CoreDefinitionVersionArn` and the ARNs of all other group components except `FunctionDefinitionVersionArn`\. You use these values when you create a new group version\.
 
-1. <a name="parse-function-def-id"></a>From the `FunctionDefinitionVersionArn` in the output, copy the ID of the function definition\. The ID is the GUID that follows the `functions` segment in the ARN\.
+1. <a name="parse-function-def-id"></a>From the `FunctionDefinitionVersionArn` in the output, copy the ID of the function definition\. The ID is the GUID that follows the `functions` segment in the ARN, as shown in the following example\.
+
+   ```
+   arn:aws:greengrass:us-west-2:123456789012:/greengrass/definition/functions/bcfc6b49-beb0-4396-b703-6dEXAMPLEcu5/versions/0f7337b4-922b-45c5-856f-1aEXAMPLEsf6
+   ```
 **Note**  
 You can optionally create a function definition by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html) command, and then copy the ID from the output\.
 
@@ -984,7 +992,7 @@ Make sure that you specify a value for `GG_CONFIG_MAX_SIZE_BYTES` that's **great
 
 1. <a name="copy-group-version-id"></a>Copy the `Version` from the output\. This is the ID of the new group version\.
 
-1. <a name="create-group-deployment"></a>Deploy the group\.
+1. <a name="create-group-deployment"></a>Deploy the group with the new group version\.
    + Replace *group\-id* with the `Id` that you copied for the group\.
    + Replace *group\-version\-id* with the `Version` that you copied for the new group version\.
 
@@ -1042,24 +1050,21 @@ Greengrass devices are also fully integrated with the Fleet Indexing service of 
 
  The following procedure uses the [ `create-function-definition-version`](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure automatic discovery of the Greengrass core\. 
 
-**Note**  
- This procedure assumes that you're updating the configuration of the latest group version of an existing group\. 
-
-1. <a name="get-group-id-latestversion"></a>Get the IDs of the target Greengrass group and group version\.
+1. <a name="get-group-id-latestversion"></a>Get the IDs of the target Greengrass group and group version\. In this procedure, we assume that you're updating the configuration of the latest group and group version\. The following command returns the most recently created group\.
 
    ```
-   aws greengrass list-groups
+   aws greengrass list-groups --query "reverse(sort_by(Groups, &CreationTimestamp))[0]"
    ```
-**Note**  
- The list\-groups command only returns 50 groups at a time\. If you have more than 50 groups, specify the max\-results option with the desired number of results \(such as **100**\) to find your group:   
+
+   Or, you can query by name\. Group names are not required to be unique, so multiple groups might be returned\.
 
    ```
-   aws greengrass list-groups --max-results 100
+   aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
    ```
 **Note**  
-<a name="find-group-ids-console"></a>In the AWS IoT console, you can also find the group ID on the group's **Settings** page and group version IDs on the **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is shown on the group's **Settings** page\. Group version IDs are shown on the group's **Deployments** page\.
 
-1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` properties of your target group from the output\.
+1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` values from the target group in the output\.
 
 1. <a name="get-latest-group-version"></a>Get the latest group version\.
    + Replace *group\-id* with the `Id` that you copied\.
@@ -1125,7 +1130,7 @@ You can optionally create a function definition by running the [ `create-functio
 
 1. <a name="copy-group-version-id"></a>Copy the `Version` from the output\. This is the ID of the new group version\.
 
-1. <a name="create-group-deployment"></a>Deploy the group\.
+1. <a name="create-group-deployment"></a>Deploy the group with the new group version\.
    + Replace *group\-id* with the `Id` that you copied for the group\.
    + Replace *group\-version\-id* with the `Version` that you copied for the new group version\.
 

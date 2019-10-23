@@ -13,7 +13,7 @@ To support OTA updates of AWS IoT Greengrass software, your Greengrass core devi
 + Have available local storage three times the amount of the core's runtime usage requirement\. For more information, see [AWS IoT Greengrass Core Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#gg_core_limits) in the *Amazon Web Services General Reference*\.
 + Not have trusted boot enabled in the partition that contains the Greengrass Core platform software\. \(The AWS IoT Greengrass core can be installed and run on a partition with trusted boot enabled, but cannot perform an OTA update\.\) 
 + Have read/write permissions on the partition that contains the Greengrass Core platform software\.
-+ Not be configured to use a network proxy\. In AWS IoT Greengrass Core v1\.9\.3, the OTA update agent supports updates over port 443 when MQTT traffic is configured to use port 443 instead of the default port 8883\. However, the OTA update agent does not support updates through a network proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
++ Not be configured to use a network proxy\. In AWS IoT Greengrass Core v1\.9\.3 or later, the OTA update agent supports updates over port 443 when MQTT traffic is configured to use port 443 instead of the default port 8883\. However, the OTA update agent does not support updates through a network proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
 + Have a connection to the AWS Cloud\.
 + Have a correctly configured AWS IoT Greengrass core and appropriate certificates\.
 
@@ -70,7 +70,7 @@ The `create-software-update-job` command returns a JSON response that contains t
 The `create-software-update-job` command has the following parameters:
 
 `--update-targets-architecture`  
-The architecture of the core device\. Must be one of `armv7l`, `x86_64`, or `aarch64`\.
+The architecture of the core device\. Must be one of `armv7l`, `armv6l`, `x86_64`, or `aarch64`\.
 
 `--update-targets`  
 A list of the targets to which the OTA update should be applied\. The list can contain the ARNs of things that are cores, and the ARNs of thing groups whose members are cores\. For more information, see [IoT Thing Groups](https://docs.aws.amazon.com/iot/latest/developerguide/thing-groups.html)\. 
@@ -174,6 +174,7 @@ ubuntu/x86\_64
 ubuntu/aarch64 
 amazon\_linux/x86\_64 
 raspbian/armv7l 
+raspbian/armv6l
 openwrt/aarch64
 openwrt/armv7l
 

@@ -2,6 +2,20 @@
 
 This section contains links for downloading earlier versions of IDT\.
 
+**IDT v2\.0\.0 for AWS IoT Greengrass v1\.9\.3, v1\.9\.2, v\.1\.9\.1, v1\.9\.0, v1\.8\.4, v1\.8\.3, and v1\.8\.2**
++ IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_2.0.0.zip)
++ IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_2.0.0.zip)
++ IDT for AWS IoT Greengrass: [Windows](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_win_2.0.0.zip)
+
+**Release Notes:**
++ Removed dependency on Python for device under test\.
++ Test suite execution time reduced by more than 50 percent, which makes the qualification process faster\.
++ Executable size reduced by more than 50 percent, which makes download and installation faster\.
++ Improved [timeout multiplier support](https://docs.aws.amazon.com/greengrass/latest/developerguide/idt-troubleshooting.html#test-timeout) for all test cases\.
++ Enhanced post\-diagnostics messages for faster troubleshooting of errors\.
++ Updated [Permissions Policy Template](policy-template.md) required to run IDT\.
++ Added support for AWS IoT Greengrass v1\.9\.3\.
+
 **IDT v1\.3\.3 for AWS IoT Greengrass v1\.9\.2, v1\.9\.1, v1\.9\.0, v1\.8\.3, and v1\.8\.2**
 + IDT for AWS IoT Greengrass: [Linux](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_linux_1.3.3.zip)
 + IDT for AWS IoT Greengrass: [macOS](https://d232ctwt5kahio.cloudfront.net/greengrass/devicetester_greengrass_mac_1.3.3.zip)

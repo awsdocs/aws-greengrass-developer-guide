@@ -16,6 +16,7 @@ Search the following symptoms and errors to find information to help troubleshoo
 **Topics**
 + [Error: The configuration file is missing the CaPath, CertPath or KeyPath\. The Greengrass daemon process with \[pid = <pid>\] died\.](#troubleshoot-config-file-version)
 + [Error: Failed to parse /<greengrass\-root>/config/config\.json\.](#troubleshoot-config-file-invalid)
++ [Error: Error occurred while generating TLS config: ErrUnknownURIScheme](#troubleshooting-unknown-uri-scheme)
 + [Error: Runtime failed to start: unable to start workers: container test timed out\.](#troubleshoot-post-start-health-check)
 + [Error: Failed to invoke PutLogEvents on local Cloudwatch, logGroup: /GreengrassSystem/connection\_manager, error: RequestError: send request failed caused by: Post http://<path>/cloudwatch/logs/: dial tcp <address>: getsockopt: connection refused, response: \{ \}\.](#troubleshoot-cloudwatch-logs)
 + [Error: Unable to create server due to: failed to load group: chmod /<greengrass\-root>/ggc/deployment/lambda/arn:aws:lambda:<region>:<account\-id>:function:<function\-name>:<version>/<file\-name>: no such file or directory\.](#troubleshoot-lambda-executable-handler)
@@ -33,6 +34,7 @@ Search the following symptoms and errors to find information to help troubleshoo
 + [The core is in an infinite connect\-disconnect loop\. The runtime\.log file contains a continuous series of connect and disconnect entries\.](#config-client-id)
 + [Error: unable to start lambda container\. container\_linux\.go:259: starting container process caused "process\_linux\.go:345: container init caused \\"rootfs\_linux\.go:62: mounting \\\\\\"proc\\\\\\" to rootfs \\\\\\"](#troubleshoot-mount-proc-lambda-container)
 + [Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/ packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengr ass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}](#troubleshoot-symbolic-links)
++ [Error: \[DEBUG\]\-Failed to get routes\. Discarding message\.](#troubleshoot-failed-to-get-routes)
 
  
 
@@ -59,6 +61,14 @@ Open `config.json` \(located in `/greengrass-root/config`\) and validate the JSO
 
  
 
+### Error: Error occurred while generating TLS config: ErrUnknownURIScheme<a name="troubleshooting-unknown-uri-scheme"></a>
+
+**Solution:** You might see this error when the AWS IoT Greengrass Core software does not start\. Make sure the properties in the [crypto](gg-core.md#config-json-crypto) section of the Greengrass configuration file are valid\. The error message should provide more information\.
+
+Open `config.json` \(located in `/greengrass-root/config`\) and check the `crypto` section\. For example, certificate and key paths must use the correct URI format and point to the correct location\.
+
+ 
+
 ### Error: Runtime failed to start: unable to start workers: container test timed out\.<a name="troubleshoot-post-start-health-check"></a>
 
 **Solution:** You might see this error when the AWS IoT Greengrass Core software does not start\. Set the `postStartHealthCheckTimeout` property in the [Greengrass configuration file](gg-core.md#config-json)\. This optional property configures the amount of time \(in milliseconds\) that the Greengrass daemon waits for the post\-start health check to finish\. The default value is 30 seconds \(30000 ms\)\.
@@ -80,7 +90,7 @@ Open `config.json` \(located in `/greengrass-root/config`\)\. In the `runtime` o
 
 ### Error: Failed to invoke PutLogEvents on local Cloudwatch, logGroup: /GreengrassSystem/connection\_manager, error: RequestError: send request failed caused by: Post http://<path>/cloudwatch/logs/: dial tcp <address>: getsockopt: connection refused, response: \{ \}\.<a name="troubleshoot-cloudwatch-logs"></a>
 
-**Solution:** You might see this error when the AWS IoT Greengrass Core software does not start\. This can occur if you're running AWS IoT Greengrass on a Raspberry Pi with the Raspbian Stretch OS, and the required memory setup has not been completed\. For more information, see [this step](setup-filter.rpi.md#stretch-step)\.
+**Solution:** You might see this error when the AWS IoT Greengrass Core software does not start\. This can occur if you're running AWS IoT Greengrass on a Raspberry Pi and the required memory setup has not been completed\. For more information, see [this step](setup-filter.rpi.md#stretch-step)\.
 
  
 
@@ -140,7 +150,7 @@ See [Troubleshooting Shadow Synchronization Timeout Issues](#troubleshooting-sha
 
 ### The AWS IoT Greengrass Core software does not run on Raspberry Pi because user namespace is not enabled\.<a name="troubleshoot-user-namespace"></a>
 
-**Solution:** This solution applies to Jessie Raspbian distributions only\. Do not run this command on Stretch distributions\. User namespaces are enabled in Stretch distributions by default\.
+**Solution:** This solution applies to Jessie Raspbian distributions only\. Do not run this command on other distributions\. User namespaces are enabled in Stretch \(and later\) distributions by default\.
 
 On the Jessie device, run `BRANCH=stable rpi-update` to update to the latest stable versions of the firmware and kernel\.
 
@@ -244,7 +254,13 @@ This issue is not related to mounting `/proc` for local resource access\.
 
 ### Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/ packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengr ass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}<a name="troubleshoot-symbolic-links"></a>
 
-**Solution:** You might see this error in `runtime.log` on a Raspberry Pi if you're running AWS IoT Greengrass Core software v1\.9\.2 or earlier\. \(Your software version is shown in the error message\.\) To resolve this issue, update to AWS IoT Greengrass Core software v1\.9\.3\. For information about using over\-the\-air updates, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.
+**Solution:** You might see this error in `runtime.log` on a Raspberry Pi if you're running AWS IoT Greengrass Core software v1\.9\.2 or earlier\. \(Your software version is shown in the error message\.\) To resolve this issue, update to AWS IoT Greengrass Core software v1\.9\.3 or later\. For information about using over\-the\-air updates, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.
+
+ 
+
+### Error: \[DEBUG\]\-Failed to get routes\. Discarding message\.<a name="troubleshoot-failed-to-get-routes"></a>
+
+**Solution:** Check the subscriptions in your group and make sure that the subscription listed in the `[DEBUG]` message exists\. 
 
  
 
@@ -365,7 +381,7 @@ These AWS CLI commands use example values for the group and deployment ID\. When
      ps aux | grep -E 'greengrass.*daemon'
      ```
 
-     If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.3/bin/daemon`, then the daemon is running\.
+     If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.4/bin/daemon`, then the daemon is running\.
 
      The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 

@@ -3,9 +3,9 @@
 **Note**  
 This tutorial provides instructions for starting AWS IoT Greengrass on your Raspberry Pi, but you can use any supported device\.
 
-In the [previous step](gg-config.md#gg-core-download), you downloaded two files to your computer:
-+ `greengrass-OS-architecture-1.9.3.tar.gz`\. This compressed file contains the AWS IoT Greengrass Core software that runs on the core device\.
-+ `hash-setup.tar.gz`\. This compressed file contains security certificates that enable secure communications between AWS IoT and the `config.json` file that contains configuration information specific to your AWS IoT Greengrass core and the AWS IoT endpoint\.
+In a [previous step](gg-config.md#gg-core-download), you downloaded two files to your computer:
++ `greengrass-OS-architecture-1.9.4.tar.gz`\. This compressed file contains the AWS IoT Greengrass Core software that runs on the core device\.
++ `hash-setup.tar.gz` \(for example, `c6973960cc-setup.tar.gz`\)\. This compressed file contains security certificates that enable secure communications between AWS IoT and the `config.json` file that contains configuration information specific to your AWS IoT Greengrass core and the AWS IoT endpoint\.
 
 1. If you don't know the IP address of your AWS IoT Greengrass core device, open a terminal on the AWS IoT Greengrass core device and run the following command:
 **Note**  
@@ -27,13 +27,12 @@ For an NVIDIA Jetson TX2, the default user name is **nvidia** and the default pa
 
    ```
    cd path-to-downloaded-files
-   pscp -pw Pi-password greengrass-OS-architecture-1.9.3.tar.gz pi@IP-address:/home/pi
+   pscp -pw Pi-password greengrass-OS-architecture-1.9.4.tar.gz pi@IP-address:/home/pi
    pscp -pw Pi-password hash-setup.tar.gz pi@IP-address:/home/pi
    ```
 
-   For example:
-
-![\[PuTTY's pscp command in use.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.5.png)
+**Note**  
+<a name="use-correct-package-version"></a>The version number in this command must match the version of your AWS IoT Greengrass Core software package\.
 
 ------
 #### [ macOS ]
@@ -45,9 +44,12 @@ You might be prompted for two passwords\. If so, the first password is for the M
 
    ```
    cd path-to-downloaded-files
-   scp greengrass-OS-architecture-1.9.3.tar.gz pi@IP-address:/home/pi
+   scp greengrass-OS-architecture-1.9.4.tar.gz pi@IP-address:/home/pi
    scp hash-setup.tar.gz pi@IP-address:/home/pi
    ```
+
+**Note**  
+<a name="use-correct-package-version"></a>The version number in this command must match the version of your AWS IoT Greengrass Core software package\.
 
 ------
 #### [ UNIX\-like system ]
@@ -56,9 +58,12 @@ You might be prompted for two passwords\. If so, the first password is for the M
 
    ```
    cd path-to-downloaded-files
-   scp greengrass-OS-architecture-1.9.3.tar.gz pi@IP-address:/home/pi
+   scp greengrass-OS-architecture-1.9.4.tar.gz pi@IP-address:/home/pi
    scp hash-setup.tar.gz pi@IP-address:/home/pi
    ```
+
+**Note**  
+<a name="use-correct-package-version"></a>The version number in this command must match the version of your AWS IoT Greengrass Core software package\.
 
 ------
 #### [ Raspberry Pi web browser ]
@@ -78,9 +83,11 @@ You might be prompted for two passwords\. If so, the first password is for the M
    + The second command copies the certificates into the `/greengrass/certs` folder and the [`config.json`](gg-core.md#config-json) file into the `/greengrass/config` folder \(through the `-C /greengrass` argument\)\.
 
    ```
-   sudo tar -xzvf greengrass-OS-architecture-1.9.3.tar.gz -C /
+   sudo tar -xzvf greengrass-OS-architecture-1.9.4.tar.gz -C /
    sudo tar -xzvf hash-setup.tar.gz -C /greengrass
    ```
+**Note**  
+<a name="use-correct-package-version"></a>The version number in this command must match the version of your AWS IoT Greengrass Core software package\.
 
 1. Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\. Certificates enable your device to communicate with AWS IoT using the MQTT messaging protocol over TLS\.
 
@@ -127,4 +134,4 @@ To set up your core device to start AWS IoT Greengrass on system boot, see [Conf
    ps aux | grep PID-number
    ```
 
-   You should see an entry for the PID with a path to the running Greengrass daemon \(for example, `/greengrass/ggc/packages/1.9.3/bin/daemon`\)\. If you run into issues starting AWS IoT Greengrass, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+   You should see an entry for the PID with a path to the running Greengrass daemon \(for example, `/greengrass/ggc/packages/1.9.4/bin/daemon`\)\. If you run into issues starting AWS IoT Greengrass, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.

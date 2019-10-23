@@ -117,7 +117,7 @@ Be sure to read the following information about compatibility and limitations\.
  You can use the Amazon SageMaker Neo deep learning runtime to perform inference with optimized machine learning models on your AWS IoT Greengrass devices\. These models are optimized using the Amazon SageMaker Neo deep learning compiler to improve machine learning inference prediction speeds\. For more information about model optimization in Amazon SageMaker, see the [Amazon SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
 
 **Note**  
- Currently, you can optimize machine learning models using the Neo deep learning compiler in the US West \(Oregon\), US East \(N\. Virginia\), and EU \(Ireland\) AWS Regions only\. However, you can use the Neo deep learning runtime with optimized models in all AWS Regions where AWS IoT Greengrass core is supported\. For information, see [How to Configure Optimized Machine Learning Inference](ml-dlc-console.md)\. 
+ Currently, you can optimize machine learning models using the Neo deep learning compiler in specific AWS Regions only\. However, you can use the Neo deep learning runtime with optimized models in all AWS Regions where AWS IoT Greengrass core is supported\. For information, see [How to Configure Optimized Machine Learning Inference](ml-dlc-console.md)\. 
 
 ### MXNet Versioning<a name="mxnet-version-compatibility"></a>
 
@@ -136,7 +136,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac22c15c17"></a>
+### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac19c15c17"></a>
 
 Currently, the AWS IoT Greengrass TensorFlow installer supports installation on 32\-bit laptop or desktop operating systems only\. To build TensorFlow on 64\-bit platforms, see [Installing TensorFlow](https://www.tensorflow.org/install/#installing_from_sources) in the TensorFlow documentation\.
 

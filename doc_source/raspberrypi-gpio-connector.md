@@ -29,7 +29,7 @@ This connector has the following versions\.
 This connector has the following requirements:
 + AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ Raspberry Pi 3 [Model B\+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/) or [Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)\. You must know the pin sequence of your Raspberry Pi\. For more information, see [GPIO Pin Sequence](#raspberrypi-gpio-connector-req-pins)\.
++ Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+\. You must know the pin sequence of your Raspberry Pi\. For more information, see [GPIO Pin Sequence](#raspberrypi-gpio-connector-req-pins)\.
 + A [local device resource](access-local-resources.md) in the Greengrass group that points to `/dev/gpiomem` on the Raspberry Pi\. If you create the resource in the console, you must select the **Automatically add OS group permissions of the Linux group that owns the resource** option\. In the API, set the `GroupOwnerSetting.AutoAddGroupOwner` property to `true`\.
 + The [RPi\.GPIO](https://sourceforge.net/p/raspberry-gpio-python/wiki/Home/) module installed on the Raspberry Pi\. In Raspbian, this module is installed by default\. You can use the following command to reinstall it:
 

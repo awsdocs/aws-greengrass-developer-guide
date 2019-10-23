@@ -4,14 +4,6 @@ AWS CloudFormation is a service that can help you create, manage, and replicate 
 
 The resources and infrastructure that you generate from a template is called a *stack*\. You can define all of your resources in one template or refer to resources from other stacks\. For more information about AWS CloudFormation templates and features, see [What Is AWS CloudFormation?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) in the *AWS CloudFormation User Guide*\.
 
-Currently, you can create and manage AWS IoT Greengrass resources only in the following [AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region):
-+ US East \(N\. Virginia\)
-+ US West \(Oregon\)
-+ Asia Pacific \(Sydney\)
-+ Asia Pacific \(Tokyo\)
-+ EU \(Frankfurt\)
-+ EU \(Ireland\)
-
 ## Creating Resources<a name="cloudformation-support-create"></a>
 
 AWS CloudFormation templates are JSON or YAML documents that describe the properties and relationships of AWS resources\. The following AWS IoT Greengrass resources are supported:
@@ -24,11 +16,11 @@ AWS CloudFormation templates are JSON or YAML documents that describe the proper
 + Subscriptions
 + Loggers \(logging configurations\)
 
-In AWS CloudFormation templates, the structure and syntax of Greengrass resources are based on the AWS IoT Greengrass API\. For example, the [example template](#cloudformation-support-example) associates a top\-level `DeviceDefinition` with a `DeviceDefinitionVersion` that contains an individual device\. For more information, see [AWS IoT Greengrass Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Greengrass.html) in the *AWS CloudFormation User Guide*\.
+In AWS CloudFormation templates, the structure and syntax of Greengrass resources are based on the AWS IoT Greengrass API\. For example, the [example template](#cloudformation-support-example) associates a top\-level `DeviceDefinition` with a `DeviceDefinitionVersion` that contains an individual device\. For more information, see [Overview of the AWS IoT Greengrass Group Object Model](deployments.md#api-overview)\.
 
-When you use AWS CloudFormation templates to create AWS resources, we recommend that you manage them only from AWS CloudFormation\. For example, you should update your template if you want to add, change, or remove a device \(instead of using the AWS IoT Greengrass API or AWS IoT console\)\. This allows you to use rollback and other AWS CloudFormation change management features\. For more information about using AWS CloudFormation to create and manage your resources and stacks, see [Working with Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) in the *AWS CloudFormation User Guide*\.
+The [AWS IoT Greengrass Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Greengrass.html) in the *AWS CloudFormation User Guide* describes the Greengrass resources that you can manage with AWS CloudFormation\. When you use AWS CloudFormation templates to create Greengrass resources, we recommend that you manage them only from AWS CloudFormation\. For example, you should update your template if you want to add, change, or remove a device \(instead of using the AWS IoT Greengrass API or AWS IoT console\)\. This allows you to use rollback and other AWS CloudFormation change management features\. For more information about using AWS CloudFormation to create and manage your resources and stacks, see [Working with Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) in the *AWS CloudFormation User Guide*\.
 
-For a walkthrough that shows how to create and deploy AWS IoT Greengrass resources in an AWS CloudFormation template, see [ Automating AWS IoT Greengrass Setup With AWS CloudFormation](https://aws.amazon.com/blogs/iot/automating-aws-iot-greengrass-setup-with-aws-cloudformation/) on The Internet of Things on AWS – Official Blog\.
+For a walkthrough that shows how to create and deploy AWS IoT Greengrass resources in an AWS CloudFormation template, see [Automating AWS IoT Greengrass Setup with AWS CloudFormation](https://aws.amazon.com/blogs/iot/automating-aws-iot-greengrass-setup-with-aws-cloudformation/) on The Internet of Things on AWS Official Blog\.
 
 ## Deploying Resources<a name="cloudformation-support-deploy"></a>
 
@@ -605,3 +597,20 @@ Outputs:
 ```
 
 ------
+
+## Supported AWS Regions<a name="cloudformation-support-regions"></a>
+
+Currently, you can create and manage AWS IoT Greengrass resources only in the following [AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region):
++ US East \(Ohio\)
++ US East \(N\. Virginia\)
++ US West \(Oregon\)
++ Asia Pacific \(Mumbai\)
++ Asia Pacific \(Seoul\)
++ Asia Pacific \(Singapore\)
++ Asia Pacific \(Sydney\)
++ Asia Pacific \(Tokyo\)
++ China \(Beijing\)
++ EU \(Frankfurt\)
++ EU \(Ireland\)
++ EU \(London\)
++ AWS GovCloud \(US\-West\)

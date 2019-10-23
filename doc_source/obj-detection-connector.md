@@ -16,7 +16,7 @@ AWS IoT Greengrass provides ML Object Detection connectors for multiple platform
 ## Requirements<a name="obj-detection-connector-req"></a>
 
 These connectors have the following requirements:
-+ AWS IoT Greengrass Core Software v1\.9\.3\.
++ AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + Dependencies for the Amazon SageMaker Neo deep learning runtime installed on the core device\. For more information, see [Installing Neo Deep Learning Runtime Dependencies on the AWS IoT Greengrass Core](#obj-detection-connector-config)\.
 + An [ML resource](ml-inference.md#ml-resources) in the Greengrass group\. The ML resource must reference an Amazon S3 bucket that contains an object detection model\. For more information, see [Amazon S3 model sources](ml-inference.md#s3-ml-resources)\.

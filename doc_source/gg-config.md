@@ -13,6 +13,11 @@ If you don't see the **Greengrass** node in the navigation pane, change to an AW
 **Tip**  
 For an example that uses the AWS IoT Greengrass API to create and deploy a group, see the [ gg\_group\_setup](https://github.com/awslabs/aws-greengrass-group-setup) package from GitHub\.
 
+1. If prompted, on the **Greengrass needs your permission to access other services** dialog box, choose **Grant permission** to allow the console to create or configure the Greengrass service role for you\. You must use a service role to authorize AWS IoT Greengrass to access other AWS services on your behalf\. Otherwise, deployments fail\.  
+![\[The "Greengrass needs your permission to access other services" dialog box.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/service-role-grant-perms.png)
+
+   The AWS account you used to sign in must have permissions to create or manage the IAM role\. For more information, see [Greengrass Service Role](service-role.md)\.
+
 1. On the **Set up your Greengrass group** page, choose **Use easy creation** to create a group and an AWS IoT Greengrass [core](gg-core.md)\.
 
    Each group requires a core, which is a device that manages local IoT processes\. A core needs a certificate and keys that allow it to access AWS IoT and an AWS IoT policy that allows it to perform AWS IoT and AWS IoT Greengrass actions\. When you choose the **Use easy creation** option, these security resources are created for you and the core is provisioned in the AWS IoT registry\.  
@@ -29,7 +34,7 @@ For an example that uses the AWS IoT Greengrass API to create and deploy a group
 
    AWS IoT creates an AWS IoT Greengrass group with default security policies and configuration files for you to load onto your device\.
 
-1. <a name="gg-core-download"></a>Download your core's security resources and configuration file\. On the confirmation page, under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz**\.  
+1. <a name="gg-core-download"></a>Download your core's security resources and configuration file\. On the confirmation page, under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz**\. The name of your downloaded `tar.gz` file starts with a 10\-digit hash that's also used for the certificate and key file names\.  
 ![\[The Connect your Core device page with Download these resources as a tar.gz highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.png)
 **Important**  
 Download the security resources before you choose **Finish**\.

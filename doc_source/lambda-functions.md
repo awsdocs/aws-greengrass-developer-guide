@@ -1,13 +1,13 @@
 # Run Lambda Functions on the AWS IoT Greengrass Core<a name="lambda-functions"></a>
 
-AWS IoT Greengrass provides a containerized Lambda runtime environment for user\-defined code\. Lambda functions that are deployed to an AWS IoT Greengrass core run in the core's local Lambda runtime\. Local Lambda functions can be triggered by local events, messages from the cloud, and other sources, which brings local compute functionality to connected devices\. For example, you can use Greengrass Lambda functions to filter device data before transmitting the data to the cloud\.
+AWS IoT Greengrass provides a containerized Lambda runtime environment for user\-defined code that you author in AWS Lambda\. Lambda functions that are deployed to an AWS IoT Greengrass core run in the core's local Lambda runtime\. Local Lambda functions can be triggered by local events, messages from the cloud, and other sources, which brings local compute functionality to connected devices\. For example, you can use Greengrass Lambda functions to filter device data before transmitting the data to the cloud\.
 
 To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the group role\.
 
 You can configure parameters that determine how the Lambda functions run, including permissions, isolation, memory limits, and more\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
 
 **Note**  
-These settings can also enable you to run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
+These settings also make it possible to run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
 
 The following table lists supported AWS Lambda runtimes and the versions of AWS IoT Greengrass Core software that they can run on\.
 
@@ -47,7 +47,7 @@ pip install greengrasssdk
 ```
 
 **AWS IoT Greengrass Machine Learning SDK**  <a name="lambda-sdks-ml"></a>
-Enables local Lambda functions to consume machine learning models that are deployed to the Greengrass core as machine learning \(ML\) resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. Lambda functions and ML connectors can also use the SDK to send data to the ML Feedback connector for uploading and publishing\. For more information, including code examples that use the SDK, see [ML Image Classification Connector](image-classification-connector.md), [ML Object Detection Connector](obj-detection-connector.md), and [ML Feedback Connector](ml-feedback-connector.md)\.  
+Enables local Lambda functions to consume machine learning \(ML\) models that are deployed to the Greengrass core as ML resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. Lambda functions and ML connectors can also use the SDK to send data to the ML Feedback connector for uploading and publishing\. For more information, including code examples that use the SDK, see [ML Image Classification Connector](image-classification-connector.md), [ML Object Detection Connector](obj-detection-connector.md), and [ML Feedback Connector](ml-feedback-connector.md)\.  
 The following table lists supported languages or platforms for SDK versions and the versions of AWS IoT Greengrass Core software they can run on\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
@@ -55,7 +55,7 @@ For download information, see [AWS IoT Greengrass ML SDK Software](what-is-gg.md
 
 **AWS SDKs**  <a name="lambda-sdks-aws"></a>
 Enables local Lambda functions to make direct calls to AWS services, such as Amazon S3, DynamoDB, AWS IoT, and AWS IoT Greengrass\. To use an AWS SDK in a Greengrass Lambda function, you must include it in your deployment package\. When you use the AWS SDK in the same package as the AWS IoT Greengrass Core SDK, make sure that your Lambda functions use the correct namespaces\. Greengrass Lambda functions can't communicate with cloud services when the core is offline\.  
-Download the appropriate AWS SDKs from the [ Getting Started Resource Center](https://aws.amazon.com/getting-started/tools-sdks/)\.
+Download the AWS SDKs from the [ Getting Started Resource Center](https://aws.amazon.com/getting-started/tools-sdks/)\.
 
 For more information about creating a deployment package, see [Create and Package a Lambda Function](create-lambda.md) in the Getting Started tutorial or [Creating a Deployment Package](https://docs.aws.amazon.com/lambda/latest/dg/deployment-package-v2.html) in the *AWS Lambda Developer Guide*\.
 
@@ -63,7 +63,7 @@ For more information about creating a deployment package, see [Create and Packag
 
 The AWS IoT Greengrass Core SDK follows the AWS SDK programming model, which makes it easy to port Lambda functions that are developed for the cloud to Lambda functions that run on an AWS IoT Greengrass core\.
 
-For example, the following Python Lambda function uses the AWS SDK for Python to publish a message to the topic *some/topic* in the cloud:
+For example, the following Python Lambda function uses the AWS SDK for Python to publish a message to the topic `some/topic` in the cloud:
 
 ```
 import boto3
@@ -222,7 +222,7 @@ AWS IoT Greengrass supports the on\-demand \(default\) or long\-lived lifecycles
   Long\-lived Lambda functions are useful when you need to start doing work without any initial input\. For example, a long\-lived function can load and start processing an ML model to be ready when the function starts receiving device data\.
 **Note**  
 Remember that long\-lived functions have timeouts that are associated with invocations of their handler\. If you want to execute indefinitely running code, you must start it outside the handler\. Make sure that there's no blocking code outside the handler that might prevent the function from completing its initialization\.  
- These functions run unless the core stops \(for example during a group deployment or a device reboot\) or the function enters an error state \(such as a handler timeout, uncaught exception, or when it exceeds its memory limits\)\.
+ These functions run unless the core stops \(for example, during a group deployment or a device reboot\) or the function enters an error state \(such as a handler timeout, uncaught exception, or when it exceeds its memory limits\)\.
 
 For more information about container reuse, see [Understanding Container Reuse in AWS Lambda](http://aws.amazon.com/blogs/compute/container-reuse-in-lambda/) on the AWS Compute Blog\.
 
@@ -230,7 +230,7 @@ For more information about container reuse, see [Understanding Container Reuse i
 
 This feature is available for AWS IoT Greengrass Core v1\.6 and later\.
 
-A Lambda executable is a type of Greengrass Lambda function that you can use to run binary code in the core environment\. It lets you execute device\-specific functionality natively, and benefit from the smaller footprint of compiled code\. Lambda executables can be invoked by events, invoke other functions, and access local resources\.
+A Lambda executable is a type of Greengrass Lambda function that you can use to run binary code in the core environment\. It lets you execute device\-specific functionality natively and benefit from the smaller footprint of compiled code\. Lambda executables can be invoked by events, invoke other functions, and access local resources\.
 
 Lambda executables support the binary encoding type only \(not JSON\), but otherwise you can manage them in your Greengrass group and deploy them like other Greengrass Lambda functions\. However, the process of creating Lambda executables is different from creating Python, Java, and Node\.js Lambda functions:
 + You can't use the AWS Lambda console to create \(or manage\) a Lambda executable\. You can create a Lambda executable only by using the AWS Lambda API\.
@@ -306,6 +306,6 @@ Next, use the AWS Lambda API to publish a version and create an alias\.
   ```
 
 **Note**  
-The AWS Lambda console doesn't display Lambda executables\. To update the function code, you must also use the Lambda API\.
+The AWS Lambda console doesn't display Lambda executables\. To update the function code, you must use the AWS Lambda API\.
 
 Then, add the Lambda executable to a Greengrass group, configure it to accept binary input data in its group\-specific settings, and deploy the group\. You can do this in the AWS IoT Greengrass console or by using the AWS IoT Greengrass API\.

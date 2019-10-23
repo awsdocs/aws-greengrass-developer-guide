@@ -1,12 +1,10 @@
 # AWS IoT Greengrass Security<a name="gg-sec"></a>
 
-AWS IoT Greengrass uses X\.509 certificates, managed subscriptions, AWS IoT policies, and IAM policies and roles to secure your Greengrass applications\.
+AWS IoT Greengrass uses X\.509 certificates, managed subscriptions, AWS IoT policies, and IAM policies and roles to secure the applications that run on devices in your local Greengrass environment\.
 
-AWS IoT Greengrass core devices require an AWS IoT thing, a device certificate, and an AWS IoT policy to communicate with the Greengrass cloud service\.
-
-This allows AWS IoT Greengrass core devices to securely connect to the AWS IoT cloud services\. It also allows the Greengrass cloud service to deploy configuration information, Lambda functions, connectors, and managed subscriptions to AWS IoT Greengrass core devices\.
-
-[Greengrass devices](what-is-gg.md#greengrass-devices) require an AWS IoT thing, a device certificate, and an AWS IoT policy to connect to the Greengrass service\. This allows Greengrass devices to use the Greengrass Discovery service to find and connect to an AWS IoT Greengrass core device\. Greengrass devices use the same device certificate to connect to AWS IoT device gateway and AWS IoT Greengrass core devices\.
+Devices in Greengrass environments fall into one of the following two categories\. Both device types require an entry in the AWS IoT registry, a device certificate, and an AWS IoT policy\.
++ **AWS IoT Greengrass cores**\. Core devices use certificates and policies to securely connect to AWS IoT\. The certificates and policies also allow AWS IoT Greengrass to deploy configuration information, Lambda functions, connectors, and managed subscriptions to core devices\.
++ **AWS IoT devices that connect to a Greengrass core**\. These Greengrass devices use certificates and policies to securely connect to AWS IoT and AWS IoT Greengrass services\. This allows devices to use the Greengrass Discovery service to find and connect to a core device\. A Greengrass device uses the same certificate to connect to the AWS IoT device gateway and core device\.
 
 The following diagram shows the components of the AWS IoT Greengrass security model:
 

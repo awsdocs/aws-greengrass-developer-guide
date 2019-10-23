@@ -36,7 +36,7 @@ These connectors have the following requirements:
 
 ------
 #### [ Version 2 ]
-+ AWS IoT Greengrass Core Software v1\.9\.3\.
++ AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
 + <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.

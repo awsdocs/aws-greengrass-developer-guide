@@ -11,7 +11,7 @@ Tags allow you to categorize your AWS IoT Greengrass resources, for example, by 
 
 ### Tagging Support in the AWS IoT Console<a name="tagging-support-console"></a>
 
-You can create, view, and manage tags for your Greengrass `Group` resources in the AWS IoT console\. Before you create tags, be aware of these [tag restrictions](#tagging-restrictions)\.
+You can create, view, and manage tags for your Greengrass `Group` resources in the AWS IoT console\. Before you create tags, be aware of tagging restrictions\. For more information, see [Tag Naming and Usage Conventions](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*\.
 
 **To assign tags when you create a group**  
 You can assign tags to a group when you create the group\. To show the tagging input fields, on the **Name your Group** dialog box, choose **Apply tags to the Group \(optional\)**\.  
@@ -25,7 +25,7 @@ You can view and manage tags from the group configuration page\. On the **Tags**
 
 ### Tagging Support in the AWS IoT Greengrass API<a name="tagging-support-api"></a>
 
-You can use the AWS IoT Greengrass API to create, list, and manage tags for AWS IoT Greengrass resources that support tagging\. Before you create tags, be aware of these [tag restrictions](#tagging-restrictions)\.
+You can use the AWS IoT Greengrass API to create, list, and manage tags for AWS IoT Greengrass resources that support tagging\. Before you create tags, be aware of tagging restrictions\. For more information, see [Tag Naming and Usage Conventions](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*\.
 + To add tags during resource creation, define them in the `tags` property of the resource\.
 + To add tags after a resource is created, or to update tag values, use the `TagResource` action\.
 + To remove tags from a resource, use the `UntagResource` action\.
@@ -151,12 +151,5 @@ The following snippet shows how you can specify multiple tag values for a tag ke
 }
 ```
 
-## Tag Restrictions<a name="tagging-restrictions"></a>
-
-The following general restrictions apply to tags:
-+ The maximum number of tags per resource is 50\.
-+ The maximum key length is 127 Unicode characters in UTF\-8\.
-+ The maximum value length is 255 Unicode characters in UTF\-8\.
-+ Tag keys and values are case sensitive\.
-+ Do not use the `aws:` prefix in your tag names or values because it is reserved for AWS use\. You can't edit or delete tag names or values that use this prefix\. Tags with this prefix do not count against your tags per resource limit\.
-+ If your tagging schema is used across multiple services and resources, remember that other services might have restrictions on allowed characters\. In general, letters, spaces, and numbers \(representable in UTF\-8\) are allowed, plus the following special characters: `+ - = . _ : / @`\.
+## See Also<a name="tagging-see-also"></a>
++ [Tagging AWS Resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*

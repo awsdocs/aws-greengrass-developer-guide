@@ -4,7 +4,7 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS Management Console to work with connectors\.
 
-## <a name="w4aac27c37b8"></a>
+## <a name="w4aac24c37b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 
@@ -42,7 +42,7 @@ The tutorial should take about 20 minutes to complete\.
 
 To complete this tutorial, you need:
 
-### <a name="w4aac27c37c16b6"></a>
+### <a name="w4aac24c37c16b6"></a>
 + A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
@@ -123,7 +123,7 @@ When you choose the resource, the **ARN of Twilio auth token secret** property i
 
 ## Step 4: Create a Lambda Function Deployment Package<a name="connectors-console-create-deployment-package"></a>
 
-### <a name="w4aac27c37c24b4"></a>
+### <a name="w4aac24c37c24b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -317,7 +317,7 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
-If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\. Only one Greengrass service role is required per AWS account, but it must be associated with your AWS account in each AWS Region where you use AWS IoT Greengrass\.
+If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
    The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the deployment should show a **Successfully completed** status\.
 
@@ -325,7 +325,7 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
 ## Test the Solution<a name="connectors-console-test-solution"></a>
 
-### <a name="w4aac27c37c34b4"></a>
+### <a name="w4aac24c37c34b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)

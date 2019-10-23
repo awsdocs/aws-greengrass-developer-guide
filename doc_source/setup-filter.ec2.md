@@ -43,6 +43,12 @@ This section provides instructions for setting up your Amazon EC2 instance\.
    sudo adduser --system ggc_user
    sudo groupadd --system ggc_group
    ```
+**Note**  
+If the `adduser` command isn't available on your system, use the following command\.  
+
+   ```
+   sudo useradd --system ggc_user
+   ```
 
 1. To improve security on the device, ensure that hardlink and softlink \(symlink\) protections are enabled on the operating system at start up\.
 **Note**  

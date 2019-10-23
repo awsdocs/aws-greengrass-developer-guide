@@ -10,7 +10,7 @@
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.3/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.4/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 
@@ -26,8 +26,6 @@
 
 1. On the **Configure how devices discover your core** page, choose **Automatic detection**\. This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[Screenshot of Configure how Devices discover your Core with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
-
-1. If prompted, on the **Grant permission to access other services** page, choose **Grant permission**\. This configures the Greengrass service role, which allows AWS IoT Greengrass to access other AWS services on your behalf\. This role is required for deployments to succeed\. For more information, see [Greengrass Service Role](service-role.md)\.
 
 The first deployment might take a few minutes\. When the deployment is complete, you should see **Successfully completed** in the **Status** column on the **Deployments** page:
 

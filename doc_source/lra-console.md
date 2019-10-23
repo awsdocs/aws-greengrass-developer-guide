@@ -279,7 +279,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.3/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.4/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -300,7 +300,7 @@ Deployment fails if you run your Lambda function without containerization and tr
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
-If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\. Only one Greengrass service role is required per AWS account, but it must be associated with your AWS account in each AWS Region where you use AWS IoT Greengrass\.
+If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
    The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the deployment status is **Successfully completed**\.
 
