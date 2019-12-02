@@ -25,7 +25,6 @@ Search the following symptoms and errors to find information to help troubleshoo
 + [Error: container\_linux\.go:344: starting container process caused "process\_linux\.go:424: container init caused \\"rootfs\_linux\.go:64: mounting \\\\\\"/greengrass/ggc/socket/greengrass\_ipc\.sock\\\\\\" to rootfs \\\\\\"/greengrass/ggc/packages/<version>/rootfs/merged\\\\\\" at \\\\\\"/greengrass\_ipc\.sock\\\\\\" caused \\\\\\"stat /greengrass/ggc/socket/greengrass\_ipc\.sock: permission denied\\\\\\"\\""\.](#troubleshoot-umask-permission)
 + [Error: Greengrass daemon running with PID: <process\-id>\. Some system components failed to start\. Check 'runtime\.log' for errors\.](#troubleshoot-system-components)
 + [Device shadow does not sync with the cloud\.](#troubleshoot-shadow-sync)
-+ [The AWS IoT Greengrass Core software does not run on Raspberry Pi because user namespace is not enabled\.](#troubleshoot-user-namespace)
 + [ERROR: unable to accept TCP connection\. accept tcp \[::\]:8000: accept4: too many open files\.](#troubleshoot-file-descriptor-limit)
 + [Error: Runtime execution error: unable to start lambda container\. container\_linux\.go:259: starting container process caused "process\_linux\.go:345: container init caused \\"rootfs\_linux\.go:50: preparing rootfs caused \\\\\\"permission denied\\\\\\"\\""\.](#troubleshoot-execute-permissions)
 + [Warning: \[WARN\]\-\[5\]GK Remote: Error retrieving public key data: ErrPrincipalNotConfigured: private key for MqttCertificate is not set\.](#troubleshoot-mqttcertificate-warning)
@@ -148,17 +147,6 @@ See [Troubleshooting Shadow Synchronization Timeout Issues](#troubleshooting-sha
 
  
 
-### The AWS IoT Greengrass Core software does not run on Raspberry Pi because user namespace is not enabled\.<a name="troubleshoot-user-namespace"></a>
-
-**Solution:** This solution applies to Jessie Raspbian distributions only\. Do not run this command on other distributions\. User namespaces are enabled in Stretch \(and later\) distributions by default\.
-
-On the Jessie device, run `BRANCH=stable rpi-update` to update to the latest stable versions of the firmware and kernel\.
-
-**Note**  
-User namespace support is required to run AWS IoT Greengrass in the default `Greengrass container` mode\. It isn't required to run in `No container` mode\. For more information, see [Considerations When Choosing Lambda Function Containerization](lambda-group-config.md#lambda-containerization-considerations)\.
-
- 
-
 ### ERROR: unable to accept TCP connection\. accept tcp \[::\]:8000: accept4: too many open files\.<a name="troubleshoot-file-descriptor-limit"></a>
 
 **Solution:** You might see this error in the `greengrassd` script output\. This can occur if the file descriptor limit for the AWS IoT Greengrass Core software has reached the threshold and must be increased\.
@@ -214,7 +202,7 @@ To resolve this issue, you can change the client ID used by the other device for
 
 **To override the default client ID for the core device**
 
-1. Run the following command to stop the AWS IoT Greengrass daemon:
+1. Run the following command to stop the Greengrass daemon:
 
    ```
    cd /greengrass-root/ggc/core/
@@ -274,6 +262,7 @@ Use the following information to help troubleshoot deployment issues\.
 + [A ConcurrentDeployment error occurs when you run the create\-deployment command for the first time\.](#troubleshoot-concurrent-deployment)
 + [Error: Greengrass is not authorized to assume the Service Role associated with this account, or the error: Failed: TES service role is not associated with this account\.](#troubleshoot-assume-service-role)
 + [The deployment doesn't finish\.](#troubleshoot-stuck-deployment)
++ [Error: Unable to find Java or Java 8 executables](#java-8-runtime-requirement)
 + [The deployment doesn't finish, and runtime\.log contains multiple "wait 1s for container to stop" entries\.](#troubleshoot-wait-container-stop)
 + [Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Error while processing\. group config is invalid: 112 or \[119 0\] don't have rw permission on the file: <path>\.](#troubleshoot-access-permissions-deployment)
 + [Error: <list\-of\-function\-arns> are configured to run as root but Greengrass is not configured to run Lambda functions with root permissions\.](#troubleshoot-root-permissions-lambda)
@@ -381,7 +370,7 @@ These AWS CLI commands use example values for the group and deployment ID\. When
      ps aux | grep -E 'greengrass.*daemon'
      ```
 
-     If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.4/bin/daemon`, then the daemon is running\.
+     If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.0/bin/daemon`, then the daemon is running\.
 
      The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -392,6 +381,14 @@ These AWS CLI commands use example values for the group and deployment ID\. When
      sudo ./greengrassd start
      ```
 + Make sure that your core device is connected and the core connection endpoints are configured properly\.
+
+ 
+
+### Error: Unable to find Java or Java 8 executables<a name="java-8-runtime-requirement"></a>
+
+**Solution:** If stream manager is enabled for the AWS IoT Greengrass core, you must install the Java 8 Runtime on the core device before you deploy the group\. For more information, see the steps in [Module 1: Environment Setup for Greengrass](module1.md) for your core device type\. Stream manager is enabled by default when you use the **Easy Group creation** workflow in the AWS IoT console to create a group\.
+
+Or, disable stream manager and then deploy the group\. For more information, see [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)\.
 
  
 
@@ -529,6 +526,56 @@ Use the following information to help troubleshoot issues with the AWS IoT Green
 
  
 
+## Machine Learning Resource Issues<a name="ml-resources-troubleshooting"></a>
+
+Use the following information to help troubleshoot issues with machine learning resources\.
+
+**Topics**
++ [InvalidMLModelOwner \- GroupOwnerSetting is provided in ML model resource, but GroupOwner or GroupPermission is not present](#nocontainer-lambda-invalid-ml-model-owner)
++ [NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learning resource <resource\-id> with permission <ro/rw> in resource access policy\.](#nocontainer-lambda-invalid-resource-access-policy)
++ [Function <function\-arn> refers to Machine Learning resource <resource\-id> with missing permission in both ResourceAccessPolicy and resource OwnerSetting\.](#nocontainer-lambda-missing-access-permission)
++ [Function <function\-arn> refers to Machine Learning resource <resource\-id> with permission \\"rw\\", while resource owner setting GroupPermission only allows \\"ro\\"\.](#container-lambda-invalid-rw-permissions)
++ [NoContainer Function <function\-arn> refers to resources of nested destination path\.](#nocontainer-lambda-nested-destination-path)
++ [Lambda <function\-arn> gains access to resource <resource\-id> by sharing the same group owner id](#lambda-runas-and-resource-owner)
+
+ 
+
+### InvalidMLModelOwner \- GroupOwnerSetting is provided in ML model resource, but GroupOwner or GroupPermission is not present<a name="nocontainer-lambda-invalid-ml-model-owner"></a>
+
+**Solution:** You receive this error if a machine learning resource contains the [ResourceDownloadOwnerSetting](https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-resourcedownloadownersetting.html) object but the required `GroupOwner` or `GroupPermission` property isn't defined\. To resolve this issue, define the missing property\.
+
+ 
+
+### NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learning resource <resource\-id> with permission <ro/rw> in resource access policy\.<a name="nocontainer-lambda-invalid-resource-access-policy"></a>
+
+**Solution:** You receive this error if a non\-containerized Lambda function specifies function\-level permissions to a machine learning resource\. Non\-containerized functions must inherit permissions from the resource owner permissions defined on the machine learning resource\. To resolve this issue, choose to [inherit resource owner permissions](access-ml-resources.md#non-container-config-console) \(console\) or [remove the permissions from the Lambda function's resource access policy](access-ml-resources.md#non-container-config-api) \(API\)\.
+
+ 
+
+### Function <function\-arn> refers to Machine Learning resource <resource\-id> with missing permission in both ResourceAccessPolicy and resource OwnerSetting\.<a name="nocontainer-lambda-missing-access-permission"></a>
+
+**Solution:** You receive this error if permissions to the machine learning resource aren't configured for the attached Lambda function or the resource\. To resolve this issue, configure permissions in the [ResourceAccessPolicy](https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-resourceaccesspolicy.html) property for the Lambda function or the [OwnerSetting](https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-ownersetting.html) property for the resource\.
+
+ 
+
+### Function <function\-arn> refers to Machine Learning resource <resource\-id> with permission \\"rw\\", while resource owner setting GroupPermission only allows \\"ro\\"\.<a name="container-lambda-invalid-rw-permissions"></a>
+
+**Solution:** You receive this error if the access permissions defined for the attached Lambda function exceed the resource owner permissions defined for the machine learning resource\. To resolve this issue, set more restrictive permissions for the Lambda function or less restrictive permissions for the resource owner\.
+
+ 
+
+### NoContainer Function <function\-arn> refers to resources of nested destination path\.<a name="nocontainer-lambda-nested-destination-path"></a>
+
+**Solution:** You receive this error if multiple machine learning resources attached to a non\-containerized Lambda function use the same destination path or a nested destination path\. To resolve this issue, specify separate destination paths for the resources\.
+
+ 
+
+### Lambda <function\-arn> gains access to resource <resource\-id> by sharing the same group owner id<a name="lambda-runas-and-resource-owner"></a>
+
+**Solution:** You receive this error in `runtime.log` if the same OS group is specified as the Lambda function's [Run as](lambda-group-config.md#lambda-access-identity) identity and the [resource owner](access-ml-resources.md#ml-resource-owner) for a machine learning resource, but the resource is not attached to the Lambda function\. This configuration gives the Lambda function implicit permissions that it can use to access the resource without AWS IoT Greengrass authorization\.
+
+To resolve this issue, use a different OS group for one of the properties or attach the machine learning resource to the Lambda function\.
+
 ## AWS IoT Greengrass Core in Docker Issues<a name="gg-troubleshooting-dockerissues"></a>
 
 Use the following information to help troubleshoot issues with running an AWS IoT Greengrass core in a Docker container\.
@@ -617,12 +664,12 @@ You should always be aware of the amount of free space available locally\. You c
 
 ## Troubleshooting Messages<a name="troubleshooting-messages"></a>
 
-All messages sent in AWS IoT Greengrass are sent with QoS 0\. By default, AWS IoT Greengrass stores messages in an in\-memory queue\. Therefore, unprocessed messages are lost when the AWS IoT Greengrass core restarts \(for example, after a group deployment or device reboot\)\. However, you can configure AWS IoT Greengrass \(v1\.6 or later\) to cache messages to the file system so they persist across core restarts\. You can also configure the queue size\. For more information, see [MQTT Message Queue](gg-core.md#mqtt-message-queue)\.
+All messages sent locally in AWS IoT Greengrass are sent with QoS 0\. By default, AWS IoT Greengrass stores messages in an in\-memory queue\. Therefore, unprocessed messages are lost when the AWS IoT Greengrass core restarts \(for example, after a group deployment or device reboot\)\. However, you can configure AWS IoT Greengrass \(v1\.6 or later\) to cache messages to the file system so they persist across core restarts\. You can also configure the queue size\. If you configure a queue size, make sure that it's greater than or equal to 262144 bytes \(256 KB\)\. Otherwise, AWS IoT Greengrass might not start properly\. For more information, see [MQTT Message Queue for Cloud Targets](gg-core.md#mqtt-message-queue)\.
 
 **Note**  
 When using the default in\-memory queue, we recommend that you deploy groups or restart the device when the service disruption is the lowest\.
 
-If you configure a queue size, make sure that it's greater than or equal to 262144 bytes \(256 KB\)\. Otherwise, AWS IoT Greengrass might not start properly\.
+You can also configure the core to establish persistent sessions with AWS IoT\. This allows the core to receive messages sent from the AWS Cloud while the core is offline\. For more information, see [MQTT Persistent Sessions with AWS IoT](gg-core.md#mqtt-persistent-sessions)\.
 
 ## Troubleshooting Shadow Synchronization Timeout Issues<a name="troubleshooting-shadow-sync"></a>
 

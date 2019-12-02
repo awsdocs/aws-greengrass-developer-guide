@@ -2,9 +2,9 @@
 
 This module shows you how to install the AWS IoT Greengrass Core software on your chosen device\. This tutorial provides instructions for setting up a Raspberry Pi, but you can use any supported device\. You can download the AWS IoT Greengrass Core software from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads\. This procedure includes steps for configuring and starting the software on your device\.
 
-The AWS IoT Greengrass Core software provides the following functionality:
+The AWS IoT Greengrass Core software provides the following functionality:<a name="ggc-software-features"></a>
 + Deployment and local execution of connectors and Lambda functions\.
-+ Secure, encrypted storage of local secrets and controlled access by connectors and Lambda functions\.
++ Process data streams locally with automatic exports to the AWS Cloud\.
 + MQTT messaging over the local network between devices, connectors, and Lambda functions using managed subscriptions\.
 + MQTT messaging between AWS IoT and devices, connectors, and Lambda functions using managed subscriptions\.
 + Secure connections between devices and the cloud using device authentication and authorization\.
@@ -13,7 +13,8 @@ The AWS IoT Greengrass Core software provides the following functionality:
 + Deployment of cloud\-trained machine learning models for running local inference\.
 + Automatic IP address detection that enables devices to discover the Greengrass core device\.
 + Central deployment of new or updated group configuration\. After the configuration data is downloaded, the core device is restarted automatically\.
-+ Secure, over\-the\-air software updates of user\-defined Lambda functions\.
++ Secure, over\-the\-air \(OTA\) software updates of user\-defined Lambda functions\.
++ Secure, encrypted storage of local secrets and controlled access by connectors and Lambda functions\.
 
 Before you begin, make sure that you have completed [Module 1](module1.md)\.
 

@@ -49,3 +49,5 @@ Download the security resources before you choose **Finish**\.
    + For an Amazon EC2 instance, download the x86\_64 for Linux package\.
    + For NVIDIA Jetson TX2, download the Armv8 \(AArch64\) for Ubuntu package\.
    + For Intel Atom, download the x86\_64 for Linux package\.
+**Note**  
+When stream manager is enabled, you must install [Java 8 Runtime](stream-manager.md#stream-manager-requirements) on the core device before you deploy your group\. The **Easy Group creation** workflow enables stream manager by default\.

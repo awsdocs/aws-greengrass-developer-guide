@@ -4,7 +4,7 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS CLI to work with connectors\.
 
-## <a name="w4aac24c39b8"></a>
+## <a name="w4aac26c39b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 
@@ -56,8 +56,9 @@ The AWS IoT Greengrass API lets you create multiple definitions for a component 
 
 To complete this tutorial, you need:
 
-### <a name="w4aac24c39c26b6"></a>
+### <a name="w4aac26c39c26b6"></a>
 + A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
++ Python 2\.7 installed on the AWS IoT Greengrass core device\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -176,7 +177,7 @@ In this step, you configure parameters for the Twilio Notifications connector\.
 
 ## Step 4: Create a Lambda Function Deployment Package<a name="connectors-cli-create-deployment-package"></a>
 
-### <a name="w4aac24c39c34b4"></a>
+### <a name="w4aac26c39c34b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -236,11 +237,7 @@ To create a Lambda function, you must first create a Lambda function *deployment
 
 Now, create a Lambda function that uses the deployment package\.
 
-1. First, create an IAM role so you can pass in the ARN when you create the function\.
-**Note**  
-AWS IoT Greengrass doesn't use this role because permissions for your Greengrass Lambda functions are specified in the Greengrass group role\. For this tutorial, you create an empty role, or alternatively, you can use an existing execution role\.
-
-    
+1. <a name="cli-create-empty-lambda-role"></a>Create an IAM role so you can pass in the role ARN when you create the function\.
 
 ------
 #### [ JSON Expanded ]
@@ -268,8 +265,10 @@ AWS IoT Greengrass doesn't use this role because permissions for your Greengrass
    ```
 
 ------
+**Note**  
+AWS IoT Greengrass doesn't use this role because permissions for your Greengrass Lambda functions are specified in the Greengrass group role\. For this tutorial, you create an empty role\.
 
-1. Copy the `Arn` of the output\. 
+1. <a name="cli-copy-lambda-role-arn"></a>Copy the `Arn` from the output\.
 
 1. Use the AWS Lambda API to create the TempMonitor function\. The following command assumes that the zip file is in the current directory\.
    + Replace *role\-arn* with the `Arn` that you copied\.
@@ -403,17 +402,25 @@ Now, you're ready to create a group version that contains all of the items that 
 
 First, get the group ID and the ARN of the core definition version\. These values are required to create the group version\.
 
-1. Get the ID of the group:
+1. Get the ID of the group and latest group version:
 
-   1. List your groups\.
+   1. <a name="get-group-id-latestversion"></a>Get the IDs of the target Greengrass group and group version\. In this procedure, we assume this is the latest group and group version\. The following command returns the most recently created group\.
 
       ```
-      aws greengrass list-groups
+      aws greengrass list-groups --query "reverse(sort_by(Groups, &CreationTimestamp))[0]"
       ```
 
-   1. Copy the `Id` of the target group from the output\. You use this to get the core definition version and when you deploy the group\.
+      Or, you can query by name\. Group names are not required to be unique, so multiple groups might be returned\.
 
-   1. Copy the `LatestVersion` of the group version from the output\. You use this to get the core definition version\.
+      ```
+      aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
+      ```
+**Note**  
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+
+   1. <a name="copy-target-group-id"></a>Copy the `Id` of the target group from the output\. You use this to get the core definition version and when you deploy the group\.
+
+   1. <a name="copy-latest-group-version-id"></a>Copy the `LatestVersion` from the output, which is the ID of the last version added to the group\. You use this to get the core definition version\.
 
 1. Get the ARN of the core definition version:
 
@@ -453,7 +460,7 @@ First, get the group ID and the ARN of the core definition version\. These value
 
 Deploy the group to the core device\.
 
-1. In a core device terminal, make sure that the AWS IoT Greengrass daemon is running\.
+1. <a name="check-gg-daemon-is-running"></a>In a core device terminal, make sure that the AWS IoT Greengrass daemon is running\.
 
    1. To check whether the daemon is running:
 
@@ -461,7 +468,7 @@ Deploy the group to the core device\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.4/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.0/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 
@@ -470,9 +477,9 @@ Deploy the group to the core device\.
       sudo ./greengrassd start
       ```
 
-1. Create a deployment\.
+1. <a name="create-deployment"></a>Create a deployment\.
    + Replace *group\-id* with the `Id` that you copied for the group\.
-   + Replace *group\-version\-id* with the `Version` that you copied for the group version\.
+   + Replace *group\-version\-id* with the `Version` that you copied for the new group version\.
 
    ```
    aws greengrass create-deployment \
@@ -481,9 +488,9 @@ Deploy the group to the core device\.
    --group-version-id group-version-id
    ```
 
-1. Copy the `DeploymentId` from the output\.
+1. <a name="copy-deployment-id"></a>Copy the `DeploymentId` from the output\.
 
-1. Get the deployment status\.
+1. <a name="get-deployment-status"></a>Get the deployment status\.
    + Replace *group\-id* with the `Id` that you copied for the group\.
    + Replace *deployment\-id* with the `DeploymentId` that you copied for the deployment\.
 
@@ -497,7 +504,7 @@ Deploy the group to the core device\.
 
 ## Test the Solution<a name="connectors-cli-test-solution"></a>
 
-### <a name="w4aac24c39c46b4"></a>
+### <a name="w4aac26c39c46b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)

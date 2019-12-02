@@ -9,9 +9,9 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 3 | arn:aws:greengrass:*region*::/connectors/KinesisFirehose/versions/3 | 
-| 2 | arn:aws:greengrass:*region*::/connectors/KinesisFirehose/versions/2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/KinesisFirehose/versions/1 | 
+| 3 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/`3 | 
+| 2 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/`2 | 
+| 1 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/`1 | 
 
 For information about version changes, see the [Changelog](#kinesis-firehose-connector-changelog)\.
 
@@ -24,7 +24,7 @@ This connector has the following requirements:
 + AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose Delivery Stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
-+ An IAM policy added to the Greengrass group role that allows the `firehose:PutRecord` and `firehose:PutRecordBatch` actions on the target delivery stream, as shown in the following example:
++ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `firehose:PutRecord` and `firehose:PutRecordBatch` actions on the target delivery stream, as shown in the following example:
 
   ```
   {
@@ -316,11 +316,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 The following example Lambda function sends an input message to the connector\. This message contains JSON data\.
 
 **Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
-
-```
-pip install greengrasssdk
-```
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
 
 ```
 import greengrasssdk

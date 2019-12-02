@@ -166,3 +166,8 @@ The following example shows a CloudTrail log entry that demonstrates the `Create
     "recipientAccountId": "123456789012"
 }
 ```
+
+## See Also<a name="cloudtrail-see-also"></a>
++ [What Is AWS CloudTrail?](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) in the *AWS CloudTrail User Guide*
++ [ Creating an EventBridge Rule That Triggers on an AWS API Call Using CloudTrail](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-eventbridge-cloudtrail-rule.html) in the *Amazon EventBridge User Guide*
++ [AWS IoT Greengrass API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/api-actions.html)

@@ -31,7 +31,7 @@
 
 1.  Run the following command to get the `groupId` for each group you want to deploy\. You enter the `groupId` into your bulk deployment input file so that AWS IoT Greengrass can identify each group to be deployed\. 
 **Note**  
-<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is shown on the group's **Settings** page\. Group version IDs are shown on the group's **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
 
    ```
    aws greengrass list-groups

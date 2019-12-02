@@ -13,8 +13,8 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 2 | arn:aws:greengrass:*region*::/connectors/SplunkIntegration/versions/2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/SplunkIntegration/versions/1 | 
+| 2 | `arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/`2 | 
+| 1 | `arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/`1 | 
 
 For information about version changes, see the [Changelog](#splunk-connector-changelog)\.
 
@@ -195,11 +195,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 The following example Lambda function sends an input message to the connector\.
 
 **Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
-
-```
-pip install greengrasssdk
-```
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
 
 ```
 import greengrasssdk

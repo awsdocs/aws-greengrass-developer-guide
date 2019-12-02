@@ -279,11 +279,7 @@ Use this topic to receive response data from a read operation\. The response dat
 The following example Lambda function sends an input message to the connector\.
 
 **Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
-
-```
-pip install greengrasssdk
-```
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
 
 ```
 import greengrasssdk

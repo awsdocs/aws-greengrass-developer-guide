@@ -58,7 +58,7 @@ In this step, you create subscriptions that allow the Lambda function and AWS Io
 
    The **/trigger** extension is used in this topic filter because you created two subscriptions and don't want them to interfere with each other\.
 
-1. Make sure that the AWS IoT Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
+1. Make sure that the Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
 
 1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)

@@ -1,20 +1,28 @@
 # Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration<a name="lambda-group-config"></a>
 
-AWS IoT Greengrass provides cloud\-based management of Greengrass Lambda functions\. You can configure details of how the Lambda function behaves when it runs in a group\. Although a function's code and dependencies are managed using AWS Lambda, AWS IoT Greengrass supports the following group\-specific configuration settings:
+AWS IoT Greengrass provides cloud\-based management of Greengrass Lambda functions\. Although a Lambda function's code and dependencies are managed using AWS Lambda, you can configure how the Lambda function behaves when it runs in a Greengrass group\.
+
+## Group\-Specific Configuration Settings<a name="lambda-group-config-properties"></a>
+
+AWS IoT Greengrass provides the following group\-specific configuration settings for Greengrass Lambda functions\.
 
 **Run as**  <a name="lambda-access-identity"></a>
-The access identity used to run each Lambda function\. By default, Lambda functions run as the group's [default access identity](#lambda-access-identity-groupsettings)\. Typically, this is the standard AWS IoT Greengrass system accounts \(ggc\_user and ggc\_group\)\. You can change the setting and choose the user ID and group ID that have the permissions required to run the Lambda function\. You can override both UID and GID or just one if you leave the other field blank\. This setting gives you more granular control over access to device resources\. We recommend that you configure your Greengrass hardware with appropriate resource limits, file permissions, and disk quotas for the users and groups whose permissions are used to run Lambda functions\.  
+The access identity used to run a Lambda function\. By default, Lambda functions run as the group's [default access identity](#lambda-access-identity-groupsettings)\. Typically, this is the standard AWS IoT Greengrass system accounts \(ggc\_user and ggc\_group\)\. You can change the setting and choose the user ID and group ID that have the permissions required to run the Lambda function\. You can override both UID and GID or just one if you leave the other field blank\. This setting gives you more granular control over access to device resources\. We recommend that you configure your Greengrass hardware with appropriate resource limits, file permissions, and disk quotas for the users and groups whose permissions are used to run Lambda functions\.  
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.  
 We recommend that you avoid running as root unless absolutely necessary\. When you run a Lambda function as root, you increase the risk of unintended changes, such as accidentally deleting a critical file\. In addition, running as root increases the risks to your data and device from malicious individuals\. If you do need to run as root, you must update the AWS IoT Greengrass configuration to enable it\. For more information, see [Running a Lambda Function as Root](#lambda-running-as-root)\.  
 **UID \(number\)**  
-The user ID for the user that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent passwd command on your AWS IoT Greengrass device to look up the user ID you want to use to run the Lambda function\.  
+The user ID for the user that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent passwd command on your AWS IoT Greengrass core device to look up the user ID you want to use to run the Lambda function\.  
 **GID \(number\)**  
-The group ID for the group that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent group command on your AWS IoT Greengrass device to look up the group ID you want to use to run the Lambda function\.
+The group ID for the group that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent group command on your AWS IoT Greengrass core device to look up the group ID you want to use to run the Lambda function\.
 
 **Containerization**  <a name="lambda-function-containerization"></a>
-Choose whether the Lambda function runs with the default containerization for the group, or specify the containerization that should always be used for this Lambda function\. To run without enabling your device kernel namespace and cgroup, all your Lambda functions must run without containerization\. You can accomplish this easily by setting the default containerization for the group\. For information, see [Setting Default Containerization for Lambda Functions in a Group](#lambda-containerization-groupsettings)\.  
+Choose whether the Lambda function runs with the default containerization for the group, or specify the containerization that should always be used for this Lambda function\.  
+A Lambda function's containerization mode determines its level of isolation\.  
++ Containerized Lambda functions run in **Greengrass container** mode\. The Lambda function runs in an isolated runtime environment \(or namespace\) inside the AWS IoT Greengrass container\.
++ Non\-containerized Lambda functions run in **No container** mode\. The Lambda functions runs as a regular Linux process without any isolation\.
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.  
-We recommend that you run Lambda functions in a Greengrass container unless your use case requires them to run without containerization\. When your Lambda functions are running in a Greengrass container, you can use attached resources, and gain the benefits of isolation and increased security\. Before you change the containerization, see [Considerations When Choosing Lambda Function Containerization](#lambda-containerization-considerations)\.
+We recommend that you run Lambda functions in a Greengrass container unless your use case requires them to run without containerization\. When your Lambda functions run in a Greengrass container, you can use attached local and device resources and gain the benefits of isolation and increased security\. Before you change the containerization, see [Considerations When Choosing Lambda Function Containerization](#lambda-containerization-considerations)\.  
+To run without enabling your device kernel namespace and cgroup, all your Lambda functions must run without containerization\. You can accomplish this easily by setting the default containerization for the group\. For information, see [Setting Default Containerization for Lambda Functions in a Group](#lambda-containerization-groupsettings)\.
 
 **Memory limit**  
 The memory allocation for the function\. The default is 16 MB\.  
@@ -41,7 +49,9 @@ Key\-value pairs that can dynamically pass settings to function code and librari
 
 **Resource access policies**  
 A list of up to 10 [local resources](access-local-resources.md), [secret resources](secrets.md), and [machine learning resources](ml-inference.md) that the Lambda function is allowed to access, and the corresponding `read-only` or `read-write` permission\. In the console, these *affiliated* resources are listed on the function's **Resources** page\.  
-Resource access policies apply only when Lambda functions are run in a Greengrass container\. When you run Lambda functions without containerization, you can directly access local resources\. You can also access secret resources when running without containerization\.
+The [containerization mode](#lambda-function-containerization) affects how Lambda functions can access local device and volume resources and machine learning resources\.  
++ Non\-containerized Lambda functions must access local device and volume resources directly through the file system on the core device\.
++ To allow non\-containerized Lambda functions to access machine learning resources in the Greengrass group, you must set the resource owner and access permissions properties on the machine learning resource\. For more information, see [Access Machine Learning Resources from Lambda Functions](access-ml-resources.md)\.
 
 ## Running a Lambda Function as Root<a name="lambda-running-as-root"></a>
 
@@ -108,7 +118,7 @@ Here are some example use cases for running without containerization:
 
 | Containerization | Notes | 
 | --- | --- | 
-| AWS IoT Greengrass container | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html) | 
+| Greengrass container | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html) | 
 | No container | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html) | 
 
 Changing the containerization for a Lambda function can cause problems when you deploy it\. If you had assigned local resources to your Lambda function that are no longer available with your new containerization settings, deployment fails\.
@@ -142,9 +152,9 @@ You can use the AWS IoT Greengrass dependency checker to determine which isolati
 1. Download and run the AWS IoT Greengrass dependency checker from the [GitHub repository](https://github.com//aws-samples/aws-greengrass-samples)\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip
-   unzip greengrass-dependency-checker-GGCv1.9.x.zip
-   cd greengrass-dependency-checker-GGCv1.9.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip
+   unzip greengrass-dependency-checker-GGCv1.10.x.zip
+   cd greengrass-dependency-checker-GGCv1.10.x
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```

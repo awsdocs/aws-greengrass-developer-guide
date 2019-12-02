@@ -8,21 +8,23 @@ This tutorial describes how to use the AWS Management Console to configure a Gre
 
 The tutorial contains the following high\-level steps:
 
-1. [Configure the Rasberry Pi](#config-raspberry-pi)\.
+1. [Configure the Raspberry Pi](#config-raspberry-pi)
 
-1. [Install the MXNet Framework](#install-mxnet)\.
+1. [Install the MXNet Framework](#install-mxnet)
 
-1. [Create a model package](#package-ml-model)\.
+1. [Create a Model Package](#package-ml-model)
 
-1. [Create and publish a Lambda function](#ml-console-create-lambda)\.
+1. [Create and Publish a Lambda Function](#ml-console-create-lambda)
 
-1. [Add the Lambda function to the group](#ml-console-config-lambda)\.
+1. [Add the Lambda Function to the Group](#ml-console-config-lambda)
 
-1. [Add resources to the group](#ml-console-add-resources)\.
+1. [Add Resources to the Group](#ml-console-add-resources)
 
-1. [Add a subscription to the group](#ml-console-add-subscription)\.
+1. [Add a Subscription to the Group](#ml-console-add-subscription)
 
-1. [Deploy the group](#ml-console-deploy-group)\.
+1. [Deploy the Group](#ml-console-deploy-group)
+
+1. [Test the App](#ml-console-test-app)
 
 ## Prerequisites<a name="ml-inference-prerequisites"></a>
 
@@ -155,7 +157,7 @@ First, create the Lambda function\.
 
 1. Choose **Author from scratch** and use the following values to create your function:
    + For **Function name**, enter **greengrassObjectClassification**\.
-   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Runtime**, choose **Python 3\.7**\.
 
    For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
@@ -168,7 +170,7 @@ First, create the Lambda function\.
 
 1. On the **Configuration** tab for the `greengrassObjectClassification` function, for **Function code**, use the following values:
    + For **Code entry type**, choose **Upload a \.zip file**\. 
-   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Runtime**, choose **Python 3\.7**\.
    + For **Handler**, enter **greengrassObjectClassification\.function\_handler**\.
 
 1. Choose **Upload**\.  
@@ -306,7 +308,7 @@ Now, add the inference model as a machine learning resource\. This step includes
 
 1.  Choose **Upload a model**\. This opens up a new tab to the Amazon S3 console\. 
 
-1.  In the Amazon S3 console tab, upload the `squeezenet.zip` file to an Amazon S3 bucket\. For information, see [ How Do I Upload Files and Folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) 
+1.  In the Amazon S3 console tab, upload the `squeezenet.zip` file to an Amazon S3 bucket\. For information, see [ How Do I Upload Files and Folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service Console User Guide*\. 
 **Note**  
 For the bucket to be accessible, your bucket name must contain the string **greengrass**\. Choose a unique name \(such as **greengrass\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
 
@@ -315,6 +317,8 @@ For the bucket to be accessible, your bucket name must contain the string **gree
 1. For **Local path**, enter **/greengrass\-machine\-learning/mxnet/squeezenet**\.
 
    This is the destination for the local model in the Lambda runtime namespace\. When you deploy the group, AWS IoT Greengrass retrieves the source model package and then extracts the contents to the specified directory\. The sample Lambda function for this tutorial is already configured to use this path \(in the `model_path` variable\)\.
+
+1. Under **Identify resource owner and set access permissions**, choose **No OS group**\.
 
 1. Under **Lambda function affiliations**, choose **Select**\.
 
@@ -363,7 +367,7 @@ In this step, you deploy the current version of the group definition to the Gree
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.4/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.0/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -388,7 +392,7 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
    For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-## Test the Inference App<a name="test-app"></a>
+## Step 9: Test the Inference App<a name="ml-console-test-app"></a>
 
 Now you can verify whether the deployment is configured correctly\. To test, you subscribe to the `hello/world` topic and view the prediction results that are published by the Lambda function\.
 
@@ -420,7 +424,9 @@ If the test is not successful, you can try the following troubleshooting steps\.
    cd /greengrass/ggc/var/log
    ```
 
-1. Check `runtime.log` or `python_runtime.log`\. 
+1. In the `system` directory, check `runtime.log` or `python_runtime.log`\.
+
+   In the `user/region/account-id` directory, check `greengrassObjectClassification.log`\.
 
    For more information, see [Troubleshooting with Logs](gg-troubleshooting.md#troubleshooting-logs)\.
 
@@ -475,7 +481,7 @@ Don't include trailing `/*` characters in this command\.
 1. Find the process identification number \(PID\) of the Lambda runtime process:
 
    ```
-   ps aux | grep lambda-function-name
+   ps aux | grep 'lambda-function-name*'
    ```
 
    In the output, the PID appears in the second column of the line for the Lambda runtime process\.

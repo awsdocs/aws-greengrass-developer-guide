@@ -1,18 +1,18 @@
 # Create AWS IoT Devices in an AWS IoT Greengrass Group<a name="device-group"></a>
 
-1. In the AWS IoT console, choose **Greengrass**, choose **Groups**, and then choose your group\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
 
-1. On the group configuration page, choose **Devices**, and then choose **Add your first Device**\.  
+1. <a name="group-choose-target-group"></a>Choose the target group\.
+
+1. <a name="gg-group-add-device"></a>On the group configuration page, choose **Devices**, and then choose **Add Device**\.  
 ![\[Screenshot of the Devices page with the Add your first Device button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-066.png)
 
-1. Choose **Create New Device**\.  
-![\[Screenshot of the Add a Device page with the Create New Device button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-067.png)
+1. <a name="gg-group-create-device"></a>On the **Add a Device** page, choose **Create New Device**\.
 
-1. Register this device as **HelloWorld\_Publisher**, and then choose **Next**\.  
+1. On the **Create a Registry entry for a device** page, register this device as **HelloWorld\_Publisher**, and then choose **Next**\.  
 ![\[Screenshot of Create a Registry entry for a device with the Name field set to HelloWorld_Publisher and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-068.png)
 
-1. For **1\-Click**, choose **Use Defaults**\. This option generates a device certificate with attached AWS IoT policy and public and private key\.  
-![\[Screenshot of Set up security with the Use Defaults button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-069.png)
+1. <a name="gg-group-generate-default-device-certs"></a>On the **Set up security** page, for **1\-Click**, choose **Use Defaults**\. This option generates a device certificate with attached AWS IoT policy and public and private key\.
 
 1. Create a folder on your computer\. Download the certificate and keys for your device into the folder\.  
 ![\[Screenshot of the Download security credentials page with the Download these resources as a tar.gz button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-070.png)
@@ -36,7 +36,7 @@ On Windows, you can decompress `.tar.gz` files using a tool such as [7\-Zip](htt
    You should now have two devices in your AWS IoT Greengrass group:  
 ![\[Screenshot showing the HelloWorld_Publisher and HelloWorld_Subscriber devices.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-071.png)
 
-1. <a name="root-ca-device"></a>Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\. Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+1. <a name="root-ca-device"></a>Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\. Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
 
    Save the root CA certificate as `root-ca-cert.pem` in the same folder as the certificates and keys for both devices\. All these files should be in one folder on your computer \(not on the AWS IoT Greengrass core device\)\.
    + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate, such as [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\.

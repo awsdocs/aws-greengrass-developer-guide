@@ -16,7 +16,7 @@ In this step, you enable the HelloWorld\_Publisher device to send MQTT messages 
 **Note**  
 You can delete subscriptions from the previous modules\. On the group's **Subscriptions** page, choose the ellipsis \(**…**\) associated with a subscription, and then choose **Delete**\.
 
-1. Make sure that the AWS IoT Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
+1. Make sure that the Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
 
 1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)

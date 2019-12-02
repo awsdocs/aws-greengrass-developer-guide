@@ -98,7 +98,7 @@ Many Greengrass connectors can communicate with other entities by sending and re
 Connectors can be message publishers, message subscribers, or both\. Each connector defines the MQTT topics that it publishes or subscribes to\. These predefined topics must be used in the subscriptions where the connector is a message source or message target\. For tutorials that include steps for configuring subscriptions for a connector, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md) and [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)\.
 
 **Note**  
-Many connectors also have built\-in modes of communication to interact with cloud or local services\. These vary by connector and might require that you configure parameters or add permissions to the group role\. For information about connector requirements, see [AWS\-Provided Greengrass Connectors](connectors-list.md)\.
+Many connectors also have built\-in modes of communication to interact with cloud or local services\. These vary by connector and might require that you configure parameters or add permissions to the [group role](config-iam-roles.md)\. For information about connector requirements, see [AWS\-Provided Greengrass Connectors](connectors-list.md)\.
 
 ### Input Topics<a name="connectors-multiple-topics"></a>
 
@@ -118,7 +118,7 @@ The `+` and `#` characters in the previous examples are wildcards\. These wildca
 
 Wildcard characters are valid only when subscribing to topics\. Messages can't be published to topics that contain wildcards\. Check the documentation for the connector to learn about its input or output topic requirements\. For more information, see [AWS\-Provided Greengrass Connectors](connectors-list.md)\.
 
-## Logging<a name="connectors-logging"></a>
+## Logging for Connectors<a name="connectors-logging"></a>
 
 Greengrass connectors contain Lambda functions that write events and errors to Greengrass logs\. Depending on your group settings, logs are written to CloudWatch Logs, the local file system, or both\. Logs from connectors include the ARN of the corresponding function\. The following example ARN is from the Kinesis Firehose connector:
 

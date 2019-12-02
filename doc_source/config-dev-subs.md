@@ -59,7 +59,7 @@ On Windows, you can decompress `.tar.gz` files using a tool such as [7\-Zip](htt
 **Note**  
 For information about the `$` character, see [Reserved Topics](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html#reserved-topics)\.
 
-1. Make sure that the AWS IoT Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
+1. Make sure that the Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
 
 1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)

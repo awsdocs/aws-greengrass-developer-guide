@@ -4,7 +4,7 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS Management Console to work with connectors\.
 
-## <a name="w4aac24c37b8"></a>
+## <a name="w4aac26c37b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 
@@ -42,8 +42,9 @@ The tutorial should take about 20 minutes to complete\.
 
 To complete this tutorial, you need:
 
-### <a name="w4aac24c37c16b6"></a>
+### <a name="w4aac26c37c16b6"></a>
 + A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
++ Python 2\.7 installed on the AWS IoT Greengrass core device\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -84,7 +85,7 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
 In this step, you add a *secret resource* to the Greengrass group\. This resource is a reference to the secret that you created in the previous step\.
 
-1. <a name="create-secret-resource-step-openconsole"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
 
 1. <a name="create-secret-resource-step-choosegroup"></a>Choose the group that you want to add the secret resource to\.
 
@@ -123,7 +124,7 @@ When you choose the resource, the **ARN of Twilio auth token secret** property i
 
 ## Step 4: Create a Lambda Function Deployment Package<a name="connectors-console-create-deployment-package"></a>
 
-### <a name="w4aac24c37c24b4"></a>
+### <a name="w4aac26c37c24b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -312,20 +313,20 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
 1. <a name="shared-deploy-group-deploy"></a>On the group configuration page, choose **Deployments**, and from the **Actions** menu, choose **Deploy**\.  
 ![\[The group page with Deployments and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-deployments-deploy.png)
 
-1. <a name="shared-deploy-group-ipconfig"></a>On the **Configure how devices discover your core** page, choose **Automatic detection**\.
+1. <a name="shared-deploy-group-ipconfig"></a>If prompted, on the **Configure how devices discover your core** page, choose **Automatic detection**\.
 
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
 If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
-   The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the deployment should show a **Successfully completed** status\.
+   The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.
 
    For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
 ## Test the Solution<a name="connectors-console-test-solution"></a>
 
-### <a name="w4aac24c37c34b4"></a>
+### <a name="w4aac26c37c34b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)

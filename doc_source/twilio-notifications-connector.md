@@ -12,9 +12,9 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 3 | arn:aws:greengrass:*region*::/connectors/TwilioNotifications/versions/3 | 
-| 2 | arn:aws:greengrass:*region*::/connectors/TwilioNotifications/versions/2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/TwilioNotifications/versions/1 | 
+| 3 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/`3 | 
+| 2 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/`2 | 
+| 1 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/`1 | 
 
 For information about version changes, see the [Changelog](#twilio-notifications-connector-changelog)\.
 
@@ -281,11 +281,7 @@ The `payload` property in the output is the response from the Twilio API when th
 The following example Lambda function sends an input message to the connector\. This example triggers a text message\.
 
 **Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
-
-```
-pip install greengrasssdk
-```
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
 
 ```
 import greengrasssdk

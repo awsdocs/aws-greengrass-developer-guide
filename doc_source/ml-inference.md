@@ -32,13 +32,22 @@ AWS IoT Greengrass supports Amazon SageMaker and Amazon S3 model sources for mac
 The following requirements apply to model sources:
 + S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS IoT Greengrass ML inference currently supports the SSE\-S3 or SSE\-KMS encryption options only\. For more information about server\-side encryption options, see [Protecting Data Using Server\-Side Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 + The names of S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not include periods \(`.`\)\. For more information, see the rule about using virtual hosted–style buckets with SSL in [Rules for Bucket Naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service Developer Guide*\.
-+ Service\-level AWS Region support must be available for both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [Amazon SageMaker](https://docs.aws.amazon.com/general/latest/gr/rande.html#sagemaker_region)\. See the following table\.  
-****    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-inference.html)
++ Service\-level AWS Region support must be available for both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [Amazon SageMaker](https://docs.aws.amazon.com/general/latest/gr/rande.html#sagemaker_region)\. Currently, AWS IoT Greengrass supports Amazon SageMaker models in the following Regions: 
+  + US East \(Ohio\)
+  + US East \(N\. Virginia\)
+  + US West \(Oregon\)
+  + Asia Pacific \(Mumbai\)
+  + Asia Pacific \(Seoul\)
+  + Asia Pacific \(Singapore\)
+  + Asia Pacific \(Sydney\)
+  + Asia Pacific \(Tokyo\)
+  + EU \(Frankfurt\)
+  + EU \(Ireland\)
+  + EU \(London\)
 + AWS IoT Greengrass must have `read` permission to the model source, as described in the following sections\.
 
 **Amazon SageMaker**  
-AWS IoT Greengrass supports models that are saved as Amazon SageMaker training jobs\.  
+AWS IoT Greengrass supports models that are saved as Amazon SageMaker training jobs\. Amazon SageMaker is a fully managed ML service that you can use to build and train models using built\-in or custom algorithms\. For more information, see [What Is Amazon SageMaker?](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) in the *Amazon SageMaker Developer Guide*\.  
 If you configured your Amazon SageMaker environment by [creating a bucket](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-config-permissions.html) whose name contains `sagemaker`, then AWS IoT Greengrass has sufficient permission to access your Amazon SageMaker training jobs\. The `AWSGreengrassResourceAccessRolePolicy` managed policy allows access to buckets whose name contains the string `sagemaker`\. This policy is attached to the Greengrass service role\.  
 Otherwise, you must grant AWS IoT Greengrass `read` permission to the bucket where your training job is stored\. To do this, embed the following inline policy in the Greengrass service role\. You can list multiple bucket ARNs\.  
 
@@ -58,7 +67,6 @@ Otherwise, you must grant AWS IoT Greengrass `read` permission to the bucket whe
     ]
 }
 ```
-Amazon SageMaker is a fully managed ML service that you can use to build and train models using built\-in or custom algorithms\. For more information, see [What Is Amazon SageMaker?](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) in the *Amazon SageMaker Developer Guide*\.
 
 **Amazon S3**  
 AWS IoT Greengrass supports models that are stored in Amazon S3 as `tar.gz` or `.zip` files\.  
@@ -95,8 +103,7 @@ To enable AWS IoT Greengrass to access models that are stored in Amazon S3 bucke
 
 The following requirements apply for creating and using machine learning resources:
 + You must be using AWS IoT Greengrass Core v1\.6 or later\.
-+ Lambda functions can perform `read` or `read and write` operations on the resource\. Permissions for other operations are not available\.
-+ Lambda functions configured with access to ML model resources cannot be running in non\-containerized mode\. 
++ User\-defined Lambda functions can perform `read` or `read and write` operations on the resource\. Permissions for other operations are not available\.  The containerization mode of affiliated Lambda functions determines how you set access permissions\. For more information, see [Access Machine Learning Resources from Lambda Functions](access-ml-resources.md)\.
 + You must provide the full path of the resource on the operating system of the core device\.
 + A resource name or ID has a maximum length of 128 characters and must use the pattern `[a-zA-Z0-9:_-]+`\.
 

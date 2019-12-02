@@ -127,7 +127,7 @@ In this step, you modify the Greengrass core configuration file to use SoftHSM\.
 
    1. Copy the full path to the file \(for example, `/usr/lib/x86_64-linux-gnu/softhsm/libsofthsm2.so`\)\. You use this value later\.
 
-1. Stop the AWS Greengrass daemon\.
+1. Stop the Greengrass daemon\.
 
    ```
    cd /greengrass/ggc/core/

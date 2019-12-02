@@ -76,7 +76,7 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
 In this step, you configure a group resource that references the Secrets Manager secret\.
 
-1. <a name="create-secret-resource-step-openconsole"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
 
 1. <a name="create-secret-resource-step-choosegroup"></a>Choose the group that you want to add the secret resource to\.
 
@@ -155,7 +155,7 @@ In this step, you use the AWS Lambda console to create a Lambda function and con
 
    1. In the **Basic information** section, use the following values:
       + For **Function name**, enter **SecretTest**\.
-      + For **Runtime**, choose **Python 2\.7**\.
+      + For **Runtime**, choose **Python 3\.7**\.
       + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    1. <a name="lambda-console-save-function"></a>At the bottom of the page, choose **Create function**\.
@@ -164,7 +164,7 @@ In this step, you use the AWS Lambda console to create a Lambda function and con
 
    1. On the **Configuration** tab for the SecretTest function, in **Function code**, use the following values:
       + For **Code entry type**, choose **Upload a \.zip file**\.
-      + For **Runtime**, choose **Python 2\.7**\.
+      + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **secret\_test\.function\_handler**
 
    1. <a name="lambda-console-upload"></a>Choose **Upload**\.
@@ -281,14 +281,14 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
 1. <a name="shared-deploy-group-deploy"></a>On the group configuration page, choose **Deployments**, and from the **Actions** menu, choose **Deploy**\.  
 ![\[The group page with Deployments and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-deployments-deploy.png)
 
-1. <a name="shared-deploy-group-ipconfig"></a>On the **Configure how devices discover your core** page, choose **Automatic detection**\.
+1. <a name="shared-deploy-group-ipconfig"></a>If prompted, on the **Configure how devices discover your core** page, choose **Automatic detection**\.
 
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
 **Note**  
 If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
-   The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the deployment should show a **Successfully completed** status\.
+   The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.
 
    For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 

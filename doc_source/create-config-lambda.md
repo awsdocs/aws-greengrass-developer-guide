@@ -18,17 +18,17 @@ In this step, you create a Lambda function that tracks the number of cars that p
 1. Compress the contents of the `car_aggregator` folder into a `.zip` file named `car_aggregator.zip`\. \(Compress the folder's contents, not the folder\.\) This is your Lambda function deployment package\.
 
 1. In the Lambda console, create a function named **GG\_Car\_Aggregator**, and set the remaining fields as follows:
-   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Runtime**, choose **Python 3\.7**\.
    + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    Choose **Create function**\.  
-![\[Basic information section with Function name set to GG_Car_Aggregator and Runtime set to Python 2.7.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-095.5.png)
+![\[Basic information section with Function name set to GG_Car_Aggregator and Runtime set to Python 3.7.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-095.5.png)
 
 1. Upload your Lambda function deployment package:
 
    1. On the **Configuration** tab, under **Function code**, set the following fields:
       + For **Code entry type**, choose **Upload a \.zip file**\.
-      + For **Runtime**, choose **Python 2\.7**\.
+      + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **carAggregator\.function\_handler**
 
    1. Choose **Upload**, and then choose `car_aggregator.zip`\.

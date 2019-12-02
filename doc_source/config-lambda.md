@@ -25,7 +25,7 @@ You are now ready to configure your Lambda function for AWS IoT Greengrass\. In 
       
 ![\[Screenshot of the configuration page with 25 (seconds) and the Make this function long-lived and keep it running indefinitely radio button selected.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-035.png)
 **Note**  
-A *long\-lived* Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container \(or sandbox\)\. This is in contrast to an *on\-demand* Lambda function, which starts when invoked and stops when there are no tasks left to execute\. For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.
+<a name="long-lived-lambda"></a>A *long\-lived* \(or *pinned*\) Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container\. This is in contrast to an *on\-demand* Lambda function, which starts when invoked and stops when there are no tasks left to execute\. For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.
 
 1. Keep the default values for all other fields, such as **Run as**, **Containerization**, and **Input payload data type**, and choose **Update** to save your changes\. For information about Lambda function properties, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
 
@@ -44,18 +44,7 @@ A *long\-lived* Lambda function starts automatically after AWS IoT Greengrass st
 **Note**  
 A subscription is directed in the sense that messages flow in a specific direction: from the source to the target\. To allow two\-way communication, you must set up two subscriptions\.
 
-   The `Greengrass_HelloWorld` Lambda function sends messages only to the `hello/world` topic in AWS IoT, as shown in the following `greengrassHelloWorld.py` code snippet:
-
-   ```
-   def greengrass_hello_world_run():
-       if not my_platform:
-           client.publish(topic='hello/world', payload='Hello world! Sent from Greengrass Core.')
-       else:
-           client.publish(topic='hello/world', payload='Hello world! Sent from Greengrass Core running on platform: {}'.format(my_platform))
-       Timer(5, greengrass_hello_world_run).start()
-   ```
-
-   Because the `Greengrass_HelloWorld` Lambda function sends messages only to the `hello/world` topic in AWS IoT, you only need to create one subscription from the Lambda function to AWS IoT, as shown next\.
+   The `Greengrass_HelloWorld` Lambda function sends messages only to the `hello/world` topic in AWS IoT, so you only need to create one subscription from the Lambda function to AWS IoT\. You create this in the next step\.
 
 1. On the group configuration page, choose **Subscriptions**, and then choose **Add your first Subscription**\.  
 ![\[Screenshot of the Group configuration page, with Subscription and Add your first Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-036.png)
@@ -71,7 +60,7 @@ A subscription is directed in the sense that messages flow in a specific directi
 
 1. Choose **Finish**\.
 
-1. Configure the group's logging settings\. For this tutorial, you configure AWS IoT Greengrass system components and user\-defined Lambda functions to write logs to the file system of the core device\. For more information, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
+1. Configure the group's logging settings\. For this tutorial, you configure AWS IoT Greengrass system components and user\-defined Lambda functions to write logs to the file system of the core device\. You can use logs to troubleshoot any issues you might encounter\. For more information, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
 
    1. On the group configuration page, choose **Settings**\.
 

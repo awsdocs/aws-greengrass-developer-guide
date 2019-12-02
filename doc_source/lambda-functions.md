@@ -2,7 +2,7 @@
 
 AWS IoT Greengrass provides a containerized Lambda runtime environment for user\-defined code that you author in AWS Lambda\. Lambda functions that are deployed to an AWS IoT Greengrass core run in the core's local Lambda runtime\. Local Lambda functions can be triggered by local events, messages from the cloud, and other sources, which brings local compute functionality to connected devices\. For example, you can use Greengrass Lambda functions to filter device data before transmitting the data to the cloud\.
 
-To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the group role\.
+To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the Greengrass group role\.
 
 You can configure parameters that determine how the Lambda functions run, including permissions, isolation, memory limits, and more\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
 
@@ -16,16 +16,16 @@ The following table lists supported AWS Lambda runtimes and the versions of AWS 
 
 | Language or platform | GGC version | 
 | --- | --- | 
+| Python 3\.7 | 1\.9 or later | 
 | Python 2\.7 | 1\.0 or later | 
-| Python 3\.7 | 1\.9 | 
 | Java 8 | 1\.1 or later | 
+| Node\.js 8\.10 | 1\.9 or later | 
 | Node\.js 6\.10 | 1\.1 or later | 
-| Node\.js 8\.10 | 1\.9 | 
 | C, C\+\+ | 1\.6 or later | 
 
 ## SDKs for Greengrass Lambda Functions<a name="lambda-sdks"></a>
 
-AWS provides three SDKs that can be used by Greengrass Lambda functions running on an AWS IoT Greengrass core\. These SDKs are contained in different packages, so functions can use them simultaneously\. To use an SDK in a Greengrass Lambda function, include it in your deployment package\.
+AWS provides three SDKs that can be used by Greengrass Lambda functions running on an AWS IoT Greengrass core\. These SDKs are contained in different packages, so functions can use them simultaneously\. To use an SDK in a Greengrass Lambda function, include it in the Lambda function deployment package that you upload to AWS Lambda\.
 
 **AWS IoT Greengrass Core SDK**  <a name="lambda-sdks-core"></a>
 Enables local Lambda functions to interact with the core to:  <a name="gg-core-sdk-functionality"></a>
@@ -34,17 +34,35 @@ Enables local Lambda functions to interact with the core to:  <a name="gg-core-s
 + Interact with the local shadow service\.
 + Invoke other local Lambda functions\.
 + Access [secret resources](secrets.md)\.
++ Interact with [stream manager](stream-manager.md)\.
 AWS IoT Greengrass provides the AWS IoT Greengrass Core SDK in the following languages and platforms on GitHub\.  <a name="gg-core-sdk-download-list"></a>
 + [ AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/)
 + [ AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/)
 + [ AWS IoT Greengrass Core SDK for Python](https://github.com/aws/aws-greengrass-core-sdk-python/)
 + [ AWS IoT Greengrass Core SDK for C](https://github.com/aws/aws-greengrass-core-sdk-c/)
-If you're running Python Lambda functions, you can also use [https://pypi.org/project/pip/](https://pypi.org/project/pip/) to install the AWS IoT Greengrass Core SDK for Python on the core device\. Then you can deploy your functions without including the SDK in the Lambda function deployment package\. For more information, see [greengrasssdk](https://pypi.org/project/greengrasssdk/)\.  
-To use `pip` to install the Python SDK, run the following command in your core device terminal\.  
+To include the AWS IoT Greengrass Core SDK dependency in the Lambda function deployment package:  
 
-```
-pip install greengrasssdk
-```
+1. Download the language or platform of the AWS IoT Greengrass Core SDK package that matches the runtime of your Lambda function\.
+
+1. Unzip the downloaded package to get the SDK\. The SDK is the `greengrasssdk` folder\.
+
+1. Include `greengrasssdk` in the Lambda function deployment package that contains your function code\. This is the package you upload to AWS Lambda when you create the Lambda function\.
+   
+ **StreamManagerClient**  
+Only the Java SDK \(v1\.4\.0\) and Python SDK \(v1\.5\.0\) can be used for [stream manager](stream-manager.md) operations\.  
+In the AWS IoT Greengrass Core SDK for Python, support for stream manager requires Python 3\.7\. You must also install dependencies to include in your Python Lambda function deployment packages:  <a name="python-sdk-dependencies-stream-manager"></a>
+
+1. Navigate to the SDK directory that contains the `requirements.txt` file\. This file lists the dependencies\.
+
+1. Install the SDK dependencies\. For example, run the following `pip` command to install them in the current directory:
+
+   ```
+   pip install --target . -r requirements.txt
+   ```
+ **Install the AWS IoT Greengrass Core SDK for Python on the core device**  
+If you're running Python Lambda functions, you can also use [https://pypi.org/project/pip/](https://pypi.org/project/pip/) to install the AWS IoT Greengrass Core SDK for Python on the core device\. Then you can deploy your functions without including the SDK in the Lambda function deployment package\. For more information, see [greengrasssdk](https://pypi.org/project/greengrasssdk/)\.  
+This support is intended for cores with size constraints\. We recommend that you include the SDK in your Lambda function deployment packages when possible\.  
+ 
 
 **AWS IoT Greengrass Machine Learning SDK**  <a name="lambda-sdks-ml"></a>
 Enables local Lambda functions to consume machine learning \(ML\) models that are deployed to the Greengrass core as ML resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. Lambda functions and ML connectors can also use the SDK to send data to the ML Feedback connector for uploading and publishing\. For more information, including code examples that use the SDK, see [ML Image Classification Connector](image-classification-connector.md), [ML Object Detection Connector](obj-detection-connector.md), and [ML Feedback Connector](ml-feedback-connector.md)\.  
@@ -120,14 +138,15 @@ This communication flow allows Lambda functions to exchange messages with the fo
 A subscription defines a message source, a message target, and a topic \(or subject\) that's used to route messages from the source to the target\. Messages that are published to a Lambda function are passed to the function's registered handler\. Subscriptions enable more security and provide predictable interactions\. For more information, see [Greengrass Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
 
 **Note**  
-When the core is offline, Greengrass Lambda functions can exchange messages with devices, connectors, other functions, and local shadows, but messages to AWS IoT are queued\. For more information, see [MQTT Message Queue](gg-core.md#mqtt-message-queue)\.
+When the core is offline, Greengrass Lambda functions can exchange messages with devices, connectors, other functions, and local shadows, but messages to AWS IoT are queued\. For more information, see [MQTT Message Queue for Cloud Targets](gg-core.md#mqtt-message-queue)\.
 
 ### Other Communication Flows<a name="lambda-other-communication"></a>
-+ To interact with local resources and machine learning models on a core device, Greengrass Lambda functions use platform\-specific operating system interfaces\. For example, you can use the `open` method in the [os](https://docs.python.org/2/library/os.html) module in Python 2\.7 functions\. To allow a function to access a resource, the function must be *affiliated* with the resource and granted `read-only` or `read-write` permission\. For more information, including AWS IoT Greengrass core version availability, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md) and [Perform Machine Learning Inference](ml-inference.md)\.
++ To interact with local device and volume resources and machine learning models on a core device, Greengrass Lambda functions use platform\-specific operating system interfaces\. For example, you can use the `open` method in the [os](https://docs.python.org/2/library/os.html) module in Python functions\. To allow a function to access a resource, the function must be *affiliated* with the resource and granted `read-only` or `read-write` permission\. For more information, including AWS IoT Greengrass core version availability, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md) and [Accessing Machine Learning Resources from Lambda Function Code](access-ml-resources.md#access-resource-function-code)\.
 **Note**  
-If you run your Lambda function without containerization, you cannot use attached local resources and must access those resources directly\. Machine learning resources are not available for Lambda functions that run without containerization\.
-+ Greengrass Lambda functions can use the AWS SDK to communicate with AWS services\. For more information, see [AWS SDK](#aws-sdk)\.
-+ Greengrass Lambda functions can use third\-party interfaces to communicate with external cloud services, similar to cloud\-based Lambda functions\.
+If you run your Lambda function without containerization, you cannot use attached local device and volume resources and must access those resources directly\.
++ Lambda functions can use the `Lambda` client in the AWS IoT Greengrass Core SDK to invoke other Lambda functions in the Greengrass group\.
++ Lambda functions can use the AWS SDK to communicate with AWS services\. For more information, see [AWS SDK](#aws-sdk)\.
++ Lambda functions can use third\-party interfaces to communicate with external cloud services, similar to cloud\-based Lambda functions\.
 
 **Note**  
 Greengrass Lambda functions can't communicate with AWS or other cloud services when the core is offline\.

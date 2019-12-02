@@ -1,8 +1,23 @@
 # Configure the Group Role<a name="config-iam-roles"></a>
 
-The group role is an IAM role that you create and attach to your group\. This role contains the permissions that your deployed Lambda functions \(and [connectors](connectors.md)\) use to access AWS services\. For more information about IAM roles, see the [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
+The group role is an IAM role that you create and attach to your group\. This role contains the permissions that deployed Lambda functions and [connectors](connectors.md) use to access AWS services\. For more information about IAM roles, see the [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
 
-In this step, you create a permissions policy that allows describe, create, and update actions on an Amazon DynamoDB table\. Then, you attach the policy to a new role and associate the role with your Greengrass group\.
+You use the following high\-level steps to create a group role in the IAM console\.
+
+1. Create a policy that allows or denies actions on one or more resources\.
+
+1. Create a role that uses the Greengrass service as a trusted entity\.
+
+1. Attach your policy to the role\.
+
+1. Add the role to the Greengrass group\.
+
+**Note**  
+A Greengrass group has one group role\. If you want to add permissions, you can edit attached policies or attach more policies\.
+
+ 
+
+For this tutorial, you create a permissions policy that allows describe, create, and update actions on an Amazon DynamoDB table\. Then, you attach the policy to a new role and associate the role with your Greengrass group\.
 
 First, create a customer\-managed policy that grants permissions required by the Lambda function in this module\.
 
@@ -52,7 +67,7 @@ First, create a customer\-managed policy that grants permissions required by the
 
 1. Choose **Create role**\.
 
-   Now, attach the role to your Greengrass group\.
+   Now, add the role to your Greengrass group\.
 
 1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose your AWS IoT Greengrass group\.
 

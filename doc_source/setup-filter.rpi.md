@@ -123,22 +123,28 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    Your Raspberry Pi should now be ready for AWS IoT Greengrass\.
 
+1. <a name="install-java-8-runtime"></a>Install the Java 8 Runtime\. This tutorial uses the **Easy Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. When stream manager is enabled, you must install Java 8 Runtime on the core device before you deploy your group\.
+
+   ```
+   sudo apt install openjdk-8-jdk
+   ```
+
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com//aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the `Downloads` directory\.
 
    ```
    cd /home/pi/Downloads
-   mkdir greengrass-dependency-checker-GGCv1.9.x
-   cd greengrass-dependency-checker-GGCv1.9.x
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip
-   unzip greengrass-dependency-checker-GGCv1.9.x.zip
-   cd greengrass-dependency-checker-GGCv1.9.x
+   mkdir greengrass-dependency-checker-GGCv1.10.x
+   cd greengrass-dependency-checker-GGCv1.10.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip
+   unzip greengrass-dependency-checker-GGCv1.10.x.zip
+   cd greengrass-dependency-checker-GGCv1.10.x
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```
 
    Where `more` appears, press the Spacebar key to display another screen of text\. 
 **Important**  
-This tutorial requires Python 2\.7\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node\.js and Java prerequisites\. You can ignore these warnings\.
+<a name="lambda-runtime-prereqs"></a>This tutorial requires Python 3\.7 and Java 8 runtimes\. The `check_ggc_dependencies` script might produce warnings about the missing optional runtime prerequisites\. You can ignore these warnings\.
 
    For information about the modprobe command, run man modprobe in the terminal\. 
 

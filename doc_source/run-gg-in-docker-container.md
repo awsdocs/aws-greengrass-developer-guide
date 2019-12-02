@@ -5,7 +5,7 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 AWS IoT Greengrass can be configured to run in a [Docker](https://www.docker.com/) container\. 
 
 **Note**  
-Connectors, local device and volume resources, and local machine learning model resources can't be used in a Docker container\. These features aren't supported when the Lambda runtime environment for the Greengrass group is set to [**No container**](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\.
+[Connectors](connectors.md) and [local device and volume resources](access-local-resources.md) can't be used in a Docker container\. This feature isn't supported when the Lambda runtime environment for the Greengrass group is set to [**No container**](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\. However, you can access local device and volume resources directly\.
 
 You can download a Dockerfile [through Amazon CloudFront](what-is-gg.md#gg-docker-download) that has the AWS IoT Greengrass Core software and dependencies installed\. To modify the Docker image to run on different platform architectures or reduce the size of the Docker image, see the `README` file in the Docker package download\.
 
@@ -183,7 +183,7 @@ Run the following commands in your computer terminal\.
    tar xvzf hash-setup.tar.gz -C /tmp/
    ```
 
-1. <a name="docker-root-ca"></a>Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. <a name="docker-root-ca"></a>Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 
    Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
 
@@ -238,7 +238,7 @@ Run the following commands in your computer terminal\.
    tar xvzf hash-setup.tar.gz -C /tmp/
    ```
 
-1. <a name="docker-root-ca"></a>Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. <a name="docker-root-ca"></a>Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 
    Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
 
@@ -289,7 +289,7 @@ The `wget -O` parameter is the capital letter O\.
 
    Locate the downloaded `hash-setup.tar.gz` file on your computer and then decompress the file into `C:\Users\%USERNAME%\Downloads\`\.
 
-1. Review the documentation about [Server Authentication in AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication) and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 
    Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
 **Important**  

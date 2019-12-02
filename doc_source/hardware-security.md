@@ -32,7 +32,7 @@ Search for devices that are qualified for this feature in the [AWS Partner Devic
 
 In addition, make sure that the following conditions are met:
 + The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
-+ The AWS IoT Greengrass Core software v1\.7 or later is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\. Version 1\.9 is required to use an EC key for the MQTT server\.
++ The AWS IoT Greengrass Core software v1\.7 or later is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\. Version 1\.9 or later is required to use an EC key for the MQTT server\.
 + The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
 
 **Note**  
@@ -74,6 +74,24 @@ When using hardware security, the `crypto` object is used to specify paths to ce
 ```
 
 The `crypto` object contains the following properties:
+
+
+| Field | Description | Notes | 
+| --- | --- | --- | 
+| <a name="shared-config-capath-crypto"></a>caPath |  The absolute path to the AWS IoT root CA\.  |  Must be a file URI of the form: `file:///absolute/path/to/file`\. Make sure that your [endpoints correspond to your certificate type](gg-core.md#certificate-endpoints)\.  | 
+| PKCS11 | 
+| <a name="shared-config-opensslengine"></a>OpenSSLEngine |  Optional\. The absolute path to the OpenSSL engine `.so` file to enable PKCS\#11 support on OpenSSL\.  |  Must be a path to a file on the file system\. This property is required if you're using the Greengrass OTA update agent with hardware security\. For more information, see [Configure Support for Over\-the\-Air Updates](#hardware-security-ota-updates)\.  | 
+| <a name="shared-config-p11provider"></a>P11Provider |  The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  |  Must be a path to a file on the file system\.  | 
+| <a name="shared-config-slotlabel"></a>slotLabel |  The slot label that's used to identify the hardware module\.  |  Must conform to PKCS\#11 label specifications\.  | 
+| <a name="shared-config-slotuserpin"></a>slotUserPin |  The user pin that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
+| principals | 
+| <a name="shared-config-iotcertificate"></a>IoTCertificate | The certificate and private key that the core uses to make requests to AWS IoT\. | 
+| <a name="shared-config-iotcertificate-privatekeypath"></a>IoTCertificate  \.privateKeyPath  |  The path to the core private key\.  |  For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\.  | 
+| <a name="shared-config-iotcertificate-certificatepath"></a>IoTCertificate  \.certificatePath |  The absolute path to the core device certificate\.  |  Must be a file URI of the form: `file:///absolute/path/to/file`\.  | 
+| <a name="shared-config-mqttservercertificate"></a>MQTTServerCertificate | Optional\. The private key that the core uses in combination with the certificate to act as an MQTT server or gateway\. | 
+| <a name="shared-config-mqttservercertificate-privatekeypath"></a>MQTTServerCertificate  \.privateKeyPath |  The path to the local MQTT server private key\.  |  Use this value to specify your own private key for the local MQTT server\. For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\. If this property is omitted, AWS IoT Greengrass rotates the key based your rotation settings\. If specified, the customer is responsible for rotating the key\.  | 
+| <a name="shared-config-secretsmanager"></a>SecretsManager | The private key that secures the data key used for encryption\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\. | 
+| <a name="shared-config-secretsmanager-privatekeypath"></a>SecretsManager  \.privateKeyPath |  The path to the local secrets manager private key\.  |  Only an RSA key is supported\. For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\. The private key must be generated using the [PKCS\#1 v1\.5](https://tools.ietf.org/html/rfc2313) padding mechanism\.  | 
 
 
 | Field | Description | Notes | 
@@ -140,7 +158,7 @@ To configure the Greengrass core to use file system\-based keys for the MQTT ser
 
 ## Supported Cipher Suites for Hardware Security Integration<a name="cipher-suites-for-hsm"></a>
 
-AWS IoT Greengrass supports a set of cipher suites when the core is configured for hardware security\. This is a subset of the cipher suites that are supported when the core is configured to use file\-based security\. For more information, see [AWS IoT Greengrass Cipher Suites](gg-sec.md#gg-cipher-suites)\.
+AWS IoT Greengrass supports a set of cipher suites when the core is configured for hardware security\. This is a subset of the cipher suites that are supported when the core is configured to use file\-based security\. For more information, see [TLS Cipher Suites Support](gg-sec.md#gg-cipher-suites)\.
 
 **Note**  
 When connecting to the Greengrass core from Greengrass devices over the local network, be sure to use one of the supported cipher suites to make the TLS connection\.
@@ -158,7 +176,7 @@ To enable over\-the\-air \(OTA\) updates of the AWS IoT Greengrass Core software
 **Note**  
 *greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
 
-1. Install the OpenSSL engine\.
+1. Install the OpenSSL engine\. OpenSSL 1\.0 or 1\.1 are supported\.
 
    ```
    sudo apt-get install libengine-pkcs11-openssl

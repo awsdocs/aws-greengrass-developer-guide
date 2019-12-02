@@ -178,11 +178,7 @@ When publishing to this topic, the connector replaces the `+` wildcard with the 
 The following example Lambda function sends an input message to the connector\. This example sends read requests for a set of input GPIO pins\. It shows how to construct topics using the core thing name and pin number\.
 
 **Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
-
-```
-pip install greengrasssdk
-```
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
 
 ```
 import greengrasssdk

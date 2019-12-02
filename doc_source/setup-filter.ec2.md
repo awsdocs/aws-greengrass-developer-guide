@@ -102,17 +102,29 @@ Softlinks are represented by `fs.protected_symlinks`\.
 
    Your Amazon EC2 instance should now be ready for AWS IoT Greengrass\.
 
+1. <a name="install-java-8-runtime"></a>Install the Java 8 Runtime\. This tutorial uses the **Easy Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. When stream manager is enabled, you must install Java 8 Runtime on the core device before you deploy your group\.
+   + For Debian\-based distributions:
+
+     ```
+     sudo apt install openjdk-8-jdk
+     ```
+   + For Red Hat\-based distributions:
+
+     ```
+     sudo yum install java-1.8.0-openjdk
+     ```
+
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com//aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script\.
 
    ```
-   mkdir greengrass-dependency-checker-GGCv1.9.x
-   cd greengrass-dependency-checker-GGCv1.9.x
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.9.x.zip
-   unzip greengrass-dependency-checker-GGCv1.9.x.zip
-   cd greengrass-dependency-checker-GGCv1.9.x
+   mkdir greengrass-dependency-checker-GGCv1.10.x
+   cd greengrass-dependency-checker-GGCv1.10.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip
+   unzip greengrass-dependency-checker-GGCv1.10.x.zip
+   cd greengrass-dependency-checker-GGCv1.10.x
    sudo ./check_ggc_dependencies | more
    ```
 **Important**  
-This tutorial requires Python 2\.7\. The `check_ggc_dependencies` script might produce warnings about the missing optional Node\.js and Java prerequisites\. You can ignore these warnings\.
+<a name="lambda-runtime-prereqs"></a>This tutorial requires Python 3\.7 and Java 8 runtimes\. The `check_ggc_dependencies` script might produce warnings about the missing optional runtime prerequisites\. You can ignore these warnings\.
 
 Your Amazon EC2 instance configuration is complete\. Continue to [Module 2: Installing the AWS IoT Greengrass Core Software](module2.md)\.

@@ -42,9 +42,9 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
 
    ```
    # Demonstrates a simple use case of local resource access.
-   # This Lambda function writes a file "test" to a volume mounted inside
-   # the Lambda environment under "/dest/LRAtest". Then it reads the file and 
-   # publishes the content to the AWS IoT "LRA/test" topic. 
+   # This Lambda function writes a file test to a volume mounted inside
+   # the Lambda environment under destLRAtest. Then it reads the file and 
+   # publishes the content to the AWS IoT LRAtest topic. 
    
    import sys
    import greengrasssdk
@@ -52,22 +52,26 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
    import os
    import logging
    
+   # Setup logging to stdout
+   logger = logging.getLogger(__name__)
+   logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+   
    # Create a Greengrass Core SDK client.
    client = greengrasssdk.client('iot-data')
    volumePath = '/dest/LRAtest'
    
    def function_handler(event, context):
-       client.publish(topic='LRA/test', payload='Sent from AWS IoT Greengrass Core.')
        try:
+           client.publish(topic='LRA/test', payload='Sent from AWS IoT Greengrass Core.')
            volumeInfo = os.stat(volumePath)
            client.publish(topic='LRA/test', payload=str(volumeInfo))
            with open(volumePath + '/test', 'a') as output:
-               output.write('Successfully write to a file.\n')
+               output.write('Successfully write to a file.')
            with open(volumePath + '/test', 'r') as myfile:
                data = myfile.read()
            client.publish(topic='LRA/test', payload=data)
        except Exception as e:
-           logging.error("Experiencing error :{}".format(e))
+           logger.error('Failed to publish message: ' + repr(e))
        return
    ```
 
@@ -97,7 +101,7 @@ First, create the Lambda function\.
 
    1. For **Function name**, enter **TestLRA**\.
 
-   1. For **Runtime**, choose **Python 2\.7**\.
+   1. For **Runtime**, choose **Python 3\.7**\.
 
    1. For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
@@ -112,7 +116,7 @@ First, create the Lambda function\.
 
    1. For **Code entry type**, choose **Upload a \.zip file**\.
 
-   1. For **Runtime**, choose **Python 2\.7**\.
+   1. For **Runtime**, choose **Python 3\.7**\.
 
    1. For **Handler**, enter **lraTest\.function\_handler**\.
 
@@ -178,12 +182,7 @@ First, add the Lambda function to your Greengrass group\.
 
 1. On the **TestLRA** configuration page, choose **Edit**\.
 
-1. On the **Group\-specific Lambda configuration** page, use the following values\.
-
-   1. For **Timeout**, choose **30 seconds**\.
-
-   1. Under **Lambda lifecycle**, select **Make this function long\-lived and keep it running indefinitely**\. For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.  
-![\[The TestLRA page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/config-lambda.png)
+1. On the **Group\-specific Lambda configuration** page, for **Timeout**, choose **30 seconds**\.
 **Important**  
 Lambda functions that use local resources \(as described in this procedure\) must run in a Greengrass container\. Otherwise, deployment fails if you try to deploy the function\. For more information, see [Containerization](lambda-group-config.md#lambda-function-containerization)\.
 
@@ -242,7 +241,7 @@ First, create a subscription for the Lambda function to send messages to AWS IoT
    1. Choose **Next**\.  
 ![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/inbound-subscription.png)
 
-1. On the **Filter your data with a topic** page, for **Optional topic filter**, enter **LRA/test**, and then choose **Next**\.  
+1. On the **Filter your data with a topic** page, for **Topic filter**, enter **LRA/test**, and then choose **Next**\.  
 ![\[The Filter your data with a topic page with LRA/test and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/inbound-subscription-filter.png)
 
 1. Choose **Finish**\. The **Subscriptions** page displays the new subscription\.
@@ -262,7 +261,7 @@ First, create a subscription for the Lambda function to send messages to AWS IoT
    1. Choose **Next**\.  
 ![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/outbound-subscription.png)
 
-1. On the **Filter your data with a topic** page, for **Optional topic filter**, enter **invoke/LRAFunction**, and then choose **Next**\.  
+1. On the **Filter your data with a topic** page, for **Topic filter**, enter **invoke/LRAFunction**, and then choose **Next**\.  
 ![\[The Filter your data with a topic page with invoke/LRAFunction and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/outbound-subscription-filter.png)
 
 1. Choose **Finish**\. The **Subscriptions** page displays both subscriptions\.
@@ -279,7 +278,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.9.4/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.0/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -295,7 +294,7 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
 **Note**  
 Deployment fails if you run your Lambda function without containerization and try to access attached local resources\.
 
-1. On the **Configure how devices discover your core** page, choose **Automatic detection**\.
+1. If prompted, on the **Configure how devices discover your core** page, choose **Automatic detection**\.
 
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
 ![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)

@@ -2,9 +2,6 @@
 
 To run on an AWS IoT Greengrass core, a Python Lambda function requires the AWS IoT Greengrass Core SDK for Python\. For this tutorial, you include the `greengrasssdk` folder in the Lambda function deployment package\.
 
-**Note**  
-If you're running Python Lambda functions, you can also use [https://pypi.org/project/pip/](https://pypi.org/project/pip/) to install the AWS IoT Greengrass Core SDK for Python on the core device\. Then you can deploy your functions without including the SDK in the Lambda function deployment package\. For more information, see [greengrasssdk](https://pypi.org/project/greengrasssdk/)\.
-
 In this section, you:
 + Download the AWS IoT Greengrass Core SDK for Python to your computer \(not the AWS IoT Greengrass core device\)\. For this tutorial, you download the SDK on GitHub from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\.
 + Get the Python Lambda function \(named `greengrassHelloWorld.py`\) from the downloaded SDK\.
@@ -20,29 +17,7 @@ In this section, you:
    + The `greengrassHelloWorld.py` file in `examples\HelloWorld`\. This is your Lambda function code\.
    + The `greengrasssdk` folder\. This is the SDK\.
 
-   The following code is from `greengrassHelloWorld.py`\. \(To save space, all code comments have been removed\.\) Note that every five seconds, the function publishes one of two possible messages to the `hello/world` topic\.
-
-   ```
-   import greengrasssdk
-   import platform
-   from threading import Timer
-   import time
-   
-   client = greengrasssdk.client('iot-data')
-   my_platform = platform.platform()
-   
-   def greengrass_hello_world_run():
-       if not my_platform:
-           client.publish(topic='hello/world', payload='Hello world! Sent from Greengrass Core.')
-       else:
-           client.publish(topic='hello/world', payload='Hello world! Sent from Greengrass Core running on platform: {}'.format(my_platform))
-       Timer(5, greengrass_hello_world_run).start()
-   
-   greengrass_hello_world_run()
-   
-   def function_handler(event, context):
-       return
-   ```
+   You can view the sample [greengrassHelloWorld\.py](https://github.com/aws/aws-greengrass-core-sdk-python/blob/master/examples/HelloWorld/greengrassHelloWorld.py) function code on GitHub\. Every five seconds, the function publishes one of two possible messages to the `hello/world` topic\.
 
 1. Copy `greengrasssdk` to the `HelloWorld` folder that contains `greengrassHelloWorld.py`\.
 
@@ -64,21 +39,21 @@ Depending on your distribution, you might need to install `zip` first \(for exam
 1. Choose **Author from scratch**\.
 
 1. Name your function **Greengrass\_HelloWorld**, and set the remaining fields as follows:
-   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Runtime**, choose **Python 3\.7**\.
    + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    Choose **Create function**\.  
-![\[The "Basic information" section with the "Function name" field set to "Greengrass_HelloWorld" and the "Runtime" field set to "Python 2.7".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023.png)
+![\[The "Basic information" section with the "Function name" field set to "Greengrass_HelloWorld" and the "Runtime" field set to "Python 3.7".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023.png)
 
 1. Upload your Lambda function deployment package:
 
    1. On the **Configuration** tab, under **Function code**, set the following fields:
       + For **Code entry type**, choose **Upload a \.zip file**\.
-      + For **Runtime**, choose **Python 2\.7**\.
+      + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **greengrassHelloWorld\.function\_handler**
 
    1. Choose **Upload**, and then choose `hello_world_python_lambda.zip`\. \(The size of your `hello_world_python_lambda.zip` file might be different from what's shown here\.\)  
-![\[Screenshot of the Configuration tab with Upload a .zip file, Python 2.7, greengrassHelloWorld.function_handler, and Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-024.png)
+![\[Screenshot of the Configuration tab with Upload a .zip file, Python 3.7, greengrassHelloWorld.function_handler, and Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-024.png)
 
    1. Choose **Save**\.  
 ![\[Screenshot with the Save button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-025.png)

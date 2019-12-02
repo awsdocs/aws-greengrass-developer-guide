@@ -9,8 +9,8 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 2 | arn:aws:greengrass:*region*::/connectors/DeviceDefender/versions/2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/DeviceDefender/versions/1 | 
+| 2 | `arn:aws:greengrass:region::/connectors/DeviceDefender/versions/`2 | 
+| 1 | `arn:aws:greengrass:region::/connectors/DeviceDefender/versions/`1 | 
 
 For information about version changes, see the [Changelog](#device-defender-connector-changelog)\.
 

@@ -55,7 +55,7 @@ If you're running Python 3, use print\(ssl\.OPENSSL\_VERSION\)\.
       >>>exit()
       ```
 
-      If the OpenSSL version is 1\.0\.1 or later, skip to step 3\. Otherwise, follow these steps:
+      If the OpenSSL version is 1\.0\.1 or later, skip to [step c](#step-c-install-python-sdk)\. Otherwise, follow these steps:
 
       1. From the Terminal window, run the following command to determine if the computer is using Simple Python Version Management:
 
@@ -190,7 +190,7 @@ Follow the installation prompts\. The download for the Xcode command line tools 
 
 ------
 
-   1. Run the following commands to install the AWS IoT Device SDK for Python:
+   1. <a name="step-c-install-python-sdk"></a>Run the following commands to install the AWS IoT Device SDK for Python:
 
       ```
       cd ~

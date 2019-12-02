@@ -14,8 +14,8 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 2 | arn:aws:greengrass:*region*::/connectors/IoTAnalytics/versions/2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/IoTAnalytics/versions/1 | 
+| 2 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/`2 | 
+| 1 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/`1 | 
 
 For information about version changes, see the [Changelog](#iot-analytics-connector-changelog)\.
 
@@ -28,7 +28,7 @@ This connector has the following requirements:
 + All related AWS IoT Analytics entities \(channels, pipeline, datastores, datasets\) and workflows are created and configured\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
 **Note**  
 Destination AWS IoT Analytics channels must use the same account and be in the same AWS Region as this connector\.
-+ An IAM policy added to the Greengrass group role that allows the `iotanalytics:BatchPutMessage` action on destination channels, as shown in the following example\. The channels must be in the current AWS account and Region\.
++ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `iotanalytics:BatchPutMessage` action on destination channels, as shown in the following example\. The channels must be in the current AWS account and Region\.
 
   ```
   {

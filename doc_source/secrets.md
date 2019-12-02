@@ -30,7 +30,7 @@ AWS IoT Greengrass encrypts secrets in transit and at rest\.
 Make sure that your user\-defined Lambda functions handle secrets securely and don't log any any sensitive data that's stored in the secret\. For more information, see [ Mitigate the Risks of Logging and Debugging Your Lambda Function](https://docs.aws.amazon.com/secretsmanager/latest/userguide/best-practices.html#best-practice_lamda-debug-statements) in the *AWS Secrets Manager User Guide*\. Although this documentation specifically refers to rotation functions, the recommendation also applies to Greengrass Lambda functions\.
 
 **Encryption in transit**  
-AWS IoT Greengrass uses Transport Layer Security \(TLS\) to encrypt all communication over the internet and local network\. This protects secrets while in transit, which occurs when secrets are retrieved from Secrets Manager and deployed to the core\. For supported TLS cipher suites, see [AWS IoT Greengrass Cipher Suites](gg-sec.md#gg-cipher-suites)\.
+AWS IoT Greengrass uses Transport Layer Security \(TLS\) to encrypt all communication over the internet and local network\. This protects secrets while in transit, which occurs when secrets are retrieved from Secrets Manager and deployed to the core\. For supported TLS cipher suites, see [TLS Cipher Suites Support](gg-sec.md#gg-cipher-suites)\.
 
 **Encryption at rest**  
 AWS IoT Greengrass uses the private key specified in [`config.json`](gg-core.md#config-json) for encryption of the secrets that are stored on the core\. For this reason, secure storage of the private key is critical for protecting local secrets\. In the AWS [ shared responsibility model](https://aws.amazon.com/compliance/shared-responsibility-model/), it's the responsibility of the customer to guarantee secure storage of the private key on the core device\.  
@@ -60,7 +60,7 @@ In this procedure, you provide the path to a private key that's used for local s
 
 AWS IoT Greengrass supports two modes of private key storage: hardware\-based or file system\-based \(default\)\. For more information, see [Secrets Encryption](#secrets-encryption)\.
 
-Follow this procedure only if you want to change the default configuration, which uses the core private key in the file system\. These steps are written with the assumption that you created your group and core as described in [Module 2](module2.md) of the Getting Started tutorial\.
+**Follow this procedure only** if you want to change the default configuration, which uses the core private key in the file system\. These steps are written with the assumption that you created your group and core as described in [Module 2](module2.md) of the Getting Started tutorial\.
 
 1. Open the [`config.json`](gg-core.md#config-json) file that's located in the `/greengrass-root/config` directory\.
 **Note**  
@@ -90,7 +90,7 @@ Currently, AWS IoT Greengrass supports only the [PKCS\#1 v1\.5](https://tools.ie
 
 In this procedure, you add an inline policy to the Greengrass service role that allows AWS IoT Greengrass to get the values of your secrets\.
 
-Follow this procedure only if you want to grant AWS IoT Greengrass custom permissions to your secrets or if your Greengrass service role doesn't include the `AWSGreengrassResourceAccessRolePolicy` managed policy\. `AWSGreengrassResourceAccessRolePolicy` grants access to secrets with names that start with *greengrass\-*\.
+**Follow this procedure only** if you want to grant AWS IoT Greengrass custom permissions to your secrets or if your Greengrass service role doesn't include the `AWSGreengrassResourceAccessRolePolicy` managed policy\. `AWSGreengrassResourceAccessRolePolicy` grants access to secrets with names that start with *greengrass\-*\.
 
 1. Run the following CLI command to get the ARN of the Greengrass service role:
 

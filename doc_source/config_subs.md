@@ -20,7 +20,7 @@ In this step, you create a subscription that enables the GG\_TrafficLight shadow
 
    This module requires the new subscription and the [subscriptions](config-dev-subs.md#module5-subscriptions) that you created in Module 5\.
 
-1. Make sure that the AWS IoT Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
+1. Make sure that the Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
 
 1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)

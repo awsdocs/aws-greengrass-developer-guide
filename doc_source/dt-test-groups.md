@@ -1,7 +1,13 @@
 # Test Group Descriptions<a name="dt-test-groups"></a>
 
 ------
-#### [ IDT v2\.0\.0 ]
+#### [ IDT v2\.0\.0 and later ]
+
+Docker Dependencies \(Supported for IDT v2\.2\.0 and later\)  
+This test group checks if the device meets all the required technical dependencies to use the Greengrass Docker application deployment connector to run containers\.
+
+Stream Manager Dependencies \(Supported for IDT v2\.2\.0 and later\)  
+This test group checks if the device meets all the required technical dependencies to run AWS IoT Greengrass stream manager\.
 
 Container Dependencies  
 This test group checks if the device meets all the software and hardware requirements to run Lambda functions in container mode on a AWS IoT Greengrass core core\.

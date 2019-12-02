@@ -9,8 +9,8 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 2 | arn:aws:greengrass:*region*::/connectors/SNS/versions/2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/SNS/versions/1 | 
+| 2 | `arn:aws:greengrass:region::/connectors/SNS/versions/`2 | 
+| 1 | `arn:aws:greengrass:region::/connectors/SNS/versions/`1 | 
 
 For information about version changes, see the [Changelog](#sns-connector-changelog)\.
 
@@ -20,7 +20,7 @@ This connector has the following requirements:
 + AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + A configured SNS topic\. For more information, see [Creating an Amazon SNS Topic](https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-topic.html) in the *Amazon Simple Notification Service Developer Guide*\.
-+ An IAM policy added to the Greengrass group role that allows the `sns:Publish` action on the target SNS topic, as shown in the following example:
++ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `sns:Publish` action on the target SNS topic, as shown in the following example:
 
   ```
   {
@@ -182,11 +182,7 @@ This connector publishes status information as output data\.
 The following example Lambda function sends an input message to the connector\.
 
 **Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\. You can use the following [pip](https://pypi.org/project/pip/) command to install the Python version of the SDK on your core device:   
-
-```
-pip install greengrasssdk
-```
+This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
 
 ```
 import greengrasssdk

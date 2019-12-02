@@ -8,21 +8,23 @@ This tutorial describes how to use the AWS Management Console to configure a Gre
 
 The tutorial contains the following high\-level steps:
 
-1. [Configure the Rasberry Pi](#config-raspberry-pi-dlc)\.
+1. [Configure the Raspberry Pi](#config-raspberry-pi-dlc)
 
-1. [Install the Amazon SageMaker Neo deep learning runtime](#install-dlr)\.
+1. [Install the Amazon SageMaker Neo Deep Learning Runtime](#install-dlr)
 
-1. [Create an inference Lambda function](#ml-console-dlc-create-lambda)\.
+1. [Create an Inference Lambda Function](#ml-console-dlc-create-lambda)
 
-1. [Add the Lambda function to the group](#ml-console-dlc-config-lambda)\.
+1. [Add the Lambda Function to the Group](#ml-console-dlc-config-lambda)
 
-1. [Add the Amazon SageMaker Neo optimized model resource to the group](#ml-console-dlc-add-resources)\.
+1. [Add a Neo\-Optimized Model Resource to the Group](#ml-console-dlc-add-resources)
 
-1. [Add the camera device resource to the group](#ml-console-dlc-add-cam-resource)\.
+1. [Add Your Camera Device Resource to the Group](#ml-console-dlc-add-cam-resource)
 
-1. [Add subscriptions to the group](#ml-console-dlc-add-subscription)\.
+1. [Add Subscriptions to the Group](#ml-console-dlc-add-subscription)
 
-1. [Deploy the group](#ml-console-dlc-deploy-group)\.
+1. [Deploy the Group](#ml-console-dlc-deploy-group)
+
+1. [Test the Example](#ml-console-dlc-test-app)
 
 ## Prerequisites<a name="ml-inference-prerequisites"></a>
 
@@ -146,7 +148,7 @@ Run the following commands in your Raspberry Pi terminal\.
 
 1. Choose **Author from scratch** and use the following values to create your function:
    + For **Function name**, enter **optimizedImageClassification**\. 
-   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Runtime**, choose **Python 3\.7**\.
 
    For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.  
 ![\[The Basic information section of the Create function page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-dlr-lambda-creation.png)
@@ -159,7 +161,7 @@ Now, upload your Lambda function deployment package and register the handler\.
 
 1.  On the **Configuration** tab for the `optimizedImageClassification` function, for **Function code**, use the following values: 
    + For **Code entry type**, choose **Upload a \.zip file**\.
-   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Runtime**, choose **Python 3\.7**\.
    + For **Handler**, enter **inference\.handler**\.
 
 1. Choose **Upload**\.  
@@ -253,7 +255,7 @@ Next, configure the lifecycle of the Lambda function\.
 
 1.  Choose **Upload a model**\. 
 
-1.  On the Amazon S3 console tab, upload your zip file to an Amazon S3 bucket\. For information, see [ How Do I Upload Files and Folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) 
+1.  On the Amazon S3 console tab, upload your zip file to an Amazon S3 bucket\. For information, see [ How Do I Upload Files and Folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service Console User Guide*\. 
 **Note**  
  Your bucket name must contain the string **greengrass**\. Choose a unique name \(such as **greengrass\-dlr\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
 
@@ -265,6 +267,8 @@ Next, configure the lifecycle of the Lambda function\.
     This is the destination for the local model in the Lambda runtime namespace\. When you deploy the group, AWS IoT Greengrass retrieves the source model package and then extracts the contents to the specified directory\. 
 **Note**  
  We strongly recommend that you use the exact path provided for your local path\. Using a different local model destination path in this step causes some troubleshooting commands provided in this tutorial to be inaccurate\. If you use a different path, you must set up a `MODEL_PATH` environment variable that uses the exact path you provide here\. For information about environment variables, see [AWS Lambda Environment Variables](https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html)\. 
+
+1. Under **Identify resource owner and set access permissions**, choose **No OS group**\.
 
 1. Under **Lambda function affiliations**, choose **Select**\.
 
@@ -383,7 +387,7 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
    For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-## Test the Inference Example<a name="test-app"></a>
+## Test the Inference Example<a name="ml-console-dlc-test-app"></a>
 
 Now you can verify whether the deployment is configured correctly\. To test, you subscribe to the `/resnet-50/predictions` topic and publish any message to the `/resnet-50/test` topic\. This triggers the Lambda function to take a photo with your Raspberry Pi and perform inference on the image it captures\. 
 

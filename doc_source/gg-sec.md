@@ -171,7 +171,7 @@ The local MQTT server manages communication over the local network between the G
 By default, AWS IoT Greengrass generates an RSA private key for you\. To configure the core to use a different private key, you must provide the key path for the `MQTTServerCertificate` principal in `config.json`\.    
 **Private Key Support**    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-sec.html)
-The configuration of the private key determines related processes\. For the list of cipher suites that the Greengrass core supports as a server, see [AWS IoT Greengrass Cipher Suites](#gg-cipher-suites)\.    
+The configuration of the private key determines related processes\. For the list of cipher suites that the Greengrass core supports as a server, see [TLS Cipher Suites Support](#gg-cipher-suites)\.    
 **If no private key is specified** \(default\)  
 + AWS IoT Greengrass rotates the key based on your rotation settings\.
 + The core generates an RSA key, which is used to generate the certificate\.
@@ -181,7 +181,7 @@ The configuration of the private key determines related processes\. For the list
 + The core uses the specified key to generate the certificate\.
 + The RSA key must have a minimum length of 2048 bits\.
 + The MQTT server certificate has an RSA public key and an SHA\-256 RSA signature\.  
-**If an EC private key is specified** \(requires GGC v1\.9\)  
+**If an EC private key is specified** \(requires GGC v1\.9 or later\)  
 + You are responsible for rotating the key\.
 + The core uses the specified key to generate the certificate\.
 + The EC private key must use an NIST P\-256 or NIST P\-384 curve\.
@@ -221,9 +221,9 @@ You can set the expiration to any value between 7 and 30 days, depending on your
 
  When the MQTT core server certificate expires, any attempt to validate the certificate fails\. The device must be able to detect the failure and terminate the connection\. 
 
-## AWS IoT Greengrass Cipher Suites<a name="gg-cipher-suites"></a>
+## TLS Cipher Suites Support<a name="gg-cipher-suites"></a>
 
-AWS IoT Greengrass uses the AWS IoT transport security model to encrypt communication with the cloud by using [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) [cipher suites](https://en.wikipedia.org/wiki/Cipher_suite)\. In addition, AWS IoT Greengrass data is encrypted when at rest \(in the cloud\)\. For more information about AWS IoT transport security and supported cipher suites, see [ Transport Security](https://docs.aws.amazon.com/iot/latest/developerguide/iot-security-identity.html#transport-security) in the *AWS IoT Developer Guide*\.
+AWS IoT Greengrass uses the AWS IoT transport security model to encrypt communication with the cloud by using [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) [cipher suites](https://en.wikipedia.org/wiki/Cipher_suite)\. In addition, AWS IoT Greengrass data is encrypted when at rest \(in the cloud\)\. For more information about AWS IoT transport security and supported cipher suites, see [ Transport Security](https://docs.aws.amazon.com/iot/latest/developerguide/transport-security.html) in the *AWS IoT Developer Guide*\.
 
 **Supported Cipher Suites for Local Network Communication**
 

@@ -20,7 +20,7 @@ This connector has the following requirements:
 + AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + One or more Amazon S3 buckets\. The number of buckets you use depends on your sampling strategy\.
-+ An IAM policy added to the Greengrass group role that allows the `s3:PutObject` action on objects in the destination Amazon S3 bucket, as shown in the following example\.
++ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `s3:PutObject` action on objects in the destination Amazon S3 bucket, as shown in the following example\.
 
   ```
   {
