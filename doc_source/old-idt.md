@@ -1,6 +1,6 @@
 # Using IDT for Greengrass 1\.6\.1 and Earlier<a name="old-idt"></a>
 
-If you are using a version of IDT for AWS IoT Greengrass earlier than 1\.7\.0, you must install the AWS Command Line Interface \(CLI\) and create a AWS IoT Greengrass service role\. In versions 1\.7\.1 or later, IDT creates the service role for you\.
+If you are using a version of IDT for AWS IoT Greengrass earlier than 1\.7\.0, you must install the AWS Command Line Interface \(CLI\) and create an AWS IoT Greengrass service role\. In versions 1\.7\.1 or later, IDT creates the service role for you\.
 
 ## Install the AWS Command Line Interface \(CLI\)<a name="install-cli"></a>
 

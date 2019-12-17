@@ -107,7 +107,7 @@ When you use the console to enable stream manager and deploy the group, the memo
 
 1. On the **Connect your Core device** page, download your security resources, review the information, and then choose **Finish**\.
 **Note**  
-When stream manager is enabled, you must [install the Java 8 Runtime](stream-manager.md#stream-manager-requirements) on the core device before you deploy the group\.
+When stream manager is enabled, you must [install the Java 8 runtime](stream-manager.md#stream-manager-requirements) on the core device before you deploy the group\.
 
  
 

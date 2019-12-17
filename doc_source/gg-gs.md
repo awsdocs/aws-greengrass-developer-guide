@@ -1,9 +1,79 @@
 # Getting Started with AWS IoT Greengrass<a name="gg-gs"></a>
 
-This tutorial includes several modules designed to show you AWS IoT Greengrass basics and help you get started quickly\. This tutorial covers:
-+ The AWS IoT Greengrass programming model\.
-+  Fundamental concepts, such as AWS IoT Greengrass cores, groups, and subscriptions\.
+This Getting Started tutorial includes several modules designed to show you AWS IoT Greengrass basics and help you get started using AWS IoT Greengrass\. This tutorial covers fundamental concepts, such as:
++ Configuring AWS IoT Greengrass cores and groups\.
 + The deployment process for running AWS Lambda functions at the edge\.
++ Connecting AWS IoT devices to the AWS IoT Greengrass core\.
++ Creating subscriptions to allow MQTT communication between local Lambda functions, devices, and AWS IoT\.
+
+## Choose How to Get Started with AWS IoT Greengrass<a name="gg-getting-started"></a>
+
+You can choose how to use this tutorial to set up your core device:
++ Run [Greengrass device setup](quick-start.md) on your core device, which takes you from installing AWS IoT Greengrass dependencies to testing a Hello World Lambda function in minutes\. This script reproduces the steps in Module 1 through Module 3\-1\.
+
+   
+
+   \- or \-
+
+   
++ Walk through the steps in Module 1 through Module 3\-1 to examine Greengrass requirements and processes more closely\. These steps set up your core device, create and configure a Greengrass group that contains a Hello World Lambda function, and deploy your Greengrass group\. Typically, this takes an hour or two to complete\.
+
+![\[Getting Started modules\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/getting-started-modules.png)
+
+**Quick Start**  
+[Greengrass device setup](quick-start.md) configures your core device and Greengrass resources\. The script:  
++ Installs AWS IoT Greengrass dependencies\.
++ Downloads the root CA certificate and core device certificate and keys\.
++ Downloads, installs, and configures the AWS IoT Greengrass Core software on your device\.
++ Starts the Greengrass daemon process on the core device\.
++ Creates or updates the [Greengrass service role](service-role.md), if needed\.
++ Creates a Greengrass group and Greengrass core\.
++ \(Optional\) Creates a Hello World Lambda function, subscription, and local logging configuration\.
++ \(Optional\) Deploys the Greengrass group\.
+
+**Modules 1 and 2**  
+[Module 1](module1.md) and [Module 2](module2.md) describe how to set up your environment\. \(Or, use [Greengrass device setup](quick-start.md) to run these modules for you\.\)  
++ Configure your core device for Greengrass\.
++ Run the dependency checker script\.
++ Create a Greengrass group and Greengrass core\.
++ Download and install the latest AWS IoT Greengrass Core software\.
++ Start the Greengrass daemon process on the core\.
+
+**Modules 3\-1 and 3\-2**  
+[Module 3\-1](module3-I.md) and [Module 3\-2](module3-II.md) describe how to use local Lambda functions\. \(Or, use [Greengrass device setup](quick-start.md) to run Module 3\-1 for you\.\)  
++ Create Hello World Lambda functions in AWS Lambda\.
++ Add Lambda functions to your Greengrass group\.
++ Create subscriptions that allow MQTT communication between the Lambda functions and AWS IoT\.
++ Configure local logging for Greengrass system components and Lambda functions\.
++ Deploy a Greengrass group that contains your Lambda functions and subscriptions\.
++ Send messages from local Lambda functions to AWS IoT\.
++ Invoke local Lambda functions from AWS IoT\.
++ Test on\-demand and long\-lived functions\.
+
+**Modules 4 and 5**  
+[Module 4](module4.md) shows how devices connect to the core and communicate with each other\.  
+[Module 5](module5.md) shows how devices can use shadows to control state\.  
++ Register and provision AWS IoT devices \(represented by command\-line terminals\)\.
++ Install the AWS IoT Device SDK for Python\. This is used by devices to discover the Greengrass core\.
++ Add the devices to your Greengrass group\.
++ Create subscriptions that allow MQTT communication\.
++ Deploy a Greengrass group that contains your devices\.
++ Test device\-to\-device commumication\.
++ Test shadow state updates\.
+
+**Module 6**  
+[Module 6](module6.md) shows you how Lambda functions can access the AWS Cloud\.  
++ Create a Greengrass group role that allows access to Amazon DynamoDB resources\.
++ Add a Lambda function to your Greengrass group\. This function uses the AWS SDK for Python to interact with DynamoDB\.
++ Create subscriptions that allow MQTT communication\.
++ Test the interaction with DynamoDB\.
+
+**Module 7**  
+[Module 7](console-mod7.md) shows you how to configure a simulated hardware security module \(HSM\) for use with a Greengrass core\.  
+This advanced module is provided only for experimentation and initial testing\. It is not for production use of any kind\.
++ Install and configure a software\-based HSM and private key\.
++ Configure the Greengrass core to use hardware security\.
++ Test the hardware security configuration\.
 
 ## Requirements<a name="gg-requirements"></a>
 
@@ -12,7 +82,7 @@ To complete this tutorial, you need the following:
 + An Amazon Web Services \(AWS\) account\. If you don’t have one, see [Create an AWS Account](#create-aws-account)\.
 + The use of an AWS [Region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS IoT Greengrass\. For the list of supported regions for AWS IoT Greengrass, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\.
 **Important**  
-Make a note of your AWS Region to ensure that it is consistently used throughout this tutorial\. Inadvertently switching AWS Regions during the tutorial can create problems\. The last exercise in this tutorial is written with the assumption that you are using the US East \(N\. Virgina\) Region\.
+Make a note of your AWS Region and make sure that it is consistently used throughout this tutorial\. If you switch AWS Regions during the tutorial, you might experience problems completing the steps\.
 + A Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+, with a 8 GB microSD card, or an Amazon EC2 instance\. Because AWS IoT Greengrass should ideally be used with physical hardware, we recommend that you use a Raspberry Pi\.
 **Note**  
 Run the following command to get the model of your Rasberry Pi:  
@@ -41,4 +111,4 @@ If you've signed in to AWS recently, you might see **Sign In to the Console** in
 
 1. Follow the online instructions\. Part of the sign\-up procedure involves receiving a phone call and entering a PIN using your phone keypad\.
 **Important**  
-Before you begin, make sure that your account has administrative permissions\.
+For this tutorial, we assume that your IAM user account has administrator access permissions\.

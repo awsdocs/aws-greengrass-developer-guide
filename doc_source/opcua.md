@@ -195,7 +195,7 @@ You can see the messages received by your Lambda function in one of two ways:
 
   Set your Lambda function as the source and **IoT Cloud** as the target\. For instructions, see [this step](config-lambda.md#group-subscriptions)\.
 
-  Follow the steps in [Verify the Lambda Function Is Running on the Device](lambda-check.md) to view the messages in the AWS IoT console\.
+  Follow the steps in [Verify the Lambda Function Is Running on the Core Device](lambda-check.md) to view the messages in the AWS IoT console\.
 
 **Note**  
 To avoid incurring charges for message sent to AWS IoT after you finish testing, stop the Greengrass daemon, and then terminate the example server\.  

@@ -10,7 +10,7 @@ This connector has the following versions\.
 | Version | ARN | 
 | --- | --- | 
 | 2 | `arn:aws:greengrass:region::/connectors/CloudWatchMetrics/versions/`2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/CloudWatchMetrics/versions/1 | 
+| 1 | `arn:aws:greengrass:region::/connectors/CloudWatchMetrics/versions/1` | 
 
 For information about version changes, see the [Changelog](#cloudwatch-metrics-connector-changelog)\.
 

@@ -273,8 +273,8 @@ This connector is subject to the following limits\.
   + US East \(N\. Virginia\) \- us\-east\-1
   + US West \(Oregon\) \- us\-west\-2
   + Asia Pacific \(Tokyo\) \- ap\-northeast\-1
-  + EU \(Frankfurt\) \- eu\-central\-1
-  + EU \(Ireland\) \- eu\-west\-1
+  + Europe \(Frankfurt\) \- eu\-central\-1
+  + Europe \(Ireland\) \- eu\-west\-1
 
 ## Licenses<a name="iot-analytics-connector-license"></a>
 

@@ -59,88 +59,95 @@ The following example policy includes the minimum set of actions required to sup
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:Connect"
-      ],
-      "Resource": [
-        "*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:Publish",
-        "iot:Subscribe",
-        "iot:Receive"
-      ],
-      "Resource": [
-        "arn:aws:iot:region:account-id:topicfilter/$aws/things/core-name-*",
-        "arn:aws:iot:region:account-id:topic/$aws/things/core-name-*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:GetThingShadow",
-        "iot:UpdateThingShadow",
-        "iot:DeleteThingShadow"
-      ],
-      "Resource": [
-        "arn:aws:iot:region:account-id:thing/core-name-*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "greengrass:AssumeRoleForGroup",
-        "greengrass:CreateCertificate"
-      ],
-      "Resource": [
-        "*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "greengrass:GetDeployment"
-      ],
-      "Resource": [
-        "arn:aws:greengrass:region:account-id:/greengrass/groups/group-id/deployments/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "greengrass:GetDeploymentArtifacts"
-      ],
-      "Resource": [
-        "arn:aws:greengrass:region:account-id:/greengrass/groups/group-id/deployments/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "greengrass:UpdateCoreDeploymentStatus"
-      ],
-      "Resource": [
-        "arn:aws:greengrass:region:account-id:/greengrass/groups/group-id/deployments/*/cores/arn%3Aaws%3Aiot%3Aregion%3Aaccount-id%3Athing%2Fcore-name"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "greengrass:GetConnectivityInfo",
-        "greengrass:UpdateConnectivityInfo"
-      ],
-      "Resource": [
-        "arn:aws:iot:region:account-id:thing/core-name"
-      ]
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish",
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:region:account-id:topic/$aws/things/core-name-*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:region:account-id:topicfilter/$aws/things/core-name-*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:GetThingShadow",
+                "iot:UpdateThingShadow",
+                "iot:DeleteThingShadow"
+            ],
+            "Resource": [
+                "arn:aws:iot:region:account-id:thing/core-name-*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "greengrass:AssumeRoleForGroup",
+                "greengrass:CreateCertificate"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "greengrass:GetDeployment"
+            ],
+            "Resource": [
+                "arn:aws:greengrass:region:account-id:/greengrass/groups/group-id/deployments/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "greengrass:GetDeploymentArtifacts"
+            ],
+            "Resource": [
+                "arn:aws:greengrass:region:account-id:/greengrass/groups/group-id/deployments/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "greengrass:UpdateCoreDeploymentStatus"
+            ],
+            "Resource": [
+                "arn:aws:greengrass:region:account-id:/greengrass/groups/group-id/deployments/*/cores/arn%3Aaws%3Aiot%3Aregion%3Aaccount-id%3Athing%2Fcore-name"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "greengrass:GetConnectivityInfo",
+                "greengrass:UpdateConnectivityInfo"
+            ],
+            "Resource": [
+                "arn:aws:iot:region:account-id:thing/core-name"
+            ]
+        }
+    ]
 }
 ```
 

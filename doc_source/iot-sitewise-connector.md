@@ -14,13 +14,21 @@ AWS IoT SiteWise receives data only from data streams that you have mapped to th
 **Note**  
 This connector runs in [No container](lambda-group-config.md#no-container-mode) isolation mode, so you can deploy it to a Greengrass group running in a Docker container\.
 
-**ARN**: `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/1`
+This connector has the following versions\.
+
+
+| Version | ARN | 
+| --- | --- | 
+| 2 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/`2 | 
+| 1 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/`1 | 
+
+For information about version changes, see the [Changelog](twilio-notifications-connector.md#twilio-notifications-connector-changelog)\.
 
 ## Requirements<a name="iot-sitewise-connector-req"></a>
 
 This connector has the following requirements:
 + AWS IoT Greengrass Core software v1\.9\.4 or later\.
-+ Java 8 Runtime installed on the core device\.
++ The Java 8 runtime installed on the core device\.
 + This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-sitewise-connector-limits)\.
 + An IAM policy added to the Greengrass group role that allows access to AWS IoT Core and the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your AWS IoT SiteWise assets\.
 
@@ -64,28 +72,21 @@ The folder on the AWS IoT Greengrass host that the IoT SiteWise connector can wr
 Display name in console: **Local storage path**  
 Required: `false`  
 Type: `string`  
-Valid pattern: `^\\s*$|\\/.`
+Valid pattern: `^\s*$|\/.`
 
-`SiteWiseOpcuaUserIdentityTokenSecretArn`  
-The secret in AWS Secrets Manager that contains the OPC\-UA user name and password key\-value pair\. This secret must be a key\-value pair type secret\.  
-Display name in console: **ARN of OPC\-UA username/password secret**  
+`AWSSecretsArnList`  
+A list of secrets in AWS Secrets Manager that each contain a OPC\-UA user name and password key\-value pair\. Each secret must be a key\-value pair type secret\.  
+Display name in console: **List of ARNs for OPC\-UA username/password secrets**  
 Required: `false`  
-Type: `string`  
-Valid pattern: `^$|arn:(aws(-[a-z]+)*):secretsmanager:[a-z0-9\\-]+:[0-9]{12}:secret:([a-zA-Z0-9\\\\]+/)*[a-zA-Z0-9/_+=,.@\\-]+-[a-zA-Z0-9]+`
-
-`SiteWiseOpcuaUserIdentityTokenSecretArn-ResourceId`  
-The secret resource in the AWS IoT Greengrass group that references an OPC\-UA user name and password secret\.  
-Display name in console: **OPC\-UA username/password secret resource**  
-Required: `false`  
-Type: `string`  
-Valid pattern: `^$|.+`
+Type: `JsonArrayOfStrings`  
+Valid pattern: `\[( ?,? ?\"(arn:(aws(-[a-z]+)*):secretsmanager:[a-z0-9\\-]+:[0-9]{12}:secret:([a-zA-Z0-9\\\\]+\/)*[a-zA-Z0-9\/_+=,.@\\-]+-[a-zA-Z0-9]+)*\")*\]`
 
 `MaximumBufferSize`  
 The maximum size in GB for IoT SiteWise disk usage\. Defaults to 10GB\.  
 Display name in console: **Maximum disk buffer size**  
 Required: `false`  
 Type: `string`  
-Valid pattern: `^\\s*$|[0-9]+`
+Valid pattern: `^\s*$|[0-9]+`
 
 ### Create Connector Example \(CLI\)<a name="iot-sitewise-connector-create"></a>
 
@@ -96,7 +97,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyIoTSiteWiseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/1"
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/2"
         }
     ]
 }'
@@ -126,15 +127,27 @@ This connector is subject to the following limits\.
 + This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [AWS IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/rande.html#iotsitewise_region) are supported\. Currently, this includes the following Regions:
   + US East \(N\. Virginia\) \- `us-east-1`
   + US West \(Oregon\) \- `us-west-2`
-  + EU \(Frankfurt\) \- `eu-central-1`
+  + Europe \(Frankfurt\) \- `eu-central-1`
 
 ## Licenses<a name="iot-sitewise-connector-license"></a>
 
 The IoT SiteWise connector includes the following third\-party software/licensing:
 + [Milo](https://github.com/eclipse/milo/) / EDL 1\.0
-+ [Chronicle](https://github.com/OpenHFT/Chronicle-Queue) / Apache 2\.0
++ [Chronicle\-Queue](https://github.com/OpenHFT/Chronicle-Queue) / Apache 2\.0
 
 This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+
+## Changelog<a name="iot-sitewise-connector-changelog"></a>
+
+The following table describes the changes in each version of the connector\.
+
+
+| Version | Changes | 
+| --- | --- | 
+| 2 | Support for multiple OPC\-UA secret resources\. | 
+| 1 | Initial release\.  | 
+
+A Greengrass group can contain only one version of the connector at a time\.
 
 ## See Also<a name="iot-sitewise-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

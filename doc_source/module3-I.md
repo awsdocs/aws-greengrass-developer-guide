@@ -12,4 +12,4 @@ Before you begin, make sure that you have completed [Module 1](module1.md) and [
 + [Create and Package a Lambda Function](create-lambda.md)
 + [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)
 + [Deploy Cloud Configurations to an AWS IoT Greengrass Core Device](configs-core.md)
-+ [Verify the Lambda Function Is Running on the Device](lambda-check.md)
++ [Verify the Lambda Function Is Running on the Core Device](lambda-check.md)

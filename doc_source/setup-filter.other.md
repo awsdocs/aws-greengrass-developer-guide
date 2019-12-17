@@ -36,7 +36,7 @@ If the `addgroup` command isn't available on your system, use the following comm
      sudo groupadd --system ggc_group
      ```
 
-1. <a name="install-java-8-runtime"></a>Install the Java 8 Runtime\. This tutorial uses the **Easy Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. When stream manager is enabled, you must install Java 8 Runtime on the core device before you deploy your group\.
+1. <a name="install-java-8-runtime"></a>Install the Java 8 runtime\. This tutorial uses the **Easy Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. You must install the Java 8 runtime on the core device \(or [disable stream manager](configure-stream-manager.md#enable-stream-manager-console-existing-group)\) before you deploy your group\.
    + For Debian\-based or Ubuntu\-based distributions:
 
      ```
@@ -65,6 +65,6 @@ The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platfor
 
    If no errors appear in the output, AWS IoT Greengrass should be able to run successfully on your device\.
 **Important**  
-<a name="lambda-runtime-prereqs"></a>This tutorial requires Python 3\.7 and Java 8 runtimes\. The `check_ggc_dependencies` script might produce warnings about the missing optional runtime prerequisites\. You can ignore these warnings\.
+<a name="lambda-runtime-prereqs"></a>This tutorial requires the Python 3\.7 runtime to run local Lambda functions\. When stream manager is enabled, it also requires the Java 8 runtime\. If the `check_ggc_dependencies` script produces warnings about these missing runtime prerequisites, make sure to install them before you continue\. You can ignore warnings about other missing optional runtime prerequisites\.
 
    For the list of AWS IoT Greengrass requirements and dependencies, see [Supported Platforms and Requirements](what-is-gg.md#gg-platforms)\.

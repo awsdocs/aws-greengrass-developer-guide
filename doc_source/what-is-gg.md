@@ -331,7 +331,7 @@ Stream manager is enabled by default if you use the **Easy Group creation** opti
     + CONFIG\_SECCOMP
     + CONFIG\_SHMEM
 + <a name="s3_iot_root_cert_180"></a>The root certificate for Amazon S3 and AWS IoT must be present in the system trust store\.
-+ <a name="stream-manager-requirement"></a>[Stream manager](stream-manager.md) requires the Java 8 Runtime and a minimum of 70 MB RAM in addition to the base AWS IoT Greengrass Core software memory requirement\. Stream manager is enabled by default when you use the **Easy Group creation** option on the AWS IoT console\. Stream manager is not supported on OpenWrt distributions\.
++ <a name="stream-manager-requirement"></a>[Stream manager](stream-manager.md) requires the Java 8 runtime and a minimum of 70 MB RAM in addition to the base AWS IoT Greengrass Core software memory requirement\. Stream manager is enabled by default when you use the **Easy Group creation** option on the AWS IoT console\. Stream manager is not supported on OpenWrt distributions\.
 + Libraries that support the [AWS Lambda runtime](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html) required by the Lambda functions you want to run locally\. Required libraries must be installed on the core and added to the `PATH` environment variable\. Multiple libraries can be installed on the same core\.
   + <a name="runtime_python_2.7"></a>[Python](https://www.python.org/) version 2\.7 for functions that use the Python 2\.7 runtime\.
   + <a name="runtime_python_3.7"></a>[Python](https://www.python.org/) version 3\.7 for functions that use the Python 3\.7 runtime\.

@@ -342,7 +342,7 @@ When you use the Greengrass Docker application deployment connector, you should 
 + Logging behavior\. The connector writes status information and troubleshooting information to a log file\. You can configure AWS IoT Greengrass to send logs to CloudWatch Logs and to write logs locally\. For more information, see [Logging for Connectors](connectors.md#connectors-logging)\. This is the path to the local log for the connector:
 
   ```
-  /greengrass-root/ggc/var/user/region/aws/DockerApplicationDeployment.log
+  /greengrass-root/ggc/var/log/user/region/aws/DockerApplicationDeployment.log
   ```
 
   You must have root permissions to access local logs\.
@@ -351,7 +351,7 @@ When you use the Greengrass Docker application deployment connector, you should 
 + Updating Docker images\. Docker caches images on the core device\. If you update a Docker image and want to propagate the change to the core device, make sure to change the tag for the image in the Compose file\. Changes take effect after the Greengrass group is deployed\.
 
    
-+ 10\-minute timeout for cleanup operations\. When the Greengrass daemon stops \(during a restart\), the `docker-compose down` command is triggered\. All Docker containers have a maximum of 10 minutes after `docker-compose down` is triggered to perform any cleanup operations\. If the cleanup isn't complete in 10 minutes, you must clean up the remaining containers manually\. For more information, see [ docker rm](https://docs.docker.com/engine/reference/commandline/rm/) in the Docker CLI documentation\.
++ 10\-minute timeout for cleanup operations\. When the Greengrass daemon stops \(during a restart\), the `docker-compose down` command is triggered\. All Docker containers have a maximum of 10 minutes after `docker-compose down` is triggered to perform any cleanup operations\. If the cleanup isn't complete in 10 minutes, you must clean up the remaining containers manually\. For more information, see [docker rm](https://docs.docker.com/engine/reference/commandline/rm/) in the Docker CLI documentation\.
 
    
 + Running Docker commands\. To troubleshoot issues, you can run Docker commands in a terminal window on the core device\. For example, run the following command to see the Docker containers that were started by the connector:

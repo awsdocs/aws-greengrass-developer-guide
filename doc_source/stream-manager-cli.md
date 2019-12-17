@@ -18,7 +18,7 @@ To complete this tutorial, you need:<a name="stream-manager-howto-prereqs"></a>
 + A Greengrass group and a Greengrass core \(v1\.10\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 **Note**  <a name="stream-manager-not-supported-openwrt"></a>
 Stream manager is not supported on OpenWrt distributions\.
-+ The Java 8 Runtime \(JDK 8\) installed on the core device\.<a name="install-java8-runtime-general"></a>
++ The Java 8 runtime \(JDK 8\) installed on the core device\.<a name="install-java8-runtime-general"></a>
   + For Debian\-based distributions \(including Raspbian\) or Ubuntu\-based distributions, run the following command:
 
     ```

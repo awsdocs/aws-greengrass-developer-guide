@@ -1,6 +1,6 @@
 # Setting Up a Raspberry Pi<a name="setup-filter.rpi"></a>
 
-If you are setting up a Raspberry Pi for the first time, you must follow all of these steps\. Otherwise, you can skip to step 9\. However, we recommend that you re\-image your Raspberry Pi with the operating system as recommended in step 2\.
+If you are setting up a Raspberry Pi for the first time, you must follow all of these steps\. Otherwise, you can skip to [step 9](#add-ggc-user-ggc-group)\. However, we recommend that you re\-image your Raspberry Pi with the operating system as recommended in step 2\.
 
 1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where you have inserted your SD card\. You can perform a quick format of the SD card\.
 
@@ -123,7 +123,7 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    Your Raspberry Pi should now be ready for AWS IoT Greengrass\.
 
-1. <a name="install-java-8-runtime"></a>Install the Java 8 Runtime\. This tutorial uses the **Easy Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. When stream manager is enabled, you must install Java 8 Runtime on the core device before you deploy your group\.
+1. <a name="install-java-8-runtime"></a>Install the Java 8 runtime\. This tutorial uses the **Easy Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. You must install the Java 8 runtime on the core device \(or [disable stream manager](configure-stream-manager.md#enable-stream-manager-console-existing-group)\) before you deploy your group\.
 
    ```
    sudo apt install openjdk-8-jdk
@@ -144,7 +144,7 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    Where `more` appears, press the Spacebar key to display another screen of text\. 
 **Important**  
-<a name="lambda-runtime-prereqs"></a>This tutorial requires Python 3\.7 and Java 8 runtimes\. The `check_ggc_dependencies` script might produce warnings about the missing optional runtime prerequisites\. You can ignore these warnings\.
+<a name="lambda-runtime-prereqs"></a>This tutorial requires the Python 3\.7 runtime to run local Lambda functions\. When stream manager is enabled, it also requires the Java 8 runtime\. If the `check_ggc_dependencies` script produces warnings about these missing runtime prerequisites, make sure to install them before you continue\. You can ignore warnings about other missing optional runtime prerequisites\.
 
    For information about the modprobe command, run man modprobe in the terminal\. 
 

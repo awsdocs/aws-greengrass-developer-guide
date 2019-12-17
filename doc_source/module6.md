@@ -4,7 +4,7 @@ This advanced module shows you how AWS IoT Greengrass cores can interact with ot
 
 ![\[AWS IoT connected to an AWS IoT Greengrass core, which is connected to a light switch device and a traffic light device shadow. The traffic light device shadow is connected to a Lambda function, which is connected to a DynamoDB table.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-089.5.png)
 
-Before you begin, make sure that you have completed [Module 1](module1.md) through [Module 5](module5.md)\. You do not need other components or devices\.
+Before you begin, make sure that you have completed [Module 1](module1.md), [Module 2](module2.md), and [Module 5](module5.md)\. You do not need other components or devices\.
 
 This module should take approximately 30 minutes to complete\.
 

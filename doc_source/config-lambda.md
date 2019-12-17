@@ -60,7 +60,7 @@ A subscription is directed in the sense that messages flow in a specific directi
 
 1. Choose **Finish**\.
 
-1. Configure the group's logging settings\. For this tutorial, you configure AWS IoT Greengrass system components and user\-defined Lambda functions to write logs to the file system of the core device\. You can use logs to troubleshoot any issues you might encounter\. For more information, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
+1. Configure the group's logging settings\. For this tutorial, you configure AWS IoT Greengrass system components and user\-defined Lambda functions to write logs to the file system of the core device\.
 
    1. On the group configuration page, choose **Settings**\.
 
@@ -71,3 +71,5 @@ A subscription is directed in the sense that messages flow in a specific directi
    1. For event source, choose **User Lambdas** and **Greengrass system**, and then choose **Update**\.
 
    1. Keep the default values for logging level and disk space limit, and then choose **Save**\.
+
+   You can use logs to troubleshoot any issues you might encounter when running this tutorial\. For more information, see [Accessing File System Logs](greengrass-logs-overview.md#gg-logs-local)\.

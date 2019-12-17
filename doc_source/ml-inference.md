@@ -41,9 +41,9 @@ The following requirements apply to model sources:
   + Asia Pacific \(Singapore\)
   + Asia Pacific \(Sydney\)
   + Asia Pacific \(Tokyo\)
-  + EU \(Frankfurt\)
-  + EU \(Ireland\)
-  + EU \(London\)
+  + Europe \(Frankfurt\)
+  + Europe \(Ireland\)
+  + Europe \(London\)
 + AWS IoT Greengrass must have `read` permission to the model source, as described in the following sections\.
 
 **Amazon SageMaker**  

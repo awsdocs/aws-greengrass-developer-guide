@@ -4,7 +4,7 @@ This module shows you how AWS IoT devices can connect to and communicate with an
 
 ![\[AWS IoT connected to an AWS IoT Greengrass core, which is connected to AWS IoT Greengrass device #1 and AWS IoT Greengrass device #2.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-065.5.png)
 
-Before you begin, make sure that you have completed [Module 1](module1.md), [Module 2](module2.md), [Module 3 \(Part 1\)](module3-I.md), and [Module 3 \(Part 2\)](module3-II.md)\. You do not need other components or devices\.
+Before you begin, run the [Greengrass Device Setup](quick-start.md) script or complete [Module 1](module1.md) and [Module 2](module2.md)\. This module creates two simulated devices\. You do not need other components or devices\.
 
 This module should take less than 30 minutes to complete\.
 

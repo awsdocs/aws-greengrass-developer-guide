@@ -30,7 +30,7 @@ The following requirements apply for the Greengrass stream manager:
 + You must use AWS IoT Greengrass Core software v1\.10, with stream manager enabled\. For more information, see [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)\.
 **Note**  <a name="stream-manager-not-supported-openwrt"></a>
 Stream manager is not supported on OpenWrt distributions\.
-+ The Java 8 Runtime \(JDK 8\) must be installed on the core\.<a name="install-java8-runtime-general"></a>
++ The Java 8 runtime \(JDK 8\) must be installed on the core\.<a name="install-java8-runtime-general"></a>
   + For Debian\-based distributions \(including Raspbian\) or Ubuntu\-based distributions, run the following command:
 
     ```

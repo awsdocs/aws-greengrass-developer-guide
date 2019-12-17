@@ -262,7 +262,7 @@ Use the following information to help troubleshoot deployment issues\.
 + [A ConcurrentDeployment error occurs when you run the create\-deployment command for the first time\.](#troubleshoot-concurrent-deployment)
 + [Error: Greengrass is not authorized to assume the Service Role associated with this account, or the error: Failed: TES service role is not associated with this account\.](#troubleshoot-assume-service-role)
 + [The deployment doesn't finish\.](#troubleshoot-stuck-deployment)
-+ [Error: Unable to find Java or Java 8 executables](#java-8-runtime-requirement)
++ [Error: Unable to find java or java8 executables](#java-8-runtime-requirement)
 + [The deployment doesn't finish, and runtime\.log contains multiple "wait 1s for container to stop" entries\.](#troubleshoot-wait-container-stop)
 + [Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Error while processing\. group config is invalid: 112 or \[119 0\] don't have rw permission on the file: <path>\.](#troubleshoot-access-permissions-deployment)
 + [Error: <list\-of\-function\-arns> are configured to run as root but Greengrass is not configured to run Lambda functions with root permissions\.](#troubleshoot-root-permissions-lambda)
@@ -384,9 +384,9 @@ These AWS CLI commands use example values for the group and deployment ID\. When
 
  
 
-### Error: Unable to find Java or Java 8 executables<a name="java-8-runtime-requirement"></a>
+### Error: Unable to find java or java8 executables<a name="java-8-runtime-requirement"></a>
 
-**Solution:** If stream manager is enabled for the AWS IoT Greengrass core, you must install the Java 8 Runtime on the core device before you deploy the group\. For more information, see the steps in [Module 1: Environment Setup for Greengrass](module1.md) for your core device type\. Stream manager is enabled by default when you use the **Easy Group creation** workflow in the AWS IoT console to create a group\.
+**Solution:** If stream manager is enabled for the AWS IoT Greengrass core, you must install the Java 8 runtime on the core device before you deploy the group\. For more information, see the steps in [Module 1: Environment Setup for Greengrass](module1.md) for your core device type\. Stream manager is enabled by default when you use the **Easy Group creation** workflow in the AWS IoT console to create a group\.
 
 Or, disable stream manager and then deploy the group\. For more information, see [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)\.
 
