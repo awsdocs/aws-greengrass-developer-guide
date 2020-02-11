@@ -4,7 +4,7 @@ An *[on\-demand](lambda-functions.md#lambda-lifecycle)* Lambda function is simil
 
 1. On the group configuration page, choose **Lambdas**\.
 
-1. For the **Greengrass\_HelloWorld\_Counter** Lambda function, choose **Edit Configuration**\.   
+1. For the `Greengrass_HelloWorld_Counter` Lambda function, choose **Edit Configuration**\.   
 ![\[Screenshot with Lambdas and Edit Configuration highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-050.png)
 
 1. Under **Lambda lifecycle**, choose **On\-demand function**, and then choose **Update**\.  

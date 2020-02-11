@@ -1,6 +1,6 @@
 # Configure the Group Role<a name="config-iam-roles"></a>
 
-The group role is an IAM role that you create and attach to your group\. This role contains the permissions that deployed Lambda functions and [connectors](connectors.md) use to access AWS services\. For more information about IAM roles, see the [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
+The group role is an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that you create and attach to your Greengrass group\. This role contains the permissions that deployed Lambda functions and [connectors](connectors.md) use to access AWS services\. It's also used to allow [CloudWatch logging](greengrass-logs-overview.md)\.
 
 You use the following high\-level steps to create a group role in the IAM console\.
 
@@ -10,7 +10,7 @@ You use the following high\-level steps to create a group role in the IAM consol
 
 1. Attach your policy to the role\.
 
-1. Add the role to the Greengrass group\.
+Then, in the AWS IoT console, you add the role to the Greengrass group\.
 
 **Note**  
 A Greengrass group has one group role\. If you want to add permissions, you can edit attached policies or attach more policies\.
@@ -47,6 +47,8 @@ First, create a customer\-managed policy that grants permissions required by the
 
 1. For **Name**, enter **greengrass\_CarStats\_Table**, and then choose **Create policy**\.
 
+    
+
    Next, create a role that uses the new policy\.
 
 1. In the navigation pane, choose **Roles**, and then choose **Create role**\.
@@ -66,6 +68,8 @@ First, create a customer\-managed policy that grants permissions required by the
 ![\[Screenshot of the Review page displaying the role name, description, and policies.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-gs-mod6-review-group-role.png)
 
 1. Choose **Create role**\.
+
+    
 
    Now, add the role to your Greengrass group\.
 

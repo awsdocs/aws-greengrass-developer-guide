@@ -128,7 +128,7 @@ For legacy endpoints, download a Verisign root CA certificate\. Although legacy 
 **Note**  
 To set up your core device to start AWS IoT Greengrass on system boot, see [Configure the Init System to Start the Greengrass Daemon](gg-core.md#start-on-boot)\.
 
-   You can run the following command to confirm that the AWS IoT Greengrass Core software \(daemon\) is functioning\. Replace *PID\-number* with your PID:
+   You can run the following command to confirm that the AWS IoT Greengrass Core software \(Greengrass daemon\) is functioning\. Replace *PID\-number* with your PID:
 
    ```
    ps aux | grep PID-number

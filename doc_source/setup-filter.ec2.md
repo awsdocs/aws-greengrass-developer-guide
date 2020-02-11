@@ -1,9 +1,13 @@
 # Setting Up an Amazon EC2 Instance<a name="setup-filter.ec2"></a>
 
-This section provides instructions for setting up an Amazon EC2 instance to use as your AWS IoT Greengrass core\.
+Follow the steps in this topic to set up an Amazon EC2 instance to use as your AWS IoT Greengrass core\.
 
-**Note**  
- Although you can complete this tutorial using an Amazon EC2 instance, AWS IoT Greengrass should ideally be used with physical hardware\. We recommend that you [set up a Raspberry Pi](setup-filter.rpi.md) instead of using an Amazon EC2 instance when possible\. If you're using a Raspberry Pi, you do not need to follow the steps in this section\. 
+**Tip**  
+Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick Start: Greengrass Device Setup](quick-start.md)\.
+
+ Although you can complete this tutorial using an Amazon EC2 instance, AWS IoT Greengrass should ideally be used with physical hardware\. We recommend that you [set up a Raspberry Pi](setup-filter.rpi.md) instead of using an Amazon EC2 instance when possible\. If you're using a Raspberry Pi, you do not need to follow the steps in this topic\. 
+
+ 
 
 1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) and launch an Amazon EC2 instance using an Amazon Linux AMI\. For information about Amazon EC2 instances, see the [Amazon EC2 Getting Started Guide](https://docs.aws.amazon.com/AWSEC2/latest/GettingStartedGuide/)\.
 
@@ -116,7 +120,7 @@ Softlinks are represented by `fs.protected_symlinks`\.
      sudo yum install java-1.8.0-openjdk
      ```
 
-1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com//aws-samples/aws-greengrass-samples) repository on GitHub\. These commands download, unzip, and run the dependency checker script in your Amazon EC2 instance\.
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands download, unzip, and run the dependency checker script in your Amazon EC2 instance\.
 
    ```
    mkdir greengrass-dependency-checker-GGCv1.10.x

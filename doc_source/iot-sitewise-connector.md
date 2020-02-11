@@ -19,10 +19,11 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 3 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/`3 | 
 | 2 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/`2 | 
 | 1 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/`1 | 
 
-For information about version changes, see the [Changelog](twilio-notifications-connector.md#twilio-notifications-connector-changelog)\.
+For information about version changes, see the [Changelog](#iot-sitewise-connector-changelog)\.
 
 ## Requirements<a name="iot-sitewise-connector-req"></a>
 
@@ -30,7 +31,7 @@ This connector has the following requirements:
 + AWS IoT Greengrass Core software v1\.9\.4 or later\.
 + The Java 8 runtime installed on the core device\.
 + This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-sitewise-connector-limits)\.
-+ An IAM policy added to the Greengrass group role that allows access to AWS IoT Core and the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your AWS IoT SiteWise assets\.
++ An IAM policy added to the Greengrass group role that allows access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your AWS IoT SiteWise assets\.
 
   ```
   {
@@ -47,17 +48,6 @@ This connector has the following requirements:
                        ]
                    }
                }
-          },
-          {
-              "Effect": "Allow",
-              "Action": [
-                   "iot:Connect",
-                   "iot:DescribeEndpoint",
-                   "iot:Publish",
-                   "iot:Receive",
-                   "iot:Subscribe"
-              ],
-              "Resource": "*"
           }
       ]
   }
@@ -97,7 +87,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyIoTSiteWiseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/2"
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/3"
         }
     ]
 }'
@@ -128,6 +118,7 @@ This connector is subject to the following limits\.
   + US East \(N\. Virginia\) \- `us-east-1`
   + US West \(Oregon\) \- `us-west-2`
   + Europe \(Frankfurt\) \- `eu-central-1`
+  + Europe \(Ireland\) \- `eu-west-1`
 
 ## Licenses<a name="iot-sitewise-connector-license"></a>
 
@@ -144,7 +135,8 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
-| 2 | Support for multiple OPC\-UA secret resources\. | 
+| 3 | Removed `iot:*` permissions requirement\. | 
+| 2 | Added support for multiple OPC\-UA secret resources\. | 
 | 1 | Initial release\.  | 
 
 A Greengrass group can contain only one version of the connector at a time\.

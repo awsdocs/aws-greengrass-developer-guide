@@ -81,7 +81,7 @@ To complete this tutorial, you need the following:
 + A Mac, Windows PC, or UNIX\-like system\.
 + An Amazon Web Services \(AWS\) account\. If you don’t have one, see [Create an AWS Account](#create-aws-account)\.
 + The use of an AWS [Region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS IoT Greengrass\. For the list of supported regions for AWS IoT Greengrass, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\.
-**Important**  
+**Note**  
 Make a note of your AWS Region and make sure that it is consistently used throughout this tutorial\. If you switch AWS Regions during the tutorial, you might experience problems completing the steps\.
 + A Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+, with a 8 GB microSD card, or an Amazon EC2 instance\. Because AWS IoT Greengrass should ideally be used with physical hardware, we recommend that you use a Raspberry Pi\.
 **Note**  

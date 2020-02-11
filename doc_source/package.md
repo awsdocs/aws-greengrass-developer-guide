@@ -1,24 +1,40 @@
 # Create and Package the Lambda Function<a name="package"></a>
 
-1. Download the Lambda function code to your computer \(not the Greengrass core device\):
+In this step, you:
++ Create a Lambda function deployment package that contains the function code and dependencies\.
++ Use the Lambda console to create a Lambda function and upload the deployment package\.
++ Publish a version of the Lambda function and create an alias that points to the version\.
 
-   1. In a web browser, open the [greengrassHelloWorldCounter\.py](https://github.com/aws-samples/aws-greengrass-samples/blob/master/hello-world-counter-python/greengrassHelloWorldCounter.py) file on GitHub\.
+ 
 
-   1. Choose **Raw** to open the unformatted version of the file\.  
-![\[GitHub controls with the Raw button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-045.1.png)
+1. On your computer, go to the AWS IoT Greengrass Core SDK for Python that you downloaded and extracted in [Create and Package a Lambda Function](create-lambda.md) in Module 3\-1\.
 
-   1. Use Ctrl \+ S \(or Command \+ S for the Mac\) to save a copy of the `greengrassHelloWorldCounter.py` file\. Save the file to a folder that contains the `greengrasssdk` folder\.
-**Note**  
-For UNIX\-like systems, you can run the following Terminal command to download the `greengrassHelloWorldCounter.py` file:  
+   The Lambda function in this module uses:
+   + The `greengrassHelloWorldCounter.py` file in `examples\HelloWorldCounter`\. This is your Lambda function code\.
+   + The `greengrasssdk` folder\. This is the SDK\.
 
-   ```
-   wget https://raw.githubusercontent.com/aws-samples/aws-greengrass-samples/master/hello-world-counter-python/greengrassHelloWorldCounter.py
-   ```
+1. Create a Lambda function deployment package:
 
-1. Package the `greengrassHelloWorldCounter.py` file with the SDK into a `.zip` file, as described in [Module 3 \(Part 1\)](module3-I.md)\. Name the package **hello\_world\_counter\_python\_lambda\.zip**\.  
+   1. Copy the `greengrasssdk` folder into the `HelloWorldCounter` folder that contains `greengrassHelloWorldCounter.py`\.
+
+   1. Save `greengrassHelloWorldCounter.py` and the `greengrasssdk` folder to a `zip` file named `hello_world_counter_python_lambda.zip`\. The `py` file and `greengrasssdk` folder must be in the root of the directory\.  
 ![\[Screenshot showing zipped contents of hello_word_counter_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-046.png)
 
-1. In the Lambda console, create a Python 3\.7 function named **Greengrass\_HelloWorld\_Counter**, as described in [Module 3 \(Part 1\)](module3-I.md)\. You can use the existing role\.
+      On UNIX\-like systems \(including the Mac terminal\) that have `zip` installed, you can use the following command to package the file and folder:
+
+      ```
+      zip -r hello_world_counter_python_lambda.zip greengrasssdk greengrassHelloWorldCounter.py
+      ```
+
+   Now you're ready to create your Lambda function and upload the deployment package\.
+
+1. In the Lambda console, choose **Create function**\.
+
+1. Choose **Author from scratch**\. Name your function **Greengrass\_HelloWorld\_Counter**, and set the remaining fields as follows:
+   + For **Runtime**, choose **Python 3\.7**\.
+   + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\. Or, you can reuse the role that you created in Module 3\-1\.
+
+   Choose **Create function**\.
 
 1. Upload your Lambda function deployment package:
 
@@ -49,4 +65,4 @@ The **Test** button on the AWS Lambda console doesn't work with this function\. 
    1. Choose **Create**\.  
 ![\[Create a new alias screenshot with the Name field set to GG_HW_Counter, the Version field set to 1, and the Create button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-048.png)
 
-   Aliases create a single entity for your Lambda function that AWS IoT Greengrass devices can subscribe to without having to update subscriptions with Lambda version numbers every time the function is modified\.
+   Aliases create a single entity for your Lambda function that Greengrass devices can subscribe to\. This way, you don't have to update subscriptions with new Lambda function version numbers every time the function is modified\.

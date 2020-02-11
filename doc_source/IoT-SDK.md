@@ -1,8 +1,10 @@
 # Install the AWS IoT Device SDK for Python<a name="IoT-SDK"></a>
 
-AWS IoT devices can use the AWS IoT Device SDK for Python to communicate with AWS IoT and AWS IoT Greengrass core devices \(using the Python programming language\)\. For more information, including requirements, see the AWS IoT Device SDK for Python SDK [ Readme](https://github.com/aws/aws-iot-device-sdk-python) on GitHub\.
+AWS IoT devices can use the AWS IoT Device SDK for Python to communicate with AWS IoT and AWS IoT Greengrass core devices \(using the Python programming language\)\. For more information, including requirements, see the AWS IoT Device SDK for Python [ Readme](https://github.com/aws/aws-iot-device-sdk-python) on GitHub\.
 
-1. To install the SDK onto your computer, with all required components, choose your operating system:
+In this step, you install the SDK and get the `basicDiscovery.py` sample function used by the simulated devices on your computer\.
+
+1. To install the SDK on your computer, with all required components, choose your operating system:
 
 ------
 #### [ Windows ]
@@ -248,5 +250,9 @@ Follow the installation prompts\. The download for the Xcode command line tools 
 
 ------
 
-1. After the AWS IoT Device SDK for Python is installed, navigate to the `samples` folder, open the `greengrass` folder, and then copy the `basicDiscovery.py` file to the folder that contains the HelloWorld\_Publisher and HelloWorld\_Subscriber device certificates files, as shown in the following example\. \(The hash component in your file names are different\.\)  
+1. After the AWS IoT Device SDK for Python is installed, navigate to the `samples` folder and open the `greengrass` folder\.
+
+   For this tutorial, you copy the `basicDiscovery.py` sample function, which uses the certificates and keys that you downloaded in [Create AWS IoT Devices in an AWS IoT Greengrass Group](device-group.md)\.
+
+1. Copy `basicDiscovery.py` to the folder that contains the HelloWorld\_Publisher and HelloWorld\_Subscriber device certificates and keys, as shown in the following example\. \(The hash component in your file names are different\.\)  
 ![\[Screenshot of certificate and key files with basicDiscovery.py in the same folder.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-075.png)

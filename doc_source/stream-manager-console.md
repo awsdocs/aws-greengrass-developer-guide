@@ -191,7 +191,7 @@ In this step, you create a Lambda function deployment package that contains func
    + **transfer\_stream\.py**\. App logic\.
    + **greengrasssdk**\. Required library for Python Greengrass Lambda functions that publish MQTT messages\.
 
-     Stream manager APIs are available in version 1\.5\.0 of the AWS IoT Greengrass Core SDK\.
+     Stream manager operations are available in version 1\.5\.0 of the AWS IoT Greengrass Core SDK for Python\.
    + The dependencies you installed for the AWS IoT Greengrass Core SDK for Python \(for example, the `cbor2` directories\)\.
 
    When you create the `zip` file, include only these items, not the containing folder\.

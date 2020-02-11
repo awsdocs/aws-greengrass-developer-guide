@@ -2,7 +2,7 @@
 
 This section provides troubleshooting information and possible solutions to help resolve issues with AWS IoT Greengrass\.
 
-<a name="gg-limits-genref"></a>For information about AWS IoT Greengrass limits, see [AWS IoT Greengrass Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_greengrass) in the *Amazon Web Services General Reference*\.
+<a name="gg-limits-genref"></a>For information about AWS IoT Greengrass quotas \(limits\), see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html#limits_greengrass) in the *Amazon Web Services General Reference*\.
 
 ## AWS IoT Greengrass Core Issues<a name="gg-troubleshooting-coreissues"></a>
 

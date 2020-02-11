@@ -1,6 +1,13 @@
 # Setting Up a Raspberry Pi<a name="setup-filter.rpi"></a>
 
+Follow the steps in this topic to set up a Raspberry Pi to use as your AWS IoT Greengrass core\.
+
+**Tip**  
+Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick Start: Greengrass Device Setup](quick-start.md)\.
+
 If you are setting up a Raspberry Pi for the first time, you must follow all of these steps\. Otherwise, you can skip to [step 9](#add-ggc-user-ggc-group)\. However, we recommend that you re\-image your Raspberry Pi with the operating system as recommended in step 2\.
+
+ 
 
 1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where you have inserted your SD card\. You can perform a quick format of the SD card\.
 
@@ -129,7 +136,7 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
    sudo apt install openjdk-8-jdk
    ```
 
-1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com//aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the `Downloads` directory\.
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the `Downloads` directory\.
 
    ```
    cd /home/pi/Downloads

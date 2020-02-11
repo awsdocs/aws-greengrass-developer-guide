@@ -88,7 +88,7 @@ You must provide this information using the `device.json` template located in ` 
       },
       {
         "name": "arch",
-        "value": "x86_64 | armv7l | aarch64"
+        "value": "x86_64 | armv6l | armv7l | aarch64"
       }
     ],
     "hsm": {
@@ -139,6 +139,7 @@ An array that contains the device's supported features\.
 + Required features: `os`, `arch`\.
 + Supported OS/architecture combinations:
   + Linux, x86\_64
+  + Linux, ARMv6l
   + Linux, ARMv7l
   + Linux, AArch64
   + Ubuntu, x86\_64

@@ -10,7 +10,7 @@ The AWS IoT Greengrass Core software is packaged with an agent that can update t
 You do not have to perform manual steps or have the device that is running the Core software physically present\. In the event of a failed update, the OTA update agent performs a rollback\. 
 
 To support OTA updates of AWS IoT Greengrass software, your Greengrass core device must:
-+ Have available local storage three times the amount of the core's runtime usage requirement\. For more information, see [AWS IoT Greengrass Core Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#gg_core_limits) in the *Amazon Web Services General Reference*\.
++ Have available local storage three times the amount of the core's runtime usage requirement\. For more information, see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html#limits_greengrass) for the AWS IoT Greengrass core in the *Amazon Web Services General Reference*\.
 + Not have trusted boot enabled in the partition that contains the Greengrass Core platform software\. \(The AWS IoT Greengrass core can be installed and run on a partition with trusted boot enabled, but cannot perform an OTA update\.\) 
 + Have read/write permissions on the partition that contains the Greengrass Core platform software\.
 + Not be configured to use a network proxy\. In AWS IoT Greengrass Core v1\.9\.3 or later, the OTA update agent supports updates over port 443 when MQTT traffic is configured to use port 443 instead of the default port 8883\. However, the OTA update agent does not support updates through a network proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
@@ -106,7 +106,7 @@ The IAM role used to presign the S3 URL that links to the AWS IoT Greengrass sof
     ]
 }
 ```
-You can also use a wildcard \* naming scheme for the `Resource` property to allow access to AWS IoT Greengrass software updates\. For example, the following format allows access to software updates for all [supported AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) \(current and future\) that use the `aws` partition\. Make sure to use the correct partitions for the AWS Regions you want to support\.  
+You can also use a wildcard \* naming scheme for the `Resource` property to allow access to AWS IoT Greengrass software updates\. For example, the following format allows access to software updates for all [supported AWS Regions](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) \(current and future\) that use the `aws` partition\. Make sure to use the correct partitions for the AWS Regions you want to support\.  
 
 ```
 "Resource": "arn:aws:s3:::*-greengrass-updates/*"

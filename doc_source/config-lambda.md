@@ -1,6 +1,14 @@
 # Configure the Lambda Function for AWS IoT Greengrass<a name="config-lambda"></a>
 
-You are now ready to configure your Lambda function for AWS IoT Greengrass\. In this step, you also configure a subscription that allows the Lambda function to communicate with AWS IoT and configure local logging for the Greengrass group\.
+You are now ready to configure your Lambda function for AWS IoT Greengrass\.
+
+In this step, you:
++ Use the AWS IoT console to add the Lambda function to your Greengrass group\.
++ Configure group\-specific settings for the Lambda function\.
++ Add a subscription to the group that allows the Lambda function to publish MQTT messages to AWS IoT\.
++ Configure local log settings for the group\.
+
+ 
 
 1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose the group that you created in [Module 2](module2.md)\.
 

@@ -48,7 +48,12 @@ Stream manager is not supported on OpenWrt distributions\.
 + Stream manager requires a minimum of 70 MB RAM in addition to your base AWS IoT Greengrass Core software\. Your total memory requirement depends on your workload\.
 
    
-+ User\-defined Lambda functions must use the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to interact with stream manager\. The AWS IoT Greengrass Core SDK is available in several languages, but only the Java \(v1\.4\.0\) and Python \(v1\.5\.0\) versions support stream manager operations\. You download the version that corresponds to your Lambda function runtime and include it in your Lambda function deployment package\.
++ User\-defined Lambda functions must use the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to interact with stream manager\. The AWS IoT Greengrass Core SDK is available in several languages, but only the following versions support stream manager operations:<a name="streammanagerclient-sdk-versions"></a>
+  + Java SDK \(v1\.4\.0\)
+  + Python SDK \(v1\.5\.0\)
+  + Node\.js SDK \(v1\.6\.0\)
+
+  You download the version of the SDK that corresponds to your Lambda function runtime and include it in your Lambda function deployment package\.
 **Note**  
 The AWS IoT Greengrass Core SDK for Python requires Python 3\.7 or later and has other package dependencies\. For more information, see [Create a Lambda function deployment package \(console\)](stream-manager-console.md#stream-manager-console-create-deployment-package) or [Create a Lambda function deployment package \(CLI\)](stream-manager-cli.md#stream-manager-cli-create-deployment-package)\.
 + If you define export destinations for a stream, you must create your export targets and grant permissions to access them in the Greengrass [group role](config-iam-roles.md)\. The following targets are supported:

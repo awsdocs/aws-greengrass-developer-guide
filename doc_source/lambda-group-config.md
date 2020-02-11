@@ -149,7 +149,7 @@ You can use the AWS IoT Greengrass dependency checker to determine which isolati
 
 **To run the AWS IoT Greengrass dependency checker**
 
-1. Download and run the AWS IoT Greengrass dependency checker from the [GitHub repository](https://github.com//aws-samples/aws-greengrass-samples)\.
+1. Download and run the AWS IoT Greengrass dependency checker from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples)\.
 
    ```
    wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip

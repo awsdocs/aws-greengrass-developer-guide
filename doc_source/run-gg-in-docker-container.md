@@ -2,10 +2,7 @@
 
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
-AWS IoT Greengrass can be configured to run in a [Docker](https://www.docker.com/) container\. 
-
-**Note**  
-[Connectors](connectors.md) and [local device and volume resources](access-local-resources.md) can't be used in a Docker container\. This feature isn't supported when the Lambda runtime environment for the Greengrass group is set to [**No container**](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\. However, you can access local device and volume resources directly\.
+AWS IoT Greengrass can be configured to run in a [Docker](https://www.docker.com/) container\.
 
 You can download a Dockerfile [through Amazon CloudFront](what-is-gg.md#gg-docker-download) that has the AWS IoT Greengrass Core software and dependencies installed\. To modify the Docker image to run on different platform architectures or reduce the size of the Docker image, see the `README` file in the Docker package download\.
 
@@ -22,6 +19,14 @@ To help you get started quickly and experiment with AWS IoT Greengrass, AWS also
 1. [Deploy Lambda Functions to the Docker Container](#docker-add-lambdas)
 
 1. [\(Optional\) Deploy Devices that Interact with Greengrass in the Docker Container](#docker-add-devices)
+
+ 
+
+The following features aren't supported when you run AWS IoT Greengrass in a Docker container:
++ [Connectors](connectors.md), except the [IoT SiteWise connector](iot-sitewise-connector.md)\.
++ [Local device and volume resources](access-local-resources.md)\. Your user\-defined Lambda functions that run in the Docker container must access devices and volumes on the core directly\.
+
+These features aren't supported when the Lambda runtime environment for the Greengrass group is set to [No container](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\.
 
 ## Prerequisites<a name="docker-image-prerequisites"></a>
 

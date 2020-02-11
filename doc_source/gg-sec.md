@@ -35,7 +35,9 @@ To configure your Greengrass application's security:
 
 1. Generate a key pair and device certificate for your AWS IoT Greengrass core device\.
 
-1. Create and attach an AWS IoT policy to the device certificate\. The certificate and policy allow the AWS IoT Greengrass core device access to AWS IoT and AWS IoT Greengrass services\. For more information, see [Minimal AWS IoT Policy for the AWS IoT Greengrass Core Device](#gg-config-sec-min-iot-policy)\.
+1. Create and attach an [AWS IoT policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) to the device certificate\. The certificate and policy allow the AWS IoT Greengrass core device access to AWS IoT and AWS IoT Greengrass services\. For more information, see [Minimal AWS IoT Policy for the Core Device](#gg-config-sec-min-iot-policy)\.
+**Note**  
+The use of [thing policy variables](https://docs.aws.amazon.com/iot/latest/developerguide/thing-policy-variables.html) in the AWS IoT policy for a core device is not supported\. The core uses the same device certificate to make [multiple connections](gg-core.md#connection-client-id) to AWS IoT Core but the client ID in a connection might not be an exact match of the core thing name\.
 
 1. Create a Greengrass service role\. This IAM role authorizes AWS IoT Greengrass to access resources from other AWS services on your behalf\. This allows AWS IoT Greengrass to perform essential tasks, such as retrieving AWS Lambda functions and managing AWS IoT shadows\. You can use the same service role across AWS Regions, but it must be associated with every AWS Region where you use AWS IoT Greengrass\. For more information, see [Greengrass Service Role](service-role.md)\.
 

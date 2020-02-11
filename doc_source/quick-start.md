@@ -1,6 +1,6 @@
 # Quick Start: Greengrass Device Setup<a name="quick-start"></a>
 
-Greengrass device setup is a script that sets up your device in minutes, so you can quickly start using AWS IoT Greengrass\. The script:
+Greengrass device setup is a script that sets up your core device in minutes, so you can quickly start using AWS IoT Greengrass\. The script:
 
 1. Configures your device and installs the AWS IoT Greengrass Core software\.
 
@@ -93,11 +93,12 @@ On platforms that require a reboot, all of your input values \(except credential
 ![\[Success message in the terminal output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/quick-start-completed.png)
 
 1. If you chose to include the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or to learn how to remove the Lambda function from the group, continue to [Verify the Lambda Function Is Running on the Core Device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
-
-   Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment \(by default, US West \(Oregon\)\)\.
 **Note**  
-If you didn't include the Hello World Lambda function, you can [create your own Lambda function](create-lambda.md) or try out other Greengrass features\. For example, you can add the [Docker application deployment](docker-app-connector.md) connector to your group and use it to deploy Docker containers to your core device\.  
- 
+Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment \(by default, US West \(Oregon\)\)\.
+
+   If you didn't include the Hello World Lambda function, you can [create your own Lambda function](create-lambda.md) or try out other Greengrass features\. For example, you can add the [Docker application deployment](docker-app-connector.md) connector to your group and use it to deploy Docker containers to your core device\.
+
+    
 
 ### Troubleshooting Issues<a name="gg-device-setup-troubleshooting"></a>
 

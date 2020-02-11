@@ -2,10 +2,10 @@
 
 1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT console\. If this is your first time opening this console, choose **Get started**\.
 
-1. Choose **Greengrass**\.
-**Note**  
-If you don't see the **Greengrass** node in the navigation pane, change to an AWS Region that supports AWS IoT Greengrass\. For the list of supported regions, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\.  
+1. In the navigation pane, choose **Greengrass**\.  
 ![\[AWS IoT navigation pane with Greengrass highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-greengrass.png)
+**Note**  
+If you don't see the **Greengrass** node, change to an AWS Region that supports AWS IoT Greengrass\. For the list of supported regions, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *Amazon Web Services General Reference*\.
 
 1. On the **Welcome to AWS IoT Greengrass** page, choose **Create a Group**\.
 
@@ -20,7 +20,7 @@ For an example that uses the AWS IoT Greengrass API to create and deploy a group
 
 1. On the **Set up your Greengrass group** page, choose **Use easy creation** to create a group and an AWS IoT Greengrass [core](gg-core.md)\.
 
-   Each group requires a core, which is a device that manages local IoT processes\. A core needs a certificate and keys that allow it to access AWS IoT and an AWS IoT policy that allows it to perform AWS IoT and AWS IoT Greengrass actions\. When you choose the **Use easy creation** option, these security resources are created for you and the core is provisioned in the AWS IoT registry\.  
+   Each group requires a core, which is a device that manages local IoT processes\. A core needs a certificate and keys that allow it to access AWS IoT and an [AWS IoT policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) that allows it to perform AWS IoT and AWS IoT Greengrass actions\. When you choose the **Use easy creation** option, these security resources are created for you and the core is provisioned in the AWS IoT registry\.  
 ![\[Set up your Greengrass Group console page with the Use easy creation button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-005.png)
 
 1. Enter a name for your group \(for example, **MyFirstGroup**\), and then choose **Next**\.  

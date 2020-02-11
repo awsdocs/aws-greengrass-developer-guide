@@ -256,15 +256,15 @@ If the connector detects a retryable error \(for example, connection errors\), i
 
 This connector is subject to the following limits\.
 + All limits imposed by the AWS SDK for Python \(boto3\) for the AWS IoT Analytics [ `batch_put_message`](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotanalytics.html#IoTAnalytics.Client.batch_put_message) action\.
-+ All limits imposed by the AWS IoT Analytics [ BatchPutMessage](https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage) API\. For more information, see [ AWS IoT Analytics Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot_analytics) in the *AWS General Reference*\.
++ All quotas imposed by the AWS IoT Analytics [ BatchPutMessage](https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage) API\. For more information, see [ Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html#limits_iot_analytics) for AWS IoT Analytics in the *AWS General Reference*\.
   + 100,000 messages per second per channel\.
   + 100 messages per batch\.
   + 128 KB per message\.
 
   This API uses channel names \(not channel ARNs\), so sending data to cross\-region or cross\-account channels is not supported\.
-+ All limits imposed by the AWS IoT Greengrass Core\. For more information, see [ AWS IoT Greengrass Core Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#gg_core_limits) in the *AWS General Reference*\.
++ All quotas imposed by the AWS IoT Greengrass Core\. For more information, see [ Service Quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html#limits_greengrass) for the AWS IoT Greengrass core in the *AWS General Reference*\.
 
-  The following limits might be especially applicable:
+  The following quotas might be especially applicable:
   + Maximum size of messages sent by a device is 128 KB\.
   + Maximum message queue size in the Greengrass core router is 2\.5 MB\.
   + Maximum length of a topic string is 256 bytes of UTF\-8 encoded characters\.

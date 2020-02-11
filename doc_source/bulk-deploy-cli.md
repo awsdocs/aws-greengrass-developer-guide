@@ -444,5 +444,6 @@ For more information about AWS IoT Greengrass logging, see [Monitoring with AWS 
 ## See Also<a name="bulk-deploy-cli-see-also"></a>
 
 For more information, see the following resources:
-+ [AWS IoT Greengrass CLI Reference](https://docs.aws.amazon.com/cli/latest/reference/greengrass/index.html)
-+ [AWS IoT Greengrass API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/api-doc.html)
++ [Deploy AWS IoT Greengrass Groups to an AWS IoT Greengrass Core](deployments.md)
++ [Amazon S3 API commands](https://docs.aws.amazon.com/cli/latest/reference/s3api) in the *AWS CLI Command Reference*
++ <a name="see-also-gg-cli"></a>[AWS IoT Greengrass commands](https://docs.aws.amazon.com/cli/latest/reference/greengrass/index.html) in the *AWS CLI Command Reference*

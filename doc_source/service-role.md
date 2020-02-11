@@ -53,7 +53,7 @@ The console can create and configure a default Greengrass service role for you\.
 | Policy | [ AWSGreengrassResourceAccessRolePolicy](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/service-role/AWSGreengrassResourceAccessRolePolicy) | 
 
 **Note**  
-If [Greengrass Device Setup](quick-start.md) creates the service role, the role name is `GreengrassServiceRole_random-string`\.
+If [Greengrass device setup](quick-start.md) creates the service role, the role name is `GreengrassServiceRole_random-string`\.
 
 When you create or deploy a Greengrass group from the AWS IoT console, the console checks whether a Greengrass service role is associated with your AWS account in the AWS Region that's currently selected in the console\. If not, the console prompts you to allow AWS IoT Greengrass to read and write to AWS services on your behalf\.
 

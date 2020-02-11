@@ -20,6 +20,8 @@ date/account-id/greengrass-group-id/name-of-core-that-generated-log
 ```
 
 The following considerations apply when you use CloudWatch Logs:
++ Logs are sent to CloudWatch Logs with a limited number of retries in case there's no internet connectivity\. After the retries are exhausted, the event is dropped\.
++ Transaction, memory, and other limitations apply\. For more information, see [Logging Limitations](#gg-log-limits)\.
 + <a name="gg-logs-cloudwatch-perms"></a>Your Greengrass group role must allow AWS IoT Greengrass to write to CloudWatch Logs\. To grant permissions, [ embed the following inline policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html#embed-inline-policy-console) in your group role\.
 
   ```
@@ -41,10 +43,28 @@ The following considerations apply when you use CloudWatch Logs:
       ]
   }
   ```
+**Note**  
+You can grant more granular access to your log resources\. For more information, see [ Using Identity\-Based Policies \(IAM Policies\) for CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/iam-identity-based-access-control-cwl.html) in the *Amazon CloudWatch User Guide*\.
 
-  You can grant more granular access to your log resources\. For more information, see [ Using Identity\-Based Policies \(IAM Policies\) for CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/iam-identity-based-access-control-cwl.html) in the *Amazon CloudWatch User Guide*\.
-+ Logs are sent to CloudWatch Logs with a limited number of retries in case there's no internet connectivity\. After the retries are exhausted, the event is dropped\.
-+ Transaction, memory, and other limitations apply\. For more information, see [Logging Limitations](#gg-log-limits)\.
+  The group role is an IAM role that you create and attach to your Greengrass group\. You can use the console or the AWS IoT Greengrass API to manage the group role\.
+
+     
+**Using the console**  
+
+  1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+
+  1. <a name="group-choose-target-group"></a>Choose the target group\.
+
+  1. Choose **Settings**\. Under **Group Role**, you can view, attach, or remove the group role\.
+
+     For steps that show you how to attach the group role, see [Configure the Group Role](config-iam-roles.md)\.
+   
+**Using the CLI**  
+  + To find the group role, use the [get\-associated\-role](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-associated-role.html) command\.
+  + To attach the group role, use the [associate\-role\-to\-group](https://docs.aws.amazon.com/cli/latest/reference/greengrass/associate-role-to-group.html) command\.
+  + To remove the group role, use the [disassociate\-role\-from\-group](https://docs.aws.amazon.com/cli/latest/reference/greengrass/disassociate-role-from-group.html) command\.
+   
+To learn how to get the group ID to use with these commands, see [Getting the Group ID](deployments.md#api-get-group-id)\.
 
 ## Accessing File System Logs<a name="gg-logs-local"></a>
 

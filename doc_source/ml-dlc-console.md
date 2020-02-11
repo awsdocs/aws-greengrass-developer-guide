@@ -148,7 +148,7 @@ Run the following commands in your Raspberry Pi terminal\.
 
 1. Choose **Author from scratch** and use the following values to create your function:
    + For **Function name**, enter **optimizedImageClassification**\. 
-   + For **Runtime**, choose **Python 3\.7**\.
+   + For **Runtime**, choose **Python 2\.7**\.
 
    For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.  
 ![\[The Basic information section of the Create function page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-dlr-lambda-creation.png)
@@ -161,7 +161,7 @@ Now, upload your Lambda function deployment package and register the handler\.
 
 1.  On the **Configuration** tab for the `optimizedImageClassification` function, for **Function code**, use the following values: 
    + For **Code entry type**, choose **Upload a \.zip file**\.
-   + For **Runtime**, choose **Python 3\.7**\.
+   + For **Runtime**, choose **Python 2\.7**\.
    + For **Handler**, enter **inference\.handler**\.
 
 1. Choose **Upload**\.  

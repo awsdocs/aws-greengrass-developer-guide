@@ -1,5 +1,9 @@
 # Create AWS IoT Devices in an AWS IoT Greengrass Group<a name="device-group"></a>
 
+In this step, you add two AWS IoT devices to your Greengrass group\. This process includes registering the devices and configuring certificates and keys to allow them to connect to AWS IoT Greengrass\.
+
+ 
+
 1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
@@ -12,7 +16,7 @@
 1. On the **Create a Registry entry for a device** page, register this device as **HelloWorld\_Publisher**, and then choose **Next**\.  
 ![\[Screenshot of Create a Registry entry for a device with the Name field set to HelloWorld_Publisher and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-068.png)
 
-1. <a name="gg-group-generate-default-device-certs"></a>On the **Set up security** page, for **1\-Click**, choose **Use Defaults**\. This option generates a device certificate with attached AWS IoT policy and public and private key\.
+1. <a name="gg-group-generate-default-device-certs"></a>On the **Set up security** page, for **1\-Click**, choose **Use Defaults**\. This option generates a device certificate with an attached [AWS IoT policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) and public and private key\.
 
 1. Create a folder on your computer\. Download the certificate and keys for your device into the folder\.  
 ![\[Screenshot of the Download security credentials page with the Download these resources as a tar.gz button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-070.png)

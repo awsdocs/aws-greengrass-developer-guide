@@ -6,7 +6,7 @@ This advanced module shows you how AWS IoT Greengrass cores can interact with ot
 
 Before you begin, make sure that you have completed [Module 1](module1.md), [Module 2](module2.md), and [Module 5](module5.md)\. You do not need other components or devices\.
 
-This module should take approximately 30 minutes to complete\.
+This module should take about 30 minutes to complete\.
 
 **Note**  
 This module creates and updates a table in DynamoDB\. Although most of the operations are small and fall within the AWS Free Tier, performing some of the steps in this module might result in charges to your account\. For information about pricing, see [DynamoDB pricing documentation](https://aws.amazon.com/dynamodb/pricing/)\.

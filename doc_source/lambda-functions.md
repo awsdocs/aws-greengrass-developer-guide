@@ -2,14 +2,14 @@
 
 AWS IoT Greengrass provides a containerized Lambda runtime environment for user\-defined code that you author in AWS Lambda\. Lambda functions that are deployed to an AWS IoT Greengrass core run in the core's local Lambda runtime\. Local Lambda functions can be triggered by local events, messages from the cloud, and other sources, which brings local compute functionality to connected devices\. For example, you can use Greengrass Lambda functions to filter device data before transmitting the data to the cloud\.
 
-To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the Greengrass group role\.
+To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the [Greengrass group role](config-iam-roles.md)\.
 
 You can configure parameters that determine how the Lambda functions run, including permissions, isolation, memory limits, and more\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
 
 **Note**  
 These settings also make it possible to run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
 
-The following table lists supported AWS Lambda runtimes and the versions of AWS IoT Greengrass Core software that they can run on\.
+The following table lists supported [AWS Lambda runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html) and the versions of AWS IoT Greengrass Core software that they can run on\.
 
 
 ****  
@@ -19,9 +19,12 @@ The following table lists supported AWS Lambda runtimes and the versions of AWS 
 | Python 3\.7 | 1\.9 or later | 
 | Python 2\.7 | 1\.0 or later | 
 | Java 8 | 1\.1 or later | 
-| Node\.js 8\.10 | 1\.9 or later | 
-| Node\.js 6\.10 | 1\.1 or later | 
+| Node\.js 12\.x | 1\.10 | 
+| Node\.js 8\.10 \* | 1\.9 or later | 
+| Node\.js 6\.10 \* | 1\.1 or later | 
 | C, C\+\+ | 1\.6 or later | 
+
+\* You can run Lambda functions that use these runtimes on supported versions of AWS IoT Greengrass, but you can't create them in AWS Lambda\. For more information, see [Runtime Support Policy](https://docs.aws.amazon.com/lambda/latest/dg/runtime-support-policy.html) in the *AWS Lambda Developer Guide*\.
 
 ## SDKs for Greengrass Lambda Functions<a name="lambda-sdks"></a>
 
@@ -49,7 +52,10 @@ To include the AWS IoT Greengrass Core SDK dependency in the Lambda function dep
 1. Include `greengrasssdk` in the Lambda function deployment package that contains your function code\. This is the package you upload to AWS Lambda when you create the Lambda function\.
    
  **StreamManagerClient**  
-Only the Java SDK \(v1\.4\.0\) and Python SDK \(v1\.5\.0\) can be used for [stream manager](stream-manager.md) operations\.  
+Only the following AWS IoT Greengrass Core SDKs can be used for [stream manager](stream-manager.md) operations:  <a name="streammanagerclient-sdk-versions"></a>
++ Java SDK \(v1\.4\.0\)
++ Python SDK \(v1\.5\.0\)
++ Node\.js SDK \(v1\.6\.0\)
 In the AWS IoT Greengrass Core SDK for Python, support for stream manager requires Python 3\.7\. You must also install dependencies to include in your Python Lambda function deployment packages:  <a name="python-sdk-dependencies-stream-manager"></a>
 
 1. Navigate to the SDK directory that contains the `requirements.txt` file\. This file lists the dependencies\.
@@ -59,6 +65,7 @@ In the AWS IoT Greengrass Core SDK for Python, support for stream manager requir
    ```
    pip install --target . -r requirements.txt
    ```
+   
  **Install the AWS IoT Greengrass Core SDK for Python on the core device**  
 If you're running Python Lambda functions, you can also use [https://pypi.org/project/pip/](https://pypi.org/project/pip/) to install the AWS IoT Greengrass Core SDK for Python on the core device\. Then you can deploy your functions without including the SDK in the Lambda function deployment package\. For more information, see [greengrasssdk](https://pypi.org/project/greengrasssdk/)\.  
 This support is intended for cores with size constraints\. We recommend that you include the SDK in your Lambda function deployment packages when possible\.  

@@ -57,5 +57,5 @@ An AWS IoT Greengrass Lambda function process normally runs as `ggc_user` and `g
 
 An AWS IoT Greengrass Lambda function process inherits all of the file system permissions of `ggc_user`, `ggc_group`, and the Linux group \(if added\)\. For the Lambda function to access a resource, the Lambda function process must have the required permissions to the resource\. You can use the `chmod(1)` command to change the permission of the resource, if necessary\.
 
-### See Also<a name="lra-seealso"></a>
-+ [ AWS IoT Greengrass Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_greengrass) in the *AWS General Reference*
+## See Also<a name="lra-seealso"></a>
++ [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html#limits_greengrass) for resources in the *Amazon Web Services General Reference*

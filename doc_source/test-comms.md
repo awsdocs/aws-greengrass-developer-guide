@@ -49,11 +49,11 @@ You can run the following command from the folder that contains the `basicDiscov
    python basicDiscovery.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert publisher.cert.pem --key publisher.private.key --thingName HelloWorld_Publisher --topic 'hello/world/pubsub' --mode publish --message 'Hello, World! Sent from HelloWorld_Publisher'
    ```
 
-   You should see output similar to the following, which includes entries such as `Published topic 'hello/world/pubsub': {"message": "Hello, World! Sent from HelloWorld_Publisher", "sequence": 1}`\.  
-![\[Screenshot of the publisher output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-076.png)
+   You should see output similar to the following, which includes entries such as `Published topic 'hello/world/pubsub': {"message": "Hello, World! Sent from HelloWorld_Publisher", "sequence": 1}`\.
 **Note**  
 If the script returns an `error: unrecognized arguments` message, change the single quotation marks to double quotation marks for the `--topic` and `--message` parameters and run the command again\.  
-To troubleshoot a connection issue, you can try using [manual IP detection](#corp-network-manual-detection)\.
+To troubleshoot a connection issue, you can try using [manual IP detection](#corp-network-manual-detection)\.  
+![\[Screenshot of the publisher output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-076.png)
 
 1. From the HelloWorld\_Subscriber device window, run the following commands\.
    + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and `basicDiscovery.py`\.

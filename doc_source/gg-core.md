@@ -79,8 +79,8 @@ The `config.json` file supports the following properties:
 | <a name="shared-config-certpath"></a>certPath |  The path to the core device certificate relative to the `/greengrass-root/certs` directory\.  | For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the crypto object is present\. | 
 | <a name="shared-config-keypath"></a>keyPath | The path to the core private key relative to /greengrass\-root/certs directory\. | For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the crypto object is present\. | 
 | <a name="shared-config-thingarn"></a>thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core device\. | Find this for your core in the AWS IoT Greengrass console under Cores, or by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html) CLI command\. | 
-| <a name="shared-config-iothost-v1.9"></a>iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under **Settings**, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. This command returns the Amazon Trust Services \(ATS\) endpoint\. For more information, see the [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) documentation\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure that your [ endpoints correspond to your region](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region)\.  | 
-| <a name="shared-config-gghost-v1.9"></a>ggHost | Your AWS IoT Greengrass endpoint\. | This is your `iotHost` endpoint with the host prefix replaced by *greengrass* \(for example, `greengrass-ats.iot.region.amazonaws.com`\)\. Use the same AWS Region as `iotHost`\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure that your [ endpoints correspond to your region](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region)\.  | 
+| <a name="shared-config-iothost-v1.9"></a>iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under **Settings**, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. This command returns the Amazon Trust Services \(ATS\) endpoint\. For more information, see the [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) documentation\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure that your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/greengrass.html)\.  | 
+| <a name="shared-config-gghost-v1.9"></a>ggHost | Your AWS IoT Greengrass endpoint\. | This is your `iotHost` endpoint with the host prefix replaced by *greengrass* \(for example, `greengrass-ats.iot.region.amazonaws.com`\)\. Use the same AWS Region as `iotHost`\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure that your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/greengrass.html)\.  | 
 | <a name="shared-config-iotmqttport"></a>iotMqttPort | Optional\. The port number to use for MQTT communication with AWS IoT\. | Valid values are 8883 or 443\. The default value is 8883\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 | <a name="shared-config-iothttpport"></a>iotHttpPort | Optional\. The port number used to create HTTPS connections to AWS IoT\. | Valid values are 8443 or 443\. The default value is 8443\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 | <a name="shared-config-ggmqttport"></a>ggMqttPort | Optional\. The port number to use for MQTT communication over the local network\. | Valid values are 1024 through 65535\. The default value is 8883\. For more information, see [Configure the MQTT Port for Local Messaging](#config-local-mqtt-port)\. | 
@@ -88,8 +88,8 @@ The `config.json` file supports the following properties:
 | <a name="shared-config-keepalive"></a>keepAlive | Optional\. The MQTT KeepAlive period, in seconds\. | Valid range is between 30 and 1200 seconds\. The default value is 600\. | 
 | <a name="shared-config-networkproxy"></a>networkProxy | Optional\. An object that defines a proxy server to connect to\. | This can be an HTTP or HTTPS proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 
+**runtime**
 
-**`runtime`**  
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
@@ -127,9 +127,9 @@ The following configuration properties are also supported:
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
-| <a name="shared-config-mqttmaxconnectionretryinterval"></a> `mqttMaxConnectionRetryInterval`  |  Optional\. The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. The default is `60`\.  | 
-| <a name="shared-config-managedrespawn"></a> `managedRespawn`  |  Optional\. Indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
-| <a name="shared-config-writedirectory"></a> `writeDirectory`  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
+| <a name="shared-config-mqttmaxconnectionretryinterval"></a> mqttMaxConnectionRetryInterval  |  Optional\. The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. The default is `60`\.  | 
+| <a name="shared-config-managedrespawn"></a> managedRespawn  |  Optional\. Indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
+| <a name="shared-config-writedirectory"></a> writeDirectory  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
 
 ------
 #### [ GGC v1\.9 ]
@@ -177,16 +177,16 @@ The `config.json` file supports the following properties:
 | <a name="shared-config-certpath"></a>certPath |  The path to the core device certificate relative to the `/greengrass-root/certs` directory\.  | For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the crypto object is present\. | 
 | <a name="shared-config-keypath"></a>keyPath | The path to the core private key relative to /greengrass\-root/certs directory\. | For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the crypto object is present\. | 
 | <a name="shared-config-thingarn"></a>thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core device\. | Find this for your core in the AWS IoT Greengrass console under Cores, or by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html) CLI command\. | 
-| <a name="shared-config-iothost-v1.9"></a>iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under **Settings**, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. This command returns the Amazon Trust Services \(ATS\) endpoint\. For more information, see the [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) documentation\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure that your [ endpoints correspond to your region](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region)\.  | 
-| <a name="shared-config-gghost-v1.9"></a>ggHost | Your AWS IoT Greengrass endpoint\. | This is your `iotHost` endpoint with the host prefix replaced by *greengrass* \(for example, `greengrass-ats.iot.region.amazonaws.com`\)\. Use the same AWS Region as `iotHost`\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure that your [ endpoints correspond to your region](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region)\.  | 
+| <a name="shared-config-iothost-v1.9"></a>iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under **Settings**, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. This command returns the Amazon Trust Services \(ATS\) endpoint\. For more information, see the [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) documentation\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure that your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/greengrass.html)\.  | 
+| <a name="shared-config-gghost-v1.9"></a>ggHost | Your AWS IoT Greengrass endpoint\. | This is your `iotHost` endpoint with the host prefix replaced by *greengrass* \(for example, `greengrass-ats.iot.region.amazonaws.com`\)\. Use the same AWS Region as `iotHost`\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure that your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/greengrass.html)\.  | 
 | <a name="shared-config-iotmqttport"></a>iotMqttPort | Optional\. The port number to use for MQTT communication with AWS IoT\. | Valid values are 8883 or 443\. The default value is 8883\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 | <a name="shared-config-iothttpport"></a>iotHttpPort | Optional\. The port number used to create HTTPS connections to AWS IoT\. | Valid values are 8443 or 443\. The default value is 8443\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 | <a name="shared-config-gghttpport"></a>ggHttpPort | Optional\. The port number used to create HTTPS connections to the AWS IoT Greengrass service\. | Valid values are 8443 or 443\. The default value is 8443\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 | <a name="shared-config-keepalive"></a>keepAlive | Optional\. The MQTT KeepAlive period, in seconds\. | Valid range is between 30 and 1200 seconds\. The default value is 600\. | 
 | <a name="shared-config-networkproxy"></a>networkProxy | Optional\. An object that defines a proxy server to connect to\. | This can be an HTTP or HTTPS proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 
+**runtime**
 
-**`runtime`**  
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
@@ -223,9 +223,9 @@ The following configuration properties are also supported:
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
-| <a name="shared-config-mqttmaxconnectionretryinterval"></a> `mqttMaxConnectionRetryInterval`  |  Optional\. The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. The default is `60`\.  | 
-| <a name="shared-config-managedrespawn"></a> `managedRespawn`  |  Optional\. Indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
-| <a name="shared-config-writedirectory"></a> `writeDirectory`  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
+| <a name="shared-config-mqttmaxconnectionretryinterval"></a> mqttMaxConnectionRetryInterval  |  Optional\. The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. The default is `60`\.  | 
+| <a name="shared-config-managedrespawn"></a> managedRespawn  |  Optional\. Indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
+| <a name="shared-config-writedirectory"></a> writeDirectory  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
 
 ------
 #### [ GGC v1\.8 ]
@@ -273,16 +273,16 @@ The `config.json` file supports the following properties:
 | <a name="shared-config-certpath"></a>certPath |  The path to the core device certificate relative to the `/greengrass-root/certs` directory\.  | For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the crypto object is present\. | 
 | <a name="shared-config-keypath"></a>keyPath | The path to the core private key relative to /greengrass\-root/certs directory\. | For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the crypto object is present\. | 
 | <a name="shared-config-thingarn"></a>thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core device\. | Find this for your core in the AWS IoT Greengrass console under Cores, or by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html) CLI command\. | 
-| <a name="shared-config-iothost"></a>iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under **Settings**, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. This command returns the Amazon Trust Services \(ATS\) endpoint\. For more information, see the [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) documentation\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region)\. | 
-| <a name="shared-config-gghost"></a>ggHost | Your AWS IoT Greengrass endpoint\. | This is your `iotHost` endpoint with the host prefix replaced by *greengrass* \(for example, `greengrass-ats.iot.region.amazonaws.com`\)\. Use the same AWS Region as `iotHost`\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region)\. | 
+| <a name="shared-config-iothost"></a>iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under **Settings**, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. This command returns the Amazon Trust Services \(ATS\) endpoint\. For more information, see the [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) documentation\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/greengrass.html)\. | 
+| <a name="shared-config-gghost"></a>ggHost | Your AWS IoT Greengrass endpoint\. | This is your `iotHost` endpoint with the host prefix replaced by *greengrass* \(for example, `greengrass-ats.iot.region.amazonaws.com`\)\. Use the same AWS Region as `iotHost`\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/greengrass.html)\. | 
 | <a name="shared-config-iotmqttport"></a>iotMqttPort | Optional\. The port number to use for MQTT communication with AWS IoT\. | Valid values are 8883 or 443\. The default value is 8883\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 | <a name="shared-config-iothttpport"></a>iotHttpPort | Optional\. The port number used to create HTTPS connections to AWS IoT\. | Valid values are 8443 or 443\. The default value is 8443\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 | <a name="shared-config-gghttpport"></a>ggHttpPort | Optional\. The port number used to create HTTPS connections to the AWS IoT Greengrass service\. | Valid values are 8443 or 443\. The default value is 8443\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 | <a name="shared-config-keepalive"></a>keepAlive | Optional\. The MQTT KeepAlive period, in seconds\. | Valid range is between 30 and 1200 seconds\. The default value is 600\. | 
 | <a name="shared-config-networkproxy"></a>networkProxy | Optional\. An object that defines a proxy server to connect to\. | This can be an HTTP or HTTPS proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
 
+**runtime**
 
-**`runtime`**  
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
@@ -318,12 +318,16 @@ The following configuration properties are also supported:
 
 | Field | Description | Notes | 
 | --- | --- | --- | 
-| <a name="shared-config-mqttmaxconnectionretryinterval"></a> `mqttMaxConnectionRetryInterval`  |  Optional\. The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. The default is `60`\.  | 
-| <a name="shared-config-managedrespawn"></a> `managedRespawn`  |  Optional\. Indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
-| <a name="shared-config-writedirectory"></a> `writeDirectory`  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
+| <a name="shared-config-mqttmaxconnectionretryinterval"></a> mqttMaxConnectionRetryInterval  |  Optional\. The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. The default is `60`\.  | 
+| <a name="shared-config-managedrespawn"></a> managedRespawn  |  Optional\. Indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
+| <a name="shared-config-writedirectory"></a> writeDirectory  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
 
 ------
-#### [ GGC v1\.7 ]
+#### [ Deprecated versions ]
+
+The following versions of the AWS IoT Greengrass Core software are not supported\. This information is included for reference purposes only\.
+
+**GGC v1\.7**  
 
 ```
 {
@@ -356,72 +360,19 @@ The following configuration properties are also supported:
   }
 }
 ```
+The `config.json` file supports the following properties:  
+**coreThing**      
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
+**runtime**      
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
+**crypto**  
+The `crypto` object, added in v1\.7\.0, introduces properties that support private key storage on a hardware security module \(HSM\) through PKCS\#11 and local secret storage\. For more information, see [Hardware Security Integration](hardware-security.md) and [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\. Configurations for private key storage on HSMs or in the file system are supported\.      
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
+The following configuration properties are also supported:    
+****    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
 
-The `config.json` file supports the following properties:
-
-**coreThing**
-
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| <a name="shared-config-capath"></a>caPath |  The path to the AWS IoT root CA relative to the `/greengrass-root/certs` directory\.  |  For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the `crypto` object is present\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\.  | 
-| <a name="shared-config-certpath"></a>certPath |  The path to the core device certificate relative to the `/greengrass-root/certs` directory\.  | For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the crypto object is present\. | 
-| <a name="shared-config-keypath"></a>keyPath | The path to the core private key relative to /greengrass\-root/certs directory\. | For backward compatibility with versions earlier than 1\.7\.0\. This property is ignored when the crypto object is present\. | 
-| <a name="shared-config-thingarn"></a>thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core device\. | Find this for your core in the AWS IoT Greengrass console under Cores, or by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html) CLI command\. | 
-| <a name="shared-config-iothost"></a>iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under **Settings**, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. This command returns the Amazon Trust Services \(ATS\) endpoint\. For more information, see the [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) documentation\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region)\. | 
-| <a name="shared-config-gghost"></a>ggHost | Your AWS IoT Greengrass endpoint\. | This is your `iotHost` endpoint with the host prefix replaced by *greengrass* \(for example, `greengrass-ats.iot.region.amazonaws.com`\)\. Use the same AWS Region as `iotHost`\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\. Make sure your [ endpoints correspond to your AWS Region](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region)\. | 
-| <a name="shared-config-iotmqttport"></a>iotMqttPort | Optional\. The port number to use for MQTT communication with AWS IoT\. | Valid values are 8883 or 443\. The default value is 8883\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
-| <a name="shared-config-keepalive"></a>keepAlive | Optional\. The MQTT KeepAlive period, in seconds\. | Valid range is between 30 and 1200 seconds\. The default value is 600\. | 
-| <a name="shared-config-networkproxy"></a>networkProxy | Optional\. An object that defines a proxy server to connect to\. | This can be an HTTP or HTTPS proxy\. For more information, see [Connect on Port 443 or Through a Network Proxy](#alpn-network-proxy)\. | 
-
-
-**`runtime`**  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| cgroup | 
-| <a name="shared-config-usesystemd"></a>useSystemd | Indicates whether your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Valid values are yes or no\. Run the check\_ggc\_dependencies script in [Module 1](module1.md) to see if your device uses systemd\. | 
-
-**crypto**
-
-The `crypto` object, added in v1\.7\.0, introduces properties that support private key storage on a hardware security module \(HSM\) through PKCS\#11 and local secret storage\. For more information, see [Hardware Security Integration](hardware-security.md) and [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\. Configurations for private key storage on HSMs or in the file system are supported\.
-
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| <a name="shared-config-capath-crypto"></a>caPath |  The absolute path to the AWS IoT root CA\.  |  Must be a file URI of the form: `file:///absolute/path/to/file`\. Make sure that your [endpoints correspond to your certificate type](#certificate-endpoints)\.  | 
-| PKCS11 | 
-| <a name="shared-config-opensslengine"></a>OpenSSLEngine |  Optional\. The absolute path to the OpenSSL engine `.so` file to enable PKCS\#11 support on OpenSSL\.  |  Must be a path to a file on the file system\. This property is required if you're using the Greengrass OTA update agent with hardware security\. For more information, see [Configure Support for Over\-the\-Air Updates](hardware-security.md#hardware-security-ota-updates)\.  | 
-| <a name="shared-config-p11provider"></a>P11Provider |  The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  |  Must be a path to a file on the file system\.  | 
-| <a name="shared-config-slotlabel"></a>slotLabel |  The slot label that's used to identify the hardware module\.  |  Must conform to PKCS\#11 label specifications\.  | 
-| <a name="shared-config-slotuserpin"></a>slotUserPin |  The user pin that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
-| principals | 
-| <a name="shared-config-iotcertificate"></a>IoTCertificate | The certificate and private key that the core uses to make requests to AWS IoT\. | 
-| <a name="shared-config-iotcertificate-privatekeypath"></a>IoTCertificate  \.privateKeyPath  |  The path to the core private key\.  |  For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\.  | 
-| <a name="shared-config-iotcertificate-certificatepath"></a>IoTCertificate  \.certificatePath |  The absolute path to the core device certificate\.  |  Must be a file URI of the form: `file:///absolute/path/to/file`\.  | 
-| <a name="shared-config-mqttservercertificate"></a>MQTTServerCertificate | Optional\. The private key that the core uses in combination with the certificate to act as an MQTT server or gateway\. | 
-| <a name="shared-config-mqttservercertificate-privatekeypath"></a>MQTTServerCertificate  \.privateKeyPath |  The path to the local MQTT server private key\.  |  Use this value to specify your own private key for the local MQTT server\. For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\. If this property is omitted, AWS IoT Greengrass rotates the key based your rotation settings\. If specified, the customer is responsible for rotating the key\.  | 
-| <a name="shared-config-secretsmanager"></a>SecretsManager | The private key that secures the data key used for encryption\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\. | 
-| <a name="shared-config-secretsmanager-privatekeypath"></a>SecretsManager  \.privateKeyPath |  The path to the local secrets manager private key\.  |  Only an RSA key is supported\. For file system storage, must be a file URI of the form: `file:///absolute/path/to/file`\. For HSM storage, must be an [RFC 7512 PKCS\#11](https://tools.ietf.org/html/rfc7512) path that specifies the object label\. The private key must be generated using the [PKCS\#1 v1\.5](https://tools.ietf.org/html/rfc2313) padding mechanism\.  | 
-
-The following configuration properties are also supported:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| <a name="shared-config-mqttmaxconnectionretryinterval"></a> `mqttMaxConnectionRetryInterval`  |  Optional\. The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. The default is `60`\.  | 
-| <a name="shared-config-managedrespawn"></a> `managedRespawn`  |  Optional\. Indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
-| <a name="shared-config-writedirectory"></a> `writeDirectory`  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
-
-------
-#### [ Deprecated versions ]
-
-The following versions of the AWS IoT Greengrass Core software are not supported\. This information is included for reference purposes only\.
-
-------
-#### [ GGC v1\.6 ]
+**GGC v1\.6**  
 
 ```
 {
@@ -444,31 +395,12 @@ The following versions of the AWS IoT Greengrass Core software are not supported
    "writeDirectory": "/write-directory"
 }
 ```
-
-**Note**  
 If you use the **Easy group creation** option from the AWS IoT Greengrass console, then the `config.json` file is deployed to the core device in a working state that specifies the default configuration\.
+The `config.json` file supports the following properties:    
+****    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
 
-The `config.json` file supports the following properties:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) relative to the `/greengrass-root/certs` directory\.  |  Save the file under `/greengrass-root/certs`\.  | 
-| certPath |  The path to the AWS IoT Greengrass core certificate relative to the `/greengrass-root/certs` directory\.  | Save the file under /greengrass\-root/certs\. | 
-| keyPath | The path to the AWS IoT Greengrass core private key relative to /greengrass\-root/certs directory\. | Save the file under /greengrass\-root/certs\. | 
-| <a name="shared-config-thingarn"></a>thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core device\. | Find this for your core in the AWS IoT Greengrass console under Cores, or by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html) CLI command\. | 
-| iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under Settings, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) CLI command\. | 
-| ggHost | Your AWS IoT Greengrass endpoint\. | This value uses the format greengrass\.iot\.region\.amazonaws\.com\. Use the same region as iotHost\. | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default is 600\. | 
-|  `mqttMaxConnectionRetryInterval`  |  The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. This is an optional value\. The default is `60`\.  | 
-| <a name="shared-config-usesystemd"></a>useSystemd | Indicates whether your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Valid values are yes or no\. Run the check\_ggc\_dependencies script in [Module 1](module1.md) to see if your device uses systemd\. | 
-|  `managedRespawn`  |  An optional over\-the\-air \(OTA\) updates feature, this indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
-|  `writeDirectory`  |  The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  This is an optional value\. For more information, see [Configure a Write Directory for AWS IoT Greengrass](#write-directory)\.  | 
-
-------
-#### [ GGC v1\.5 ]
+**GGC v1\.5**  
 
 ```
 {
@@ -489,26 +421,11 @@ The `config.json` file supports the following properties:
    "managedRespawn": true
 }
 ```
+The `config.json` file exists in `/greengrass-root/config` and contains the following parameters:    
+****    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
 
-The `config.json` file exists in `/greengrass-root/config` and contains the following parameters:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
-| certPath |  The path to the AWS IoT Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the /greengrass\-root/certs folder\. | 
-| keyPath | The path to the AWS IoT Greengrass core private key relative to /greengrass\-root/certs folder\. | Save the file under the /greengrass\-root/certs folder\. | 
-| <a name="shared-config-thingarn"></a>thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core device\. | Find this for your core in the AWS IoT Greengrass console under Cores, or by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html) CLI command\. | 
-| iotHost | Your AWS IoT endpoint\. | Find this in the AWS IoT console under Settings, or by running the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) command\. | 
-| ggHost | Your AWS IoT Greengrass endpoint\. | This value uses the format greengrass\.iot\.region\.amazonaws\.com\. Use the same region as iotHost\. | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
-| <a name="shared-config-usesystemd"></a>useSystemd | Indicates whether your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Valid values are yes or no\. Run the check\_ggc\_dependencies script in [Module 1](module1.md) to see if your device uses systemd\. | 
-|  `managedRespawn`  |  An optional over\-the\-air \(OTA\) updates feature, this indicates that the OTA agent needs to run custom code before an update\.  |  For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
-
-------
-#### [ GGC v1\.3 ]
+**GGC v1\.3**  
 
 ```
 {
@@ -529,26 +446,11 @@ The `config.json` file exists in `/greengrass-root/config` and contains the foll
    "managedRespawn": true
 }
 ```
+The `config.json` file exists in `/greengrass-root/config` and contains the following parameters:    
+****    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
 
-The `config.json` file exists in `/greengrass-root/config` and contains the following parameters:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
-| certPath |  The path to the AWS IoT Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the /greengrass\-root/certs folder\. | 
-| keyPath | The path to the AWS IoT Greengrass core private key relative to /greengrass\-root/certs folder\. | Save the file under the /greengrass\-root/certs folder\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core\.  | You can find this value in the AWS IoT Greengrass console under the definition for your AWS IoT thing\. | 
-| iotHost | Your AWS IoT endpoint\. | You can find this value in the AWS IoT console under Settings\. | 
-| ggHost | Your AWS IoT Greengrass endpoint\. | You can find this value in the AWS IoT console under Settings with greengrass\. prepended\. | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
-| useSystemd | A binary flag, if your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Values are yes or no\. Use the dependency script in [Module 1](module1.md) to see if your device uses systemd\. | 
-|  `managedRespawn`  |  An optional over\-the\-air \(OTA\) updates feature, this indicates that the OTA agent needs to run custom code before an update\.  |  For more information, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.  | 
-
-------
-#### [ GGC v1\.1 ]
+**GGC v1\.1**  
 
 ```
 {
@@ -568,27 +470,12 @@ The `config.json` file exists in `/greengrass-root/config` and contains the foll
    }
 }
 ```
+The `config.json` file exists in `/greengrass-root/config` and contains the following parameters:    
+****    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
 
-The `config.json` file exists in `/greengrass-root/config` and contains the following parameters:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) relative to the `/greengrass-root/certs` folder\.  |  Save the file under the `/greengrass-root/certs` folder\.  | 
-| certPath |  The path to the AWS IoT Greengrass core certificate relative to the `/greengrass-root/certs` folder\.  | Save the file under the /greengrass\-root/certs folder\. | 
-| keyPath | The path to the AWS IoT Greengrass core private key relative to the /greengrass\-root/certs folder\. | Save the file under the /greengrass\-root/certs folder\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core\.  | You can find this value in the AWS IoT Greengrass console under the definition for your AWS IoT thing\. | 
-| iotHost | Your AWS IoT endpoint\. | You can find this value in the AWS IoT console under Settings\. | 
-| ggHost | Your AWS IoT Greengrass endpoint\. | You can find this value in the AWS IoT console under Settings with greengrass\. prepended\. | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
-| useSystemd | A binary flag, if your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Values are yes or no\. Use the dependency script in [Module 1](module1.md) to see if your device uses systemd\. | 
-
-------
-#### [ GGC v1\.0 ]
-
-In AWS IoT Greengrass Core v1\.0, `config.json` is deployed to `greengrass-root/configuration`\.
+**GGC v1\.0**  
+In AWS IoT Greengrass Core v1\.0, `config.json` is deployed to `greengrass-root/configuration`\.  
 
 ```
 {
@@ -608,24 +495,9 @@ In AWS IoT Greengrass Core v1\.0, `config.json` is deployed to `greengrass-root/
    }
 }
 ```
-
-The `config.json` file exists in `/greengrass-root/configuration` and contains the following parameters:
-
-
-****  
-
-| Field | Description | Notes | 
-| --- | --- | --- | 
-| caPath |  The path to the [AWS IoT root CA](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) relative to the `/greengrass-root/configuration/certs` folder\.  |  Save the file under the `/greengrass-root/configuration/certs` folder\.  | 
-| certPath |  The path to the AWS IoT Greengrass core certificate relative to the `/greengrass-root/configuration/certs` folder\.  | Save the file under the /greengrass\-root/configuration/certs folder\. | 
-| keyPath | The path to the AWS IoT Greengrass core private key relative to the /greengrass\-root/configuration/certs folder\. | Save the file under the /greengrass\-root/configuration/certs folder\. | 
-| thingArn | The Amazon Resource Name \(ARN\) of the AWS IoT thing that represents the AWS IoT Greengrass core\.  | You can find this value in the AWS IoT Greengrass console under the definition for your AWS IoT hing\. | 
-| iotHost | Your AWS IoT endpoint\. | You can find this value in the AWS IoT console under Settings\. | 
-| ggHost | Your AWS IoT Greengrass endpoint\. |  You can find this value in the AWS IoT console under **Settings** with `greengrass.` prepended\.  | 
-| keepAlive | The MQTT KeepAlive period, in seconds\. | This is an optional value\. The default value is 600 seconds\. | 
-| useSystemd | A binary flag if your device uses [https://en.wikipedia.org/wiki/Systemd](https://en.wikipedia.org/wiki/Systemd)\. | Values are yes or no\. Use the dependency script in [Module 1](module1.md) to see if your device uses systemd\. | 
-
-------
+The `config.json` file exists in `/greengrass-root/configuration` and contains the following parameters:    
+****    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
 
 ------
 
@@ -639,7 +511,7 @@ If you're using an Amazon Trust Services \(ATS\) root CA certificate \(preferred
 prefix-ats.iot.region.amazonaws.com
 ```
 
-In some AWS Regions, AWS IoT Greengrass also currently supports legacy Verisign endpoints and root CA certificates for backward compatibilty\. For more information, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *Amazon Web Services General Reference*\.
+In some AWS Regions, AWS IoT Greengrass also currently supports legacy Verisign endpoints and root CA certificates for backward compatibilty\. For more information, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *Amazon Web Services General Reference*\.
 
 If you're using a legacy Verisign root CA certificate, we recommend that you create an ATS endpoint and use an ATS root CA certificate instead\. For more information, see [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide*\. Otherwise, make sure to use the corresponding legacy endpoints\. For example, the following syntax is used for legacy AWS IoT endpoints:
 
@@ -994,6 +866,9 @@ For information about MQTT settings you can configure for AWS IoT Greengrass, se
 + [MQTT Persistent Sessions with AWS IoT](#mqtt-persistent-sessions)
 + [Client IDs for MQTT Connections with AWS IoT](#connection-client-id)
 + [Configure the MQTT Port for Local Messaging](#config-local-mqtt-port)
+
+**Note**  
+<a name="sitewise-connector-opcua-support"></a>OPC\-UA is an information exchange standard for industrial communication\. To implement support for OPC\-UA on the Greengrass core, you can use the [IoT SiteWise connector](iot-sitewise-connector.md)\. The connector sends industrial device data from OPC\-UA servers to asset properties in AWS IoT SiteWise\.
 
 ### Message Quality of Service<a name="message-quality-of-service"></a>
 

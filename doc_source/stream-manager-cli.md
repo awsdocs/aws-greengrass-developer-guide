@@ -204,7 +204,7 @@ In this step, you create a Lambda function deployment package that contains func
    + **transfer\_stream\.py**\. App logic\.
    + **greengrasssdk**\. Required library for Python Greengrass Lambda functions that publish MQTT messages\.
 
-     Stream manager APIs are available in version 1\.5\.0 of the AWS IoT Greengrass Core SDK\.
+     Stream manager operations are available in version 1\.5\.0 of the AWS IoT Greengrass Core SDK for Python\.
    + The dependencies you installed for the AWS IoT Greengrass Core SDK for Python \(for example, the `cbor2` directories\)\.
 
    When you create the `zip` file, include only these items, not the containing folder\.
@@ -519,3 +519,6 @@ If you need more troubleshooting information, you can set the `Lambda` logging l
 + [Use StreamManagerClient to Work with Streams](work-with-streams.md)
 + [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)
 + [Export Data Streams to the AWS Cloud \(Console\)](stream-manager-console.md)
++ <a name="see-also-iam-cli"></a>[AWS Identity and Access Management \(IAM\) commands](https://docs.aws.amazon.com/cli/latest/reference/iam) in the *AWS CLI Command Reference*
++ <a name="see-also-lambda-cli"></a>[AWS Lambda commands](https://docs.aws.amazon.com/cli/latest/reference/lambda) in the *AWS CLI Command Reference*
++ <a name="see-also-gg-cli"></a>[AWS IoT Greengrass commands](https://docs.aws.amazon.com/cli/latest/reference/greengrass/index.html) in the *AWS CLI Command Reference*

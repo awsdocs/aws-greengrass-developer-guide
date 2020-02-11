@@ -4,15 +4,23 @@ After you set the required configuration, you can start the tests\. The run time
 
 The following example command line shows you how to run the qualification tests for a device pool \(a set of identical devices\)\. You can find these commands in the `<devicetester-extract-location>/bin` directory\.
 
-Use the following command to run all test groups in a specified suite:
+Use the following command to run all test groups in a specified suite:  
 
-devicetester\_*\[linux \| mac \| win\_x86\-64\]* run\-suite \-\-suite\-id GGQ\_1 \-\-pool\-id *<pool\-id>*
+```
+devicetester_[linux | mac | win_x86-64] run-suite --suite-id GGQ_1 --pool-id <pool-id>
+```
 
-Use the following command to run a specific test group:
+Use the following command to run a specific test group:  
 
-devicetester\_*\[linux \| mac \| win\_x86\-64\]* run\-suite \-\-suite\-id GGQ\_1 \-\-group\-id *<group\-id>* \-\-pool\-id *<pool\-id>*
-
-`suite-id` and `pool-id` are optional if you are running a single test suite on a single device pool \(that is, you have only one device pool defined in your `device.json` file\)\.
+```
+devicetester_[linux | mac | win_x86-64] run-suite --suite-id GGQ_1 --group-id <group-id> --pool-id <pool-id>
+```
+`suite-id` and `pool-id` are optional if you are running a single test suite on a single device pool \(that is, you have only one device pool defined in your `device.json` file\)\.  
+We recommend that you to run the dependency checker test group to make sure all Greengrass dependencies are installed before you run related test groups\. For example:  
++ Run `ggcdependencies` before core qualification test groups\.
++ Run `containerdependencies` before container\-specific test groups\.
++ Run `dockerdependencies` before Docker\-specific test groups\.
++ Run `ggcstreammanagementdependencies` before stream manager\-specific test groups\.
 
 ## AWS IoT Device Tester for AWS IoT Greengrass Commands<a name="bk-cli"></a>
 

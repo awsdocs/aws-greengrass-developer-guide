@@ -146,7 +146,7 @@ This connector publishes data to two topics:
 + High or low state changes on the `gpio/+/+/state` topic\.
 + Errors on the `gpio/+/error` topic\.
 
-**Topic filter: `gpio/+/+/state`**  
+**Topic filter:** `gpio/+/+/state`  
 Use this topic to listen for state changes on input pins and responses for read requests\. The connector returns the string `"0"` if the pin is in a low state, or `"1"` if it's in a high state\.  
 When publishing to this topic, the connector replaces the `+` wildcards with the core thing name and the target pin, respectively\. For example:  
 
@@ -160,7 +160,7 @@ Currently, when you create a subscription that uses the Raspberry Pi GPIO connec
 0
 ```
 
-**Topic filter:** `gpio/+/errors`  
+**Topic filter:** `gpio/+/error`  
 Use this topic to listen for errors\. The connector publishes to this topic as a result of an invalid request \(for example, when a state change is requested on an input pin\)\.  
 When publishing to this topic, the connector replaces the `+` wildcard with the core thing name\.    
 **Example output**  

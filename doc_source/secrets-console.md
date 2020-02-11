@@ -103,7 +103,7 @@ To create a Lambda function, you must first create a Lambda function *deployment
 **Note**  
 To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0 or later\.
 
-1. <a name="download-ggc-sdk"></a> Download the AWS IoT Greengrass Core SDK for Python from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\.
+1. <a name="download-ggc-sdk"></a> From the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page, download the AWS IoT Greengrass Core SDK for Python to your computer\.
 
 1. <a name="unzip-ggc-sdk"></a>Unzip the downloaded package to get the SDK\. The SDK is the `greengrasssdk` folder\.
 

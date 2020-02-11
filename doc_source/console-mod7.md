@@ -87,7 +87,12 @@ In this step, you initialize the SoftHSM token, convert the private key format, 
    softhsm2-util --init-token --slot 0 --label greengrass --so-pin 12345 --pin 1234
    ```
 **Note**  
-If prompted, enter an SO pin of `12345` and a user pin of `1234`\. AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any value\.
+If prompted, enter an SO pin of `12345` and a user pin of `1234`\. AWS IoT Greengrass doesn't use the SO \(supervisor\) pin, so you can use any value\.  
+If you receive the error `CKR_SLOT_ID_INVALID: Slot 0 does not exist`, try the following command instead:  
+
+   ```
+   softhsm2-util --init-token --free --label greengrass --so-pin 12345 --pin 1234
+   ```
 
 1. Convert the private key to a format that can be used by the SoftHSM import tool\. For this tutorial, you convert the private key that you obtained from the **Easy Group creation** option in [Module 2](module2.md) of the Getting Started tutorial\.
 

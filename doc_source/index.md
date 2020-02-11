@@ -1,7 +1,7 @@
 # AWS IoT Greengrass Developer Guide
 
 -----
-*****Copyright &copy; 2019 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -95,7 +95,6 @@ Amazon's trademarks and trade dress may not be used in
    + [Getting Started with Greengrass Connectors (Console)](connectors-console.md)
    + [Getting Started with Greengrass Connectors (CLI)](connectors-cli.md)
 + [Greengrass Discovery RESTful API](gg-discover-api.md)
-+ [Implement Custom OPC-UA Support to Communicate with Industrial Equipment](opcua.md)
 + [AWS IoT Greengrass Security](gg-sec.md)
    + [Greengrass Service Role](service-role.md)
    + [Hardware Security Integration](hardware-security.md)
@@ -104,14 +103,14 @@ Amazon's trademarks and trade dress may not be used in
 + [Tagging Your AWS IoT Greengrass Resources](tagging.md)
 + [AWS CloudFormation Support for AWS IoT Greengrass](cloudformation-support.md)
 + [Using AWS IoT Device Tester for AWS IoT Greengrass](device-tester-for-greengrass-ug.md)
-   + [AWS IoT Device Tester for AWS IoT Greengrass Versions](dev-test-versions.md)
-      + [Earlier IDT Versions for AWS IoT Greengrass](idt-prev-versions.md)
+   + [Supported Versions of AWS IoT Device Tester for AWS IoT Greengrass](dev-test-versions.md)
+   + [Unsupported Versions of AWS IoT Device Tester for AWS IoT Greengrass](idt-unsupported-versions.md)
    + [Prerequisites](dev-tst-prereqs.md)
-      + [Using IDT for Greengrass 1.6.1 and Earlier](old-idt.md)
       + [Configure Your Device](device-config-setup.md)
    + [Setting Configuration to Run the AWS IoT Greengrass Qualification Suite](set-config.md)
    + [Running Tests](run-tests.md)
    + [Test Group Descriptions](dt-test-groups.md)
    + [IDT for AWS IoT Greengrass Troubleshooting](idt-troubleshooting.md)
+   + [Support Policy for AWS IoT Device Tester for AWS IoT Greengrass](idt-support-policy.md)
 + [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)
 + [Document History for AWS IoT Greengrass](doc-history.md)

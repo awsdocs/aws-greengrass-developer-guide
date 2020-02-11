@@ -1,6 +1,13 @@
 # Setting Up Other Devices<a name="setup-filter.other"></a>
 
-If you're new to AWS IoT Greengrass, we recommend that you use a Raspberry Pi or an Amazon EC2 instance as your core device, and follow the [setup steps](module1.md) appropriate for your device\. To use a different device or platform, follow the steps in this section\. For information about supported device platforms, see [Greengrass Core Platform Compatibility](https://aws.amazon.com/greengrass/faqs/)\.
+Follow the steps in this topic to set up a device \(other than a Raspberry Pi\) to use as your AWS IoT Greengrass core\.
+
+**Tip**  
+Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick Start: Greengrass Device Setup](quick-start.md)\.
+
+If you're new to AWS IoT Greengrass, we recommend that you use a Raspberry Pi or an Amazon EC2 instance as your core device, and follow the [setup steps](module1.md) appropriate for your device\. To use a different device or [supported platform](what-is-gg.md#gg-platforms), follow the steps in this topic\.
+
+ 
 
 1. <a name="setup-jetson"></a>If your core device is an NVIDIA Jetson TX2, you must first flash the firmware with the JetPack 3\.3 installer\. If you're configuring a different device, skip to step 2\.
 **Note**  
@@ -48,7 +55,7 @@ If the `addgroup` command isn't available on your system, use the following comm
      sudo yum install java-1.8.0-openjdk
      ```
 
-1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com//aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script\.
+1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script\.
 
    ```
    mkdir greengrass-dependency-checker-GGCv1.10.x

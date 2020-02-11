@@ -600,7 +600,7 @@ Outputs:
 
 ## Supported AWS Regions<a name="cloudformation-support-regions"></a>
 
-Currently, you can create and manage AWS IoT Greengrass resources only in the following [AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region):
+Currently, you can create and manage AWS IoT Greengrass resources only in the following [AWS Regions](https://docs.aws.amazon.com/general/latest/gr/greengrass.html):
 + US East \(Ohio\)
 + US East \(N\. Virginia\)
 + US West \(Oregon\)

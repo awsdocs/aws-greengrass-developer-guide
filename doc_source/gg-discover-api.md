@@ -11,7 +11,7 @@ To use this API, send HTTP requests to the Discovery API endpoint\. For example:
 https://greengrass-ats.iot.region.amazonaws.com:port/greengrass/discover/thing/thing-name
 ```
 
-For a list of supported AWS Regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
+For a list of supported AWS Regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS IoT Greengrass Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
 
 ## Request<a name="gg-discover-request"></a>
 

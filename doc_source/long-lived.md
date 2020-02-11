@@ -13,13 +13,13 @@ You are now ready to configure your Lambda function for AWS IoT Greengrass\.
 
 1. On the **Select a Lambda version** page, choose **Alias: GG\_HW\_Counter**, and then choose **Finish**\.
 
-1. On the **Lambdas** page, from the **…** menu, choose **Edit Configuration**\.  
+1. On the **Lambdas** page, from the **…** menu for the new function, choose **Edit Configuration**\.  
 ![\[Screenshot of the Group Configuration page with Lambdas in the navigation pane and Edit Configuration highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-050.png)
 
-1. On the configuration page, edit the following properties:
+1. On the **Group\-specific Lambda configuration** page, edit the following properties:
    + Set **Timeout** to 25 seconds\. This Lambda function sleeps for 20 seconds before each invocation\.
    + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
-   + Accept the default values for all other fields, such as **Run as** and **Containerization**\.
+   + Keep the default values for all other fields, such as **Run as** and **Containerization**\.
 
       
 ![\[Screenshot with the Timeout field set to 25 seconds and the Make this function long-lived and keep it running indefinitely radio button selected.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-051.png)

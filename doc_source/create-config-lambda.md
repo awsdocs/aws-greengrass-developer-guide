@@ -4,9 +4,11 @@ In this step, you create a Lambda function that tracks the number of cars that p
 
 1. On your computer, create a folder named `car_aggregator`\.
 
-1. From the [AWS IoT Greengrass samples ](https://github.com//aws-samples/aws-greengrass-samples/tree/master/traffic-light-example-python) repository on GitHub, download the `carAggregator.py` function to the `car_aggregator` folder\. This is your Lambda function code\.
+1. From the [TrafficLight ](https://github.com/aws/aws-greengrass-core-sdk-python/tree/master/examples/TrafficLight) examples folder on GitHub, download the `carAggregator.py` file to the `car_aggregator` folder\. This is your Lambda function code\.
+**Note**  
+This example Python file is stored in the AWS IoT Greengrass Core SDK repository for convenience, but it doesn't use the AWS IoT Greengrass Core SDK\.
 
-1. If you aren't working in the US East \(N\. Virgina\) Region, open `carAggregator.py` and change `region_name` in the following line to the AWS Region that's currently selected in the AWS IoT console\. For the list of supported AWS Regions, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *Amazon Web Services General Reference*\.
+1. If you aren't working in the US East \(N\. Virgina\) Region, open `carAggregator.py` and change `region_name` in the following line to the AWS Region that's currently selected in the AWS IoT console\. For the list of supported AWS Regions, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *Amazon Web Services General Reference*\.
 
    ```
    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')

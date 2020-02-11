@@ -63,6 +63,27 @@ The AWS IoT Greengrass API provides the following actions to deploy AWS IoT Gree
 **Note**  
 For information about bulk deployment operations, see [Create Bulk Deployments for Groups](bulk-deploy-cli.md)\.
 
+### Getting the Group ID<a name="api-get-group-id"></a>
+
+The group ID is commonly used in API actions\. You can use [ListGroups](https://docs.aws.amazon.com/greengrass/latest/apireference/listgroups-get.html) to get the ID of the target group\. The following CLI examples include the `query` option to filter results\.
++ To get the most recently created group:
+
+  ```
+  aws greengrass list-groups --query "reverse(sort_by(Groups, &CreationTimestamp))[0]"
+  ```
++ To get a group by name:
+
+  ```
+  aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
+  ```
+
+  Group names are not required to be unique, so multiple groups might be returned\.
+
+The returned group information includes the ID of the most recent group version \(in the `LatestVersion` property\)\. To get other group version IDs, use the group ID with [ListGroupVersions](https://docs.aws.amazon.com/greengrass/latest/apireference/listgroupversions-get.html)\.
+
+**Note**  
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+
 ## Overview of the AWS IoT Greengrass Group Object Model<a name="api-overview"></a>
 
 When programming with the AWS IoT Greengrass API, it's helpful to understand the Greengrass group object model\.
@@ -127,10 +148,12 @@ Greengrass Lambda functions and [secret resources](secrets.md) define Greengrass
 + To update [Greengrass\-specific properties](lambda-group-config.md), you create a `FunctionDefinitionVersion` that contains the updated `Function` properties\.
 
 **Note**  
-Greengrass Lambda functions can reference a Lambda function by alias or version ARN\. If you reference the alias ARN \(recommended\), you don't need to update your `FunctionDefinitionVersion` \(or `SubscriptionDefinitionVersion`\) when you create a new function version in AWS Lambda\. For more information, see [Reference Lambda Functions by Alias or Version](lambda-functions.md#lambda-versions-aliases)\.
+Greengrass Lambda functions can reference a Lambda function by alias ARN or version ARN\. If you reference the alias ARN \(recommended\), you don't need to update your `FunctionDefinitionVersion` \(or `SubscriptionDefinitionVersion`\) when you publish a new function version in AWS Lambda\. For more information, see [Reference Lambda Functions by Alias or Version](lambda-functions.md#lambda-versions-aliases)\.
 
 ## See Also<a name="deployments-see-also"></a>
 + [Get Deployment Notifications](deployment-notifications.md)
 + [Reset Deployments](reset-deployments-scenario.md)
 + [Create Bulk Deployments for Groups](bulk-deploy-cli.md)
-+ [Troubleshooting Deployment Issues](gg-troubleshooting.md#gg-troubleshooting-deploymentissues)
++ [Troubleshooting Deployment Issues](gg-troubleshooting.md#gg-troubleshooting-deploymentissues)<a name="see-also-gg-api-cli"></a>
++ [AWS IoT Greengrass API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/)
++ <a name="see-also-gg-cli"></a>[AWS IoT Greengrass commands](https://docs.aws.amazon.com/cli/latest/reference/greengrass/index.html) in the *AWS CLI Command Reference*
