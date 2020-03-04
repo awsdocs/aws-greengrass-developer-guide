@@ -54,18 +54,15 @@ AWS IoT Greengrass provides a Docker image that has the AWS IoT Greengrass Core 
 
 Run the following commands in your computer terminal\.
 
-1. <a name="docker-get-login"></a>Get the required login command, which contains an authorization token for the AWS IoT Greengrass registry in Amazon ECR\.
+1. <a name="docker-get-login"></a>Login to the Greengrass registry in Amazon ECR\.
 
    ```
    aws ecr get-login-password --region us-west-2
-   ```
-
-   The output is the `docker login` command that you use in the next step\.
-
-1. <a name="docker-docker-login"></a>Authenticate your Docker client to the AWS IoT Greengrass container image in the registry by running the `docker login` command from the `get-login` output\. The command should be similar to the following example\.
-
-   ```
-   docker login -u AWS -p abCzYZ123... https://216483018798.dkr.ecr.us-west-2.amazonaws.com
+   aws ecr get-login-password \
+    --region  us-west-2 \
+    | docker login \
+    --username AWS \
+    --password-stdin https://216483018798.dkr.ecr.us-west-2.amazonaws.com
    ```
 
 1. <a name="docker-docker-pull"></a>Retrieve the AWS IoT Greengrass container image\.
