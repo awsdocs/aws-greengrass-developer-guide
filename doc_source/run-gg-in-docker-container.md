@@ -57,7 +57,7 @@ Run the following commands in your computer terminal\.
 1. <a name="docker-get-login"></a>Get the required login command, which contains an authorization token for the AWS IoT Greengrass registry in Amazon ECR\.
 
    ```
-   aws ecr get-login --registry-ids 216483018798 --no-include-email --region us-west-2
+   aws ecr get-login-password --region us-west-2
    ```
 
    The output is the `docker login` command that you use in the next step\.
