@@ -43,42 +43,42 @@ These connectors provide the following parameters\.
 
 `MLModelDestinationPath`  
 The absolute path to the the Amazon S3 bucket that contains the Neo\-compatible ML model\. This is the destination path that's specified for the ML model resource\.  
-Display name in console: **Model destination path**  
+Display name in the AWS IoT console: **Model destination path**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
 `MLModelResourceId`  
 The ID of the ML resource that references the source model\.  
-Display name in console: **Greengrass group ML resource**  
+Display name in the AWS IoT console: **Greengrass group ML resource**  
 Required: `true`  
 Type: `S3MachineLearningModelResource`  
 Valid pattern: `^[a-zA-Z0-9:_-]+$`
 
 `LocalInferenceServiceName`  
 The name for the local inference service\. User\-defined Lambda functions invoke the service by passing the name to the `invoke_inference_service` function of the AWS IoT Greengrass Machine Learning SDK\. For an example, see [Usage Example](#obj-detection-connector-usage)\.  
-Display name in console: **Local inference service name**  
+Display name in the AWS IoT console: **Local inference service name**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}$`
 
 `LocalInferenceServiceTimeoutSeconds`  
 The time \(in seconds\) before the inference request is terminated\. The minimum value is 1\. The default value is 10\.  
-Display name in console: **Timeout \(second\)**  
+Display name in the AWS IoT console: **Timeout \(second\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[1-9][0-9]*$`
 
 `LocalInferenceServiceMemoryLimitKB`  
 The amount of memory \(in KB\) that the service has access to\. The minimum value is 1\.  
-Display name in console: **Memory limit**  
+Display name in the AWS IoT console: **Memory limit**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[1-9][0-9]*$`
 
 `GPUAcceleration`  <a name="param-image-classification-gpuacceleration"></a>
 The CPU or GPU \(accelerated\) computing context\. This property applies to the ML Image Classification Aarch64 JTX2 connector only\.  
-Display name in console: **GPU acceleration**  
+Display name in the AWS IoT console: **GPU acceleration**  
 Required: `true`  
 Type: `string`  
 Valid values: `CPU` or `GPU`
@@ -86,12 +86,12 @@ Valid values: `CPU` or `GPU`
 `MLFeedbackConnectorConfigId`  <a name="param-image-classification-feedbackconfigid"></a>
 The ID of the feedback configuration to use to upload model input data\. This must match the ID of a feedback configuration defined for the [ML Feedback connector](ml-feedback-connector.md)\.  
 This parameter is required only if you want to use the ML Feedback connector to upload model input data and publish predictions to an MQTT topic\.  
-Display name in console: **ML Feedback connector configuration ID**  
+Display name in the AWS IoT console: **ML Feedback connector configuration ID**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^$|^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}$`
 
-### Create Connector Example \(CLI\)<a name="obj-detection-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="obj-detection-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains an ML Object Detection connector\. This example creates an instance of the ML Object Detection ARMv7l connector\.
 

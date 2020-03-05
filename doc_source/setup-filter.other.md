@@ -43,7 +43,7 @@ If the `addgroup` command isn't available on your system, use the following comm
      sudo groupadd --system ggc_group
      ```
 
-1. <a name="install-java-8-runtime"></a>Install the Java 8 runtime\. This tutorial uses the **Easy Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. You must install the Java 8 runtime on the core device \(or [disable stream manager](configure-stream-manager.md#enable-stream-manager-console-existing-group)\) before you deploy your group\.
+1. <a name="install-java-8-runtime"></a>Install the Java 8 runtime\. This tutorial uses the **Default Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. You must install the Java 8 runtime on the core device \(or [disable stream manager](configure-stream-manager.md#enable-stream-manager-console-existing-group)\) before you deploy your group\.
    + For Debian\-based or Ubuntu\-based distributions:
 
      ```

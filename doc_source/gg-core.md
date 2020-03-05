@@ -22,7 +22,7 @@ The configuration file for the AWS IoT Greengrass Core software is `config.json`
 
 **Note**  
 *greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.  
-If you use the **Easy group creation** option from the AWS IoT Greengrass console, then the `config.json` file is deployed to the core device in a working state\.
+If you use the **Default Group creation** option from the AWS IoT Greengrass console, then the `config.json` file is deployed to the core device in a working state\.
 
  You can review the contents of this file by running the following command:
 
@@ -395,7 +395,7 @@ The following configuration properties are also supported:
    "writeDirectory": "/write-directory"
 }
 ```
-If you use the **Easy group creation** option from the AWS IoT Greengrass console, then the `config.json` file is deployed to the core device in a working state that specifies the default configuration\.
+If you use the **Default Group creation** option from the AWS IoT Greengrass console, then the `config.json` file is deployed to the core device in a working state that specifies the default configuration\.
 The `config.json` file supports the following properties:    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html)
@@ -511,9 +511,9 @@ If you're using an Amazon Trust Services \(ATS\) root CA certificate \(preferred
 prefix-ats.iot.region.amazonaws.com
 ```
 
-In some AWS Regions, AWS IoT Greengrass also currently supports legacy Verisign endpoints and root CA certificates for backward compatibilty\. For more information, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *Amazon Web Services General Reference*\.
+In some AWS Regions, AWS IoT Greengrass also currently supports legacy VeriSign endpoints and root CA certificates for backward compatibilty\. For more information, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *Amazon Web Services General Reference*\.
 
-If you're using a legacy Verisign root CA certificate, we recommend that you create an ATS endpoint and use an ATS root CA certificate instead\. For more information, see [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide*\. Otherwise, make sure to use the corresponding legacy endpoints\. For example, the following syntax is used for legacy AWS IoT endpoints:
+If you're using a legacy VeriSign root CA certificate, we recommend that you create an ATS endpoint and use an ATS root CA certificate instead\. For more information, see [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide*\. Otherwise, make sure to use the corresponding legacy endpoints\. For example, the following syntax is used for legacy AWS IoT endpoints:
 
 ```
 prefix.iot.region.amazonaws.com
@@ -542,7 +542,7 @@ You can get your AWS IoT endpoint by running the [https://docs.aws.amazon.com/cl
   ```
   aws iot describe-endpoint --endpoint-type iot:Data-ATS
   ```
-+ To return a legacy Verisign signed endpoint, run:
++ To return a legacy VeriSign signed endpoint, run:
 
   ```
   aws iot describe-endpoint --endpoint-type iot:Data
@@ -1331,6 +1331,9 @@ You can optionally create a function definition by running the [ `create-functio
 
 It's a good practice to set up your init system to start the Greengrass daemon during boot, especially when managing large fleets of devices\.
 
+**Note**  
+If you used `apt` to install the AWS IoT Greengrass Core software, you can use the systemd scripts to enable start on boot\. For more information, see [Use systemd Scripts to Manage the Greengrass Daemon Lifecycle](install-ggc.md#ggc-package-manager-systemd)\.
+
 There are different types of init system, such as initd, systemd, and SystemV, and they use similar configuration parameters\. The following example is a service file for systemd\. The `Type` parameter is set to `forking` because greengrassd \(which is used to start Greengrass\) forks the Greengrass daemon process, and the `Restart` parameter is set to `on-failure` to direct systemd to restart Greengrass if Greengrass enters a failed state\.
 
 **Note**  
@@ -1353,77 +1356,6 @@ WantedBy=multi-user.target
 ```
 
 For information about how to create and enable a service file for systemd on a Raspberry Pi, see [SYSTEMD](https://www.raspberrypi.org/documentation/linux/usage/systemd.md) in the Raspberry Pi documentation\.
-
-## Archive an AWS IoT Greengrass Core Software Installation<a name="archive-ggc-version"></a>
-
-When you upgrade to a new version of the AWS IoT Greengrass Core software, you can archive the currently installed version\. This preserves your current installation environment so you can test a new software version on the same hardware\. This also makes it easy to roll back to your archived version for any reason\.
-
-**To archive the current installation and install a new version**
-
-1. Download the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) installation package that you want to upgrade to\.
-
-1. Copy the package to the destination core device\. For instructions that show how to transfer files, see this [step](gg-device-start.md#transfer-files-to-device)\.
-**Note**  
-You copy your current certificates, keys, and configuration file to the new installation later\.
-
-   Run the commands in the following steps in your core device terminal\.
-
-1. Make sure that the Greengrass daemon is stopped on the core device\.
-
-   1. To check whether the daemon is running:
-
-      ```
-      ps aux | grep -E 'greengrass.*daemon'
-      ```
-
-      If the output contains a `root` entry for `/greengrass/ggc/packages/ggc-version/bin/daemon`, then the daemon is running\.
-**Note**  
-This procedure is written with the assumption that the AWS IoT Greengrass Core software is installed in the `/greengrass` directory\.
-
-   1. To stop the daemon:
-
-      ```
-      cd /greengrass/ggc/core/
-      sudo ./greengrassd stop
-      ```
-
-1. Move the current Greengrass root directory to a different directory\.
-
-   ```
-   sudo mv /greengrass /greengrass_backup
-   ```
-
-1. Untar the new software on the core device\. Replace the *os\-architecture* and *version* placeholders in the command\.
-
-   ```
-   sudo tar –zxvf greengrass-os-architecture-version.tar.gz –C /
-   ```
-
-1. Copy the archived certificates, keys, and configuration file to the new installation\.
-
-   ```
-   sudo cp /greengrass_backup/certs/* /greengrass/certs
-   sudo cp /greengrass_backup/config/* /greengrass/config
-   ```
-
-1. Start the daemon:
-
-   ```
-   cd /greengrass/ggc/core/
-   sudo ./greengrassd start
-   ```
-
-Now, you can make a group deployment to test the new installation\. If something fails, you can restore the archived installation\.
-
-**To restore the archived installation**
-
-1. Stop the daemon\.
-
-1. Delete the new `/greengrass` directory\.
-
-1. Move the `/greengrass_backup` directory back to `/greengrass`\.
-
-1. Start the daemon\.
 
 ## See Also<a name="cores-see-also"></a>
 + [What Is AWS IoT Greengrass?](what-is-gg.md)

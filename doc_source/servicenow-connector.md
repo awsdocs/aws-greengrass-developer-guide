@@ -36,7 +36,7 @@ This connector provides the following parameters:
 `PublishInterval`  
 The maximum number of seconds to wait between publish events to ServiceNow\. The maximum value is 900\.  
 The connector publishes to ServiceNow when `PublishBatchSize` is reached or `PublishInterval` expires\.  
-Display name in console: **Publish interval in seconds**  
+Display name in the AWS IoT console: **Publish interval in seconds**  
 Required: `true`  
 Type: `string`  
 Valid values: `1 - 900`  
@@ -45,21 +45,21 @@ Valid pattern: `[1-9]|[1-9]\d|[1-9]\d\d|900`
 `PublishBatchSize`  
 The maximum number of metric values that can be batched before they are published to ServiceNow\.  
 The connector publishes to ServiceNow when `PublishBatchSize` is reached or `PublishInterval` expires\.  
-Display name in console: **Publish batch size**  
+Display name in the AWS IoT console: **Publish batch size**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
 `InstanceName`  
 The name of the instance used to connect to ServiceNow\.  
-Display name in console: **Name of ServiceNow instance**  
+Display name in the AWS IoT console: **Name of ServiceNow instance**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
 `DefaultTableName`  
 The name of the table that contains the `GlideRecord` associated with the time series MetricBase database\. The `table` property in the input message payload can be used to override this value\.  
-Display name in console: **Name of the table to contain the metric**  
+Display name in the AWS IoT console: **Name of the table to contain the metric**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
@@ -69,26 +69,26 @@ The maximum number of metrics to save in memory before they are replaced with ne
 This limit applies when there's no connection to the internet and the connector starts to buffer the metrics to publish later\. When the buffer is full, the oldest metrics are replaced by new metrics\.  
 Metrics are not saved if the host process for the connector is interrupted\. For example, this can happen during group deployment or when the device restarts\.
 This value should be greater than the batch size and large enough to hold messages based on the incoming rate of the MQTT messages\.  
-Display name in console: **Maximum metrics to retain in memory**  
+Display name in the AWS IoT console: **Maximum metrics to retain in memory**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
 `AuthSecretArn`  
 The secret in AWS Secrets Manager that stores the ServiceNow user name and password\. This must be a text type secret\. The secret must contain "user" and "password" keys with corresponding values\.  
-Display name in console: **ARN of auth secret**  
+Display name in the AWS IoT console: **ARN of auth secret**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `arn:aws:secretsmanager:[a-z0-9\-]+:[0-9]{12}:secret:([a-zA-Z0-9\\]+/)*[a-zA-Z0-9/_+=,.@\-]+-[a-zA-Z0-9]+`
 
 `AuthSecretArn-ResourceId`  
 The secret resource in the group that references the Secrets Manager secret for the ServiceNow credentials\.  
-Display name in console: **Auth token resource**  
+Display name in the AWS IoT console: **Auth token resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
-### Create Connector Example \(CLI\)<a name="servicenow-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="servicenow-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the ServiceNow MetricBase Integration connector\.
 

@@ -52,7 +52,7 @@ This connector provides the following parameters:
 
 `InputGpios`  
 A comma\-separated list of GPIO pin numbers to configure as inputs\. Optionally append `U` to set a pin's pull\-up resistor, or `D` to set the pull\-down resistor\. Example: `"5,6U,7D"`\.  
-Display name in console: **Input GPIO pins**  
+Display name in the AWS IoT console: **Input GPIO pins**  
 Required: `false`\. You must specify input pins, output pins, or both\.  
 Type: `string`  
 Valid pattern: `^$|^[0-9]+[UD]?(,[0-9]+[UD]?)*$`
@@ -60,14 +60,14 @@ Valid pattern: `^$|^[0-9]+[UD]?(,[0-9]+[UD]?)*$`
 `InputPollPeriod`  
 The interval \(in milliseconds\) between each polling operation, which checks input GPIO pins for state changes\. The minimum value is 1\.  
 This value depends on your scenario and the type of devices that are polled\. For example, a value of `50` should be fast enough to detect a button press\.  
-Display name in console: **Input GPIO polling period**  
+Display name in the AWS IoT console: **Input GPIO polling period**  
 Required: `false`  
 Type: `integer`  
 Valid pattern: `^$|^[1-9][0-9]*$`
 
 `OutputGpios`  
 A comma\-separated list of GPIO pin numbers to configure as outputs\. Optionally append `H` to set a high state \(1\), or `L` to set a low state \(0\)\. Example: `"8H,9,27L"`\.  
-Display name in console: **Output GPIO pins**  
+Display name in the AWS IoT console: **Output GPIO pins**  
 Required: `false`\. You must specify input pins, output pins, or both\.  
 Type: `string`  
 Valid pattern: `^$|^[0-9]+[HL]?(,[0-9]+[HL]?)*$`
@@ -75,12 +75,12 @@ Valid pattern: `^$|^[0-9]+[HL]?(,[0-9]+[HL]?)*$`
 `GpioMem-ResourceId`  
 The ID of the local device resource that represents `/dev/gpiomem`\.  
 This connector is granted read\-write access to the resource\.
-Display name in console: **Resource for /dev/gpiomem device**  
+Display name in the AWS IoT console: **Resource for /dev/gpiomem device**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
-### Create Connector Example \(CLI\)<a name="raspberrypi-gpio-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="raspberrypi-gpio-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Raspberry Pi GPIO connector\.
 

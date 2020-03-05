@@ -32,7 +32,7 @@ AWS IoT Greengrass supports Amazon SageMaker and Amazon S3 model sources for mac
 The following requirements apply to model sources:
 + S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS IoT Greengrass ML inference currently supports the SSE\-S3 or SSE\-KMS encryption options only\. For more information about server\-side encryption options, see [Protecting Data Using Server\-Side Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 + The names of S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not include periods \(`.`\)\. For more information, see the rule about using virtual hosted–style buckets with SSL in [Rules for Bucket Naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service Developer Guide*\.
-+ Service\-level AWS Region support must be available for both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [Amazon SageMaker](https://docs.aws.amazon.com/general/latest/gr/rande.html#sagemaker_region)\. Currently, AWS IoT Greengrass supports Amazon SageMaker models in the following Regions: 
++ Service\-level AWS Region support must be available for both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [Amazon SageMaker](https://docs.aws.amazon.com/general/latest/gr/sagemaker.html)\. Currently, AWS IoT Greengrass supports Amazon SageMaker models in the following Regions: 
   + US East \(Ohio\)
   + US East \(N\. Virginia\)
   + US West \(Oregon\)
@@ -143,7 +143,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w4aac19c15c17"></a>
+### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w11aac19c15c17"></a>
 
 Currently, the AWS IoT Greengrass TensorFlow installer supports installation on 32\-bit laptop or desktop operating systems only\. To build TensorFlow on 64\-bit platforms, see [Installing TensorFlow](https://www.tensorflow.org/install/#installing_from_sources) in the TensorFlow documentation\.
 

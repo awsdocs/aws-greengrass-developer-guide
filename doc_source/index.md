@@ -15,6 +15,7 @@ Amazon's trademarks and trade dress may not be used in
 -----
 ## Contents
 + [What Is AWS IoT Greengrass?](what-is-gg.md)
+   + [Install the AWS IoT Greengrass Core Software](install-ggc.md)
    + [Configure the AWS IoT Greengrass Core](gg-core.md)
 + [Getting Started with AWS IoT Greengrass](gg-gs.md)
    + [Quick Start: Greengrass Device Setup](quick-start.md)
@@ -107,6 +108,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Unsupported Versions of AWS IoT Device Tester for AWS IoT Greengrass](idt-unsupported-versions.md)
    + [Prerequisites](dev-tst-prereqs.md)
       + [Configure Your Device](device-config-setup.md)
+      + [Configure Your Docker Container for IDT for AWS IoT Greengrass](docker-config-setup.md)
    + [Setting Configuration to Run the AWS IoT Greengrass Qualification Suite](set-config.md)
    + [Running Tests](run-tests.md)
    + [Test Group Descriptions](dt-test-groups.md)

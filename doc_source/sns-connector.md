@@ -49,12 +49,12 @@ This connector provides the following parameters:
 `DefaultSNSArn`  
 The ARN of the default SNS topic to publish messages to\. The destination topic can be overridden by the `sns_topic_arn` property in the input message payload\.  
 The group role must allow `sns:Publish` permission to all target topics\. For more information, see [Requirements](#sns-connector-req)\.
-Display name in console: **Default SNS topic ARN**  
+Display name in the AWS IoT console: **Default SNS topic ARN**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `arn:aws:sns:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):([a-zA-Z0-9-_]+)$`
 
-### Create Connector Example \(CLI\)<a name="sns-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="sns-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the SNS connector\.
 

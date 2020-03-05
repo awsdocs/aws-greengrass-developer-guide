@@ -45,9 +45,9 @@ This connector has the following requirements:
 
 `FeedbackConfigurationMap`  
 A set of one or more feedback configurations that the connector can use to upload samples to Amazon S3\. A feedback configuration defines parameters such as the destination bucket, content type, and [sampling strategy](#ml-feedback-connector-sampling-strategies)\. When this connector is invoked, the calling Lambda function or connector specifies a target feedback configuration\.  
-Display name in console: **Feedback configuration map**  
+Display name in the AWS IoT console: **Feedback configuration map**  
 Required: `true`  
-Type: A well\-formed JSON string that defines the set of supported feedback configurations\. For an example, see [FeedbackConfigurationMap Example](#ml-feedback-connector-feebackconfigmap)\.    
+Type: A well\-formed JSON string that defines the set of supported feedback configurations\. For an example, see [FeedbackConfigurationMap Example](#ml-feedback-connector-feedbackconfigmap)\.    
   
 The ID of a feedback configuration object has the following requirements\.    
   
@@ -106,13 +106,13 @@ Valid values:
 `RequestLimit`  
 The maximum number of requests that the connector can process at a time\.  
 You can use this parameter to restrict memory consumption by limiting the number of requests that the connector processes at the same time\. Requests that exceed this limit are ignored\.  
-Display name in console: **Request limit**  
+Display name in the AWS IoT console: **Request limit**  
 Required: `false`  
 Type: `string`  
 Valid values: `0 - 999`  
 Valid pattern: `^$|^[0-9]{1,3}$`
 
-### Create Connector Example \(CLI\)<a name="ml-feedback-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="ml-feedback-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the ML Feedback connector\.
 
@@ -131,7 +131,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 }'
 ```
 
-### FeedbackConfigurationMap Example<a name="ml-feedback-connector-feebackconfigmap"></a>
+### FeedbackConfigurationMap Example<a name="ml-feedback-connector-feedbackconfigmap"></a>
 
 The following is an expanded example value for the `FeedbackConfigurationMap` parameter\. This example includes several feedback configurations that use different sampling strategies\.
 

@@ -3,7 +3,7 @@
 Follow the steps in this topic to set up a Raspberry Pi to use as your AWS IoT Greengrass core\.
 
 **Tip**  
-Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick Start: Greengrass Device Setup](quick-start.md)\.
+<a name="ggc-install-options"></a>AWS IoT Greengrass also provides other options for installing the AWS IoT Greengrass Core software\. For example, you can use [Greengrass device setup](quick-start.md) to configure your environment and install the latest version of the AWS IoT Greengrass Core software\. Or, on supported Debian platforms, you can use the [APT package manager](install-ggc.md#ggc-package-manager) to install or upgrade the AWS IoT Greengrass Core software\. For more information, see [Install the AWS IoT Greengrass Core Software](install-ggc.md)\.
 
 If you are setting up a Raspberry Pi for the first time, you must follow all of these steps\. Otherwise, you can skip to [step 9](#add-ggc-user-ggc-group)\. However, we recommend that you re\-image your Raspberry Pi with the operating system as recommended in step 2\.
 
@@ -70,6 +70,8 @@ For the following, if you receive an ECDSA key fingerprint message \(`Are you su
 If your computer is connected to a remote network using VPN, you might have difficulty connecting from the computer to the Raspberry Pi using SSH\.
 
 1. <a name="add-ggc-user-ggc-group"></a>You are now ready to set up the Raspberry Pi for AWS IoT Greengrass\. First, run the following commands from a local Raspberry Pi terminal window or an SSH terminal window:
+**Tip**  
+<a name="ggc-install-options"></a>AWS IoT Greengrass also provides other options for installing the AWS IoT Greengrass Core software\. For example, you can use [Greengrass device setup](quick-start.md) to configure your environment and install the latest version of the AWS IoT Greengrass Core software\. Or, on supported Debian platforms, you can use the [APT package manager](install-ggc.md#ggc-package-manager) to install or upgrade the AWS IoT Greengrass Core software\. For more information, see [Install the AWS IoT Greengrass Core Software](install-ggc.md)\.
 
    ```
    sudo adduser --system ggc_user
@@ -130,9 +132,10 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    Your Raspberry Pi should now be ready for AWS IoT Greengrass\.
 
-1. <a name="install-java-8-runtime"></a>Install the Java 8 runtime\. This tutorial uses the **Easy Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. You must install the Java 8 runtime on the core device \(or [disable stream manager](configure-stream-manager.md#enable-stream-manager-console-existing-group)\) before you deploy your group\.
+1. <a name="install-java-8-runtime"></a>Install the Java 8 runtime\. This tutorial uses the **Default Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. You must install the Java 8 runtime on the core device \(or [disable stream manager](configure-stream-manager.md#enable-stream-manager-console-existing-group)\) before you deploy your group\.
 
    ```
+   sudo apt update
    sudo apt install openjdk-8-jdk
    ```
 

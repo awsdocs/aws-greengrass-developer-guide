@@ -99,49 +99,49 @@ These connectors provide the following parameters\.
 `MLModelDestinationPath`  <a name="param-image-classification-mdlpath"></a>
 The absolute local path of the ML resource inside the Lambda environment\. This is the destination path that's specified for the ML resource\.  
 If you created the ML resource in the console, this is the local path\.
-Display name in console: **Model destination path**  
+Display name in the AWS IoT console: **Model destination path**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
 `MLModelResourceId`  <a name="param-image-classification-mdlresourceid"></a>
 The ID of the ML resource that references the source model\.  
-Display name in console: **SageMaker job ARN resource**  
+Display name in the AWS IoT console: **SageMaker job ARN resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[a-zA-Z0-9:_-]+`
 
 `MLModelSageMakerJobArn`  <a name="param-image-classification-mdljobarn"></a>
 The ARN of the Amazon SageMaker training job that represents the Amazon SageMaker model source\. The model must be trained by the Amazon SageMaker image classification algorithm\.  
-Display name in console: **SageMaker job ARN**  
+Display name in the AWS IoT console: **SageMaker job ARN**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^arn:aws:sagemaker:[a-zA-Z0-9-]+:[0-9]+:training-job/[a-zA-Z0-9][a-zA-Z0-9-]+$`
 
 `LocalInferenceServiceName`  <a name="param-image-classification-svcname"></a>
 The name for the local inference service\. User\-defined Lambda functions invoke the service by passing the name to the `invoke_inference_service` function of the AWS IoT Greengrass Machine Learning SDK\. For an example, see [Usage Example](#image-classification-connector-usage)\.  
-Display name in console: **Local inference service name**  
+Display name in the AWS IoT console: **Local inference service name**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[a-zA-Z0-9][a-zA-Z0-9-]{1,62}`
 
 `LocalInferenceServiceTimeoutSeconds`  <a name="param-image-classification-svctimeout"></a>
 The amount of time \(in seconds\) before the inference request is terminated\. The minimum value is 1\.  
-Display name in console: **Timeout \(second\)**  
+Display name in the AWS IoT console: **Timeout \(second\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[1-9][0-9]*`
 
 `LocalInferenceServiceMemoryLimitKB`  <a name="param-image-classification-svcmemorylimit"></a>
 The amount of memory \(in KB\) that the service has access to\. The minimum value is 1\.  
-Display name in console: **Memory limit \(KB\)**  
+Display name in the AWS IoT console: **Memory limit \(KB\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[1-9][0-9]*`
 
 `GPUAcceleration`  <a name="param-image-classification-gpuacceleration"></a>
 The CPU or GPU \(accelerated\) computing context\. This property applies to the ML Image Classification Aarch64 JTX2 connector only\.  
-Display name in console: **GPU acceleration**  
+Display name in the AWS IoT console: **GPU acceleration**  
 Required: `true`  
 Type: `string`  
 Valid values: `CPU` or `GPU`
@@ -149,7 +149,7 @@ Valid values: `CPU` or `GPU`
 `MLFeedbackConnectorConfigId`  <a name="param-image-classification-feedbackconfigid"></a>
 The ID of the feedback configuration to use to upload model input data\. This must match the ID of a feedback configuration defined for the [ML Feedback connector](ml-feedback-connector.md)\.  
 This parameter is required only if you want to use the ML Feedback connector to upload model input data and publish predictions to an MQTT topic\.  
-Display name in console: **ML Feedback connector configuration ID**  
+Display name in the AWS IoT console: **ML Feedback connector configuration ID**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^$|^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}$`
@@ -160,56 +160,56 @@ Valid pattern: `^$|^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}$`
 `MLModelDestinationPath`  <a name="param-image-classification-mdlpath"></a>
 The absolute local path of the ML resource inside the Lambda environment\. This is the destination path that's specified for the ML resource\.  
 If you created the ML resource in the console, this is the local path\.
-Display name in console: **Model destination path**  
+Display name in the AWS IoT console: **Model destination path**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
 `MLModelResourceId`  <a name="param-image-classification-mdlresourceid"></a>
 The ID of the ML resource that references the source model\.  
-Display name in console: **SageMaker job ARN resource**  
+Display name in the AWS IoT console: **SageMaker job ARN resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[a-zA-Z0-9:_-]+`
 
 `MLModelSageMakerJobArn`  <a name="param-image-classification-mdljobarn"></a>
 The ARN of the Amazon SageMaker training job that represents the Amazon SageMaker model source\. The model must be trained by the Amazon SageMaker image classification algorithm\.  
-Display name in console: **SageMaker job ARN**  
+Display name in the AWS IoT console: **SageMaker job ARN**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^arn:aws:sagemaker:[a-zA-Z0-9-]+:[0-9]+:training-job/[a-zA-Z0-9][a-zA-Z0-9-]+$`
 
 `LocalInferenceServiceName`  <a name="param-image-classification-svcname"></a>
 The name for the local inference service\. User\-defined Lambda functions invoke the service by passing the name to the `invoke_inference_service` function of the AWS IoT Greengrass Machine Learning SDK\. For an example, see [Usage Example](#image-classification-connector-usage)\.  
-Display name in console: **Local inference service name**  
+Display name in the AWS IoT console: **Local inference service name**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[a-zA-Z0-9][a-zA-Z0-9-]{1,62}`
 
 `LocalInferenceServiceTimeoutSeconds`  <a name="param-image-classification-svctimeout"></a>
 The amount of time \(in seconds\) before the inference request is terminated\. The minimum value is 1\.  
-Display name in console: **Timeout \(second\)**  
+Display name in the AWS IoT console: **Timeout \(second\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[1-9][0-9]*`
 
 `LocalInferenceServiceMemoryLimitKB`  <a name="param-image-classification-svcmemorylimit"></a>
 The amount of memory \(in KB\) that the service has access to\. The minimum value is 1\.  
-Display name in console: **Memory limit \(KB\)**  
+Display name in the AWS IoT console: **Memory limit \(KB\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[1-9][0-9]*`
 
 `GPUAcceleration`  <a name="param-image-classification-gpuacceleration"></a>
 The CPU or GPU \(accelerated\) computing context\. This property applies to the ML Image Classification Aarch64 JTX2 connector only\.  
-Display name in console: **GPU acceleration**  
+Display name in the AWS IoT console: **GPU acceleration**  
 Required: `true`  
 Type: `string`  
 Valid values: `CPU` or `GPU`
 
 ------
 
-### Create Connector Example \(CLI\)<a name="image-classification-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="image-classification-connector-create"></a>
 
 The following CLI commands create a `ConnectorDefinition` with an initial version that contains an ML Image Classification connector\.
 

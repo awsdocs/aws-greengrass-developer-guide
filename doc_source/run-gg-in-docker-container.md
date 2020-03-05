@@ -22,15 +22,15 @@ To help you get started quickly and experiment with AWS IoT Greengrass, AWS also
 
  
 
-The following features aren't supported when you run AWS IoT Greengrass in a Docker container:
-+ [Connectors](connectors.md), except the [IoT SiteWise connector](iot-sitewise-connector.md)\.
+The following features aren't supported when you run AWS IoT Greengrass in a Docker container:<a name="docker-image-unsupported-features"></a>
++ [Connectors](connectors.md), except the [IoT SiteWise connector](iot-sitewise-connector.md) and [Greengrass Docker application deployment connector](docker-app-connector.md)\.
 + [Local device and volume resources](access-local-resources.md)\. Your user\-defined Lambda functions that run in the Docker container must access devices and volumes on the core directly\.
 
 These features aren't supported when the Lambda runtime environment for the Greengrass group is set to [No container](lambda-group-config.md#no-container-mode), which is required to run AWS IoT Greengrass in a Docker container\.
 
 ## Prerequisites<a name="docker-image-prerequisites"></a>
 
-To complete this tutorial, the following software and versions must be installed on your host computer\.
+To complete this tutorial, the following software and versions must be installed on your host computer\.<a name="docker-image-prereq-list"></a>
 + [Docker](https://docs.docker.com/install/), version 18\.09 or later\. Earlier versions might also work, but version 18\.09 or later is preferred\.
 + [Python](https://www.python.org/downloads/), version 3\.6 or later\.
 + [pip](https://pip.pypa.io/en/stable/installing) version 18\.1 or later\.
@@ -54,13 +54,18 @@ AWS IoT Greengrass provides a Docker image that has the AWS IoT Greengrass Core 
 
 Run the following commands in your computer terminal\.
 
-1. <a name="docker-get-login"></a>Login to the Greengrass registry in Amazon ECR\.
+1. <a name="docker-get-login"></a>Get the required login command, which contains an authorization token for the AWS IoT Greengrass registry in Amazon ECR\.
 
    ```
-   aws ecr get-login-password --region  us-west-2 \
-    | docker login \
-    --username AWS \
-    --password-stdin https://216483018798.dkr.ecr.us-west-2.amazonaws.com
+   aws ecr get-login --registry-ids 216483018798 --no-include-email --region us-west-2
+   ```
+
+   The output is the `docker login` command that you use in the next step\.
+
+1. <a name="docker-docker-login"></a>Authenticate your Docker client to the AWS IoT Greengrass container image in the registry by running the `docker login` command from the `get-login` output\. The command should be similar to the following example\.
+
+   ```
+   docker login -u AWS -p abCzYZ123... https://216483018798.dkr.ecr.us-west-2.amazonaws.com
    ```
 
 1. <a name="docker-docker-pull"></a>Retrieve the AWS IoT Greengrass container image\.
@@ -189,18 +194,18 @@ Run the following commands in your computer terminal\.
 
    Replace `/tmp` with the path to the directory\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
    + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
 
      ```
      cd /tmp/certs/
      sudo wget -O root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
      ```
-   + For legacy endpoints, download a Verisign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you create an ATS endpoint and download an ATS root CA certificate\.
+   + For legacy endpoints, download a VeriSign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you create an ATS endpoint and download an ATS root CA certificate\.
 
      ```
      cd /tmp/certs/
-     sudo wget -O root.ca.pem https://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem
+     sudo wget -O root.ca.pem https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem
      ```
 **Note**  
 The `wget -O` parameter is the capital letter O\.
@@ -244,18 +249,18 @@ Run the following commands in your computer terminal\.
 
    Replace `/tmp` with the path to the directory\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
    + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
 
      ```
      cd /tmp/certs/
      sudo wget -O root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
      ```
-   + For legacy endpoints, download a Verisign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you create an ATS endpoint and download an ATS root CA certificate\.
+   + For legacy endpoints, download a VeriSign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you create an ATS endpoint and download an ATS root CA certificate\.
 
      ```
      cd /tmp/certs/
-     sudo wget -O root.ca.pem https://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem
+     sudo wget -O root.ca.pem https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem
      ```
 **Note**  
 The `wget -O` parameter is the capital letter O\.
@@ -293,7 +298,7 @@ The `wget -O` parameter is the capital letter O\.
 
    Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
    + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
      + If you have [curl](https://curl.haxx.se/download.html) installed, run the following commands in your command prompt\.
 
@@ -304,14 +309,14 @@ Your root CA certificate type must match your endpoint\. Use an ATS root CA cert
      + Otherwise, in a web browser, open the [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem) certificate\. Save the document as `root.ca.pem` in the `C:\Users\%USERNAME%\Downloads\certs` directory, which contains the decompressed certificates\.
 **Note**  
 Depending on your browser, save the file directly from the browser or copy the displayed key to the clipboard and save it in Notepad\.
-   + For legacy endpoints, download a Verisign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you create an ATS endpoint and download an ATS root CA certificate\.
+   + For legacy endpoints, download a VeriSign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you create an ATS endpoint and download an ATS root CA certificate\.
      + If you have [curl](https://curl.haxx.se/download.html) installed, run the following commands in your command prompt\.
 
        ```
        cd C:\Users\%USERNAME%\Downloads\certs
-       curl https://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem -o root.ca.pem
+       curl https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem -o root.ca.pem
        ```
-     + Otherwise, in a web browser, open the [Verisign Class 3 Public Primary G5 root CA certificate](https://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem)\. Save the document as `root.ca.pem` in the `C:\Users\%USERNAME%\Downloads\certs` directory, which contains the decompressed certificates\.
+     + Otherwise, in a web browser, open the [VeriSign Class 3 Public Primary G5 root CA certificate](https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem)\. Save the document as `root.ca.pem` in the `C:\Users\%USERNAME%\Downloads\certs` directory, which contains the decompressed certificates\.
 **Note**  
 Depending on your browser, save the file directly from the browser or copy the displayed key to the clipboard and save it in Notepad\.
 

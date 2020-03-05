@@ -18,10 +18,10 @@ For an example that uses the AWS IoT Greengrass API to create and deploy a group
 
    The AWS account you used to sign in must have permissions to create or manage the IAM role\. For more information, see [Greengrass Service Role](service-role.md)\.
 
-1. On the **Set up your Greengrass group** page, choose **Use easy creation** to create a group and an AWS IoT Greengrass [core](gg-core.md)\.
+1. On the **Set up your Greengrass group** page, choose **Use default creation** to create a group and an AWS IoT Greengrass [core](gg-core.md)\.
 
-   Each group requires a core, which is a device that manages local IoT processes\. A core needs a certificate and keys that allow it to access AWS IoT and an [AWS IoT policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) that allows it to perform AWS IoT and AWS IoT Greengrass actions\. When you choose the **Use easy creation** option, these security resources are created for you and the core is provisioned in the AWS IoT registry\.  
-![\[Set up your Greengrass Group console page with the Use easy creation button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-005.png)
+   Each group requires a core, which is a device that manages local IoT processes\. A core needs a certificate and keys that allow it to access AWS IoT and an [AWS IoT policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) that allows it to perform AWS IoT and AWS IoT Greengrass actions\. When you choose the **Use default creation** option, these security resources are created for you and the core is provisioned in the AWS IoT registry\.  
+![\[Set up your Greengrass Group console page with the Use default creation button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-005.png)
 
 1. Enter a name for your group \(for example, **MyFirstGroup**\), and then choose **Next**\.  
 ![\[The Name your Group page with MyFirstGroup in the Group Name field and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-006.png)
@@ -29,8 +29,8 @@ For an example that uses the AWS IoT Greengrass API to create and deploy a group
 1. Use the default name for the AWS IoT Greengrass core, and then choose **Next**\.  
 ![\[The Every Group needs a Core to function page with MyFirstGroup_Core in the Name field and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-007.png)
 
-1. On the **Run a scripted easy Group creation** page, choose **Create Group and Core**\.  
-![\[The Run a scripted easy Group creation page with the Create Group and Core button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-008.png)
+1. On the **Review Group creation** page, choose **Create Group and Core**\.  
+![\[The Review Group creation page with the Create Group and Core button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-008.png)
 
    AWS IoT creates an AWS IoT Greengrass group with default security policies and configuration files for you to load onto your device\.
 
@@ -50,4 +50,4 @@ Download the security resources before you choose **Finish**\.
    + For NVIDIA Jetson TX2, download the Armv8 \(AArch64\) for Ubuntu package\.
    + For Intel Atom, download the x86\_64 for Linux package\.
 **Note**  
-When stream manager is enabled, you must install the [Java 8 runtime](stream-manager.md#stream-manager-requirements) on the core device before you deploy your group\. The **Easy Group creation** workflow enables stream manager by default\.
+When stream manager is enabled, you must install the [Java 8 runtime](stream-manager.md#stream-manager-requirements) on the core device before you deploy your group\. The **Default Group creation** workflow enables stream manager by default\.

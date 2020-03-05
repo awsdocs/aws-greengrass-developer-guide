@@ -30,19 +30,19 @@ This connector supports the following parameters:
 `ModbusSerialPort-ResourceId`  
 The ID of the local device resource that represents the physical Modbus serial port\.  
 This connector is granted read\-write access to the resource\.
-Display name in console: **Modbus serial port resource**  
+Display name in the AWS IoT console: **Modbus serial port resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
 `ModbusSerialPort`  
 The absolute path to the physical Modbus serial port on the device\. This is the source path that's specified for the Modbus local device resource\.  
-Display name in console: **Source path of Modbus serial port resource**  
+Display name in the AWS IoT console: **Source path of Modbus serial port resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
-### Create Connector Example \(CLI\)<a name="modbus-protocol-adapter-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="modbus-protocol-adapter-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Modbus\-RTU Protocol Adapter connector\.
 

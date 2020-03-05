@@ -86,28 +86,28 @@ This connector provides the following parameters:
 `DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
 The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
 The group role must allow the appropriate actions on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
-Display name in console: **Default delivery stream ARN**  
+Display name in the AWS IoT console: **Default delivery stream ARN**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `arn:aws:firehose:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):deliverystream/([a-zA-Z0-9_\-.]+)$`
 
 `DeliveryStreamQueueSize`  
 The maximum number of records to retain in memory before new records for the same delivery stream are rejected\. The minimum value is 2000\.  
-Display name in console: **Maximum number of records to buffer \(per stream\)**  
+Display name in the AWS IoT console: **Maximum number of records to buffer \(per stream\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^([2-9]\\d{3}|[1-9]\\d{4,})$`
 
 `MemorySize`  
 The amount of memory \(in KB\) to allocate to this connector\.  
-Display name in console: **Memory size**  
+Display name in the AWS IoT console: **Memory size**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
 `PublishInterval`  
 The interval \(in seconds\) for publishing records to Kinesis Data Firehose\. To disable batching, set this value to 0\.  
-Display name in console: **Publish interval**  
+Display name in the AWS IoT console: **Publish interval**  
 Required: `true`  
 Type: `string`  
 Valid values: `0 - 900`  
@@ -119,7 +119,7 @@ Valid pattern: `[0-9]|[1-9]\\d|[1-9]\\d\\d|900`
 `DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
 The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
 The group role must allow the appropriate actions on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
-Display name in console: **Default delivery stream ARN**  
+Display name in the AWS IoT console: **Default delivery stream ARN**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `arn:aws:firehose:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):deliverystream/([a-zA-Z0-9_\-.]+)$`
@@ -127,7 +127,7 @@ Valid pattern: `arn:aws:firehose:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):deliverystream
 ------
 
 **Example**  <a name="kinesis-firehose-connector-create"></a>
-**Create Connector Example \(CLI\)**  
+**Create Connector Example \(AWS CLI\)**  
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the connector\.  
 
 ```

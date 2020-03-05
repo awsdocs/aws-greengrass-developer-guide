@@ -13,8 +13,8 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 2 | arn:aws:greengrass:*region*::/connectors/DockerApplicationDeployment/versions/2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/DockerApplicationDeployment/versions/1 | 
+| 2 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/2` | 
+| 1 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/1` | 
 
 For information about version changes, see the [Changelog](#docker-app-connector-changelog)\.
 
@@ -184,7 +184,7 @@ This connector has the following requirements:
 
 `DockerComposeFileS3Bucket`  
 The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
-Display name in console: **Docker Compose file in S3**  
+Display name in the AWS IoT console: **Docker Compose file in S3**  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
@@ -207,7 +207,7 @@ Valid pattern `.+`
 `DockerComposeFileDestinationPath`  
 The absolute path of the local directory used to store a copy of the Docker Compose file\. This must be an existing directory\. The user specified for `DockerUserId` must have permission to create a file in this directory\. For more information, see [Setting Up the Docker User on the AWS IoT Greengrass Core](#docker-app-connector-linux-user)\.  
 This directory stores your Docker Compose file and the credentials for your Docker images from private repositories\. It is your responsibility to secure this directory\. For more information, see [Security Notes](#docker-app-connector-security)\.
-Display name in console: **Directory path for local Compose file**  
+Display name in the AWS IoT console: **Directory path for local Compose file**  
 Required: `true`  
 Type: `string`  
 Valid pattern `\/.*\/?`  
@@ -216,28 +216,28 @@ Example: `/home/username/myCompose`
 `DockerUserId`  
 The UID of the Linux user that the connector runs as\. This user must belong to the `docker` Linux group on the core device and have write permissions to the `DockerComposeFileDestinationPath` directory\. For more information, see [Setting Up the Docker User on the Core](#docker-app-connector-linux-user)\.  
 <a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda Function as Root](lambda-group-config.md#lambda-running-as-root)\.
-Display name in console: **Docker user ID**  
+Display name in the AWS IoT console: **Docker user ID**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^[0-9]{1,5}$`
 
 `AWSSecretsArnList`  
 The Amazon Resource Names \(ARNs\) of the secrets in AWS Secrets Manager that contain the login information used to access your Docker images in private repositories\. For more information, see [Accessing Docker Images from Private Repositories](#access-private-repositories)\.  
-Display name in console: **Credentials for private repositories**  
+Display name in the AWS IoT console: **Credentials for private repositories**  
 Required: `false`\. This parameter is required to access Docker images stored in private repositories\.  
 Type: `array` of `string`  
 Valid pattern: `[( ?,? ?"(arn:(aws(-[a-z]+)):secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:([a-zA-Z0-9\]+/)[a-zA-Z0-9/_+=,.@-]+-[a-zA-Z0-9]+)")]`
 
 `DockerContainerStatusLogFrequency`  
 The frequency \(in seconds\) at which the connector logs status information about the Docker containers running on the core\. The default is 300 seconds \(5 minutes\)\.  
-Display name in console: **Logging frequency**  
+Display name in the AWS IoT console: **Logging frequency**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^[1-9]{1}[0-9]{0,3}$`
 
 `ForceDeploy`  
 Indicates whether to force the Docker deployment if it fails due to the improper cleanup of the last deployment\. The default is `False`\.  
-Display name in console: **Force deployment**  
+Display name in the AWS IoT console: **Force deployment**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `True|False`
@@ -247,7 +247,7 @@ Valid pattern: `True|False`
 
 `DockerComposeFileS3Bucket`  
 The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
-Display name in console: **Docker Compose file in S3**  
+Display name in the AWS IoT console: **Docker Compose file in S3**  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
@@ -270,7 +270,7 @@ Valid pattern `.+`
 `DockerComposeFileDestinationPath`  
 The absolute path of the local directory used to store a copy of the Docker Compose file\. This must be an existing directory\. The user specified for `DockerUserId` must have permission to create a file in this directory\. For more information, see [Setting Up the Docker User on the AWS IoT Greengrass Core](#docker-app-connector-linux-user)\.  
 This directory stores your Docker Compose file and the credentials for your Docker images from private repositories\. It is your responsibility to secure this directory\. For more information, see [Security Notes](#docker-app-connector-security)\.
-Display name in console: **Directory path for local Compose file**  
+Display name in the AWS IoT console: **Directory path for local Compose file**  
 Required: `true`  
 Type: `string`  
 Valid pattern `\/.*\/?`  
@@ -279,21 +279,21 @@ Example: `/home/username/myCompose`
 `DockerUserId`  
 The UID of the Linux user that the connector runs as\. This user must belong to the `docker` Linux group on the core device and have write permissions to the `DockerComposeFileDestinationPath` directory\. For more information, see [Setting Up the Docker User on the Core](#docker-app-connector-linux-user)\.  
 <a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda Function as Root](lambda-group-config.md#lambda-running-as-root)\.
-Display name in console: **Docker user ID**  
+Display name in the AWS IoT console: **Docker user ID**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^[0-9]{1,5}$`
 
 `AWSSecretsArnList`  
 The Amazon Resource Names \(ARNs\) of the secrets in AWS Secrets Manager that contain the login information used to access your Docker images in private repositories\. For more information, see [Accessing Docker Images from Private Repositories](#access-private-repositories)\.  
-Display name in console: **Credentials for private repositories**  
+Display name in the AWS IoT console: **Credentials for private repositories**  
 Required: `false`\. This parameter is required to access Docker images stored in private repositories\.  
 Type: `array` of `string`  
 Valid pattern: `[( ?,? ?"(arn:(aws(-[a-z]+)):secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:([a-zA-Z0-9\]+/)[a-zA-Z0-9/_+=,.@-]+-[a-zA-Z0-9]+)")]`
 
 `DockerContainerStatusLogFrequency`  
 The frequency \(in seconds\) at which the connector logs status information about the Docker containers running on the core\. The default is 300 seconds \(5 minutes\)\.  
-Display name in console: **Logging frequency**  
+Display name in the AWS IoT console: **Logging frequency**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^[1-9]{1}[0-9]{0,3}$`
@@ -302,7 +302,7 @@ Valid pattern: `^[1-9]{1}[0-9]{0,3}$`
 
  
 
-### Create Connector Example \(CLI\)<a name="docker-app-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="docker-app-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Greengrass Docker application deployment connector\.
 
@@ -502,7 +502,7 @@ In this procedure, we assume you have already created a Greengrass group and a G
 
 1. Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a Verisign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
 
    Download the appropriate ATS root CA certificate to the core device\. For example, you can use the following `wget` commands to download `AmazonRootCA1.pem` to your file path\.
 

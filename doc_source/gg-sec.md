@@ -76,7 +76,7 @@ The following example policy includes the minimum set of actions required to sup
             "Effect": "Allow",
             "Action": [
                 "iot:Publish",
-                "iot:Subscribe"
+                "iot:Receive"
             ],
             "Resource": [
                 "arn:aws:iot:region:account-id:topic/$aws/things/core-name-*"
@@ -85,7 +85,7 @@ The following example policy includes the minimum set of actions required to sup
         {
             "Effect": "Allow",
             "Action": [
-                "iot:Receive"
+                "iot:Subscribe"
             ],
             "Resource": [
                 "arn:aws:iot:region:account-id:topicfilter/$aws/things/core-name-*"

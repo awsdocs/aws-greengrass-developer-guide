@@ -261,6 +261,8 @@ Use the following information to help troubleshoot deployment issues\.
 + [You see a 403 Forbidden error on deployment in the logs\.](#troubleshoot-forbidden-deployment)
 + [A ConcurrentDeployment error occurs when you run the create\-deployment command for the first time\.](#troubleshoot-concurrent-deployment)
 + [Error: Greengrass is not authorized to assume the Service Role associated with this account, or the error: Failed: TES service role is not associated with this account\.](#troubleshoot-assume-service-role)
++ [Error: unable to execute download step in deployment\. error while downloading: error while downloading the Group definition file: \.\.\. x509: certificate has expired or is not yet valid](#troubleshoot-x509-certificate-expired)
++ [Error: An error occurred during the signature verification\. The repository is not updated and the previous index files will be used\. GPG error: https://dnw9lb6lzp2d8\.cloudfront\.net stable InRelease: The following signatures couldn't be verified because the public key is not available: NO\_PUBKEY 68D644ABDEXAMPLE](#troubleshoot-expired-missing-key)
 + [The deployment doesn't finish\.](#troubleshoot-stuck-deployment)
 + [Error: Unable to find java or java8 executables](#java-8-runtime-requirement)
 + [The deployment doesn't finish, and runtime\.log contains multiple "wait 1s for container to stop" entries\.](#troubleshoot-wait-container-stop)
@@ -359,6 +361,25 @@ These AWS CLI commands use example values for the group and deployment ID\. When
 
  
 
+### Error: unable to execute download step in deployment\. error while downloading: error while downloading the Group definition file: \.\.\. x509: certificate has expired or is not yet valid<a name="troubleshoot-x509-certificate-expired"></a>
+
+**Solution:** You might see this error in `runtime.log` when the deployment fails\. If you receive a `Deployment failed` error that contains the message `x509: certificate has expired or is not yet valid`, check the device clock\. TLS and X\.509 certificates provide a secure foundation for building IoT systems, but they require accurate times on servers and clients\. IoT devices should have the correct time \(within 15 minutes\) before they attempt to connect to AWS IoT Greengrass or other TLS services that use server certificates\. For more information, see [Using Device Time to Validate AWS IoT Server Certificates](http://aws.amazon.com/blogs/iot/using-device-time-to-validate-aws-iot-server-certificates/) on *The Internet of Things on AWS Official Blog*\.
+
+ 
+
+### Error: An error occurred during the signature verification\. The repository is not updated and the previous index files will be used\. GPG error: https://dnw9lb6lzp2d8\.cloudfront\.net stable InRelease: The following signatures couldn't be verified because the public key is not available: NO\_PUBKEY 68D644ABDEXAMPLE<a name="troubleshoot-expired-missing-key"></a>
+
+**Solution:** You might see this error when the trusted keys used to authenticate the APT repository packages for AWS IoT Greengrass are missing, expired, or invalid\. To resolve this issue, install the keyring package:
+
+```
+wget -O aws-iot-greengrass-keyring.deb https://d1onfpft10uf5o.cloudfront.net/greengrass-apt/downloads/aws-iot-greengrass-keyring.deb
+sudo dpkg -i aws-iot-greengrass-keyring.deb
+```
+
+For more information, see [Using apt to Install the AWS IoT Greengrass Core Software](install-ggc.md#ggc-package-manager-install)\.
+
+ 
+
 ### The deployment doesn't finish\.<a name="troubleshoot-stuck-deployment"></a>
 
 **Solution:** Do the following:
@@ -386,7 +407,7 @@ These AWS CLI commands use example values for the group and deployment ID\. When
 
 ### Error: Unable to find java or java8 executables<a name="java-8-runtime-requirement"></a>
 
-**Solution:** If stream manager is enabled for the AWS IoT Greengrass core, you must install the Java 8 runtime on the core device before you deploy the group\. For more information, see the steps in [Module 1: Environment Setup for Greengrass](module1.md) for your core device type\. Stream manager is enabled by default when you use the **Easy Group creation** workflow in the AWS IoT console to create a group\.
+**Solution:** If stream manager is enabled for the AWS IoT Greengrass core, you must install the Java 8 runtime on the core device before you deploy the group\. For more information, see the steps in [Module 1: Environment Setup for Greengrass](module1.md) for your core device type\. Stream manager is enabled by default when you use the **Default Group creation** workflow in the AWS IoT console to create a group\.
 
 Or, disable stream manager and then deploy the group\. For more information, see [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)\.
 

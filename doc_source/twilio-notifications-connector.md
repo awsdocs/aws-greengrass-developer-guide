@@ -39,7 +39,7 @@ This connector provides the following parameters\.
 
 `TWILIO_ACCOUNT_SID`  
 The Twilio account SID that's used to invoke the Twilio API\.  
-Display name in console: **Twilio account SID**  
+Display name in the AWS IoT console: **Twilio account SID**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
@@ -47,14 +47,14 @@ Valid pattern: `.+`
 `TwilioAuthTokenSecretArn`  
 The ARN of the Secrets Manager secret that stores the Twilio auth token\.  
 This is used to access the value of the local secret on the core\.
-Display name in console: **ARN of Twilio auth token secret**  
+Display name in the AWS IoT console: **ARN of Twilio auth token secret**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `arn:aws:secretsmanager:[a-z0-9\-]+:[0-9]{12}:secret:([a-zA-Z0-9\\]+/)*[a-zA-Z0-9/_+=,.@\-]+-[a-zA-Z0-9]+`
 
 `TwilioAuthTokenSecretArn-ResourceId`  
 The ID of the secret resource in the Greengrass group that references the secret for the Twilio auth token\.  
-Display name in console: **Twilio auth token resource**  
+Display name in the AWS IoT console: **Twilio auth token resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
@@ -63,12 +63,12 @@ Valid pattern: `.+`
 The default Twilio\-enabled phone number that Twilio uses to send messages\. Twilio uses this number to initiate the text or call\.  
 + If you don't configure a default phone number, you must specify a phone number in the `from_number` property in the input message body\.
 + If you do configure a default phone number, you can optionally override the default by specifying the `from_number` property in the input message body\.
-Display name in console: **Default from phone number**  
+Display name in the AWS IoT console: **Default from phone number**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^$|\+[0-9]+`
 
-### Create Connector Example \(CLI\)<a name="twilio-notifications-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="twilio-notifications-connector-create"></a>
 
 The following example CLI command creates a `ConnectorDefinition` with an initial version that contains the Twilio Notifications connector\.
 

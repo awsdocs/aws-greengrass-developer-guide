@@ -4,9 +4,9 @@ You can use AWS IoT Device Tester \(IDT\) for AWS IoT Greengrass to verify that 
 
 IDT for AWS IoT Greengrass runs on your host computer \(Windows, macOS, or Linux\) connected to the device to be tested\. It runs tests and aggregates results\. It also provides a command line interface to manage the testing process\.
 
-In addition to testing devices, IDT for AWS IoT Greengrass creates resources \(for example, AWS IoT things, AWS IoT Greengrass groups, Lambda functions, and so on\) to facilitate the qualification process\.
+In addition to testing devices, IDT for AWS IoT Greengrass creates resources \(for example, AWS IoT things, AWS IoT Greengrass groups, Lambda functions, and so on\) in your AWS account to facilitate the qualification process\.
 
-To create these resources, IDT for AWS IoT Greengrass uses the AWS credentials configured in the `config.json` to make API calls on your behalf\. These resources are provisioned at various times during a test\.
+<a name="idt-aws-credentials"></a>To create these resources, IDT for AWS IoT Greengrass uses the AWS credentials configured in the `config.json` file to make API calls on your behalf\. These resources are provisioned at various times during a test\.
 
 When you run IDT for AWS IoT Greengrass on your host computer, it performs the following steps:
 
@@ -86,8 +86,7 @@ The version of the product being tested\.
 The features validated\. Features marked as `required` are required to submit your board for qualification\. The following snippet shows how this information appears in the `awsiotdevicetester_report.xml` file\.  
 
 ```
-<feature name="aws-iot-greengrass-no-container" value="supported" type="required"><
-/feature>
+<feature name="aws-iot-greengrass-no-container" value="supported" type="required"></feature>
 ```
 Features marked as `optional` are not required for qualification\. The following snippets show optional features\.  
 

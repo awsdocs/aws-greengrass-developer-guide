@@ -34,7 +34,7 @@ This connector provides the following parameters:
 
 `BaudRate`  
 The baud rate of the serial connection\.  
-Display name in console: **Baud rate**  
+Display name in the AWS IoT console: **Baud rate**  
 Required: `true`  
 Type: `string`  
 Valid values: `110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200, 230400`  
@@ -42,7 +42,7 @@ Valid pattern: `^110$|^300$|^600$|^1200$|^2400$|^4800$|^9600$|^14400$|^19200$|^2
 
 `Timeout`  
 The timeout \(in seconds\) for a read operation\.  
-Display name in console: **Timeout**  
+Display name in the AWS IoT console: **Timeout**  
 Required: `true`  
 Type: `string`  
 Valid values: `1 - 59`  
@@ -50,7 +50,7 @@ Valid pattern: `^([1-9]|[1-5][0-9])$`
 
 `SerialPort`  
 The absolute path to the physical serial port on the device\. This is the source path that's specified for the local device resource\.  
-Display name in console: **Serial port**  
+Display name in the AWS IoT console: **Serial port**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[/a-zA-Z0-9_-]+`
@@ -58,7 +58,7 @@ Valid pattern: `[/a-zA-Z0-9_-]+`
 `SerialPort-ResourceId`  
 The ID of the local device resource that represents the physical serial port\.  
 This connector is granted read\-write access to the resource\.
-Display name in console: **Serial port resource**  
+Display name in the AWS IoT console: **Serial port resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[a-zA-Z0-9_-]+`
@@ -67,7 +67,7 @@ Valid pattern: `[a-zA-Z0-9_-]+`
 Sets the read mode: Polling\-Read or Read\-On\-Demand\.  
 + For Polling\-Read mode, specify `true`\. In this mode, the `PollingInterval`, `PollingReadType`, and `PollingReadLength` properties are required\.
 + For Read\-On\-Demand mode, specify `false`\. In this mode, the type and length values are specified in the read request\.
-Display name in console: **Read mode**  
+Display name in the AWS IoT console: **Read mode**  
 Required: `true`  
 Type: `string`  
 Valid values: `true, false`  
@@ -75,14 +75,14 @@ Valid pattern: `^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$`
 
 `PollingReadLength`  
 The length of data \(in bytes\) to read in each polling read operation\. This applies only when using Polling\-Read mode\.  
-Display name in console: **Polling read length**  
+Display name in the AWS IoT console: **Polling read length**  
 Required: `false`\. This property is required when `PollingRead` is `true`\.  
 Type: `string`  
 Valid pattern: `^(|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-2][0-9]{3}|63[0-8][0-9]{2}|639[0-8][0-9]|6399[0-4])$`
 
 `PollingReadInterval`  
 The interval \(in seconds\) at which the polling read takes place\. This applies only when using Polling\-Read mode\.  
-Display name in console: **Polling read interval**  
+Display name in the AWS IoT console: **Polling read interval**  
 Required: `false`\. This property is required when `PollingRead` is `true`\.  
 Type: `string`  
 Valid values: 1 \- 999  
@@ -90,7 +90,7 @@ Valid pattern: `^(|[1-9]|[1-9][0-9]|[1-9][0-9][0-9])$`
 
 `PollingReadType`  
 The type of data that the polling thread reads\. This applies only when using Polling\-Read mode\.  
-Display name in console: **Polling read type**  
+Display name in the AWS IoT console: **Polling read type**  
 Required: `false`\. This property is required when `PollingRead` is `true`\.  
 Type: `string`  
 Valid values: `ascii, hex`  
@@ -98,7 +98,7 @@ Valid pattern: `^(|[Aa][Ss][Cc][Ii][Ii]|[Hh][Ee][Xx])$`
 
 `RtsCts`  
 Indicates whether to enable the RTS/CTS flow control\. The default value is `false`\. For more information, see [RTS, CTS, and RTR](https://en.wikipedia.org/wiki/RS-232#RTS,_CTS,_and_RTR)\.   
-Display name in console: **RTS/CTS flow control**  
+Display name in the AWS IoT console: **RTS/CTS flow control**  
 Required: `false`  
 Type: `string`  
 Valid values: `true, false`  
@@ -106,7 +106,7 @@ Valid pattern: `^(|[Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$`
 
 `XonXoff`  
 Indicates whether to enable the software flow control\. The default value is `false`\. For more information, see [Software flow control](https://en.wikipedia.org/wiki/Software_flow_control)\.  
-Display name in console: **Software flow control**  
+Display name in the AWS IoT console: **Software flow control**  
 Required: `false`  
 Type: `string`  
 Valid values: `true, false`  
@@ -114,13 +114,13 @@ Valid pattern: `^(|[Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$`
 
 `Parity`  
 The parity of the serial port\. The default value is `N`\. For more information, see [Parity](https://en.wikipedia.org/wiki/Serial_port#Parity)\.   
-Display name in console: **Serial port parity**  
+Display name in the AWS IoT console: **Serial port parity**  
 Required: `false`  
 Type: `string`  
 Valid values: `N, E, O, S, M`  
 Valid pattern: `^(|[NEOSMneosm])$`
 
-### Create Connector Example \(CLI\)<a name="serial-stream-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="serial-stream-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Serial Stream connector\. It configures the connector for Polling\-Read mode\.
 

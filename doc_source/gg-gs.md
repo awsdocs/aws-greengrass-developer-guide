@@ -36,8 +36,9 @@ You can choose how to use this tutorial to set up your core device:
 + Configure your core device for Greengrass\.
 + Run the dependency checker script\.
 + Create a Greengrass group and Greengrass core\.
-+ Download and install the latest AWS IoT Greengrass Core software\.
++ Download and install the latest AWS IoT Greengrass Core software from a tar\.gz file\.
 + Start the Greengrass daemon process on the core\.
+AWS IoT Greengrass also provides other options for installing the AWS IoT Greengrass Core software, including `apt` installations on supported Debian platforms\. For more information, see [Install the AWS IoT Greengrass Core Software](install-ggc.md)\.
 
 **Modules 3\-1 and 3\-2**  
 [Module 3\-1](module3-I.md) and [Module 3\-2](module3-II.md) describe how to use local Lambda functions\. \(Or, use [Greengrass device setup](quick-start.md) to run Module 3\-1 for you\.\)  
@@ -80,12 +81,12 @@ This advanced module is provided only for experimentation and initial testing\. 
 To complete this tutorial, you need the following:
 + A Mac, Windows PC, or UNIX\-like system\.
 + An Amazon Web Services \(AWS\) account\. If you don’t have one, see [Create an AWS Account](#create-aws-account)\.
-+ The use of an AWS [Region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS IoT Greengrass\. For the list of supported regions for AWS IoT Greengrass, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) in the *AWS General Reference*\.
++ The use of an AWS [Region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS IoT Greengrass\. For the list of supported regions for AWS IoT Greengrass, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\.
 **Note**  
 Make a note of your AWS Region and make sure that it is consistently used throughout this tutorial\. If you switch AWS Regions during the tutorial, you might experience problems completing the steps\.
 + A Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+, with a 8 GB microSD card, or an Amazon EC2 instance\. Because AWS IoT Greengrass should ideally be used with physical hardware, we recommend that you use a Raspberry Pi\.
 **Note**  
-Run the following command to get the model of your Rasberry Pi:  
+Run the following command to get the model of your Raspberry Pi:  
 
   ```
   cat /proc/cpuinfo
@@ -103,12 +104,15 @@ Although this tutorial is intended to run AWS IoT Greengrass on a Raspberry Pi, 
 
 ## Create an AWS Account<a name="create-aws-account"></a>
 
-If you don't have an AWS account, follow these steps:
+If you don't have an AWS account, follow these steps to create and activate an AWS account:<a name="create-aws-account-steps"></a>
 
-1. Open the [AWS home page](https://aws.amazon.com/), and choose **Create an AWS Account**\. 
+1. Open the [AWS home page](https://aws.amazon.com/), and choose **Create an AWS Account**\.
 **Note**  
 If you've signed in to AWS recently, you might see **Sign In to the Console** instead\.
 
-1. Follow the online instructions\. Part of the sign\-up procedure involves receiving a phone call and entering a PIN using your phone keypad\.
+1. Follow the online instructions\. Part of the sign\-up procedure includes registering a credit card, receiving a text message or phone call, and entering a PIN\.
+
+   For more information, see [How do I create and activate a new Amazon Web Services account?](http://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
+
 **Important**  
 For this tutorial, we assume that your IAM user account has administrator access permissions\.

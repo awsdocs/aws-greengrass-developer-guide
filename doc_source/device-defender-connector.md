@@ -41,7 +41,7 @@ This connector provides the following parameters:
 
 `SampleIntervalSeconds`  
 The number of seconds between each cycle of gathering and reporting metrics\. The minimum value is 300 seconds \(5 minutes\)\.  
-Display name in console: **Metrics reporting interval**  
+Display name in the AWS IoT console: **Metrics reporting interval**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]*(?:3[0-9][0-9]|[4-9][0-9]{2}|[1-9][0-9]{3,})$`
@@ -49,19 +49,19 @@ Valid pattern: `^[0-9]*(?:3[0-9][0-9]|[4-9][0-9]{2}|[1-9][0-9]{3,})$`
 `ProcDestinationPath-ResourceId`  
 The ID of the `/proc` volume resource\.  
 This connector is granted read\-only access to the resource\.
-Display name in console: **Resource for /proc directory**  
+Display name in the AWS IoT console: **Resource for /proc directory**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[a-zA-Z0-9_-]+`
 
 `ProcDestinationPath`  <a name="param-ProcDestinationPath"></a>
 The destination path of the `/proc` volume resource\.  
-Display name in console: **Destination path of /proc resource**  
+Display name in the AWS IoT console: **Destination path of /proc resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `\/[a-zA-Z0-9_-]+`
 
-### Create Connector Example \(CLI\)<a name="device-defender-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="device-defender-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Device Defender connector\.
 

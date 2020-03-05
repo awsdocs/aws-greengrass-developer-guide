@@ -73,7 +73,7 @@ When you use the console to enable stream manager and deploy the group, the memo
 
 1. To create the group with default group settings, which also enables stream manager with default stream manager settings:
 
-   1. Choose **Use easy creation**\.
+   1. Choose **Use default creation**\.
 
    1. Skip to [step 5](#continue-create-group)\.
 

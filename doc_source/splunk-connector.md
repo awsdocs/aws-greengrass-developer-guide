@@ -37,54 +37,54 @@ This connector provides the following parameters:
 
 `SplunkEndpoint`  
 The endpoint of your Splunk instance\. This value must contain the protocol, hostname, and port\.  
-Display name in console: **Splunk endpoint**  
+Display name in the AWS IoT console: **Splunk endpoint**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^(http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$`
 
 `MemorySize`  
 The amount of memory \(in KB\) to allocate to the connector\.  
-Display name in console: **Memory size**  
+Display name in the AWS IoT console: **Memory size**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
 `SplunkQueueSize`  
 The maximum number of items to save in memory before the items are submitted or discarded\. When this limit is met, the oldest items in the queue are replaced with newer items\. This limit typically applies when there's no connection to the internet\.  
-Display name in console: **Maximum items to retain**  
+Display name in the AWS IoT console: **Maximum items to retain**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
 `SplunkFlushIntervalSeconds`  
 The interval \(in seconds\) for publishing received data to Splunk HEC\. The maximum value is 900\. To configure the connector to publish items as they are received \(without batching\), specify 0\.  
-Display name in console: **Splunk publish interval**  
+Display name in the AWS IoT console: **Splunk publish interval**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[0-9]|[1-9]\d|[1-9]\d\d|900`
 
 `SplunkTokenSecretArn`  
 The secret in AWS Secrets Manager that stores the Splunk token\. This must be a text type secret\.  
-Display name in console: **ARN of Splunk auth token secret**  
+Display name in the AWS IoT console: **ARN of Splunk auth token secret**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `arn:aws:secretsmanager:[a-z]{2}-[a-z]+-\d{1}:\d{12}?:secret:[a-zA-Z0-9-_]+-[a-zA-Z0-9-_]+`
 
 `SplunkTokenSecretArn-ResourceId`  
 The secret resource in the Greengrass group that references the Splunk secret\.  
-Display name in console: **Splunk auth token resource**  
+Display name in the AWS IoT console: **Splunk auth token resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
 `SplunkCustomCALocation`  
 The file path of the custom certificate authority \(CA\) for Splunk \(for example, `/etc/ssl/certs/splunk.crt`\)\.  
-Display name in console: **Splunk custom certificate authority location**  
+Display name in the AWS IoT console: **Splunk custom certificate authority location**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^$|/.*`
 
-### Create Connector Example \(CLI\)<a name="splunk-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="splunk-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the Splunk Integration connector\.
 

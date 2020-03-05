@@ -47,7 +47,7 @@ This connector provides the following parameters:
 The maximum number of seconds to wait before publishing batched metrics for a given namespace\. The maximum value is 900\. To configure the connector to publish metrics as they are received \(without batching\), specify 0\.  
 The connector publishes to CloudWatch after it receives 20 metrics in the same namespace or after the specified interval\.  
 The connector doesn't guarantee the order of publish events\.
-Display name in console: **Publish interval**  
+Display name in the AWS IoT console: **Publish interval**  
 Required: `true`  
 Type: `string`  
 Valid values: `0 - 900`  
@@ -55,14 +55,14 @@ Valid pattern: `[0-9]|[1-9]\d|[1-9]\d\d|900`
 
 `PublishRegion`  
 The AWS Region to post CloudWatch metrics to\. This value overrides the default Greengrass metrics region\. It is required only when posting cross\-region metrics\.  
-Display name in console: **Publish region**  
+Display name in the AWS IoT console: **Publish region**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^$|([a-z]{2}-[a-z]+-\d{1})`
 
 `MemorySize`  
 The memory \(in KB\) to allocate to the connector\.  
-Display name in console: **Memory size**  
+Display name in the AWS IoT console: **Memory size**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
@@ -71,12 +71,12 @@ Valid pattern: `^[0-9]+$`
 The maximum number of metrics across all namespaces to save in memory before they are replaced with new metrics\. The minimum value is 2000\.  
 This limit applies when there's no connection to the internet and the connector starts to buffer the metrics to publish later\. When the buffer is full, the oldest metrics are replaced by new metrics\. Metrics in a given namespace are replaced only by metrics in the same namespace\.  
 Metrics are not saved if the host process for the connector is interrupted\. For example, this can happen during group deployment or when the device restarts\.
-Display name in console: **Maximum metrics to retain**  
+Display name in the AWS IoT console: **Maximum metrics to retain**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^([2-9]\d{3}|[1-9]\d{4,})$`
 
-### Create Connector Example \(CLI\)<a name="cloudwatch-metrics-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="cloudwatch-metrics-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the CloudWatch Metrics connector\.
 

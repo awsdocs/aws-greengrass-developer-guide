@@ -94,7 +94,7 @@ If you receive the error `CKR_SLOT_ID_INVALID: Slot 0 does not exist`, try the f
    softhsm2-util --init-token --free --label greengrass --so-pin 12345 --pin 1234
    ```
 
-1. Convert the private key to a format that can be used by the SoftHSM import tool\. For this tutorial, you convert the private key that you obtained from the **Easy Group creation** option in [Module 2](module2.md) of the Getting Started tutorial\.
+1. Convert the private key to a format that can be used by the SoftHSM import tool\. For this tutorial, you convert the private key that you obtained from the **Default Group creation** option in [Module 2](module2.md) of the Getting Started tutorial\.
 
    ```
    openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in hash.private.key -out hash.private.pem
@@ -141,7 +141,7 @@ In this step, you modify the Greengrass core configuration file to use SoftHSM\.
 
 1. Open the Greengrass configuration file\. This is the [`config.json`](gg-core.md#config-json) file in the `/greengrass/config` directory\.
 **Note**  
-The examples in this procedure are written with the assumption that the `config.json` file uses the format that's generated from the **Easy Group creation** option in [Module 2](module2.md) of the Getting Started tutorial\.
+The examples in this procedure are written with the assumption that the `config.json` file uses the format that's generated from the **Default Group creation** option in [Module 2](module2.md) of the Getting Started tutorial\.
 
 1. In the `crypto.principals` object, insert the following MQTT server certificate object\. Add a comma where needed to create a valid JSON file\.
 

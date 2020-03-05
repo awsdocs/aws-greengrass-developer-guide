@@ -55,7 +55,7 @@ Destination AWS IoT Analytics channels must use the same account and be in the s
 
 `MemorySize`  
 The amount of memory \(in KB\) to allocate to this connector\.  
-Display name in console: **Memory size**  
+Display name in the AWS IoT console: **Memory size**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
@@ -63,14 +63,14 @@ Valid pattern: `^[0-9]+$`
 `PublishRegion`  
 The AWS Region that your AWS IoT Analytics channels are created in\. Use the same Region as the connector\.  
 This must also match the Region for the channels that are specified in the [group role](#iot-analytics-connector-req)\.
-Display name in console: **Publish region**  
+Display name in the AWS IoT console: **Publish region**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^$|([a-z]{2}-[a-z]+-\\d{1})`
 
 `PublishInterval`  
 The interval \(in seconds\) for publishing a batch of received data to AWS IoT Analytics\.  
-Display name in console: **Publish interval**  
+Display name in the AWS IoT console: **Publish interval**  
 Required: `false`  
 Type: `string`  
 Default value: `1`  
@@ -79,7 +79,7 @@ Valid pattern: `$|^[0-9]+$`
 `IotAnalyticsMaxActiveChannels`  
 The maximum number of AWS IoT Analytics channels that the connector actively watches for\. This must be greater than 0, and at least equal to the number of channels that you expect the connector to publish to at a given time\.  
 You can use this parameter to restrict memory consumption by limiting the total number of queues that the connector can manage at a given time\. A queue is deleted when all queued messages are sent\.  
-Display name in console: **Maximum number of active channels**  
+Display name in the AWS IoT console: **Maximum number of active channels**  
 Required: `false`  
 Type: `string`  
 Default value: `50`  
@@ -87,7 +87,7 @@ Valid pattern: `^$|^[1-9][0-9]*$`
 
 `IotAnalyticsQueueDropBehavior`  
 The behavior for dropping messages from a channel queue when the queue is full\.  
-Display name in console: **Queue drop behavior**  
+Display name in the AWS IoT console: **Queue drop behavior**  
 Required: `false`  
 Type: `string`  
 Valid values: `DROP_NEWEST` or `DROP_OLDEST`  
@@ -96,7 +96,7 @@ Valid pattern: `^DROP_NEWEST|DROP_OLDEST$`
 
 `IotAnalyticsQueueSizePerChannel`  
 The maximum number of messages to retain in memory \(per channel\) before the messages are submitted or dropped\. This must be greater than 0\.  
-Display name in console: **Maximum queue size per channel**  
+Display name in the AWS IoT console: **Maximum queue size per channel**  
 Required: `false`  
 Type: `string`  
 Default value: `2048`  
@@ -104,7 +104,7 @@ Valid pattern: `^$|^[1-9][0-9]*$`
 
 `IotAnalyticsBatchSizePerChannel`  
 The maximum number of messages to send to an AWS IoT Analytics channel in one batch request\. This must be greater than 0\.  
-Display name in console: **Maximum number of messages to batch per channel**  
+Display name in the AWS IoT console: **Maximum number of messages to batch per channel**  
 Required: `false`  
 Type: `string`  
 Default value: `5`  
@@ -112,12 +112,12 @@ Valid pattern: `^$|^[1-9][0-9]*$`
 
 `IotAnalyticsDefaultChannelName`  
 The name of the AWS IoT Analytics channel that this connector uses for messages that are sent to a customer\-defined input topic\.  
-Display name in console: **Default channel name**  
+Display name in the AWS IoT console: **Default channel name**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^[a-zA-Z0-9_]$`
 
-### Create Connector Example \(CLI\)<a name="iot-analytics-connector-create"></a>
+### Create Connector Example \(AWS CLI\)<a name="iot-analytics-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the IoT Analytics connector\.
 
@@ -268,7 +268,7 @@ This connector is subject to the following limits\.
   + Maximum size of messages sent by a device is 128 KB\.
   + Maximum message queue size in the Greengrass core router is 2\.5 MB\.
   + Maximum length of a topic string is 256 bytes of UTF\-8 encoded characters\.
-+ This connector can be used only in AWS Regions that are supported by both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/rande.html#greengrass_region) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/rande.html#iotanalytics_region)\. Currently, this includes the following Regions:
++ This connector can be used only in AWS Regions that are supported by both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html)\. Currently, this includes the following Regions:
   + US East \(Ohio\) \- us\-east\-2
   + US East \(N\. Virginia\) \- us\-east\-1
   + US West \(Oregon\) \- us\-west\-2
