@@ -49,8 +49,8 @@ This connector has the following requirements:
                "Condition": {
                    "StringLike": {
                        "iotsitewise:assetHierarchyPath": [
-                           "root node asset ID",
-                           "root node asset ID/*"
+                           "/root node asset ID",
+                           "/root node asset ID/*"
                        ]
                    }
                }
@@ -79,8 +79,8 @@ This connector has the following requirements:
                "Condition": {
                    "StringLike": {
                        "iotsitewise:assetHierarchyPath": [
-                           "root node asset ID",
-                           "root node asset ID/*"
+                           "/root node asset ID",
+                           "/root node asset ID/*"
                        ]
                    }
                }
@@ -109,8 +109,8 @@ This connector has the following requirements:
                "Condition": {
                    "StringLike": {
                        "iotsitewise:assetHierarchyPath": [
-                           "root node asset ID",
-                           "root node asset ID/*"
+                           "/root node asset ID",
+                           "/root node asset ID/*"
                        ]
                    }
                }
@@ -139,8 +139,8 @@ This connector has the following requirements:
                "Condition": {
                    "StringLike": {
                        "iotsitewise:assetHierarchyPath": [
-                           "root node asset ID",
-                           "root node asset ID/*"
+                           "/root node asset ID",
+                           "/root node asset ID/*"
                        ]
                    }
                }
