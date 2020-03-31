@@ -28,7 +28,7 @@ This connector has the following requirements:
 + All related AWS IoT Analytics entities \(channels, pipeline, datastores, datasets\) and workflows are created and configured\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
 **Note**  
 Destination AWS IoT Analytics channels must use the same account and be in the same AWS Region as this connector\.
-+ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `iotanalytics:BatchPutMessage` action on destination channels, as shown in the following example\. The channels must be in the current AWS account and Region\.
++ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `iotanalytics:BatchPutMessage` action on destination channels, as shown in the following example\. The channels must be in the current AWS account and Region\.
 
   ```
   {
@@ -281,7 +281,7 @@ This connector is subject to the following limits\.
 The IoT Analytics connector includes the following third\-party software/licensing:
 + [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Changelog<a name="iot-analytics-connector-changelog"></a>
 

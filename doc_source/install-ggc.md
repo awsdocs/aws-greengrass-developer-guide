@@ -31,7 +31,7 @@ You can use the Advanced Package Tool \(APT\) package management system to insta
 + `aws-iot-greengrass-core`\. Installs the AWS IoT Greengrass Core software\.
 + `aws-iot-greengrass-keyring`\. Installs the GnuPG \(GPG\) keys used to sign the AWS IoT Greengrass package repository\.
 
-  By downloading this software, you agree to the [ Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+  By downloading this software, you agree to the [ Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 You should be aware of the following considerations when you use the `apt` command to install the AWS IoT Greengrass Core software:
 

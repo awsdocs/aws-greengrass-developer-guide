@@ -216,7 +216,7 @@ def function_handler(event, context):
 
 ## Licenses<a name="raspberrypi-gpio-connector-license"></a>
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## See Also<a name="raspberrypi-gpio-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

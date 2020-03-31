@@ -592,7 +592,7 @@ The Modbus\-RTU Protocol Adapter connector includes the following third\-party s
 + [pymodbus](https://github.com/riptideio/pymodbus/blob/master/README.rst)/BSD
 + [pyserial](https://github.com/pyserial/pyserial)/BSD
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Changelog<a name="modbus-protocol-adapter-connector-changelog"></a>
 

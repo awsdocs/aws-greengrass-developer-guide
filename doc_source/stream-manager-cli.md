@@ -2,7 +2,7 @@
 
 This tutorial shows you how to use the AWS CLI to create and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
 
-## <a name="w11aac22c28b6"></a>
+## <a name="w31aac22c28b6"></a>
 
 Stream manager makes ingesting, processing, and exporting high\-volume data streams easier and more reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
 
@@ -38,7 +38,7 @@ Stream manager is not supported on OpenWrt distributions\.
 **Note**  
 In this tutorial, stream manager exports data to Kinesis Data Streams, which results in charges to your AWS account\. For information about pricing, see [Kinesis Data Streams pricing](https://aws.amazon.com/kinesis/data-streams/pricing/)\.  
 To avoid incurring charges, you can run this tutorial without creating a Kinesis data stream\. In this case, you check the logs to see that stream manager attempted to export the stream to Kinesis Data Streams\.
-+ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `kinesis:PutRecords` action on the target data stream, as shown in the following example:
++ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `kinesis:PutRecords` action on the target data stream, as shown in the following example:
 
   ```
   {
@@ -57,7 +57,7 @@ To avoid incurring charges, you can run this tutorial without creating a Kinesis
   }
   ```
 
-  For more information, see [Configure the Group Role](config-iam-roles.md)\.<a name="aws-cli-howto-prereqs"></a>
+  For more information, see [Greengrass Group Role](group-role.md)\.<a name="aws-cli-howto-prereqs"></a>
 + The AWS CLI installed and configured on your computer\. For more information, see [ Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) and [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) in the *AWS Command Line Interface User Guide*\.
 
    
@@ -90,7 +90,7 @@ The tutorial should take about 30 minutes to complete\.
 
 ## Step 1: Create a Lambda Function Deployment Package<a name="stream-manager-cli-create-deployment-package"></a>
 
-### <a name="w11aac22c28c21b4"></a>
+### <a name="w31aac22c28c21b4"></a>
 
 In this step, you create a Lambda function deployment package that contains function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
 

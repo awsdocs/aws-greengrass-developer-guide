@@ -271,7 +271,7 @@ The IoT SiteWise connector includes the following third\-party software/licensin
 + [Milo](https://github.com/eclipse/milo/) / EDL 1\.0
 + [Chronicle\-Queue](https://github.com/OpenHFT/Chronicle-Queue) / Apache 2\.0
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Changelog<a name="iot-sitewise-connector-changelog"></a>
 

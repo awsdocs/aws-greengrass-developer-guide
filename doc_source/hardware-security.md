@@ -10,7 +10,7 @@ The following diagram shows the hardware security architecture for an AWS IoT Gr
 
 ![\[\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/hardware-security-arch.png)
 
-On a standard installation, AWS IoT Greengrass uses two private keys\. One key is used by the AWS IoT client component during the Transport Layer Security \(TLS\) handshake when a Greengrass core connects to AWS IoT\. \(This key is also referred to as the core private key\.\) The other key is used by the local MQTT server, which enables Greengrass devices to communicate with the Greengrass core\. If you want to use hardware security for both components, you can use a shared private key or separate private keys\. For more information, see [Provisioning Practices for AWS IoT Greengrass Hardware Security](#optional-provisioning)\.
+On a standard installation, AWS IoT Greengrass uses two private keys\. One key is used by the AWS IoT client \(IoT client\) component during the Transport Layer Security \(TLS\) handshake when a Greengrass core connects to AWS IoT Core\. \(This key is also referred to as the core private key\.\) The other key is used by the local MQTT server, which enables Greengrass devices to communicate with the Greengrass core\. If you want to use hardware security for both components, you can use a shared private key or separate private keys\. For more information, see [Provisioning Practices for AWS IoT Greengrass Hardware Security](#optional-provisioning)\.
 
 **Note**  
 On a standard installation, the local secrets manager also uses the IoT client key for its encryption process, but you can use your own private key\. It must be an RSA key with a minimum length of 2048 bits\. For more information, see [Specify the Private Key for Secret Encryption](secrets.md#secrets-config-private-key)\.
@@ -27,7 +27,7 @@ Search for devices that are qualified for this feature in the [AWS Partner Devic
 + The hardware module must be resolvable by slot label, as defined in the PKCS\#11 specification\.
 + The private key must be generated and loaded on the HSM by using the vendor\-provided provisioning tools\.
 + The private key must be resolvable by object label\.
-+ The core device certificate\. This is an AWS IoT client certificate that corresponds to the private key\.
++ The core device certificate\. This is an IoT client certificate that corresponds to the private key\.
 + If you're using the Greengrass OTA update agent, the [OpenSSL libp11 PKCS\#11](https://github.com/OpenSC/libp11) wrapper library must be installed\. For more information, see [Configure Support for Over\-the\-Air Updates](#hardware-security-ota-updates)\.
 
 In addition, make sure that the following conditions are met:
@@ -36,7 +36,7 @@ In addition, make sure that the following conditions are met:
 + The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
 
 **Note**  
-Currently, AWS IoT Greengrass doesn't support loading the CA certificate or AWS IoT client certificate directly from the HSM\. The certificates must be loaded as plain\-text files on the file system in a location that can be read by Greengrass\.
+Currently, AWS IoT Greengrass doesn't support loading the CA certificate or IoT client certificate directly from the HSM\. The certificates must be loaded as plain\-text files on the file system in a location that can be read by Greengrass\.
 
 ## Hardware Security Configuration for an AWS IoT Greengrass Core<a name="configure-hardware-security"></a>
 
@@ -124,7 +124,7 @@ If you configure private keys to use with this feature \(by following the instru
 The practice of rotating keys doesn't apply when private keys are generated on an HSM\.
 
 **Performance**  <a name="hsm-performance"></a>
-The following diagram shows the AWS IoT client component and local MQTT server on the AWS IoT Greengrass core\. If you want to use an HSM configuration for both components, you can use the same private key or separate private keys\. If you use separate keys, they must be stored in the same slot\.  
+The following diagram shows the IoT client component and local MQTT server on the AWS IoT Greengrass core\. If you want to use an HSM configuration for both components, you can use the same private key or separate private keys\. If you use separate keys, they must be stored in the same slot\.  
 AWS IoT Greengrass doesn't impose any limits on the number of keys that you store on the HSM, so you can store private keys for the IoT client, MQTT server, and secrets manager components\. However, some HSM vendors might impose limits on the number of keys you can store in a slot\.
 
 ![\[\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/multi-key-diagram.png)
@@ -174,7 +174,7 @@ To enable over\-the\-air \(OTA\) updates of the AWS IoT Greengrass Core software
    sudo ./greengrassd stop
    ```
 **Note**  
-*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
+*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. Typically, this is the `/greengrass` directory\.
 
 1. Install the OpenSSL engine\. OpenSSL 1\.0 or 1\.1 are supported\.
 

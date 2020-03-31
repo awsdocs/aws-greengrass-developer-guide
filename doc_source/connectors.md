@@ -93,12 +93,12 @@ After you make changes to the connector configuration, you must deploy the group
 
 ## Inputs and Outputs<a name="connectors-inputs-outputs"></a>
 
-Many Greengrass connectors can communicate with other entities by sending and receiving MQTT messages\. MQTT communication is controlled by subscriptions that allow a connector to exchange data with Lambda functions, devices, and other connectors in the Greengrass group, or with AWS IoT and the local shadow service\. To allow this communication, you must create subscriptions in the group that the connector belongs to\. For more information, see [Greengrass Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
+Many Greengrass connectors can communicate with other entities by sending and receiving MQTT messages\. MQTT communication is controlled by subscriptions that allow a connector to exchange data with Lambda functions, devices, and other connectors in the Greengrass group, or with AWS IoT and the local shadow service\. To allow this communication, you must create subscriptions in the group that the connector belongs to\. For more information, see [Managed Subscriptions in the MQTT Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
 
 Connectors can be message publishers, message subscribers, or both\. Each connector defines the MQTT topics that it publishes or subscribes to\. These predefined topics must be used in the subscriptions where the connector is a message source or message target\. For tutorials that include steps for configuring subscriptions for a connector, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md) and [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)\.
 
 **Note**  
-Many connectors also have built\-in modes of communication to interact with cloud or local services\. These vary by connector and might require that you configure parameters or add permissions to the [group role](config-iam-roles.md)\. For information about connector requirements, see [AWS\-Provided Greengrass Connectors](connectors-list.md)\.
+Many connectors also have built\-in modes of communication to interact with cloud or local services\. These vary by connector and might require that you configure parameters or add permissions to the [group role](group-role.md)\. For information about connector requirements, see [AWS\-Provided Greengrass Connectors](connectors-list.md)\.
 
 ### Input Topics<a name="connectors-multiple-topics"></a>
 

@@ -65,7 +65,13 @@ For information about bulk deployment operations, see [Create Bulk Deployments f
 
 ### Getting the Group ID<a name="api-get-group-id"></a>
 
-The group ID is commonly used in API actions\. You can use [ListGroups](https://docs.aws.amazon.com/greengrass/latest/apireference/listgroups-get.html) to get the ID of the target group\. The following CLI examples include the `query` option to filter results\.
+The group ID is commonly used in API actions\. You can use the [ListGroups](https://docs.aws.amazon.com/greengrass/latest/apireference/listgroups-get.html) action to find the ID of the target group from your list of groups\. For example, in the AWS CLI, use the `list-groups` command\.
+
+```
+aws greengrass list-groups
+```
+
+You can also include the `query` option to filter results\. For example:
 + To get the most recently created group:
 
   ```
@@ -79,10 +85,42 @@ The group ID is commonly used in API actions\. You can use [ListGroups](https://
 
   Group names are not required to be unique, so multiple groups might be returned\.
 
-The returned group information includes the ID of the most recent group version \(in the `LatestVersion` property\)\. To get other group version IDs, use the group ID with [ListGroupVersions](https://docs.aws.amazon.com/greengrass/latest/apireference/listgroupversions-get.html)\.
+The following is an example `list-groups` response\. The information for each group includes the ID of the group \(in the `Id` property\) and the ID of the most recent group version \(in the `LatestVersion` property\)\. To get other version IDs for a group, use the group ID with [ListGroupVersions](https://docs.aws.amazon.com/greengrass/latest/apireference/listgroupversions-get.html)\.
 
 **Note**  
 <a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+
+```
+{
+    "Groups": [
+        {
+            "LatestVersionArn": "arn:aws:us-west-2:123456789012:/greengrass/groups/00dedaaa-ac16-484d-ad77-c3eedEXAMPLE/versions/4cbc3f07-fc5e-48c4-a50e-7d356EXAMPLE",
+            "Name": "MyFirstGroup",
+            "LastUpdatedTimestamp": "2019-11-11T05:47:31.435Z",
+            "LatestVersion": "4cbc3f07-fc5e-48c4-a50e-7d356EXAMPLE",
+            "CreationTimestamp": "2019-11-11T05:47:31.435Z",
+            "Id": "00dedaaa-ac16-484d-ad77-c3eedEXAMPLE",
+            "Arn": "arn:aws:us-west-2:123456789012:/greengrass/groups/00dedaaa-ac16-484d-ad77-c3eedEXAMPLE"
+        },
+        {
+            "LatestVersionArn": "arn:aws:us-west-2:123456789012:/greengrass/groups/036ceaf9-9319-4716-ba2a-237f9EXAMPLE/versions/8fe9e8ec-64d1-4647-b0b0-01dc8EXAMPLE",
+            "Name": "GreenhouseSensors",
+            "LastUpdatedTimestamp": "2020-01-07T19:58:36.774Z",
+            "LatestVersion": "8fe9e8ec-64d1-4647-b0b0-01dc8EXAMPLE",
+            "CreationTimestamp": "2020-01-07T19:58:36.774Z",
+            "Id": "036ceaf9-9319-4716-ba2a-237f9EXAMPLE",
+            "Arn": "arn:aws:us-west-2:123456789012:/greengrass/groups/036ceaf9-9319-4716-ba2a-237f9EXAMPLE"
+        },
+        ...
+    ]
+}
+```
+
+If you don't specify an AWS Region, AWS CLI commands use the default Region from your profile\. To return groups in a different Region, include the *region* option\. For example:
+
+```
+aws greengrass list-groups --region us-east-1
+```
 
 ## Overview of the AWS IoT Greengrass Group Object Model<a name="api-overview"></a>
 

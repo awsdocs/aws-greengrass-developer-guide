@@ -20,7 +20,7 @@ Greengrass device setup has the following requirements:
    
 + You must provide your AWS account credentials\. For more information, see [Provide AWS Account Credentials](#gg-device-setup-credentials)\.
 **Note**  
-Greengrass device setup installs the [latest version](what-is-gg.md#ggc-versions) of the AWS IoT Greengrass Core software on the device\. By installing the AWS IoT Greengrass Core software, you agree to the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+Greengrass device setup installs the [latest version](what-is-gg.md#ggc-versions) of the AWS IoT Greengrass Core software on the device\. By installing the AWS IoT Greengrass Core software, you agree to the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Run Greengrass Device Setup<a name="run-gg-device-setup"></a>
 

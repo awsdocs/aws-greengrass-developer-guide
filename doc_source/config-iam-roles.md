@@ -1,6 +1,6 @@
 # Configure the Group Role<a name="config-iam-roles"></a>
 
-The group role is an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that you create and attach to your Greengrass group\. This role contains the permissions that deployed Lambda functions and [connectors](connectors.md) use to access AWS services\. It's also used to allow [CloudWatch logging](greengrass-logs-overview.md)\.
+The group role is an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that you create and attach to your Greengrass group\. This role contains the permissions that deployed Lambda functions \(and other AWS IoT Greengrass features\) use to access AWS services\. For more information, see [Greengrass Group Role](group-role.md)\.
 
 You use the following high\-level steps to create a group role in the IAM console\.
 

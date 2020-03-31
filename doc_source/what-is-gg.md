@@ -1,6 +1,6 @@
 # What Is AWS IoT Greengrass?<a name="what-is-gg"></a>
 
-AWS IoT Greengrass is software that extends cloud capabilities to local devices\. This enables devices to collect and analyze data closer to the source of information, react autonomously to local events, and communicate securely with each other on local networks\. Local devices can also communicate securely with AWS IoT and export IoT data to the AWS Cloud\. AWS IoT Greengrass developers can use AWS Lambda functions and prebuilt [connectors](connectors.md) to create serverless applications that are deployed to devices for local execution\.
+AWS IoT Greengrass is software that extends cloud capabilities to local devices\. This enables devices to collect and analyze data closer to the source of information, react autonomously to local events, and communicate securely with each other on local networks\. Local devices can also communicate securely with AWS IoT Core and export IoT data to the AWS Cloud\. AWS IoT Greengrass developers can use AWS Lambda functions and prebuilt [connectors](connectors.md) to create serverless applications that are deployed to devices for local execution\.
 
 The following diagram shows the basic architecture of AWS IoT Greengrass\.
 
@@ -22,7 +22,7 @@ AWS IoT Greengrass provides secure, over\-the\-air updates of Lambda functions\.
 AWS IoT Greengrass consists of:
 + Software distributions
   + AWS IoT Greengrass Core software
-  + AWS IoT Greengrass core SDK
+  + AWS IoT Greengrass Core SDK
 + Cloud service
   + AWS IoT Greengrass API
 + Features
@@ -58,7 +58,7 @@ AWS IoT Greengrass core instances are configured through AWS IoT Greengrass APIs
 
 ### AWS IoT Greengrass Core Versions<a name="ggc-versions"></a>
 
-AWS IoT Greengrass provides several options for installing the AWS IoT Greengrass Core software, including targ\.gz download files, a quick start script, and `apt` installations on supported Debian platforms\. For more information, see [Install the AWS IoT Greengrass Core Software](install-ggc.md)\.
+AWS IoT Greengrass provides several options for installing the AWS IoT Greengrass Core software, including tar\.gz download files, a quick start script, and `apt` installations on supported Debian platforms\. For more information, see [Install the AWS IoT Greengrass Core Software](install-ggc.md)\.
 
 The following tabs describe what's new and changed in AWS IoT Greengrass Core software versions\.
 
@@ -209,13 +209,13 @@ A collection of information about the AWS IoT Greengrass group\.
 B: AWS IoT Greengrass group settings  
 These include:  
 + AWS IoT Greengrass group role\.
-+ Certification authority and local connection configuration\.
++ Certificate authority and local connection configuration\.
 + AWS IoT Greengrass core connectivity information\.
 + Default Lambda runtime environment\. For more information, see [Setting Default Containerization for Lambda Functions in a Group](lambda-group-config.md#lambda-containerization-groupsettings)\.
 + CloudWatch and local logs configuration\. For more information, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
 
 C: AWS IoT Greengrass core  
-The AWS IoT thing that represents the AWS IoT Greengrass core\. For more information, see [Configure the AWS IoT Greengrass Core](gg-core.md)\.
+The AWS IoT Core thing that represents the AWS IoT Greengrass core\. For more information, see [Configure the AWS IoT Greengrass Core](gg-core.md)\.
 
 D: Lambda function definition  
 A list of Lambda functions that run locally on the core, with associated configuration data\. For more information, see [Run Lambda Functions on the AWS IoT Greengrass Core](lambda-functions.md)\.
@@ -224,13 +224,13 @@ E: Subscription definition
 A list of subscriptions that enable communication using MQTT messages\. A subscription defines:  
 + A message source and message target\. These can be devices, Lambda functions, connectors, AWS IoT Core, and the local shadow service\.
 + A topic \(or subject\) that's used to filter messages\.
-For more information, see [Greengrass Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
+For more information, see [Managed Subscriptions in the MQTT Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
 
 F: Connector definition  
 A list of connectors that run locally on the core, with associated configuration data\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 
 G: Device definition  
-A list of AWS IoT things \(devices\) that are members of the AWS IoT Greengrass group, with associated configuration data\. For more information, see [Devices in AWS IoT Greengrass](#devices)\.
+A list of AWS IoT Core things \(devices\) that are members of the AWS IoT Greengrass group, with associated configuration data\. For more information, see [Devices in AWS IoT Greengrass](#devices)\.
 
 H: Resource definition  
 A list of local resources, machine learning resources, and secret resources on the AWS IoT Greengrass core, with associated configuration data\. For more information, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md), [Perform Machine Learning Inference](ml-inference.md), and [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
@@ -241,22 +241,24 @@ When deployed, the AWS IoT Greengrass group definition, Lambda functions, connec
 
 An AWS IoT Greengrass group can contain two types of device:
 
-AWS IoT Greengrass core  
-A core is an AWS IoT device that runs the AWS IoT Greengrass Core software, which enables it to communicate directly with the AWS IoT and AWS IoT Greengrass cloud services\. A core has its own certificate used for authenticating with AWS IoT\. It has a device shadow and exists in the AWS IoT device registry\. AWS IoT Greengrass cores run a local Lambda runtime, a deployment agent, and an IP address tracker that sends IP address information to the AWS IoT Greengrass cloud service to allow Greengrass devices to automatically discover their group and core connection information\. For more information, see [Configure the AWS IoT Greengrass Core](gg-core.md)\.  
+Greengrass core  
+A Greengrass core is a device that runs the AWS IoT Greengrass Core software, which allows it to communicate directly with AWS IoT Core and the AWS IoT Greengrass service\. A core has its own device certificate used for authenticating with AWS IoT Core\. It has a device shadow and an entry in the AWS IoT Core registry\. Greengrass cores run a local Lambda runtime, deployment agent, and IP address tracker that sends IP address information to the AWS IoT Greengrass service to allow Greengrass devices to automatically discover their group and core connection information\. For more information, see [Configure the AWS IoT Greengrass Core](gg-core.md)\.  
 A Greengrass group must contain exactly one core\.
 
-AWS IoT device connected to a Greengrass core  <a name="greengrass-devices"></a>
-Connected devices \(also called *Greengrass devices*\) can connect to a core in the same Greengrass group\. Greengrass devices run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](#iot-device-sdk) or [ AWS IoT Greengrass Discovery API](gg-discover-api.md) to get the connection information for the core\. Devices have their own certificate for authentication, device shadow, and entry in the AWS IoT device registry\. To learn how to use the AWS IoT console to create and configure a device for AWS IoT Greengrass, see [Module 4: Interacting with Devices in an AWS IoT Greengrass Group](module4.md)\. Or, for examples that show you how to use the AWS CLI to create and configure a device for AWS IoT Greengrass, see [create\-device\-definition](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-device-definition.html) in the *AWS CLI Command Reference*\.  
-In a Greengrass group, you can create subscriptions that allow devices to communicate over MQTT with Lambda functions, connectors, and other devices in the group, and with AWS IoT or the local shadow service\. MQTT messages are routed through the core\. If the core device loses connectivity to the cloud, devices can continue to communicate over the local network\. Devices can vary in size, from smaller microcontroller\-based devices to large appliances\. Currently, a Greengrass group can contain up to 200 devices\. A device can be a member of up to 10 groups\.  
+Device connected to a Greengrass core  <a name="greengrass-devices"></a>
+Connected devices \(also called *Greengrass devices*\) also have their own device certificate for AWS IoT Core authentication, a device shadow, and an entry in the AWS IoT Core registry\. <a name="gg-device-discovery"></a>Greengrass devices can run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](#iot-device-sdk) or [ AWS IoT Greengrass Discovery API](gg-discover-api.md) to get discovery information used to connect and authenticate with the core in the same Greengrass group\. To learn how to use the AWS IoT console to create and configure a device for AWS IoT Greengrass, see [Module 4: Interacting with Devices in an AWS IoT Greengrass Group](module4.md)\. Or, for examples that show you how to use the AWS CLI to create and configure a device for AWS IoT Greengrass, see [create\-device\-definition](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-device-definition.html) in the *AWS CLI Command Reference*\.  
+In a Greengrass group, you can create subscriptions that allow devices to communicate over MQTT with Lambda functions, connectors, and other devices in the group, and with AWS IoT Core or the local shadow service\. MQTT messages are routed through the core\. If the core device loses connectivity to the cloud, devices can continue to communicate over the local network\. Devices can vary in size, from smaller microcontroller\-based devices to large appliances\. Currently, a Greengrass group can contain up to 200 devices\. A device can be a member of up to 10 groups\.  
 <a name="sitewise-connector-opcua-support"></a>OPC\-UA is an information exchange standard for industrial communication\. To implement support for OPC\-UA on the Greengrass core, you can use the [IoT SiteWise connector](iot-sitewise-connector.md)\. The connector sends industrial device data from OPC\-UA servers to asset properties in AWS IoT SiteWise\.
 
 The following table shows how these device types are related\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/devices.png)
 
-The AWS IoT Greengrass core device stores certificates in two locations:
-+ Core device certificate in /greengrass/certs \- The core device certificate is named `hash.cert.pem` \(for example, `86c84488a5.cert.pem`\)\. This certificate is used to authenticate the core when connecting to the AWS IoT and AWS IoT Greengrass services\.
-+ MQTT core server certificate in /*greengrass\-root*/ggc/var/state/server \- The MQTT core server certificate is named `server.crt`\. This certificate is used for mutual authentication between the local MQTT service \(that's on the Greengrass core\) and Greengrass devices before messages are exchanged\.
+The AWS IoT Greengrass core device stores certificates in two locations:<a name="ggc-certificate-locations"></a>
++ Core device certificate in `/greengrass-root/certs`\. Typically, the core device certificate is named `hash.cert.pem` \(for example, `86c84488a5.cert.pem`\)\. This certificate is used by the AWS IoT client for mutual authentication when the core connects to the AWS IoT Core and AWS IoT Greengrass services\.
++ MQTT server certificate in `/greengrass-root/ggc/var/state/server`\. The MQTT server certificate is named `server.crt`\. This certificate is used for mutual authentication between the local MQTT server \(on the Greengrass core\) and Greengrass devices\.
+**Note**  
+*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. Typically, this is the `/greengrass` directory\.
 
 ## SDKs<a name="gg-sdks"></a>
 
@@ -267,8 +269,8 @@ Use the AWS SDK to build applications that interact with any AWS service, includ
 The Greengrass\-specific operations available in the AWS SDKs are also available in the [AWS IoT Greengrass API](https://docs.aws.amazon.com/greengrass/latest/apireference/) and [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/greengrass)\.
 
 AWS IoT Device SDK  <a name="iot-device-sdk"></a>
-The AWS IoT Device SDK helps devices connect to AWS IoT or AWS IoT Greengrass services\. Devices must know which AWS IoT Greengrass group they belong to and the IP address of the AWS IoT Greengrass core that they should connect to\.   
-Although you can use any of the AWS IoT Device SDK platforms to connect to an AWS IoT Greengrass core, only the C\+\+ and Python SDKs provide AWS IoT Greengrass\-specific functionality, such as access to the AWS IoT Greengrass Discovery Service and AWS IoT Greengrass core root CA downloads\. For more information, see [AWS IoT Device SDK](https://aws.amazon.com/iot-core/resources/#AWS_IoT_Device_SDKs)\.
+The AWS IoT Device SDK helps devices connect to AWS IoT Core or AWS IoT Greengrass services\. Devices must know which AWS IoT Greengrass group they belong to and the IP address of the Greengrass core that they should connect to\.   
+Although you can use any of the AWS IoT Device SDK platforms to connect to a Greengrass core only the C\+\+ and Python SDKs provide AWS IoT Greengrass specific functionality, such as access to the AWS IoT Greengrass Discovery Service and group CA certificate downloads\. For more information, see [AWS IoT Device SDK](https://aws.amazon.com/iot-core/resources/#AWS_IoT_Device_SDKs)\.
 
 AWS IoT Greengrass Core SDK  
 The AWS IoT Greengrass Core SDK enables Lambda functions to interact with the Greengrass core, publish messages to AWS IoT, interact with the local shadow service, invoke other deployed Lambda functions, and access secret resources\. This SDK is used by Lambda functions that run on an AWS IoT Greengrass core\. For more information, see [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core)\.
@@ -595,7 +597,7 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 ------
 
- By downloading this software, you agree to the [ Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\. 
+ By downloading this software, you agree to the [ Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\. 
 
 For information about other options for installing the AWS IoT Greengrass Core software on your device, see [Install the AWS IoT Greengrass Core Software](install-ggc.md)\.
 
@@ -630,14 +632,14 @@ Docker image with the AWS IoT Greengrass Core software and dependencies installe
 + Docker image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass)\.
 + Docker image from Amazon Elastic Container Registry \(Amazon ECR\)\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
 
-By downloading this software, you agree to the [ Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+By downloading this software, you agree to the [ Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
  
 
 ### AWS IoT Greengrass Core SDK Software<a name="gg-core-sdk-download"></a>
 
 Lambda functions use the AWS IoT Greengrass Core SDK to interact with the AWS IoT Greengrass core locally\. This allows deployed Lambda functions to:<a name="gg-core-sdk-functionality"></a>
-+ Exchange MQTT messages with AWS IoT\.
++ Exchange MQTT messages with AWS IoT Core\.
 + Exchange MQTT messages with connectors, devices, and other Lambda functions in the Greengrass group\.
 + Interact with the local shadow service\.
 + Invoke other local Lambda functions\.
@@ -672,8 +674,7 @@ By downloading this software you agree to the associated license\.
 | --- | --- | --- | --- | 
 | MXNet | 1\.2\.1 | [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/mxnet/ggc-mxnet-v1.2.1-python-raspi.tar.gz) | 
 | TensorFlow | 1\.4\.0 | [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/tf/greengrass_ML@Edge_TF_v1_4_0_installer_cp27_raspi3_armv7.tar.gz) | 
-| Deep Learning Runtime | 1\.0\.0 | [Greengrass License](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/dlr/dlr-1.0-py2-armv7l.tar.gz) | 
-| Chainer | 4\.0\.0 | [MIT License](https://github.com/chainer/chainer/blob/master/LICENSE) | [Download](https://s3.amazonaws.com/chainer-greengrass-packages/chainer-installer-for-raspi-v4.0.0.tar.gz) | 
+| Deep Learning Runtime | 1\.0\.0 | [Greengrass License](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/dlr/dlr-1.0-py2-armv7l.tar.gz) | 
 
 ------
 #### [  Nvidia Jetson TX2  ]
@@ -687,8 +688,7 @@ By downloading this software you agree to the associated license\.
 | --- | --- | --- | --- | 
 | MXNet | 1\.2\.1 | [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/mxnet/ggc-mxnet-v1.2.1-cu90-python-nvidia-tx2.tar.gz) | 
 | TensorFlow | 1\.10\.0 | [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/tf/greengrass_ML@Edge_TF_v1_10_1_installer_cp27_cu90_aarch64_nvidia_jetson_tx2.tar.gz) | 
-| Deep Learning Runtime | 1\.0\.0 | [Greengrass License](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/dlr/dlr-1.0-py2-cuda90-aarch64.tar.gz) | 
-| Chainer | 4\.0\.0 | [MIT License](https://github.com/chainer/chainer/blob/master/LICENSE) | [Download](https://s3.amazonaws.com/chainer-greengrass-packages/chainer-installer-for-jetson-v4.0.0.tar.gz) | 
+| Deep Learning Runtime | 1\.0\.0 | [Greengrass License](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/dlr/dlr-1.0-py2-cuda90-aarch64.tar.gz) | 
 
 ------
 #### [  Intel Atom  ]
@@ -702,8 +702,7 @@ By downloading this software you agree to the associated license\.
 | --- | --- | --- | --- | 
 | MXNet | 1\.2\.1 | [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/mxnet/ggc-mxnet-v1.2.1-python-intel.tar.gz) | 
 | TensorFlow | 1\.4\.0 | [Apache License 2\.0](https://www.apache.org/licenses/LICENSE-2.0) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/tf/greengrass_ML@Edge_TF_v1_4_0_installer_cp27_intel_mkl_x86_64.tar.gz) | 
-| Deep Learning Runtime | 1\.0\.0 | [Greengrass License](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/dlr/dlr-1.0-py2-opencl-x86_64.tar.gz) | 
-| Chainer | 4\.0\.0 | [MIT License](https://github.com/chainer/chainer/blob/master/LICENSE) | [Download](https://s3.amazonaws.com/chainer-greengrass-packages/chainer-installer-for-intel-v4.0.0.tar.gz) | 
+| Deep Learning Runtime | 1\.0\.0 | [Greengrass License](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-installers/dlr/dlr-1.0-py2-opencl-x86_64.tar.gz) | 
 
 ------
 

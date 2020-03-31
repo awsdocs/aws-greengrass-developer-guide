@@ -3,7 +3,7 @@
 All devices that communicate with an AWS IoT Greengrass core must be a member of a Greengrass group\. Each group must have an AWS IoT Greengrass core\. The Discovery API enables devices to retrieve information required to connect to an AWS IoT Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS IoT Greengrass cloud service and use the Discovery API to find:
 + The group to which it belongs\. A device can be a member of up to 10 groups\.
 + The IP address and port for the AWS IoT Greengrass core in the group\.
-+ The group's root CA certificate, which can be used to authenticate the AWS IoT Greengrass core device\.
++ The group CA certificate, which can be used to authenticate the AWS IoT Greengrass core device\.
 
 To use this API, send HTTP requests to the Discovery API endpoint\. For example:
 
@@ -61,7 +61,7 @@ Retrieving the connectivity information requires a policy that allows the caller
 
 ## Example Discover Response Documents<a name="gg-discover-response-doc"></a>
 
-The following document shows the response for a device that is a member of a group with one AWS IoT Greengrass core, one endpoint, and one group CA:
+The following document shows the response for a device that is a member of a group with one AWS IoT Greengrass core, one endpoint, and one group CA certificate:
 
 ```
 {
@@ -89,7 +89,7 @@ The following document shows the response for a device that is a member of a gro
 }
 ```
 
-The following document shows the response for a device that is a member of two groups with one AWS IoT Greengrass core, multiple endpoints, and multiple group CAs:
+The following document shows the response for a device that is a member of two groups with one AWS IoT Greengrass core, multiple endpoints, and multiple group CA certificates:
 
 ```
 {

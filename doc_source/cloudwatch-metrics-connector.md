@@ -19,7 +19,7 @@ For information about version changes, see the [Changelog](#cloudwatch-metrics-c
 This connector has the following requirements:
 + AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `cloudwatch:PutMetricData` action, as shown in the following example\.
++ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `cloudwatch:PutMetricData` action, as shown in the following example\.
 
   ```
   {
@@ -268,7 +268,7 @@ def function_handler(event, context):
 The CloudWatch Metrics connector includes the following third\-party software/licensing:
 + [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Changelog<a name="cloudwatch-metrics-connector-changelog"></a>
 

@@ -321,7 +321,7 @@ def function_handler(event, context):
 The Twilio Notifications connector includes the following third\-party software/licensing:
 + [twilio\-python](https://github.com/twilio/twilio-python)/MIT
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Changelog<a name="twilio-notifications-connector-changelog"></a>
 

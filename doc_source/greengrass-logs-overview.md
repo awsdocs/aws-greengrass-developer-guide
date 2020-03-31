@@ -2,7 +2,7 @@
 
 AWS IoT Greengrass consists of the cloud service and the AWS IoT Greengrass Core software\. The AWS IoT Greengrass Core software can write logs to Amazon CloudWatch and to the local file system of your core device\. Lambda functions and connectors running on the core can also write logs to CloudWatch Logs and the local file system\. You can use logs to monitor events and troubleshoot issues\. All AWS IoT Greengrass log entries include a timestamp, log level, and information about the event\.
 
-Logging is configured at the group level\. For steps that show how to configure logging for an AWS IoT Greengrass group, see [Configure Logging for AWS IoT Greengrass](#config-logs)\.
+Logging is configured at the group level\. For steps that show how to configure logging for a Greengrass group, see [Configure Logging for AWS IoT Greengrass](#config-logs)\.
 
 ## Accessing CloudWatch Logs<a name="gg-logs-cloudwatch"></a>
 

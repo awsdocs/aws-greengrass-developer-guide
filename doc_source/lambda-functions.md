@@ -2,7 +2,7 @@
 
 AWS IoT Greengrass provides a containerized Lambda runtime environment for user\-defined code that you author in AWS Lambda\. Lambda functions that are deployed to an AWS IoT Greengrass core run in the core's local Lambda runtime\. Local Lambda functions can be triggered by local events, messages from the cloud, and other sources, which brings local compute functionality to connected devices\. For example, you can use Greengrass Lambda functions to filter device data before transmitting the data to the cloud\.
 
-To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the [Greengrass group role](config-iam-roles.md)\.
+To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the [Greengrass group role](group-role.md)\.
 
 You can configure parameters that determine how the Lambda functions run, including permissions, isolation, memory limits, and more\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
 
@@ -32,7 +32,7 @@ AWS provides three SDKs that can be used by Greengrass Lambda functions running 
 
 **AWS IoT Greengrass Core SDK**  <a name="lambda-sdks-core"></a>
 Enables local Lambda functions to interact with the core to:  <a name="gg-core-sdk-functionality"></a>
-+ Exchange MQTT messages with AWS IoT\.
++ Exchange MQTT messages with AWS IoT Core\.
 + Exchange MQTT messages with connectors, devices, and other Lambda functions in the Greengrass group\.
 + Interact with the local shadow service\.
 + Invoke other local Lambda functions\.
@@ -142,7 +142,7 @@ This communication flow allows Lambda functions to exchange messages with the fo
 + AWS IoT\.
 + Local Device Shadow service\.
 
-A subscription defines a message source, a message target, and a topic \(or subject\) that's used to route messages from the source to the target\. Messages that are published to a Lambda function are passed to the function's registered handler\. Subscriptions enable more security and provide predictable interactions\. For more information, see [Greengrass Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
+A subscription defines a message source, a message target, and a topic \(or subject\) that's used to route messages from the source to the target\. Messages that are published to a Lambda function are passed to the function's registered handler\. Subscriptions enable more security and provide predictable interactions\. For more information, see [Managed Subscriptions in the MQTT Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
 
 **Note**  
 When the core is offline, Greengrass Lambda functions can exchange messages with devices, connectors, other functions, and local shadows, but messages to AWS IoT are queued\. For more information, see [MQTT Message Queue for Cloud Targets](gg-core.md#mqtt-message-queue)\.

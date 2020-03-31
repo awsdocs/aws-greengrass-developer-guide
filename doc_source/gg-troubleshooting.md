@@ -357,7 +357,7 @@ These AWS CLI commands use example values for the group and deployment ID\. When
 
 ### Error: Greengrass is not authorized to assume the Service Role associated with this account, or the error: Failed: TES service role is not associated with this account\.<a name="troubleshoot-assume-service-role"></a>
 
-**Solution:** You might see this error when the deployment fails\. Use the [get\-service\-role\-for\-account](https://docs.aws.amazon.com/greengrass/latest/apireference/getserviceroleforaccount-get.html) command in the AWS CLI to check that an appropriate service role is associated with your AWS account in the current AWS Region\. To associate a Greengrass service role with your AWS account in the target AWS Region, use [associate\-service\-role\-to\-account](https://docs.aws.amazon.com/greengrass/latest/apireference/associateserviceroletoaccount-put.html)\. For more information, see [Greengrass Service Role](service-role.md)\.
+**Solution:** You might see this error when the deployment fails\. Check that a Greengrass service role is associated with your AWS account in the current AWS Region\. For more information, see [Managing the Greengrass Service Role \(CLI\)](service-role.md#manage-service-role-cli) or [Managing the Greengrass Service Role \(Console\)](service-role.md#manage-service-role-console)\.
 
  
 

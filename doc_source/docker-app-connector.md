@@ -46,7 +46,7 @@ We recommend that you install a credentials store to secure the local copies of 
 + A Linux user with permission to call the local Docker daemon and write to the directory that stores the local copy of your Compose file\. For more information, see [Setting Up the Docker User on the Core](#docker-app-connector-linux-user)\.
 
    
-+ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `s3:GetObject` action on the S3 bucket that contains your Compose file\. This permission is shown in the following example policy\.
++ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `s3:GetObject` action on the S3 bucket that contains your Compose file\. This permission is shown in the following example policy\.
 
   ```
   {
@@ -67,7 +67,7 @@ We recommend that you install a credentials store to secure the local copies of 
   For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
 
    
-+ <a name="docker-app-connector-ecr-perms"></a>If your Compose file references a Docker image stored in Amazon ECR, an IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the following:
++ <a name="docker-app-connector-ecr-perms"></a>If your Compose file references a Docker image stored in Amazon ECR, an IAM policy added to the Greengrass [group role](group-role.md) that allows the following:
   + `ecr:GetDownloadUrlForLayer` and `ecr:BatchGetImage` actions on your Amazon ECR repositories that contain the Docker images\.
   + `ecr:GetAuthorizationToken` action on your resources\.
 
@@ -612,7 +612,7 @@ Permissions that you add in the Greengrass group role can be assumed by all Lamb
 The Greengrass Docker application deployment connector includes the following third\-party software/licensing:
 + [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3) / Apache 2\.0
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Changelog<a name="docker-app-connector-changelog"></a>
 

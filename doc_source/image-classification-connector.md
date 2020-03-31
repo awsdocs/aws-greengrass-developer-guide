@@ -41,7 +41,7 @@ These connectors have the following requirements:
 + <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
 + <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
 + <a name="req-image-classification-feedback"></a>The [ML Feedback connector](ml-feedback-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the connector to upload model input data and publish predictions to an MQTT topic\.
-+ <a name="req-image-classification-policy"></a>An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
++ <a name="req-image-classification-policy"></a>An IAM policy added to the Greengrass [group role](group-role.md) that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
 
   ```
   {
@@ -67,7 +67,7 @@ These connectors have the following requirements:
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
 + <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
-+ <a name="req-image-classification-policy"></a>An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
++ <a name="req-image-classification-policy"></a>An IAM policy added to the Greengrass [group role](group-role.md) that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
 
   ```
   {
@@ -752,7 +752,7 @@ The ML Image Classification connectors includes the following third\-party softw
 
 **Intel OpenMP Runtime Library licensing**\. The Intel® OpenMP\* runtime is dual\-licensed, with a commercial \(COM\) license as part of the Intel® Parallel Studio XE Suite products, and a BSD open source \(OSS\) license\. For more information, see [Licensing](https://www.openmprtl.org/faq/10) in the Intel® OpenMP\* Runtime Library documentation\.
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Changelog<a name="image-classification-connector-changelog"></a>
 

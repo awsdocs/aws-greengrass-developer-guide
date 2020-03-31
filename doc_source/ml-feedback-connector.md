@@ -20,7 +20,7 @@ This connector has the following requirements:
 + AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + One or more Amazon S3 buckets\. The number of buckets you use depends on your sampling strategy\.
-+ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `s3:PutObject` action on objects in the destination Amazon S3 bucket, as shown in the following example\.
++ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `s3:PutObject` action on objects in the destination Amazon S3 bucket, as shown in the following example\.
 
   ```
   {
@@ -499,7 +499,7 @@ The ML Feedback connector includes the following third\-party software/licensing
 + [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 + <a name="six-license"></a>[six](https://github.com/benjaminp/six)/MIT
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## See Also<a name="ml-feedback-connector-see-also"></a>
 + [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)

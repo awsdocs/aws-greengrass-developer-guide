@@ -20,7 +20,7 @@ This connector has the following requirements:
 + AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + A configured SNS topic\. For more information, see [Creating an Amazon SNS Topic](https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-topic.html) in the *Amazon Simple Notification Service Developer Guide*\.
-+ An IAM policy added to the Greengrass [group role](config-iam-roles.md) that allows the `sns:Publish` action on the target SNS topic, as shown in the following example:
++ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `sns:Publish` action on the target SNS topic, as shown in the following example:
 
   ```
   {
@@ -217,7 +217,7 @@ def function_handler(event, context):
 The SNS connector includes the following third\-party software/licensing:
 + [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
 
-This connector is released under the [Greengrass Core Software License Agreement](https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf)\.
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 ## Changelog<a name="sns-connector-changelog"></a>
 

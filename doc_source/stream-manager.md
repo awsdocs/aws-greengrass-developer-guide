@@ -56,7 +56,7 @@ Stream manager is not supported on OpenWrt distributions\.
   You download the version of the SDK that corresponds to your Lambda function runtime and include it in your Lambda function deployment package\.
 **Note**  
 The AWS IoT Greengrass Core SDK for Python requires Python 3\.7 or later and has other package dependencies\. For more information, see [Create a Lambda function deployment package \(console\)](stream-manager-console.md#stream-manager-console-create-deployment-package) or [Create a Lambda function deployment package \(CLI\)](stream-manager-cli.md#stream-manager-cli-create-deployment-package)\.
-+ If you define export destinations for a stream, you must create your export targets and grant permissions to access them in the Greengrass [group role](config-iam-roles.md)\. The following targets are supported:
++ If you define export destinations for a stream, you must create your export targets and grant permissions to access them in the Greengrass [group role](group-role.md)\. The following targets are supported:
   + Channels in AWS IoT Analytics in the same AWS Region as the Greengrass group\. To allow exports to AWS IoT Analytics, the group role must allow the `iotanalytics:BatchPutMessage` permission to target channels\. For example:
 
     ```

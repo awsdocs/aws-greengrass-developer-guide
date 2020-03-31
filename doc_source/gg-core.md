@@ -21,7 +21,7 @@ The AWS IoT Greengrass Core software provides the following functionality:<a nam
 The configuration file for the AWS IoT Greengrass Core software is `config.json`\. It is located in the `/greengrass-root/config` directory\.
 
 **Note**  
-*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.  
+*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. Typically, this is the `/greengrass` directory\.  
 If you use the **Default Group creation** option from the AWS IoT Greengrass console, then the `config.json` file is deployed to the core device in a working state\.
 
  You can review the contents of this file by running the following command:

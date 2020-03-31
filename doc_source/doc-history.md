@@ -4,6 +4,7 @@ The following table describes important changes to the AWS IoT Greengrass Develo
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [New Security Chapter](https://docs.aws.amazon.com/greengrass/latest/developerguide/security.html) | AWS IoT Greengrass security content has been updated with new organization and additional information\. | March 30, 2020 | 
 | [Use APT Package Manager to Install AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/install-ggc.html#ggc-package-manager) | On supported Debian\-based Linux distributions, you can use `apt` to install the AWS IoT Greengrass Core software on your devices\. | February 26, 2020 | 
 | [IoT SiteWise Connector Version 5 Released](https://docs.aws.amazon.com/greengrass/latest/developerguide/iot-sitewise-connector.html) | Version 5 of the IoT SiteWise connector is available\. This release fixes a compatibility issue with AWS IoT Greengrass Core software v1\.9\.4\. Use the IoT SiteWise connector to send local device and equipment data to asset properties in AWS IoT SiteWise\. | February 12, 2020 | 
 | [New Script to Quickly Set Up a Core Device](https://docs.aws.amazon.com/greengrass/latest/developerguide/quick-start.html) | You can use Greengrass device setup to configure your core device in minutes\. Also, AWS IoT Greengrass now supports Node\.js 12\.x Lambda functions\. | December 20, 2019 | 

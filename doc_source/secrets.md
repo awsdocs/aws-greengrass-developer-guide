@@ -64,7 +64,7 @@ AWS IoT Greengrass supports two modes of private key storage: hardware\-based or
 
 1. Open the [`config.json`](gg-core.md#config-json) file that's located in the `/greengrass-root/config` directory\.
 **Note**  
-*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. If you installed the software by following the steps in the [Getting Started](gg-gs.md) tutorial, then this is the `/greengrass` directory\.
+*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. Typically, this is the `/greengrass` directory\.
 
 1. In the `crypto.principals.SecretsManager` object, for the `privateKeyPath` property, enter the path of the private key:
    + If your private key is stored in the file system, specify the absolute path to the key\. For example:
