@@ -21,6 +21,9 @@ The AWS IoT Greengrass Core software provides the following functionality:<a nam
 
 Before you begin, make sure that you have completed [Module 1](module1.md)\.
 
+**Tip**  
+Or, to use a script that sets up your core device for you, see [Quick Start: Greengrass Device Setup](quick-start.md)\.
+
 This module should take less than 30 minutes to complete\.
 
 **Topics**

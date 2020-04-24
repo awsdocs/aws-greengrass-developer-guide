@@ -113,7 +113,6 @@ To help you quickly get started experimenting with ML inference, AWS IoT Greengr
 +  [Amazon SageMaker Neo deep learning runtime](#dlc-optimize-info) \([Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\) 
 + [Apache MXNet](https://aws.amazon.com/mxnet/) \(Apache License 2\.0\)
 + [ TensorFlow](https://aws.amazon.com/tensorflow/) \(Apache License 2\.0\)
-+ Chainer \(MIT License\)
 
 These runtimes and precompiled libraries can be installed on NVIDIA Jetson TX2, Intel Atom, and Raspberry Pi platforms\. The runtimes and libraries are available from the [AWS IoT Greengrass Machine Learning Runtimes and Precompiled Libraries](what-is-gg.md#gg-ml-runtimes-pc-libs) downloads page\. You can install them directly on your core or include them as part of the software in your Greengrass group\.
 
@@ -143,7 +142,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w31aac19c15c17"></a>
+### TensorFlow Model\-Serving Limitations on Raspberry Pi<a name="w31aac20c15c17"></a>
 
 Currently, the AWS IoT Greengrass TensorFlow installer supports installation on 32\-bit laptop or desktop operating systems only\. To build TensorFlow on 64\-bit platforms, see [Installing TensorFlow](https://www.tensorflow.org/install/#installing_from_sources) in the TensorFlow documentation\.
 

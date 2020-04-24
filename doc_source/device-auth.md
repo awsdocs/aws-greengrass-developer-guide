@@ -29,7 +29,7 @@ For more information, see [AWS IoT Greengrass Core Security Principals](gg-sec.m
 
 ### Certificate Authority \(CA\) Certificates<a name="ca-certificates"></a>
 
-Core devices and Greengrass connected devices download a root CA certificate used for authentication with AWS IoT Core and AWS IoT Greengrass services\. We recommend that you use an Amazon Trust Services \(ATS\) root CA certificate, such as [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\. For more information, see [CA Certificates for Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/latest/developerguide/server-authentication.html#server-authentication-certs) in the *AWS IoT Core Developer Guide*\.
+Core devices and Greengrass connected devices download a root CA certificate used for authentication with AWS IoT Core and AWS IoT Greengrass services\. We recommend that you use an Amazon Trust Services \(ATS\) root CA certificate, such as [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\. For more information, see [CA Certificates for Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html#server-authentication-certs) in the *AWS IoT Core Developer Guide*\.
 
 **Note**  
 Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.

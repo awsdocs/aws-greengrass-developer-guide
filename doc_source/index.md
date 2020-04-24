@@ -129,6 +129,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Configure Your Docker Container for IDT for AWS IoT Greengrass](docker-config-setup.md)
    + [Setting Configuration to Run the AWS IoT Greengrass Qualification Suite](set-config.md)
    + [Running Tests](run-tests.md)
+   + [Understanding Results and Logs](results-logs.md)
    + [Test Group Descriptions](dt-test-groups.md)
    + [IDT for AWS IoT Greengrass Troubleshooting](idt-troubleshooting.md)
    + [Support Policy for AWS IoT Device Tester for AWS IoT Greengrass](idt-support-policy.md)

@@ -3,9 +3,14 @@
 User\-defined Lambda functions running on the AWS IoT Greengrass core can use the `StreamManagerClient` object in the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks) to create and interact with streams in stream manager\. When a Lambda function creates a stream, it defines the AWS Cloud destinations, prioritization, and other export and data retention policies for the stream\. If an export destination is defined, stream manager exports the stream automatically\.
 
 **Note**  
-Typically, clients are user\-defined Lambda functions\. If your business case requires it, you can allow non\-Lambda processes running on the Greengrass core \(for example, a Docker container\) to interact with stream manager\. For more information, see [Client Authentication](stream-manager.md#stream-manager-security-client-authentication)\.
+Typically, clients of stream manager are user\-defined Lambda functions\. If your business case requires it, you can allow non\-Lambda processes running on the Greengrass core \(for example, a Docker container\) to interact with stream manager\. For more information, see [Client Authentication](stream-manager.md#stream-manager-security-client-authentication)\.
 
 The snippets in this topic show you how clients use `StreamManagerClient` to work with streams\. For implementation details about the methods and their arguments, use the links to the SDK reference\. For tutorials that use a complete Python Lambda function, see [Export Data Streams to the AWS Cloud \(Console\)](stream-manager-console.md) or [Export Data Streams to the AWS Cloud \(CLI\)](stream-manager-cli.md)\.
+
+You should instantiate `StreamManagerClient` outside of the function handler\. If instantiated in the handler, the function creates a `client` and connection to stream manager every time that it's invoked\.
+
+**Note**  
+If you do instantiate `StreamManagerClient` in the handler, you must explicitly call the `close()` method when the `client` completes its work\. Otherwise, the `client` keeps the connection open and another thread running until the script exits\.
 
 `StreamManagerClient` supports the following operations:
 + [Create Message Stream](#streammanagerclient-create-message-stream)

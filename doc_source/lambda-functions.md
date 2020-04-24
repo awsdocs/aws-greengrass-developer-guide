@@ -19,7 +19,7 @@ The following table lists supported [AWS Lambda runtimes](https://docs.aws.amazo
 | Python 3\.7 | 1\.9 or later | 
 | Python 2\.7 | 1\.0 or later | 
 | Java 8 | 1\.1 or later | 
-| Node\.js 12\.x | 1\.10 | 
+| Node\.js 12\.x | 1\.10 or later | 
 | Node\.js 8\.10 \* | 1\.9 or later | 
 | Node\.js 6\.10 \* | 1\.1 or later | 
 | C, C\+\+ | 1\.6 or later | 

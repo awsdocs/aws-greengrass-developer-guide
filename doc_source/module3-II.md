@@ -2,7 +2,7 @@
 
 This module explores the differences between on\-demand and long\-lived Lambda functions running on the AWS IoT Greengrass core\.
 
-Before you begin, make sure you have completed [Module 1](module1.md), [Module 2](module2.md), and [Module 3 \(Part 1\)](module3-I.md)\.
+Before you begin, run the [Greengrass Device Setup](quick-start.md) script or make sure you have completed [Module 1](module1.md), [Module 2](module2.md), and [Module 3 \(Part 1\)](module3-I.md)\.
 
 This module should take about 30 minutes to complete\.
 

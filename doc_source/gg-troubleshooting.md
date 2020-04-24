@@ -34,6 +34,7 @@ Search the following symptoms and errors to find information to help troubleshoo
 + [Error: unable to start lambda container\. container\_linux\.go:259: starting container process caused "process\_linux\.go:345: container init caused \\"rootfs\_linux\.go:62: mounting \\\\\\"proc\\\\\\" to rootfs \\\\\\"](#troubleshoot-mount-proc-lambda-container)
 + [Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/ packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengr ass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}](#troubleshoot-symbolic-links)
 + [Error: \[DEBUG\]\-Failed to get routes\. Discarding message\.](#troubleshoot-failed-to-get-routes)
++ [Error: \[Errno 24\] Too many open <lambda\-function>,\[Errno 24\] Too many open files](#troubleshoot-too-many-open-files)
 
  
 
@@ -252,6 +253,12 @@ This issue is not related to mounting `/proc` for local resource access\.
 
  
 
+### Error: \[Errno 24\] Too many open <lambda\-function>,\[Errno 24\] Too many open files<a name="troubleshoot-too-many-open-files"></a>
+
+**Solution:** You might see this error in your Lambda function log file if the function instantiates `StreamManagerClient` in the function handler\. We recommend that you create the client outside the handler\. For more information, see [Use StreamManagerClient to Work with Streams](work-with-streams.md)\. 
+
+ 
+
 ## Deployment Issues<a name="gg-troubleshooting-deploymentissues"></a>
 
 Use the following information to help troubleshoot deployment issues\.
@@ -391,7 +398,7 @@ For more information, see [Using apt to Install the AWS IoT Greengrass Core Soft
      ps aux | grep -E 'greengrass.*daemon'
      ```
 
-     If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.0/bin/daemon`, then the daemon is running\.
+     If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.1/bin/daemon`, then the daemon is running\.
 
      The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 

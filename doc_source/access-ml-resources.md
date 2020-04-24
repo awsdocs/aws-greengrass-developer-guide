@@ -30,7 +30,7 @@ Non\-containerized Lambda functions must inherit these access permissions to the
 The following table shows supported access permission configurations\.
 
 ------
-#### [ GGC v1\.10 ]
+#### [ GGC v1\.10 or later ]
 
 
 | Property | If only containerized Lambda functions access the resource | If any non\-containerized Lambda functions access the resource | 
@@ -74,7 +74,7 @@ If only containerized Lambda functions are attached to the machine learning reso
 ![\[Resource owner set to No OS group and Lambda function permissions set to Read-only access in the function configuration.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-ml-resource-access.png)
  
 
-**Non\-containerized Lambda functions** \(requires GGC v1\.10\)  
+**Non\-containerized Lambda functions** \(requires GGC v1\.10 or later\)  
 If any non\-containerized Lambda functions are attached to the machine learning resource:  
 + Specify the ID of the OS group \(GID\) to use as the resource owner for the machine learning resource\. Choose **Specify OS group and permission** and enter the GID\. You can use the `getent group` command on your core device to look up the ID of an OS group\.
 
@@ -135,7 +135,7 @@ If only containerized Lambda functions are attached to the machine learning reso
   This is the recommended configuration when only containerized Lambda functions access the machine learning resource\. Otherwise, you might give attached Lambda functions more access permissions than they need\.
  
 
-**Non\-containerized Lambda functions** \(requires GGC v1\.10\)  
+**Non\-containerized Lambda functions** \(requires GGC v1\.10 or later\)  
 If any non\-containerized Lambda functions are attached to the machine learning resource:  
 + For non\-containerized Lambda functions, omit the `Permission` property in `ResourceAccessPolicies`\. This configuration is required and allows the function to inherit the resource\-level permission\. For example:
 
@@ -210,7 +210,7 @@ If any non\-containerized Lambda functions are attached to the machine learning 
 User\-defined Lambda functions use platform\-specific OS interfaces to access machine learning resources on a core device\.
 
 ------
-#### [ GGC v1\.10 ]
+#### [ GGC v1\.10 or later ]
 
 For containerized Lambda functions, the resource is mounted inside the Greengrass container and available at the local destination path defined for the resource\. For non\-containerized Lambda functions, the resource is symlinked to a Lambda\-specific working directory and passed to the `AWS_GG_RESOURCE_PREFIX` environment variable in the Lambda process\.
 

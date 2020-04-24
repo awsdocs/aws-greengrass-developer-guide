@@ -2,6 +2,17 @@
 
 This topic lists unsupported versions of IDT for AWS IoT Greengrass\. Unsupported versions do not receive bug fixes or updates\. For more information, see [Support Policy for AWS IoT Device Tester for AWS IoT Greengrass](idt-support-policy.md)\.
 
+**IDT v2\.0\.0 for AWS IoT Greengrass v1\.9\.3, v1\.9\.2, v\.1\.9\.1, v1\.9\.0, v1\.8\.4, v1\.8\.3, and v1\.8\.2**  
+Release notes:  
++ Removed dependency on Python for device under test\.
++ Test suite execution time reduced by more than 50 percent, which makes the qualification process faster\.
++ Executable size reduced by more than 50 percent, which makes download and installation faster\.
++ Improved [timeout multiplier support](idt-troubleshooting.md#test-timeout) for all test cases\.
++ Enhanced post\-diagnostics messages for faster troubleshooting of errors\.
++ Updated the permissions policy template required to run IDT\.
++ Added support for AWS IoT Greengrass v1\.9\.3\.
+ 
+
 **IDT v1\.3\.3 for AWS IoT Greengrass v1\.9\.2, v1\.9\.1, v1\.9\.0, v1\.8\.3, and v1\.8\.2**  
 Release notes:  
 + Added support for Greengrass v1\.9\.2 and v1\.8\.3\.

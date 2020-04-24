@@ -838,7 +838,7 @@ Follow these steps only if you want to make the Greengrass root directory read\-
 
       ```
       sudo chown -R ggc_user:ggc_group /greengrass-root/certs/
-      sudo chown -R ggc_user:ggc_group /greengrass-root/ggc/packages/1.10.0/lambda/
+      sudo chown -R ggc_user:ggc_group /greengrass-root/ggc/packages/1.10.1/lambda/
       ```
 **Note**  
 The ggc\_user and ggc\_group accounts are used by default to run system Lambda functions\. If you configured the group\-level [default access identity](lambda-group-config.md#lambda-access-identity-groupsettings) to use different accounts, you should give permissions to that user \(UID\) and group \(GID\) instead\.
@@ -1009,7 +1009,7 @@ If you previously set the `GG_CONFIG_SUBSCRIPTION_QUALITY` environment variable 
 
 ### MQTT Persistent Sessions with AWS IoT<a name="mqtt-persistent-sessions"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.10 only\.
+This feature is available for AWS IoT Greengrass Core v1\.10 and later\.
 
 An AWS IoT Greengrass core can establish a persistent session with the AWS IoT message broker\. A persistent session is an ongoing connection that allows the core to receive messages sent while the core is offline\. The core is the client in the connection\.
 
@@ -1159,7 +1159,7 @@ Greengrass devices are also fully integrated with the Fleet Indexing service of 
 
 ### Configure the MQTT Port for Local Messaging<a name="config-local-mqtt-port"></a>
 
-This feature requires AWS IoT Greengrass Core v1\.10\.
+This feature requires AWS IoT Greengrass Core v1\.10 or later\.
 
 The AWS IoT Greengrass core acts as the local message broker for MQTT messaging between local Lambda functions, connectors, and [Greengrass devices](what-is-gg.md#greengrass-devices)\. By default, the core uses port 8883 for MQTT traffic on the local network\. You might want to change the port to avoid a conflict with other software that runs on port 8883\.
 

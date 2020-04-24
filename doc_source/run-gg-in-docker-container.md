@@ -1,12 +1,12 @@
 # Running AWS IoT Greengrass in a Docker Container<a name="run-gg-in-docker-container"></a>
 
-This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
-
 AWS IoT Greengrass can be configured to run in a [Docker](https://www.docker.com/) container\.
 
 You can download a Dockerfile [through Amazon CloudFront](what-is-gg.md#gg-docker-download) that has the AWS IoT Greengrass Core software and dependencies installed\. To modify the Docker image to run on different platform architectures or reduce the size of the Docker image, see the `README` file in the Docker package download\.
 
-To help you get started quickly and experiment with AWS IoT Greengrass, AWS also provides a prebuilt Docker image that has the AWS IoT Greengrass Core software and dependencies installed\. You can download the prebuilt image from [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or [Amazon Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) \(Amazon ECR\) and run it on Windows, macOS, and Linux \(x86\_64\) platforms\. This topic describes how to download the image from Amazon ECR\. It contains the following steps:
+To help you get started experimenting with AWS IoT Greengrass, AWS also provides prebuilt Docker images that have the AWS IoT Greengrass Core software and dependencies installed\. You can download an image from [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or [Amazon Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) \(Amazon ECR\)\. These prebuilt images use Amazon Linux 2 \(x86\_64\) and Alpine Linux \(x86\_64, Armv7l, or AArch64\) base images\.
+
+This topic describes how to download the `latest` AWS IoT Greengrass Docker image from Amazon ECR and run it on a Windows, macOS, or Linux \(x86\_64\) platform\. The topic contains the following steps:
 
 1. [Get the AWS IoT Greengrass Container Image from Amazon ECR](#docker-pull-image)
 
@@ -48,7 +48,7 @@ To upgrade to a newer CLI version, you must repeat the MSI installation process\
 
 ## Step 1: Get the AWS IoT Greengrass Container Image from Amazon ECR<a name="docker-pull-image"></a>
 
-AWS IoT Greengrass provides a Docker image that has the AWS IoT Greengrass Core software installed\. For steps that show how to pull the container image from Amazon ECR, choose your operating system:
+AWS provides Docker images that have the AWS IoT Greengrass Core software installed\. For steps that show how to pull the `latest` image from Amazon ECR, choose your operating system:
 
 ### Pull the Container Image \(Linux\)<a name="docker-pull-image-linux"></a>
 
@@ -68,7 +68,7 @@ Run the following commands in your computer terminal\.
    docker pull 216483018798.dkr.ecr.us-west-2.amazonaws.com/aws-iot-greengrass:latest
    ```
 **Note**  
-The `latest` tag corresponds to the latest AWS IoT Greengrass container\. You can also pull other versions from the repository\. To list all images that are available in the AWS IoT Greengrass repository, use the aws ecr list\-images command\. For example:  
+The `latest` image contains the latest stable version of the AWS IoT Greengrass Core software installed on an Amazon Linux 2 base image\. You can also pull other images from the repository\. To find all available images, check the **Tags** page on [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or use the aws ecr list\-images command\. For example:  
 
    ```
    aws ecr list-images --region us-west-2 --registry-id 216483018798 --repository-name aws-iot-greengrass
@@ -121,7 +121,7 @@ Run the following commands in your computer terminal\.
    docker pull 216483018798.dkr.ecr.us-west-2.amazonaws.com/aws-iot-greengrass:latest
    ```
 **Note**  
-The `latest` tag corresponds to the latest AWS IoT Greengrass container\. You can also pull other versions from the repository\. To list all images that are available in the AWS IoT Greengrass repository, use the aws ecr list\-images command\. For example:  
+The `latest` image contains the latest stable version of the AWS IoT Greengrass Core software installed on an Amazon Linux 2 base image\. You can also pull other images from the repository\. To find all available images, check the **Tags** page on [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or use the aws ecr list\-images command\. For example:  
 
    ```
    aws ecr list-images --region us-west-2 --registry-id 216483018798 --repository-name aws-iot-greengrass
@@ -145,7 +145,7 @@ Run the following commands in a command prompt\. Before you can use Docker comma
    docker pull 216483018798.dkr.ecr.us-west-2.amazonaws.com/aws-iot-greengrass:latest
    ```
 **Note**  
-The `latest` tag corresponds to the latest AWS IoT Greengrass container\. You can also pull other versions from the repository\. To list all images that are available in the AWS IoT Greengrass repository, use the aws ecr list\-images command\. For example:  
+The `latest` image contains the latest stable version of the AWS IoT Greengrass Core software installed on an Amazon Linux 2 base image\. You can also pull other images from the repository\. To find all available images, check the **Tags** page on [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or use the aws ecr list\-images command\. For example:  
 
    ```
    aws ecr list-images --region us-west-2 --registry-id 216483018798 --repository-name aws-iot-greengrass

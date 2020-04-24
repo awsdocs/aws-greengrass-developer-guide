@@ -63,9 +63,15 @@ AWS IoT Greengrass provides several options for installing the AWS IoT Greengras
 The following tabs describe what's new and changed in AWS IoT Greengrass Core software versions\.
 
 ------
-#### [ GGC v1\.10 ]
+#### [ GGC v1\.10 ]<a name="ggc-v1.10-tab"></a>
 
-1\.10\.0 \- Current version  
+1\.10\.1 \- Current version  
+Bug fixes and improvements:  
++ <a name="bug-fix-v1101-stream-mgr"></a>[Stream manager](stream-manager.md) is more resilient to file data corruption\.
++ <a name="bug-fix-v1101-sysfs"></a>Fixed an issue that causes a sysfs mount failure on devices using Linux kernel 5\.1 and later\.
++ General performance improvements and bug fixes\.
+
+1\.10\.0  
 New features:  <a name="what-new-v1100"></a>
 + A stream manager that processes data streams locally and exports them to the AWS Cloud automatically\. This feature requires Java 8 on the Greengrass core device\. For more information, see [Manage Data Streams on the AWS IoT Greengrass Core](stream-manager.md)\.
 + A new Greengrass Docker application deployment connector that runs a Docker application on a core device\. For more information, see [Docker Application Deployment Connector](docker-app-connector.md)\.
@@ -74,9 +80,8 @@ New features:  <a name="what-new-v1100"></a>
 + Support for MQTT persistent sessions with AWS IoT\. For more information, see [MQTT Persistent Sessions with AWS IoT](gg-core.md#mqtt-persistent-sessions)\.
 + Local MQTT traffic can travel over a port other than the default port 8883\. For more information, see [Configure the MQTT Port for Local Messaging](gg-core.md#config-local-mqtt-port)\.
 + New `queueFullPolicy` options in the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for reliable message publishing from Lambda functions\.
-+ Support for running Node\.js 12\.x Lambda functions on the core\.
-Bug fixes and improvements:  <a name="bug-fix-v1100"></a>
-+ Over\-the\-air \(OTA\) updates with hardware security integration can be configured with OpenSSL 1\.1\.
++ Support for running Node\.js 12\.x Lambda functions on the core\.<a name="bug-fix-v1100"></a>
++ <a name="bug-fix-v1100-ota"></a>Over\-the\-air \(OTA\) updates with hardware security integration can be configured with OpenSSL 1\.1\.
 + General performance improvements and bug fixes\.
 
 ------
@@ -197,25 +202,25 @@ Initial version
 
 ## AWS IoT Greengrass Groups<a name="gg-group"></a>
 
-An AWS IoT Greengrass group is a collection of settings and components, such as an AWS IoT Greengrass core, devices, and subscriptions\. Groups are used to define a scope of interaction\. For example, a group might represent one floor of a building, one truck, or an entire mining site\. The following diagram shows the components that can make up an Greengrass group\.
+A Greengrass group is a collection of settings and components, such as a Greengrass core, devices, and subscriptions\. Groups are used to define a scope of interaction\. For example, a group might represent one floor of a building, one truck, or an entire mining site\. The following diagram shows the components that can make up a Greengrass group\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-group.png)
 
 In the preceding diagram:
 
-A: AWS IoT Greengrass group definition  
-A collection of information about the AWS IoT Greengrass group\.
+A: Greengrass group definition  
+Information about group settings and components\.
 
-B: AWS IoT Greengrass group settings  
+B: Greengrass group settings  
 These include:  
-+ AWS IoT Greengrass group role\.
++ Greengrass group role\.
 + Certificate authority and local connection configuration\.
-+ AWS IoT Greengrass core connectivity information\.
++ Greengrass core connectivity information\.
 + Default Lambda runtime environment\. For more information, see [Setting Default Containerization for Lambda Functions in a Group](lambda-group-config.md#lambda-containerization-groupsettings)\.
 + CloudWatch and local logs configuration\. For more information, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
 
-C: AWS IoT Greengrass core  
-The AWS IoT Core thing that represents the AWS IoT Greengrass core\. For more information, see [Configure the AWS IoT Greengrass Core](gg-core.md)\.
+C: Greengrass core  
+The AWS IoT thing \(device\) that represents the Greengrass core\. For more information, see [Configure the AWS IoT Greengrass Core](gg-core.md)\.
 
 D: Lambda function definition  
 A list of Lambda functions that run locally on the core, with associated configuration data\. For more information, see [Run Lambda Functions on the AWS IoT Greengrass Core](lambda-functions.md)\.
@@ -223,23 +228,23 @@ A list of Lambda functions that run locally on the core, with associated configu
 E: Subscription definition  
 A list of subscriptions that enable communication using MQTT messages\. A subscription defines:  
 + A message source and message target\. These can be devices, Lambda functions, connectors, AWS IoT Core, and the local shadow service\.
-+ A topic \(or subject\) that's used to filter messages\.
++ A topic or subject that's used to filter messages\.
 For more information, see [Managed Subscriptions in the MQTT Messaging Workflow](gg-sec.md#gg-msg-workflow)\.
 
 F: Connector definition  
 A list of connectors that run locally on the core, with associated configuration data\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
 
 G: Device definition  
-A list of AWS IoT Core things \(devices\) that are members of the AWS IoT Greengrass group, with associated configuration data\. For more information, see [Devices in AWS IoT Greengrass](#devices)\.
+A list of AWS IoT things \(devices\) that are members of the Greengrass group, with associated configuration data\. For more information, see [Devices in AWS IoT Greengrass](#devices)\.
 
 H: Resource definition  
-A list of local resources, machine learning resources, and secret resources on the AWS IoT Greengrass core, with associated configuration data\. For more information, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md), [Perform Machine Learning Inference](ml-inference.md), and [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
+A list of local resources, machine learning resources, and secret resources on the Greengrass core, with associated configuration data\. For more information, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md), [Perform Machine Learning Inference](ml-inference.md), and [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
 
-When deployed, the AWS IoT Greengrass group definition, Lambda functions, connectors, resources, and subscription table are copied to an AWS IoT Greengrass core device\. For more information, see [Deploy AWS IoT Greengrass Groups to an AWS IoT Greengrass Core](deployments.md)\.
+When deployed, the Greengrass group definition, Lambda functions, connectors, resources, and subscription table are copied to the core device\. For more information, see [Deploy AWS IoT Greengrass Groups to an AWS IoT Greengrass Core](deployments.md)\.
 
 ## Devices in AWS IoT Greengrass<a name="devices"></a>
 
-An AWS IoT Greengrass group can contain two types of device:
+A Greengrass group can contain two types of AWS IoT device:
 
 Greengrass core  
 A Greengrass core is a device that runs the AWS IoT Greengrass Core software, which allows it to communicate directly with AWS IoT Core and the AWS IoT Greengrass service\. A core has its own device certificate used for authenticating with AWS IoT Core\. It has a device shadow and an entry in the AWS IoT Core registry\. Greengrass cores run a local Lambda runtime, deployment agent, and IP address tracker that sends IP address information to the AWS IoT Greengrass service to allow Greengrass devices to automatically discover their group and core connection information\. For more information, see [Configure the AWS IoT Greengrass Core](gg-core.md)\.  
@@ -521,9 +526,16 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 <a name="ggc-software-descripton"></a> The AWS IoT Greengrass Core software extends AWS functionality onto an AWS IoT Greengrass core device, making it possible for local devices to act locally on the data they generate\.
 
 ------
-#### [ v1\.10\.0 ]
+#### [ v1\.10\.1 ]<a name="ggc-v1.10-tab"></a>
 
-New features in v1\.10:<a name="what-new-v1100"></a>
+1\.10\.1 \- Current version  
+Bug fixes and improvements:  
++ <a name="bug-fix-v1101-stream-mgr"></a>[Stream manager](stream-manager.md) is more resilient to file data corruption\.
++ <a name="bug-fix-v1101-sysfs"></a>Fixed an issue that causes a sysfs mount failure on devices using Linux kernel 5\.1 and later\.
++ General performance improvements and bug fixes\.
+
+1\.10\.0  
+New features:  <a name="what-new-v1100"></a>
 + A stream manager that processes data streams locally and exports them to the AWS Cloud automatically\. This feature requires Java 8 on the Greengrass core device\. For more information, see [Manage Data Streams on the AWS IoT Greengrass Core](stream-manager.md)\.
 + A new Greengrass Docker application deployment connector that runs a Docker application on a core device\. For more information, see [Docker Application Deployment Connector](docker-app-connector.md)\.
 + A new IoT SiteWise connector that sends industrial device data from OPC\-UA servers to asset properties in AWS IoT SiteWise\. For more information, see [IoT SiteWise Connector](iot-sitewise-connector.md)\.
@@ -531,10 +543,8 @@ New features in v1\.10:<a name="what-new-v1100"></a>
 + Support for MQTT persistent sessions with AWS IoT\. For more information, see [MQTT Persistent Sessions with AWS IoT](gg-core.md#mqtt-persistent-sessions)\.
 + Local MQTT traffic can travel over a port other than the default port 8883\. For more information, see [Configure the MQTT Port for Local Messaging](gg-core.md#config-local-mqtt-port)\.
 + New `queueFullPolicy` options in the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for reliable message publishing from Lambda functions\.
-+ Support for running Node\.js 12\.x Lambda functions on the core\.
-
-Bug fixes and improvements:<a name="bug-fix-v1100"></a>
-+ Over\-the\-air \(OTA\) updates with hardware security integration can be configured with OpenSSL 1\.1\.
++ Support for running Node\.js 12\.x Lambda functions on the core\.<a name="bug-fix-v1100"></a>
++ <a name="bug-fix-v1100-ota"></a>Over\-the\-air \(OTA\) updates with hardware security integration can be configured with OpenSSL 1\.1\.
 + General performance improvements and bug fixes\.
 
 To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
@@ -545,12 +555,12 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 | Architecture | Distribution | OS | Link | 
 | --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.0/greengrass-linux-aarch64-1.10.0.tar.gz) | 
-| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.0/greengrass-openwrt-aarch64-1.10.0.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.0/greengrass-linux-armv7l-1.10.0.tar.gz) | 
-| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.0/greengrass-openwrt-armv7l-1.10.0.tar.gz) | 
-| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.0/greengrass-linux-armv6l-1.10.0.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.0/greengrass-linux-x86-64-1.10.0.tar.gz) | 
+| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.1/greengrass-linux-aarch64-1.10.1.tar.gz) | 
+| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.1/greengrass-openwrt-aarch64-1.10.1.tar.gz) | 
+| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.1/greengrass-linux-armv7l-1.10.1.tar.gz) | 
+| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.1/greengrass-openwrt-armv7l-1.10.1.tar.gz) | 
+| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.1/greengrass-linux-armv6l-1.10.1.tar.gz) | 
+| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.1/greengrass-linux-x86-64-1.10.1.tar.gz) | 
 
 ------
 #### [  v1\.9\.4  ]
@@ -617,22 +627,26 @@ For more information, see [Getting Started with AWS IoT Greengrass Snap](install
 
 ### AWS IoT Greengrass Docker Software<a name="gg-docker-download"></a>
 
-AWS provides a Dockerfile and Docker image that make it easier for you to run AWS IoT Greengrass in a Docker container\.
+AWS provides a Dockerfile and Docker images that make it easier for you to run AWS IoT Greengrass in a Docker container\.
 
 Dockerfile  
-Source code for building custom AWS IoT Greengrass container images\. The image can be modified to run on different platform architectures or to reduce the image size\. For instructions, see the README file\.  
-Choose the AWS IoT Greengrass Core software version\.  
-+  [ Docker v1\.10\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.0/aws-greengrass-docker-1.10.0.tar.gz)\. 
-+  [ Docker v1\.9\.4](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/aws-greengrass-docker-1.9.4.tar.gz)\. 
-+  [ Docker v1\.8\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.1/aws-greengrass-docker-1.8.1.tar.gz)\. 
+Dockerfiles contain source code for building custom AWS IoT Greengrass container images\. Images can be modified to run on different platform architectures or to reduce the image size\. For instructions, see the README file\.  
+Download your target AWS IoT Greengrass Core software version\.  
++  [ Dockerfile for AWS IoT Greengrass v1\.10\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.1/aws-greengrass-docker-1.10.1.tar.gz)\. 
++  [ Dockerfile for AWS IoT Greengrass v1\.9\.4](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/aws-greengrass-docker-1.9.4.tar.gz)\. 
++  [ Dockerfile for AWS IoT Greengrass v1\.8\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.1/aws-greengrass-docker-1.8.1.tar.gz)\. 
  
 
 Docker image  
-Docker image with the AWS IoT Greengrass Core software and dependencies installed\. Prebuilt images can help you get started quickly and experiment with AWS IoT Greengrass\.  
-+ Docker image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass)\.
-+ Docker image from Amazon Elastic Container Registry \(Amazon ECR\)\. For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
+Docker images have the AWS IoT Greengrass Core software and dependencies installed on Amazon Linux 2 \(x86\_64\) and Alpine Linux \(x86\_64, Armv7l, or AArch64\) base images\. You can use prebuilt images to start experimenting with AWS IoT Greengrass\.  
+Download a prebuilt image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or Amazon Elastic Container Registry \(Amazon ECR\)\.  
+For steps that describe how to download and run a prebuilt image from Amazon ECR, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
+The `latest` tag represents the latest stable version of the AWS IoT Greengrass Core software and dependencies installed on the Amazon Linux 2 base image\. To find tags for all available images, check the **Tags** page on Docker Hub\.  
+By default, `alpine-aarch64` and `alpine-armv7l` images can run only on Arm\-based hosts\. To run these images on an x86 host, you can install [QEMU](https://www.qemu.org/) and mount the QEMU libraries on the host\. For example:  
 
-By downloading this software, you agree to the [ Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
+```
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+```
 
  
 

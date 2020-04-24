@@ -13,7 +13,7 @@ You must test your future hardware implementation separately and completely befo
 
 If you need assistance with the onboarding of a [supported hardware security module](hardware-security.md#hardware-security-reqs), contact your AWS Enterprise Support representative\.
 
-Before you begin, make sure that you completed [Module 1](module1.md) and [Module 2](module2.md) of the Getting Started tutorial\. In this module, we assume that your core is already provisioned and communicating with AWS\. This module should take about 30 minutes to complete\.
+Before you begin, run the [Greengrass Device Setup](quick-start.md) script, or make sure that you completed [Module 1](module1.md) and [Module 2](module2.md) of the Getting Started tutorial\. In this module, we assume that your core is already provisioned and communicating with AWS\. This module should take about 30 minutes to complete\.
 
 ## Install the SoftHSM Software<a name="softhsm-install"></a>
 

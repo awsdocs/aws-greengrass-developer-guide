@@ -108,7 +108,7 @@ In the AWS IoT Greengrass console, you can add a connector from the group's **Co
 
 ## Input Data<a name="raspberrypi-gpio-connector-data-input"></a>
 
-This connector accepts read or write requests for GPIO pins on two MQTT topics\. Input messages must be in JSON format\.
+This connector accepts read or write requests for GPIO pins on two MQTT topics\.
 + Read requests on the `gpio/+/+/read` topic\.
 + Write requests on the `gpio/+/+/write` topic\.
 

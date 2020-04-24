@@ -6,20 +6,22 @@ This section describes the prerequisites for using IDT for AWS IoT Greengrass\.
 
 Download the latest version of IDT from [Supported Versions of AWS IoT Device Tester for AWS IoT Greengrass](dev-test-versions.md)\. Extract the software into a location on your file system where you have read and write permissions\. 
 
-Windows has a path length limitation of 260 characters\. If you are using Windows, extract IDT for AWS IoT Greengrass into a root directory like `C:\ ` or `D:\` to keep your paths under the 260 character limit\.
+**Note**  
+<a name="unzip-package-to-local-drive"></a>IDT does not support being run by multiple users from a shared location, such as an NFS directory or a Windows network shared folder\. Doing so may result in crashes or data corruption\. We recommend that you extract the IDT package to a local drive\.  
+Windows has a path length limitation of 260 characters\. If you are using Windows, extract IDT to a root directory like `C:\ ` or `D:\` to keep your paths under the 260 character limit\.
 
 ## Create and Configure an AWS Account<a name="config-aws-account-for-idt"></a>
 
-Before you can use IDT for AWS IoT Greengrass, you must create an AWS account and configure permissions\. This is required so IDT can access AWS services and create AWS resources on your behalf, such as AWS IoT things, Greengrass groups, and Lambda functions\.
+Before you can use IDT for AWS IoT Greengrass, you must create an AWS account and configure permissions that IDT needs while running tests\. The permissions allow IDT to access AWS services and create AWS resources, such as AWS IoT things, Greengrass groups, and Lambda functions, on your behalf\.
 
 <a name="idt-aws-credentials"></a>To create these resources, IDT for AWS IoT Greengrass uses the AWS credentials configured in the `config.json` file to make API calls on your behalf\. These resources are provisioned at various times during a test\.
 
 **Note**  
 Although most tests qualify for [AWS Free Tier](http://aws.amazon.com/free), you must provide a credit card when you sign up for an AWS account\. For more information, see [ Why do I need a payment method if my account is covered by the Free Tier?](http://aws.amazon.com/premiumsupport/knowledge-center/free-tier-payment-method/)\.
 
-Follow these steps to create and configure an AWS account, IAM user, and IAM policy that grants IDT for AWS IoT Greengrass permission to access resources on your behalf while running tests\.
+### Step 1: Create an AWS Account<a name="create-aws-account-for-idt"></a>
 
-### Step 1: Create an AWS Account<a name="create-aws-account-for-idt"></a><a name="create-aws-account-steps"></a>
+In this step, create and configure an AWS account\. If you already have an AWS account, skip to [Step 2: Configure Permissions for IDT](#configure-idt-permissions)\.<a name="create-aws-account-steps"></a>
 
 1. Open the [AWS home page](https://aws.amazon.com/), and choose **Create an AWS Account**\.
 **Note**  
@@ -31,18 +33,24 @@ If you've signed in to AWS recently, you might see **Sign In to the Console** in
 
 ### Step 2: Configure Permissions for IDT<a name="configure-idt-permissions"></a>
 
-In this step, you configure the permissions that IDT for AWS IoT Greengrass uses to run tests and collect [IDT usage data](#usage-metrics)\. You create an IAM policy and an IAM user, and then attach policies to the user\.
+In this step, configure the permissions that IDT for AWS IoT Greengrass uses to run tests and collect IDT usage data\. You can use the AWS Management Console or AWS Command Line Interface \(AWS CLI\) to create an IAM policy and a test user for IDT, and then attach policies to the user\. If you already created a test user for IDT, skip to [Configure Your Device](device-config-setup.md) or [Configure Your Docker Container for IDT for AWS IoT Greengrass](docker-config-setup.md)\.
++ [To Configure Permissions for IDT \(Console\)](#configure-idt-permissions-console)
++ [To Configure Permissions for IDT \(AWS CLI\)](#configure-idt-permissions-cli)<a name="configure-idt-permissions-console"></a>
+
+**To Configure Permissions for IDT \(Console\)**
+
+Follow these steps to use the console to configure permissions for IDT for AWS IoT Greengrass\.
 
 1. Sign in to the [IAM console](https://console.aws.amazon.com/iam)\.
 
-1. Create a customer managed policy that grants permissions to create roles with specific permissions\.
+1. Create a customer managed policy that grants permissions to create roles with specific permissions\. 
 
    1. In the navigation pane, choose **Policies**, and then choose **Create policy**\.
 
    1. On the **JSON** tab, replace the placeholder content with the following policy\.
 
       ```
-      {
+      <a name="customer-managed-policy-cli"></a>{
           "Version": "2012-10-17",
           "Statement": [
               {
@@ -107,7 +115,7 @@ The following policy grants permission to create and manage roles required by ID
 
       1. Search for the **AWSIoTDeviceTesterForGreengrassFullAccess** policy\. Select the check box\.
 **Note**  <a name="AWSIoTDeviceTesterForGreengrassFullAccess"></a>
-The [AWSIoTDeviceTesterForGreengrassFullAccess](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSIoTDeviceTesterForGreengrassFullAccess) is an AWS managed policy that defines the permissions IDT requires to create and access AWS resources used for testing\.
+The [AWSIoTDeviceTesterForGreengrassFullAccess](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSIoTDeviceTesterForGreengrassFullAccess) is an AWS managed policy that defines the permissions IDT requires to create and access AWS resources used for testing\. For more information, see [AWS Managed Policy for AWS IoT Device Tester](#idt-managed-policy)\.
 
    1. Choose **Next: Tags**\.
 
@@ -119,6 +127,113 @@ The [AWSIoTDeviceTesterForGreengrassFullAccess](https://console.aws.amazon.com/i
 
 1. <a name="aws-account-config-next-steps"></a>Next step: Configure your [physical device](device-config-setup.md) or [Docker container](docker-config-setup.md)\.
 
-## AWS IoT Device Tester Usage Metrics<a name="usage-metrics"></a>
+ <a name="configure-idt-permissions-cli"></a>
 
-When you run IDT for AWS IoT Greengrass, IDT collects usage data about your tests\. The `iot-device-tester:SendMetrics` permission allows IDT to send the usage data\. This permission is present in the `AWSIoTDeviceTesterForGreengrassFullAccess` managed policy\.
+**To Configure Permissions for IDT \(AWS CLI\)**
+
+Follow these steps to use the AWS CLI to configure permissions for IDT for AWS IoT Greengrass\. If you already configured permissions in the console, skip to [Configure Your Device](device-config-setup.md) or [Configure Your Docker Container for IDT for AWS IoT Greengrass](docker-config-setup.md)\.
+
+1. On your computer, install and configure the AWS CLI if it's not already installed\. Follow the steps in [ Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) in the *AWS Command Line Interface User Guide*\.
+**Note**  
+The AWS CLI is an open source tool that you can use to interact with AWS services from your command\-line shell\.
+
+1. Create a customer managed policy that grants permissions to manage IDT and AWS IoT Greengrass roles\.
+
+------
+#### [ Linux, macOS, or Unix ]
+
+   ```
+   aws iam create-policy --policy-name IDTGreengrassIAMPermissions --policy-document '<a name="customer-managed-policy-cli"></a>{
+       "Version": "2012-10-17",
+       "Statement": [
+           {
+               "Sid": "ManageRolePoliciesForIDTGreengrass",
+               "Effect": "Allow",
+               "Action": [
+                   "iam:DetachRolePolicy",
+                   "iam:AttachRolePolicy"
+               ],
+               "Resource": [
+                   "arn:aws:iam::*:role/idt-*",
+                   "arn:aws:iam::*:role/GreengrassServiceRole"
+               ],
+               "Condition": {
+                   "ArnEquals": {
+                       "iam:PolicyARN": [
+                           "arn:aws:iam::aws:policy/service-role/AWSGreengrassResourceAccessRolePolicy",
+                           "arn:aws:iam::aws:policy/service-role/GreengrassOTAUpdateArtifactAccess",
+                           "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                       ]
+                   }
+               }
+           },
+           {
+               "Sid": "ManageRolesForIDTGreengrass",
+               "Effect": "Allow",
+               "Action": [
+                   "iam:CreateRole",
+                   "iam:DeleteRole",
+                   "iam:PassRole",
+                   "iam:GetRole"
+               ],
+               "Resource": [
+                   "arn:aws:iam::*:role/idt-*",
+                   "arn:aws:iam::*:role/GreengrassServiceRole"
+               ]
+           }
+       ]
+   }'
+   ```
+
+------
+#### [ Windows command prompt ]
+
+   ```
+   aws iam create-policy --policy-name IDTGreengrassIAMPermissions --policy-document '{\"Version\": \"2012-10-17\", \"Statement\": [{\"Sid\": \"ManageRolePoliciesForIDTGreengrass\",\"Effect\": \"Allow\",\"Action\": [\"iam:DetachRolePolicy\", \"iam:AttachRolePolicy\"], \"Resource\": [\"arn:aws:iam::*:role/idt-*\",\"arn:aws:iam::*:role/GreengrassServiceRole\"],\"Condition\": {\"ArnEquals\": {\"iam:PolicyARN\": [\"arn:aws:iam::aws:policy/service-role/AWSGreengrassResourceAccessRolePolicy\",\"arn:aws:iam::aws:policy/service-role/GreengrassOTAUpdateArtifactAccess\",\"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole\"]}}},{\"Sid\": \"ManageRolesForIDTGreengrass\",\"Effect\": \"Allow\",\"Action\": [\"iam:CreateRole\",\"iam:DeleteRole\", \"iam:PassRole\", \"iam:GetRole\"],\"Resource\": [\"arn:aws:iam::*:role/idt-*\",\"arn:aws:iam::*:role/GreengrassServiceRole\"]}]}'
+   ```
+
+**Note**  
+This step includes a Windows command prompt example because it uses a different JSON syntax than Linux, macOS, or Unix terminal commands\.
+
+------
+
+1. Create an IAM user and attach the permissions required by IDT for AWS IoT Greengrass\.
+
+   1. Create an IAM user\. In this example setup, the user is named `IDTGreengrassUser`\.
+
+      ```
+      aws iam create-user --user-name IDTGreengrassUser
+      ```
+
+   1. Attach the `IDTGreengrassIAMPermissions` policy you created in step 2 to your IAM user\. Replace *<account\-id>* in the command with the ID of your AWS account\.
+
+      ```
+      aws iam attach-user-policy --user-name IDTGreengrassUser --policy-arn arn:aws:iam::<account-id>:policy/IDTGreengrassIAMPermissions
+      ```
+
+   1. Attach the `AWSIoTDeviceTesterForGreengrassFullAccess` policy to your IAM user\.
+
+      ```
+      aws iam attach-user-policy --user-name IDTGreengrassUser --policy-arn arn:aws:iam::aws:policy/AWSIoTDeviceTesterForGreengrassFullAccess
+      ```
+**Note**  <a name="AWSIoTDeviceTesterForGreengrassFullAccess"></a>
+The [AWSIoTDeviceTesterForGreengrassFullAccess](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSIoTDeviceTesterForGreengrassFullAccess) is an AWS managed policy that defines the permissions IDT requires to create and access AWS resources used for testing\. For more information, see [AWS Managed Policy for AWS IoT Device Tester](#idt-managed-policy)\.
+
+1. Create a secret access key for the user\.
+
+   ```
+   aws iam create-access-key --user-name IDTGreengrassUser
+   ```
+
+   Store the output in a secure location\. You use this information later to configure your AWS credentials file\.
+
+1. <a name="aws-account-config-next-steps"></a>Next step: Configure your [physical device](device-config-setup.md) or [Docker container](docker-config-setup.md)\.
+
+## AWS Managed Policy for AWS IoT Device Tester<a name="idt-managed-policy"></a>
+
+The [AWSIoTDeviceTesterForGreengrassFullAccess](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSIoTDeviceTesterForGreengrassFullAccess) managed policy allows IDT to run operations and collect usage metrics\. This policy grants the following IDT permissions:
++ `iot-device-tester:CheckVersion`\. Check whether a set of AWS IoT Greengrass, test suite, and IDT versions are compatible\.
++ `iot-device-tester:DownloadTestSuite`\. Download test suites\.
++ `iot-device-tester:LatestIdt`\. Get information about the latest IDT version that is available for download\.
++ `iot-device-tester:SendMetrics`\. Publish usage data that IDT collects about your tests\.
++ `iot-device-tester:SupportedVersion`\. Get the list of AWS IoT Greengrass and test suite versions that are supported by IDT\. This information is displayed in the command\-line window\.

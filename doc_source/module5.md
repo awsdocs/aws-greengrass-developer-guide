@@ -4,7 +4,7 @@ This advanced module shows you how AWS IoT Greengrass devices can interact with 
 
 ![\[AWS IoT Greengrass core is connected to a traffic light device shadow and a light switch device.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-077.5.png)
 
-Before you begin, make sure that you have completed [Module 1](module1.md) and [Module 2](module2.md)\. You should also understand how to connect devices to an AWS IoT Greengrass core \([Module 4](module4.md)\)\. You do not need other components or devices\.
+Before you begin, run the [Greengrass Device Setup](quick-start.md) script, or make sure that you have completed [Module 1](module1.md) and [Module 2](module2.md)\. You should also understand how to connect devices to an AWS IoT Greengrass core \([Module 4](module4.md)\)\. You do not need other components or devices\.
 
 This module should take about 30 minutes to complete\.
 

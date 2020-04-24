@@ -13,6 +13,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 3 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/3` | 
 | 2 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/2` | 
 | 1 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/1` | 
 
@@ -21,7 +22,7 @@ For information about version changes, see the [Changelog](#docker-app-connector
 ## Requirements<a name="docker-app-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core software v1\.10\.
++ AWS IoT Greengrass Core software v1\.10 or later\.
 **Note**  
 This connector is not supported on OpenWrt distributions\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
@@ -38,6 +39,9 @@ We recommend that you install a credentials store to secure the local copies of 
 
    
 + [Docker Compose](https://docs.docker.com/compose/install/) installed on the Greengrass core\. The `docker-compose` executable must be in the `/usr/bin` or `/usr/local/bin` directory\.
+
+  We recommend that you use Docker Compose versions that are verified to work with the connector\.    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/docker-app-connector.html)
 
    
 + A single Docker Compose file \(for example, `docker-compose.yml`\), stored in Amazon S3\. The format must be compatible with the version of Docker Compose installed on the core\. You should test the file before you use it on your core\. If you edit the file after you deploy the Greengrass group, you must redeploy the group to update your local copy on the core\.
@@ -67,7 +71,7 @@ We recommend that you install a credentials store to secure the local copies of 
   For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
 
    
-+ <a name="docker-app-connector-ecr-perms"></a>If your Compose file references a Docker image stored in Amazon ECR, an IAM policy added to the Greengrass [group role](group-role.md) that allows the following:
++ <a name="docker-app-connector-ecr-perms"></a>If your Docker Compose file references a Docker image stored in Amazon ECR, an IAM policy added to the Greengrass [group role](group-role.md) that allows the following:
   + `ecr:GetDownloadUrlForLayer` and `ecr:BatchGetImage` actions on your Amazon ECR repositories that contain the Docker images\.
   + `ecr:GetAuthorizationToken` action on your resources\.
 
@@ -177,10 +181,10 @@ It is your responsibility to secure the `DockerComposeFileDestinationPath` direc
 
 ## Parameters<a name="docker-app-connector-param"></a>
 
-This connector has the following requirements:
+This connector provides the following parameters:
 
 ------
-#### [ Version 2 ]<a name="docker-app-connector-parameters-v1"></a>
+#### [ Versions 2 \- 3 ]<a name="docker-app-connector-parameters-v1"></a>
 
 `DockerComposeFileS3Bucket`  
 The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
@@ -311,7 +315,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyDockerAppplicationDeploymentConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/2",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/3",
             "Parameters": {
                 "DockerComposeFileS3Bucket": "myS3Bucket",
                 "DockerComposeFileS3Key": "production-docker-compose.yml",
@@ -460,7 +464,7 @@ AWS IoT Greengrass supports the following communication channels between Greengr
 You can configure a Docker container as a Greengrass device and add it to a Greengrass group\. Then, you can create subscriptions that allow MQTT communication between the Docker container and Greengrass components or AWS IoT\. In the following procedure, you create a subscription that allows the Docker container device to receive shadow update messages from the local shadow service\. You can follow this pattern to create other subscriptions\.
 
 **Note**  
-In this procedure, we assume you have already created a Greengrass group and a Greengrass core \(v1\.10\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
+In this procedure, we assume you have already created a Greengrass group and a Greengrass core \(v1\.10 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
 
 **To configure a Docker container as a Greengrass device and add it to a Greengrass group**
 
@@ -621,6 +625,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 3 | Fixed an issue with finding environment variables\. | 
 | 2 | Added the `ForceDeploy` parameter\. | 
 | 1 | Initial release\.  | 
 

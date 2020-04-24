@@ -40,7 +40,7 @@ Configure IDT to test the AWS IoT Greengrass Core software installed on your dev
 "greengrassLocation" : "<path-to-greengrass-on-device>"
 ```
 
-For more information about the `device.json` file, see [Device Configuration](set-config.md#device-config)\.
+For more information about the `device.json` file, see [Configure device\.json](set-config.md#device-config)\.
 
 On Linux devices, the default location of the AWS IoT Greengrass Core software is `/greengrass`\.
 
@@ -54,7 +54,7 @@ IDT runs on your host computer and must be able to use SSH to connect to your de
 
 1. Follow the instructions here to create an SSH key pair and authorize your key to sign in to your device under test without specifying a password\.
 
-1. Provide a user name and password for each device in the `device.json` file\. For more information, see [Device Configuration](set-config.md#device-config)\.
+1. Provide a user name and password for each device in the `device.json` file\. For more information, see [Configure device\.json](set-config.md#device-config)\.
 
 You can use any SSL implementation to create an SSH key\. The following instructions show you how to use [SSH\-KEYGEN](https://www.ssh.com/ssh/keygen/) or [ PuTTYgen](https://www.ssh.com/ssh/putty/windows/puttygen) \(for Windows\)\. If you are using another SSL implementation, refer to the documentation for that implementation\.
 
@@ -112,7 +112,7 @@ Windows does not have an installed SSH client\. For information about installing
 
       1. Use vi or another text editor to append the public key to the `/home/<user>/.ssh/authorized_keys` file on your device under test\.
 
-1. Update your `device.json` file with your user name, the IP address, and path to the private key file that you just saved on your host computer for each device under test\. For more information, see [Device Configuration](set-config.md#device-config)\. Make sure you provide the full path and file name to the private key and use forward slashes \('/'\)\. For example, for the Windows path `C:\DT\privatekey.pem`, use `C:/DT/privatekey.pem` in the `device.json` file\. 
+1. Update your `device.json` file with your user name, the IP address, and path to the private key file that you just saved on your host computer for each device under test\. For more information, see [Configure device\.json](set-config.md#device-config)\. Make sure you provide the full path and file name to the private key and use forward slashes \('/'\)\. For example, for the Windows path `C:\DT\privatekey.pem`, use `C:/DT/privatekey.pem` in the `device.json` file\. 
 
 ## Configure User Permissions on Your Device<a name="root-access"></a>
 

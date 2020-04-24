@@ -2,7 +2,7 @@
 
 This tutorial shows you how to use the AWS CLI to create and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
 
-## <a name="w31aac22c28b6"></a>
+## <a name="w31aac23c28b6"></a>
 
 Stream manager makes ingesting, processing, and exporting high\-volume data streams easier and more reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
 
@@ -15,7 +15,7 @@ When you use the AWS IoT Greengrass API \(in this tutorial, Greengrass CLI comma
 ## Prerequisites<a name="stream-manager-cli-prerequisites"></a>
 
 To complete this tutorial, you need:<a name="stream-manager-howto-prereqs"></a>
-+ A Greengrass group and a Greengrass core \(v1\.10\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
++ A Greengrass group and a Greengrass core \(v1\.10 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 **Note**  <a name="stream-manager-not-supported-openwrt"></a>
 Stream manager is not supported on OpenWrt distributions\.
 + The Java 8 runtime \(JDK 8\) installed on the core device\.<a name="install-java8-runtime-general"></a>
@@ -90,7 +90,7 @@ The tutorial should take about 30 minutes to complete\.
 
 ## Step 1: Create a Lambda Function Deployment Package<a name="stream-manager-cli-create-deployment-package"></a>
 
-### <a name="w31aac22c28c21b4"></a>
+### <a name="w31aac23c28c21b4"></a>
 
 In this step, you create a Lambda function deployment package that contains function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
 

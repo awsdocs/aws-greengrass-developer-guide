@@ -70,7 +70,7 @@ To configure IDT to use the environment variables, edit the `auth` section in yo
 }
 ```
 
-## Device Configuration<a name="device-config"></a>
+## Configure device\.json<a name="device-config"></a>
 
 In addition to AWS credentials, IDT for AWS IoT Greengrass needs information about the devices that tests are run on \(for example, IP address, login information, operating system, and CPU architecture\)\.
 
@@ -186,8 +186,8 @@ An array that contains the device's supported features\.
 **Note**  
 When you use IDT to test AWS IoT Greengrass running in a Docker container, the `os` field is your Docker operating system and `arch` is your Docker architecture\. Currently, only the x86\_64 Docker architecture is supported\.
 
-`hsm (optional)`  
-Contains configuration information for testing with an AWS IoT Greengrass Hardware Security Module \(HSM\)\. Otherwise, the `<hsm>` element should be omitted\. For more information, see [Hardware Security Integration](hardware-security.md)\.  
+`hsm`  
+Optional\. Contains configuration information for testing with an AWS IoT Greengrass Hardware Security Module \(HSM\)\. Otherwise, the `hsm` property should be omitted\. For more information, see [Hardware Security Integration](hardware-security.md)\.  
 <a name="connectivity-protocol-ssh-only"></a>This property applies only if `connectivity.protocol` is set to `ssh`\.    
 `hsm.p11Provider`  
 The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  
@@ -241,4 +241,4 @@ For physical devices, this value is only used when you use an existing installat
 When running tests in a Docker container from Docker image or Dockerfile provided by AWS IoT Greengrass, set this value to `/greengrass`\.
 
 `kernelConfigLocation`  
-\(Optional\) The path to the kernel configuration file\. AWS IoT Device Tester uses this file to check if the devices have the required kernel features enabled\. If not specified, IDT uses the following paths to search for the kernel configuration file: `/proc/config.gz` and `/boot/config-<kernel-version>`\. AWS IoT Device Tester uses the first path it finds\.
+Optional\. The path to the kernel configuration file\. AWS IoT Device Tester uses this file to check if the devices have the required kernel features enabled\. If not specified, IDT uses the following paths to search for the kernel configuration file: `/proc/config.gz` and `/boot/config-<kernel-version>`\. AWS IoT Device Tester uses the first path it finds\.

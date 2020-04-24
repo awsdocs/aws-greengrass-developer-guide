@@ -195,7 +195,10 @@ The `aws-iot-greengrass-core` package also installs `systemd` scripts that you c
 
 ## Run AWS IoT Greengrass in a Docker Container<a name="gg-docker-support"></a>
 
-AWS IoT Greengrass provides a Dockerfile and Docker image that make it easier for you to run the AWS IoT Greengrass Core software in a Docker container\. For more information, see [AWS IoT Greengrass Docker Software](what-is-gg.md#gg-docker-download)\.
+AWS IoT Greengrass provides a Dockerfile and Docker images that make it easier for you to run the AWS IoT Greengrass Core software in a Docker container\. For more information, see [AWS IoT Greengrass Docker Software](what-is-gg.md#gg-docker-download)\.
+
+**Note**  
+You can also run a Docker application on a Greengrass core device\. To do so, use the [Greengrass Docker application deployment connector](docker-app-connector.md)\.
 
  
 
