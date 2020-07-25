@@ -1,4 +1,4 @@
-# Create Bulk Deployments for Groups<a name="bulk-deploy-cli"></a>
+# Create bulk deployments for groups<a name="bulk-deploy-cli"></a>
 
  You can use simple API calls to deploy large numbers of Greengrass groups at once\. These deployments are triggered with an adaptive rate that has a fixed upper limit\. 
 
@@ -6,26 +6,26 @@
 
  The tutorial contains the following high\-level steps: 
 
-1. [Create and Upload the Bulk Deployment Input File](#bulk-deploy-cli-create-input-file)
+1. [Create and upload the bulk deployment input file](#bulk-deploy-cli-create-input-file)
 
-1. [Create and Configure an IAM Execution Role](#bulk-deploy-cli-create-role)
+1. [Create and configure an IAM execution role](#bulk-deploy-cli-create-role)
 
-1. [Allow Your Execution Role Access to Your S3 Bucket](#bulk-deploy-cli-modify-bucket)
+1. [Allow your execution role access to your S3 Bucket](#bulk-deploy-cli-modify-bucket)
 
-1. [Deploy the Groups](#bulk-deploy-cli-start-bulk-deployments)
+1. [Deploy the groups](#bulk-deploy-cli-start-bulk-deployments)
 
-1. [Test the Deployment](#bulk-deploy-cli-test)
+1. [Test the deployment](#bulk-deploy-cli-test)
 
 ## Prerequisites<a name="bulk-deploy-cli-prerequisites"></a>
 
  To complete this tutorial, you need: 
-+  One or more deployable Greengrass groups\. For more information about creating AWS IoT Greengrass groups and cores, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
++  One or more deployable Greengrass groups\. For more information about creating AWS IoT Greengrass groups and cores, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. 
 +  The AWS CLI installed and configured on your machine\. For information, see the [ AWS CLI User Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)\. 
-+ An S3 bucket created in the same AWS Region as AWS IoT Greengrass\. For information, see [ Creating and Configuring an S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-configure-bucket.html)\. 
++ An S3 bucket created in the same AWS Region as AWS IoT Greengrass\. For information, see [ Creating and configuring an S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-configure-bucket.html) in the *Amazon Simple Storage Service Console User Guide*\. 
 **Note**  
  Currently, SSE KMS enabled buckets are not supported\. 
 
-## Step 1: Create and Upload the Bulk Deployment Input File<a name="bulk-deploy-cli-create-input-file"></a>
+## Step 1: Create and upload the bulk deployment input file<a name="bulk-deploy-cli-create-input-file"></a>
 
  In this step, you create a deployment input file and upload it to your Amazon S3 bucket\. This file is a serialized, line\-delimited JSON file that contains information about each group in your bulk deployment\. AWS IoT Greengrass uses this information to deploy each group on your behalf when you initialize your bulk group deployment\. 
 
@@ -93,19 +93,19 @@
 
     Save and close your file\. Make a note of the location of the file\. 
 
-1.  Use the following command in your terminal to upload your input file to your Amazon S3 bucket\. Replace the file path with the location and name of your file\. For information, see [Add an Object to a Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html)\. 
+1.  Use the following command in your terminal to upload your input file to your Amazon S3 bucket\. Replace the file path with the location and name of your file\. For information, see [Add an object to a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html)\. 
 
    ```
    aws s3 cp path/MyBulkDeploymentInputFile s3://my-bucket/
    ```
 
-## Step 2: Create and Configure an IAM Execution Role<a name="bulk-deploy-cli-create-role"></a>
+## Step 2: Create and configure an IAM execution role<a name="bulk-deploy-cli-create-role"></a>
 
  In this step, you use the IAM console to create a standalone execution role\. You then establish a trust relationship between the role and AWS IoT Greengrass and ensure that your IAM user has `PassRole` privileges for your execution role\. This allows AWS IoT Greengrass to assume your execution role and create the deployments on your behalf\. 
 
 1.  Use the following policy to create an execution role\. This policy document allows AWS IoT Greengrass to access your bulk deployment input file when it creates each deployment on your behalf\. 
 
-    For more information about creating an IAM role and delegating permissions, see [Creating IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html)\. 
+    For more information about creating an IAM role and delegating permissions, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html)\. 
 
    ```
     {
@@ -132,7 +132,7 @@
    "Resource": ["*"]
    ```
 
-1.  Modify the trust relationship for your execution role to include AWS IoT Greengrass\. This allows AWS IoT Greengrass to use your execution role and the permissions attached to it\. For information, see [Editing the Trust Relationship for an Existing Role](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/edit_trust.html)\. 
+1.  Modify the trust relationship for your execution role to include AWS IoT Greengrass\. This allows AWS IoT Greengrass to use your execution role and the permissions attached to it\. For information, see [Editing the trust relationship for an existing role](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/edit_trust.html)\. 
 
    ```
    {
@@ -150,7 +150,7 @@
    }
    ```
 
-1.  Give IAM `PassRole` permissions for your execution role to your IAM user\. This IAM user is the one used to initiate the bulk deployment\. `PassRole` permissions allow your IAM user to pass your execution role to AWS IoT Greengrass for use\. For more information, see [Granting a User Permissions to Pass a Role to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html)\. 
+1.  Give IAM `PassRole` permissions for your execution role to your IAM user\. This IAM user is the one used to initiate the bulk deployment\. `PassRole` permissions allow your IAM user to pass your execution role to AWS IoT Greengrass for use\. For more information, see [Granting a user permissions to pass a role to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html)\. 
 
     Use the following example to update your trust policy document\. Modify this example, as necessary\. 
 
@@ -172,11 +172,11 @@
    }
    ```
 
-## Step 3: Allow Your Execution Role Access to Your S3 Bucket<a name="bulk-deploy-cli-modify-bucket"></a>
+## Step 3: Allow your execution role access to your S3 Bucket<a name="bulk-deploy-cli-modify-bucket"></a>
 
  To start your bulk deployment, your execution role must be able to read your bulk deployment input file from your Amazon S3 bucket\. Attach the following example policy to your Amazon S3 bucket so its `GetObject` permissions are accessible to your execution role\. 
 
- For more information, see [ How Do I Add an S3 Bucket Policy?](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/add-bucket-policy.html) 
+ For more information, see [ How do I add an S3 bucket policy?](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/add-bucket-policy.html) 
 
 ```
 {
@@ -222,7 +222,7 @@ aws s3api get-bucket-policy --bucket my-bucket
 }
 ```
 
-## Step 4: Deploy the Groups<a name="bulk-deploy-cli-start-bulk-deployments"></a>
+## Step 4: Deploy the groups<a name="bulk-deploy-cli-start-bulk-deployments"></a>
 
  In this step, you start a bulk deployment operation for all group versions configured in your bulk deployment input file\. The deployment action for each of your group versions is of type `NewDeploymentType`\. 
 
@@ -251,7 +251,7 @@ aws s3api get-bucket-policy --bucket my-bucket
 
     Make a note of the bulk deployment ID\. It can be used to check the status of your bulk deployment\. 
 **Note**  
-Although bulk deployment operations are not currently supported, you can create Amazon EventBridge event rules to get notifications about deployment status changes for individual groups\. For more information, see [Get Deployment Notifications](deployment-notifications.md)\.
+Although bulk deployment operations are not currently supported, you can create Amazon EventBridge event rules to get notifications about deployment status changes for individual groups\. For more information, see [Get deployment notifications](deployment-notifications.md)\.
 
 1.  Use the following command to check the status of your bulk deployment\. 
 
@@ -297,7 +297,7 @@ Although bulk deployment operations are not currently supported, you can create 
 
     You can periodically check the status of the bulk deployment to confirm that it is progressing as expected\. After the deployment is complete, `RecordsProcessed` should be equal to the number of deployment groups in your bulk deployment input file\. This indicates that each record has been processed\. 
 
-## Step 5: Test the Deployment<a name="bulk-deploy-cli-test"></a>
+## Step 5: Test the deployment<a name="bulk-deploy-cli-test"></a>
 
  Use the ListBulkDeployments command to find the ID of your bulk deployment\. 
 
@@ -353,11 +353,11 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
  The information returned can change until the deployments are in a terminal state \(success or failure\)\. You can call this command periodically until then\. 
 
-## Troubleshooting Bulk Deployments<a name="bulk-deploy-cli-troubleshooting"></a>
+## Troubleshooting bulk deployments<a name="bulk-deploy-cli-troubleshooting"></a>
 
  If the bulk deployment is not successful, you can try the following troubleshooting steps\. Run the commands in your terminal\. 
 
-### Troubleshoot input file errors<a name="w31aac13c28c23b5"></a>
+### Troubleshoot input file errors<a name="w51aac15c28c23b5"></a>
 
  The bulk deployment can fail in the event of syntax errors in the bulk deployment input file\. This returns a bulk deployment status of `Failed` with an error message indicating the line number of the first validation error\. There are four possible errors: 
 + 
@@ -389,7 +389,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
    This error indicates that the given input file line is not considered valid json\. 
 
-### Check for concurrent bulk deployments<a name="w31aac13c28c23b7"></a>
+### Check for concurrent bulk deployments<a name="w51aac15c28c23b7"></a>
 
  You cannot start a new bulk deployment while another one is still running or in a non\-terminal state\. This can result in a `Concurrent Deployment Error`\. You can use the ListBulkDeployments command to verify that a bulk deployment is not currently running\. This command lists your bulk deployments from most to least recent\. 
 
@@ -414,7 +414,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  This action results in a status of `Stopping` until the deployment is `Stopped`\. After the deployment has reached a `Stopped` status, you can start a new bulk deployment\. 
 
-### Check ErrorDetails<a name="w31aac13c28c23b9"></a>
+### Check ErrorDetails<a name="w51aac15c28c23b9"></a>
 
  Run the `GetBulkDeploymentStatus` command to return a JSON payload that contains information about any bulk deployment execution failure\. 
 
@@ -430,7 +430,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  When exiting with an error, the `ErrorDetails` JSON payload that is returned by this call contains more information about the bulk deployment execution failure\. An error status code in the `400` series, for example, indicates an input error, either in the input parameters or the caller dependencies\. 
 
-### Check the AWS IoT Greengrass core log<a name="w31aac13c28c23c11"></a>
+### Check the AWS IoT Greengrass core log<a name="w51aac15c28c23c11"></a>
 
  You can troubleshoot issues by viewing the AWS IoT Greengrass core logs\. Use the following commands to view `runtime.log`: 
 
@@ -439,11 +439,11 @@ cd /greengrass/ggc/var/log
 sudo cat system/runtime.log | more
 ```
 
-For more information about AWS IoT Greengrass logging, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\. 
+For more information about AWS IoT Greengrass logging, see [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)\. 
 
-## See Also<a name="bulk-deploy-cli-see-also"></a>
+## See also<a name="bulk-deploy-cli-see-also"></a>
 
 For more information, see the following resources:
-+ [Deploy AWS IoT Greengrass Groups to an AWS IoT Greengrass Core](deployments.md)
++ [Deploy AWS IoT Greengrass groups to an AWS IoT Greengrass core](deployments.md)
 + [Amazon S3 API commands](https://docs.aws.amazon.com/cli/latest/reference/s3api) in the *AWS CLI Command Reference*
 + <a name="see-also-gg-cli"></a>[AWS IoT Greengrass commands](https://docs.aws.amazon.com/cli/latest/reference/greengrass/index.html) in the *AWS CLI Command Reference*

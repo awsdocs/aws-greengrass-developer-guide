@@ -1,4 +1,4 @@
-# Test Communications<a name="comms-test"></a>
+# Test communications<a name="comms-test"></a>
 
 1. On your computer, open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows\. Just as in [Module 5](module5.md), one window is for the GG\_Switch device and the other is for the GG\_TrafficLight device\. You use them to run the same commands that you ran in Module 5\.
 

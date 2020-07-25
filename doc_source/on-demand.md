@@ -1,4 +1,4 @@
-# Test On\-Demand Lambda Functions<a name="on-demand"></a>
+# Test on\-demand Lambda functions<a name="on-demand"></a>
 
 An *[on\-demand](lambda-functions.md#lambda-lifecycle)* Lambda function is similar in functionality to a cloud\-based AWS Lambda function\. Multiple invocations of an on\-demand Lambda function can run in parallel\. An invocation of the Lambda function creates a separate container to process invocations or reuses an existing container, if resources permit\. Any variables or preprocessing that are defined outside of the function handler are not retained when containers are created\.
 

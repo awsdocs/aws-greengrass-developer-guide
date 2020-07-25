@@ -1,4 +1,4 @@
-# Test Long\-Lived Lambda Functions<a name="long-testing"></a>
+# Test long\-lived Lambda functions<a name="long-testing"></a>
 
 A *[long\-lived](lambda-functions.md#lambda-lifecycle)* Lambda function starts automatically when the AWS IoT Greengrass core starts and runs in a single container \(or sandbox\)\. Any variables and preprocessing logic defined outside of the function handler are retained for every invocation of the function handler\. Multiple invocations of the function handler are queued until earlier invocations have been executed\.
 
@@ -33,7 +33,7 @@ In this step, you create subscriptions that allow the Lambda function and AWS Io
 
    The `/trigger` extension is used in this topic filter because you created two subscriptions and don't want them to interfere with each other\.
 
-1. Make sure that the Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
+1. Make sure that the Greengrass daemon is running, as described in [Deploy cloud configurations to a core device](configs-core.md)\.
 
 1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)

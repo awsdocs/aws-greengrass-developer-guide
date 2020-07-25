@@ -1,4 +1,4 @@
-# Configure Subscriptions<a name="config-subs"></a>
+# Configure subscriptions<a name="config-subs"></a>
 
 In this step, you enable the HelloWorld\_Publisher device to send MQTT messages to the HelloWorld\_Subscriber device\.
 
@@ -16,7 +16,13 @@ In this step, you enable the HelloWorld\_Publisher device to send MQTT messages 
 **Note**  
 You can delete subscriptions from the previous modules\. On the group's **Subscriptions** page, choose the ellipsis \(**…**\) associated with a subscription, and then choose **Delete**\.
 
-1. Make sure that the Greengrass daemon is running, as described in [Deploy Cloud Configurations to a Core Device](configs-core.md)\.
+1. <a name="enable-automatic-detection"></a>Make sure that automatic detection is enabled so the Greengrass core can publish a list of its IP addresses\. Devices use this information to discover the core\.
+
+   1. On the group configuration page, choose **Settings**\.
+
+   1. Under **Core connectivity information**, for **Local connection detection**, choose **Automatically detect and override connection information**\.
+
+1. Make sure that the Greengrass daemon is running, as described in [Deploy cloud configurations to a core device](configs-core.md)\.
 
 1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
 ![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)

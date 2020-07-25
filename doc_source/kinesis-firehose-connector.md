@@ -9,9 +9,10 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 3 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/`3 | 
-| 2 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/`2 | 
-| 1 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/`1 | 
+| 4 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/4` | 
+| 3 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/3` | 
+| 2 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/2` | 
+| 1 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/1` | 
 
 For information about version changes, see the [Changelog](#kinesis-firehose-connector-changelog)\.
 
@@ -20,11 +21,11 @@ For information about version changes, see the [Changelog](#kinesis-firehose-con
 This connector has the following requirements:
 
 ------
-#### [ Versions 2 and 3 ]
-+ AWS IoT Greengrass Core Software v1\.7 or later\.
-+ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose Delivery Stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
-+ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `firehose:PutRecord` and `firehose:PutRecordBatch` actions on the target delivery stream, as shown in the following example:
+#### [ Version 4 ]
++ <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
++ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose delivery stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
++ <a name="req-kinesis-firehose-iam-policy-v2"></a>The [Greengrass group role](group-role.md) configured to allow the `firehose:PutRecord` and `firehose:PutRecordBatch` actions on the target delivery stream, as shown in the following example IAM policy\.
 
   ```
   {
@@ -45,14 +46,46 @@ This connector has the following requirements:
    }
   ```
 
-  <a name="role-resources"></a>This connector allows you to dynamically override the default delivery stream in the input message payload\. If your implementation uses this feature, the IAM policy should include all target streams as resources\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+  This connector allows you to dynamically override the default delivery stream in the input message payload\. If your implementation uses this feature, the IAM policy should include all target streams as resources\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\.
+
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
+
+------
+#### [ Versions 2 \- 3 ]
++ <a name="conn-req-ggc-v1.7.0"></a>AWS IoT Greengrass Core software v1\.7 or later\.
++ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose delivery stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
++ <a name="req-kinesis-firehose-iam-policy-v2"></a>The [Greengrass group role](group-role.md) configured to allow the `firehose:PutRecord` and `firehose:PutRecordBatch` actions on the target delivery stream, as shown in the following example IAM policy\.
+
+  ```
+  {
+      "Version":"2012-10-17",
+      "Statement":[
+          {
+              "Sid":"Stmt1528133056761",
+              "Action":[
+                  "firehose:PutRecord",
+                  "firehose:PutRecordBatch"
+              ],
+              "Effect":"Allow",
+              "Resource":[
+                  "arn:aws:firehose:region:account-id:deliverystream/stream-name"
+              ]
+          }
+      ]
+   }
+  ```
+
+  This connector allows you to dynamically override the default delivery stream in the input message payload\. If your implementation uses this feature, the IAM policy should include all target streams as resources\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\.
+
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
 
 ------
 #### [ Version 1 ]
-+ AWS IoT Greengrass Core Software v1\.7 or later\.
++ <a name="conn-req-ggc-v1.7.0"></a>AWS IoT Greengrass Core software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose Delivery Stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
-+ An IAM policy added to the Greengrass group role that allows the `firehose:PutRecord` action on the target delivery stream, as shown in the following example:
++ <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose delivery stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
++ The [Greengrass group role](group-role.md) configured to allow the `firehose:PutRecord` action on the target delivery stream, as shown in the following example IAM policy\.
 
   ```
   {
@@ -72,7 +105,9 @@ This connector has the following requirements:
    }
   ```
 
-  <a name="role-resources"></a>This connector allows you to dynamically override the default delivery stream in the input message payload\. If your implementation uses this feature, the IAM policy should include all target streams as resources\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+  <a name="role-resources"></a>This connector allows you to dynamically override the default delivery stream in the input message payload\. If your implementation uses this feature, the IAM policy should include all target streams as resources\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\.
+
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
 
 ------
 
@@ -81,7 +116,7 @@ This connector has the following requirements:
 This connector provides the following parameters:
 
 ------
-#### [ Versions 2 and 3 ]
+#### [ Versions 2 \- 4 ]
 
 `DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
 The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
@@ -135,7 +170,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyKinesisFirehoseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/3",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/4",
             "Parameters": {
                 "DefaultDeliveryStreamArn": "arn:aws:firehose:region:account-id:deliverystream/stream-name",
                 "DeliveryStreamQueueSize": "5000",
@@ -147,16 +182,16 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 }'
 ```
 
-In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
-## Input Data<a name="kinesis-firehose-connector-data-input"></a>
+## Input data<a name="kinesis-firehose-connector-data-input"></a>
 
 This connector accepts stream content on MQTT topics, and then sends the content to the target delivery stream\. It accepts two types of input data:
 + JSON data on the `kinesisfirehose/message` topic\.
 + Binary data on the `kinesisfirehose/message/binary/#` topic\.
 
 ------
-#### [ Versions 2 and 3 ]<a name="kinesis-firehose-input-data"></a>
+#### [ Versions 2 \- 4 ]<a name="kinesis-firehose-input-data"></a>
 
 **Topic filter**: `kinesisfirehose/message`  
 Use this topic to send a message that contains JSON data\.    
@@ -241,14 +276,14 @@ If you don't want to map a request to a response, you can publish your messages 
 
 ------
 
-## Output Data<a name="kinesis-firehose-connector-data-output"></a>
+## Output data<a name="kinesis-firehose-connector-data-output"></a>
 
-This connector publishes status information as output data\.
+This connector publishes status information as output data on an MQTT topic\.
 
 ------
-#### [ Versions 2 and 3 ]
+#### [ Versions 2 \- 4 ]
 
-**Topic filter**  <a name="kinesis-firehose-output-topic-status"></a>
+<a name="topic-filter"></a>**Topic filter in subscription**  <a name="kinesis-firehose-output-topic-status"></a>
 `kinesisfirehose/message/status`
 
 **Example output**  
@@ -281,7 +316,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 ------
 #### [ Version 1 ]
 
-**Topic filter**  <a name="kinesis-firehose-output-topic-status"></a>
+<a name="topic-filter"></a>**Topic filter in subscription**  <a name="kinesis-firehose-output-topic-status"></a>
 `kinesisfirehose/message/status`
 
 **Example output: Success**  
@@ -313,10 +348,42 @@ If the connector detects a retryable error \(for example, connection errors\), i
 
 ## Usage Example<a name="kinesis-firehose-connector-usage"></a>
 
-The following example Lambda function sends an input message to the connector\. This message contains JSON data\.
+<a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
-**Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
+**Note**  <a name="connectors-setup-get-started-topics"></a>
+The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
+
+ 
+
+1. Make sure you meet the [requirements](#kinesis-firehose-connector-req) for the connector\.
+
+   <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
+
+1. <a name="connectors-setup-function"></a>Create and publish a Lambda function that sends input data to the connector\.
+
+   Save the [example code](#kinesis-firehose-connector-usage-example) as a PY file\. <a name="connectors-setup-function-sdk"></a>Download and unzip the [AWS IoT Greengrass Core SDK for Python](lambda-functions.md#lambda-sdks-core)\. Then, create a zip package that contains the PY file and the `greengrasssdk` folder at the root level\. This zip package is the deployment package that you upload to AWS Lambda\.
+
+   <a name="connectors-setup-function-publish"></a>After you create the Python 3\.7 Lambda function, publish a function version and create an alias\.
+
+1. Configure your Greengrass group\.
+
+   1. <a name="connectors-setup-gg-function"></a>Add the Lambda function by its alias \(recommended\)\. Configure the Lambda lifecycle as long\-lived \(or `"Pinned": true` in the CLI\)\.
+
+   1. Add the connector and configure its [parameters](#kinesis-firehose-connector-param)\.
+
+   1. Add subscriptions that allow the connector to receive [JSON input data](#kinesis-firehose-connector-data-input) and send [output data](#kinesis-firehose-connector-data-output) on supported topic filters\.
+      + <a name="connectors-setup-subscription-input-data"></a>Set the Lambda function as the source, the connector as the target, and use a supported input topic filter\.
+      + <a name="connectors-setup-subscription-output-data"></a>Set the connector as the source, AWS IoT Core as the target, and use a supported output topic filter\. You use this subscription to view status messages in the AWS IoT console\.
+
+1. <a name="connectors-setup-deploy-group"></a>Deploy the group\.
+
+1. <a name="connectors-setup-test-sub"></a>In the AWS IoT console, on the **Test** page, subscribe to the output data topic to view status messages from the connector\. The example Lambda function is long\-lived and starts sending messages immediately after the group is deployed\.
+
+   When you're finished testing, you can set the Lambda lifecycle to on\-demand \(or `"Pinned": false` in the CLI\) and deploy the group\. This stops the function from sending messages\.
+
+### Example<a name="kinesis-firehose-connector-usage-example"></a>
+
+The following example Lambda function sends an input message to the connector\. This message contains JSON data\.
 
 ```
 import greengrasssdk
@@ -336,20 +403,26 @@ def create_request_with_all_fields():
 
 def publish_basic_message():
     messageToPublish = create_request_with_all_fields()
-    print "Message To Publish: ", messageToPublish
+    print("Message To Publish: ", messageToPublish)
     iot_client.publish(topic=send_topic,
         payload=json.dumps(messageToPublish))
 
 publish_basic_message()
 
-def function_handler(event, context):
+def lambda_handler(event, context):
     return
 ```
 
 ## Licenses<a name="kinesis-firehose-connector-license"></a>
 
-The Kinesis Firehose connector includes the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
+The Kinesis Firehose connector includes the following third\-party software/licensing:<a name="boto-3-licenses"></a>
++ [AWS SDK for Python \(Boto3\)](https://pypi.org/project/boto3/)/Apache License 2\.0
++ [botocore](https://pypi.org/project/botocore/)/Apache License 2\.0
++ [dateutil](https://pypi.org/project/python-dateutil/1.4/)/PSF License
++ [docutils](https://pypi.org/project/docutils/)/BSD License, GNU General Public License \(GPL\), Python Software Foundation License, Public Domain
++ [jmespath](https://pypi.org/project/jmespath/)/MIT License
++ [s3transfer](https://pypi.org/project/s3transfer/)/Apache License 2\.0
++ [urllib3](https://pypi.org/project/urllib3/)/MIT License
 
 This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
@@ -360,14 +433,15 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 4 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 3 | Fix to reduce excessive logging and other minor bug fixes\.  | 
 | 2 | Added support for sending batched data records to Kinesis Data Firehose at a specified interval\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/kinesis-firehose-connector.html)  | 
 | 1 | Initial release\.  | 
 
-A Greengrass group can contain only one version of the connector at a time\.
+<a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
-## See Also<a name="kinesis-firehose-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
-+ [What Is Amazon Kinesis Data Firehose?](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html) in the *Amazon Kinesis Developer Guide*
+## See also<a name="kinesis-firehose-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)
++ [What is Amazon Kinesis Data Firehose?](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html) in the *Amazon Kinesis Developer Guide*

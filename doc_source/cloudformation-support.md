@@ -1,10 +1,10 @@
-# AWS CloudFormation Support for AWS IoT Greengrass<a name="cloudformation-support"></a>
+# AWS CloudFormation support for AWS IoT Greengrass<a name="cloudformation-support"></a>
 
-AWS CloudFormation is a service that can help you create, manage, and replicate your AWS resources\. You can use AWS CloudFormation templates to define AWS IoT Greengrass groups and the devices, subscriptions, and other components that you want to deploy\. For an example, see [Example Template](#cloudformation-support-example)\.
+AWS CloudFormation is a service that can help you create, manage, and replicate your AWS resources\. You can use AWS CloudFormation templates to define AWS IoT Greengrass groups and the devices, subscriptions, and other components that you want to deploy\. For an example, see [Example template](#cloudformation-support-example)\.
 
-The resources and infrastructure that you generate from a template is called a *stack*\. You can define all of your resources in one template or refer to resources from other stacks\. For more information about AWS CloudFormation templates and features, see [What Is AWS CloudFormation?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) in the *AWS CloudFormation User Guide*\.
+The resources and infrastructure that you generate from a template is called a *stack*\. You can define all of your resources in one template or refer to resources from other stacks\. For more information about AWS CloudFormation templates and features, see [What is AWS CloudFormation?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) in the *AWS CloudFormation User Guide*\.
 
-## Creating Resources<a name="cloudformation-support-create"></a>
+## Creating resources<a name="cloudformation-support-create"></a>
 
 AWS CloudFormation templates are JSON or YAML documents that describe the properties and relationships of AWS resources\. The following AWS IoT Greengrass resources are supported:
 + Groups
@@ -16,18 +16,18 @@ AWS CloudFormation templates are JSON or YAML documents that describe the proper
 + Subscriptions
 + Loggers \(logging configurations\)
 
-In AWS CloudFormation templates, the structure and syntax of Greengrass resources are based on the AWS IoT Greengrass API\. For example, the [example template](#cloudformation-support-example) associates a top\-level `DeviceDefinition` with a `DeviceDefinitionVersion` that contains an individual device\. For more information, see [Overview of the AWS IoT Greengrass Group Object Model](deployments.md#api-overview)\.
+In AWS CloudFormation templates, the structure and syntax of Greengrass resources are based on the AWS IoT Greengrass API\. For example, the [example template](#cloudformation-support-example) associates a top\-level `DeviceDefinition` with a `DeviceDefinitionVersion` that contains an individual device\. For more information, see [Overview of the AWS IoT Greengrass group object model](deployments.md#api-overview)\.
 
-The [AWS IoT Greengrass Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Greengrass.html) in the *AWS CloudFormation User Guide* describes the Greengrass resources that you can manage with AWS CloudFormation\. When you use AWS CloudFormation templates to create Greengrass resources, we recommend that you manage them only from AWS CloudFormation\. For example, you should update your template if you want to add, change, or remove a device \(instead of using the AWS IoT Greengrass API or AWS IoT console\)\. This allows you to use rollback and other AWS CloudFormation change management features\. For more information about using AWS CloudFormation to create and manage your resources and stacks, see [Working with Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) in the *AWS CloudFormation User Guide*\.
+The [AWS IoT Greengrass resource types reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Greengrass.html) in the *AWS CloudFormation User Guide* describes the Greengrass resources that you can manage with AWS CloudFormation\. When you use AWS CloudFormation templates to create Greengrass resources, we recommend that you manage them only from AWS CloudFormation\. For example, you should update your template if you want to add, change, or remove a device \(instead of using the AWS IoT Greengrass API or AWS IoT console\)\. This allows you to use rollback and other AWS CloudFormation change management features\. For more information about using AWS CloudFormation to create and manage your resources and stacks, see [Working with stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) in the *AWS CloudFormation User Guide*\.
 
-For a walkthrough that shows how to create and deploy AWS IoT Greengrass resources in an AWS CloudFormation template, see [Automating AWS IoT Greengrass Setup with AWS CloudFormation](https://aws.amazon.com/blogs/iot/automating-aws-iot-greengrass-setup-with-aws-cloudformation/) on The Internet of Things on AWS Official Blog\.
+For a walkthrough that shows how to create and deploy AWS IoT Greengrass resources in an AWS CloudFormation template, see [Automating AWS IoT Greengrass setup with AWS CloudFormation](https://aws.amazon.com/blogs/iot/automating-aws-iot-greengrass-setup-with-aws-cloudformation/) on The Internet of Things on AWS Official Blog\.
 
-## Deploying Resources<a name="cloudformation-support-deploy"></a>
+## Deploying resources<a name="cloudformation-support-deploy"></a>
 
 After you create an AWS CloudFormation stack that contains your group version, you can use the AWS CLI or AWS IoT console to deploy it\.
 
 **Note**  
-To deploy a group, you must have a Greengrass service role associated with your AWS account\. The service role allows AWS IoT Greengrass to access your resources in AWS Lambda and other AWS services\. This role should exist if you already deployed a Greengrass group in the current AWS Region\. For more information, see [Greengrass Service Role](service-role.md)\.
+To deploy a group, you must have a Greengrass service role associated with your AWS account\. The service role allows AWS IoT Greengrass to access your resources in AWS Lambda and other AWS services\. This role should exist if you already deployed a Greengrass group in the current AWS Region\. For more information, see [Greengrass service role](service-role.md)\.
 
 **To deploy the group \(AWS CLI\)**  
 + Run the [https://docs.aws.amazon.com/greengrass/latest/apireference/createdeployment-post.html](https://docs.aws.amazon.com/greengrass/latest/apireference/createdeployment-post.html) command\.
@@ -49,7 +49,7 @@ The `CommandToDeployGroup` statement in the [example template](#cloudformation-s
 
    This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-## Example Template<a name="cloudformation-support-example"></a>
+## Example template<a name="cloudformation-support-example"></a>
 
 The following example template creates a Greengrass group that contains a core, device, function, logger, subscription, and two resources\. To do this, the template follows the object model of the AWS IoT Greengrass API\. For example, the devices that you want to add to the group are contained in a `DeviceDefinitionVersion` resource, which is associated with a `DeviceDefinition` resource\. To add the devices to the group, the group version references the ARN of the `DeviceDefinitionVersion`\.
 
@@ -371,6 +371,11 @@ The `CommandToDeployGroup` statement in the example shows how to output a comple
                     "ResourceDefinitionVersionArn": {
                         "Ref": "TestResourceDefinitionVersion"
                     }
+                },
+                "Tags": {
+                    "KeyName0": "value",
+                    "KeyName1": "value",
+                    "KeyName2": "value"
                 }
             }
         }
@@ -579,6 +584,10 @@ Resources:
         SubscriptionDefinitionVersionArn: !Ref TestSubscriptionDefinitionVersion
         LoggerDefinitionVersionArn: !Ref TestLoggerDefinitionVersion
         ResourceDefinitionVersionArn: !Ref TestResourceDefinitionVersion
+      Tags:
+        KeyName0: value
+        KeyName1: value
+        KeyName2: value
 Outputs:
   CommandToDeployGroup:
     Value: !Join 

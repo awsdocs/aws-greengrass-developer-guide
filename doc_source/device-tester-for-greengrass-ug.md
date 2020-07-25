@@ -24,4 +24,4 @@ IDT for AWS IoT Greengrass organizes tests using the concepts of *test suites* a
 + A test suite is the set of test groups used to verify that a device works with particular versions of AWS IoT Greengrass\.
 + A test group is the set of individual tests related to a particular feature, such as Greengrass group deployments and MQTT messaging\.
 
- For more information, see [Test Suite Versions](run-tests.md#idt-test-suite-versions) and [Test Group Descriptions](dt-test-groups.md)\.
+ For more information, see [Test suite versions](run-tests.md#idt-test-suite-versions) and [Test group descriptions](dt-test-groups.md)\.

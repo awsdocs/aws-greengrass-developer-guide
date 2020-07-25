@@ -1,8 +1,8 @@
-# How To Create a Secret Resource \(Console\)<a name="secrets-console"></a>
+# How to create a secret resource \(console\)<a name="secrets-console"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
-This tutorial shows how to use the AWS Management Console to add a *secret resource* to a Greengrass group\. A secret resource is a reference to a secret from AWS Secrets Manager\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
+This tutorial shows how to use the AWS Management Console to add a *secret resource* to a Greengrass group\. A secret resource is a reference to a secret from AWS Secrets Manager\. For more information, see [Deploy secrets to the AWS IoT Greengrass core](secrets.md)\.
 
 On the AWS IoT Greengrass core device, connectors and Lambda functions can use the secret resource to authenticate with services and applications, without hard\-coding passwords, tokens, or other credentials\.
 
@@ -10,44 +10,46 @@ In this tutorial, you start by creating a secret in the AWS Secrets Manager cons
 
 **Note**  
 Alternatively, the console allows you to create a secret and secret resource when you configure a connector or Lambda function\. You can do this from the connector's **Configure parameters** page or the Lambda function's **Resources** page\.  
-Only connectors that contain parameters for secrets can access secrets\. For a tutorial that shows how the Twilio Notifications connector uses a locally stored authentication token, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+Only connectors that contain parameters for secrets can access secrets\. For a tutorial that shows how the Twilio Notifications connector uses a locally stored authentication token, see [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
 The tutorial contains the following high\-level steps:
 
-1. [Create a Secrets Manager Secret](#secrets-console-create-secret)
+1. [Create a Secrets Manager secret](#secrets-console-create-secret)
 
-1. [Add a Secret Resource to a Group](#secrets-console-create-resource)
+1. [Add a secret resource to a group](#secrets-console-create-resource)
 
-1. [Create a Lambda Function Deployment Package](#secrets-console-create-deployment-package)
+1. [Create a Lambda function deployment package](#secrets-console-create-deployment-package)
 
-1. [Create a Lambda Function](#secrets-console-create-function)
+1. [Create a Lambda function](#secrets-console-create-function)
 
-1. [Add the Function to the Group](#secrets-console-create-gg-function)
+1. [Add the function to the group](#secrets-console-create-gg-function)
 
-1. [Attach the Secret Resource to the Function](#secrets-console-affiliate-gg-function)
+1. [Attach the secret resource to the function](#secrets-console-affiliate-gg-function)
 
-1. [Add Subscriptions to the Group](#secrets-console-create-subscription)
+1. [Add subscriptions to the group](#secrets-console-create-subscription)
 
-1. [Deploy the Group](#secrets-console-create-deployment)
+1. [Deploy the group](#secrets-console-create-deployment)
+
+1. [Test the Lambda function](#secrets-console-test-solution)
 
 The tutorial should take about 20 minutes to complete\.
 
 ## Prerequisites<a name="secrets-console-prerequisites"></a>
 
 To complete this tutorial, you need:
-+ A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
++ A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 + AWS IoT Greengrass must be configured to support local secrets\. For more information, see [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
-This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
+This requirement includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
 + To get the values of local secrets, your user\-defined Lambda functions must use AWS IoT Greengrass Core SDK v1\.3\.0 or later\.
 
-## Step 1: Create a Secrets Manager Secret<a name="secrets-console-create-secret"></a>
+## Step 1: Create a Secrets Manager secret<a name="secrets-console-create-secret"></a>
 
 In this step, you use the AWS Secrets Manager console to create a secret\.
 
 1. <a name="create-secret-step-signin"></a>Sign in to the [AWS Secrets Manager console](https://console.aws.amazon.com/secretsmanager/)\.
 **Note**  
-For more information about this process, see [ Step 1: Create and Store Your Secret in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html) in the *AWS Secrets Manager User Guide*\.
+For more information about this process, see [ Step 1: Create and store your secret in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html) in the *AWS Secrets Manager User Guide*\.
 
 1. <a name="create-secret-step-create"></a>Choose **Store a new secret**\.
 
@@ -72,7 +74,7 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
    Next, you create a secret resource in your Greengrass group that references the secret\.
 
-## Step 2: Add a Secret Resource to a Greengrass Group<a name="secrets-console-create-resource"></a>
+## Step 2: Add a secret resource to a Greengrass group<a name="secrets-console-create-resource"></a>
 
 In this step, you configure a group resource that references the Secrets Manager secret\.
 
@@ -96,7 +98,7 @@ This tutorial requires the AWSCURRENT label only\. You can optionally include la
 
 1. On the **Name your secret resource** page, enter **MyTestSecret**, and then choose **Save**\.
 
-## Step 3: Create a Lambda Function Deployment Package<a name="secrets-console-create-deployment-package"></a>
+## Step 3: Create a Lambda function deployment package<a name="secrets-console-create-deployment-package"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -143,7 +145,7 @@ Make sure that your user\-defined Lambda functions handle secrets securely and d
 
    This is your Lambda function deployment package\.
 
-## Step 4: Create a Lambda Function<a name="secrets-console-create-function"></a>
+## Step 4: Create a Lambda function<a name="secrets-console-create-function"></a>
 
 In this step, you use the AWS Lambda console to create a Lambda function and configure it to use your deployment package\. Then, you publish a function version and create an alias\.
 
@@ -197,7 +199,7 @@ AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
 Now you're ready to add the Lambda function to your Greengrass group and attach the secret resource\.
 
-## Step 5: Add the Lambda Function to the Greengrass Group<a name="secrets-console-create-gg-function"></a>
+## Step 5: Add the Lambda function to the Greengrass group<a name="secrets-console-create-gg-function"></a>
 
 In this step, you add the Lambda function to the Greengrass group in the AWS IoT console\.
 
@@ -213,7 +215,7 @@ In this step, you add the Lambda function to the Greengrass group in the AWS IoT
 
 Next, affiliate the secret resource with the function\.
 
-## Step 6: Attach the Secret Resource to the Lambda Function<a name="secrets-console-affiliate-gg-function"></a>
+## Step 6: Attach the secret resource to the Lambda function<a name="secrets-console-affiliate-gg-function"></a>
 
 In this step, you attach the secret resource to the Lambda function in your Greengrass group\. This affiliates the resource with the function, which allows the function to get the value of the local secret\.
 
@@ -226,7 +228,7 @@ In this step, you attach the secret resource to the Lambda function in your Gree
 
 1. On the **Select a secret resource from your group** page, choose **MyTestSecret**, and then choose **Save**\.
 
-## Step 7: Add Subscriptions to the Greengrass Group<a name="secrets-console-create-subscription"></a>
+## Step 7: Add subscriptions to the Greengrass group<a name="secrets-console-create-subscription"></a>
 
 In this step, you add subscriptions that allow AWS IoT and the Lambda function to exchange messages\. One subscription allows AWS IoT to invoke the function, and one allows the function to send output data to AWS IoT\.
 
@@ -255,7 +257,7 @@ In this step, you add subscriptions that allow AWS IoT and the Lambda function t
 
    1. For **Topic filter**, enter **secrets/output**\.
 
-## Step 8: Deploy the Greengrass Group<a name="secrets-console-create-deployment"></a>
+## Step 8: Deploy the Greengrass group<a name="secrets-console-create-deployment"></a>
 
 Deploy the group to the core device\. During deployment, AWS IoT Greengrass fetches the value of the secret from Secrets Manager and creates a local, encrypted copy on the core\.
 
@@ -292,7 +294,7 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
    For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-## Test the Function<a name="secrets-console-test-solution"></a>
+## Test the Lambda function<a name="secrets-console-test-solution"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
@@ -305,5 +307,5 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
    If successful, the function publishes a "Success" message\.
 
-## See Also<a name="secrets-console-see-also"></a>
-+ [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)
+## See also<a name="secrets-console-see-also"></a>
++ [Deploy secrets to the AWS IoT Greengrass core](secrets.md)

@@ -1,4 +1,4 @@
-# Test Communications \(Device Syncs Enabled\)<a name="comms-enabled"></a>
+# Test communications \(device syncs enabled\)<a name="comms-enabled"></a>
 
 For this test, you configure the GG\_TrafficLight device shadow to sync to AWS IoT\. You run the same commands as in the previous test, but this time the shadow state in the cloud is updated when GG\_Switch sends an update request\.
 

@@ -1,29 +1,29 @@
-# How to Configure Local Resource Access Using the AWS Management Console<a name="lra-console"></a>
+# How to configure local resource access using the AWS Management Console<a name="lra-console"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
-You can configure Lambda functions to securely access local resources on the host Greengrass core device\. *Local resources* refer to buses and peripherals that are physically present on the host, or file system volumes on the host OS\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md)\.
+You can configure Lambda functions to securely access local resources on the host Greengrass core device\. *Local resources* refer to buses and peripherals that are physically present on the host, or file system volumes on the host OS\. For more information, including requirements and constraints, see [Access local resources with Lambda functions and connectors](access-local-resources.md)\.
 
 This tutorial describes how to use the AWS Management Console to configure access to local resources that are present on an AWS IoT Greengrass core device\. It contains the following high\-level steps:
 
-1. [Create a Lambda Function Deployment Package](#lra-console-create-package)
+1. [Create a Lambda function deployment package](#lra-console-create-package)
 
-1. [Create and Publish a Lambda Function](#lra-console-create-function)
+1. [Create and publish a Lambda function](#lra-console-create-function)
 
-1. [Add the Lambda Function to the Group](#lra-console-add-function)
+1. [Add the Lambda function to the group](#lra-console-add-function)
 
-1. [Add a Local Resource to the Group](#lra-console-create-resource)
+1. [Add a local resource to the group](#lra-console-create-resource)
 
-1. [Add Subscriptions to the Group](#lra-console-add-subscription)
+1. [Add subscriptions to the group](#lra-console-add-subscription)
 
-1. [Deploy the Group](#lra-console-deploy-group)
+1. [Deploy the group](#lra-console-deploy-group)
 
-For a tutorial that uses the AWS Command Line Interface, see [How to Configure Local Resource Access Using the AWS Command Line Interface](lra-cli.md)\.
+For a tutorial that uses the AWS Command Line Interface, see [How to configure local resource access using the AWS command line interface](lra-cli.md)\.
 
 ## Prerequisites<a name="lra-console-prerequisites"></a>
 
 To complete this tutorial, you need:
-+ A Greengrass group and a Greengrass core \(v1\.3 or later\)\. To create a Greengrass group or core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
++ A Greengrass group and a Greengrass core \(v1\.3 or later\)\. To create a Greengrass group or core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\.
 + The following directories on the Greengrass core device:
   + /src/LRAtest
   + /dest/LRAtest
@@ -34,7 +34,7 @@ To complete this tutorial, you need:
   sudo chmod 0775 /src/LRAtest
   ```
 
-## Step 1: Create a Lambda Function Deployment Package<a name="lra-console-create-package"></a>
+## Step 1: Create a Lambda function deployment package<a name="lra-console-create-package"></a>
 
 In this step, you create a Lambda function deployment package, which is a ZIP file that contains the function's code and dependencies\. You also download the AWS IoT Greengrass Core SDK to include in the package as a dependency\.
 
@@ -85,7 +85,7 @@ In this step, you create a Lambda function deployment package, which is a ZIP fi
 
    The `lraTestLambda.zip` file is your Lambda function deployment package\. Now you're ready to create a Lambda function and upload the deployment package\.
 
-## Step 2: Create and Publish a Lambda Function<a name="lra-console-create-function"></a>
+## Step 2: Create and publish a Lambda function<a name="lra-console-create-function"></a>
 
 In this step, you use the AWS Lambda console to create a Lambda function and configure it to use your deployment package\. Then, you publish a function version and create an alias\.
 
@@ -152,7 +152,7 @@ AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
    You can now add the Lambda function to your Greengrass group\.
 
-## Step 3: Add the Lambda Function to the Greengrass Group<a name="lra-console-add-function"></a>
+## Step 3: Add the Lambda function to the Greengrass group<a name="lra-console-add-function"></a>
 
 In this step, you add the function to your group and configure the function's lifecycle\.
 
@@ -188,7 +188,7 @@ Lambda functions that use local resources \(as described in this procedure\) mus
 
 1. At the bottom of the page, choose **Update**\.
 
-## Step 4: Add a Local Resource to the Greengrass Group<a name="lra-console-create-resource"></a>
+## Step 4: Add a local resource to the Greengrass group<a name="lra-console-create-resource"></a>
 
 In this step, you add a local volume resource to the Greengrass group and grant the function read and write access to the resource\. A local resource has a group\-level scope\. You can grant permissions for any Lambda function in the group to access the resource\.
 
@@ -213,7 +213,7 @@ In this step, you add a local volume resource to the Greengrass group and grant 
 
    1. Under **Group owner file access permission**, select **Automatically add OS group permissions of the Linux group that owns the resource**\.
 
-      The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.  
+      The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group owner file access permission](access-local-resources.md#lra-group-owner)\.  
 ![\[The Create a local resource page with Save highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/lra-console/create-local-resource.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
@@ -223,7 +223,7 @@ In this step, you add a local volume resource to the Greengrass group and grant 
 
 1. At the bottom of the page, choose **Save**\. The **Resources** page displays the new testDirectory resource\.
 
-## Step 5: Add Subscriptions to the Greengrass Group<a name="lra-console-add-subscription"></a>
+## Step 5: Add subscriptions to the Greengrass group<a name="lra-console-add-subscription"></a>
 
 In this step, you add two subscriptions to the Greengrass group\. These subscriptions enable bidirectional communication between the Lambda function and AWS IoT\.
 
@@ -266,7 +266,7 @@ First, create a subscription for the Lambda function to send messages to AWS IoT
 
 1. Choose **Finish**\. The **Subscriptions** page displays both subscriptions\.
 
-## Step 6: Deploy the AWS IoT Greengrass Group<a name="lra-console-deploy-group"></a>
+## Step 6: Deploy the AWS IoT Greengrass group<a name="lra-console-deploy-group"></a>
 
 In this step, you deploy the current version of the group definition\.
 
@@ -278,7 +278,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.1/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.2/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -305,7 +305,7 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
    For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-## Test Local Resource Access<a name="lra-console-test-results"></a>
+## Test local resource access<a name="lra-console-test-results"></a>
 
 Now you can verify whether the local resource access is configured correctly\. To test, you subscribe to the `LRA/test` topic and publish to the `invoke/LRAFunction` topic\. The test is successful if the Lambda function sends the expected payload to AWS IoT\.
 

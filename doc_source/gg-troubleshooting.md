@@ -4,12 +4,12 @@ This section provides troubleshooting information and possible solutions to help
 
 <a name="gg-limits-genref"></a>For information about AWS IoT Greengrass quotas \(limits\), see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html#limits_greengrass) in the *Amazon Web Services General Reference*\.
 
-## AWS IoT Greengrass Core Issues<a name="gg-troubleshooting-coreissues"></a>
+## AWS IoT Greengrass Core issues<a name="gg-troubleshooting-coreissues"></a>
 
 If the AWS IoT Greengrass Core software does not start, try the following general troublehooting steps:
 + Make sure that you install the binaries that are appropriate for your architecture\. For more information, see [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab)\.
-+ Make sure that your core device has local storage available\. For more information, see [Troubleshooting Storage Issues](#troubleshooting-storage)\.
-+ Check `runtime.log` and `crash.log` for error messages\. For more information, see [Troubleshooting with Logs](#troubleshooting-logs)\.
++ Make sure that your core device has local storage available\. For more information, see [Troubleshooting storage issues](#troubleshooting-storage)\.
++ Check `runtime.log` and `crash.log` for error messages\. For more information, see [Troubleshooting with logs](#troubleshooting-logs)\.
 
 Search the following symptoms and errors to find information to help troubleshoot issues with an AWS IoT Greengrass core\.
 
@@ -22,6 +22,7 @@ Search the following symptoms and errors to find information to help troubleshoo
 + [Error: Unable to create server due to: failed to load group: chmod /<greengrass\-root>/ggc/deployment/lambda/arn:aws:lambda:<region>:<account\-id>:function:<function\-name>:<version>/<file\-name>: no such file or directory\.](#troubleshoot-lambda-executable-handler)
 + [The AWS IoT Greengrass Core software doesn't start after you changed from running with no containerization to running in a Greengrass container\.](#troubleshoot-no-container)
 + [Error: Spool size should be at least 262144 bytes\.](#troubleshoot-spool-size)
++ [Error: \[ERROR\]\-Cloud messaging error: Error occurred while trying to publish a message\. \{"errorString": "operation timed out"\}](#troubleshoot-mqtt-operation-timed-out)
 + [Error: container\_linux\.go:344: starting container process caused "process\_linux\.go:424: container init caused \\"rootfs\_linux\.go:64: mounting \\\\\\"/greengrass/ggc/socket/greengrass\_ipc\.sock\\\\\\" to rootfs \\\\\\"/greengrass/ggc/packages/<version>/rootfs/merged\\\\\\" at \\\\\\"/greengrass\_ipc\.sock\\\\\\" caused \\\\\\"stat /greengrass/ggc/socket/greengrass\_ipc\.sock: permission denied\\\\\\"\\""\.](#troubleshoot-umask-permission)
 + [Error: Greengrass daemon running with PID: <process\-id>\. Some system components failed to start\. Check 'runtime\.log' for errors\.](#troubleshoot-system-components)
 + [Device shadow does not sync with the cloud\.](#troubleshoot-shadow-sync)
@@ -32,7 +33,9 @@ Search the following symptoms and errors to find information to help troubleshoo
 + [The AWS IoT Greengrass core is configured to use a [network proxy](gg-core.md#alpn-network-proxy) and your Lambda function can't make outgoing connections\.](#troubleshoot-lambda-proxy-network-connections)
 + [The core is in an infinite connect\-disconnect loop\. The runtime\.log file contains a continuous series of connect and disconnect entries\.](#config-client-id)
 + [Error: unable to start lambda container\. container\_linux\.go:259: starting container process caused "process\_linux\.go:345: container init caused \\"rootfs\_linux\.go:62: mounting \\\\\\"proc\\\\\\" to rootfs \\\\\\"](#troubleshoot-mount-proc-lambda-container)
-+ [Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/ packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengr ass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}](#troubleshoot-symbolic-links)
++ [\[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to mask greengrass root in overlay upper dir: failed to create mask device at directory <ggc\-path>: file exists"\}](#troubleshoot-usr-access-root)
++ [\[ERROR\]\-Deployment failed\. \{"deploymentId": "<deployment\-id>", "errorString": "container test process with pid <pid> failed: container process state: exit status 1"\}](#troubleshoot-usr-access-root-canary)
++ [Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}](#troubleshoot-symbolic-links)
 + [Error: \[DEBUG\]\-Failed to get routes\. Discarding message\.](#troubleshoot-failed-to-get-routes)
 + [Error: \[Errno 24\] Too many open <lambda\-function>,\[Errno 24\] Too many open files](#troubleshoot-too-many-open-files)
 
@@ -42,7 +45,7 @@ Search the following symptoms and errors to find information to help troubleshoo
 
 **Solution:** You might see this error in `crash.log` when the AWS IoT Greengrass Core software does not start\. This can occur if you're running v1\.6 or earlier\. Do one of the following:
 + Upgrade to v1\.7 or later\. We recommend that you always run the latest version of the AWS IoT Greengrass Core software\. For download information, see [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab)\.
-+ Use the correct `config.json` format for your AWS IoT Greengrass Core software version\. For more information, see [AWS IoT Greengrass Core Configuration File](gg-core.md#config-json)\.
++ Use the correct `config.json` format for your AWS IoT Greengrass Core software version\. For more information, see [AWS IoT Greengrass core configuration file](gg-core.md#config-json)\.
 **Note**  
 <a name="find-ggc-version-intro"></a>To find which version of the AWS IoT Greengrass Core software is installed on the core device, run the following commands in your device terminal\.  
 
@@ -103,7 +106,7 @@ cd /greengrass/ggc/core/
 sudo ./greengrassd start
 ```
 
-Then, use the [AWS Lambda API](https://docs.aws.amazon.com/cli/latest/reference/lambda/) to update the function configuration's `handler` parameter, publish a new function version, and update the alias\. For more information, see [AWS Lambda Function Versioning and Aliases](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
+Then, use the [AWS Lambda API](https://docs.aws.amazon.com/cli/latest/reference/lambda/) to update the function configuration's `handler` parameter, publish a new function version, and update the alias\. For more information, see [AWS Lambda function versioning and aliases](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 
 Assuming that you added the function to your Greengrass group by alias \(recommended\), you can now redeploy your group\. \(If not, you must point to the new function version or alias in your group definition and subscriptions before you deploy the group\.\)
 
@@ -124,7 +127,28 @@ cd /greengrass/ggc/core/
 sudo ./greengrassd start
 ```
 
-Then follow the steps in the [To Cache Messages in Local Storage](gg-core.md#configure-local-storage-cache) procedure\. For the `GGCloudSpooler` function, make sure to specify a `GG_CONFIG_MAX_SIZE_BYTES` value that's greater than or equal to 262144\.
+Then follow the steps in the [To cache messages in local storage](gg-core.md#configure-local-storage-cache) procedure\. For the `GGCloudSpooler` function, make sure to specify a `GG_CONFIG_MAX_SIZE_BYTES` value that's greater than or equal to 262144\.
+
+ 
+
+### Error: \[ERROR\]\-Cloud messaging error: Error occurred while trying to publish a message\. \{"errorString": "operation timed out"\}<a name="troubleshoot-mqtt-operation-timed-out"></a>
+
+**Solution:** You might see this error in `GGCloudSpooler.log` when the Greengrass core is unable to send MQTT messages to AWS IoT Core\. This can occur if the core environment has limited bandwidth and high latency\. If you're running AWS IoT Greengrass v1\.10\.2 or later, try increasing the `mqttOperationTimeout` value in the [config\.json](gg-core.md#config-json) file\. If the property is not present, add it to the `coreThing` object\. For example:
+
+```
+{
+  "coreThing": {
+    "mqttOperationTimeout": 10,
+    "caPath": "root-ca.pem",
+    "certPath": "hash.cert.pem",
+    "keyPath": "hash.private.key",
+    ...
+  },
+  ...
+}
+```
+
+The default value is `5` and the minimum value is `5`\.
 
  
 
@@ -136,7 +160,7 @@ Then follow the steps in the [To Cache Messages in Local Storage](gg-core.md#con
 
 ### Error: Greengrass daemon running with PID: <process\-id>\. Some system components failed to start\. Check 'runtime\.log' for errors\.<a name="troubleshoot-system-components"></a>
 
-**Solution:** You might see this error when the AWS IoT Greengrass Core software does not start\. Check `runtime.log` and `crash.log` for specific error information\. For more information, see [Troubleshooting with Logs](#troubleshooting-logs)\.
+**Solution:** You might see this error when the AWS IoT Greengrass Core software does not start\. Check `runtime.log` and `crash.log` for specific error information\. For more information, see [Troubleshooting with logs](#troubleshooting-logs)\.
 
  
 
@@ -144,7 +168,7 @@ Then follow the steps in the [To Cache Messages in Local Storage](gg-core.md#con
 
 **Solution:** Make sure that AWS IoT Greengrass has permissions for `iot:UpdateThingShadow` and `iot:GetThingShadow` actions in the [Greengrass service role](service-role.md)\. If the service role uses the `AWSGreengrassResourceAccessRolePolicy` managed policy, these permissions are included by default\.
 
-See [Troubleshooting Shadow Synchronization Timeout Issues](#troubleshooting-shadow-sync)\.
+See [Troubleshooting shadow synchronization timeout issues](#troubleshooting-shadow-sync)\.
 
  
 
@@ -171,7 +195,7 @@ In this example, the limit is increased to 2048\. Choose a value appropriate for
 
 ### Warning: \[WARN\]\-\[5\]GK Remote: Error retrieving public key data: ErrPrincipalNotConfigured: private key for MqttCertificate is not set\.<a name="troubleshoot-mqttcertificate-warning"></a>
 
-**Solution:** AWS IoT Greengrass uses a common handler to validate the properties of all security principals\. This warning in `runtime.log` is expected unless you specified a custom private key for the local MQTT server\. For more information, see [AWS IoT Greengrass Core Security Principals](gg-sec.md#gg-principals)\.
+**Solution:** AWS IoT Greengrass uses a common handler to validate the properties of all security principals\. This warning in `runtime.log` is expected unless you specified a custom private key for the local MQTT server\. For more information, see [AWS IoT Greengrass core security principals](gg-sec.md#gg-principals)\.
 
  
 
@@ -187,8 +211,10 @@ In this example, the limit is increased to 2048\. Choose a value appropriate for
 
 ```
 import os
-print(os.environ['HTTP_PROXY'])
+print(os.environ['http_proxy'])
 ```
+
+Use the same case as the variable defined in your environment, for example, all lower case `http_proxy` or all upper case `HTTP_PROXY`\. For these variables, AWS IoT Greengrass supports both\.
 
 **Note**  
 Most common libraries used to make connections \(such as boto3 or cURL and python `requests` packages\) use these environment variables by default\.
@@ -241,9 +267,60 @@ This issue is not related to mounting `/proc` for local resource access\.
 
  
 
-### Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/ packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengr ass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}<a name="troubleshoot-symbolic-links"></a>
+### \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to mask greengrass root in overlay upper dir: failed to create mask device at directory <ggc\-path>: file exists"\}<a name="troubleshoot-usr-access-root"></a>
 
-**Solution:** You might see this error in `runtime.log` on a Raspberry Pi if you're running AWS IoT Greengrass Core software v1\.9\.2 or earlier\. \(Your software version is shown in the error message\.\) To resolve this issue, update to AWS IoT Greengrass Core software v1\.9\.3 or later\. For information about using over\-the\-air updates, see [OTA Updates of AWS IoT Greengrass Core Software](core-ota-update.md)\.
+**Solution:** You might see this error in runtime\.log when the deployment fails\. This error occurs if a Lambda function in the AWS IoT Greengrass group cannot access the `/usr` directory in the core's file system\.
+
+To resolve this issue, add a local volume resource to the group and then deploy the group\. This resource must:
++ Specify `/usr` as the **Source path** and **Destination path**\.
++ Automatically add OS group permissions of the Linux group that owns the resource\.
++ Be affiliated with the Lambda function and allow read\-only access\.
+
+ 
+
+### \[ERROR\]\-Deployment failed\. \{"deploymentId": "<deployment\-id>", "errorString": "container test process with pid <pid> failed: container process state: exit status 1"\}<a name="troubleshoot-usr-access-root-canary"></a>
+
+**Solution:** You might see this error in runtime\.log when the deployment fails\. This error occurs if a Lambda function in the AWS IoT Greengrass group cannot access the `/usr` directory in the core's file system\.
+
+You can confirm that this is is the case by checking `GGCanary.log` for additional errors\. If the Lambda function cannot access the `/usr` directory, `GGCanary.log` will contain the following error:
+
+```
+[ERROR]-standard_init_linux.go:207: exec user process caused "no such file or directory"
+```
+
+To resolve this issue, add a local volume resource to the group and then deploy the group\. This resource must:
++ Specify `/usr` as the **Source path** and **Destination path**\.
++ Automatically add OS group permissions of the Linux group that owns the resource\.
++ Be affiliated with the Lambda function and allow read\-only access\.
+
+ 
+
+### Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}<a name="troubleshoot-symbolic-links"></a>
+
+**Solution:** You might see this error in `runtime.log` when the AWS IoT Greengrass Core software doesn't start and your Linux kernel version is 4\.19\.57 or earlier\. This issue might be more common on Debian operating systems\.
+
+To resolve this issue, do one of the following:
++ If you're running AWS IoT Greengrass Core software v1\.9\.3 or later, add the `system.useOverlayWithTmpfs` property to [config\.json](gg-core.md#config-json), and set the value to `true`\. For example:
+
+  ```
+  {
+    "system": {
+      "useOverlayWithTmpfs": true
+    },
+    "coreThing": {
+      "caPath": "root-ca.pem",
+      "certPath": "cloud.pem.crt",
+      "keyPath": "cloud.pem.key",
+      ...
+    },
+    ...
+  }
+  ```
++ If you're running AWS IoT Greengrass Core software v1\.9\.2 or earlier on a Raspberry Pi, update to AWS IoT Greengrass Core software v1\.9\.3 or later\. For information about over\-the\-air updates for AWS IoT Greengrass software, see [OTA updates of AWS IoT Greengrass Core software](core-ota-update.md)\.
++ Upgrade the Linux kernel on your device\. We recommend version 4\.4 or later\.
+
+**Note**  
+Your AWS IoT Greengrass Core software version is shown in the error message\. To find your Linux kernel version, run `uname -r`\.
 
  
 
@@ -255,11 +332,11 @@ This issue is not related to mounting `/proc` for local resource access\.
 
 ### Error: \[Errno 24\] Too many open <lambda\-function>,\[Errno 24\] Too many open files<a name="troubleshoot-too-many-open-files"></a>
 
-**Solution:** You might see this error in your Lambda function log file if the function instantiates `StreamManagerClient` in the function handler\. We recommend that you create the client outside the handler\. For more information, see [Use StreamManagerClient to Work with Streams](work-with-streams.md)\. 
+**Solution:** You might see this error in your Lambda function log file if the function instantiates `StreamManagerClient` in the function handler\. We recommend that you create the client outside the handler\. For more information, see [Use StreamManagerClient to work with streams](work-with-streams.md)\. 
 
  
 
-## Deployment Issues<a name="gg-troubleshooting-deploymentissues"></a>
+## Deployment issues<a name="gg-troubleshooting-deploymentissues"></a>
 
 Use the following information to help troubleshoot deployment issues\.
 
@@ -271,11 +348,13 @@ Use the following information to help troubleshoot deployment issues\.
 + [Error: unable to execute download step in deployment\. error while downloading: error while downloading the Group definition file: \.\.\. x509: certificate has expired or is not yet valid](#troubleshoot-x509-certificate-expired)
 + [Error: An error occurred during the signature verification\. The repository is not updated and the previous index files will be used\. GPG error: https://dnw9lb6lzp2d8\.cloudfront\.net stable InRelease: The following signatures couldn't be verified because the public key is not available: NO\_PUBKEY 68D644ABDEXAMPLE](#troubleshoot-expired-missing-key)
 + [The deployment doesn't finish\.](#troubleshoot-stuck-deployment)
-+ [Error: Unable to find java or java8 executables](#java-8-runtime-requirement)
++ [Error: Unable to find java or java8 executables, or the error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: worker with <worker\-id> failed to initialize with reason Installed Java version must be greater than or equal to 8](#java-8-runtime-requirement)
 + [The deployment doesn't finish, and runtime\.log contains multiple "wait 1s for container to stop" entries\.](#troubleshoot-wait-container-stop)
++ [The deployment doesn't finish, and `runtime.log` contains "\[ERROR\]\-Greengrass deployment error: failed to report deployment status back to cloud \{"deploymentId": "<deployment\-id>", "errorString": "Failed to initiate PUT, endpoint: https://<deployment\-status>, error: Put https://<deployment\-status>: proxyconnect tcp: x509: certificate signed by unknown authority"\}"](#troubleshoot-failed-to-report-deployment-status)
 + [Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Error while processing\. group config is invalid: 112 or \[119 0\] don't have rw permission on the file: <path>\.](#troubleshoot-access-permissions-deployment)
 + [Error: <list\-of\-function\-arns> are configured to run as root but Greengrass is not configured to run Lambda functions with root permissions\.](#troubleshoot-root-permissions-lambda)
 + [Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Greengrass deployment error: unable to execute download step in deployment\. error while processing: unable to load the group file downloaded: could not find UID based on user name, userName: ggc\_user: user: unknown user ggc\_user\.](#troubleshoot-could-not-find-uid)
++ [Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to mask greengrass root in overlay upper dir: failed to create mask device at directory <ggc\-path>: file exists"\}](#troubleshoot-failed-to-initialize-container-mounts)
 + [Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: process start failed: container\_linux\.go:259: starting container process caused "process\_linux\.go:250: running exec setns process for init caused \\"wait: no child processes\\""\.](#troubleshoot-wait-child-processes)
 + [Error: \[WARN\]\-MQTT\[client\] dial tcp: lookup <host\-prefix>\-ats\.iot\.<region>\.amazonaws\.com: no such host \.\.\. \[ERROR\]\-Greengrass deployment error: failed to report deployment status back to cloud \.\.\. net/http: request canceled while waiting for connection \(Client\.Timeout exceeded while awaiting headers\)](#troubleshoot-dnssec-validation-failed)
 
@@ -364,7 +443,7 @@ These AWS CLI commands use example values for the group and deployment ID\. When
 
 ### Error: Greengrass is not authorized to assume the Service Role associated with this account, or the error: Failed: TES service role is not associated with this account\.<a name="troubleshoot-assume-service-role"></a>
 
-**Solution:** You might see this error when the deployment fails\. Check that a Greengrass service role is associated with your AWS account in the current AWS Region\. For more information, see [Managing the Greengrass Service Role \(CLI\)](service-role.md#manage-service-role-cli) or [Managing the Greengrass Service Role \(Console\)](service-role.md#manage-service-role-console)\.
+**Solution:** You might see this error when the deployment fails\. Check that a Greengrass service role is associated with your AWS account in the current AWS Region\. For more information, see [Managing the Greengrass service role \(CLI\)](service-role.md#manage-service-role-cli) or [Managing the Greengrass service role \(console\)](service-role.md#manage-service-role-console)\.
 
  
 
@@ -383,7 +462,7 @@ wget -O aws-iot-greengrass-keyring.deb https://d1onfpft10uf5o.cloudfront.net/gre
 sudo dpkg -i aws-iot-greengrass-keyring.deb
 ```
 
-For more information, see [Using apt to Install the AWS IoT Greengrass Core Software](install-ggc.md#ggc-package-manager-install)\.
+For more information, see [Using apt to install the AWS IoT Greengrass Core software](install-ggc.md#ggc-package-manager-install)\.
 
  
 
@@ -398,7 +477,7 @@ For more information, see [Using apt to Install the AWS IoT Greengrass Core Soft
      ps aux | grep -E 'greengrass.*daemon'
      ```
 
-     If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.1/bin/daemon`, then the daemon is running\.
+     If the output contains a `root` entry for `/greengrass/ggc/packages/1.10.2/bin/daemon`, then the daemon is running\.
 
      The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -412,11 +491,11 @@ For more information, see [Using apt to Install the AWS IoT Greengrass Core Soft
 
  
 
-### Error: Unable to find java or java8 executables<a name="java-8-runtime-requirement"></a>
+### Error: Unable to find java or java8 executables, or the error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: worker with <worker\-id> failed to initialize with reason Installed Java version must be greater than or equal to 8<a name="java-8-runtime-requirement"></a>
 
-**Solution:** If stream manager is enabled for the AWS IoT Greengrass core, you must install the Java 8 runtime on the core device before you deploy the group\. For more information, see the steps in [Module 1: Environment Setup for Greengrass](module1.md) for your core device type\. Stream manager is enabled by default when you use the **Default Group creation** workflow in the AWS IoT console to create a group\.
+**Solution:** If stream manager is enabled for the AWS IoT Greengrass core, you must install the Java 8 runtime on the core device before you deploy the group\. For more information, see the [requirements](stream-manager.md#stream-manager-requirements) for stream manager\. Stream manager is enabled by default when you use the **Default Group creation** workflow in the AWS IoT console to create a group\.
 
-Or, disable stream manager and then deploy the group\. For more information, see [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)\.
+Or, disable stream manager and then deploy the group\. For more information, see [Configure stream manager settings \(console\)](configure-stream-manager.md#configure-stream-manager-console)\.
 
  
 
@@ -432,6 +511,41 @@ sudo ./greengrassd start
 
  
 
+### The deployment doesn't finish, and `runtime.log` contains "\[ERROR\]\-Greengrass deployment error: failed to report deployment status back to cloud \{"deploymentId": "<deployment\-id>", "errorString": "Failed to initiate PUT, endpoint: https://<deployment\-status>, error: Put https://<deployment\-status>: proxyconnect tcp: x509: certificate signed by unknown authority"\}"<a name="troubleshoot-failed-to-report-deployment-status"></a>
+
+**Solution:** You might see this error in `runtime.log` when the Greengrass core is configured to use an HTTPS proxy connection and the proxy server certificate chain isn't trusted on the system\. To try to resolve this issue, add the certificate chain to the root CA certificate\. The Greengrass core adds the certificates from this file to the certificate pool used for TLS authentication in HTTPS and MQTT connections with AWS IoT Greengrass\.
+
+The following example shows a proxy server CA certificate added to the root CA certificate file:
+
+```
+# My proxy CA
+-----BEGIN CERTIFICATE-----
+MIIEFTCCAv2gAwIQWgIVAMHSAzWG/5YVRYtRQOxXUTEpHuEmApzGCSqGSIb3DQEK
+\nCwUAhuL9MQswCQwJVUzEPMAVUzEYMBYGA1UECgwP1hem9uLmNvbSBJbmMuMRww
+... content of proxy CA certificate ...
++vHIRlt0e5JAm5\noTIZGoFbK82A0/nO7f/t5PSIDAim9V3Gc3pSXxCCAQoFYnui
+GaPUlGk1gCE84a0X\n7Rp/lND/PuMZ/s8YjlkY2NmYmNjMCAXDTE5MTEyN2cM216
+gJMIADggEPADf2/m45hzEXAMPLE=
+-----END CERTIFICATE-----
+
+# Amazon Root CA 1
+-----BEGIN CERTIFICATE-----
+MIIDQTCCAimgF6AwIBAgITBmyfz/5mjAo54vB4ikPmljZKyjANJmApzyMZFo6qBg
+ADA5MQswCQYDVQQGEwJVUzEPMA0tMVT8QtPHRh8jrdkGA1UEChMGDV3QQDExBBKW
+... content of root CA certificate ...
+o/ufQJQWUCyziar1hem9uMRkwFwYVPSHCb2XV4cdFyQzR1KldZwgJcIQ6XUDgHaa
+5MsI+yMRQ+hDaXJiobldXgjUka642M4UwtBV8oK2xJNDd2ZhwLnoQdeXeGADKkpy
+rqXRfKoQnoZsG4q5WTP46EXAMPLE
+-----END CERTIFICATE-----
+```
+
+By default, the root CA certificate file is located in `/greengrass-root/certs/root.ca.pem`\. To find the location on your core device, check the `crypto.caPath` property in [config\.json](gg-core.md#config-json)\.
+
+**Note**  
+*greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. Typically, this is the `/greengrass` directory\.
+
+ 
+
 ### Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Error while processing\. group config is invalid: 112 or \[119 0\] don't have rw permission on the file: <path>\.<a name="troubleshoot-access-permissions-deployment"></a>
 
 **Solution:** Make sure that the owner group of the *<path>* directory has read and write permissions to the directory\.
@@ -440,13 +554,22 @@ sudo ./greengrassd start
 
 ### Error: <list\-of\-function\-arns> are configured to run as root but Greengrass is not configured to run Lambda functions with root permissions\.<a name="troubleshoot-root-permissions-lambda"></a>
 
-**Solution:** You might see this error in `runtime.log` when the deployment fails\. Make sure that you have configured AWS IoT Greengrass to allow Lambda functions to run with root permissions\. Either change the value of `allowFunctionsToRunAsRoot` in `greengrass_root/config/config.json` to `yes` or change the Lambda function to run as another user/group\. For more information, see [Running a Lambda Function as Root](lambda-group-config.md#lambda-running-as-root)\.
+**Solution:** You might see this error in `runtime.log` when the deployment fails\. Make sure that you have configured AWS IoT Greengrass to allow Lambda functions to run with root permissions\. Either change the value of `allowFunctionsToRunAsRoot` in `greengrass_root/config/config.json` to `yes` or change the Lambda function to run as another user/group\. For more information, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
 
  
 
 ### Error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: Greengrass deployment error: unable to execute download step in deployment\. error while processing: unable to load the group file downloaded: could not find UID based on user name, userName: ggc\_user: user: unknown user ggc\_user\.<a name="troubleshoot-could-not-find-uid"></a>
 
 **Solution:** If the [default access identity](lambda-group-config.md#lambda-access-identity-groupsettings) of the AWS IoT Greengrass group uses the standard system accounts, the `ggc_user` user and `ggc_group` group must be present on the device\. For instructions that show how to add the user and group, see this [step](setup-filter.rpi.md#add-ggc-user-ggc-group)\. Make sure to enter the names exactly as shown\.
+
+ 
+
+### Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to mask greengrass root in overlay upper dir: failed to create mask device at directory <ggc\-path>: file exists"\}<a name="troubleshoot-failed-to-initialize-container-mounts"></a>
+
+**Solution:** You might see this error in `runtime.log` when the deployment fails\. This error occurs if a Lambda function in the Greengrass group can't access the `/usr` directory in the core's file system\. To resolve this issue, add a [local volume resource](access-local-resources.md) to the group and then deploy the group\. The resource must:
++ Specify `/usr` as the **Source path** and **Destination path**\.
++ Automatically add OS group permissions of the Linux group that owns the resource\.
++ Be affiliated with the Lambda function and allow read\-only access\.
 
  
 
@@ -482,7 +605,7 @@ For information about `resolved.conf` and `DNSSEC`, run `man resolved.conf` in y
 
  
 
-## Create Group/Create Function Issues<a name="gg-troubleshooting-groupcreateissues"></a>
+## Create group and create function issues<a name="gg-troubleshooting-groupcreateissues"></a>
 
 Use the following information to help troubleshoot issues with creating an AWS IoT Greengrass group or Greengrass Lambda function\.
 
@@ -539,7 +662,7 @@ Use the following information to help troubleshoot issues with creating an AWS I
 
  
 
-## Discovery Issues<a name="gg-troubleshooting-discovery-issues"></a>
+## Discovery issues<a name="gg-troubleshooting-discovery-issues"></a>
 
 Use the following information to help troubleshoot issues with the AWS IoT Greengrass Discovery service\.
 
@@ -554,13 +677,13 @@ Use the following information to help troubleshoot issues with the AWS IoT Green
 
  
 
-## Machine Learning Resource Issues<a name="ml-resources-troubleshooting"></a>
+## Machine learning resource issues<a name="ml-resources-troubleshooting"></a>
 
 Use the following information to help troubleshoot issues with machine learning resources\.
 
 **Topics**
 + [InvalidMLModelOwner \- GroupOwnerSetting is provided in ML model resource, but GroupOwner or GroupPermission is not present](#nocontainer-lambda-invalid-ml-model-owner)
-+ [NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learning resource <resource\-id> with permission <ro/rw> in resource access policy\.](#nocontainer-lambda-invalid-resource-access-policy)
++ [NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learnin resource <resource\-id> with permission <ro/rw> in resource access policy\.](#nocontainer-lambda-invalid-resource-access-policy)
 + [Function <function\-arn> refers to Machine Learning resource <resource\-id> with missing permission in both ResourceAccessPolicy and resource OwnerSetting\.](#nocontainer-lambda-missing-access-permission)
 + [Function <function\-arn> refers to Machine Learning resource <resource\-id> with permission \\"rw\\", while resource owner setting GroupPermission only allows \\"ro\\"\.](#container-lambda-invalid-rw-permissions)
 + [NoContainer Function <function\-arn> refers to resources of nested destination path\.](#nocontainer-lambda-nested-destination-path)
@@ -574,7 +697,7 @@ Use the following information to help troubleshoot issues with machine learning 
 
  
 
-### NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learning resource <resource\-id> with permission <ro/rw> in resource access policy\.<a name="nocontainer-lambda-invalid-resource-access-policy"></a>
+### NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learnin resource <resource\-id> with permission <ro/rw> in resource access policy\.<a name="nocontainer-lambda-invalid-resource-access-policy"></a>
 
 **Solution:** You receive this error if a non\-containerized Lambda function specifies function\-level permissions to a machine learning resource\. Non\-containerized functions must inherit permissions from the resource owner permissions defined on the machine learning resource\. To resolve this issue, choose to [inherit resource owner permissions](access-ml-resources.md#non-container-config-console) \(console\) or [remove the permissions from the Lambda function's resource access policy](access-ml-resources.md#non-container-config-api) \(API\)\.
 
@@ -604,20 +727,21 @@ Use the following information to help troubleshoot issues with machine learning 
 
 To resolve this issue, use a different OS group for one of the properties or attach the machine learning resource to the Lambda function\.
 
-## AWS IoT Greengrass Core in Docker Issues<a name="gg-troubleshooting-dockerissues"></a>
+## AWS IoT Greengrass core in Docker issues<a name="gg-troubleshooting-dockerissues"></a>
 
 Use the following information to help troubleshoot issues with running an AWS IoT Greengrass core in a Docker container\.
 
 **Topics**
-+ [Error: Unknown options: \-no\-include\-email](#docker-troubleshooting-cli-version)
++ [Error: Unknown options: \-no\-include\-email\.](#docker-troubleshooting-cli-version)
 + [Warning: IPv4 is disabled\. Networking will not work\.](#docker-troubleshooting-ipv4-disabled)
 + [Error: A firewall is blocking file Sharing between windows and the containers\.](#docker-troubleshooting-firewall)
++ [Error: An error occurred \(AccessDeniedException\) when calling the GetAuthorizationToken operation: User: arn:aws:iam::<account\-id>:user/<user\-name> is not authorized to perform: ecr:GetAuthorizationToken on resource: \*](#docker-troubleshooting-ecr-perms)
 + [Error: Cannot create container for the service greengrass: Conflict\. The container name "/aws\-iot\-greengrass" is already in use\.](#troubleshoot-docker-name-conflict)
 + [Error: \[FATAL\]\-Failed to reset thread's mount namespace due to an unexpected error: "operation not permitted"\. To maintain consistency, GGC will crash and need to be manually restarted\.](#troubleshoot-docker-container-lambda)
 
  
 
-### Error: Unknown options: \-no\-include\-email<a name="docker-troubleshooting-cli-version"></a>
+### Error: Unknown options: \-no\-include\-email\.<a name="docker-troubleshooting-cli-version"></a>
 
 **Solution:** This error can occur when you run the `aws ecr get-login` command\. Make sure that you have the latest AWS CLI version installed \(for example, run: `pip install awscli --upgrade --user`\)\. If you're using Windows and you installed the CLI using the MSI installer, you must repeat the installation process\. For more information, see [Installing the AWS Command Line Interface on Microsoft Windows](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html) in the *AWS Command Line Interface User Guide*\.
 
@@ -632,6 +756,12 @@ Use the following information to help troubleshoot issues with running an AWS Io
 ### Error: A firewall is blocking file Sharing between windows and the containers\.<a name="docker-troubleshooting-firewall"></a>
 
 **Solution:** You might receive this error or a `Firewall Detected` message when running Docker on a Windows computer\. See the [Error: A firewall is blocking file sharing between Windows and the containers](https://success.docker.com/article/error-a-firewall-is-blocking-file-sharing-between-windows-and-the-containers) Docker support issue\. This can also occur if you are signed in on a virtual private network \(VPN\) and your network settings are preventing the shared drive from being mounted\. In that situation, turn off VPN and re\-run the Docker container\.
+
+ 
+
+### Error: An error occurred \(AccessDeniedException\) when calling the GetAuthorizationToken operation: User: arn:aws:iam::<account\-id>:user/<user\-name> is not authorized to perform: ecr:GetAuthorizationToken on resource: \*<a name="docker-troubleshooting-ecr-perms"></a>
+
+You might receive this error when running the `aws ecr get-login-password` command if you don't have sufficient permissions to access an Amazon ECR repository\. For more information, see [Amazon ECR Repository Policy Examples](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policy-examples.html) and [Accessing One Amazon ECR Repository](https://docs.aws.amazon.com/AmazonECR/latest/userguide/security_iam_id-based-policy-examples.html) in the *Amazon ECR User Guide*\.
 
  
 
@@ -651,11 +781,13 @@ docker rm -f $(docker ps -a -q -f "name=aws-iot-greengrass")
 
 To resolve this issue, [make sure that all Lambda functions are in `NoContainer` mode](lambda-group-config.md#change-containerization-lambda) and start a new deployment\. Then, when starting the container, don't bind\-mount the existing `deployment` directory onto the AWS IoT Greengrass core Docker container\. Instead, create an empty `deployment` directory in its place and bind\-mount that in the Docker container\. This allows the new Docker container to receive the latest deployment with Lambda functions running in `NoContainer` mode\. 
 
-For more information, see [Running AWS IoT Greengrass in a Docker Container](run-gg-in-docker-container.md)\.
+For more information, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
 
-## Troubleshooting with Logs<a name="troubleshooting-logs"></a>
+## Troubleshooting with logs<a name="troubleshooting-logs"></a>
 
-If logs are configured to be stored on the local file system, start looking in the following locations\. Reading the logs on the file system requires root permissions\.
+You can configure logging settings for a Greengrass group, such as whether to send logs to CloudWatch Logs, store logs on the local file system, or both\. To get detailed information when troubleshooting issues, you can temporarily change the logging level to `DEBUG`\. Changes to logging settings take effect when you deploy the group\. For more information, see [Configure logging for AWS IoT Greengrass](greengrass-logs-overview.md#config-logs)\.
+
+On the local file system, AWS IoT Greengrass stores logs in the following locations\. Reading the logs on the file system requires root permissions\.
 
 `greengrass-root/ggc/var/log/crash.log`  
 Shows messages generated when an AWS IoT Greengrass core crashes\.
@@ -676,30 +808,30 @@ If the logs are configured to be stored on the cloud, use CloudWatch Logs to vie
 
 If AWS IoT is configured to write logs to CloudWatch, check those logs if connection errors occur when system components attempt to connect to AWS IoT\.
 
-For more information about AWS IoT Greengrass logging, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
+For more information about AWS IoT Greengrass logging, see [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)\.
 
 **Note**  
 Logs for AWS IoT Greengrass Core software v1\.0 are stored under the `greengrass-root/var/log` directory\.
 
-## Troubleshooting Storage Issues<a name="troubleshooting-storage"></a>
+## Troubleshooting storage issues<a name="troubleshooting-storage"></a>
 
 When the local file storage is full, some components might start failing: 
 + Local shadow updates do not occur\.
 + New AWS IoT Greengrass core MQTT server certificates cannot be downloaded locally\.
 + Deployments fail\.
 
-You should always be aware of the amount of free space available locally\. You can calculate free space based on the sizes of deployed Lambda functions, the logging configuration \(see [Troubleshooting with Logs](#troubleshooting-logs)\), and the number of shadows stored locally\. 
+You should always be aware of the amount of free space available locally\. You can calculate free space based on the sizes of deployed Lambda functions, the logging configuration \(see [Troubleshooting with logs](#troubleshooting-logs)\), and the number of shadows stored locally\. 
 
-## Troubleshooting Messages<a name="troubleshooting-messages"></a>
+## Troubleshooting messages<a name="troubleshooting-messages"></a>
 
-All messages sent locally in AWS IoT Greengrass are sent with QoS 0\. By default, AWS IoT Greengrass stores messages in an in\-memory queue\. Therefore, unprocessed messages are lost when the AWS IoT Greengrass core restarts \(for example, after a group deployment or device reboot\)\. However, you can configure AWS IoT Greengrass \(v1\.6 or later\) to cache messages to the file system so they persist across core restarts\. You can also configure the queue size\. If you configure a queue size, make sure that it's greater than or equal to 262144 bytes \(256 KB\)\. Otherwise, AWS IoT Greengrass might not start properly\. For more information, see [MQTT Message Queue for Cloud Targets](gg-core.md#mqtt-message-queue)\.
+All messages sent locally in AWS IoT Greengrass are sent with QoS 0\. By default, AWS IoT Greengrass stores messages in an in\-memory queue\. Therefore, unprocessed messages are lost when the Greengrass core restarts; for example, after a group deployment or device reboot\. However, you can configure AWS IoT Greengrass \(v1\.6 or later\) to cache messages to the file system so they persist across core restarts\. You can also configure the queue size\. If you configure a queue size, make sure that it's greater than or equal to 262144 bytes \(256 KB\)\. Otherwise, AWS IoT Greengrass might not start properly\. For more information, see [MQTT message queue for cloud targets](gg-core.md#mqtt-message-queue)\.
 
 **Note**  
 When using the default in\-memory queue, we recommend that you deploy groups or restart the device when the service disruption is the lowest\.
 
-You can also configure the core to establish persistent sessions with AWS IoT\. This allows the core to receive messages sent from the AWS Cloud while the core is offline\. For more information, see [MQTT Persistent Sessions with AWS IoT](gg-core.md#mqtt-persistent-sessions)\.
+You can also configure the core to establish persistent sessions with AWS IoT\. This allows the core to receive messages sent from the AWS Cloud while the core is offline\. For more information, see [MQTT persistent sessions with AWS IoT Core](gg-core.md#mqtt-persistent-sessions)\.
 
-## Troubleshooting Shadow Synchronization Timeout Issues<a name="troubleshooting-shadow-sync"></a>
+## Troubleshooting shadow synchronization timeout issues<a name="troubleshooting-shadow-sync"></a>
 
 Significant delays in communication between a Greengrass core device and the cloud might cause shadow synchronization to fail because of a timeout\. In this case, you should see log entries similar to the following:
 
@@ -709,7 +841,7 @@ Significant delays in communication between a Greengrass core device and the clo
 [2017-07-20T10:01:58.006Z][ERROR]-sync_manager.go:375,Failed to execute sync operation {what_the_thing_is_named VersionDiscontinued []}"
 ```
 
-A possible fix is to configure the amount of time that the core device waits for a host response\. Open the [`config.json`](gg-core.md#config-json) file in `greengrass-root/config` and add a `system.shadowSyncTimeout` field with a timeout value in seconds\. For example:
+A possible fix is to configure the amount of time that the core device waits for a host response\. Open the [config\.json](gg-core.md#config-json) file in `greengrass-root/config` and add a `system.shadowSyncTimeout` field with a timeout value in seconds\. For example:
 
 ```
 {
@@ -731,6 +863,6 @@ If no `shadowSyncTimeout` value is specified in `config.json`, the default is 5 
 **Note**  
 For AWS IoT Greengrass Core software v1\.6 and earlier, the default `shadowSyncTimeout` is 1 second\.
 
-## Check the AWS IoT Greengrass Forum<a name="troubleshooting-forum"></a>
+## Check the AWS IoT Greengrass forum<a name="troubleshooting-forum"></a>
 
-If you're unable to resolve your issue using the troubleshooting information in this topic, you can search the [AWS IoT Greengrass Forum](https://forums.aws.amazon.com/forum.jspa?forumID=254) for related issues or post a new forum thread\. Members of the AWS IoT Greengrass team actively monitor the forum\.
+If you're unable to resolve your issue using the troubleshooting information in this topic, you can search the [AWS IoT Greengrass forum](https://forums.aws.amazon.com/forum.jspa?forumID=254) for related issues or post a new forum thread\. Members of the AWS IoT Greengrass team actively monitor the forum\.

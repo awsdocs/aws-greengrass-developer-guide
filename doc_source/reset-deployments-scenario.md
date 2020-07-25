@@ -1,4 +1,4 @@
-# Reset Deployments<a name="reset-deployments-scenario"></a>
+# Reset deployments<a name="reset-deployments-scenario"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.1 and later\.
 
@@ -15,7 +15,7 @@ Reset deployments functionality is not available in AWS IoT Greengrass Core Soft
 
 The reset deployments operation first cleans up all deployment information stored in the cloud for a given group\. It then instructs the group's core device to clean up all of its deployment related information as well \(Lambda functions, user logs, shadow database and server certificate, but not the user\-defined `config.json` or the Greengrass core certificates\)\. You cannot initiate a reset of deployments for a group if the group currently has a deployment with status of `In Progress` or `Building`\.
 
-## Reset Deployments from the AWS IoT console<a name="reset-deployments-console"></a>
+## Reset deployments from the AWS IoT console<a name="reset-deployments-console"></a>
 
 You can reset group deployments from group configuration page in the AWS IoT console\.
 
@@ -26,7 +26,7 @@ You can reset group deployments from group configuration page in the AWS IoT con
 1. From **Actions**, choose **Reset Deployments**\.  
 ![\[The Deployments page for a Greengrass group.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-deployments.png)
 
-## Reset Deployments with the AWS IoT Greengrass API<a name="reset-deployments-api"></a>
+## Reset deployments with the AWS IoT Greengrass API<a name="reset-deployments-api"></a>
 
 You can use the `ResetDeployments` action in the AWS CLI, AWS IoT Greengrass API, or AWS SDK to reset deployments\. The examples in this topic use the CLI\.
 
@@ -74,7 +74,7 @@ The `DeploymentStatus` is set to `Building` when the reset deployment is being p
 
 If the reset operation fails, error information is returned in the response\.
 
-## See Also<a name="reset-deployments-see-also"></a>
-+ [Deploy AWS IoT Greengrass Groups to an AWS IoT Greengrass Core](deployments.md)
+## See also<a name="reset-deployments-see-also"></a>
++ [Deploy AWS IoT Greengrass groups to an AWS IoT Greengrass core](deployments.md)
 + [ResetDeployments ](https://docs.aws.amazon.com/greengrass/latest/apireference/resetdeployments-post.html) in the *AWS IoT Greengrass API Reference*
 + [GetDeploymentStatus ](https://docs.aws.amazon.com/greengrass/latest/apireference/getdeploymentstatus-get.html) in the *AWS IoT Greengrass API Reference*

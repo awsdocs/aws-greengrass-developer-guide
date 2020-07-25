@@ -1,4 +1,4 @@
-# ML Image Classification Connector<a name="image-classification-connector"></a>
+# ML Image Classification connector<a name="image-classification-connector"></a>
 
 The ML Image Classification [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs image classification using a model trained by the Amazon SageMaker image classification algorithm\.
 
@@ -38,10 +38,10 @@ These connectors have the following requirements:
 #### [ Version 2 ]
 + AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
-+ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
++ <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet dependencies on the AWS IoT Greengrass core](#image-classification-connector-config)\.
++ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image classification algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
 + <a name="req-image-classification-feedback"></a>The [ML Feedback connector](ml-feedback-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the connector to upload model input data and publish predictions to an MQTT topic\.
-+ <a name="req-image-classification-policy"></a>An IAM policy added to the Greengrass [group role](group-role.md) that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
++ <a name="req-image-classification-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example IAM policy\.
 
   ```
   {
@@ -58,16 +58,18 @@ These connectors have the following requirements:
   }
   ```
 
-  You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. If you change the target training job in the future, make sure to update the group role\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
+
+  You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. If you change the target training job in the future, make sure to update the group role\.
 + [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) v1\.1\.0 is required to interact with this connector\.
 
 ------
 #### [ Version 1 ]
 + AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet Dependencies on the AWS IoT Greengrass Core](#image-classification-connector-config)\.
-+ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
-+ <a name="req-image-classification-policy"></a>An IAM policy added to the Greengrass [group role](group-role.md) that allows the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example\.
++ <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet dependencies on the AWS IoT Greengrass core](#image-classification-connector-config)\.
++ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image classification algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
++ <a name="req-image-classification-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example IAM policy\.
 
   ```
   {
@@ -84,7 +86,9 @@ These connectors have the following requirements:
   }
   ```
 
-  You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. If you change the target training job in the future, make sure to update the group role\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
+
+  You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. If you change the target training job in the future, make sure to update the group role\.
 + [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) v1\.0\.0 or later is required to interact with this connector\.
 
 ------
@@ -263,15 +267,15 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 **Note**  
 The Lambda function in these connectors have a [long\-lived](lambda-functions.md#lambda-lifecycle) lifecycle\.
 
-In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
-## Input Data<a name="image-classification-connector-data-input"></a>
+## Input data<a name="image-classification-connector-data-input"></a>
 
  These connectors accept an image file as input\. Input image files must be in `jpeg` or `png` format\. For more information, see [Usage Example](#image-classification-connector-usage)\. 
 
 These connectors don't accept MQTT messages as input data\.
 
-## Output Data<a name="image-classification-connector-data-output"></a>
+## Output data<a name="image-classification-connector-data-output"></a>
 
 These connectors return a formatted prediction for the object identified in the input image:
 
@@ -420,7 +424,7 @@ The `invoke_inference_service` function in the AWS IoT Greengrass Machine Learni
 | `ContentType` | The mime type of the input image\. Required: `true` Type: `string` Valid values: `image/jpeg, image/png` | 
 | `Body` | The content of the input image file\. Required: `true` Type: `binary` | 
 
-## Installing MXNet Dependencies on the AWS IoT Greengrass Core<a name="image-classification-connector-config"></a>
+## Installing MXNet dependencies on the AWS IoT Greengrass core<a name="image-classification-connector-config"></a>
 
 To use an ML Image Classification connector, you must install the dependencies for the Apache MXNet framework on the core device\. The connectors use the framework to serve the ML model\.
 
@@ -434,7 +438,7 @@ Before installing the MXNet dependencies, make sure that the required [system li
 ------
 #### [ NVIDIA Jetson TX2 ]
 
-1. Install CUDA Toolkit 9\.0 and cuDNN 7\.0\. You can follow the instructions in [Setting Up Other Devices](setup-filter.other.md) in the Getting Started tutorial\.
+1. Install CUDA Toolkit 9\.0 and cuDNN 7\.0\. You can follow the instructions in [Setting up other devices](setup-filter.other.md) in the Getting Started tutorial\.
 
 1. Enable universe repositories so the connector can install community\-maintained open software\. For more information, see [ Repositories/Ubuntu](https://help.ubuntu.com/community/Repositories/Ubuntu) in the Ubuntu documentation\.
 
@@ -670,11 +674,11 @@ In `/etc/dphys-swapfile`, increase the value of the `CONF_SWAPSIZE` variable and
 
 ------
 
-## Logging and Troubleshooting<a name="image-classification-connector-logging"></a>
+## Logging and troubleshooting<a name="image-classification-connector-logging"></a>
 
 Depending on your group settings, event and error logs are written to CloudWatch Logs, the local file system, or both\. Logs from this connector use the prefix `LocalInferenceServiceName`\. If the connector behaves unexpectedly, check the connector's logs\. These usually contain useful debugging information, such as a missing ML library dependency or the cause of a connector startup failure\.
 
-If the AWS IoT Greengrass group is configured to write local logs, the connector writes log files to `greengrass-root/ggc/var/log/user/region/aws/`\. For more information about Greengrass logging, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
+If the AWS IoT Greengrass group is configured to write local logs, the connector writes log files to `greengrass-root/ggc/var/log/user/region/aws/`\. For more information about Greengrass logging, see [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)\.
 
 Use the following information to help troubleshoot issues with the ML Image Classification connectors\.
 
@@ -743,11 +747,17 @@ The following tabs list the system libraries required for each ML Image Classifi
 
 ## Licenses<a name="image-classification-connector-license"></a>
 
-The ML Image Classification connectors includes the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
-+ [Deep Neural Network Library \(DNNL\)](https://github.com/intel/mkl-dnn)/Apache 2\.0
+The ML Image Classification connectors includes the following third\-party software/licensing:<a name="boto-3-licenses"></a>
++ [AWS SDK for Python \(Boto3\)](https://pypi.org/project/boto3/)/Apache License 2\.0
++ [botocore](https://pypi.org/project/botocore/)/Apache License 2\.0
++ [dateutil](https://pypi.org/project/python-dateutil/1.4/)/PSF License
++ [docutils](https://pypi.org/project/docutils/)/BSD License, GNU General Public License \(GPL\), Python Software Foundation License, Public Domain
++ [jmespath](https://pypi.org/project/jmespath/)/MIT License
++ [s3transfer](https://pypi.org/project/s3transfer/)/Apache License 2\.0
++ [urllib3](https://pypi.org/project/urllib3/)/MIT License
++ [Deep Neural Network Library \(DNNL\)](https://github.com/intel/mkl-dnn)/Apache License 2\.0
 + [OpenMP\* Runtime Library](https://www.openmprtl.org/)/See [Intel OpenMP Runtime Library licensing](#openmp-license)\.
-+ [mxnet](https://pypi.org/project/mxnet/)/Apache 2\.0
++ [mxnet](https://pypi.org/project/mxnet/)/Apache License 2\.0
 + <a name="six-license"></a>[six](https://github.com/benjaminp/six)/MIT
 
 **Intel OpenMP Runtime Library licensing**\. The Intel® OpenMP\* runtime is dual\-licensed, with a commercial \(COM\) license as part of the Intel® Parallel Studio XE Suite products, and a BSD open source \(OSS\) license\. For more information, see [Licensing](https://www.openmprtl.org/faq/10) in the Intel® OpenMP\* Runtime Library documentation\.
@@ -764,11 +774,11 @@ The following table describes the changes in each version of the connector\.
 | 2 | Added the `MLFeedbackConnectorConfigId` parameter to support the use of the [ML Feedback connector](ml-feedback-connector.md) to upload model input data, publish predictions to an MQTT topic, and publish metrics to Amazon CloudWatch\.  | 
 | 1 | Initial release\.  | 
 
-A Greengrass group can contain only one version of the connector at a time\.
+<a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
-## See Also<a name="image-classification-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
-+ [Perform Machine Learning Inference](ml-inference.md)
-+ [Image Classification Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*
+## See also<a name="image-classification-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)
++ [Perform machine learning inference](ml-inference.md)
++ [Image classification algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*

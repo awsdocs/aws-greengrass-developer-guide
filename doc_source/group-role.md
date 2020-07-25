@@ -1,4 +1,4 @@
-# Greengrass Group Role<a name="group-role"></a>
+# Greengrass group role<a name="group-role"></a>
 
 The Greengrass group role is an IAM role that authorizes code running on a Greengrass core to access your AWS resources\. You create the role and manage permissions in AWS Identity and Access Management \(IAM\) and attach the role to your Greengrass group\. A Greengrass group has one group role\. To add or change permissions, you can attach a different role or change the IAM policies that are attached to the role\.
 
@@ -9,25 +9,25 @@ The role must define AWS IoT Greengrass as a trusted entity\. Depending on your 
 + Permissions to allow [CloudWatch logging](greengrass-logs-overview.md)\.
 
 The following sections describe how to attach or detach a Greengrass group role in the AWS Management Console or AWS CLI\.
-+ [Manage the Group Role \(Console\)](#manage-group-role-console)
-+ [Manage the Group Role \(CLI\)](#manage-group-role-cli)
++ [Manage the group role \(console\)](#manage-group-role-console)
++ [Manage the group role \(CLI\)](#manage-group-role-cli)
 
 **Note**  
 In addition to the group role that authorizes access from the Greengrass core, you can assign a [Greengrass service role](service-role.md) that allows AWS IoT Greengrass to access AWS resources on your behalf\.
 
-## Managing the Greengrass Group Role \(Console\)<a name="manage-group-role-console"></a>
+## Managing the Greengrass group role \(console\)<a name="manage-group-role-console"></a>
 
 You can use the AWS IoT console for the following role management tasks:
-+ [Find Your Greengrass Group Role](#get-group-role-console)
-+ [Add or Change the Greengrass Group Role](#add-or-change-group-role-console)
-+ [Remove the Greengrass Group Role](#remove-group-role-console)
++ [Find your Greengrass group role](#get-group-role-console)
++ [Add or change the Greengrass group role](#add-or-change-group-role-console)
++ [Remove the Greengrass group role](#remove-group-role-console)
 
 **Note**  
 The user who is signed in to the console must have permissions to manage the role\.
 
  
 
-### Find Your Greengrass Group Role \(Console\)<a name="get-group-role-console"></a>
+### Find your Greengrass group role \(console\)<a name="get-group-role-console"></a>
 
 Follow these steps to find the role that is attched to a Greengrass group\.
 
@@ -35,15 +35,14 @@ Follow these steps to find the role that is attched to a Greengrass group\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.
-
+1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
 ![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings.png)
 
 If a role is attached to the group, it appears under **Group Role**\.
 
  
 
-### Add or Change the Greengrass Group Role \(Console\)<a name="add-or-change-group-role-console"></a>
+### Add or change the Greengrass group role \(console\)<a name="add-or-change-group-role-console"></a>
 
 Follow these steps to choose an IAM role from your AWS account to add to a Greengrass group\.
 
@@ -51,7 +50,7 @@ A group role has the following requirements:
 + AWS IoT Greengrass defined as a trusted entity\.
 + The permission policies attached to the role must grant the permissions to your AWS resources that are required by the Lambda functions and connectors in the group, and by Greengrass system components\.
 
-Use the IAM console to create and configure the role and its permissions\. For steps that create an example role that allows access to an Amazon DynamoDB table, see [Configure the Group Role](config-iam-roles.md)\. For general steps, see [Creating a Role for an AWS Service \(Console\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console) in the *IAM User Guide*\.
+Use the IAM console to create and configure the role and its permissions\. For steps that create an example role that allows access to an Amazon DynamoDB table, see [Configure the group role](config-iam-roles.md)\. For general steps, see [Creating a role for an AWS service \(console\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console) in the *IAM User Guide*\.
 
  
 
@@ -64,7 +63,8 @@ This procedure is required only to choose a role for the group\. It's not requir
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.
+1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
+![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings.png)
 
 1. Under **Group Role**, choose to add or change the role:
    + To add the role, choose **Add Role**\.
@@ -74,7 +74,7 @@ This procedure is required only to choose a role for the group\. It's not requir
 
  
 
-### Remove the Greengrass Group Role \(Console\)<a name="remove-group-role-console"></a>
+### Remove the Greengrass group role \(console\)<a name="remove-group-role-console"></a>
 
 Follow these steps to detach the role from a Greengrass group\.
 
@@ -82,16 +82,17 @@ Follow these steps to detach the role from a Greengrass group\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.
+1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
+![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings.png)
 
 1. Under **Group Role**, choose the ellipses \(**…**\) for the role, and then choose **Remove IAM Role**\.
 
    This step removes the role from the group but doesn't delete the role\. If you want to delete the role, use the IAM console\.
 
-## Managing the Greengrass Group Role \(CLI\)<a name="manage-group-role-cli"></a>
+## Managing the Greengrass group role \(CLI\)<a name="manage-group-role-cli"></a>
 
 You can use the AWS CLI for the following role management tasks:
-+ [Get Your Greengrass group role](#get-group-role)
++ [Get your Greengrass group role](#get-group-role)
 + [Create the Greengrass group role](#create-group-role)
 + [Remove the Greengrass group role](#remove-group-role)
 
@@ -135,7 +136,7 @@ Follow these steps to find out if a Greengrass group has an associated role\.
    }
    ```
 
-   For more information, including examples that use the `query` option to filter results, see [Getting the Group ID](deployments.md#api-get-group-id)\.
+   For more information, including examples that use the `query` option to filter results, see [Getting the group ID](deployments.md#api-get-group-id)\.
 
 1. <a name="cli-list-groups-copy-id"></a>Copy the `Id` of the target group from the output\.
 
@@ -189,7 +190,7 @@ Follow these steps to create a role and associate it with a Greengrass group\.
    ```
 
 ------
-#### [ Windows Command Prompt ]
+#### [ Windows command prompt ]
 
    ```
    aws iam create-role --role-name MyGreengrassGroupRole --assume-role-policy-document "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"greengrass.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"
@@ -245,7 +246,7 @@ Follow these steps to create a role and associate it with a Greengrass group\.
    }
    ```
 
-   For more information, including examples that use the `query` option to filter results, see [Getting the Group ID](deployments.md#api-get-group-id)\.
+   For more information, including examples that use the `query` option to filter results, see [Getting the group ID](deployments.md#api-get-group-id)\.
 
 1. <a name="cli-list-groups-copy-id"></a>Copy the `Id` of the target group from the output\.
 
@@ -303,7 +304,7 @@ Follow these steps to disassociate the group role from your Greengrass group\.
    }
    ```
 
-   For more information, including examples that use the `query` option to filter results, see [Getting the Group ID](deployments.md#api-get-group-id)\.
+   For more information, including examples that use the `query` option to filter results, see [Getting the group ID](deployments.md#api-get-group-id)\.
 
 1. <a name="cli-list-groups-copy-id"></a>Copy the `Id` of the target group from the output\.
 
@@ -321,12 +322,14 @@ Follow these steps to disassociate the group role from your Greengrass group\.
    }
    ```
 **Note**  
-You can delete the group role if you're not using it\. First use [https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role-policy.html](https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role-policy.html) to detach each managed policy from the role, and then use [https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role.html](https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role.html) to delete the role\. For more information, see [Deleting Roles or Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html) in the *IAM User Guide*\.
+You can delete the group role if you're not using it\. First use [https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role-policy.html](https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role-policy.html) to detach each managed policy from the role, and then use [https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role.html](https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role.html) to delete the role\. For more information, see [Deleting roles or instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html) in the *IAM User Guide*\.
 
-## See Also<a name="group-role-see-also"></a>
-+ [Creating a Role to Delegate Permissions to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*
-+ [Modifying a Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_modify.html) in the *IAM User Guide*
-+ [Deleting Roles or Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html) in the *IAM User Guide*
+## See also<a name="group-role-see-also"></a>
++ Related topics in the *IAM User Guide*
+  + [Creating a role to delegate permissions to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html)
+  + [Modifying a role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_modify.html)
+  + [Adding and removing IAM identity permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html)
+  + [Deleting roles or instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html)
 + AWS IoT Greengrass commands in the *AWS CLI Command Reference*
   + [list\-groups](https://docs.aws.amazon.com/cli/latest/reference/greengrass/list-groups.html)
   + [associate\-role\-to\-group](https://docs.aws.amazon.com/cli/latest/reference/greengrass/associate-role-to-group.html)

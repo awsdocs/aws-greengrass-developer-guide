@@ -1,10 +1,10 @@
-# Module 7: Simulating Hardware Security Integration<a name="console-mod7"></a>
+# Module 7: Simulating hardware security integration<a name="console-mod7"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This advanced module shows you how to configure a simulated hardware security module \(HSM\) for use with a Greengrass core\. The configuration uses SoftHSM, which is a pure software implementation that uses the [PKCS\#11](#console-mod7-see-also) application programming interface \(API\)\. The purpose of this module is to allow you to set up an environment where you can learn and do initial testing against a software\-only implementation of the PKCS\#11 API\. It is provided only for learning and initial testing, not for production use of any kind\.
 
-You can use this configuration to experiment with using a PKCS\#11\-compatible service to store your private keys\. For more information about the software\-only implementation, see [SoftHSM](https://www.opendnssec.org/softhsm/)\. For more information about integrating hardware security on an AWS IoT Greengrass core, including general requirements, see [Hardware Security Integration](hardware-security.md)\.
+You can use this configuration to experiment with using a PKCS\#11\-compatible service to store your private keys\. For more information about the software\-only implementation, see [SoftHSM](https://www.opendnssec.org/softhsm/)\. For more information about integrating hardware security on an AWS IoT Greengrass core, including general requirements, see [Hardware security integration](hardware-security.md)\.
 
 **Important**  
 This module is intended for experimentation purposes only\. We strongly discourage the use of SoftHSM in a production environment because it might provide a false sense of additional security\. The resulting configuration doesn't provide any actual security benefits\. The keys stored in SoftHSM are not stored more securely than any other means of secrets storage in the Greengrass environment\.  
@@ -15,7 +15,7 @@ If you need assistance with the onboarding of a [supported hardware security mod
 
 Before you begin, run the [Greengrass Device Setup](quick-start.md) script, or make sure that you completed [Module 1](module1.md) and [Module 2](module2.md) of the Getting Started tutorial\. In this module, we assume that your core is already provisioned and communicating with AWS\. This module should take about 30 minutes to complete\.
 
-## Install the SoftHSM Software<a name="softhsm-install"></a>
+## Install the SoftHSM software<a name="softhsm-install"></a>
 
 In this step, you install SoftHSM and the pkcs11 tools, which are used to manage your SoftHSM instance\.
 + In a terminal on your AWS IoT Greengrass core device, run the following command:
@@ -77,7 +77,7 @@ These configuration settings are intended for experimentation purposes only\. To
 man softhsm2.conf
 ```
 
-## Import the Private Key into SoftHSM<a name="softhsm-import-key"></a>
+## Import the private key into SoftHSM<a name="softhsm-import-key"></a>
 
 In this step, you initialize the SoftHSM token, convert the private key format, and then import the private key\.
 
@@ -116,7 +116,7 @@ If you receive the error `CKR_SLOT_ID_INVALID: Slot 0 does not exist`, try the f
 
 After the private key is imported, you can optionally remove it from the `/greengrass/certs` directory\. Make sure to keep the root CA and device certificates in the directory\.
 
-## Configure the Greengrass Core to Use SoftHSM<a name="softhsm-config-core"></a>
+## Configure the Greengrass core to use SoftHSM<a name="softhsm-config-core"></a>
 
 In this step, you modify the Greengrass core configuration file to use SoftHSM\.
 
@@ -203,7 +203,7 @@ The examples in this procedure are written with the assumption that the `config.
    }
    ```
 **Note**  
-To use over\-the\-air \(OTA\) updates with hardware security, the `PKCS11` object must also contain the `OpenSSLEngine` property\. For more information, see [Configure Support for Over\-the\-Air Updates](hardware-security.md#hardware-security-ota-updates)\.
+To use over\-the\-air \(OTA\) updates with hardware security, the `PKCS11` object must also contain the `OpenSSLEngine` property\. For more information, see [Configure support for over\-the\-air updates](hardware-security.md#hardware-security-ota-updates)\.
 
 1. Edit the `crypto` object:
 
@@ -256,9 +256,9 @@ To use over\-the\-air \(OTA\) updates with hardware security, the `PKCS11` objec
    ```
 
 **Note**  
-For this tutorial, you specify the same private key for all principals\. For more information about choosing the private key for the local MQTT server, see [Performance](hardware-security.md#hsm-performance)\. For more information about the local secrets manager, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
+For this tutorial, you specify the same private key for all principals\. For more information about choosing the private key for the local MQTT server, see [Performance](hardware-security.md#hsm-performance)\. For more information about the local secrets manager, see [Deploy secrets to the AWS IoT Greengrass core](secrets.md)\.
 
-## Test the Configuration<a name="softhsm-test"></a>
+## Test the configuration<a name="softhsm-test"></a>
 + Start the AWS Greengrass daemon\.
 
   ```
@@ -273,6 +273,6 @@ For this tutorial, you specify the same private key for all principals\. For mor
 Again, it's extremely important to be aware that this module is intended for learning and testing only\. It doesn't actually increase the security posture of your Greengrass environment\.  
 Instead, the purpose of the module is to enable you to start learning and testing in preparation for using a true hardware\-based HSM in the future\. At that time, you must separately and completely test your software against the hardware\-based HSM prior to any production usage, because there might be differences between the PKCS\#11 implementation provided in SoftHSM and a hardware\-based implementation\.
 
-## See Also<a name="console-mod7-see-also"></a>
+## See also<a name="console-mod7-see-also"></a>
 + *PKCS \#11 Cryptographic Token Interface Usage Guide Version 2\.40*\. Edited by John Leiseboer and Robert Griffin\. 16 November 2014\. OASIS Committee Note 02\. [ http://docs\.oasis\-open\.org/pkcs11/pkcs11\-ug/v2\.40/cn02/pkcs11\-ug\-v2\.40\-cn02\.html](http://docs.oasis-open.org/pkcs11/pkcs11-ug/v2.40/cn02/pkcs11-ug-v2.40-cn02.html)\. Latest version: [ http://docs\.oasis\-open\.org/pkcs11/pkcs11\-ug/v2\.40/pkcs11\-ug\-v2\.40\.html](http://docs.oasis-open.org/pkcs11/pkcs11-ug/v2.40/pkcs11-ug-v2.40.html)\.
 + [RFC 7512](https://tools.ietf.org/html/rfc7512)

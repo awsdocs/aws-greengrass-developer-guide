@@ -1,9 +1,12 @@
 # Greengrass Discovery RESTful API<a name="gg-discover-api"></a>
 
-All devices that communicate with an AWS IoT Greengrass core must be a member of a Greengrass group\. Each group must have an AWS IoT Greengrass core\. The Discovery API enables devices to retrieve information required to connect to an AWS IoT Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS IoT Greengrass cloud service and use the Discovery API to find:
+All devices that communicate with an AWS IoT Greengrass core must be a member of a Greengrass group\. Each group must have a Greengrass core\. The Discovery API enables devices to retrieve information required to connect to a Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS IoT Greengrass service and use the Discovery API to find:
 + The group to which it belongs\. A device can be a member of up to 10 groups\.
-+ The IP address and port for the AWS IoT Greengrass core in the group\.
-+ The group CA certificate, which can be used to authenticate the AWS IoT Greengrass core device\.
++ The IP address and port for the Greengrass core in the group\.
++ The group CA certificate, which can be used to authenticate the Greengrass core device\.
+
+**Note**  
+Devices can also use the AWS IoT Device SDKs to discover connectivity information for a Greengrass core\. For more information, see [AWS IoT Device SDK](what-is-gg.md#iot-device-sdk)\.
 
 To use this API, send HTTP requests to the Discovery API endpoint\. For example:
 
@@ -11,13 +14,13 @@ To use this API, send HTTP requests to the Discovery API endpoint\. For example:
 https://greengrass-ats.iot.region.amazonaws.com:port/greengrass/discover/thing/thing-name
 ```
 
-For a list of supported AWS Regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS IoT Greengrass Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT operations are different from the Discovery API endpoints\.
+For a list of supported AWS Regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS IoT Greengrass endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT Core operations are different from the Discovery API endpoints\.
 
 ## Request<a name="gg-discover-request"></a>
 
 The request contains the standard HTTP headers and is sent to the Greengrass Discovery endpoint, as shown in the following examples\.
 
-The port number depends on whether the core is configured to send HTTPS traffic over port 8443 or port 443\. For more information, see [Connect on Port 443 or Through a Network Proxy](gg-core.md#alpn-network-proxy)\.
+The port number depends on whether the core is configured to send HTTPS traffic over port 8443 or port 443\. For more information, see [Connect on port 443 or through a network proxy](gg-core.md#alpn-network-proxy)\.
 
 Port 8443  
 
@@ -31,7 +34,7 @@ Port 443
 HTTP GET https://greengrass-ats.iot.region.amazonaws.com:443/greengrass/discover/thing/thing-name
 ```
 Clients that connect on port 443 must implement the [ Application Layer Protocol Negotiation \(ALPN\)](https://tools.ietf.org/html/rfc7301) TLS extension and pass `x-amzn-http-ca` as the `ProtocolName` in the `ProtocolNameList`\. For more information, see [Protocols](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html) in the *AWS IoT Developer Guide*\.  
-These examples use the Amazon Trust Services \(ATS\) endpoint, which is used with ATS root CA certificates \(recommended\)\. Endpoints must match the root CA certificate type\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+These examples use the Amazon Trust Services \(ATS\) endpoint, which is used with ATS root CA certificates \(recommended\)\. Endpoints must match the root CA certificate type\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
 
 ## Response<a name="gg-discover-response"></a>
 
@@ -42,9 +45,9 @@ HTTP 200
 BODY: response document
 ```
 
-For more information, see [Example Discover Response Documents](#gg-discover-response-doc)\.
+For more information, see [Example discover response documents](#gg-discover-response-doc)\.
 
-## Authorization<a name="gg-discover-auth"></a>
+## Discovery authorization<a name="gg-discover-auth"></a>
 
 Retrieving the connectivity information requires a policy that allows the caller to perform the `greengrass:Discover` action\. TLS mutual authentication with a client certificate is the only accepted form of authentication\. The following is an example policy that allows a caller to perform this action:
 
@@ -59,9 +62,9 @@ Retrieving the connectivity information requires a policy that allows the caller
 }
 ```
 
-## Example Discover Response Documents<a name="gg-discover-response-doc"></a>
+## Example discover response documents<a name="gg-discover-response-doc"></a>
 
-The following document shows the response for a device that is a member of a group with one AWS IoT Greengrass core, one endpoint, and one group CA certificate:
+The following document shows the response for a device that is a member of a group with one Greengrass core, one endpoint, and one group CA certificate:
 
 ```
 {
@@ -89,7 +92,7 @@ The following document shows the response for a device that is a member of a gro
 }
 ```
 
-The following document shows the response for a device that is a member of two groups with one AWS IoT Greengrass core, multiple endpoints, and multiple group CA certificates:
+The following document shows the response for a device that is a member of two groups with one Greengrass core, multiple endpoints, and multiple group CA certificates:
 
 ```
 {
@@ -146,7 +149,7 @@ The following document shows the response for a device that is a member of two g
 ```
 
 **Note**  
-An AWS IoT Greengrass group must define exactly one AWS IoT Greengrass core\. Any response from the AWS IoT Greengrass cloud service that contains a list of AWS IoT Greengrass cores contains only one AWS IoT Greengrass core\. 
+A Greengrass group must define exactly one Greengrass core\. Any response from the AWS IoT Greengrass service that contains a list of Greengrass cores contains only one Greengrass core\. 
 
 If you have `cURL` installed, you can test the discovery request\. For example:
 

@@ -1,11 +1,11 @@
-# Use StreamManagerClient to Work with Streams<a name="work-with-streams"></a>
+# Use StreamManagerClient to work with streams<a name="work-with-streams"></a>
 
 User\-defined Lambda functions running on the AWS IoT Greengrass core can use the `StreamManagerClient` object in the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks) to create and interact with streams in stream manager\. When a Lambda function creates a stream, it defines the AWS Cloud destinations, prioritization, and other export and data retention policies for the stream\. If an export destination is defined, stream manager exports the stream automatically\.
 
 **Note**  
-Typically, clients of stream manager are user\-defined Lambda functions\. If your business case requires it, you can allow non\-Lambda processes running on the Greengrass core \(for example, a Docker container\) to interact with stream manager\. For more information, see [Client Authentication](stream-manager.md#stream-manager-security-client-authentication)\.
+Typically, clients of stream manager are user\-defined Lambda functions\. If your business case requires it, you can allow non\-Lambda processes running on the Greengrass core \(for example, a Docker container\) to interact with stream manager\. For more information, see [Client authentication](stream-manager.md#stream-manager-security-client-authentication)\.
 
-The snippets in this topic show you how clients use `StreamManagerClient` to work with streams\. For implementation details about the methods and their arguments, use the links to the SDK reference\. For tutorials that use a complete Python Lambda function, see [Export Data Streams to the AWS Cloud \(Console\)](stream-manager-console.md) or [Export Data Streams to the AWS Cloud \(CLI\)](stream-manager-cli.md)\.
+The snippets in this topic show you how clients use `StreamManagerClient` to work with streams\. For implementation details about the methods and their arguments, use the links to the SDK reference\. For tutorials that use a complete Python Lambda function, see [Export data streams to the AWS cloud \(console\)](stream-manager-console.md) or [Export data streams to the AWS cloud \(CLI\)](stream-manager-cli.md)\.
 
 You should instantiate `StreamManagerClient` outside of the function handler\. If instantiated in the handler, the function creates a `client` and connection to stream manager every time that it's invoked\.
 
@@ -13,14 +13,14 @@ You should instantiate `StreamManagerClient` outside of the function handler\. I
 If you do instantiate `StreamManagerClient` in the handler, you must explicitly call the `close()` method when the `client` completes its work\. Otherwise, the `client` keeps the connection open and another thread running until the script exits\.
 
 `StreamManagerClient` supports the following operations:
-+ [Create Message Stream](#streammanagerclient-create-message-stream)
-+ [Append Message](#streammanagerclient-append-message)
-+ [Read Messages](#streammanagerclient-read-messages)
-+ [List Streams](#streammanagerclient-list-streams)
-+ [Describe Message Stream](#streammanagerclient-describe-message-stream)
-+ [Delete Message Stream](#streammanagerclient-delete-message-stream)
++ [Create message stream](#streammanagerclient-create-message-stream)
++ [Append message](#streammanagerclient-append-message)
++ [Read messages](#streammanagerclient-read-messages)
++ [List streams](#streammanagerclient-list-streams)
++ [Describe message stream](#streammanagerclient-describe-message-stream)
++ [Delete message stream](#streammanagerclient-delete-message-stream)
 
-## Create Message Stream<a name="streammanagerclient-create-message-stream"></a>
+## Create message stream<a name="streammanagerclient-create-message-stream"></a>
 
 To create a stream, a user\-defined Lambda function calls the create method and passes in a `MessageStreamDefinition` object\. `MessageStreamDefinition` includes the unique name for the stream and defines how stream manager should handle new data when the maximum stream size is reached\. You can use `MessageStreamDefinition` and its data types \(such as `ExportDefinition`, `StrategyOnFull`, and `Persistence`\) to define other stream properties\. These include:
 + The target AWS IoT Analytics channels and Kinesis data streams\. Stream manager exports the stream to target destinations automatically\. These AWS Cloud resources are created and maintained by the customer\.
@@ -132,7 +132,7 @@ SDK reference: [createMessageStream](https://aws.github.io/aws-greengrass-core-s
 
 ------
 
-## Append Message<a name="streammanagerclient-append-message"></a>
+## Append message<a name="streammanagerclient-append-message"></a>
 
 The following snippet appends a message to the stream named `StreamName`\.
 
@@ -189,7 +189,7 @@ SDK reference: [appendMessage](https://aws.github.io/aws-greengrass-core-sdk-js/
 
 ------
 
-## Read Messages<a name="streammanagerclient-read-messages"></a>
+## Read messages<a name="streammanagerclient-read-messages"></a>
 
 The following snippet reads messages from the stream named `StreamName`\. The read method takes an optional `ReadMessagesOptions` object that specifies the sequence number to start reading from, the minimum and maximum numbers to read, and a timeout for reading messages\.
 
@@ -280,7 +280,7 @@ SDK reference: [readMessages](https://aws.github.io/aws-greengrass-core-sdk-js/a
 
 ------
 
-## List Streams<a name="streammanagerclient-list-streams"></a>
+## List streams<a name="streammanagerclient-list-streams"></a>
 
 The following snippet gets a list of the streams \(by name\) in stream manager\.
 
@@ -337,7 +337,7 @@ SDK reference: [listStreams](https://aws.github.io/aws-greengrass-core-sdk-js/aw
 
 ------
 
-## Describe Message Stream<a name="streammanagerclient-describe-message-stream"></a>
+## Describe message stream<a name="streammanagerclient-describe-message-stream"></a>
 
 The following snippet gets metadata about the stream named `StreamName`, including the stream's definition, size, and exporter statuses\.
 
@@ -425,7 +425,7 @@ SDK reference: [describeMessageStream](https://aws.github.io/aws-greengrass-core
 
 ------
 
-## Delete Message Stream<a name="streammanagerclient-delete-message-stream"></a>
+## Delete message stream<a name="streammanagerclient-delete-message-stream"></a>
 
 The following snippet deletes the stream named `StreamName`\. When you delete a stream, all of the stored data for the stream is deleted from the disk\.
 
@@ -482,11 +482,11 @@ SDK reference: [deleteMessageStream](https://aws.github.io/aws-greengrass-core-s
 
 ------
 
-## See Also<a name="work-with-streams-see-also"></a>
-+ [Manage Data Streams on the AWS IoT Greengrass Core](stream-manager.md)
-+ [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)
-+ [Export Data Streams to the AWS Cloud \(Console\)](stream-manager-console.md)
-+ [Export Data Streams to the AWS Cloud \(CLI\)](stream-manager-cli.md)
+## See also<a name="work-with-streams-see-also"></a>
++ [Manage data streams on the AWS IoT Greengrass core](stream-manager.md)
++ [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)
++ [Export data streams to the AWS cloud \(console\)](stream-manager-console.md)
++ [Export data streams to the AWS cloud \(CLI\)](stream-manager-cli.md)
 + `StreamManagerClient` in the AWS IoT Greengrass Core SDK reference:
   + [Python](https://aws.github.io/aws-greengrass-core-sdk-python/_apidoc/greengrasssdk.stream_manager.streammanagerclient.html)
   + [Java](https://aws.github.io/aws-greengrass-core-sdk-java/com/amazonaws/greengrass/streammanager/client/StreamManagerClient.html)

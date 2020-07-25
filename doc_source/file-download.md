@@ -1,6 +1,6 @@
-# Download Required Files<a name="file-download"></a>
+# Download required files<a name="file-download"></a>
 
-1. If you haven’t already done so, install the AWS IoT Device SDK for Python\. For instructions, see step 1 in [Install the AWS IoT Device SDK for Python](IoT-SDK.md)\.
+1. If you haven't already done so, install the AWS IoT Device SDK for Python\. For instructions, see step 1 in [Install the AWS IoT Device SDK for Python](IoT-SDK.md)\.
 
    This SDK is used by AWS IoT devices to communicate with AWS IoT and with AWS IoT Greengrass core devices\.
 

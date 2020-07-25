@@ -1,12 +1,12 @@
-# Getting Started with Greengrass Connectors \(Console\)<a name="connectors-console"></a>
+# Getting started with Greengrass connectors \(console\)<a name="connectors-console"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS Management Console to work with connectors\.
 
-## <a name="w31aac27c37b8"></a>
+## <a name="w51aac29c42b8"></a>
 
-Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
+Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
 
 In this tutorial, you configure and deploy the [ Twilio Notifications](twilio-notifications-connector.md) connector\. The connector receives Twilio message information as input data, and then triggers a Twilio text message\. The data flow is shown in following diagram\.
 
@@ -16,25 +16,27 @@ After you configure the connector, you create a Lambda function and a subscripti
 + The function evaluates simulated data from a temperature sensor\. It conditionally publishes the Twilio message information to an MQTT topic\. This is the topic that the connector subscribes to\.
 + The subscription allows the function to publish to the topic and the connector to receive data from the topic\.
 
-The Twilio Notifications connector requires a Twilio auth token to interact with the Twilio API\. The token is a text type secret created in AWS Secrets Manager and referenced from a group resource\. This enables AWS IoT Greengrass to create a local copy of the secret on the Greengrass core, where it is encrypted and made available to the connector\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
+The Twilio Notifications connector requires a Twilio auth token to interact with the Twilio API\. The token is a text type secret created in AWS Secrets Manager and referenced from a group resource\. This enables AWS IoT Greengrass to create a local copy of the secret on the Greengrass core, where it is encrypted and made available to the connector\. For more information, see [Deploy secrets to the AWS IoT Greengrass core](secrets.md)\.
 
 The tutorial contains the following high\-level steps:
 
-1. [Create a Secrets Manager Secret](#connectors-console-create-secret)
+1. [Create a Secrets Manager secret](#connectors-console-create-secret)
 
-1. [Add a Secret Resource to a Group](#connectors-console-create-resource)
+1. [Add a secret resource to a group](#connectors-console-create-resource)
 
-1. [Add a Connector to the Group](#connectors-console-create-connector)
+1. [Add a connector to the group](#connectors-console-create-connector)
 
-1. [Create a Lambda Function Deployment Package](#connectors-console-create-deployment-package)
+1. [Create a Lambda function deployment package](#connectors-console-create-deployment-package)
 
-1. [Create a Lambda Function](#connectors-console-create-function)
+1. [Create a Lambda function](#connectors-console-create-function)
 
-1. [Add a Function to the Group](#connectors-console-create-gg-function)
+1. [Add a function to the group](#connectors-console-create-gg-function)
 
-1. [Add Subscriptions to the Group](#connectors-console-create-subscription)
+1. [Add subscriptions to the group](#connectors-console-create-subscription)
 
-1. [Deploy the Group](#connectors-console-create-deployment)
+1. [Deploy the group](#connectors-console-create-deployment)
+
+1. [Test the solution](#connectors-console-test-solution)
 
 The tutorial should take about 20 minutes to complete\.
 
@@ -42,23 +44,23 @@ The tutorial should take about 20 minutes to complete\.
 
 To complete this tutorial, you need:
 
-### <a name="w31aac27c37c16b6"></a>
-+ A Greengrass group and a Greengrass core \(v1\.7 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
-+ Python 2\.7 installed on the AWS IoT Greengrass core device\.
+### <a name="w51aac29c42c16b6"></a>
++ A Greengrass group and a Greengrass core \(v1\.9\.3 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
++ Python 3\.7 installed on the AWS IoT Greengrass core device\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
-This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
+This requirement includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
 + A Twilio account SID, auth token, and Twilio\-enabled phone number\. After you create a Twilio project, these values are available on the project dashboard\.
 **Note**  
 You can use a Twilio trial account\. If you're using a trial account, you must add non\-Twilio recipient phone numbers to a list of verified phone numbers\. For more information, see [ How to Work with your Free Twilio Trial Account](https://www.twilio.com/docs/usage/tutorials/how-to-use-your-free-trial-account)\.
 
-## Step 1: Create a Secrets Manager Secret<a name="connectors-console-create-secret"></a>
+## Step 1: Create a Secrets Manager secret<a name="connectors-console-create-secret"></a>
 
 In this step, you use the AWS Secrets Manager console to create a text type secret for your Twilio auth token\.
 
 1. <a name="create-secret-step-signin"></a>Sign in to the [AWS Secrets Manager console](https://console.aws.amazon.com/secretsmanager/)\.
 **Note**  
-For more information about this process, see [ Step 1: Create and Store Your Secret in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html) in the *AWS Secrets Manager User Guide*\.
+For more information about this process, see [ Step 1: Create and store your secret in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html) in the *AWS Secrets Manager User Guide*\.
 
 1. <a name="create-secret-step-create"></a>Choose **Store a new secret**\.
 
@@ -81,7 +83,7 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
    Next, you create a secret resource in your Greengrass group that references the secret\.
 
-## Step 2: Add a Secret Resource to a Greengrass Group<a name="connectors-console-create-resource"></a>
+## Step 2: Add a secret resource to a Greengrass group<a name="connectors-console-create-resource"></a>
 
 In this step, you add a *secret resource* to the Greengrass group\. This resource is a reference to the secret that you created in the previous step\.
 
@@ -104,7 +106,7 @@ This tutorial requires the AWSCURRENT label only\. You can optionally include la
 
 1. On the **Name your secret resource** page, enter **MyTwilioAuthToken**, and then choose **Save**\.
 
-## Step 3: Add a Connector to the Greengrass Group<a name="connectors-console-create-connector"></a>
+## Step 3: Add a connector to the Greengrass group<a name="connectors-console-create-connector"></a>
 
 In this step, you configure parameters for the [Twilio Notifications connector](twilio-notifications-connector.md) and add it to the group\.
 
@@ -122,9 +124,9 @@ When you choose the resource, the **ARN of Twilio auth token secret** property i
 
 1. Choose **Add**\.
 
-## Step 4: Create a Lambda Function Deployment Package<a name="connectors-console-create-deployment-package"></a>
+## Step 4: Create a Lambda function deployment package<a name="connectors-console-create-deployment-package"></a>
 
-### <a name="w31aac27c37c24b4"></a>
+### <a name="w51aac29c42c24b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -135,7 +137,6 @@ To create a Lambda function, you must first create a Lambda function *deployment
 1. Save the following Python code function in a local file named `temp_monitor.py`\.
 
    ```
-   from __future__ import print_function
    import greengrasssdk
    import json
    import random
@@ -182,7 +183,7 @@ To create a Lambda function, you must first create a Lambda function *deployment
 
 Now, create a Lambda function that uses the deployment package\.
 
-## Step 5: Create a Lambda Function in the AWS Lambda Console<a name="connectors-console-create-function"></a>
+## Step 5: Create a Lambda function in the AWS Lambda console<a name="connectors-console-create-function"></a>
 
 In this step, you use the AWS Lambda console to create a Lambda function and configure it to use your deployment package\. Then, you publish a function version and create an alias\.
 
@@ -194,7 +195,7 @@ In this step, you use the AWS Lambda console to create a Lambda function and con
 
    1. In the **Basic information** section, use the following values:
       + For **Function name**, enter **TempMonitor**\.
-      + For **Runtime**, choose **Python 2\.7**\.
+      + For **Runtime**, choose **Python 3\.7**\.
       + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    1. <a name="lambda-console-save-function"></a>At the bottom of the page, choose **Create function**\.
@@ -203,7 +204,7 @@ In this step, you use the AWS Lambda console to create a Lambda function and con
 
    1. On the **Configuration** tab for the TempMonitor function, in **Function code**, use the following values:
       + For **Code entry type**, choose **Upload a \.zip file**\.
-      + For **Runtime**, choose **Python 2\.7**\.
+      + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **temp\_monitor\.function\_handler**
 
    1. <a name="lambda-console-upload"></a>Choose **Upload**\.
@@ -236,9 +237,9 @@ AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
 Now you're ready to add the Lambda function to your Greengrass group\.
 
-## Step 6: Add a Lambda Function to the Greengrass Group<a name="connectors-console-create-gg-function"></a>
+## Step 6: Add a Lambda function to the Greengrass group<a name="connectors-console-create-gg-function"></a>
 
-In this step, you add the Lambda function to the group and then configure its lifecycle and environment variables\. For more information, see [Controlling Execution of Greengrass Lambda Functions by Using Group\-Specific Configuration](lambda-group-config.md)\.
+In this step, you add the Lambda function to the group and then configure its lifecycle and environment variables\. For more information, see [Controlling execution of Greengrass Lambda functions by using group\-specific configuration](lambda-group-config.md)\.
 
 1. <a name="choose-add-lambda"></a>On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
 ![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas.png)
@@ -250,7 +251,7 @@ In this step, you add the Lambda function to the group and then configure its li
 
 1. On the **Select a Lambda version** page, choose **Alias:GG\_TempMonitor**, and then choose **Finish**\.
 
-## Step 7: Add Subscriptions to the Greengrass Group<a name="connectors-console-create-subscription"></a>
+## Step 7: Add subscriptions to the Greengrass group<a name="connectors-console-create-subscription"></a>
 
 <a name="connectors-how-to-add-subscriptions-p1"></a>In this step, you add a subscription that enables the Lambda function to send input data to the connector\. The connector defines the MQTT topics that it subscribes to, so this subscription uses one of the topics\. This is the same topic that the example function publishes to\.
 
@@ -287,7 +288,7 @@ In this step, you add the Lambda function to the group and then configure its li
 
    1. For **Topic filter**, **twilio/message/status** is entered for you\. This is the predefined topic that the connector publishes to\.
 
-## Step 8: Deploy the Greengrass Group<a name="connectors-console-create-deployment"></a>
+## Step 8: Deploy the Greengrass group<a name="connectors-console-create-deployment"></a>
 
 Deploy the group to the core device\.
 
@@ -324,9 +325,12 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
    For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-## Test the Solution<a name="connectors-console-test-solution"></a>
+**Note**  
+<a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
-### <a name="w31aac27c37c34b4"></a>
+## Test the solution<a name="connectors-console-test-solution"></a>
+
+### <a name="w51aac29c42c34b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
@@ -341,6 +345,6 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
    Now, change the `temperature` in the input message to **29** and publish\. Because this is less than 30, the TempMonitor function doesn't trigger a Twilio message\.
 
-## See Also<a name="connectors-console-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+  [AWS\-Provided Greengrass Connectors](connectors-list.md)
+## See also<a name="connectors-console-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++  [AWS\-provided Greengrass connectors](connectors-list.md)

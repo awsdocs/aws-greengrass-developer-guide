@@ -1,19 +1,19 @@
-# Setting Up Other Devices<a name="setup-filter.other"></a>
+# Setting up other devices<a name="setup-filter.other"></a>
 
 Follow the steps in this topic to set up a device \(other than a Raspberry Pi\) to use as your AWS IoT Greengrass core\.
 
 **Tip**  
-Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick Start: Greengrass Device Setup](quick-start.md)\.
+Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick start: Greengrass device setup](quick-start.md)\.
 
 If you're new to AWS IoT Greengrass, we recommend that you use a Raspberry Pi or an Amazon EC2 instance as your core device, and follow the [setup steps](module1.md) appropriate for your device\. To use a different device or [supported platform](what-is-gg.md#gg-platforms), follow the steps in this topic\.
 
  
 
-1. <a name="setup-jetson"></a>If your core device is an NVIDIA Jetson TX2, you must first flash the firmware with the JetPack 3\.3 installer\. If you're configuring a different device, skip to step 2\.
+1. <a name="setup-jetson"></a>If your core device is an NVIDIA Jetson device, you must first flash the firmware with the JetPack 4\.3 installer\. If you're configuring a different device, skip to step 2\.
 **Note**  
-The JetPack installer version that you use is based on your target CUDA Toolkit version\. The following instructions use JetPack 3\.3 and CUDA Toolkit 9\.0 because the TensorFlow v1\.10\.1 and MXNet v1\.2\.1 binaries \(that AWS IoT Greengrass provides for machine learning inference on a Jetson TX2\) are compiled against this version of CUDA\. For more information, see [Perform Machine Learning Inference](ml-inference.md)\.
+The JetPack installer version that you use is based on your target CUDA Toolkit version\. The following instructions use JetPack 4\.3 and CUDA Toolkit 10\.0\. For information about using the versions appropriate for your device, see [How to Install Jetpack](https://docs.nvidia.com/jetson/jetpack/install-jetpack/index.html) in the NVIDIA documentation\.
 
-   1. On a physical desktop that is running Ubuntu 16\.04 or later, flash the firmware with the JetPack 3\.3 installer, as described in [Download and Install JetPack](https://docs.nvidia.com/jetson/archives/jetpack-archived/jetpack-33/index.html#jetpack/3.3/install.htm%3FTocPath%3D_____3) \(3\.3\) in the NVIDIA documentation\.
+   1. On a physical desktop that is running Ubuntu 16\.04 or later, flash the firmware with the JetPack 4\.3 installer, as described in [Download and Install JetPack](https://docs.nvidia.com/jetson/archives/jetpack-archived/jetpack-33/index.html#jetpack/3.3/install.htm%3FTocPath%3D_____3) \(4\.3\) in the NVIDIA documentation\.
 
       Follow the instructions in the installer to install all the packages and dependencies on the Jetson board, which must be connected to the desktop with a Micro\-B cable\.
 
@@ -43,7 +43,7 @@ If the `addgroup` command isn't available on your system, use the following comm
      sudo groupadd --system ggc_group
      ```
 
-1. <a name="install-java-8-runtime"></a>Install the Java 8 runtime\. This tutorial uses the **Default Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. You must install the Java 8 runtime on the core device \(or [disable stream manager](configure-stream-manager.md#enable-stream-manager-console-existing-group)\) before you deploy your group\.
+1. <a name="install-java-8-runtime"></a>Optional\. Install the Java 8 runtime, which is required by [stream manager](stream-manager.md)\. This tutorial doesn't use stream manager, but it does use the **Default Group creation** workflow that enables stream manager by default\. Use the following commands to install the Java 8 runtime on the core device, or disable stream manager before you deploy your group\. Instructions for disabling stream manager are provided in Module 3\.
    + For Debian\-based or Ubuntu\-based distributions:
 
      ```
@@ -74,4 +74,4 @@ The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platfor
 **Important**  
 <a name="lambda-runtime-prereqs"></a>This tutorial requires the Python 3\.7 runtime to run local Lambda functions\. When stream manager is enabled, it also requires the Java 8 runtime\. If the `check_ggc_dependencies` script produces warnings about these missing runtime prerequisites, make sure to install them before you continue\. You can ignore warnings about other missing optional runtime prerequisites\.
 
-   For the list of AWS IoT Greengrass requirements and dependencies, see [Supported Platforms and Requirements](what-is-gg.md#gg-platforms)\.
+   For the list of AWS IoT Greengrass requirements and dependencies, see [Supported platforms and requirements](what-is-gg.md#gg-platforms)\.

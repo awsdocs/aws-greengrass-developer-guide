@@ -1,8 +1,8 @@
-# How to Configure Optimized Machine Learning Inference Using the AWS Management Console<a name="ml-dlc-console"></a>
+# How to configure optimized machine learning inference using the AWS Management Console<a name="ml-dlc-console"></a>
 
-To follow the steps in this tutorial, you must be using AWS IoT Greengrass Core v1\.6 or later\.
+To follow the steps in this tutorial, you must be using AWS IoT Greengrass Core v1\.10 or later\.
 
- You can use the Amazon SageMaker Neo deep learning compiler to optimize the prediction efficiency of native machine learning inference models in many frameworks\. You can then download the optimized model and install the Amazon SageMaker Neo deep learning runtime and deploy them to your AWS IoT Greengrass devices for faster inference\. 
+ You can use the Amazon SageMaker Neo deep learning compiler to optimize the prediction efficiency of native machine learning inference models in Tensorflow, Apache MXNet, PyTorch, ONNX, and XGBoost frameworks for a smaller footprint and faster performance\. You can then download the optimized model and install the Amazon SageMaker Neo deep learning runtime and deploy them to your AWS IoT Greengrass devices for faster inference\. 
 
 This tutorial describes how to use the AWS Management Console to configure a Greengrass group to run a Lambda inference example that recognizes images from a camera locally, without sending data to the cloud\. The inference example accesses the camera module on a Raspberry Pi\. In this tutorial, you download a prepackaged model that is trained by Resnet\-50 and optimized in the Neo deep learning compiler\. You then use the model to perform local image classification on your AWS IoT Greengrass device\. 
 
@@ -10,37 +10,38 @@ The tutorial contains the following high\-level steps:
 
 1. [Configure the Raspberry Pi](#config-raspberry-pi-dlc)
 
-1. [Install the Amazon SageMaker Neo Deep Learning Runtime](#install-dlr)
+1. [Install the Neo deep learning runtime](#install-dlr)
 
-1. [Create an Inference Lambda Function](#ml-console-dlc-create-lambda)
+1. [Create an inference Lambda function](#ml-console-dlc-create-lambda)
 
-1. [Add the Lambda Function to the Group](#ml-console-dlc-config-lambda)
+1. [Add the Lambda function to the group](#ml-console-dlc-config-lambda)
 
-1. [Add a Neo\-Optimized Model Resource to the Group](#ml-console-dlc-add-resources)
+1. [Add a Neo\-optimized model resource to the group](#ml-console-dlc-add-resources)
 
-1. [Add Your Camera Device Resource to the Group](#ml-console-dlc-add-cam-resource)
+1. [Add your camera device resource to the group](#ml-console-dlc-add-cam-resource)
 
-1. [Add Subscriptions to the Group](#ml-console-dlc-add-subscription)
+1. [Add subscriptions to the group](#ml-console-dlc-add-subscription)
 
-1. [Deploy the Group](#ml-console-dlc-deploy-group)
+1. [Deploy the group](#ml-console-dlc-deploy-group)
 
-1. [Test the Example](#ml-console-dlc-test-app)
+1. [Test the example](#ml-console-dlc-test-app)
 
 ## Prerequisites<a name="ml-inference-prerequisites"></a>
 
  To complete this tutorial, you need: 
-+  Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+, set up and configured for use with AWS IoT Greengrass\. To learn how to set up your Raspberry Pi with AWS IoT Greengrass, see [Module 1](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html) and [Module 2](https://docs.aws.amazon.com/greengrass/latest/developerguide/module2.html) of [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
++  Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+, set up and configured for use with AWS IoT Greengrass\. To set up your Raspberry Pi with AWS IoT Greengrass, run the [Greengrass Device Setup](quick-start.md) script, or make sure that you have completed [Module 1](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html) and [Module 2](https://docs.aws.amazon.com/greengrass/latest/developerguide/module2.html) of [Getting started with AWS IoT Greengrass](gg-gs.md)\. 
 **Note**  
 The Raspberry Pi might require a 2\.5A [power supply](https://www.raspberrypi.org/documentation/hardware/raspberrypi/power/) to run the deep learning frameworks that are typically used for image classification\. A power supply with a lower rating might cause the device to reboot\.
-+  [Raspberry Pi Camera Module V2 \- 8 Megapixel, 1080p](https://www.amazon.com/Raspberry-Pi-Camera-Module-Megapixel/dp/B01ER2SKFS)\. To learn how to set up the camera, see [Connecting the camera](https://www.raspberrypi.org/documentation/usage/camera/) in the Raspberry Pi documentation\. 
-+  A Greengrass group and a Greengrass core\. To learn how to create a Greengrass group or core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
++  [Raspberry Pi Camera Module V2 \- 8 megapixel, 1080p](https://www.amazon.com/Raspberry-Pi-Camera-Module-Megapixel/dp/B01ER2SKFS)\. To learn how to set up the camera, see [Connecting the camera](https://www.raspberrypi.org/documentation/usage/camera/) in the Raspberry Pi documentation\. 
++  A Greengrass group and a Greengrass core\. To learn how to create a Greengrass group or core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. 
 
 **Note**  
- This tutorial uses a Raspberry Pi, but AWS IoT Greengrass supports other platforms, such as [Intel Atom](#atom-lambda-dlc-config) and [NVIDIA Jetson TX2](#jetson-lambda-dlc-config)\. 
+ This tutorial uses a Raspberry Pi, but AWS IoT Greengrass supports other platforms, such as [Intel Atom](#atom-lambda-dlc-config) and [NVIDIA Jetson TX2](#jetson-lambda-dlc-config)\. If using the Intel Atom example, you might need to install Python 3\.6 instead of Python 3\.7\. For information about configuring your device so you can install the AWS IoT Greengrass Core software, see [Setting up other devices](setup-filter.other.md)\.   
+For third party platforms that AWS IoT Greengrass does not support, you must run your Lambda function in non\-containerized mode\. To run in non\-containerized mode, you must run your Lambda function as root\. For more information, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations) and [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
 
 ## Step 1: Configure the Raspberry Pi<a name="config-raspberry-pi-dlc"></a>
 
- In this step, you install updates to the Raspbian operating system, install the camera module software and Python dependencies, and enable the camera interface\. 
+ In this step, install updates to the Raspbian operating system, install the camera module software and Python dependencies, and enable the camera interface\. 
 
 Run the following commands in your Raspberry Pi terminal\.
 
@@ -51,11 +52,45 @@ Run the following commands in your Raspberry Pi terminal\.
    sudo apt-get dist-upgrade
    ```
 
-1. Install the picamera interface for the camera module and other Python libraries that are required for this tutorial\.
+1. <a name="install-picamera-step"></a>Install the `picamera` interface for the camera module and other Python libraries that are required for this tutorial\.
 
    ```
-   sudo apt-get install -y python-dev python-setuptools python-pip python-picamera
+   sudo apt-get install -y python3-dev python3-setuptools python3-pip python3-picamera
    ```
+
+   Validate the installation:
+   + Make sure that your Python 3\.7 installation includes pip\.
+
+     ```
+     python3 -m pip
+     ```
+
+     If pip isn't installed, download it from the [pip website](https://pip.pypa.io/en/stable/installing/) and then run the following command\.
+
+     ```
+     python3 get-pip.py
+     ```
+   + Make sure that your Python version is 3\.7 or higher\.
+
+     ```
+     python3 --version
+     ```
+
+     If the output lists an earlier version, run the following command\.
+
+     ```
+     sudo apt-get install -y python3.7-dev
+     ```
+   + Make sure that Setuptools and Picamera installed successfully\.
+
+     ```
+     sudo -u ggc_user bash -c 'python3 -c "import setuptools"'
+     sudo -u ggc_user bash -c 'python3 -c "import picamera"'
+     ```
+
+     If the output doesn't contain errors, the validation is successful\.
+**Note**  
+If the Python executable installed on your device is `python3.7`, use `python3.7` instead of `python3` for the commands in this tutorial\. Make sure that your pip installation maps to the correct `python3.7` or `python3` version to avoid dependency errors\.
 
 1. Reboot the Raspberry Pi\.
 
@@ -79,61 +114,68 @@ Run the following commands in your Raspberry Pi terminal\.
 
    This opens a preview window on the Raspberry Pi, saves a picture named `test.jpg` to your current directory, and displays information about the camera in the Raspberry Pi terminal\.
 
-## Step 2: Install the Amazon SageMaker Neo Deep Learning Runtime<a name="install-dlr"></a>
+## Step 2: Install the Amazon SageMaker Neo deep learning runtime<a name="install-dlr"></a>
 
- In this step, you download the Neo deep learning runtime and install it onto your Raspberry Pi\. 
+ In this step, install the Neo deep learning runtime \(DLR\) on your Raspberry Pi\. 
 
-1.  On the [AWS IoT Greengrass Machine Learning Runtimes and Precompiled Libraries](what-is-gg.md#gg-ml-runtimes-pc-libs) downloads page, locate the Deep Learning Runtime version 1\.0\.0 for Raspberry Pi\. Choose **Download**\. 
+**Note**  
+We recommend installing version 1\.1\.0 for this tutorial\.
 
-1. Transfer the downloaded `dlr-1.0-py2-armv7l.tar.gz` file from your computer to your Raspberry Pi\. You can also use the following scp command with a path to save your file, such as `/home/pi/`:
-
-   ```
-   scp dlr-1.0-py2-armv7l.tar.gz pi@your-device-ip-address:path-to-save-file
-   ```
-
-1.  Use the following commands to remotely sign in to your Raspberry Pi and extract the installer files\. 
+1. <a name="ssh-rpi-step"></a>Sign in to your Raspberry Pi remotely\.
 
    ```
    ssh pi@your-device-ip-address
-   ​cd path-to-save-file
-   tar -xvzf dlr-1.0-py2-armv7l.tar.gz
    ```
 
-1.  Install the Neo deep learning runtime\. 
+1.  Open the DLR documentation, open [Installing DLR](https://neo-ai-dlr.readthedocs.io/en/latest/install.html), and locate the wheel URL for Raspberry Pi devices\. Then, follow the instructions to install the DLR on your device\. For example, you can use pip:
 
    ```
-   cd dlr-1.0-py2-armv7l/
-   chmod 755 install-dlr.sh
-   sudo ./install-dlr.sh
+   pip3 install rasp3b-wheel-url
    ```
 
-    This package contains an `examples` directory that contains several files you use to run this tutorial\. This directory also contains version 1\.2\.0 of the AWS IoT Greengrass Core SDK for Python\. You can also download the latest version of the SDK from the [AWS IoT Greengrass Core SDK](what-is-gg.md#gg-core-sdk-download) downloads page\. 
+1. After you install the DLR, validate the following configuration:
+   + Make sure the `ggc_user` system account can use the DLR library\.
 
-## Step 3: Create an Inference Lambda Function<a name="ml-console-dlc-create-lambda"></a>
+     ```
+     sudo -u ggc_user bash -c 'python3 -c "import dlr"'
+     ```
+   + Make sure NumPy is installed\.
 
- In this step, you create a deployment package and a Lambda function that is configured to use the deployment package\. Then, you publish a function version and create an alias\. 
+     ```
+     sudo -u ggc_user bash -c 'python3 -c "import numpy"'
+     ```
 
-1.  On your computer, unzip the downloaded `dlr-1.0-py2-armv7l.tar.gz` file you previously copied to your Raspberry Pi\. 
+## Step 3: Create an inference Lambda function<a name="ml-console-dlc-create-lambda"></a>
+
+ In this step, create a Lambda function deployment package and Lambda function\. Then, publish a function version and create an alias\. 
+
+1. On your computer, download the DLR sample for Raspberry Pi from [Machine learning samples](what-is-gg.md#gg-ml-samples)\.
+
+1.  Unzip the downloaded `dlr-py3-armv7l.tar.gz` file\. 
 
    ```
-   cd path-to-downloaded-runtime
-   tar -xvzf dlr-1.0-py2-armv7l.tar.gz
+   cd path-to-downloaded-sample
+   tar -xvzf dlr-py3-armv7l.tar.gz
    ```
 
-1.  The resulting `dlr-1.0-py2-armv7l` directory contains an `examples` folder\. It contains `inference.py`, the example code used in this tutorial for inference\. You can view this code as a usage example to create your own inference code\. 
+   The `examples` directory in the extracted sample package contains function code and dependencies\.
+   + `inference.py` is the inference code used in this tutorial\. You can use this code as a template to create your own inference function\.
+   + <a name="ml-samples-ggc-sdk"></a>`greengrasssdk` is version 1\.5\.0 of the AWS IoT Greengrass Core SDK for Python\.
+**Note**  <a name="ml-samples-ggc-sdk-upgrade"></a>
+If a new version is available, you can download it and upgrade the SDK version in your deployment package\. For more information, see [ AWS IoT Greengrass Core SDK for Python](https://github.com/aws/aws-greengrass-core-sdk-python/) on GitHub\.
 
-    Compress the files in the `examples` folder into a file named `optimizedImageClassification.zip`\. 
-**Note**  
- When you create the \.zip file, verify that the \.py ﬁles and dependencies are in the root of the directory\. 
+1.  Compress the contents of the `examples` directory into a file named `optimizedImageClassification.zip`\. This is your deployment package\. 
 
    ```
-   cd path-to-downloaded-runtime/dlr-1.0-py2-armv7l/examples
+   cd path-to-downloaded-sample/dlr-py3-armv7l/examples
    zip -r optimizedImageClassification.zip .
    ```
 
-    This `.zip` file is your deployment package\. This package contains the function code and dependencies, including the code example that invokes the Neo deep learning runtime Python APIs to perform inference with the Neo deep learning compiler models\. You upload this deployment package later\. 
+    The deployment package contains your function code and dependencies\. This includes the code that invokes the Neo deep learning runtime Python APIs to perform inference with the Neo deep learning compiler models\. 
+**Note**  <a name="ml-samples-function-zip"></a>
+ Make sure the `.py` ﬁles and dependencies are in the root of the directory\. 
 
-1.  Now, create the Lambda function\. 
+1.  Now, add the Lambda function to your Greengrass group\. 
 
     In the AWS IoT console, in the navigation pane, choose **Greengrass**, and then choose **Groups**\.   
 ![\[The navigation pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
@@ -148,7 +190,7 @@ Run the following commands in your Raspberry Pi terminal\.
 
 1. Choose **Author from scratch** and use the following values to create your function:
    + For **Function name**, enter **optimizedImageClassification**\. 
-   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Runtime**, choose **Python 3\.7**\.
 
    For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.  
 ![\[The Basic information section of the Create function page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-dlr-lambda-creation.png)
@@ -161,7 +203,7 @@ Now, upload your Lambda function deployment package and register the handler\.
 
 1.  On the **Configuration** tab for the `optimizedImageClassification` function, for **Function code**, use the following values: 
    + For **Code entry type**, choose **Upload a \.zip file**\.
-   + For **Runtime**, choose **Python 2\.7**\.
+   + For **Runtime**, choose **Python 3\.7**\.
    + For **Handler**, enter **inference\.handler**\.
 
 1. Choose **Upload**\.  
@@ -196,9 +238,9 @@ AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
    Now, add the Lambda function to your Greengrass group\.
 
-## Step 4: Add the Lambda Function to the Greengrass Group<a name="ml-console-dlc-config-lambda"></a>
+## Step 4: Add the Lambda function to the Greengrass group<a name="ml-console-dlc-config-lambda"></a>
 
-In this step, you add the Lambda function to the group, and then configure its lifecycle\.
+In this step, add the Lambda function to the group, and then configure its lifecycle\.
 
 First, add the Lambda function to your Greengrass group\.
 
@@ -218,27 +260,54 @@ Next, configure the lifecycle of the Lambda function\.
 
 1. On the **optimizedImageClassification** configuration page, choose **Edit**\.
 
-1. On the **Group\-specific Lambda configuration** page, use the following values:
-   + For **Memory limit**, enter **1024 MB**\.
-   + For **Timeout**, enter **10 seconds**\.
-   + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
-   + For **Read access to /sys directory**, choose **Enable**\.
+1. On the **Group\-specific Lambda configuration** page, make the following updates\.
+**Note**  
+ We recommend that you run your Lambda function without containerization unless your business case requires it\. This helps enable access to your device GPU and camera without configuring device resources\. If you run without containerization, you must also grant root access to your AWS IoT Greengrass Lambda functions\. 
 
-   For more information, see [Lifecycle Configuration for Greengrass Lambda Functions](lambda-functions.md#lambda-lifecycle)\.
+   1. **To run without containerization:**
+      + For **Run as**, choose **Another user ID/group ID**\. For **UID**, enter **0**\. For **GUID**, enter **0**\.
+
+        This allows your Lambda function to run as root\. For more information about running as root, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
+**Tip**  
+You also must update your `config.json` file to grant root access to your Lambda function\. For the procedure, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
+      + For **Containerization**, choose **No container**\.
+
+        For more information about running without containerization, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations)\.
+      + For **Timeout**, enter **10 seconds**\.
+      + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
+
+        For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
+      + For **Read access to /sys directory**, choose **Enable**\.
+
+   1.  **To run in containerized mode instead:** 
+**Note**  
+We do not recommend running in containerized mode unless your business case requires it\.
+      + For **Run as**, choose **Use group default**\.
+      + For **Containerization**, choose **Use group default**\.
+      + For **Memory limit**, enter **1024 MB**\.
+      + For **Timeout**, enter **10 seconds**\.
+      + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
+
+        For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
+      + For **Read access to /sys directory**, choose **Enable**\.
 
 1.  Choose **Update**\.
 
-## Step 5: Add a Amazon SageMaker Neo\-Optimized Model Resource to the Greengrass Group<a name="ml-console-dlc-add-resources"></a>
+## Step 5: Add a Amazon SageMaker Neo\-optimized model resource to the Greengrass group<a name="ml-console-dlc-add-resources"></a>
 
- In this step, you create a resource for the optimized ML inference model and upload it to an Amazon S3 bucket\. Then, you locate the Amazon S3 uploaded model in the AWS IoT Greengrass console and affiliate the newly created resource with the Lambda function\. This makes it possible for the function to access its resources on the core device\. 
+ In this step, create a resource for the optimized ML inference model and upload it to an Amazon S3 bucket\. Then, locate the Amazon S3 uploaded model in the AWS IoT Greengrass console and affiliate the newly created resource with the Lambda function\. This makes it possible for the function to access its resources on the core device\. 
 
-1.  On your computer, navigate to the Neo deep learning runtime installer package that you unpacked earlier\. Navigate to the `resnet50` directory\. 
+1.  On your computer, navigate to the `resnet50` directory in the sample package that you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. 
+**Note**  
+If using the NVIDIA Jetson example, you need to use the `resnet18` directory in the sample package instead\. For more information, see [Configuring an NVIDIA Jetson TX2](#jetson-lambda-dlc-config)\.
 
    ```
-   cd path-to-downloaded-runtime/dlr-1.0-py2-armv7l/models/resnet50
+   cd path-to-downloaded-sample/dlr-py3-armv7l/models/resnet50
    ```
 
-    This directory contains precompiled model artifacts for an image classification model trained with Resnet\-50\. Compress the files inside the `resnet50` directory to create `resnet50.zip`\. 
+    This directory contains precompiled model artifacts for an image classification model trained with Resnet\-50\.
+
+1. Compress the files inside the `resnet50` directory into a file named `resnet50.zip`\. 
 
    ```
    zip -r resnet50.zip .
@@ -255,7 +324,7 @@ Next, configure the lifecycle of the Lambda function\.
 
 1.  Choose **Upload a model**\. 
 
-1.  On the Amazon S3 console tab, upload your zip file to an Amazon S3 bucket\. For information, see [ How Do I Upload Files and Folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service Console User Guide*\. 
+1.  On the Amazon S3 console tab, upload your zip file to an Amazon S3 bucket\. For information, see [ How do I upload files and folders to an S3 bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service Console User Guide*\. 
 **Note**  
  Your bucket name must contain the string **greengrass**\. Choose a unique name \(such as **greengrass\-dlr\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
 
@@ -266,7 +335,7 @@ Next, configure the lifecycle of the Lambda function\.
 
     This is the destination for the local model in the Lambda runtime namespace\. When you deploy the group, AWS IoT Greengrass retrieves the source model package and then extracts the contents to the specified directory\. 
 **Note**  
- We strongly recommend that you use the exact path provided for your local path\. Using a different local model destination path in this step causes some troubleshooting commands provided in this tutorial to be inaccurate\. If you use a different path, you must set up a `MODEL_PATH` environment variable that uses the exact path you provide here\. For information about environment variables, see [AWS Lambda Environment Variables](https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html)\. 
+ We strongly recommend that you use the exact path provided for your local path\. Using a different local model destination path in this step causes some troubleshooting commands provided in this tutorial to be inaccurate\. If you use a different path, you must set up a `MODEL_PATH` environment variable that uses the exact path you provide here\. For information about environment variables, see [AWS Lambda environment variables](https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html)\. 
 
 1. Under **Identify resource owner and set access permissions**, choose **No OS group**\.
 
@@ -276,9 +345,12 @@ Next, configure the lifecycle of the Lambda function\.
 
 1.  Choose **Save**\. 
 
-## Step 6: Add Your Camera Device Resource to the Greengrass Group<a name="ml-console-dlc-add-cam-resource"></a>
+## Step 6: Add your camera device resource to the Greengrass group<a name="ml-console-dlc-add-cam-resource"></a>
 
- In this step, you create a resource for the camera module and affiliate it with the Lambda function, allowing the resource to be accessible on the AWS IoT Greengrass core\. 
+ In this step, create a resource for the camera module and affiliate it with the Lambda function\. This makes it possible for the Lambda function to access the resource on the core device\. 
+
+**Note**  
+If you run in non\-containerized mode, AWS IoT Greengrass can access your device GPU and camera without configuring this device resource\. 
 
 1. On the group configuration page, choose **Resources**\.  
 ![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
@@ -293,7 +365,7 @@ Next, configure the lifecycle of the Lambda function\.
      The device path is the local absolute path of the device resource\. This path can refer only to a character device or block device under `/dev`\.
    + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
 
-     The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.  
+     The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group owner file access permission](access-local-resources.md#lra-group-owner)\.  
 ![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/local-resource-vcsm.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
@@ -318,9 +390,9 @@ Next, configure the lifecycle of the Lambda function\.
 
 1.  Choose **Save**\. 
 
-## Step 7: Add Subscriptions to the Greengrass Group<a name="ml-console-dlc-add-subscription"></a>
+## Step 7: Add subscriptions to the Greengrass group<a name="ml-console-dlc-add-subscription"></a>
 
-In this step, you add subscriptions to the group\. These subscriptions enable the Lambda function to send prediction results to AWS IoT by publishing to an MQTT topic\.
+In this step, add subscriptions to the group\. These subscriptions enable the Lambda function to send prediction results to AWS IoT by publishing to an MQTT topic\.
 
 1. On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.  
 ![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-subscriptions.png)
@@ -351,9 +423,9 @@ In this step, you add subscriptions to the group\. These subscriptions enable th
 
 1. Choose **Finish**\.
 
-## Step 8: Deploy the Greengrass Group<a name="ml-console-dlc-deploy-group"></a>
+## Step 8: Deploy the Greengrass group<a name="ml-console-dlc-deploy-group"></a>
 
-In this step, you deploy the current version of the group definition to the Greengrass core device\. The definition contains the Lambda function, resources, and subscription configurations that you added\.
+In this step, deploy the current version of the group definition to the Greengrass core device\. The definition contains the Lambda function, resources, and subscription configurations that you added\.
 
 1. Make sure that the AWS IoT Greengrass core is running\. Run the following commands in your Raspberry Pi terminal, as needed\.
 
@@ -385,11 +457,14 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
     The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.   
 ![\[The Deployments page with a successful deployment status highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-dlc-inference/gg-ml2-successful-deployment.png)
 
-   For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+   For more information about deployments, see [Deploy AWS IoT Greengrass groups to an AWS IoT Greengrass core](deployments.md)\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-## Test the Inference Example<a name="ml-console-dlc-test-app"></a>
+## Test the inference example<a name="ml-console-dlc-test-app"></a>
 
 Now you can verify whether the deployment is configured correctly\. To test, you subscribe to the `/resnet-50/predictions` topic and publish any message to the `/resnet-50/test` topic\. This triggers the Lambda function to take a photo with your Raspberry Pi and perform inference on the image it captures\. 
+
+**Note**  
+If using the NVIDIA Jetson example, make sure to use the `resnet-18/predictions` and `resnet-18/test` topics instead\.
 
 **Note**  
 If a monitor is attached to the Raspberry Pi, the live camera feed is displayed in a preview window\.
@@ -410,25 +485,52 @@ If a monitor is attached to the Raspberry Pi, the live camera feed is displayed 
 
 ## Configuring an Intel Atom<a name="atom-lambda-dlc-config"></a>
 
- To run this tutorial on an Intel Atom device, you provide source images and configure the Lambda function\. To use the GPU for inference, you must have OpenCL version 1\.0 or later installed on your device\. You must also add a local device resource\. 
+ To run this tutorial on an Intel Atom device, you must provide source images, configure the Lambda function, and add another local device resource\. To use the GPU for inference, make sure the following software is installed on your device:
++ OpenCL version 1\.0 or later
++ Python 3\.7 and pip
++ [NumPy](https://pypi.org/project/numpy/)
++ [OpenCV on Wheels](https://pypi.org/project/opencv-python/)
 
 1. Download static PNG or JPG images for the Lambda function to use for image classification\. The example works best with small image files\. 
 
-   Save your image files in the directory that contains the `inference.py` file \(or in a subdirectory of this directory\)\. This is in the Lambda function deployment package that you upload in [Step 3: Create an Inference Lambda Function](#ml-console-dlc-create-lambda)\.
+   Save your image files in the directory that contains the `inference.py` file \(or in a subdirectory of this directory\)\. This is in the Lambda function deployment package that you upload in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\.
 **Note**  
- If you are using AWS DeepLens, you can choose to instead use the onboard camera or mount your own camera to capture images and perform inference on them\. However, we strongly recommend you start with static images first\. 
+ If you're using AWS DeepLens, you can use the onboard camera or mount your own camera to perform inference on captured images instead of static images\. However, we strongly recommend you start with static images first\.   
+If you use a camera, make sure that the `awscam` APT package is installed and up to date\. For more information, see [Update your AWS DeepLens device](https://docs.aws.amazon.com/deeplens/latest/dg/deeplens-manual-updates.html) in the *AWS DeepLens Developer Guide*\.
 
-1.  Edit the configuration of the Lambda function\. Follow the procedure in [Step 4: Add the Lambda Function to the Greengrass Group](#ml-console-dlc-config-lambda)\. 
+1. Edit the configuration of the Lambda function\. Follow the procedure in [Step 4: Add the Lambda function to the Greengrass group](#ml-console-dlc-config-lambda)\. 
+**Note**  
+ We recommend that you run your Lambda function without containerization unless your business case requires it\. This helps enable access to your device GPU and camera without configuring device resources\. If you run without containerization, you must also grant root access to your AWS IoT Greengrass Lambda functions\. 
 
-   1.  Increase the **Memory limit** value to 3000 MB\. 
+   1. **To run without containerization:**
+      + For **Run as**, choose **Another user ID/group ID**\. For **UID**, enter **0**\. For **GUID**, enter **0**\.
 
-   1. Increase the **Timeout** value to 2 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
+        This allows your Lambda function to run as root\. For more information about running as root, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
+**Tip**  
+You also must update your `config.json` file to grant root access to your Lambda function\. For the procedure, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
+      + For **Containerization**, choose **No container**\.
 
-   1.  For **Read access to /sys directory**, choose **Enable**\. 
+        For more information about running without containerization, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations)\.
+      + Increase the **Timeout** value to 2 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
+      +  For **Read access to /sys directory**, choose **Enable**\. 
+      +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
 
-   1.  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
+   1.  **To run in containerized mode instead:** 
+**Note**  
+We do not recommend running in containerized mode unless your business case requires it\.
+      +  Increase the **Memory limit** value to 3000 MB\. 
+      + Increase the **Timeout** value to 2 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
+      +  For **Read access to /sys directory**, choose **Enable**\. 
+      +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
 
-1. Add the required local device resource\.
+1.  Add your Neo\-optimized model resource to the group\. Upload the model resources in the `resnet18` directory of the sample package you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. This directory contains precompiled model artifacts for an image classification model trained with Resnet\-18\. Follow the procedure in [Step 5: Add a Amazon SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources) with the following updates\. 
+   + Compress the files inside the `resnet18` directory into a file named `resnet18.zip`\.
+   + On the **Create a machine learning resource** page, for **Resource name**, enter **resnet18\_model**\.
+   + Upload the `resnet18.zip` file\.
+
+1. **If running in containerized mode**, add the required local device resource to grant access to your device GPU\.
+**Note**  
+ If you run in non\-containerized mode, AWS IoT Greengrass can access your device GPU without configuring device resources\. 
 
    1. On the group configuration page, choose **Resources**\.  
 ![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
@@ -444,27 +546,49 @@ If a monitor is attached to the Raspberry Pi, the live camera feed is displayed 
 
 ## Configuring an NVIDIA Jetson TX2<a name="jetson-lambda-dlc-config"></a>
 
- To run this tutorial on an NVIDIA Jetson TX2, you provide source images and configure the Lambda function\. To use the GPU for inference, you must install CUDA 9\.0 and cuDNN 7\.0 on your device when you image your board with Jetpack 3\.3\. You must also add local device resources\. 
+ To run this tutorial on an NVIDIA Jetson TX2, provide source images, configure the Lambda function, and add more local device resources\.
 
- To learn how to configure your Jetson so you can install the AWS IoT Greengrass Core software, see [Setting Up Other Devices](setup-filter.other.md)\.
+1. Make sure your Jetson device is configured so you can install the AWS IoT Greengrass Core software and use the GPU for inference\. For more information about configuring your device, see [Setting up other devices](setup-filter.other.md)\. To use the GPU for inference on an NVIDIA Jetson TX2, you must install CUDA 10\.0 and cuDNN 7\.0 on your device when you image your board with Jetpack 4\.3\.
 
 1. Download static PNG or JPG images for the Lambda function to use for image classification\. The example works best with small image files\. 
 
-   Save your image files in the directory that contains the `inference.py` file \(or in a subdirectory of this directory\)\. This is in the Lambda function deployment package that you upload in [Step 3: Create an Inference Lambda Function](#ml-console-dlc-create-lambda)\.
+   Save your image files in the directory that contains the `inference.py` file\. You can also save them in a subdirectory of this directory\. This directory is in the Lambda function deployment package that you upload in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\.
 **Note**  
  You can instead choose to instrument a camera on the Jetson board to capture the source images\. However, we strongly recommend you start with static images first\. 
 
-1. Edit the configuration of the Lambda function\. Follow the procedure in [Step 4: Add the Lambda Function to the Greengrass Group](#ml-console-dlc-config-lambda)\.
+1. Edit the configuration of the Lambda function\. Follow the procedure in [Step 4: Add the Lambda function to the Greengrass group](#ml-console-dlc-config-lambda)\.
+**Note**  
+ We recommend that you run your Lambda function without containerization unless your business case requires it\. This helps enable access to your device GPU and camera without configuring device resources\. If you run without containerization, you must also grant root access to your AWS IoT Greengrass Lambda functions\. 
 
-   1.  Increase the **Memory limit** value\. To use the provided model in GPU mode, use 2048 MB\. 
+   1. **To run without containerization:**
+      + For **Run as**, choose **Another user ID/group ID**\. For **UID**, enter **0**\. For **GUID**, enter **0**\.
 
-   1. Increase the **Timeout** value to 5 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
+        This allows your Lambda function to run as root\. For more information about running as root, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
+**Tip**  
+You also must update your `config.json` file to grant root access to your Lambda function\. For the procedure, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
+      + For **Containerization**, choose **No container**\.
 
-   1.  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
+        For more information about running without containerization, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations)\.
+      + Increase the **Timeout** value to 5 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
+      +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
+      +  For **Read access to /sys directory**, choose **Enable**\. 
 
-   1.  For **Read access to /sys directory**, choose **Enable**\. 
+   1.  **To run in containerized mode instead:** 
+**Note**  
+We do not recommend running in containerized mode unless your business case requires it\.
+      +  Increase the **Memory limit** value\. To use the provided model in GPU mode, use at least 2000 MB\. 
+      + Increase the **Timeout** value to 5 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
+      +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
+      +  For **Read access to /sys directory**, choose **Enable**\. 
 
-1. Add the required local device resources\. 
+1.  Add your Neo\-optimized model resource to the group\. Upload the model resources in the `resnet18` directory of the sample package you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. This directory contains precompiled model artifacts for an image classification model trained with Resnet\-18\. Follow the procedure in [Step 5: Add a Amazon SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources) with the following updates\. 
+   + Compress the files inside the `resnet18` directory into a file named `resnet18.zip`\.
+   + On the **Create a machine learning resource** page, for **Resource name**, enter **resnet18\_model**\.
+   + Upload the `resnet18.zip` file\.
+
+1. **If running in containerized mode**, add the required local device resources to grant access to your device GPU\. 
+**Note**  
+ If you run in non\-containerized mode, AWS IoT Greengrass can access your device GPU without configuring device resources\. 
 
    1. On the group configuration page, choose **Resources**\.  
 ![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
@@ -480,7 +604,25 @@ If a monitor is attached to the Raspberry Pi, the live camera feed is displayed 
              
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
 
-## Troubleshooting AWS IoT Greengrass ML Inference<a name="ml-inference-troubleshooting"></a>
+1. **If running in containerized mode**, add the following local volume resource to grant access to your device camera\. Follow the procedure in [Step 5: Add a Amazon SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources)\.
+**Note**  
+ If you run in non\-containerized mode, AWS IoT Greengrass can access your device camera without configuring device resources\. 
+   + For **Resource type**, choose **Volume**\.
+   + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
+   + For **Lambda function affiliations**, grant **Read and write access** to your Lambda function\.
+
+          
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
+
+1.  Update your group subscriptions to use the correct directory\. Follow the procedure in [Step 7: Add subscriptions to the Greengrass group](#ml-console-dlc-add-subscription) with the following updates\. 
+   + For your first topic filter, enter **/resnet\-18/predictions**\.
+   + For your second topic filter, enter **/resnet\-18/test**\.
+
+1.  Update your test subscriptions to use the correct directory\. Follow the procedure in [Test the inference example](#ml-console-dlc-test-app) with the following updates\. 
+   +  For **Subscriptions**, choose **Subscribe to a Topic**\. For **Subscription topic**, enter **/resnet\-18/predictions**\. 
+   +  On the `/resnet-18/predictions` page, specify the `/resnet-18/test` topic to publish to\. 
+
+## Troubleshooting AWS IoT Greengrass ML inference<a name="ml-inference-troubleshooting"></a>
 
 If the test is not successful, you can try the following troubleshooting steps\. Run the commands in your Raspberry Pi terminal\.
 
@@ -505,7 +647,7 @@ If the test is not successful, you can try the following troubleshooting steps\.
    cat user/your-region/your-account-id/lambda-function-name.log | grep 'ERROR'
    ```
 
-   For more information, see [Troubleshooting with Logs](gg-troubleshooting.md#troubleshooting-logs)\.
+   For more information, see [Troubleshooting with logs](gg-troubleshooting.md#troubleshooting-logs)\.
 
  
 
@@ -518,7 +660,7 @@ If the test is not successful, you can try the following troubleshooting steps\.
    ls -la
    ```
 
-1.  Verify that the directory contains the same content as the `optimizedImageClassification.zip` deployment package that you uploaded in [Step 3: Create an Inference Lambda Function](#ml-console-dlc-create-lambda)\. 
+1.  Verify that the directory contains the same content as the `optimizedImageClassification.zip` deployment package that you uploaded in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. 
 
     Make sure that the `.py` files and dependencies are in the root of the directory\. 
 
@@ -560,10 +702,12 @@ This directory and its contents are in the Lambda runtime namespace, so they are
        32 -rw-r--r-- 1 ggc_user ggc_group     30564 Oct 29 20:08 synset.txt
    ```
 
+ 
+
 ### Lambda function cannot find `/dev/dri/renderD128`<a name="troubleshooting-atom-config"></a>
 
  This can occur if OpenCL cannot connect to the GPU devices it needs\. You must create device resources for the necessary devices for your Lambda function\. 
 
-## Next Steps<a name="next-dlc-steps"></a>
+## Next steps<a name="next-dlc-steps"></a>
 
  Next, explore other optimized models\. For information, see the [Amazon SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 

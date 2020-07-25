@@ -1,8 +1,8 @@
-# Understanding Results and Logs<a name="results-logs"></a>
+# Understanding results and logs<a name="results-logs"></a>
 
 This section describes how to view and interpret IDT result reports and logs\. 
 
-## Viewing Results<a name="view-results"></a>
+## Viewing results<a name="view-results"></a>
 
 While running, IDT writes errors to the console, log files, and test reports\. After IDT completes the qualification test suite, it generates two test reports\. These reports can be found in `<device-tester-extract-location>/results/<execution-id>/`\. Both reports capture the results from the qualification test suite execution\.
 
@@ -18,7 +18,7 @@ The `GGQ_Result.xml` report is in [JUnit XML format](https://llg.cubic.org/docs/
 + Aggregate summary of test results\.
 + Breakdown of test results by the AWS IoT Greengrass functionality that was tested\.
 
-### Interpreting AWS IoT Device Tester Results<a name="interpreting-results-gg"></a>
+### Interpreting AWS IoT Device Tester results<a name="interpreting-results-gg"></a>
 
 The report section in `awsiotdevicetester_report.xml` or `awsiotdevicetester_report.xml` lists the tests that were run and the results\.
 
@@ -96,7 +96,7 @@ When a test fails or an error occurs, `<failure>` or `<error>` tags are added to
 </testcase>
 ```
 
-### Viewing Logs<a name="view-logs-gg"></a>
+### Viewing logs<a name="view-logs-gg"></a>
 
 IDT generates logs from test execution in `<devicetester-extract-location>/results/<execution-id>/logs`\. Two sets of logs are generated:
 
@@ -106,4 +106,4 @@ Logs generated from the Test Manager component of AWS IoT Device Tester \(for ex
 `<test_case_id>.log (for example, ota.log)`  
 Logs of the test group, including logs from the device under test\. When a test fails, a tar\.gz file that contains the logs of the device under test for the test is created \(for example, `ota_prod_test_1_ggc_logs.tar.gz`\)\.
 
-For more information, see [IDT for AWS IoT Greengrass Troubleshooting](idt-troubleshooting.md)\.
+For more information, see [IDT for AWS IoT Greengrass troubleshooting](idt-troubleshooting.md)\.

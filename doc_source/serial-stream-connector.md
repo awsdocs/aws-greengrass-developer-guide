@@ -1,4 +1,4 @@
-# Serial Stream Connector<a name="serial-stream-connector"></a>
+# Serial Stream connector<a name="serial-stream-connector"></a>
 
 The Serial Stream [connector](connectors.md) reads and writes to a serial port on an AWS IoT Greengrass core device\.
 
@@ -14,19 +14,33 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 2 | arn:aws:greengrass:*region*::/connectors/SerialStream/versions/2 | 
-| 1 | arn:aws:greengrass:*region*::/connectors/SerialStream/versions/1 | 
+| 3 | `arn:aws:greengrass:region::/connectors/SerialStream/versions/3` | 
+| 2 | `arn:aws:greengrass:region::/connectors/SerialStream/versions/2` | 
+| 1 | `arn:aws:greengrass:region::/connectors/SerialStream/versions/1` | 
 
 For information about version changes, see the [Changelog](#serial-stream-connector-changelog)\.
 
 ## Requirements<a name="serial-stream-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7 or later\.
-+ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ A [local device resource](access-local-resources.md) in the Greengrass group that points to the target serial port\.
+
+------
+#### [ Version 3 ]
++ <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
++ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-serial-stream-req-serial-port-resource"></a>A [local device resource](access-local-resources.md) in the Greengrass group that points to the target serial port\.
 **Note**  
-Before you deploy this connector, we recommend that you set up the serial port and verify that it can be read from and written to\.
+Before you deploy this connector, we recommend that you set up the serial port and verify that you can read and write to it\. 
+
+------
+#### [ Versions 1 \- 2 ]
++ <a name="conn-req-ggc-v1.7.0"></a>AWS IoT Greengrass Core software v1\.7 or later\.
++ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-serial-stream-req-serial-port-resource"></a>A [local device resource](access-local-resources.md) in the Greengrass group that points to the target serial port\.
+**Note**  
+Before you deploy this connector, we recommend that you set up the serial port and verify that you can read and write to it\. 
+
+------
 
 ## Connector Parameters<a name="serial-stream-connector-param"></a>
 
@@ -129,7 +143,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MySerialStreamConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SerialStream/versions/2",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SerialStream/versions/3",
             "Parameters": {
                 "BaudRate" : "9600",
                 "Timeout" : "25",
@@ -145,9 +159,9 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 }'
 ```
 
-In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
-## Input Data<a name="serial-stream-connector-data-input"></a>
+## Input data<a name="serial-stream-connector-data-input"></a>
 
 This connector accepts read or write requests for serial ports on two MQTT topics\. Input messages must be in JSON format\.
 + Read requests on the `serial/+/read/#` topic\.
@@ -226,7 +240,7 @@ Valid pattern: `.+`
 }
 ```
 
-## Output Data<a name="serial-stream-connector-data-output"></a>
+## Output data<a name="serial-stream-connector-data-output"></a>
 
 The connector publishes output data on two topics:
 + Status information from the connector on the `serial/+/status/#` topic\.
@@ -276,10 +290,42 @@ Use this topic to receive response data from a read operation\. The response dat
 
 ## Usage Example<a name="serial-stream-connector-usage"></a>
 
-The following example Lambda function sends an input message to the connector\.
+<a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
-**Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
+**Note**  <a name="connectors-setup-get-started-topics"></a>
+The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
+
+ 
+
+1. Make sure you meet the [requirements](#serial-stream-connector-req) for the connector\.
+
+1. <a name="connectors-setup-function"></a>Create and publish a Lambda function that sends input data to the connector\.
+
+   Save the [example code](#serial-stream-connector-usage-example) as a PY file\. <a name="connectors-setup-function-sdk"></a>Download and unzip the [AWS IoT Greengrass Core SDK for Python](lambda-functions.md#lambda-sdks-core)\. Then, create a zip package that contains the PY file and the `greengrasssdk` folder at the root level\. This zip package is the deployment package that you upload to AWS Lambda\.
+
+   <a name="connectors-setup-function-publish"></a>After you create the Python 3\.7 Lambda function, publish a function version and create an alias\.
+
+1. Configure your Greengrass group\.
+
+   1. <a name="connectors-setup-gg-function"></a>Add the Lambda function by its alias \(recommended\)\. Configure the Lambda lifecycle as long\-lived \(or `"Pinned": true` in the CLI\)\.
+
+   1. <a name="connectors-setup-device-resource"></a>Add the required local device resource and grant read/write access to the Lambda function\.
+
+   1. Add the connector to your group and configure its [parameters](#serial-stream-connector-param)\.
+
+   1. Add subscriptions to the group that allow the connector to receive [input data](#serial-stream-connector-data-input) and send [output data](#serial-stream-connector-data-output) on supported topic filters\.
+      + <a name="connectors-setup-subscription-input-data"></a>Set the Lambda function as the source, the connector as the target, and use a supported input topic filter\.
+      + <a name="connectors-setup-subscription-output-data"></a>Set the connector as the source, AWS IoT Core as the target, and use a supported output topic filter\. You use this subscription to view status messages in the AWS IoT console\.
+
+1. <a name="connectors-setup-deploy-group"></a>Deploy the group\.
+
+1. <a name="connectors-setup-test-sub"></a>In the AWS IoT console, on the **Test** page, subscribe to the output data topic to view status messages from the connector\. The example Lambda function is long\-lived and starts sending messages immediately after the group is deployed\.
+
+   When you're finished testing, you can set the Lambda lifecycle to on\-demand \(or `"Pinned": false` in the CLI\) and deploy the group\. This stops the function from sending messages\.
+
+### Example<a name="serial-stream-connector-usage-example"></a>
+
+The following example Lambda function sends an input message to the connector\.
 
 ```
 import greengrasssdk
@@ -303,7 +349,7 @@ def publish_basic_request():
 
 publish_basic_request()
 
-def function_handler(event, context):
+def lambda_handler(event, context):
 	return
 ```
 
@@ -321,12 +367,13 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 3 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 2 | Updated connector ARN for AWS Region support\. | 
 | 1 | Initial release\.  | 
 
-A Greengrass group can contain only one version of the connector at a time\.
+<a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
-## See Also<a name="serial-stream-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
+## See also<a name="serial-stream-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)

@@ -1,4 +1,4 @@
-# Configure Long\-Lived Lambda Functions for AWS IoT Greengrass<a name="long-lived"></a>
+# Configure long\-lived Lambda functions for AWS IoT Greengrass<a name="long-lived"></a>
 
 You are now ready to configure your Lambda function for AWS IoT Greengrass\.
 

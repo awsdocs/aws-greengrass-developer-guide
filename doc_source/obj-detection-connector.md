@@ -1,4 +1,4 @@
-# ML Object Detection Connector<a name="obj-detection-connector"></a>
+# ML Object Detection connector<a name="obj-detection-connector"></a>
 
 The ML Object Detection [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs object detection using an object detection model compiled by the Amazon SageMaker Neo deep learning compiler\. Two types of object detection models are supported: Single Shot Multibox Detector \(SSD\) and You Only Look Once \(YOLO\) v3\. For more information, see [Object Detection Model Requirements](#obj-detection-connector-req-model)\.
 
@@ -18,14 +18,14 @@ AWS IoT Greengrass provides ML Object Detection connectors for multiple platform
 These connectors have the following requirements:
 + AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
-+ Dependencies for the Amazon SageMaker Neo deep learning runtime installed on the core device\. For more information, see [Installing Neo Deep Learning Runtime Dependencies on the AWS IoT Greengrass Core](#obj-detection-connector-config)\.
++ Dependencies for the Amazon SageMaker Neo deep learning runtime installed on the core device\. For more information, see [Installing Neo deep learning runtime dependencies on the AWS IoT Greengrass core](#obj-detection-connector-config)\.
 + An [ML resource](ml-inference.md#ml-resources) in the Greengrass group\. The ML resource must reference an Amazon S3 bucket that contains an object detection model\. For more information, see [Amazon S3 model sources](ml-inference.md#s3-ml-resources)\.
 **Note**  
 The model must be a Single Shot Multibox Detector or You Only Look Once v3 object detection model type\. It must be compiled using the Amazon SageMaker Neo deep learning compiler\. For more information, see [Object Detection Model Requirements](#obj-detection-connector-req-model)\.
 + <a name="req-image-classification-feedback"></a>The [ML Feedback connector](ml-feedback-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the connector to upload model input data and publish predictions to an MQTT topic\.
 + [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) v1\.1\.0 is required to interact with this connector\.
 
-### Object Detection Model Requirements<a name="obj-detection-connector-req-model"></a>
+### Object detection model requirements<a name="obj-detection-connector-req-model"></a>
 
 The ML Object Detection connectors support Single Shot multibox Detector \(SSD\) and You Only Look Once \(YOLO\) v3 object detection model types\. You can use the object detection components provided by [GluonCV](https://gluon-cv.mxnet.io) to train the model with your own dataset\. Or, you can use pre\-trained models from the GluonCV Model Zoo:
 + [Pre\-trained SSD model](https://gluon-cv.mxnet.io/build/examples_detection/demo_ssd.html)
@@ -117,15 +117,15 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 **Note**  
 The Lambda function in these connectors have a [long\-lived](lambda-functions.md#lambda-lifecycle) lifecycle\.
 
-In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
-## Input Data<a name="obj-detection-connector-data-input"></a>
+## Input data<a name="obj-detection-connector-data-input"></a>
 
  These connectors accept an image file as input\. Input image files must be in `jpeg` or `png` format\. For more information, see [Usage Example](#obj-detection-connector-usage)\. 
 
 These connectors don't accept MQTT messages as input data\.
 
-## Output Data<a name="obj-detection-connector-data-output"></a>
+## Output data<a name="obj-detection-connector-data-output"></a>
 
  These connectors return a formatted list of prediction results for the identified objects in the input image: 
 
@@ -236,7 +236,7 @@ The `invoke_inference_service` function in the AWS IoT Greengrass Machine Learni
 | `ContentType` | The mime type of the input image\. Required: `true` Type: `string` Valid values: `image/jpeg, image/png` | 
 | `Body` | The content of the input image file\. Required: `true` Type: `binary` | 
 
-## Installing Neo Deep Learning Runtime Dependencies on the AWS IoT Greengrass Core<a name="obj-detection-connector-config"></a>
+## Installing Neo deep learning runtime dependencies on the AWS IoT Greengrass core<a name="obj-detection-connector-config"></a>
 
 The ML Object Detection connectors are bundled with the Amazon SageMaker Neo deep learning runtime \(DLR\)\. The connectors use the runtime to serve the ML model\. To use these connectors, you must install the dependencies for the DLR on your core device\. 
 
@@ -245,7 +245,7 @@ Before you install the DLR dependencies, make sure that the required [system lib
 ------
 #### [ NVIDIA Jetson TX2 ]
 
-1. Install CUDA Toolkit 9\.0 and cuDNN 7\.0\. You can follow the instructions in [Setting Up Other Devices](setup-filter.other.md) in the Getting Started tutorial\.
+1. Install CUDA Toolkit 9\.0 and cuDNN 7\.0\. You can follow the instructions in [Setting up other devices](setup-filter.other.md) in the Getting Started tutorial\.
 
 1. Enable universe repositories so the connector can install community\-maintained open software\. For more information, see [ Repositories/Ubuntu](https://help.ubuntu.com/community/Repositories/Ubuntu) in the Ubuntu documentation\.
 
@@ -375,11 +375,11 @@ On a Raspberry Pi, using `pip` to install machine learning dependencies is a mem
 
 ------
 
-## Logging and Troubleshooting<a name="obj-detection-connector-logging"></a>
+## Logging and troubleshooting<a name="obj-detection-connector-logging"></a>
 
 Depending on your group settings, event and error logs are written to CloudWatch Logs, the local file system, or both\. Logs from this connector use the prefix `LocalInferenceServiceName`\. If the connector behaves unexpectedly, check the connector's logs\. These usually contain useful debugging information, such as a missing ML library dependency or the cause of a connector startup failure\.
 
-If the AWS IoT Greengrass group is configured to write local logs, the connector writes log files to `greengrass-root/ggc/var/log/user/region/aws/`\. For more information about Greengrass logging, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
+If the AWS IoT Greengrass group is configured to write local logs, the connector writes log files to `greengrass-root/ggc/var/log/user/region/aws/`\. For more information about Greengrass logging, see [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)\.
 
 Use the following information to help troubleshoot issues with the ML Object Detection connectors\.
 
@@ -453,16 +453,22 @@ The following tabs list the system libraries required for each ML Object Detecti
 
 ## Licenses<a name="obj-detection-connector-license"></a>
 
-The ML Object Detection connectors include the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
-+ [Deep Learning Runtime](https://github.com/neo-ai/neo-ai-dlr)/Apache 2\.0
+The ML Object Detection connectors include the following third\-party software/licensing:<a name="boto-3-licenses"></a>
++ [AWS SDK for Python \(Boto3\)](https://pypi.org/project/boto3/)/Apache License 2\.0
++ [botocore](https://pypi.org/project/botocore/)/Apache License 2\.0
++ [dateutil](https://pypi.org/project/python-dateutil/1.4/)/PSF License
++ [docutils](https://pypi.org/project/docutils/)/BSD License, GNU General Public License \(GPL\), Python Software Foundation License, Public Domain
++ [jmespath](https://pypi.org/project/jmespath/)/MIT License
++ [s3transfer](https://pypi.org/project/s3transfer/)/Apache License 2\.0
++ [urllib3](https://pypi.org/project/urllib3/)/MIT License
++ [Deep Learning Runtime](https://github.com/neo-ai/neo-ai-dlr)/Apache License 2\.0
 + <a name="six-license"></a>[six](https://github.com/benjaminp/six)/MIT
 
 This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
-## See Also<a name="obj-detection-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
-+ [Perform Machine Learning Inference](ml-inference.md)
-+ [Object Detection Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/object-detection.html) in the *Amazon SageMaker Developer Guide*
+## See also<a name="obj-detection-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)
++ [Perform machine learning inference](ml-inference.md)
++ [Object detection algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/object-detection.html) in the *Amazon SageMaker Developer Guide*

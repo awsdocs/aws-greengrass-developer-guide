@@ -1,14 +1,14 @@
-# How to Configure Local Resource Access Using the AWS Command Line Interface<a name="lra-cli"></a>
+# How to configure local resource access using the AWS command line interface<a name="lra-cli"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.3 and later\.
 
-To use a local resource, you must add a resource definition to the group definition that is deployed to your Greengrass core device\. The group definition must also contain a Lambda function definition in which you grant access permissions for local resources to your Lambda functions\. For more information, including requirements and constraints, see [Access Local Resources with Lambda Functions and Connectors](access-local-resources.md)\.
+To use a local resource, you must add a resource definition to the group definition that is deployed to your Greengrass core device\. The group definition must also contain a Lambda function definition in which you grant access permissions for local resources to your Lambda functions\. For more information, including requirements and constraints, see [Access local resources with Lambda functions and connectors](access-local-resources.md)\.
 
-This tutorial describes the process for creating a local resource and configuring access to it using the AWS Command Line Interface \(CLI\)\. To follow the steps in the tutorial, you must have already created a Greengrass group as described in [Getting Started with AWS IoT Greengrass](gg-gs.md)\. 
+This tutorial describes the process for creating a local resource and configuring access to it using the AWS Command Line Interface \(CLI\)\. To follow the steps in the tutorial, you must have already created a Greengrass group as described in [Getting started with AWS IoT Greengrass](gg-gs.md)\. 
 
-For a tutorial that uses the AWS Management Console, see [How to Configure Local Resource Access Using the AWS Management Console](lra-console.md)\.
+For a tutorial that uses the AWS Management Console, see [How to configure local resource access using the AWS Management Console](lra-console.md)\.
 
-## Create Local Resources<a name="lra-cli-create-resources"></a>
+## Create local resources<a name="lra-cli-create-resources"></a>
 
 First, you use the `[CreateResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)` command to create a resource definition that specifies the resources to be accessed\. In this example, we create two resources, `TestDirectory` and `TestCamera`:
 
@@ -61,13 +61,13 @@ aws greengrass create-resource-definition  --cli-input-json '{
 
 **LocalVolumeResourceData\#DestinationPath**: The absolute path of the volume resource inside the Lambda environment\. This location is inside the container that the function runs in\.
 
-**GroupOwnerSetting**: Allows you to configure additional group privileges for the Lambda process\. This field is optional\. For more information, see [Group Owner File Access Permission](access-local-resources.md#lra-group-owner)\.
+**GroupOwnerSetting**: Allows you to configure additional group privileges for the Lambda process\. This field is optional\. For more information, see [Group owner file access permission](access-local-resources.md#lra-group-owner)\.
 
 **GroupOwnerSetting\#AutoAddGroupOwner**: If true, Greengrass automatically adds the specified Linux OS group owner of the resource to the Lambda process privileges\. Thus the Lambda process has the file access permissions of the added Linux group\.
 
 **GroupOwnerSetting\#GroupOwner**: Specifies the name of the Linux OS group whose privileges are added to the Lambda process\. This field is optional\. 
 
-A resource definition version ARN is returned by `[CreateResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)`\. The ARN should be used when updating a group definition\. For example:
+A resource definition version ARN is returned by `[CreateResourceDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createresourcedefinition-post.html)`\. The ARN should be used when updating a group definition\.
 
 ```
 {
@@ -81,12 +81,11 @@ A resource definition version ARN is returned by `[CreateResourceDefinition](htt
 }
 ```
 
-## Create the Greengrass Function<a name="lra-cli-create-function"></a>
+## Create the Greengrass function<a name="lra-cli-create-function"></a>
 
 After the resources are created, use the `[CreateFunctionDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` command to create the Greengrass function and grant the function access to the resource: 
 
 ```
- 
 aws greengrass create-function-definition --cli-input-json '{
     "Name": "MyFunctionDefinition",
     "InitialVersion": {
@@ -118,11 +117,11 @@ aws greengrass create-function-definition --cli-input-json '{
 }'
 ```
 
-**ResourceAccessPolicies**: Contains the `resourceId` and `permission` which grant the Lambda access to the resource\. A Lambda function can have a maximum of 10 resources\.
+**ResourceAccessPolicies**: Contains the `resourceId` and `permission` which grant the Lambda function access to the resource\. A Lambda function can access a maximum of 20 resources\.
 
-**ResourceAccessPolicy\#Permission**: Specifies which permissions the Lambda has on the resource\. The available options are `rw` \(read/write\) or `ro` \(read\-only\)\. 
+**ResourceAccessPolicy\#Permission**: Specifies which permissions the Lambda function has on the resource\. The available options are `rw` \(read/write\) or `ro` \(read\-only\)\. 
 
-**AccessSysfs**: If true, the Lambda process can have read access to the `/sys` folder on the Greengrass core device\. This is used in cases where the Greengrass Lambda needs to read device information from `/sys`\.
+**AccessSysfs**: If true, the Lambda process can have read access to the `/sys` folder on the Greengrass core device\. This is used in cases where the Greengrass Lambda function needs to read device information from `/sys`\.
 
 Again, `[CreateFunctionDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html)` returns a function definition version ARN\. The ARN should be used in your group definition version\. 
 
@@ -138,7 +137,7 @@ Again, `[CreateFunctionDefinition](https://docs.aws.amazon.com/greengrass/latest
 }
 ```
 
-## Add the Lambda Function to the Group<a name="lra-cli-add-function"></a>
+## Add the Lambda function to the group<a name="lra-cli-add-function"></a>
 
 Finally, use `[CreateGroupVersion](https://docs.aws.amazon.com/greengrass/latest/apireference/creategroupversion-post.html)` to add the function to the group\. For example:
 
@@ -149,6 +148,9 @@ aws greengrass create-group-version --group-id "b36a3aeb-3243-47ff-9fa4-7e8d98cd
 --function-definition-version-arn "arn:aws:greengrass:us-west-2:123456789012:/greengrass/definition/functions/d1123830-da38-4c4c-a4b7-e92eec7b6d3e/versions/a2e90400-caae-4ffd-b23a-db1892a33c78" \
 --subscription-definition-version-arn "arn:aws:greengrass:us-west-2:123456789012:/greengrass/definition/subscriptions/7a8ef3d8-1de3-426c-9554-5b55a32fbcb6/versions/470c858c-7eb3-4abd-9d48-230236bfbf6a"
 ```
+
+**Note**  
+To learn how to get the group ID to use with this command, see [Getting the group ID](deployments.md#api-get-group-id)\.
 
 A new group version is returned:
 
@@ -218,7 +220,7 @@ These commands are provided by the Greengrass API to create and manage resource 
       ggc_user or [ggc_group root tty] don't have ro permission on the file: /dev/tty0
   ```
 
-  **A:** This error indicates that the Lambda process doesn't have permission to access the specified resource\. The solution is to change the file permission of the resource so that Lambda can access it\. \(See [Group Owner File Access Permission](access-local-resources.md#lra-group-owner) for details\)\.
+  **A:** This error indicates that the Lambda process doesn't have permission to access the specified resource\. The solution is to change the file permission of the resource so that Lambda can access it\. \(See [Group owner file access permission](access-local-resources.md#lra-group-owner) for details\)\.
 + **Q:** When I configure `/var/run` as a volume resource, why does the Lambda function fail to start with an error message in the runtime\.log: 
 
   ```

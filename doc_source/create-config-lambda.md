@@ -1,4 +1,4 @@
-# Create and Configure the Lambda Function<a name="create-config-lambda"></a>
+# Create and configure the Lambda function<a name="create-config-lambda"></a>
 
 In this step, you create a Lambda function that tracks the number of cars that pass the traffic light\. Every time that the `GG_TrafficLight` shadow state changes to `G`, the Lambda function simulates the passing of a random number of cars \(from 1 to 20\)\. On every third `G` light change, the Lambda function sends basic statistics, such as min and max, to a DynamoDB table\.
 

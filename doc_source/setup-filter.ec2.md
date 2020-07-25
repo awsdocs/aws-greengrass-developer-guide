@@ -1,9 +1,9 @@
-# Setting Up an Amazon EC2 Instance<a name="setup-filter.ec2"></a>
+# Setting up an Amazon EC2 instance<a name="setup-filter.ec2"></a>
 
 Follow the steps in this topic to set up an Amazon EC2 instance to use as your AWS IoT Greengrass core\.
 
 **Tip**  
-Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick Start: Greengrass Device Setup](quick-start.md)\.
+Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick start: Greengrass device setup](quick-start.md)\.
 
  Although you can complete this tutorial using an Amazon EC2 instance, AWS IoT Greengrass should ideally be used with physical hardware\. We recommend that you [set up a Raspberry Pi](setup-filter.rpi.md) instead of using an Amazon EC2 instance when possible\. If you're using a Raspberry Pi, you do not need to follow the steps in this topic\. 
 
@@ -21,7 +21,7 @@ Or, to use a script that sets up your environment and installs the AWS IoT Green
 
    1. Choose **Edit**\.
 
-      To enable port 8883, you add a custom TCP rule to the security group\. For more information, see [ Adding Rules to a Security Group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule) in the *Amazon EC2 User Guide for Linux Instances*\.
+      To enable port 8883, you add a custom TCP rule to the security group\. For more information, see [ Adding rules to a security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule) in the *Amazon EC2 User Guide for Linux Instances*\.
 
    1. On the **Edit inbound rules** page, choose **Add Rule**, enter the following settings, and then choose **Save**\.
       + For **Type**, choose **Custom TCP Rule**\.
@@ -39,7 +39,7 @@ Or, to use a script that sets up your environment and installs the AWS IoT Green
    1. Follow the instructions on the **Connect To Your Instance** page to connect to your instance [ by using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) and your private key file\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.4.png)
 
-   You can use [PuTTY](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) for Windows or Terminal for macOS\. For more information, see [ Connect to Your Linux Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the *Amazon EC2 User Guide for Linux Instances*\.
+   You can use [PuTTY](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) for Windows or Terminal for macOS\. For more information, see [ Connect to your Linux instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 
    You are now ready to set up your Amazon EC2 instance for AWS IoT Greengrass\.
 
@@ -108,7 +108,7 @@ Softlinks are represented by `fs.protected_symlinks`\.
 
    Your Amazon EC2 instance should now be ready for AWS IoT Greengrass\.
 
-1. <a name="install-java-8-runtime"></a>Install the Java 8 runtime\. This tutorial uses the **Default Group creation** workflow, which enables [stream manager](stream-manager.md) in the group by default\. You must install the Java 8 runtime on the core device \(or [disable stream manager](configure-stream-manager.md#enable-stream-manager-console-existing-group)\) before you deploy your group\.
+1. <a name="install-java-8-runtime"></a>Optional\. Install the Java 8 runtime, which is required by [stream manager](stream-manager.md)\. This tutorial doesn't use stream manager, but it does use the **Default Group creation** workflow that enables stream manager by default\. Use the following commands to install the Java 8 runtime on the core device, or disable stream manager before you deploy your group\. Instructions for disabling stream manager are provided in Module 3\.
    + For Debian\-based distributions:
 
      ```
@@ -133,4 +133,4 @@ Softlinks are represented by `fs.protected_symlinks`\.
 **Important**  
 <a name="lambda-runtime-prereqs"></a>This tutorial requires the Python 3\.7 runtime to run local Lambda functions\. When stream manager is enabled, it also requires the Java 8 runtime\. If the `check_ggc_dependencies` script produces warnings about these missing runtime prerequisites, make sure to install them before you continue\. You can ignore warnings about other missing optional runtime prerequisites\.
 
-Your Amazon EC2 instance configuration is complete\. Continue to [Module 2: Installing the AWS IoT Greengrass Core Software](module2.md)\.
+Your Amazon EC2 instance configuration is complete\. Continue to [Module 2: Installing the AWS IoT Greengrass Core software](module2.md)\.

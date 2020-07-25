@@ -5,7 +5,7 @@
 1. In the navigation pane, choose **Greengrass**\.  
 ![\[AWS IoT navigation pane with Greengrass highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-greengrass.png)
 **Note**  
-If you don't see the **Greengrass** node, change to an AWS Region that supports AWS IoT Greengrass\. For the list of supported regions, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *Amazon Web Services General Reference*\.
+If you don't see the **Greengrass** node, change to an AWS Region that supports AWS IoT Greengrass\. For the list of supported Regions, see [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *Amazon Web Services General Reference*\.
 
 1. On the **Welcome to AWS IoT Greengrass** page, choose **Create a Group**\.
 
@@ -16,7 +16,7 @@ For an example that uses the AWS IoT Greengrass API to create and deploy a group
 1. If prompted, on the **Greengrass needs your permission to access other services** dialog box, choose **Grant permission** to allow the console to create or configure the Greengrass service role for you\. You must use a service role to authorize AWS IoT Greengrass to access other AWS services on your behalf\. Otherwise, deployments fail\.  
 ![\[The "Greengrass needs your permission to access other services" dialog box.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/service-role-grant-perms.png)
 
-   The AWS account you used to sign in must have permissions to create or manage the IAM role\. For more information, see [Greengrass Service Role](service-role.md)\.
+   The AWS account you used to sign in must have permissions to create or manage the IAM role\. For more information, see [Greengrass service role](service-role.md)\.
 
 1. On the **Set up your Greengrass group** page, choose **Use default creation** to create a group and an AWS IoT Greengrass [core](gg-core.md)\.
 
@@ -34,20 +34,24 @@ For an example that uses the AWS IoT Greengrass API to create and deploy a group
 
    AWS IoT creates an AWS IoT Greengrass group with default security policies and configuration files for you to load onto your device\.
 
-1. <a name="gg-core-download"></a>Download your core's security resources and configuration file\. On the confirmation page, under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz**\. The name of your downloaded `tar.gz` file starts with a 10\-digit hash that's also used for the certificate and key file names\.  
-![\[The Connect your Core device page with Download these resources as a tar.gz highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.png)
+1. <a name="download-ggc-security-resources"></a>Download your core's security resources and configuration file\.
+
+   1. On the confirmation page, under **Download and store your Core's security resources**, choose **Download these resources as a tar\.gz**\. The name of your downloaded `tar.gz` file starts with a 10\-digit hash that's also used for the certificate and key file names\.
 **Important**  
-Download the security resources before you choose **Finish**\.
+Before you choose **Finish**, download the security resources\.  
+![\[The Connect your Core device page with Download these resources as a tar.gz highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.png)
+
+   1. Skip **Choose a root CA** for now\. The next section includes a step where you download the root CA certificate\.
 
 1. After you download the security resources, choose **Finish**\.
 
-   The group configuration page is displayed in the console:  
+   The group configuration page displays in the console:  
 ![\[Empty group configuration page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-009.2.png)
 
-1. Download the [AWS IoT Greengrass Core software](what-is-gg.md#gg-core-download-tab) installation package\. Choose the CPU architecture and distribution \(and operating system, if necessary\) that best describe your core device\. For example:
-   + For Raspberry Pi Model B or B\+, download the Armv7l for Raspbian package\.
-   + For an Amazon EC2 instance, download the x86\_64 for Linux package\.
-   + For NVIDIA Jetson TX2, download the Armv8 \(AArch64\) for Ubuntu package\.
-   + For Intel Atom, download the x86\_64 for Linux package\.
-**Note**  
-When stream manager is enabled, you must install the [Java 8 runtime](stream-manager.md#stream-manager-requirements) on the core device before you deploy your group\. The **Default Group creation** workflow enables stream manager by default\.
+1. <a name="download-ggc-software"></a>From the [AWS IoT Greengrass Core software](what-is-gg.md#gg-core-download-tab) section in this guide, download the AWS IoT Greengrass Core software installation package\.
+
+   Choose the package that best fits the CPU architecture, distribution, and OS of your core device\. For example:
+   + For Raspberry Pi Model B or B\+, download the package for the Armv7l architecture and Raspbian distribution\.
+   + For an Amazon EC2 instance, download the package for the x86\_64 architecture and Linux distribution\.
+   + For NVIDIA Jetson TX2, download the package for the Armv8 \(AArch64\) architecture and Arch Linux distribution\.
+   + For Intel Atom, download the package for the x86\_64 architecture and Linux distribution\.

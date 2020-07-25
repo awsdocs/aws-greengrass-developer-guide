@@ -1,17 +1,17 @@
-# Tagging Your AWS IoT Greengrass Resources<a name="tagging"></a>
+# Tagging your AWS IoT Greengrass resources<a name="tagging"></a>
 
 Tags can help you organize and manage your AWS IoT Greengrass groups\. You can use tags to assign metadata to groups, bulk deployments, and the cores, devices, and other resources that are added to groups\. Tags can also be used in IAM policies to define conditional access to your Greengrass resources\.
 
 **Note**  
 Currently, Greengrass resource tags are not supported for AWS IoT billing groups or cost allocation reports\.
 
-## Tag Basics<a name="tagging-basics"></a>
+## Tag basics<a name="tagging-basics"></a>
 
 Tags allow you to categorize your AWS IoT Greengrass resources, for example, by purpose, owner, and environment\. When you have many resources of the same type, you can quickly identify a resource based on the tags that are attached to it\. A tag consists of a key and optional value, both of which you define\. We recommend that you design a set of tag keys for each resource type\. Using a consistent set of tag keys makes it easier for you to manage your resources\. For example, you can define a set of tags for your groups that helps you track the factory location of your core devices\. For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies)\.
 
-### Tagging Support in the AWS IoT Console<a name="tagging-support-console"></a>
+### Tagging support in the AWS IoT console<a name="tagging-support-console"></a>
 
-You can create, view, and manage tags for your Greengrass `Group` resources in the AWS IoT console\. Before you create tags, be aware of tagging restrictions\. For more information, see [Tag Naming and Usage Conventions](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*\.
+You can create, view, and manage tags for your Greengrass `Group` resources in the AWS IoT console\. Before you create tags, be aware of tagging restrictions\. For more information, see [Tag naming and usage conventions](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*\.
 
 **To assign tags when you create a group**  
 You can assign tags to a group when you create the group\. To show the tagging input fields, on the **Name your Group** dialog box, choose **Apply tags to the Group \(optional\)**\.  
@@ -23,9 +23,9 @@ You can view and manage tags from the group configuration page\. On the **Tags**
 
 ![\[The Tags page showing several tag key-value pairs.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-tags.png)
 
-### Tagging Support in the AWS IoT Greengrass API<a name="tagging-support-api"></a>
+### Tagging support in the AWS IoT Greengrass API<a name="tagging-support-api"></a>
 
-You can use the AWS IoT Greengrass API to create, list, and manage tags for AWS IoT Greengrass resources that support tagging\. Before you create tags, be aware of tagging restrictions\. For more information, see [Tag Naming and Usage Conventions](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*\.
+You can use the AWS IoT Greengrass API to create, list, and manage tags for AWS IoT Greengrass resources that support tagging\. Before you create tags, be aware of tagging restrictions\. For more information, see [Tag naming and usage conventions](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*\.
 + To add tags during resource creation, define them in the `tags` property of the resource\.
 + To add tags after a resource is created, or to update tag values, use the `TagResource` action\.
 + To remove tags from a resource, use the `UntagResource` action\.
@@ -58,7 +58,7 @@ When you delete a resource, tags that are associated with the resource are also 
 **Note**  
 Don't confuse resource tags with the attributes that you can assign to AWS IoT things\. Although Greengrass cores are AWS IoT things, the resource tags that are described in this topic are attached to a `CoreDefinition`, not the core thing\.
 
-## Using Tags with IAM Policies<a name="tagging-iam-policies"></a>
+## Using tags with IAM policies<a name="tagging-iam-policies"></a>
 
 In your IAM policies, you can use resource tags to control user access and permissions\. For example, policies can allow users to create only those resources that have a specific tag\. Policies can also restrict users from creating or modifying resources that have certain tags\. You can tag resources during creation \(called *tag on create*\) so you don't have to run custom tagging scripts later\. When new environments are launched with tags, the corresponding IAM permissions are applied automatically\.
 
@@ -75,9 +75,9 @@ Require that a specific set of tag keys be used \(or not used\) when making an A
 
 Condition context keys and values can be used only on AWS IoT Greengrass actions that act on a taggable resource\. These actions take the resource as a required parameter\. For example, you can set conditional access on the `GetGroupVersion`\. You can't set conditional access on `AssociateServiceRoleToAccount` because no taggable resource \(for example, group, core definition, or device defintion\) is referenced in the request\.
 
-For more information, see [Controlling Access Using Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) and [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\. The JSON policy reference includes detailed syntax, descriptions and examples of the elements, variables, and evaluation logic of JSON policies in IAM\.
+For more information, see [Controlling access using tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) and [IAM JSON policy reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\. The JSON policy reference includes detailed syntax, descriptions and examples of the elements, variables, and evaluation logic of JSON policies in IAM\.
 
-### Example IAM Policies<a name="tagging-iam-policies-examples"></a>
+### Example IAM policies<a name="tagging-iam-policies-examples"></a>
 
 The following example policy applies tag\-based permissions that constrain a beta user to actions on beta resources only\.
 + The first statement allows an IAM user to act on resources that have the *env=beta* tag only\.
@@ -151,5 +151,5 @@ The following snippet shows how you can specify multiple tag values for a tag ke
 }
 ```
 
-## See Also<a name="tagging-see-also"></a>
-+ [Tagging AWS Resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*
+## See also<a name="tagging-see-also"></a>
++ [Tagging AWS resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*

@@ -1,4 +1,4 @@
-# Create and Package a Lambda Function<a name="create-lambda"></a>
+# Create and package a Lambda function<a name="create-lambda"></a>
 
 The example Python Lambda function in this module uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for Python to publish MQTT messages\.
 
@@ -7,6 +7,8 @@ In this step, you:
 + Create a Lambda function deployment package that contains the function code and dependencies\.
 + Use the Lambda console to create a Lambda function and upload the deployment package\.
 + Publish a version of the Lambda function and create an alias that points to the version\.
+
+To complete this module, Python 3\.7 must be installed on your core device\.
 
  <a name="create-lambda-procedure"></a>
 
@@ -46,25 +48,19 @@ Depending on your distribution, you might need to install `zip` first \(for exam
 
 1. Upload your Lambda function deployment package:
 
-   1. On the **Configuration** tab, under **Function code**, set the following fields:
-      + For **Code entry type**, choose **Upload a \.zip file**\.
+   1.  On the **Configuration** tab, under **Function code**, choose **Actions**\. From the dropdown, choose **Upload a \.zip file**\. Then, choose `hello_world_python_lambda.zip`\. 
+
+   1.  Under **Basic settings**, choose **Edit**\. On the **Edit basic settings** page, set the remaining fields as follows: 
       + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **greengrassHelloWorld\.function\_handler**
 
-   1. Choose **Upload**, and then choose `hello_world_python_lambda.zip`\. \(The size of your `hello_world_python_lambda.zip` file might be different from what's shown here\.\)  
-![\[Screenshot of the Configuration tab with Upload a .zip file, Python 3.7, greengrassHelloWorld.function_handler, and Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-024.png)
-
-   1. Choose **Save**\.  
-![\[Screenshot with the Save button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-025.png)
-
-      To see your uploaded code, from **Code entry type**, choose **Edit code inline**\.
+   1. Choose **Save**\.
 **Note**  
 The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.
 
 1. <a name="publish-function-version"></a>Publish the Lambda function:
 
-   1. From **Actions**, choose **Publish new version**\.  
-![\[Screenshot of the Actions menu with Publish new version highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-026.png)
+   1. From **Actions**, choose **Publish new version**\.
 
    1. For **Version description**, enter **First version**, and then choose **Publish**\.  
 ![\[Screenshot with the Version description field set to First version and the Publish button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-027.png)

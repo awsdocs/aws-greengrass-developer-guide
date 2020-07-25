@@ -1,12 +1,14 @@
-# Docker Application Deployment Connector<a name="docker-app-connector"></a>
+# Docker application deployment connector<a name="docker-app-connector"></a>
 
 The Greengrass Docker application deployment connector makes it easier to run your Docker images on an AWS IoT Greengrass core\. The connector uses Docker Compose to start a multi\-container Docker application from a `docker-compose.yml` file\. Specifically, the connector runs `docker-compose` commands to manage Docker containers on a single core device\. For more information, see [Overview of Docker Compose](https://docs.docker.com/compose/) in the Docker documentation\. The connector can access Docker images stored in Docker container registries, such as Amazon Elastic Container Registry \(Amazon ECR\), Docker Hub, and private Docker trusted registries\.
 
-After you deploy the Greengrass group, the connector starts the Docker containers\. It runs the `docker-compose up` command and then publishes the status of the command to an [output MQTT topic](#docker-app-connector-data-output)\. It also logs status information about running Docker containers\. This makes it possible for you to monitor your application logs in Amazon CloudWatch\. For more information, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\. The connector also starts Docker containers each time the Greengrass daemon restarts\. The number of Docker containers that can run on the core depends on your hardware\.
+After you deploy the Greengrass group, the connector starts the Docker containers\. It runs the `docker-compose up` command and then publishes the status of the command to an [output MQTT topic](#docker-app-connector-data-output)\. It also logs status information about running Docker containers\. This makes it possible for you to monitor your application logs in Amazon CloudWatch\. For more information, see [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)\. The connector also starts Docker containers each time the Greengrass daemon restarts\. The number of Docker containers that can run on the core depends on your hardware\.
 
-The Docker containers run outside of the Greengrass domain on the core device, so they can't access the core's inter\-process communication \(IPC\)\. However, you can configure some communication channels with Greengrass components, such as local Lambda functions\. For more information, see [Communicating with Docker Containers](#docker-app-connector-communicating)\.
+The Docker containers run outside of the Greengrass domain on the core device, so they can't access the core's inter\-process communication \(IPC\)\. However, you can configure some communication channels with Greengrass components, such as local Lambda functions\. For more information, see [Communicating with Docker containers](#docker-app-connector-communicating)\.
 
 You can use the connector for scenarios such as hosting a web server or MySQL server on your core device\. Local services in your Docker applications can communicate with each other, other processes in the local environment, and cloud services\. For example, you can run a web server on the core that sends requests from Lambda functions to a web service in the cloud\.
+
+This connector runs in [No container](lambda-group-config.md#no-container-mode) isolation mode, so you can deploy it to a Greengrass group that runs without Greengrass containerization\.
 
 This connector has the following versions\.
 
@@ -31,26 +33,28 @@ This connector is not supported on OpenWrt distributions\.
 + A minimum of 36 MB RAM on the Greengrass core for the connector to monitor running Docker containers\. The total memory requirement depends on the number of Docker containers that run on the core\.
 
    
-+ [Docker Engine](https://docs.docker.com/install/) v1\.9\.1 or later installed on the Greengrass core\. The `docker` executable must be in the `/usr/bin` or `/usr/local/bin` directory\.
-**Important**  
-We recommend that you install a credentials store to secure the local copies of your Docker credentials\. For more information, see [Security Notes](#docker-app-connector-security)\.
++ [Docker Engine](https://docs.docker.com/install/) 1\.9\.1 or later installed on the Greengrass core\. Version 19\.0\.3 is the latest version that is verified to work with the connector\.
 
-  For information about installing Docker on Amazon Linux distributions, see [Docker Basics for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html) in the *Amazon Elastic Container Service Developer Guide*\.
+  The `docker` executable must be in the `/usr/bin` or `/usr/local/bin` directory\.
+**Important**  
+We recommend that you install a credentials store to secure the local copies of your Docker credentials\. For more information, see [Security notes](#docker-app-connector-security)\.
+
+  For information about installing Docker on Amazon Linux distributions, see [Docker basics for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html) in the *Amazon Elastic Container Service Developer Guide*\.
 
    
 + [Docker Compose](https://docs.docker.com/compose/install/) installed on the Greengrass core\. The `docker-compose` executable must be in the `/usr/bin` or `/usr/local/bin` directory\.
 
-  We recommend that you use Docker Compose versions that are verified to work with the connector\.    
+  The following Docker Compose versions are verified to work with the connector\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/docker-app-connector.html)
 
    
 + A single Docker Compose file \(for example, `docker-compose.yml`\), stored in Amazon S3\. The format must be compatible with the version of Docker Compose installed on the core\. You should test the file before you use it on your core\. If you edit the file after you deploy the Greengrass group, you must redeploy the group to update your local copy on the core\.
 
    
-+ A Linux user with permission to call the local Docker daemon and write to the directory that stores the local copy of your Compose file\. For more information, see [Setting Up the Docker User on the Core](#docker-app-connector-linux-user)\.
++ A Linux user with permission to call the local Docker daemon and write to the directory that stores the local copy of your Compose file\. For more information, see [Setting up the Docker user on the core](#docker-app-connector-linux-user)\.
 
    
-+ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `s3:GetObject` action on the S3 bucket that contains your Compose file\. This permission is shown in the following example policy\.
++ The [Greengrass group role](group-role.md) configured to allow the `s3:GetObject` action on the S3 bucket that contains your Compose file\. This permission is shown in the following example IAM policy\.
 
   ```
   {
@@ -68,10 +72,10 @@ We recommend that you install a credentials store to secure the local copies of 
   }
   ```
 
-  For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
 
    
-+ <a name="docker-app-connector-ecr-perms"></a>If your Docker Compose file references a Docker image stored in Amazon ECR, an IAM policy added to the Greengrass [group role](group-role.md) that allows the following:
++ <a name="docker-app-connector-ecr-perms"></a>If your Docker Compose file references a Docker image stored in Amazon ECR, the [Greengrass group role](group-role.md) configured to allow the following:
   + `ecr:GetDownloadUrlForLayer` and `ecr:BatchGetImage` actions on your Amazon ECR repositories that contain the Docker images\.
   + `ecr:GetAuthorizationToken` action on your resources\.
 
@@ -79,7 +83,7 @@ We recommend that you install a credentials store to secure the local copies of 
 
   Repositories must be in the same AWS account and AWS Region as the connector\.
 **Important**  
-Permissions in the group role can be assumed by all Lambda functions and connectors in the Greengrass group\. For more information, see [Security Notes](#docker-app-connector-security)\.
+Permissions in the group role can be assumed by all Lambda functions and connectors in the Greengrass group\. For more information, see [Security notes](#docker-app-connector-security)\.
 
   These permissions are shown in the following example policy\.
 
@@ -108,25 +112,27 @@ Permissions in the group role can be assumed by all Lambda functions and connect
   }
   ```
 
-  For more information, see [Amazon ECR Repository Policy Examples](https://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicyExamples.html) in the *Amazon ECR User Guide*\.
+  For more information, see [Amazon ECR repository policy examples](https://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicyExamples.html) in the *Amazon ECR User Guide*\.
+
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
 
    
 + If your Docker Compose file references a Docker image from [AWS Marketplace](https://aws.amazon.com/marketplace), the connector also has the following requirements:
-  + You must be subscribed to AWS Marketplace container products\. For more information, see [Finding and Subscribing to Container Products](https://docs.aws.amazon.com/marketplace/latest/buyerguide/buyer-finding-and-subscribing-to-container-products.html) in the *AWS Marketplace Subscribers Guide*\.
+  + You must be subscribed to AWS Marketplace container products\. For more information, see [Finding and subscribing to container products](https://docs.aws.amazon.com/marketplace/latest/buyerguide/buyer-finding-and-subscribing-to-container-products.html) in the *AWS Marketplace Subscribers Guide*\.
   + AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\. The connector uses this feature only to retrieve your secrets from AWS Secrets Manager, not to store them\.
-  + You must create a secret in Secrets Manager for each AWS Marketplace registry that stores a Docker image referenced in your Compose file\. For more information, see [Accessing Docker Images from Private Repositories](#access-private-repositories)\.
+  + You must create a secret in Secrets Manager for each AWS Marketplace registry that stores a Docker image referenced in your Compose file\. For more information, see [Accessing Docker images from private repositories](#access-private-repositories)\.
 
    
 + If your Docker Compose file references a Docker image from private repositories in registries other than Amazon ECR, such as Docker Hub, the connector also has the following requirements:
   + AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\. The connector uses this feature only to retrieve your secrets from AWS Secrets Manager, not to store them\.
-  + You must create a secret in Secrets Manager for each private repository that stores a Docker image referenced in your Compose file\. For more information, see [Accessing Docker Images from Private Repositories](#access-private-repositories)\.
+  + You must create a secret in Secrets Manager for each private repository that stores a Docker image referenced in your Compose file\. For more information, see [Accessing Docker images from private repositories](#access-private-repositories)\.
 
      
 + The Docker daemon must be running when you deploy a Greengrass group that contains this connector\.
 
  
 
-### Accessing Docker Images from Private Repositories<a name="access-private-repositories"></a>
+### Accessing Docker images from private repositories<a name="access-private-repositories"></a>
 
 If you use credentials to access your Docker images, then you must allow the connector to access them\. The way you do this depends on where the Docker image is located\.
 
@@ -135,7 +141,7 @@ For Docker images stored Amazon ECR, you grant permission to get your authorizat
 For Docker images stored in other private repositories or registries, you must create a secret in AWS Secrets Manager to store your login information\. This includes Docker images that you subscribed to in AWS Marketplace\. Create one secret for each repository\. If you update your secrets in Secrets Manager, the changes propagate to the core the next time that you deploy the group\.
 
 **Note**  
-Secrets Manager is a service that you can use to securely store and manage your credentials, keys, and other secrets in the AWS Cloud\. For more information, see [What Is AWS Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) in the *AWS Secrets Manager User Guide*\.
+Secrets Manager is a service that you can use to securely store and manage your credentials, keys, and other secrets in the AWS Cloud\. For more information, see [What is AWS Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) in the *AWS Secrets Manager User Guide*\.
 
 Each secret must contain the following keys:
 
@@ -147,7 +153,7 @@ Each secret must contain the following keys:
 | `registryUrl` | The endpoint of the registry\. This must match the corresponding registry URL in the Compose file\. | 
 
 **Note**  
-To allow AWS IoT Greengrass to access a secret by default, the name of the secret must start with *greengrass\-*\. Otherwise, your Greengrass service role must grant access\. For more information, see [Allow AWS IoT Greengrass to Get Secret Values](secrets.md#secrets-config-service-role)\.
+To allow AWS IoT Greengrass to access a secret by default, the name of the secret must start with *greengrass\-*\. Otherwise, your Greengrass service role must grant access\. For more information, see [Allow AWS IoT Greengrass to get secret values](secrets.md#secrets-config-service-role)\.
 
 **To get login information for Docker images from AWS Marketplace**  
 Use the `aws ecr get-login` command to get your user name, password, and registry URL for Docker images from AWS Marketplace\.  
@@ -164,7 +170,7 @@ docker login -u AWS -p eyGuYXlsbGkxU0NveDNKaTY4ak...c0MzFyMTIxfQ== https://12345
 Use this login information to create a secret for each AWS Marketplace registry that stores Docker images referenced in your Compose file\. For more information, see [get\-login](https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html) in the *AWS CLI Command Reference*\.
 
 **To create secrets \(console\)**  
-In the AWS Secrets Manager console, choose **Other type of secrets**\. Under **Specify the key\-value pairs to be stored for this secret**, add rows for `username`, `password`, and `registryUrl`\. For more information, see [Creating a Basic Secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) in the *AWS Secrets Manager User Guide*\.  
+In the AWS Secrets Manager console, choose **Other type of secrets**\. Under **Specify the key\-value pairs to be stored for this secret**, add rows for `username`, `password`, and `registryUrl`\. For more information, see [Creating a basic secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) in the *AWS Secrets Manager User Guide*\.  
 
 ![\[Creating a secret with username, password, and registryUrl keys.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/connectors/secret-docker-trusted-registry.png)
 
@@ -177,7 +183,7 @@ aws secretsmanager create-secret --name greengrass-MySecret --secret-string [{"u
  
 
 **Important**  
-It is your responsibility to secure the `DockerComposeFileDestinationPath` directory that stores your Docker Compose file and the credentials for your Docker images from private repositories\. For more information, see [Security Notes](#docker-app-connector-security)\.
+It is your responsibility to secure the `DockerComposeFileDestinationPath` directory that stores your Docker Compose file and the credentials for your Docker images from private repositories\. For more information, see [Security notes](#docker-app-connector-security)\.
 
 ## Parameters<a name="docker-app-connector-param"></a>
 
@@ -195,22 +201,22 @@ Type: `string`
 Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
 
 `DockerComposeFileS3Key`  
-The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object Key and Metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileS3Version`  
-The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using Versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `false`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileDestinationPath`  
-The absolute path of the local directory used to store a copy of the Docker Compose file\. This must be an existing directory\. The user specified for `DockerUserId` must have permission to create a file in this directory\. For more information, see [Setting Up the Docker User on the AWS IoT Greengrass Core](#docker-app-connector-linux-user)\.  
-This directory stores your Docker Compose file and the credentials for your Docker images from private repositories\. It is your responsibility to secure this directory\. For more information, see [Security Notes](#docker-app-connector-security)\.
+The absolute path of the local directory used to store a copy of the Docker Compose file\. This must be an existing directory\. The user specified for `DockerUserId` must have permission to create a file in this directory\. For more information, see [Setting up the Docker user on the AWS IoT Greengrass core](#docker-app-connector-linux-user)\.  
+This directory stores your Docker Compose file and the credentials for your Docker images from private repositories\. It is your responsibility to secure this directory\. For more information, see [Security notes](#docker-app-connector-security)\.
 Display name in the AWS IoT console: **Directory path for local Compose file**  
 Required: `true`  
 Type: `string`  
@@ -218,15 +224,15 @@ Valid pattern `\/.*\/?`
 Example: `/home/username/myCompose`
 
 `DockerUserId`  
-The UID of the Linux user that the connector runs as\. This user must belong to the `docker` Linux group on the core device and have write permissions to the `DockerComposeFileDestinationPath` directory\. For more information, see [Setting Up the Docker User on the Core](#docker-app-connector-linux-user)\.  
-<a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda Function as Root](lambda-group-config.md#lambda-running-as-root)\.
+The UID of the Linux user that the connector runs as\. This user must belong to the `docker` Linux group on the core device and have write permissions to the `DockerComposeFileDestinationPath` directory\. For more information, see [Setting up the Docker user on the core](#docker-app-connector-linux-user)\.  
+<a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
 Display name in the AWS IoT console: **Docker user ID**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^[0-9]{1,5}$`
 
 `AWSSecretsArnList`  
-The Amazon Resource Names \(ARNs\) of the secrets in AWS Secrets Manager that contain the login information used to access your Docker images in private repositories\. For more information, see [Accessing Docker Images from Private Repositories](#access-private-repositories)\.  
+The Amazon Resource Names \(ARNs\) of the secrets in AWS Secrets Manager that contain the login information used to access your Docker images in private repositories\. For more information, see [Accessing Docker images from private repositories](#access-private-repositories)\.  
 Display name in the AWS IoT console: **Credentials for private repositories**  
 Required: `false`\. This parameter is required to access Docker images stored in private repositories\.  
 Type: `array` of `string`  
@@ -244,7 +250,7 @@ Indicates whether to force the Docker deployment if it fails due to the improper
 Display name in the AWS IoT console: **Force deployment**  
 Required: `false`  
 Type: `string`  
-Valid pattern: `True|False`
+Valid pattern: `^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$`
 
 ------
 #### [ Version 1 ]<a name="docker-app-connector-parameters-v1"></a>
@@ -258,22 +264,22 @@ Type: `string`
 Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
 
 `DockerComposeFileS3Key`  
-The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object Key and Metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileS3Version`  
-The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using Versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `false`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileDestinationPath`  
-The absolute path of the local directory used to store a copy of the Docker Compose file\. This must be an existing directory\. The user specified for `DockerUserId` must have permission to create a file in this directory\. For more information, see [Setting Up the Docker User on the AWS IoT Greengrass Core](#docker-app-connector-linux-user)\.  
-This directory stores your Docker Compose file and the credentials for your Docker images from private repositories\. It is your responsibility to secure this directory\. For more information, see [Security Notes](#docker-app-connector-security)\.
+The absolute path of the local directory used to store a copy of the Docker Compose file\. This must be an existing directory\. The user specified for `DockerUserId` must have permission to create a file in this directory\. For more information, see [Setting up the Docker user on the AWS IoT Greengrass core](#docker-app-connector-linux-user)\.  
+This directory stores your Docker Compose file and the credentials for your Docker images from private repositories\. It is your responsibility to secure this directory\. For more information, see [Security notes](#docker-app-connector-security)\.
 Display name in the AWS IoT console: **Directory path for local Compose file**  
 Required: `true`  
 Type: `string`  
@@ -281,15 +287,15 @@ Valid pattern `\/.*\/?`
 Example: `/home/username/myCompose`
 
 `DockerUserId`  
-The UID of the Linux user that the connector runs as\. This user must belong to the `docker` Linux group on the core device and have write permissions to the `DockerComposeFileDestinationPath` directory\. For more information, see [Setting Up the Docker User on the Core](#docker-app-connector-linux-user)\.  
-<a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda Function as Root](lambda-group-config.md#lambda-running-as-root)\.
+The UID of the Linux user that the connector runs as\. This user must belong to the `docker` Linux group on the core device and have write permissions to the `DockerComposeFileDestinationPath` directory\. For more information, see [Setting up the Docker user on the core](#docker-app-connector-linux-user)\.  
+<a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
 Display name in the AWS IoT console: **Docker user ID**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^[0-9]{1,5}$`
 
 `AWSSecretsArnList`  
-The Amazon Resource Names \(ARNs\) of the secrets in AWS Secrets Manager that contain the login information used to access your Docker images in private repositories\. For more information, see [Accessing Docker Images from Private Repositories](#access-private-repositories)\.  
+The Amazon Resource Names \(ARNs\) of the secrets in AWS Secrets Manager that contain the login information used to access your Docker images in private repositories\. For more information, see [Accessing Docker images from private repositories](#access-private-repositories)\.  
 Display name in the AWS IoT console: **Credentials for private repositories**  
 Required: `false`\. This parameter is required to access Docker images stored in private repositories\.  
 Type: `array` of `string`  
@@ -334,15 +340,15 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 **Note**  
 The Lambda function in this connector has a [long\-lived](lambda-functions.md#lambda-lifecycle) lifecycle\.
 
-## Input Data<a name="docker-app-connector-data-input"></a>
+## Input data<a name="docker-app-connector-data-input"></a>
 
 This connector doesn't require or accept input data\.
 
-## Output Data<a name="docker-app-connector-data-output"></a>
+## Output data<a name="docker-app-connector-data-output"></a>
 
 This connector publishes the status of the `docker-compose up` command as output data\.
 
-**Topic filter**  
+<a name="topic-filter"></a>**Topic filter in subscription**  
 `dockerapplicationdeploymentconnector/message/status`
 
 **Example output: Success**  
@@ -368,7 +374,7 @@ This connector publishes the status of the `docker-compose up` command as output
 ```
 The error type can be `InvalidParameter` or `InternalError`\.
 
-## Setting Up the Docker User on the AWS IoT Greengrass Core<a name="docker-app-connector-linux-user"></a>
+## Setting up the Docker user on the AWS IoT Greengrass core<a name="docker-app-connector-linux-user"></a>
 
 The Greengrass Docker application deployment connector runs as the user you specify for the `DockerUserId` parameter\. If you don't specify a value, the connector runs as `ggc_user`, which is the default Greengrass access identity\.
 
@@ -376,7 +382,7 @@ To allow the connector to interact with the Docker daemon, the Docker user must 
 
 **Note**  
 We recommend that you create a Linux user instead of using the default `ggc_user`\. Otherwise, any Lambda function in the Greengrass group can access the Compose file and Docker credentials\.
-<a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda Function as Root](lambda-group-config.md#lambda-running-as-root)\.
+<a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
 
 1. Create the user\. You can run the `useradd` command and include the optional `-u` option to assign a UID\. For example:
 
@@ -416,13 +422,13 @@ We recommend that you create a Linux user instead of using the default `ggc_user
 
       You use the UID to configure the `DockerUserId` parameter for the connector\.
 
-## Usage Information<a name="docker-app-connector-usage-info"></a>
+## Usage information<a name="docker-app-connector-usage-info"></a>
 
 When you use the Greengrass Docker application deployment connector, you should be aware of the following implementation\-specific usage information\.
 + Fixed prefix for project names\. The connector prepends the `greengrassdockerapplicationdeployment` prefix to the names of the Docker containers that it starts\. The connector uses this prefix as the project name in the `docker-compose` commands that it runs\.
 
    
-+ Logging behavior\. The connector writes status information and troubleshooting information to a log file\. You can configure AWS IoT Greengrass to send logs to CloudWatch Logs and to write logs locally\. For more information, see [Logging for Connectors](connectors.md#connectors-logging)\. This is the path to the local log for the connector:
++ Logging behavior\. The connector writes status information and troubleshooting information to a log file\. You can configure AWS IoT Greengrass to send logs to CloudWatch Logs and to write logs locally\. For more information, see [Logging for connectors](connectors.md#connectors-logging)\. This is the path to the local log for the connector:
 
   ```
   /greengrass-root/ggc/var/log/user/region/aws/DockerApplicationDeployment.log
@@ -446,25 +452,25 @@ When you use the Greengrass Docker application deployment connector, you should 
    
 + Reserved resource ID\. The connector uses the `DOCKER_DEPLOYER_SECRET_RESOURCE_RESERVED_ID_index` ID for the Greengrass resources it creates in the Greengrass group\. Resource IDs must be unique in the group, so don't assign a resource ID that might conflict with this reserved resource ID\.
 
-## Communicating with Docker Containers<a name="docker-app-connector-communicating"></a>
+## Communicating with Docker containers<a name="docker-app-connector-communicating"></a>
 
 AWS IoT Greengrass supports the following communication channels between Greengrass components and Docker containers:
 + Greengrass Lambda functions can use REST APIs to communicate with processes in Docker containers\. You can set up a server in a Docker container that opens a port\. Lambda functions can communicate with the container on this port\.
 
    
-+ Processes in Docker containers can exchange MQTT messages through the local Greengrass message broker\. You can set up the Docker container as a Greengrass device in the Greengrass group and then create subscriptions to allow the container to communicate with Greengrass Lambda functions, devices, and other connectors in the group, or with AWS IoT and the local shadow service\. For more information, see [Configure MQTT Communication with Docker Containers](#docker-app-connector-mqtt-communication)\.
++ Processes in Docker containers can exchange MQTT messages through the local Greengrass message broker\. You can set up the Docker container as a Greengrass device in the Greengrass group and then create subscriptions to allow the container to communicate with Greengrass Lambda functions, devices, and other connectors in the group, or with AWS IoT and the local shadow service\. For more information, see [Configure MQTT communication with Docker containers](#docker-app-connector-mqtt-communication)\.
 
    
 + Greengrass Lambda functions can update a shared file to pass information to Docker containers\. You can use the Compose file to bind mount the shared file path for a Docker container\.
 
    
 
-### Configure MQTT Communication with Docker Containers<a name="docker-app-connector-mqtt-communication"></a>
+### Configure MQTT communication with Docker containers<a name="docker-app-connector-mqtt-communication"></a>
 
 You can configure a Docker container as a Greengrass device and add it to a Greengrass group\. Then, you can create subscriptions that allow MQTT communication between the Docker container and Greengrass components or AWS IoT\. In the following procedure, you create a subscription that allows the Docker container device to receive shadow update messages from the local shadow service\. You can follow this pattern to create other subscriptions\.
 
 **Note**  
-In this procedure, we assume you have already created a Greengrass group and a Greengrass core \(v1\.10 or later\)\. To learn how to create a Greengrass group and core, see [Getting Started with AWS IoT Greengrass](gg-gs.md)\.
+In this procedure, we assume you have already created a Greengrass group and a Greengrass core \(v1\.10 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\.
 
 **To configure a Docker container as a Greengrass device and add it to a Greengrass group**
 
@@ -506,7 +512,7 @@ In this procedure, we assume you have already created a Greengrass group and a G
 
 1. Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
 
    Download the appropriate ATS root CA certificate to the core device\. For example, you can use the following `wget` commands to download `AmazonRootCA1.pem` to your file path\.
 
@@ -520,7 +526,7 @@ Your root CA certificate type must match your endpoint\. Use an ATS root CA cert
 Next, create a subscription in the group\. For this example, you create a subscription allows the Docker container device to receive MQTT messages from the local shadow service\.
 
 **Note**  
-The maximum size of a shadow document is 8 KB\. For more information, see [AWS IoT Limits](https://docs.aws.amazon.com/iot/latest/developerguide/limits-iot.html) in the *AWS IoT Developer Guide*\.
+The maximum size of a shadow document is 8 KB\. For more information, see [AWS IoT quotas](https://docs.aws.amazon.com/iot/latest/developerguide/limits-iot.html) in the *AWS IoT Developer Guide*\.
 
 **To create a subscription that allows the Docker container device to receive MQTT messages from the local shadow service**
 
@@ -589,7 +595,7 @@ while True:
 	time.sleep(1)
 ```
 
-## Security Notes<a name="docker-app-connector-security"></a>
+## Security notes<a name="docker-app-connector-security"></a>
 
 When you use the Greengrass Docker application deployment connector, be aware of the following security considerations\.
 
@@ -613,8 +619,14 @@ Permissions that you add in the Greengrass group role can be assumed by all Lamb
 
 ## Licenses<a name="docker-app-connector-license"></a>
 
-The Greengrass Docker application deployment connector includes the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3) / Apache 2\.0
+The Greengrass Docker application deployment connector includes the following third\-party software/licensing:<a name="boto-3-licenses"></a>
++ [AWS SDK for Python \(Boto3\)](https://pypi.org/project/boto3/)/Apache License 2\.0
++ [botocore](https://pypi.org/project/botocore/)/Apache License 2\.0
++ [dateutil](https://pypi.org/project/python-dateutil/1.4/)/PSF License
++ [docutils](https://pypi.org/project/docutils/)/BSD License, GNU General Public License \(GPL\), Python Software Foundation License, Public Domain
++ [jmespath](https://pypi.org/project/jmespath/)/MIT License
++ [s3transfer](https://pypi.org/project/s3transfer/)/Apache License 2\.0
++ [urllib3](https://pypi.org/project/urllib3/)/MIT License
 
 This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
@@ -629,9 +641,9 @@ The following table describes the changes in each version of the connector\.
 | 2 | Added the `ForceDeploy` parameter\. | 
 | 1 | Initial release\.  | 
 
-A Greengrass group can contain only one version of the connector at a time\.
+<a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
-## See Also<a name="docker-app-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
+## See also<a name="docker-app-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)

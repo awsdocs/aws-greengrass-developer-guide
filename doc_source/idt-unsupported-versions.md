@@ -1,6 +1,6 @@
-# Unsupported Versions of AWS IoT Device Tester for AWS IoT Greengrass<a name="idt-unsupported-versions"></a>
+# Unsupported versions of AWS IoT Device Tester for AWS IoT Greengrass<a name="idt-unsupported-versions"></a>
 
-This topic lists unsupported versions of IDT for AWS IoT Greengrass\. Unsupported versions do not receive bug fixes or updates\. For more information, see [Support Policy for AWS IoT Device Tester for AWS IoT Greengrass](idt-support-policy.md)\.
+This topic lists unsupported versions of IDT for AWS IoT Greengrass\. Unsupported versions do not receive bug fixes or updates\. For more information, see [Support policy for AWS IoT Device Tester for AWS IoT Greengrass](idt-support-policy.md)\.
 
 **IDT v2\.0\.0 for AWS IoT Greengrass v1\.9\.3, v1\.9\.2, v\.1\.9\.1, v1\.9\.0, v1\.8\.4, v1\.8\.3, and v1\.8\.2**  
 Release notes:  
@@ -8,7 +8,7 @@ Release notes:
 + Test suite execution time reduced by more than 50 percent, which makes the qualification process faster\.
 + Executable size reduced by more than 50 percent, which makes download and installation faster\.
 + Improved [timeout multiplier support](idt-troubleshooting.md#test-timeout) for all test cases\.
-+ Enhanced post\-diagnostics messages for faster troubleshooting of errors\.
++ Enhanced post\-diagnostics messages to troubleshoot errors faster\.
 + Updated the permissions policy template required to run IDT\.
 + Added support for AWS IoT Greengrass v1\.9\.3\.
  
@@ -46,5 +46,5 @@ Release notes:
 
 **IDT v1\.0 for AWS IoT Greengrass v1\.6\.1**  
 Release notes:  
-+ Includes OTA test bug fix for future AWS IoT Greengrass version compatibility\.
++ Added OTA test bug fix for future AWS IoT Greengrass version compatibility\.
 If you're using IDT v1\.0 for AWS IoT Greengrass v1\.6\.1, you must create a [Greengrass service role](service-role.md)\. In later versions, IDT creates the service role for you\.

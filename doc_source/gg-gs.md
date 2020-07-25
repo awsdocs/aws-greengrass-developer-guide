@@ -1,4 +1,4 @@
-# Getting Started with AWS IoT Greengrass<a name="gg-gs"></a>
+# Getting started with AWS IoT Greengrass<a name="gg-gs"></a>
 
 This Getting Started tutorial includes several modules designed to show you AWS IoT Greengrass basics and help you get started using AWS IoT Greengrass\. This tutorial covers fundamental concepts, such as:
 + Configuring AWS IoT Greengrass cores and groups\.
@@ -6,7 +6,7 @@ This Getting Started tutorial includes several modules designed to show you AWS 
 + Connecting AWS IoT devices to the AWS IoT Greengrass core\.
 + Creating subscriptions to allow MQTT communication between local Lambda functions, devices, and AWS IoT\.
 
-## Choose How to Get Started with AWS IoT Greengrass<a name="gg-getting-started"></a>
+## Choose how to get started with AWS IoT Greengrass<a name="gg-getting-started"></a>
 
 You can choose how to use this tutorial to set up your core device:
 + Run [Greengrass device setup](quick-start.md) on your core device, which takes you from installing AWS IoT Greengrass dependencies to testing a Hello World Lambda function in minutes\. This script reproduces the steps in Module 1 through Module 3\-1\.
@@ -38,7 +38,7 @@ You can choose how to use this tutorial to set up your core device:
 + Create a Greengrass group and Greengrass core\.
 + Download and install the latest AWS IoT Greengrass Core software from a tar\.gz file\.
 + Start the Greengrass daemon process on the core\.
-AWS IoT Greengrass also provides other options for installing the AWS IoT Greengrass Core software, including `apt` installations on supported Debian platforms\. For more information, see [Install the AWS IoT Greengrass Core Software](install-ggc.md)\.
+AWS IoT Greengrass also provides other options for installing the AWS IoT Greengrass Core software, including `apt` installations on supported Debian platforms\. For more information, see [Install the AWS IoT Greengrass Core software](install-ggc.md)\.
 
 **Modules 3\-1 and 3\-2**  
 [Module 3\-1](module3-I.md) and [Module 3\-2](module3-II.md) describe how to use local Lambda functions\. \(Or, use [Greengrass device setup](quick-start.md) to run Module 3\-1 for you\.\)  
@@ -80,8 +80,8 @@ This advanced module is provided only for experimentation and initial testing\. 
 
 To complete this tutorial, you need the following:
 + A Mac, Windows PC, or UNIX\-like system\.
-+ An Amazon Web Services \(AWS\) account\. If you don’t have one, see [Create an AWS Account](#create-aws-account)\.
-+ The use of an AWS [Region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS IoT Greengrass\. For the list of supported regions for AWS IoT Greengrass, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\.
++ An Amazon Web Services \(AWS\) account\. If you don't have one, see [Create an AWS account](#create-aws-account)\.
++ The use of an AWS [Region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS IoT Greengrass\. For the list of supported regions for AWS IoT Greengrass, see [AWS endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\.
 **Note**  
 Make a note of your AWS Region and make sure that it is consistently used throughout this tutorial\. If you switch AWS Regions during the tutorial, you might experience problems completing the steps\.
 + A Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+, with a 8 GB microSD card, or an Amazon EC2 instance\. Because AWS IoT Greengrass should ideally be used with physical hardware, we recommend that you use a Raspberry Pi\.
@@ -100,9 +100,9 @@ Run the following command to determine the architecture of your Raspberry Pi:
 For this tutorial, the result should be greater than or equal to `armv71`\.
 + Basic familiarity with Python\.
 
-Although this tutorial is intended to run AWS IoT Greengrass on a Raspberry Pi, AWS IoT Greengrass also supports other platforms\. For more information, see [Supported Platforms and Requirements](what-is-gg.md#gg-platforms)\.
+Although this tutorial is intended to run AWS IoT Greengrass on a Raspberry Pi, AWS IoT Greengrass also supports other platforms\. For more information, see [Supported platforms and requirements](what-is-gg.md#gg-platforms)\.
 
-## Create an AWS Account<a name="create-aws-account"></a>
+## Create an AWS account<a name="create-aws-account"></a>
 
 If you don't have an AWS account, follow these steps to create and activate an AWS account:<a name="create-aws-account-steps"></a>
 

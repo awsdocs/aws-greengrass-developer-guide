@@ -1,16 +1,16 @@
-# Setting Configuration to Run the AWS IoT Greengrass Qualification Suite<a name="set-config"></a>
+# Setting configuration to run the AWS IoT Greengrass qualification suite<a name="set-config"></a>
 
 Before you run tests, you must configure settings for AWS credentials and devices on your host computer\.
 
-## Configure Your AWS Credentials<a name="cfg-aws-gg"></a>
+## Configure your AWS credentials<a name="cfg-aws-gg"></a>
 
-You must configure your IAM user credentials in the `<device_tester_extract_location> /configs/config.json` file\. Use the credentials for the IDT for AWS IoT Greengrass user created in [Create and Configure an AWS Account](dev-tst-prereqs.md#config-aws-account-for-idt)\. You can specify your credentials in one of two ways:
+You must configure your IAM user credentials in the `<device_tester_extract_location> /configs/config.json` file\. Use the credentials for the IDT for AWS IoT Greengrass user created in [Create and configure an AWS account](dev-tst-prereqs.md#config-aws-account-for-idt)\. You can specify your credentials in one of two ways:
 + Credentials file
 + Environment variables
 
-### Configure AWS Credentials with a Credentials File<a name="config-cred-file"></a>
+### Configure AWS credentials with a credentials file<a name="config-cred-file"></a>
 
-IDT uses the same credentials file as the AWS CLI\. For more information, see [Configuration and Credential Files](https://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)\.
+IDT uses the same credentials file as the AWS CLI\. For more information, see [Configuration and credential files](https://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)\.
 
 The location of the credentials file varies, depending on the operating system you are using:
 + macOS, Linux: `~/.aws/credentials`
@@ -39,9 +39,9 @@ To configure IDT for AWS IoT Greengrass to use AWS credentials from your `creden
 ```
 
 **Note**  
-If you do not use the `default` AWS profile, be sure to change the profile name in your `config.json` file\. For more information, see [Named Profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)\.
+If you do not use the `default` AWS profile, be sure to change the profile name in your `config.json` file\. For more information, see [Named profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)\.
 
-### Configure AWS Credentials with Environment Variables<a name="config-env-vars"></a>
+### Configure AWS credentials with environment variables<a name="config-env-vars"></a>
 
 Environment variables are variables maintained by the operating system and used by system commands\. They are not saved if you close the SSH session\. IDT for AWS IoT Greengrass can use the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to store your AWS credentials\.
 
@@ -92,8 +92,36 @@ You must provide this information using the `device.json` template located in ` 
       {
         "name": "arch",
         "value": "x86_64 | armv6l | armv7l | aarch64"
+      },
+      {
+        "name": "ml",
+        "value": "mxnet" | "dlr" | "tensorflow" | "mxnet,dlr,tensorflow"
+      },
+      {
+        "name": "mlLambdaContainerizationMode",
+        "value": "container | process | both"
+      },
+      {
+        "name": "processor",
+        "value": "cpu | gpu"
       }
     ],
+    "machineLearning": {
+        "dlrModelPath": "</path/to/resnet18>",
+        "environmentVariables": [
+            {
+                "key": "<environment-variable-name>",
+                "value": "<Path:$PATH>"
+            }
+        ],
+        "deviceResources": [
+            {
+                "name": "<resource-name>",
+                "path": "<resource-path>",
+                "type": "device | volume"
+            }
+        ]
+    },
     "hsm": {
       "p11Provider": "</path/to/pkcs11ProviderLibrary>",
       "slotLabel": "<slot-label>",
@@ -126,7 +154,7 @@ You must provide this information using the `device.json` template located in ` 
 
 **Note**  
 Specify `privKeyPath` only if `method` is set to `pki`\.  
-Specify `password` only if `method` is set to `password`
+Specify `password` only if `method` is set to `password`\.
 
 ------
 #### [ Docker container ]
@@ -174,7 +202,7 @@ If you want to list your board in the AWS Partner Device Catalog, the SKU you sp
 
 `features`  
 An array that contains the device's supported features\.  
-+ Required features: `os`, `arch`\.
++ Required features: `os`, `arch`\. All other features are optional and apply only to particular test scenarios\. Remove them if you aren't using the corresponding test scenarios\.
 + Supported OS/architecture combinations:
   + Linux, x86\_64
   + Linux, ARMv6l
@@ -185,9 +213,14 @@ An array that contains the device's supported features\.
   + OpenWrt, AArch64
 **Note**  
 When you use IDT to test AWS IoT Greengrass running in a Docker container, the `os` field is your Docker operating system and `arch` is your Docker architecture\. Currently, only the x86\_64 Docker architecture is supported\.
++ Optional features: `ml`, `mlLambdaContainerizationMode`, `processor`\.
+  + These features are required only for machine learning \(ML\) qualification tests\. For more information, see [Configure device\.json for ML qualification](#device-json-ml-qualification)\.
+
+`machineLearning `  
+Optional\. Configuration information for ML qualification tests\. For more information, see [Configure device\.json for ML qualification](#device-json-ml-qualification)\.
 
 `hsm`  
-Optional\. Contains configuration information for testing with an AWS IoT Greengrass Hardware Security Module \(HSM\)\. Otherwise, the `hsm` property should be omitted\. For more information, see [Hardware Security Integration](hardware-security.md)\.  
+Optional\. Configuration information for testing with an AWS IoT Greengrass Hardware Security Module \(HSM\)\. Otherwise, the `hsm` property should be omitted\. For more information, see [Hardware security integration](hardware-security.md)\.  
 <a name="connectivity-protocol-ssh-only"></a>This property applies only if `connectivity.protocol` is set to `ssh`\.    
 `hsm.p11Provider`  
 The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  
@@ -242,3 +275,89 @@ When running tests in a Docker container from Docker image or Dockerfile provide
 
 `kernelConfigLocation`  
 Optional\. The path to the kernel configuration file\. AWS IoT Device Tester uses this file to check if the devices have the required kernel features enabled\. If not specified, IDT uses the following paths to search for the kernel configuration file: `/proc/config.gz` and `/boot/config-<kernel-version>`\. AWS IoT Device Tester uses the first path it finds\.
+
+## Configure device\.json for ML qualification<a name="device-json-ml-qualification"></a>
+
+This section describes the optional properties in the device configuration file that apply to ML qualification\. If you plan to run tests for ML qualification, you must define the properties that apply to your use case\.
+
+You can use the `device-ml.json` template to define the configuration settings for your device\. This template contains the optional ML properties\. You can also use `device.json` and add the ML qualification properties\. These files are located in `<device_tester_extract_location>/configs` and includes ML qualification properties\. If you use `device-ml.json`, you must rename the file to `device.json` before you run IDT tests\.
+
+For information about device configuration properties that don't apply to ML qualification, see [Configure device\.json](#device-config)\.
+
+ 
+
+`ml` in the `features` array  
+The ML frameworks that your board supports\. <a name="idt-version-ml-qualification"></a>This property requires IDT v3\.1\.0 or later\.  
++ If your board supports only one framework, specify the framework\. For example:
+
+  ```
+  {
+      "name": "ml",
+      "value": "mxnet"
+  }
+  ```
++ If your board supports multiple frameworks, specify the frameworks as a comma\-separated list\. For example:
+
+  ```
+  {
+      "name": "ml",
+      "value": "mxnet,tensorflow"
+  }
+  ```
+
+`mlLambdaContainerizationMode` in the `features` array  
+The [containerization mode](lambda-group-config.md#lambda-containerization-considerations) that you want to test with\. <a name="idt-version-ml-qualification"></a>This property requires IDT v3\.1\.0 or later\.  
++ Choose `process` to run ML inference code with a non\-containerized Lambda function\. This option requires AWS IoT Greengrass v1\.10\.x or later\.
++ Choose `container` to run ML inference code with a containerized Lambda function\.
++ Choose `both` to run ML inference code with both modes\. This option requires AWS IoT Greengrass v1\.10\.x or later\.
+
+`processor` in the `features` array  
+Indicates the hardware accelerator that your board supports\. <a name="idt-version-ml-qualification"></a>This property requires IDT v3\.1\.0 or later\.  
++ Choose `cpu` if your board uses a CPU as the processor\.
++ Choose `gpu` if your board uses a GPU as the processor\.
+
+`machineLearning`  
+Optional\. Configuration information for ML qualification tests\. <a name="idt-version-ml-qualification"></a>This property requires IDT v3\.1\.0 or later\.    
+`dlrModelPath`  
+Required to use the `dlr` framework\. The absolute path to your DLR compiled model directory, which must be named `resnet18`\. For more information, see [Compile the DLR model](idt-ml-qualification.md#ml-qualification-dlr-compile-model)\.  
+The following is an example path on macOS: `/Users/<user>/Downloads/resnet18`\.  
+`environmentVariables`  
+An array of key\-value pairs that can dynamically pass settings to ML inference tests\. Optional for CPU devices\. You can use this section to add framework\-specific environment variables required by your device type\. For information about these requirements, see the official website of the framework or the device\. For example, to run MXNet inference tests on some devices, the following environment variables might be required\.  
+
+```
+"environmentVariables": [
+    ...
+    {
+        "key": "PYTHONPATH",      
+        "value": "$MXNET_HOME/python:$PYTHONPATH"    
+    },
+    {
+        "key": "MXNET_HOME",
+        "value": "$HOME/mxnet/"
+    },
+    ...
+]
+```
+The `value` field might vary based on your MXNet installation\.
+If you're testing Lambda functions that run with [containerization](lambda-group-config.md#lambda-containerization-considerations) on GPU devices, add environment variables for the GPU library\. This makes it possible for the GPU to perform computations\. To use different GPU libraries, see the official documentation for the library or device\.  
+Configure the following keys if the `mlLambdaContainerizationMode` feature is set to `container` or `both`\.
+
+```
+"environmentVariables": [
+    {
+        "key": "PATH",      
+        "value": "<path/to/software/bin>:$PATH"    
+    },
+    {
+        "key": "LD_LIBRARY_PATH",      
+        "value": "<path/to/ld/lib>"    
+    },
+    ...
+]
+```  
+`deviceResources`  
+Required by GPU devices\. Contains [local resources](access-local-resources.md#lra-resource-types) that can be accessed by Lambda functions\. Use this section to add local device and volume resources\.  
++ For device resources, specify `"type": "device"`\. For GPU devices, device resources should be GPU\-related device files under `/dev`\.
+**Note**  
+The `/dev/shm` directory is an exception\. It can be configured as a volume resource only\.
++ For volume resources, specify `"type": "volume"`\.

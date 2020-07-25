@@ -1,9 +1,9 @@
-# IoT Analytics Connector<a name="iot-analytics-connector"></a>
+# IoT Analytics connector<a name="iot-analytics-connector"></a>
 
 The IoT Analytics connector sends local device data to AWS IoT Analytics\. You can use this connector as a central hub to collect data from sensors on the Greengrass core device and from [connected Greengrass devices](what-is-gg.md#greengrass-devices)\. The connector sends the data to AWS IoT Analytics channels in the current AWS account and Region\. It can send data to a default destination channel and to dynamically specified channels\.
 
 **Note**  
-AWS IoT Analytics is a fully managed service that allows you to collect, store, process, and query IoT data\. In AWS IoT Analytics, the data can be further analyzed and processed\. For example, it can be used to train ML models for monitoring machine health or to test new modeling strategies\. For more information, see [What Is AWS IoT Analytics?](https://docs.aws.amazon.com/iotanalytics/latest/userguide/welcome.html) in the *AWS IoT Analytics User Guide*\.
+AWS IoT Analytics is a fully managed service that allows you to collect, store, process, and query IoT data\. In AWS IoT Analytics, the data can be further analyzed and processed\. For example, it can be used to train ML models for monitoring machine health or to test new modeling strategies\. For more information, see [What is AWS IoT Analytics?](https://docs.aws.amazon.com/iotanalytics/latest/userguide/welcome.html) in the *AWS IoT Analytics User Guide*\.
 
 The connector accepts formatted and unformatted data on [input MQTT topics](#iot-analytics-connector-data-input)\. It supports two predefined topics where the destination channel is specified inline\. It can also receive messages on customer\-defined topics that are [configured in subscriptions](connectors.md#connectors-inputs-outputs)\. This can be used to route messages from devices that publish to fixed topics or handle unstructured or stack\-dependent data from resource\-constrained devices\.
 
@@ -14,21 +14,25 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 2 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/`2 | 
-| 1 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/`1 | 
+| 3 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/3` | 
+| 2 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/2` | 
+| 1 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/1` | 
 
 For information about version changes, see the [Changelog](#iot-analytics-connector-changelog)\.
 
 ## Requirements<a name="iot-analytics-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7 or later\.
-+ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-analytics-connector-limits)\.
-+ All related AWS IoT Analytics entities \(channels, pipeline, datastores, datasets\) and workflows are created and configured\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
+
+------
+#### [ Version 3 ]
++ <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
++ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-analytics-connector-limits)\.
++ <a name="conn-iot-analytics-req-ita-config"></a>All related AWS IoT Analytics entities and workflows are created and configured\. The entities include channels, pipeline, datastores, and datasets\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
 **Note**  
 Destination AWS IoT Analytics channels must use the same account and be in the same AWS Region as this connector\.
-+ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `iotanalytics:BatchPutMessage` action on destination channels, as shown in the following example\. The channels must be in the current AWS account and Region\.
++ <a name="conn-iot-analytics-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `iotanalytics:BatchPutMessage` action on destination channels, as shown in the following example IAM policy\. The channels must be in the current AWS account and Region\.
 
   ```
   {
@@ -49,7 +53,40 @@ Destination AWS IoT Analytics channels must use the same account and be in the s
   }
   ```
 
-  For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
+
+------
+#### [ Versions 1 \- 2 ]
++ <a name="conn-req-ggc-v1.7.0"></a>AWS IoT Greengrass Core software v1\.7 or later\.
++ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-analytics-connector-limits)\.
++ <a name="conn-iot-analytics-req-ita-config"></a>All related AWS IoT Analytics entities and workflows are created and configured\. The entities include channels, pipeline, datastores, and datasets\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
+**Note**  
+Destination AWS IoT Analytics channels must use the same account and be in the same AWS Region as this connector\.
++ <a name="conn-iot-analytics-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `iotanalytics:BatchPutMessage` action on destination channels, as shown in the following example IAM policy\. The channels must be in the current AWS account and Region\.
+
+  ```
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Sid": "Stmt1528133056761",
+              "Action": [
+                  "iotanalytics:BatchPutMessage"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                  "arn:aws:iotanalytics:region:account-id:channel/channel_1_name",
+                  "arn:aws:iotanalytics:region:account-id:channel/channel_2_name"
+              ]
+          }
+      ]
+  }
+  ```
+
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
+
+------
 
 ## Parameters<a name="iot-analytics-connector-param"></a>
 
@@ -92,7 +129,7 @@ Required: `false`
 Type: `string`  
 Valid values: `DROP_NEWEST` or `DROP_OLDEST`  
 Default value: `DROP_NEWEST`  
-Valid pattern: `^DROP_NEWEST|DROP_OLDEST$`
+Valid pattern: `^DROP_NEWEST$|^DROP_OLDEST$`
 
 `IotAnalyticsQueueSizePerChannel`  
 The maximum number of messages to retain in memory \(per channel\) before the messages are submitted or dropped\. This must be greater than 0\.  
@@ -126,7 +163,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyIoTAnalyticsApplication",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/2",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/3",
             "Parameters": {
                 "MemorySize": "65535",
                 "PublishRegion": "us-west-1",
@@ -145,9 +182,9 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 **Note**  
 The Lambda function in this connector has a [long\-lived](lambda-functions.md#lambda-lifecycle) lifecycle\.
 
-In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
-## Input Data<a name="iot-analytics-connector-data-input"></a>
+## Input data<a name="iot-analytics-connector-data-input"></a>
 
 This connector accepts data on predefined and customer\-defined MQTT topics\. Publishers can be Greengrass devices, Lambda functions, or other connectors\.
 
@@ -167,7 +204,7 @@ The connector supports the following two structured MQTT topics that allow publi
 Customer\-defined topics  
 The connector supports the `#` topic syntax, which allows it to accept input messages on any MQTT topic that you configure in a subscription\. We recommend that you specify a topic path instead of using only the `#` wildcard in your subscriptions\. These messages are sent to the default channel that you specify for the connector\.  
 Input messages on customer\-defined topics are treated as binary data\. They can use any message format and can contain any data type\. You can use customer\-defined topics to route messages from devices that publish to fixed topics\. You can also use them to accept input data from devices that can't process the data into a formatted message to send to the connector\.  
-For more information about subscriptions and MQTT topics, see [Inputs and Outputs](connectors.md#connectors-inputs-outputs)\.
+For more information about subscriptions and MQTT topics, see [Inputs and outputs](connectors.md#connectors-inputs-outputs)\.
 
 The group role must allow the `iotanalytics:BatchPutMessage` action on all destination channels\. For more information, see [Requirements](#iot-analytics-connector-req)\.
 
@@ -220,11 +257,11 @@ The connector's response output doesn't include an ID correlation for these inpu
 **Message properties**  
 None\.
 
-## Output Data<a name="iot-analytics-connector-data-output"></a>
+## Output data<a name="iot-analytics-connector-data-output"></a>
 
-This connector publishes status information as output data\. This information contains the response returned by AWS IoT Analytics for each input message that it receives and sends to AWS IoT Analytics\.
+This connector publishes status information as output data on an MQTT topic\. This information contains the response returned by AWS IoT Analytics for each input message that it receives and sends to AWS IoT Analytics\.
 
-**Topic filter**  
+<a name="topic-filter"></a>**Topic filter in subscription**  
 `iotanalytics/messages/put/status`
 
 **Example output: Success**  
@@ -252,6 +289,73 @@ This connector publishes status information as output data\. This information co
 ```
 If the connector detects a retryable error \(for example, connection errors\), it retries the publish in the next batch\. Exponential backoff is handled by the AWS SDK\. Requests with retryable errors are added back to the channel queue for further publishing according to the `IotAnalyticsQueueDropBehavior` parameter\.
 
+## Usage Example<a name="iot-analytics-connector-usage"></a>
+
+<a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
+
+**Note**  <a name="connectors-setup-get-started-topics"></a>
+The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
+
+ 
+
+1. Make sure you meet the [requirements](#iot-analytics-connector-req) for the connector\.
+
+   <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
+
+1. <a name="connectors-setup-function"></a>Create and publish a Lambda function that sends input data to the connector\.
+
+   Save the [example code](#iot-analytics-connector-usage-example) as a PY file\. <a name="connectors-setup-function-sdk"></a>Download and unzip the [AWS IoT Greengrass Core SDK for Python](lambda-functions.md#lambda-sdks-core)\. Then, create a zip package that contains the PY file and the `greengrasssdk` folder at the root level\. This zip package is the deployment package that you upload to AWS Lambda\.
+
+   <a name="connectors-setup-function-publish"></a>After you create the Python 3\.7 Lambda function, publish a function version and create an alias\.
+
+1. Configure your Greengrass group\.
+
+   1. <a name="connectors-setup-gg-function"></a>Add the Lambda function by its alias \(recommended\)\. Configure the Lambda lifecycle as long\-lived \(or `"Pinned": true` in the CLI\)\.
+
+   1. Add the connector and configure its [parameters](#iot-analytics-connector-param)\.
+
+   1. Add subscriptions that allow the connector to receive [input data](#iot-analytics-connector-data-input) and send [output data](#iot-analytics-connector-data-output) on supported topic filters\.
+      + <a name="connectors-setup-subscription-input-data"></a>Set the Lambda function as the source, the connector as the target, and use a supported input topic filter\.
+      + <a name="connectors-setup-subscription-output-data"></a>Set the connector as the source, AWS IoT Core as the target, and use a supported output topic filter\. You use this subscription to view status messages in the AWS IoT console\.
+
+1. <a name="connectors-setup-deploy-group"></a>Deploy the group\.
+
+1. <a name="connectors-setup-test-sub"></a>In the AWS IoT console, on the **Test** page, subscribe to the output data topic to view status messages from the connector\. The example Lambda function is long\-lived and starts sending messages immediately after the group is deployed\.
+
+   When you're finished testing, you can set the Lambda lifecycle to on\-demand \(or `"Pinned": false` in the CLI\) and deploy the group\. This stops the function from sending messages\.
+
+### Example<a name="iot-analytics-connector-usage-example"></a>
+
+The following example Lambda function sends an input message to the connector\.
+
+```
+import greengrasssdk
+import time
+import json
+ 
+iot_client = greengrasssdk.client('iot-data')
+send_topic = 'iotanalytics/channels/my_channel/messages/put'
+ 
+def create_request_with_all_fields():
+    return  {
+        "request": {
+            "message" : "{\"temp\":23.33}"
+        },
+        "id" : "req_123"
+    }
+ 
+def publish_basic_message():
+    messageToPublish = create_request_with_all_fields()
+    print("Message To Publish: ", messageToPublish)
+    iot_client.publish(topic=send_topic,
+        payload=json.dumps(messageToPublish))
+ 
+publish_basic_message()
+ 
+def lambda_handler(event, context):
+    return
+```
+
 ## Limits<a name="iot-analytics-connector-limits"></a>
 
 This connector is subject to the following limits\.
@@ -278,8 +382,14 @@ This connector is subject to the following limits\.
 
 ## Licenses<a name="iot-analytics-connector-license"></a>
 
-The IoT Analytics connector includes the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
+The IoT Analytics connector includes the following third\-party software/licensing:<a name="boto-3-licenses"></a>
++ [AWS SDK for Python \(Boto3\)](https://pypi.org/project/boto3/)/Apache License 2\.0
++ [botocore](https://pypi.org/project/botocore/)/Apache License 2\.0
++ [dateutil](https://pypi.org/project/python-dateutil/1.4/)/PSF License
++ [docutils](https://pypi.org/project/docutils/)/BSD License, GNU General Public License \(GPL\), Python Software Foundation License, Public Domain
++ [jmespath](https://pypi.org/project/jmespath/)/MIT License
++ [s3transfer](https://pypi.org/project/s3transfer/)/Apache License 2\.0
++ [urllib3](https://pypi.org/project/urllib3/)/MIT License
 
 This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
@@ -290,13 +400,14 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 3 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 2 | Fix to reduce excessive logging\. | 
 | 1 | Initial release\.  | 
 
-A Greengrass group can contain only one version of the connector at a time\.
+<a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
-## See Also<a name="iot-analytics-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
-+  [What Is AWS IoT Analytics?](https://docs.aws.amazon.com/iotanalytics/latest/userguide/welcome.html) in the *AWS IoT Analytics User Guide*
+## See also<a name="iot-analytics-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)
++  [What is AWS IoT Analytics?](https://docs.aws.amazon.com/iotanalytics/latest/userguide/welcome.html) in the *AWS IoT Analytics User Guide*

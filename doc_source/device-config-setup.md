@@ -1,12 +1,12 @@
-# Configure Your Device<a name="device-config-setup"></a>
+# Configuring your device<a name="device-config-setup"></a>
 
 To configure your device you must install AWS IoT Greengrass dependencies, configure the AWS IoT Greengrass Core software, configure your host computer to access your device, and configure user permissions on your device\.
 
-## Verify AWS IoT Greengrass Dependencies on the Device Under Test<a name="install-gg-dependencies"></a>
+## Verify AWS IoT Greengrass dependencies on the device under test<a name="install-gg-dependencies"></a>
 
-Before IDT for AWS IoT Greengrass can test your devices, make sure that you have set up your device as described in [Getting Started with AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/gg-gs.html)\. For information about supported platforms, see [Supported Platforms](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html#gg-platforms)\.
+Before IDT for AWS IoT Greengrass can test your devices, make sure that you have set up your device as described in [Getting started with AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/gg-gs.html)\. For information about supported platforms, see [Supported platforms](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html#gg-platforms)\.
 
-## Configure the AWS IoT Greengrass Software<a name="config-gg"></a>
+## Configure the AWS IoT Greengrass software<a name="config-gg"></a>
 
 IDT for AWS IoT Greengrass tests your device for compatibility with a specific version of AWS IoT Greengrass\. IDT provides two options for testing AWS IoT Greengrass on your devices:
 + Download and use a version of the [AWS IoT Greengrass Core software](what-is-gg.md#gg-core-download-tab)\. IDT installs the software for you\.
@@ -21,7 +21,7 @@ There are two options for installing AWS IoT Greengrass on your device:
 
 The following sections describe these options\. You only need to do one\.
 
-### Option 1: Download the AWS IoT Greengrass Core Software and Configure AWS IoT Device Tester to Use It<a name="download-gg"></a>
+### Option 1: Download the AWS IoT Greengrass Core software and configure AWS IoT Device Tester to use it<a name="download-gg"></a>
 
 You can download the AWS IoT Greengrass Core software from the [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab) downloads page\. 
 
@@ -32,7 +32,7 @@ You can download the AWS IoT Greengrass Core software from the [AWS IoT Greengra
 **Note**  
 Do not change the name of the AWS IoT Greengrass tar\.gz file\. Do not place multiple files in this directory for the same operating system and architecture\. For example having both `greengrass-linux-armv7l-1.7.1.tar.gz` and `greengrass-linux-armv7l-1.8.1.tar.gz` files in that directory will cause the tests to fail\.
 
-### Option 2: Use an Existing Installation of AWS IoT Greengrass with AWS IoT Device Tester<a name="existing-gg"></a>
+### Option 2: Use an existing installation of AWS IoT Greengrass with AWS IoT Device Tester<a name="existing-gg"></a>
 
 Configure IDT to test the AWS IoT Greengrass Core software installed on your device by adding the `greengrassLocation` attribute to the `device.json` file in the `<device_tester_extract_location>/configs` folder\. For example:
 
@@ -46,9 +46,9 @@ On Linux devices, the default location of the AWS IoT Greengrass Core software i
 
 **Note**  
 Your device should have an installation of the AWS IoT Greengrass Core software that has not been started\.  
-Make sure you have added the `ggc_user` user and `ggc_group` on your device\. For more information, see [Environment Setup for AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html)\.
+Make sure you have added the `ggc_user` user and `ggc_group` on your device\. For more information, see [Environment setup for AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html)\.
 
-## Configure Your Host Computer to Access Your Device Under Test<a name="configure-host"></a>
+## Configure your host computer to access your device under test<a name="configure-host"></a>
 
 IDT runs on your host computer and must be able to use SSH to connect to your device\. There are two options to allow IDT to gain SSH access to your devices under test:
 
@@ -70,7 +70,7 @@ Windows does not have an installed SSH client\. For information about installing
 
    The ssh\-keygen command prompts you for a name and path to store the key pair\. By default, the key pair files are named `id_rsa` \(private key\) and `id_rsa.pub` \(public key\)\. On macOS and Linux, the default location of these files is `~/.ssh/`\. On Windows, the default location is `C:\Users\<user-name>\.ssh`\.
 
-   When prompted, enter a key phrase to protect your SSH key\. For more information, see [Generate a New SSH Key](https://www.ssh.com/ssh/keygen/)\.
+   When prompted, enter a key phrase to protect your SSH key\. For more information, see [Generate a New SSH key](https://www.ssh.com/ssh/keygen/)\.
 
 1. Add authorized SSH keys to your device under test\.
 
@@ -114,7 +114,7 @@ Windows does not have an installed SSH client\. For information about installing
 
 1. Update your `device.json` file with your user name, the IP address, and path to the private key file that you just saved on your host computer for each device under test\. For more information, see [Configure device\.json](set-config.md#device-config)\. Make sure you provide the full path and file name to the private key and use forward slashes \('/'\)\. For example, for the Windows path `C:\DT\privatekey.pem`, use `C:/DT/privatekey.pem` in the `device.json` file\. 
 
-## Configure User Permissions on Your Device<a name="root-access"></a>
+## Configure user permissions on your device<a name="root-access"></a>
 
 IDT performs operations on various directories and files in a device under test\. Some of these operations require elevated permissions \(using sudo\)\. To automate these operations, IDT for AWS IoT Greengrass must be able to run commands with sudo without being prompted for a password\.
 
@@ -134,3 +134,16 @@ Follow these steps on the device under test to allow sudo access without being p
 1. Open the `/etc/sudoers` file and add the following line to the end of the file:
 
    `<ssh-username> ALL=(ALL) NOPASSWD: ALL`
+
+## Configure your device to test optional features<a name="optional-feature-config"></a>
+
+The following topics describe how to configure your devices to run IDT tests for optional features\. Follow these configuration steps only if you want to test these features\. Otherwise, continue to [Setting configuration to run the AWS IoT Greengrass qualification suite](set-config.md)\.
+
+**Topics**
++ [Verify AWS IoT Greengrass dependencies on the device under test](#install-gg-dependencies)
++ [Configure the AWS IoT Greengrass software](#config-gg)
++ [Configure your host computer to access your device under test](#configure-host)
++ [Configure user permissions on your device](#root-access)
++ [Configure your device to test optional features](#optional-feature-config)
++ [Optional: Configuring your Docker container for IDT for AWS IoT Greengrass](docker-config-setup.md)
++ [Optional: Configuring your device for ML qualification](idt-ml-qualification.md)

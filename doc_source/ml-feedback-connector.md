@@ -1,4 +1,4 @@
-# ML Feedback Connector<a name="ml-feedback-connector"></a>
+# ML Feedback connector<a name="ml-feedback-connector"></a>
 
 The ML Feedback connector makes it easier to access your machine learning \(ML\) model data for model retraining and analysis\. The connector:
 + Uploads input data \(samples\) used by your ML model to Amazon S3\. Model input can be in any format, such as images, JSON, or audio\. After samples are uploaded to the cloud, you can use them to retrain the model to improve the accuracy and precision of its predictions\. For example, you can use [Amazon SageMaker Ground Truth](https://docs.aws.amazon.com/sagemaker/latest/dg/sms.html) to label your samples and [Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) to retrain the model\.
@@ -20,7 +20,7 @@ This connector has the following requirements:
 + AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + One or more Amazon S3 buckets\. The number of buckets you use depends on your sampling strategy\.
-+ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `s3:PutObject` action on objects in the destination Amazon S3 bucket, as shown in the following example\.
++ The [Greengrass group role](group-role.md) configured to allow the `s3:PutObject` action on objects in the destination Amazon S3 bucket, as shown in the following example IAM policy\.
 
   ```
   {
@@ -37,7 +37,9 @@ This connector has the following requirements:
   }
   ```
 
-  The policy should include all destination buckets as resources\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+  The policy should include all destination buckets as resources\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\.
+
+  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
 + The [CloudWatch Metrics connector](cloudwatch-metrics-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the metrics reporting feature\.
 + [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) v1\.1\.0 is required to interact with this connector\.
 
@@ -47,7 +49,7 @@ This connector has the following requirements:
 A set of one or more feedback configurations that the connector can use to upload samples to Amazon S3\. A feedback configuration defines parameters such as the destination bucket, content type, and [sampling strategy](#ml-feedback-connector-sampling-strategies)\. When this connector is invoked, the calling Lambda function or connector specifies a target feedback configuration\.  
 Display name in the AWS IoT console: **Feedback configuration map**  
 Required: `true`  
-Type: A well\-formed JSON string that defines the set of supported feedback configurations\. For an example, see [FeedbackConfigurationMap Example](#ml-feedback-connector-feedbackconfigmap)\.    
+Type: A well\-formed JSON string that defines the set of supported feedback configurations\. For an example, see [FeedbackConfigurationMap example](#ml-feedback-connector-feedbackconfigmap)\.    
   
 The ID of a feedback configuration object has the following requirements\.    
   
@@ -73,7 +75,7 @@ Required: `true`
 Type: `string`  
 Examples: `image/jpeg`, `application/json`, `audio/ogg`  
 `s3-prefix`  
-The key prefix to use for uploaded samples\. A prefix is similar to a directory name\. It allows you to store similar data under the same directory in a bucket\. For more information, see [Object Key and Metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The key prefix to use for uploaded samples\. A prefix is similar to a directory name\. It allows you to store similar data under the same directory in a bucket\. For more information, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
 Required: `false`  
 Type: `string`  
 `file-ext`  
@@ -131,7 +133,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 }'
 ```
 
-### FeedbackConfigurationMap Example<a name="ml-feedback-connector-feedbackconfigmap"></a>
+### FeedbackConfigurationMap example<a name="ml-feedback-connector-feedbackconfigmap"></a>
 
 The following is an expanded example value for the `FeedbackConfigurationMap` parameter\. This example includes several feedback configurations that use different sampling strategies\.
 
@@ -181,7 +183,7 @@ The following is an expanded example value for the `FeedbackConfigurationMap` pa
 }
 ```
 
-### Sampling Strategies<a name="ml-feedback-connector-sampling-strategies"></a>
+### Sampling strategies<a name="ml-feedback-connector-sampling-strategies"></a>
 
 The connector supports four sampling strategies that determine whether to upload samples that are passed to the connector\. Samples are discrete instances of data that a model uses for a prediction\. You can use sampling strategies to filter for the samples that are most likely to improve model accuracy\.
 
@@ -217,7 +219,7 @@ Entropy for prediction: `1.03972`
 Result:  
 Use sample because entropy \(`1.03972`\) > threshold \(`0.75`\)\.
 
-## Input Data<a name="ml-feedback-connector-data-input"></a>
+## Input data<a name="ml-feedback-connector-data-input"></a>
 
 User\-defined Lambda functions use the `publish` function of the `feedback` client in the AWS IoT Greengrass Machine Learning SDK to invoke the connector\. For an example, see [Usage Example](#ml-feedback-connector-usage)\.
 
@@ -247,14 +249,14 @@ Required: false
 Type: dictionary  
 Example: `{"some-key": "some value"}`
 
-## Output Data<a name="ml-feedback-connector-data-output"></a>
+## Output data<a name="ml-feedback-connector-data-output"></a>
 
 This connector publishes data to three MQTT topics:
 + Status information from the connector on the `feedback/message/status` topic\.
 + Prediction results on the `feedback/message/prediction` topic\.
 + Metrics destined for CloudWatch on the `cloudwatch/metric/put` topic\.
 
-<a name="connectors-input-output-subscriptions"></a>You must configure subscriptions to allow the connector to communicate on MQTT topics\. For more information, see [Inputs and Outputs](connectors.md#connectors-inputs-outputs)\.
+<a name="connectors-input-output-subscriptions"></a>You must configure subscriptions to allow the connector to communicate on MQTT topics\. For more information, see [Inputs and outputs](connectors.md#connectors-inputs-outputs)\.
 
 **Topic filter**: `feedback/message/status`  
 Use this topic to monitor the status of sample uploads and dropped samples\. The connector publishes to this topic every time that it receives a request\.     
@@ -291,7 +293,7 @@ Use this topic to monitor the status of sample uploads and dropped samples\. The
   "id": "5aaa913f-97a3-48ac-5907-18cd96b89eeb"
 }
 ```
-The connector adds the `bucket` and `key` fields to the response from Amazon S3\. For more information about the Amazon S3 response, see [PUT Object](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUT.html#RESTObjectPUT-responses) in the *Amazon Simple Storage Service API Reference*\.  
+The connector adds the `bucket` and `key` fields to the response from Amazon S3\. For more information about the Amazon S3 response, see [PUT object](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUT.html#RESTObjectPUT-responses) in the *Amazon Simple Storage Service API Reference*\.  
 **Example output: Sample dropped because of the sampling strategy**  
 
 ```
@@ -495,13 +497,19 @@ def function_handler(event, context):
 
 ## Licenses<a name="ml-feedback-connector-license"></a>
 
-The ML Feedback connector includes the following third\-party software/licensing:
-+ [AWS SDK for Python \(Boto 3\)](https://github.com/boto/boto3)/Apache 2\.0
+The ML Feedback connector includes the following third\-party software/licensing:<a name="boto-3-licenses"></a>
++ [AWS SDK for Python \(Boto3\)](https://pypi.org/project/boto3/)/Apache License 2\.0
++ [botocore](https://pypi.org/project/botocore/)/Apache License 2\.0
++ [dateutil](https://pypi.org/project/python-dateutil/1.4/)/PSF License
++ [docutils](https://pypi.org/project/docutils/)/BSD License, GNU General Public License \(GPL\), Python Software Foundation License, Public Domain
++ [jmespath](https://pypi.org/project/jmespath/)/MIT License
++ [s3transfer](https://pypi.org/project/s3transfer/)/Apache License 2\.0
++ [urllib3](https://pypi.org/project/urllib3/)/MIT License
 + <a name="six-license"></a>[six](https://github.com/benjaminp/six)/MIT
 
 This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
-## See Also<a name="ml-feedback-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
+## See also<a name="ml-feedback-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)

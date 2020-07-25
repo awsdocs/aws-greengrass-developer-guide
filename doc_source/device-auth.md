@@ -1,4 +1,4 @@
-# Device Authentication and Authorization for AWS IoT Greengrass<a name="device-auth"></a>
+# Device authentication and authorization for AWS IoT Greengrass<a name="device-auth"></a>
 
 Devices in AWS IoT Greengrass environments use X\.509 certificates for authentication and AWS IoT policies for authorization\. Certificates and policies allow devices to securely connect with each other, AWS IoT Core, and AWS IoT Greengrass\.
 
@@ -8,9 +8,9 @@ AWS IoT policies define the set of operations allowed for AWS IoT devices\. Spec
 
 All devices require an entry in the AWS IoT Core registry and an activated X\.509 certificate with an attached AWS IoT policy\. Devices fall into two categories:
 + **Greengrass cores**\. Greengrass core devices use certificates and AWS IoT policies to connect to AWS IoT Core\. The certificates and policies also allow AWS IoT Greengrass to deploy configuration information, Lambda functions, connectors, and managed subscriptions to core devices\.
-+ **Devices connected to a Greengrass core**\. These connected devices \(also called *Greengrass devices*\) use certificates and policies to connect to AWS IoT Core and the AWS IoT Greengrass service\. This allows devices to use the AWS IoT Greengrass Discovery Service to find and connect to a core device\. A Greengrass device uses the same certificate to connect to the AWS IoT Core device gateway and core device\. Devices also use discovery information for mutual authentication with the core device\. For more information, see [Device Connection Workflow](gg-sec.md#gg-sec-connection) and [Manage Device Authentication with the Greengrass Core](security-best-practices.md#manage-device-authentication-with-core)\.
++ **Devices connected to a Greengrass core**\. These connected devices \(also called *Greengrass devices*\) use certificates and policies to connect to AWS IoT Core and the AWS IoT Greengrass service\. This allows devices to use the AWS IoT Greengrass Discovery Service to find and connect to a core device\. A Greengrass device uses the same certificate to connect to the AWS IoT Core device gateway and core device\. Devices also use discovery information for mutual authentication with the core device\. For more information, see [Device connection workflow](gg-sec.md#gg-sec-connection) and [Manage device authentication with the Greengrass core](security-best-practices.md#manage-device-authentication-with-core)\.
 
-## X\.509 Certificates<a name="x509-certificates"></a>
+## X\.509 certificates<a name="x509-certificates"></a>
 
 Communication between core and connected devices and between devices and AWS IoT Core or AWS IoT Greengrass must be authenticated\. This mutual authentication is based on registered X\.509 device certificates and cryptographic keys\.
 
@@ -25,18 +25,18 @@ The AWS IoT Greengrass core device stores certificates in two locations:<a name=
 **Note**  
 *greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. Typically, this is the `/greengrass` directory\.
 
-For more information, see [AWS IoT Greengrass Core Security Principals](gg-sec.md#gg-principals)\.
+For more information, see [AWS IoT Greengrass core security principals](gg-sec.md#gg-principals)\.
 
-### Certificate Authority \(CA\) Certificates<a name="ca-certificates"></a>
+### Certificate authority \(CA\) certificates<a name="ca-certificates"></a>
 
-Core devices and Greengrass connected devices download a root CA certificate used for authentication with AWS IoT Core and AWS IoT Greengrass services\. We recommend that you use an Amazon Trust Services \(ATS\) root CA certificate, such as [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\. For more information, see [CA Certificates for Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html#server-authentication-certs) in the *AWS IoT Core Developer Guide*\.
+Core devices and Greengrass connected devices download a root CA certificate used for authentication with AWS IoT Core and AWS IoT Greengrass services\. We recommend that you use an Amazon Trust Services \(ATS\) root CA certificate, such as [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\. For more information, see [CA certificates for server authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html#server-authentication-certs) in the *AWS IoT Core Developer Guide*\.
 
 **Note**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Endpoints Must Match the Certificate Type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
 
-Greengrass connected devices also download the Greengrass group CA certificate\. This is used to validate the MQTT server certificate on the Greengrass core during mutual authentication\. For more information, see [Device Connection Workflow](gg-sec.md#gg-sec-connection)\. The default expiration of the MQTT server certificate is seven days\.
+Greengrass connected devices also download the Greengrass group CA certificate\. This is used to validate the MQTT server certificate on the Greengrass core during mutual authentication\. For more information, see [Device connection workflow](gg-sec.md#gg-sec-connection)\. The default expiration of the MQTT server certificate is seven days\.
 
-### Certificate Rotation on the Local MQTT Server<a name="gg-cert-expire"></a>
+### Certificate rotation on the local MQTT server<a name="gg-cert-expire"></a>
 
  Greengrass connected devices use the local MQTT server certificate for mutual authentication with the Greengrass core device\. By default, this certificate expires in seven days\. This limited period is based on security best practices\. The MQTT server certificate is signed by the group CA certificate, which is stored in the cloud\. 
 
@@ -48,7 +48,7 @@ In the AWS IoT console, you can manage the certificate on the group's **Settings
 
  When the MQTT server certificate expires, any attempt to validate the certificate fails\. The device must be able to detect the failure and terminate the connection\. 
 
-## AWS IoT policies for Data Plane Operations<a name="iot-policies"></a>
+## AWS IoT policies for data plane operations<a name="iot-policies"></a>
 
 Use AWS IoT policies to authorize access to the AWS IoT Core and AWS IoT Greengrass data plane\. The AWS IoT Core data plane consists of operations for devices, users, and applications, such as connecting to AWS IoT Core and subscribing to topics\. The AWS IoT Greengrass data plane consists of operations for Greengrass devices, such as retrieving deployments and updating connectivity information\.
 
@@ -57,11 +57,11 @@ An AWS IoT policy is a JSON document that's similar to an IAM policy\. It contai
 + `Action`\. The list of actions that are allowed or denied by the policy\.
 + `Resource`\. The list of resources on which the action is allowed or denied\.
 
-For more information, see [AWS IoT policies](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) and [AWS IoT policy Actions](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policy-actions.html) in the *AWS IoT Core Developer Guide*\.
+For more information, see [AWS IoT policies](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) and [AWS IoT policy actions](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policy-actions.html) in the *AWS IoT Core Developer Guide*\.
 
  
 
-### AWS IoT Greengrass Policy Actions<a name="gg-policy-actions"></a>Greengrass Core Actions
+### AWS IoT Greengrass policy actions<a name="gg-policy-actions"></a>Greengrass Core Actions
 
 AWS IoT Greengrass defines the following policy actions that Greengrass core devices can use in AWS IoT policies:
 
@@ -101,11 +101,12 @@ AWS IoT Greengrass defines the following policy action that Greengrass devices c
 Permission for a Greengrass device to use the [Discovery API](gg-discover-api.md) to retrieve its group's core connectivity information and group certificate authority\.  
 This permission is checked when a Greengrass device calls the Discovery API with TLS mutual authentication\.
 
-## Minimal AWS IoT policy for the AWS IoT Greengrass Core Device<a name="gg-config-sec-min-iot-policy"></a>
+## Minimal AWS IoT policy for the AWS IoT Greengrass core device<a name="gg-config-sec-min-iot-policy"></a>
 
 The following example policy includes the minimum set of actions required to support basic Greengrass functionality for your core device\.
-+ The policy lists the MQTT topics and topic filters that the core device can publish messages to, subscribe to, and receive messages on, including topics used for shadow state\. To support message exchange between AWS IoT Core, Lambda functions, connectors, and devices in the Greengrass group, specify the topics and topic filters that you want to allow\. For more information, see [Publish/Subscribe Policy Examples](https://docs.aws.amazon.com/iot/latest/developerguide/pub-sub-policy.html) in the *AWS IoT Core Developer Guide*\.
-+ The policy includes a section that allows AWS IoT Core to get, update, and delete the core device's shadow\. To allow shadow sync for other devices in the Greengrass group, specify the target ARNs in the `Resource` list \(for example, `arn:aws:iot:region:account-id:thing/device-name`\)\.
++ The policy lists the MQTT topics and topic filters that the core device can publish messages to, subscribe to, and receive messages on, including topics used for shadow state\. To support message exchange between AWS IoT Core, Lambda functions, connectors, and devices in the Greengrass group, specify the topics and topic filters that you want to allow\. For more information, see [Publish/Subscribe policy examples](https://docs.aws.amazon.com/iot/latest/developerguide/pub-sub-policy.html) in the *AWS IoT Core Developer Guide*\.
++ The policy includes a section that allows AWS IoT Core to get, update, and delete the core device's shadow\. To allow shadow sync for connected devices in the Greengrass group, specify the target Amazon Resource Names \(ARNs\) in the `Resource` list \(for example, `arn:aws:iot:region:account-id:thing/device-name`\)\.
++ <a name="thing-policy-variable-not-supported"></a>The use of [thing policy variables](https://docs.aws.amazon.com/iot/latest/developerguide/thing-policy-variables.html) \(`iot:Connection.Thing.*`\) in the AWS IoT policy for a core device is not supported\. The core uses the same device certificate to make [multiple connections](gg-core.md#connection-client-id) to AWS IoT Core but the client ID in a connection might not be an exact match of the core thing name\.
 + For the `greengrass:UpdateCoreDeploymentStatus` permission, the final segment in the `Resource` ARN is the URL\-encoded ARN of the core device\.
 
 ```
@@ -202,7 +203,26 @@ The following example policy includes the minimum set of actions required to sup
 }
 ```
 
-On the AWS IoT console, you can easily view and edit the policy that's attached to your core's certificate\.
+**Note**  
+AWS IoT policies for connected Greengrass devices typically require similar permissions for `iot:Connect`, `iot:Publish`, `iot:Receive`, and `iot:Subscribe` actions\.  
+To allow a device to automatically detect connectivity information for the cores in the Greengrass groups that the device belongs to, the AWS IoT policy for a connected device must include the `greengrass:Discover` action\. In the `Resource` section, specify the ARN of the connected device, not the ARN of the Greengrass core device\. For example:  
+
+```
+{
+    "Effect": "Allow",
+    "Action": [
+        "greengrass:Discover"
+    ],
+    "Resource": [
+        "arn:aws:iot:region:account-id:thing/device-name"
+    ]
+}
+```
+The AWS IoT policy for connected devices doesn't typically require permissions for `iot:GetThingShadow`, `iot:UpdateThingShadow`, or `iot:DeleteThingShadow` actions, because the Greengrass core handles shadow sync operations for connected devices\. In this case, make sure that the `Resource` section for shadow actions in the core's AWS IoT policy includes the ARNs of the connected devices\.
+
+ 
+
+In the AWS IoT console, you can view and edit the policy that's attached to your core's certificate\.
 
 1. In the navigation pane, choose **Manage**, choose **Things**, and then choose your core\.
 

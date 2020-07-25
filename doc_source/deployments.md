@@ -1,14 +1,14 @@
-# Deploy AWS IoT Greengrass Groups to an AWS IoT Greengrass Core<a name="deployments"></a>
+# Deploy AWS IoT Greengrass groups to an AWS IoT Greengrass core<a name="deployments"></a>
 
 AWS IoT Greengrass groups are used to organize entities in your edge environment\. Groups also control how the entities in the group can interact with each other and with the AWS Cloud\. For example, only the Lambda functions in the group are deployed for local execution and only the devices in the group can communicate using the local MQTT server\.
 
 A group must include a [core](gg-core.md), which is an AWS IoT device that runs the AWS IoT Greengrass Core software\. The core acts as an edge gateway and provides AWS IoT Core capabilities in the edge environment\. Depending on your business need, you can also add the following entities to a group:
 + **Devices**\. Represented as things in the AWS IoT registry\. These devices must run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](what-is-gg.md#iot-device-sdk) or [ AWS IoT Greengrass Discovery API](gg-discover-api.md) to get connection information for the core\. Only devices that are members of the group can connect to the core\.
-+ **Lambda functions**\. User\-defined serverless applications that execute code on the core\. Lambda functions are authored in AWS Lambda and referenced from a Greengrass group\. For more information, see [Run Lambda Functions on the AWS IoT Greengrass Core](lambda-functions.md)\.
-+ **Connectors**\. Predefined serverless applications that execute code on the core\. Connectors can provide built\-in integration with local infrastructure, device protocols, AWS, and other cloud services\. For more information, see [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)\.
++ **Lambda functions**\. User\-defined serverless applications that execute code on the core\. Lambda functions are authored in AWS Lambda and referenced from a Greengrass group\. For more information, see [Run Lambda functions on the AWS IoT Greengrass core](lambda-functions.md)\.
++ **Connectors**\. Predefined serverless applications that execute code on the core\. Connectors can provide built\-in integration with local infrastructure, device protocols, AWS, and other cloud services\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
 + **Subscriptions**\. Defines the publishers, subscribers, and MQTT topics \(or subjects\) that are authorized for MQTT communication\.
 + **Resources**\. References to local [devices and volumes](access-local-resources.md), [machine learning models](ml-inference.md), and [secrets](secrets.md), used for access control by Greengrass Lambda functions and connectors\.
-+ **Loggers**\. Logging configurations for AWS IoT Greengrass system components and Lambda functions\. For more information, see [Monitoring with AWS IoT Greengrass Logs](greengrass-logs-overview.md)\.
++ **Loggers**\. Logging configurations for AWS IoT Greengrass system components and Lambda functions\. For more information, see [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)\.
 
 You manage your Greengrass group in the AWS Cloud and then deploy it to a core\. The deployment copies the group configuration to the `group.json` file on the core device\. This file is located in `greengrass-root/ggc/deployments/group`\.
 
@@ -17,7 +17,7 @@ You manage your Greengrass group in the AWS Cloud and then deploy it to a core\.
 **Note**  
 During a deployment, the Greengrass daemon process on the core device stops and then restarts\.
 
-## Deploying Groups from the AWS IoT console<a name="manage-deployments-console"></a>
+## Deploying groups from the AWS IoT console<a name="manage-deployments-console"></a>
 
 You can deploy a group and manage its deployments from the group's configuration page in the AWS IoT console\.
 
@@ -45,10 +45,10 @@ You might want to redeploy a deployment if the current deployment fails or rever
 ![\[Deployments page showing the Re-Deploy action for a deployment.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-redeployment.png)
 
 **To reset group deployments**  
-You might want to reset group deployments to move or delete a group or to remove deployment information\. For more information, see [Reset Deployments](reset-deployments-scenario.md)\.  
+You might want to reset group deployments to move or delete a group or to remove deployment information\. For more information, see [Reset deployments](reset-deployments-scenario.md)\.  
 + From **Actions**, choose **Reset Deployments**\.
 
-## Deploying Groups with the AWS IoT Greengrass API<a name="manage-deployments-api"></a>
+## Deploying groups with the AWS IoT Greengrass API<a name="manage-deployments-api"></a>
 
 The AWS IoT Greengrass API provides the following actions to deploy AWS IoT Greengrass groups and manage group deployments\. You can call these actions from the AWS CLI, AWS IoT Greengrass API, or AWS SDK\.
 
@@ -56,14 +56,14 @@ The AWS IoT Greengrass API provides the following actions to deploy AWS IoT Gree
 | Action | Description | 
 | --- | --- | 
 | [CreateDeployment](https://docs.aws.amazon.com/greengrass/latest/apireference/createdeployment-post.html) |  Creates a `NewDeployment` or `Redeployment` deployment\. You might want to redeploy a deployment if the current deployment fails\. Or you might want to redeploy to revert to a different group version\. | 
-| [GetDeploymentStatus](https://docs.aws.amazon.com/greengrass/latest/apireference/getdeploymentstatus-get.html) |  Returns the status of a deployment: `Building`, `InProgress`, `Success`, or `Failure`\. You can configure Amazon EventBridge events to receive deployment notifications\. For more information, see [Get Deployment Notifications](deployment-notifications.md)\. | 
+| [GetDeploymentStatus](https://docs.aws.amazon.com/greengrass/latest/apireference/getdeploymentstatus-get.html) |  Returns the status of a deployment: `Building`, `InProgress`, `Success`, or `Failure`\. You can configure Amazon EventBridge events to receive deployment notifications\. For more information, see [Get deployment notifications](deployment-notifications.md)\. | 
 | [ListDeployments](https://docs.aws.amazon.com/greengrass/latest/apireference/listdeployments-get.html) | Returns the deployment history for the group\. | 
-| [ResetDeployments](https://docs.aws.amazon.com/greengrass/latest/apireference/resetdeployments-post.html) |  Resets the deployments for the group\. You might want to reset group deployments to move or delete a group or to remove deployment information\. For more information, see [Reset Deployments](reset-deployments-scenario.md)\. | 
+| [ResetDeployments](https://docs.aws.amazon.com/greengrass/latest/apireference/resetdeployments-post.html) |  Resets the deployments for the group\. You might want to reset group deployments to move or delete a group or to remove deployment information\. For more information, see [Reset deployments](reset-deployments-scenario.md)\. | 
 
 **Note**  
-For information about bulk deployment operations, see [Create Bulk Deployments for Groups](bulk-deploy-cli.md)\.
+For information about bulk deployment operations, see [Create bulk deployments for groups](bulk-deploy-cli.md)\.
 
-### Getting the Group ID<a name="api-get-group-id"></a>
+### Getting the group ID<a name="api-get-group-id"></a>
 
 The group ID is commonly used in API actions\. You can use the [ListGroups](https://docs.aws.amazon.com/greengrass/latest/apireference/listgroups-get.html) action to find the ID of the target group from your list of groups\. For example, in the AWS CLI, use the `list-groups` command\.
 
@@ -122,7 +122,7 @@ If you don't specify an AWS Region, AWS CLI commands use the default Region from
 aws greengrass list-groups --region us-east-1
 ```
 
-## Overview of the AWS IoT Greengrass Group Object Model<a name="api-overview"></a>
+## Overview of the AWS IoT Greengrass group object model<a name="api-overview"></a>
 
 When programming with the AWS IoT Greengrass API, it's helpful to understand the Greengrass group object model\.
 
@@ -132,7 +132,7 @@ In the AWS IoT Greengrass API, the top\-level `Group` object consists of metadat
 
 ![\[A diagram of a group, which consists of metadata and a list of group versions.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/om-group.png)
 
-### Group Versions<a name="api-overview-versions"></a>
+### Group versions<a name="api-overview-versions"></a>
 
 `GroupVersion` objects define group membership\. Each `GroupVersion` references a `CoreDefinitionVersion` and other component versions by ARN\. These references determine which entities to include in the group\.
 
@@ -146,7 +146,7 @@ For example, to include three Lambda functions, one device, and two subscription
 
 The `GroupVersion` deployed to a core device determines the entities that are available in the local environment and how they can interact\.
 
-### Group Components<a name="api-overview-group-components"></a>
+### Group components<a name="api-overview-group-components"></a>
 
 Components that you add to groups have a three\-level hierarchy:
 + A *Definition* that references a list of *DefinitionVersion* objects of a given type\. For example, a `DeviceDefinition` references a list of `DeviceDefinitionVersion` objects\.
@@ -166,7 +166,7 @@ The following example `DeviceDefinition` references three `DeviceDefinitionVersi
 
 ![\[A diagram of a device hierarchy, which consists of DeviceDefinition, DeviceDefinitionVersion, and Device objects.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/om-devicedefinition.png)
 
-### Updating Groups<a name="api-update-groups"></a>
+### Updating groups<a name="api-update-groups"></a>
 
 In the AWS IoT Greengrass API, you use versions to update a group's configuration\. Versions are immutable, so to add, remove, or change group components, you must create *DefinitionVersion* objects that contain new or updated entities\.
 
@@ -186,12 +186,12 @@ Greengrass Lambda functions and [secret resources](secrets.md) define Greengrass
 + To update [Greengrass\-specific properties](lambda-group-config.md), you create a `FunctionDefinitionVersion` that contains the updated `Function` properties\.
 
 **Note**  
-Greengrass Lambda functions can reference a Lambda function by alias ARN or version ARN\. If you reference the alias ARN \(recommended\), you don't need to update your `FunctionDefinitionVersion` \(or `SubscriptionDefinitionVersion`\) when you publish a new function version in AWS Lambda\. For more information, see [Reference Lambda Functions by Alias or Version](lambda-functions.md#lambda-versions-aliases)\.
+Greengrass Lambda functions can reference a Lambda function by alias ARN or version ARN\. If you reference the alias ARN \(recommended\), you don't need to update your `FunctionDefinitionVersion` \(or `SubscriptionDefinitionVersion`\) when you publish a new function version in AWS Lambda\. For more information, see [Reference Lambda functions by alias or version](lambda-functions.md#lambda-versions-aliases)\.
 
-## See Also<a name="deployments-see-also"></a>
-+ [Get Deployment Notifications](deployment-notifications.md)
-+ [Reset Deployments](reset-deployments-scenario.md)
-+ [Create Bulk Deployments for Groups](bulk-deploy-cli.md)
+## See also<a name="deployments-see-also"></a>
++ [Get deployment notifications](deployment-notifications.md)
++ [Reset deployments](reset-deployments-scenario.md)
++ [Create bulk deployments for groups](bulk-deploy-cli.md)
 + [Troubleshooting Deployment Issues](gg-troubleshooting.md#gg-troubleshooting-deploymentissues)<a name="see-also-gg-api-cli"></a>
 + [AWS IoT Greengrass API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/)
 + <a name="see-also-gg-cli"></a>[AWS IoT Greengrass commands](https://docs.aws.amazon.com/cli/latest/reference/greengrass/index.html) in the *AWS CLI Command Reference*

@@ -1,4 +1,4 @@
-# Module 3 \(Part 1\): Lambda Functions on AWS IoT Greengrass<a name="module3-I"></a>
+# Module 3 \(part 1\): Lambda functions on AWS IoT Greengrass<a name="module3-I"></a>
 
 This module shows you how to create and deploy a Lambda function that sends MQTT messages from your AWS IoT Greengrass core device\. The module describes Lambda function configurations, subscriptions used to allow MQTT messaging, and deployments to a core device\.
 
@@ -7,12 +7,12 @@ This module shows you how to create and deploy a Lambda function that sends MQTT
 Before you begin, make sure that you have completed [Module 1](module1.md) and [Module 2](module2.md) and have a running AWS IoT Greengrass core device\.
 
 **Tip**  
-Or, to use a script that sets up your core device for you, see [Quick Start: Greengrass Device Setup](quick-start.md)\. The script can also create and deploy the Lambda function used in this module\.
+Or, to use a script that sets up your core device for you, see [Quick start: Greengrass device setup](quick-start.md)\. The script can also create and deploy the Lambda function used in this module\.
 
 This module should take about 30 minutes to complete\.
 
 **Topics**
-+ [Create and Package a Lambda Function](create-lambda.md)
-+ [Configure the Lambda Function for AWS IoT Greengrass](config-lambda.md)
-+ [Deploy Cloud Configurations to an AWS IoT Greengrass Core Device](configs-core.md)
-+ [Verify the Lambda Function Is Running on the Core Device](lambda-check.md)
++ [Create and package a Lambda function](create-lambda.md)
++ [Configure the Lambda function for AWS IoT Greengrass](config-lambda.md)
++ [Deploy cloud configurations to a Greengrass core device](configs-core.md)
++ [Verify the Lambda function is running on the core device](lambda-check.md)

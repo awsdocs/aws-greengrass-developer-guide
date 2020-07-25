@@ -252,7 +252,7 @@ Follow the installation prompts\. The download for the Xcode command line tools 
 
 1. After the AWS IoT Device SDK for Python is installed, navigate to the `samples` folder and open the `greengrass` folder\.
 
-   For this tutorial, you copy the `basicDiscovery.py` sample function, which uses the certificates and keys that you downloaded in [Create AWS IoT Devices in an AWS IoT Greengrass Group](device-group.md)\.
+   For this tutorial, you copy the `basicDiscovery.py` sample function, which uses the certificates and keys that you downloaded in [Create AWS IoT devices in an AWS IoT Greengrass group](device-group.md)\.
 
 1. Copy `basicDiscovery.py` to the folder that contains the HelloWorld\_Publisher and HelloWorld\_Subscriber device certificates and keys, as shown in the following example\. \(The hash component in your file names are different\.\)  
 ![\[Screenshot of certificate and key files with basicDiscovery.py in the same folder.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-075.png)

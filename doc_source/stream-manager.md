@@ -1,4 +1,4 @@
-# Manage Data Streams on the AWS IoT Greengrass Core<a name="stream-manager"></a>
+# Manage data streams on the AWS IoT Greengrass core<a name="stream-manager"></a>
 
 AWS IoT Greengrass stream manager makes it easier and more reliable to transfer high\-volume IoT data to the AWS Cloud\. Stream manager processes data streams locally and exports them to the AWS Cloud automatically\. This feature integrates with common edge scenarios, such as machine learning \(ML\) inference, where data is processed and analyzed locally before being exported to the AWS Cloud or local storage destinations\.
 
@@ -6,9 +6,9 @@ Stream manager simplifies application development\. Your IoT applications can us
 
 Stream manager is designed to work in environments with intermittent or limited connectivity\. You can define bandwidth use, timeout behavior, and how stream data is handled when the core is connected or disconnected\. For critical data, you can set priorities to control the order in which streams are exported to the AWS Cloud\.
 
-You can configure automatic exports to AWS IoT Analytics and Amazon Kinesis Data Streams for further processing and analysis in the AWS Cloud\. With AWS IoT Analytics, you can perform advanced analysis on your data to help make business decisions and improve machine learning models\. Kinesis Data Streams is commonly used to aggregate high\-volume data and load it into a data warehouse or map\-reduce cluster\. For more information, see [What Is AWS IoT Analytics?](https://docs.aws.amazon.com/iotanalytics/latest/userguide/welcome.html) in the *AWS IoT Analytics User Guide* and [What Is Amazon Kinesis Data Streams?](https://docs.aws.amazon.com/streams/latest/dev/what-is-this-service.html) in the *Amazon Kinesis Developer Guide*\.
+You can configure automatic exports to AWS IoT Analytics and Amazon Kinesis Data Streams for further processing and analysis in the AWS Cloud\. With AWS IoT Analytics, you can perform advanced analysis on your data to help make business decisions and improve machine learning models\. Kinesis Data Streams is commonly used to aggregate high\-volume data and load it into a data warehouse or map\-reduce cluster\. For more information, see [What is AWS IoT Analytics?](https://docs.aws.amazon.com/iotanalytics/latest/userguide/welcome.html) in the *AWS IoT Analytics User Guide* and [What is Amazon Kinesis Data Streams?](https://docs.aws.amazon.com/streams/latest/dev/what-is-this-service.html) in the *Amazon Kinesis Developer Guide*\.
 
-## Stream Management Workflow<a name="stream-manager-workflow"></a>
+## Stream management workflow<a name="stream-manager-workflow"></a>
 
 Your IoT applications interact with stream manager through the AWS IoT Greengrass Core SDK\. In a simple workflow, a user\-defined Lambda function running on the AWS IoT Greengrass core consumes IoT data, such as time\-series temperature and pressure metrics\. The Lambda function might filter or compress the data and then call the AWS IoT Greengrass Core SDK to write the data to a stream in stream manager\. Stream manager can export the stream to the AWS Cloud automatically, based on the policies defined for the stream\. User\-defined Lambda functions can also send data directly to local databases or storage repositories\.
 
@@ -18,16 +18,16 @@ An example workflow is shown in the following diagram\.
 
 ![\[Diagram of the stream manager workflow.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/stream-manager-architecture.png)
 
-For tutorials that show you how to create a simple workflow, see [Export Data Streams to the AWS Cloud \(Console\)](stream-manager-console.md) or [Export Data Streams to the AWS Cloud \(CLI\)](stream-manager-cli.md)\.
+For tutorials that show you how to create a simple workflow, see [Export data streams to the AWS cloud \(console\)](stream-manager-console.md) or [Export data streams to the AWS cloud \(CLI\)](stream-manager-cli.md)\.
 
-Customizable settings allow you to control how stream manager stores, processes, and exports streams based on business need and environment constraints\. You can configure stream manager parameters to define group\-level runtime settings that apply to all streams on the AWS IoT Greengrass core\. These settings take effect after you deploy the Greengrass group\. For more information, see [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)\.
+Customizable settings allow you to control how stream manager stores, processes, and exports streams based on business need and environment constraints\. You can configure stream manager parameters to define group\-level runtime settings that apply to all streams on the AWS IoT Greengrass core\. These settings take effect after you deploy the Greengrass group\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.
 
-Your user\-defined Lambda functions use `StreamManagerClient` in the AWS IoT Greengrass Core SDK to create and interact with streams\. When a stream is created, the Lambda function defines stream parameters, such as destinations, priority, and persistence\. For more information, including example Lambda function code, see [Use StreamManagerClient to Work with Streams](work-with-streams.md)\.
+Your user\-defined Lambda functions use `StreamManagerClient` in the AWS IoT Greengrass Core SDK to create and interact with streams\. When a stream is created, the Lambda function defines stream parameters, such as destinations, priority, and persistence\. For more information, including example Lambda function code, see [Use StreamManagerClient to work with streams](work-with-streams.md)\.
 
 ## Requirements<a name="stream-manager-requirements"></a>
 
 The following requirements apply for the Greengrass stream manager:
-+ You must use AWS IoT Greengrass Core software v1\.10 or later, with stream manager enabled\. For more information, see [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)\.
++ You must use AWS IoT Greengrass Core software v1\.10 or later, with stream manager enabled\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.
 **Note**  <a name="stream-manager-not-supported-openwrt"></a>
 Stream manager is not supported on OpenWrt distributions\.
 + The Java 8 runtime \(JDK 8\) must be installed on the core\.<a name="install-java8-runtime-general"></a>
@@ -96,13 +96,13 @@ The AWS IoT Greengrass Core SDK for Python requires Python 3\.7 or later and has
     }
     ```
 
-  You can grant granular or conditional access to resources \(for example, by using a wildcard `*` naming scheme\)\. For more information, see [Adding and Removing IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+  You can grant granular or conditional access to resources \(for example, by using a wildcard `*` naming scheme\)\. For more information, see [Adding and removing IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
 
-## Data Security<a name="stream-manager-security"></a>
+## Data security<a name="stream-manager-security"></a>
 
 When you use stream manager, be aware of the following security considerations\.
 
-### Local Data Security<a name="stream-manager-security-stream-data"></a>
+### Local data security<a name="stream-manager-security-stream-data"></a>
 
 AWS IoT Greengrass does not encrypt stream data at rest or in transit locally between components on the core device\.
 + **Data at rest**\. Stream data is stored locally in a storage directory\. For data security, AWS IoT Greengrass relies on Unix file permissions and full\-disk encryption, if enabled\. You can use the optional [STREAM\_MANAGER\_STORE\_ROOT\_DIR](configure-stream-manager.md#STREAM_MANAGER_STORE_ROOT_DIR) parameter to specify the storage directory\. If you change this parameter later to use a different storage directory, AWS IoT Greengrass does not delete the previous storage directory or its contents\.
@@ -113,7 +113,7 @@ AWS IoT Greengrass does not encrypt stream data at rest or in transit locally be
    
 + **Data in transit to the AWS Cloud**\. Data streams exported by stream manager to the AWS Cloud use standard AWS service client encryption with Transport Layer Security \(TLS\)\.
 
-### Client Authentication<a name="stream-manager-security-client-authentication"></a>
+### Client authentication<a name="stream-manager-security-client-authentication"></a>
 
 Stream manager clients use the AWS IoT Greengrass Core SDK to communicate with stream manager\. When client authentication is enabled, only Lambda functions in the Greengrass group can interact with streams in stream manager\. When client authentication is disabled, any process running on the Greengrass core \(such as [Docker containers](docker-app-connector.md)\) can interact with streams in stream manager\. You should disable authentication only if your business case requires it\.
 
@@ -127,8 +127,8 @@ You use the [STREAM\_MANAGER\_AUTHENTICATE\_CLIENT](configure-stream-manager.md#
 | Parameter value | `true` \(default and recommended\) | `false` | 
 | Allowed clients | User\-defined Lambda functions in the Greengrass group | User\-defined Lambda functions in the Greengrass group Other processes running on the Greengrass core device | 
 
-## See Also<a name="stream-manager-see-also"></a>
-+ [Configure AWS IoT Greengrass Stream Manager](configure-stream-manager.md)
-+ [Use StreamManagerClient to Work with Streams](work-with-streams.md)
-+ [Export Data Streams to the AWS Cloud \(Console\)](stream-manager-console.md)
-+ [Export Data Streams to the AWS Cloud \(CLI\)](stream-manager-cli.md)
+## See also<a name="stream-manager-see-also"></a>
++ [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)
++ [Use StreamManagerClient to work with streams](work-with-streams.md)
++ [Export data streams to the AWS cloud \(console\)](stream-manager-console.md)
++ [Export data streams to the AWS cloud \(CLI\)](stream-manager-cli.md)

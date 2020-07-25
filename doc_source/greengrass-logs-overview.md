@@ -1,8 +1,8 @@
-# Monitoring with AWS IoT Greengrass Logs<a name="greengrass-logs-overview"></a>
+# Monitoring with AWS IoT Greengrass logs<a name="greengrass-logs-overview"></a>
 
-AWS IoT Greengrass consists of the cloud service and the AWS IoT Greengrass Core software\. The AWS IoT Greengrass Core software can write logs to Amazon CloudWatch and to the local file system of your core device\. Lambda functions and connectors running on the core can also write logs to CloudWatch Logs and the local file system\. You can use logs to monitor events and troubleshoot issues\. All AWS IoT Greengrass log entries include a timestamp, log level, and information about the event\.
+AWS IoT Greengrass consists of the cloud service and the AWS IoT Greengrass Core software\. The AWS IoT Greengrass Core software can write logs to Amazon CloudWatch and to the local file system of your core device\. Lambda functions and connectors running on the core can also write logs to CloudWatch Logs and the local file system\. You can use logs to monitor events and troubleshoot issues\. All AWS IoT Greengrass log entries include a timestamp, log level, and information about the event\. Changes to logging settings take effect after you deploy the group\.
 
-Logging is configured at the group level\. For steps that show how to configure logging for a Greengrass group, see [Configure Logging for AWS IoT Greengrass](#config-logs)\.
+Logging is configured at the group level\. For steps that show how to configure logging for a Greengrass group, see [Configure logging for AWS IoT Greengrass](#config-logs)\.
 
 ## Accessing CloudWatch Logs<a name="gg-logs-cloudwatch"></a>
 
@@ -21,7 +21,7 @@ date/account-id/greengrass-group-id/name-of-core-that-generated-log
 
 The following considerations apply when you use CloudWatch Logs:
 + Logs are sent to CloudWatch Logs with a limited number of retries in case there's no internet connectivity\. After the retries are exhausted, the event is dropped\.
-+ Transaction, memory, and other limitations apply\. For more information, see [Logging Limitations](#gg-log-limits)\.
++ Transaction, memory, and other limitations apply\. For more information, see [Logging limitations](#gg-log-limits)\.
 + <a name="gg-logs-cloudwatch-perms"></a>Your Greengrass group role must allow AWS IoT Greengrass to write to CloudWatch Logs\. To grant permissions, [ embed the following inline policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html#embed-inline-policy-console) in your group role\.
 
   ```
@@ -44,7 +44,7 @@ The following considerations apply when you use CloudWatch Logs:
   }
   ```
 **Note**  
-You can grant more granular access to your log resources\. For more information, see [ Using Identity\-Based Policies \(IAM Policies\) for CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/iam-identity-based-access-control-cwl.html) in the *Amazon CloudWatch User Guide*\.
+You can grant more granular access to your log resources\. For more information, see [ Using identity\-based policies \(IAM policies\) for CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/iam-identity-based-access-control-cwl.html) in the *Amazon CloudWatch User Guide*\.
 
   The group role is an IAM role that you create and attach to your Greengrass group\. You can use the console or the AWS IoT Greengrass API to manage the group role\.
 
@@ -57,16 +57,16 @@ You can grant more granular access to your log resources\. For more information,
 
   1. Choose **Settings**\. Under **Group Role**, you can view, attach, or remove the group role\.
 
-     For steps that show you how to attach the group role, see [Configure the Group Role](config-iam-roles.md)\.
+     For steps that show you how to attach the group role, see [group role](group-role.md)\.
    
 **Using the CLI**  
   + To find the group role, use the [get\-associated\-role](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-associated-role.html) command\.
   + To attach the group role, use the [associate\-role\-to\-group](https://docs.aws.amazon.com/cli/latest/reference/greengrass/associate-role-to-group.html) command\.
   + To remove the group role, use the [disassociate\-role\-from\-group](https://docs.aws.amazon.com/cli/latest/reference/greengrass/disassociate-role-from-group.html) command\.
    
-To learn how to get the group ID to use with these commands, see [Getting the Group ID](deployments.md#api-get-group-id)\.
+To learn how to get the group ID to use with these commands, see [Getting the group ID](deployments.md#api-get-group-id)\.
 
-## Accessing File System Logs<a name="gg-logs-local"></a>
+## Accessing file system logs<a name="gg-logs-local"></a>
 
 If you configure file system logging, the log files are stored under `greengrass-root/ggc/var/log` on the core device\. The following is the high\-level directory structure:
 
@@ -90,12 +90,12 @@ The following considerations apply when you use file system logs:
 + Reading AWS IoT Greengrass logs on the file system requires root permissions\.
 + AWS IoT Greengrass supports size\-based rotation and automatic cleanup when the amount of log data is close to the configured limit\.
 + The `crash.log` file is available in file system logs only\. This log isn't written to CloudWatch Logs\.
-+ Disk usage limitations apply\. For more information, see [Logging Limitations](#gg-log-limits)\.
++ Disk usage limitations apply\. For more information, see [Logging limitations](#gg-log-limits)\.
 
 **Note**  
 Logs for AWS IoT Greengrass Core software v1\.0 are stored under the `greengrass-root/var/log` directory\.
 
-## Default Logging Configuration<a name="config-logs-default"></a>
+## Default logging configuration<a name="config-logs-default"></a>
 
 If logging settings aren't explicitly configured, AWS IoT Greengrass uses the following default logging configuration after the first group deployment\.
 
@@ -114,14 +114,14 @@ User\-defined Lambda Functions
 **Note**  
 Before the first deployment, only system components write logs to the file system because no user\-defined Lambda functions are deployed\.
 
-## Configure Logging for AWS IoT Greengrass<a name="config-logs"></a>
+## Configure logging for AWS IoT Greengrass<a name="config-logs"></a>
 
 You can use the AWS IoT console or the [AWS IoT Greengrass APIs](#config-logs-api) to configure AWS IoT Greengrass logging\.
 
 **Note**  
 To allow AWS IoT Greengrass to write logs to CloudWatch Logs, your group role must allow the [required CloudWatch Logs actions](#gg-logs-cloudwatch-perms)\.
 
-### Configure Logging \(Console\)<a name="config-logs-console"></a>
+### Configure logging \(console\)<a name="config-logs-console"></a>
 
 You can configure logging on the group's **Settings** page\.
 
@@ -151,9 +151,9 @@ You can configure logging on the group's **Settings** page\.
 
 1. For file system logs, specify a disk space limit\.
 
-1. Choose **Save**\.
+1. Choose **Save**\. Changes take effect after you deploy the group\.
 
-### Configure Logging \(API\)<a name="config-logs-api"></a>
+### Configure logging \(API\)<a name="config-logs-api"></a>
 
 You can use AWS IoT Greengrass logger APIs to configure logging programmatically\. For example, use the [https://docs.aws.amazon.com/greengrass/latest/apireference/createloggerdefinition-post.html](https://docs.aws.amazon.com/greengrass/latest/apireference/createloggerdefinition-post.html) action to create a logger definition based on a [https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-loggerdefinitionversion.html](https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-loggerdefinitionversion.html) payload, which uses the following syntax:
 
@@ -195,7 +195,7 @@ Valid values: `DEBUG`, `INFO` \(recommended\), `WARN`, `ERROR`, `FATAL`
 `Space`  
 The maximum amount of local storage, in KB, to use for storing logs\. This field applies only when `Type` is set to `FileSystem`\.
 
-### Configuration Example<a name="config-logs-examples"></a>
+### Configuration example<a name="config-logs-examples"></a>
 
 The following `LoggerDefinitionVersion` example specifies a logging configuration that:
 + Turns on file system `ERROR` \(and above\) logging for AWS IoT Greengrass system components\.
@@ -232,13 +232,13 @@ The following `LoggerDefinitionVersion` example specifies a logging configuratio
 }
 ```
 
-After you create a logger definition version, you can use its version ARN to create a group version before deploying the group\.
+After you create a logger definition version, you can use its version ARN to create a group version before [deploying the group](deployments.md)\.
 
-## Logging Limitations<a name="gg-log-limits"></a>
+## Logging limitations<a name="gg-log-limits"></a>
 
 AWS IoT Greengrass has the following logging limitations\.
 
-### Transactions per Second<a name="gg-log-limit-tps"></a>
+### Transactions per second<a name="gg-log-limit-tps"></a>
 
 When logging to CloudWatch is enabled, the logging component batches log events locally before sending them to CloudWatch, so you can log at a rate higher than five requests per second per log stream\.
 
@@ -246,11 +246,11 @@ When logging to CloudWatch is enabled, the logging component batches log events 
 
 If AWS IoT Greengrass is configured to send logs to CloudWatch and a Lambda function logs more than 5 MB/second for a prolonged period of time, the internal processing pipeline eventually fills up\. The theoretical worst case is 6 MB per Lambda function\. 
 
-### Clock Skew<a name="gg-log-limit-skew"></a>
+### Clock skew<a name="gg-log-limit-skew"></a>
 
 When logging to CloudWatch is enabled, the logging component signs requests to CloudWatch using the normal Signature Version 4 signing process\. If the system time on the AWS IoT Greengrass core device is out of sync by more than [15 minutes](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html), then the requests are rejected\.
 
-### Disk Usage<a name="gg-log-limit-disk"></a>
+### Disk usage<a name="gg-log-limit-disk"></a>
 
 Use the following formula to calculate the total maximum amount of disk usage for logging\. 
 
@@ -271,12 +271,12 @@ The maximum amount of local storage for Lambda function logs\.
 `lambda-count`  
 The number of deployed Lambda functions\.
 
-### Log Loss<a name="gg-log-loss"></a>
+### Log loss<a name="gg-log-loss"></a>
 
 If your AWS IoT Greengrass core device is configured to log only to CloudWatch and there's no internet connectivity, you have no way to retrieve the logs currently in the memory\.
 
 When Lambda functions are terminated \(for example, during deployment\), a few seconds' worth of logs are not written to CloudWatch\.
 
-## CloudTrail Logs<a name="cloudtrail-integration"></a>
+## CloudTrail logs<a name="cloudtrail-integration"></a>
 
-AWS IoT Greengrass is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in AWS IoT Greengrass\. For more information, see [Logging AWS IoT Greengrass API Calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
+AWS IoT Greengrass is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in AWS IoT Greengrass\. For more information, see [Logging AWS IoT Greengrass API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.

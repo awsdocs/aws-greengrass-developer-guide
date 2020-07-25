@@ -1,39 +1,49 @@
-# Device Defender Connector<a name="device-defender-connector"></a>
+# Device Defender connector<a name="device-defender-connector"></a>
 
 The Device Defender [connector](connectors.md) notifies administrators of changes in the state of a Greengrass core device\. This can help identify unusual behavior that might indicate a compromised device\.
 
-This connector reads system metrics from the `/proc` directory on the core device, and then publishes the metrics to AWS IoT Device Defender\. For metrics reporting details, see [Device Metrics Document Specification](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html#DetectMetricsMessagesSpec) in the *AWS IoT Developer Guide*\.
+This connector reads system metrics from the `/proc` directory on the core device, and then publishes the metrics to AWS IoT Device Defender\. For metrics reporting details, see [Device metrics document specification](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html#DetectMetricsMessagesSpec) in the *AWS IoT Developer Guide*\.
 
 This connector has the following versions\.
 
 
 | Version | ARN | 
 | --- | --- | 
-| 2 | `arn:aws:greengrass:region::/connectors/DeviceDefender/versions/`2 | 
-| 1 | `arn:aws:greengrass:region::/connectors/DeviceDefender/versions/`1 | 
+| 3 | `arn:aws:greengrass:region::/connectors/DeviceDefender/versions/3` | 
+| 2 | `arn:aws:greengrass:region::/connectors/DeviceDefender/versions/2` | 
+| 1 | `arn:aws:greengrass:region::/connectors/DeviceDefender/versions/1` | 
 
 For information about version changes, see the [Changelog](#device-defender-connector-changelog)\.
 
 ## Requirements<a name="device-defender-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7 or later\.
-+ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ AWS IoT Device Defender configured to use the Detect feature to keep track of violations\. For more information, see [Detect](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html) in the *AWS IoT Developer Guide*\.
-+ A [local volume resource](access-local-resources.md) in the Greengrass group that points to the `/proc` directory\. The resource must use the following properties:
+
+------
+#### [ Version 3 ]
++ <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
++ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-device-defender-req-itdd-config"></a>AWS IoT Device Defender configured to use the Detect feature to keep track of violations\. For more information, see [Detect](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html) in the *AWS IoT Developer Guide*\.
++ <a name="conn-device-defender-req-proc-dir-resource"></a>A [local volume resource](access-local-resources.md) in the Greengrass group that points to the `/proc` directory\. The resource must use the following properties:
   + Source path: `/proc`
   + Destination path: `/host_proc` \(or a value that matches the [valid pattern](#param-ProcDestinationPath)\)
   + AutoAddGroupOwner: `true`
-+ The [psutil](https://pypi.org/project/psutil/) library installed on the AWS IoT Greengrass core\. Use the following command to install it:
++ <a name="conn-device-defender-req-psutil-v3"></a>The [psutil](https://pypi.org/project/psutil/) library installed on the Greengrass core\. Version 5\.7\.0 is the latest version that is verified to work with the connector\.
++ <a name="conn-device-defender-req-cbor-v3"></a>The [cbor](https://pypi.org/project/cbor/) library installed on the Greengrass core\. Version 1\.0\.0 is the latest version that is verified to work with the connector\.
 
-  ```
-  pip install psutil
-  ```
-+ The [cbor](http://cbor.io/) library installed on the AWS IoT Greengrass core\. Use the following command to install it:
+------
+#### [ Versions 1 \- 2 ]
++ <a name="conn-req-ggc-v1.7.0"></a>AWS IoT Greengrass Core software v1\.7 or later\.
++ [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-device-defender-req-itdd-config"></a>AWS IoT Device Defender configured to use the Detect feature to keep track of violations\. For more information, see [Detect](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html) in the *AWS IoT Developer Guide*\.
++ <a name="conn-device-defender-req-proc-dir-resource"></a>A [local volume resource](access-local-resources.md) in the Greengrass group that points to the `/proc` directory\. The resource must use the following properties:
+  + Source path: `/proc`
+  + Destination path: `/host_proc` \(or a value that matches the [valid pattern](#param-ProcDestinationPath)\)
+  + AutoAddGroupOwner: `true`
++ <a name="conn-device-defender-req-psutil"></a>The [psutil](https://pypi.org/project/psutil/) library installed on the Greengrass core\.
++ <a name="conn-device-defender-req-cbor"></a>The [cbor](https://pypi.org/project/cbor/) library installed on the Greengrass core\.
 
-  ```
-  pip install cbor
-  ```
+------
 
 ## Connector Parameters<a name="device-defender-connector-param"></a>
 
@@ -70,7 +80,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyDeviceDefenderConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/DeviceDefender/versions/2",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/DeviceDefender/versions/3",
             "Parameters": {
                 "SampleIntervalSeconds": "600",
                 "ProcDestinationPath": "/host_proc",
@@ -84,22 +94,22 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 **Note**  
 The Lambda function in this connector has a [long\-lived](lambda-functions.md#lambda-lifecycle) lifecycle\.
 
-In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+In the AWS IoT Greengrass console, you can add a connector from the group's **Connectors** page\. For more information, see [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
-## Input Data<a name="device-defender-connector-data-input"></a>
+## Input data<a name="device-defender-connector-data-input"></a>
 
 This connector doesn't accept MQTT messages as input data\.
 
-## Output Data<a name="device-defender-connector-data-output"></a>
+## Output data<a name="device-defender-connector-data-output"></a>
 
 This connector publishes security metrics to AWS IoT Device Defender as output data\.
 
-**Topic filter**  
+<a name="topic-filter"></a>**Topic filter in subscription**  
 `$aws/things/+/defender/metrics/json`  
 This is the topic syntax that AWS IoT Device Defender expects\. The connector replaces the `+` wildcard with the device name \(for example, `$aws/things/thing-name/defender/metrics/json`\)\.
 
 **Example output**  
-For metrics reporting details, see [ Device Metrics Document Specification](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html#DetectMetricsMessagesSpec) in the *AWS IoT Developer Guide*\.  
+For metrics reporting details, see [ Device metrics document specification](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html#DetectMetricsMessagesSpec) in the *AWS IoT Developer Guide*\.  
 
 ```
 {
@@ -176,13 +186,14 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 3 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 2 | Fix to reduce excessive logging\. | 
 | 1 | Initial release\.  | 
 
-A Greengrass group can contain only one version of the connector at a time\.
+<a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
-## See Also<a name="device-defender-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
+## See also<a name="device-defender-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)
 + [Device Defender](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender.html) in the *AWS IoT Developer Guide*

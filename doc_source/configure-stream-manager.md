@@ -1,15 +1,15 @@
-# Configure AWS IoT Greengrass Stream Manager<a name="configure-stream-manager"></a>
+# Configure AWS IoT Greengrass stream manager<a name="configure-stream-manager"></a>
 
-On the AWS IoT Greengrass core, stream manager can store, process, and export data sent from IoT devices\. Stream manager provides parameters that you use to configure group\-level runtime settings\. These settings apply to all streams on the AWS IoT Greengrass core\. You can use the AWS IoT console or AWS IoT Greengrass API to configure stream manager settings\. Changes take effect after the group is deployed\.
+On the AWS IoT Greengrass core, stream manager can store, process, and export data sent from IoT devices\. Stream manager provides parameters that you use to configure group\-level runtime settings\. These settings apply to all streams on the Greengrass core\. You can use the AWS IoT console or AWS IoT Greengrass API to configure stream manager settings\. Changes take effect after the group is deployed\.
 
-## Stream Manager Parameters<a name="stream-manager-parameters"></a>
+## Stream manager parameters<a name="stream-manager-parameters"></a>
 
 Stream manager provides the following parameters that allow you to define group\-level settings\. All parameters are optional\.
 
 **Storage directory**  <a name="STREAM_MANAGER_STORE_ROOT_DIR"></a>
 Parameter name: `STREAM_MANAGER_STORE_ROOT_DIR`  
 The absolute path of the local directory used to store streams\. This value must start with a forward slash \(for example, `/data`\)\.  
-For information about securing stream data, see [Local Data Security](stream-manager.md#stream-manager-security-stream-data)\.
+For information about securing stream data, see [Local data security](stream-manager.md#stream-manager-security-stream-data)\.
 
 **Server port**  
 Parameter name: `STREAM_MANAGER_SERVER_PORT`  
@@ -17,7 +17,7 @@ The local port number used to communicate with stream manager\. The default is `
 
 **Authenticate client**  <a name="STREAM_MANAGER_AUTHENTICATE_CLIENT"></a>
 Parameter name: `STREAM_MANAGER_AUTHENTICATE_CLIENT`  
-Indicates whether clients must be authenticated to interact with stream manager\. All interaction between clients and stream manager is controlled by the AWS IoT Greengrass Core SDK\. This parameter determines which clients can call the AWS IoT Greengrass Core SDK to work with streams\. For more information, see [Client Authentication](stream-manager.md#stream-manager-security-client-authentication)\.  
+Indicates whether clients must be authenticated to interact with stream manager\. All interaction between clients and stream manager is controlled by the AWS IoT Greengrass Core SDK\. This parameter determines which clients can call the AWS IoT Greengrass Core SDK to work with streams\. For more information, see [Client authentication](stream-manager.md#stream-manager-security-client-authentication)\.  
 Valid values are `true` or `false`\. The default is `true` \(recommended\)\.  
 + `true`\. Allows only Greengrass Lambda functions as clients\. Lambda function clients use internal AWS IoT Greengrass core protocols to authenticate with the AWS IoT Greengrass Core SDK\.
 + `false`\. Allows any process that runs on the AWS IoT Greengrass core to be a client\. Do not set to `false` unless your business case requires it\. For example, set this value to `false` only if non\-Lambda processes on the core device must communicate directly with stream manager, such as [Docker containers](docker-app-connector.md) running on the core\.
@@ -37,13 +37,13 @@ Parameter name: `JVM_ARGS`
 Custom Java Virtual Machine arguments to pass to stream manager at startup\. Multiple arguments should be separated by spaces\.  
 Use this parameter only when you must override the default settings used by the JVM\. For example, you might need to increase the default heap size if you plan to export a large number of streams\.
 
-## Configure Stream Manager Settings \(Console\)<a name="configure-stream-manager-console"></a>
+## Configure stream manager settings \(console\)<a name="configure-stream-manager-console"></a>
 
 You can use the AWS IoT console for the following management tasks:
-+ [Check If Stream Manager Is Enabled](#check-stream-manager-console)
-+ [Enable or Disable Stream Manager During Group Creation](#enable-stream-manager-console-new-group)
-+ [Enable or Disable Stream Manager for an Existing Group](#enable-stream-manager-console-existing-group)
-+ [Change Stream Manager Settings](#change-stream-manager-console)
++ [Check if stream manager is enabled](#check-stream-manager-console)
++ [Enable or disable stream manager during group creation](#enable-stream-manager-console-new-group)
++ [Enable or disable stream manager for an existing group](#enable-stream-manager-console-existing-group)
++ [Change stream manager settings](#change-stream-manager-console)
 
 Changes take effect after the Greengrass group is deployed\.
 
@@ -91,7 +91,7 @@ When you use the console to enable stream manager and deploy the group, the memo
 
         1. On the **Configure stream manager** page, choose **Enable**\.
 
-        1. Under **Custom settings**, enter values for stream manager parameters\. For more information, see [Stream Manager Parameters](#stream-manager-parameters)\. Leave fields empty to allow AWS IoT Greengrass to use their default values\.
+        1. Under **Custom settings**, enter values for stream manager parameters\. For more information, see [Stream manager parameters](#stream-manager-parameters)\. Leave fields empty to allow AWS IoT Greengrass to use their default values\.
 
             
       + To disable stream manager, choose **Customize settings**\.
@@ -141,13 +141,13 @@ When stream manager is enabled, you must [install the Java 8 runtime](stream-man
 
 1. Choose **Save**\.
 
-## Configure Stream Manager Settings \(CLI\)<a name="configure-stream-manager-cli"></a>
+## Configure stream manager settings \(CLI\)<a name="configure-stream-manager-cli"></a>
 
-In the AWS CLI, you use the system `GGStreamManager` Lambda function to configure stream manager\. System Lambda functions are components of the AWS IoT Greengrass Core software\. In some cases, you can configure Greengrass functionality by managing the corresponding `Function` and `FunctionDefinitionVersion` objects in the AWS IoT Greengrass group object model\. For more information, see [Overview of the AWS IoT Greengrass Group Object Model](deployments.md#api-overview)\.
+In the AWS CLI, use the system `GGStreamManager` Lambda function to configure stream manager\. System Lambda functions are components of the AWS IoT Greengrass Core software\. In some cases, you can configure Greengrass functionality by managing the corresponding `Function` and `FunctionDefinitionVersion` objects in the AWS IoT Greengrass group object model\. For more information, see [Overview of the AWS IoT Greengrass group object model](deployments.md#api-overview)\.
 
 You can use the CLI for the following management tasks:
-+ [Check if Stream Manager Is Enabled](#check-stream-manager-cli)
-+ [Enable, Disable, or Configure Stream Manager Settings](#enable-stream-manager-cli)
++ [Check if stream manager is enabled](#check-stream-manager-cli)
++ [Enable, disable, or configure stream manager settings](#enable-stream-manager-cli)
 
 Changes take effect after the group is deployed\.
 
@@ -214,47 +214,50 @@ If the `functions` array in the output includes the `GGStreamManager` function, 
 
 ### To enable, disable, or configure stream manager settings \(CLI\)<a name="enable-stream-manager-cli"></a>
 
-In the AWS CLI, you use the system `GGStreamManager` Lambda function to configure stream manager\. Changes take effect after you deploy the group\.
-+ To enable stream manager, include `GGStreamManager` in the `functions` array of your function definition version\.
+In the AWS CLI, use the system `GGStreamManager` Lambda function to configure stream manager\. Changes take effect after you deploy the group\.
++ To enable stream manager, include `GGStreamManager` in the `functions` array of your function definition version\. To configure custom settings, define environment variables for the corresponding [stream manager parameters](#stream-manager-parameters)\.
 + To disable stream manager, remove `GGStreamManager` from the `functions` array of your function definition version\.
-+ To configure custom settings when stream manager is enabled, include `GGStreamManager` in the `functions` array of your function definition version\. Also include environment variables for the function that set the corresponding [parameters](#stream-manager-parameters)\.  
-**Enable stream manager with default settings**  
-The following example configuration enables stream manager with default settings\. For a tutorial that enables stream manager with default settings, see [Export Data Streams to the AWS Cloud \(CLI\)](stream-manager-cli.md)\.  
 
-  ```
-  {
-      "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
-      "FunctionConfiguration": {
-          "MemorySize": 128000,
-          "Pinned": true,
-  >       "Timeout": 3
-      },
-      "Id": "arbitrary-function-id"
-  }
-  ```  
-**Enable stream manager with custom settings**  
+**Stream manager with default settings**  
+The following example configuration enables stream manager with default settings\. It sets the arbitrary function ID to `StreamManager`\.  
+
+```
+{
+    "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
+    "FunctionConfiguration": {
+        "MemorySize": 128000,
+        "Pinned": true,
+        "Timeout": 3
+    },
+    "Id": "StreamManager"
+}
+```
+ AWS IoT Greengrass uses default values for any stream manager parameters that are omitted\. For an end\-to\-end tutorial that enables stream manager with default settings, see [Export data streams to the AWS cloud \(CLI\)](stream-manager-cli.md)\.
+
+**Stream manager with custom settings**  <a name="enable-stream-manager-custom-settings"></a>
 The following example configuration enables stream manager with custom settings for the storage directory, server port, and thread pool size\.  
 
-  ```
-  {
-      "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
-      "FunctionConfiguration": {
-          "Environment": {
-              "Variables": {
-                  "STREAM_MANAGER_STORE_ROOT_DIR": "/data",
-                  "STREAM_MANAGER_SERVER_PORT": "1234",
-                  "STREAM_MANAGER_EXPORTER_THREAD_POOL_SIZE": "4"
-              }
-          },
-          "MemorySize": 128000,
-          "Pinned": true,
-          "Timeout": 3
-      },
-      "Id": "arbitrary-function-id"
-  }
-  ```
+```
+{
+    "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
+    "FunctionConfiguration": {
+        "Environment": {
+            "Variables": {
+                "STREAM_MANAGER_STORE_ROOT_DIR": "/data",
+                "STREAM_MANAGER_SERVER_PORT": "1234",
+                "STREAM_MANAGER_EXPORTER_THREAD_POOL_SIZE": "4"
+            }
+        },
+        "MemorySize": 128000,
+        "Pinned": true,
+        "Timeout": 3
+    },
+    "Id": "StreamManager"
+}
+```
 
-  For the `FunctionConfiguration` parameters, `MemorySize` should be at least `128000`\. `Pinned` must be set to `true`\.
+For the `FunctionConfiguration` parameters, `MemorySize` should be at least `128000`\. `Pinned` must be set to `true`\.
+
 **Note**  
 `Timeout` is required by the function definition version, but `GGStreamManager` doesn't use it\.
 
@@ -296,20 +299,101 @@ Or, you can create a function definition by running the [https://docs.aws.amazon
 
 1. Add a function definition version to the function definition\.
    + Replace *function\-definition\-id* with the `Id` that you copied for the function definition\.
-   + Replace *arbitrary\-function\-id* with a name for the function, such as **stream\-manager**\.
    + In the `functions` array, include all other functions that you want to make available on the core\. You can use the `get-function-definition-version` command to get the list of existing functions\.
 
-   The following example uses environment variables to set custom values for stream manager parameters\. AWS IoT Greengrass uses default values for properties that are omitted\.
+      
+**Enable stream manager with default settings**  
+The following example enables stream manager by including the `GGStreamManager` function in the `functions` array\. This example uses default values for [stream manager parameters](#stream-manager-parameters)\.  
 
    ```
    aws greengrass create-function-definition-version \
    --function-definition-id function-definition-id \
-   --functions '[{"FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1", "FunctionConfiguration": {"Environment": {"Variables":{"STREAM_MANAGER_STORE_ROOT_DIR": "/data","STREAM_MANAGER_SERVER_PORT": "1234","STREAM_MANAGER_EXPORTER_MAX_BANDWIDTH": "20000"}},"Timeout": 3,"MemorySize": 128000,"Pinned": true},"Id": "arbitrary-function-id"}]'
+   --functions '[
+           {
+               "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
+               "FunctionConfiguration": {
+                   "MemorySize": 128000,
+                   "Pinned": true,
+                   "Timeout": 3
+               },
+               "Id": "StreamManager"
+           },
+           {    
+               "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:MyLambdaFunction:MyAlias",
+               "FunctionConfiguration": {
+                   "Executable": "myLambdaFunction.function_handler",
+                   "MemorySize": 16000,
+                   "Pinned": true,
+                   "Timeout": 5
+               },
+               "Id": "MyLambdaFunction"
+           },
+           ... more user-defined functions
+       ]
+   }'
    ```
+The `MyLambdaFunction` function in the examples represents one of your user\-defined Lambda functions\.  
+**Enable stream manager with custom settings**  
+The following example enables stream manager by including the `GGStreamManager` function in the `functions` array\. All stream manager settings are optional unless you want to change the default values\. This example uses environment variables to set custom values\.  
 
-   `MemorySize` should be at least `128000`\. `Pinned` must be set to `true`\.
-**Note**  
-`Timeout` is required by the function definition version, but `GGStreamManager` doesn't use it\.
+   ```
+   aws greengrass create-function-definition-version \
+   --function-definition-id function-definition-id \
+   --functions '[
+           {
+               "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
+               "FunctionConfiguration": {
+                   "Environment": {
+                       "Variables": {
+                           "STREAM_MANAGER_STORE_ROOT_DIR": "/data",
+                           "STREAM_MANAGER_SERVER_PORT": "1234",
+                           "STREAM_MANAGER_EXPORTER_THREAD_POOL_SIZE": "4"
+                       }
+                   },
+                   "MemorySize": 128000,
+                   "Pinned": true,
+                   "Timeout": 3
+               },
+               "Id": "StreamManager"
+           },
+           {    
+               "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:MyLambdaFunction:MyAlias",
+               "FunctionConfiguration": {
+                   "Executable": "myLambdaFunction.function_handler",
+                   "MemorySize": 16000,
+                   "Pinned": true,
+                   "Timeout": 5
+               },
+               "Id": "MyLambdaFunction"
+           },
+           ... more user-defined functions
+       ]
+   }'
+   ```
+`MemorySize` should be at least `128000`\. `Pinned` must be set to `true`\.  
+`Timeout` is required by the function definition version, but `GGStreamManager` doesn't use it\.  
+**Disable stream manager**  
+The following example omits the `GGStreamManager` function, which disables stream manager\.  
+
+   ```
+   aws greengrass create-function-definition-version \
+   --function-definition-id function-definition-id \
+   --functions '[
+           {        
+               "Id": "MyLambdaFunction",
+               "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:MyLambdaFunction:MyAlias",
+               "FunctionConfiguration": {
+                   "Executable": "myLambdaFunction.function_handler",
+                   "MemorySize": 16000,
+                   "Pinned": true,
+                   "Timeout": 5
+               }
+           },
+           ... more user-defined functions
+       ]
+   }'
+   ```
+If you don't want to deploy any Lambda functions, you can omit the function definition version entirely\.
 
 1. <a name="copy-function-def-version-arn"></a>Copy the `Arn` of the function definition version from the output\.
 
@@ -346,8 +430,8 @@ Or, you can create a function definition by running the [https://docs.aws.amazon
 
 To update these settings, you create a function definition version that includes the `GGStreamManager` function with the updated configuration\. The `functions` array in the `FunctionDefinitionVersion` must include all Lambda functions that you want to deploy to the core\. You can use the [https://docs.aws.amazon.com/greengrass/latest/apireference/get-function-definition-version.html](https://docs.aws.amazon.com/greengrass/latest/apireference/get-function-definition-version.html) command to get the Greengrass Lambda functions from an existing function definition version\. Changes take effect after the group is deployed\.
 
-## See Also<a name="configure-stream-manager-see-also"></a>
-+ [Manage Data Streams on the AWS IoT Greengrass Core](stream-manager.md)
-+ [Use StreamManagerClient to Work with Streams](work-with-streams.md)
-+ [Export Data Streams to the AWS Cloud \(Console\)](stream-manager-console.md)
-+ [Export Data Streams to the AWS Cloud \(CLI\)](stream-manager-cli.md)
+## See also<a name="configure-stream-manager-see-also"></a>
++ [Manage data streams on the AWS IoT Greengrass core](stream-manager.md)
++ [Use StreamManagerClient to work with streams](work-with-streams.md)
++ [Export data streams to the AWS cloud \(console\)](stream-manager-console.md)
++ [Export data streams to the AWS cloud \(CLI\)](stream-manager-cli.md)

@@ -1,4 +1,4 @@
-# Get Deployment Notifications<a name="deployment-notifications"></a>
+# Get deployment notifications<a name="deployment-notifications"></a>
 
 Using Amazon EventBridge event rules, you can get notifications about state changes for your Greengrass group deployments\. EventBridge delivers a near real\-time stream of system events that describes changes in AWS resources\.
 
@@ -12,7 +12,7 @@ AWS IoT Greengrass emits an event when a deployment enters the following states:
 **Note**  
 Monitoring the status of a [bulk deployment](bulk-deploy-cli.md) operation is not currently supported\. However, AWS IoT Greengrass emits state\-change events for individual group deployments that are part of a bulk deployment\.
 
-## Group Deployment Status Change Event<a name="events-message-format"></a>
+## Group deployment status change event<a name="events-message-format"></a>
 
 The [event](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html) for a deployment state change uses the following format:
 
@@ -40,7 +40,7 @@ You can create rules that apply to one or more groups\. You can filter rules by 
 **Deployment types**  
 + `NewDeployment`\. The first deployment of a group version\.
 + `ReDeployment`\. A redeployment of a group version\.
-+ `ResetDeployment`\. Deletes deployment information stored in the AWS Cloud and on the AWS IoT Greengrass core\. For more information, see [Reset Deployments](reset-deployments-scenario.md)\.
++ `ResetDeployment`\. Deletes deployment information stored in the AWS Cloud and on the AWS IoT Greengrass core\. For more information, see [Reset deployments](reset-deployments-scenario.md)\.
 + `ForceResetDeployment`\. Deletes deployment information stored in the AWS Cloud and reports success without waiting for the core to respond\. Also deletes deployment information stored on the core if the core is connected or when it next connects\.
 
 **Deployment states**  
@@ -54,7 +54,7 @@ It's possible that events might be duplicated or out of order\. To determine the
 **Note**  
 AWS IoT Greengrass doesn't use the `resources` property, so it's always empty\.
 
-## Prerequisites for Creating EventBridge Rules<a name="create-events-rule-prereqs"></a>
+## Prerequisites for creating EventBridge rules<a name="create-events-rule-prereqs"></a>
 
 Before you create an EventBridge rule for AWS IoT Greengrass, you should do the following:
 + Familiarize yourself with events, rules, and targets in EventBridge\.
@@ -64,11 +64,11 @@ Before you create an EventBridge rule for AWS IoT Greengrass, you should do the 
   + Kinesis streams
   + Amazon SQS queues
 
-For more information, see [What Is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) and [Getting Started with Amazon EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-getting-set-up.html) in the *Amazon EventBridge User Guide*\.
+For more information, see [What is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) and [Getting started with Amazon EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-getting-set-up.html) in the *Amazon EventBridge User Guide*\.
 
-## Configure Deployment Notifications \(Console\)<a name="create-events-rule-console"></a>
+## Configure deployment notifications \(console\)<a name="create-events-rule-console"></a>
 
-Use the following steps to create an EventBridge rule that publishes an Amazon SNS topic when the deployment state changes for a group\. This allows web servers, email addresses, and other topic subscribers to respond to the event\. For more information, see [Creating a EventBridge Rule That Triggers on an Event from an AWS Resource](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-eventbridge-rule.html) in the *Amazon EventBridge User Guide*\.
+Use the following steps to create an EventBridge rule that publishes an Amazon SNS topic when the deployment state changes for a group\. This allows web servers, email addresses, and other topic subscribers to respond to the event\. For more information, see [Creating a EventBridge rule that triggers on an event from an AWS resource](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-eventbridge-rule.html) in the *Amazon EventBridge User Guide*\.
 
 1. Open the [Amazon EventBridge console](https://console.aws.amazon.com/events/) and choose **Create rule**\.
 
@@ -86,7 +86,7 @@ Use the following steps to create an EventBridge rule that publishes an Amazon S
 
    1. For **Event type**, choose **Greengrass Deployment Status Change**\.
 **Note**  
-The **AWS API Call via CloudTrail** event type is based on AWS IoT Greengrass integration with AWS CloudTrail\. You can use this option to create rules triggered by read or write calls to the AWS IoT Greengrass API\. For more information, see [Logging AWS IoT Greengrass API Calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
+The **AWS API Call via CloudTrail** event type is based on AWS IoT Greengrass integration with AWS CloudTrail\. You can use this option to create rules triggered by read or write calls to the AWS IoT Greengrass API\. For more information, see [Logging AWS IoT Greengrass API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
 
    1. Choose the deployment states that trigger a notification\.
       + To receive notifications for all state change events, choose **Any state**\.
@@ -110,7 +110,7 @@ The **AWS API Call via CloudTrail** event type is based on AWS IoT Greengrass in
 
 1. Choose **Create**\.
 
-## Configure Deployment Notifications \(CLI\)<a name="create-events-rule-cli"></a>
+## Configure deployment notifications \(CLI\)<a name="create-events-rule-cli"></a>
 
 Use the following steps to create an EventBridge rule that publishes an Amazon SNS topic when the deployment state changes for a group\. This allows web servers, email addresses, and other topic subscribers to respond to the event\.
 
@@ -134,14 +134,14 @@ Use the following steps to create an EventBridge rule that publishes an Amazon S
      --targets "Id"="1","Arn"="topic-arn"
    ```
 **Note**  
-To allow Amazon EventBridge to call your target topic, you must add a resource\-based policy to your topic\. For more information, see [Amazon SNS Permissions](https://docs.aws.amazon.com/eventbridge/latest/userguide/resource-based-policies-eventbridge.html#sns-permissions) in the *Amazon EventBridge User Guide*\.
+To allow Amazon EventBridge to call your target topic, you must add a resource\-based policy to your topic\. For more information, see [Amazon SNS permissions](https://docs.aws.amazon.com/eventbridge/latest/userguide/resource-based-policies-eventbridge.html#sns-permissions) in the *Amazon EventBridge User Guide*\.
 
-For more information, see [Events and Event Patterns in EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html) in the *Amazon EventBridge User Guide*\.
+For more information, see [Events and event patterns in EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html) in the *Amazon EventBridge User Guide*\.
 
-## Configure Deployment Notifications \(AWS CloudFormation\)<a name="create-events-rule-cloudformation"></a>
+## Configure deployment notifications \(AWS CloudFormation\)<a name="create-events-rule-cloudformation"></a>
 
-Use AWS CloudFormation templates to create EventBridge rules that send notifications about state changes for your Greengrass group deployments\. For more information, see [Amazon EventBridge Resource Type Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Events.html) in the *AWS CloudFormation User Guide*\.
+Use AWS CloudFormation templates to create EventBridge rules that send notifications about state changes for your Greengrass group deployments\. For more information, see [Amazon EventBridge resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Events.html) in the *AWS CloudFormation User Guide*\.
 
-## See Also<a name="deployment-notifications-see-also"></a>
-+ [Deploy AWS IoT Greengrass Groups to an AWS IoT Greengrass Core](deployments.md)
-+ [What Is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) in the *Amazon EventBridge User Guide*
+## See also<a name="deployment-notifications-see-also"></a>
++ [Deploy AWS IoT Greengrass groups to an AWS IoT Greengrass core](deployments.md)
++ [What is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) in the *Amazon EventBridge User Guide*

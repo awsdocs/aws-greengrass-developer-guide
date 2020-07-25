@@ -1,37 +1,57 @@
-# Twilio Notifications Connector<a name="twilio-notifications-connector"></a>
+# Twilio Notifications connector<a name="twilio-notifications-connector"></a>
 
 The Twilio Notifications [connector](connectors.md) makes automated phone calls or sends text messages through Twilio\. You can use this connector to send notifications in response to events in the Greengrass group\. For phone calls, the connector can forward a voice message to the recipient\.
 
 This connector receives Twilio message information on an MQTT topic, and then triggers a Twilio notification\.
 
 **Note**  
-For a tutorial that shows how to use the Twilio Notifications connector, see [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md) or [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)\.
+For a tutorial that shows how to use the Twilio Notifications connector, see [Getting started with Greengrass connectors \(console\)](connectors-console.md) or [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)\.
 
 This connector has the following versions\.
 
 
 | Version | ARN | 
 | --- | --- | 
-| 3 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/`3 | 
-| 2 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/`2 | 
-| 1 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/`1 | 
+| 4 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/4` | 
+| 3 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/3` | 
+| 2 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/2` | 
+| 1 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/1` | 
 
 For information about version changes, see the [Changelog](#twilio-notifications-connector-changelog)\.
 
 ## Requirements<a name="twilio-notifications-connector-req"></a>
 
 This connector has the following requirements:
-+ AWS IoT Greengrass Core Software v1\.7 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
+
+------
+#### [ Version 4 ]
++ <a name="conn-req-ggc-v1.9.3-secrets"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
-This includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
+This requirement includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
++ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ A Twilio account SID, auth token, and Twilio\-enabled phone number\. After you create a Twilio project, these values are available on the project dashboard\.
+**Note**  
+You can use a Twilio trial account\. If you're using a trial account, you must add non\-Twilio recipient phone numbers to a list of verified phone numbers\. For more information, see [ How to Work with your Free Twilio Trial Account](https://www.twilio.com/docs/usage/tutorials/how-to-use-your-free-trial-account)\.
++ <a name="conn-twilio-req-secret"></a>A text type secret in AWS Secrets Manager that stores the Twilio auth token\. For more information, see [Creating a basic secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) in the *AWS Secrets Manager User Guide*\.
+**Note**  
+To create the secret in the Secrets Manager console, enter your token on the **Plaintext** tab\. Don't include quotation marks or other formatting\. In the API, specify the token as the value for the `SecretString` property\.
++ A secret resource in the Greengrass group that references the Secrets Manager secret\. For more information, see [Deploy secrets to the AWS IoT Greengrass core](secrets.md)\.
+
+------
+#### [ Versions 1 \- 3 ]
++ <a name="conn-req-ggc-v1.7.0-secrets"></a>AWS IoT Greengrass Core software v1\.7 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
+**Note**  
+This requirement includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + A Twilio account SID, auth token, and Twilio\-enabled phone number\. After you create a Twilio project, these values are available on the project dashboard\.
 **Note**  
 You can use a Twilio trial account\. If you're using a trial account, you must add non\-Twilio recipient phone numbers to a list of verified phone numbers\. For more information, see [ How to Work with your Free Twilio Trial Account](https://www.twilio.com/docs/usage/tutorials/how-to-use-your-free-trial-account)\.
-+ A text type secret in AWS Secrets Manager that stores the Twilio auth token\. For more information, see [Creating a Basic Secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) in the *AWS Secrets Manager User Guide*\.
++ <a name="conn-twilio-req-secret"></a>A text type secret in AWS Secrets Manager that stores the Twilio auth token\. For more information, see [Creating a basic secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) in the *AWS Secrets Manager User Guide*\.
 **Note**  
 To create the secret in the Secrets Manager console, enter your token on the **Plaintext** tab\. Don't include quotation marks or other formatting\. In the API, specify the token as the value for the `SecretString` property\.
-+ A secret resource in the Greengrass group that references the Secrets Manager secret\. For more information, see [Deploy Secrets to the AWS IoT Greengrass Core](secrets.md)\.
++ A secret resource in the Greengrass group that references the Secrets Manager secret\. For more information, see [Deploy secrets to the AWS IoT Greengrass core](secrets.md)\.
+
+------
 
 ## Connector Parameters<a name="twilio-notifications-connector-param"></a>
 
@@ -77,7 +97,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyTwilioNotificationsConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/3",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/4",
             "Parameters": {
                 "TWILIO_ACCOUNT_SID": "abcd12345xyz",
                 "TwilioAuthTokenSecretArn": "arn:aws:secretsmanager:region:account-id:secret:greengrass-secret-hash",
@@ -89,9 +109,9 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
 }'
 ```
 
-For tutorials that show how add the Twilio Notifications connector to a group, see [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md) and [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)\.
+For tutorials that show how add the Twilio Notifications connector to a group, see [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md) and [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
-## Input Data<a name="twilio-notifications-connector-data-input"></a>
+## Input data<a name="twilio-notifications-connector-data-input"></a>
 
 This connector accepts Twilio message information on two MQTT topics\. Input messages must be in JSON format\.
 + Text message information on the `twilio/txt` topic\.
@@ -212,11 +232,11 @@ Valid pattern: `.+`
 }
 ```
 
-## Output Data<a name="twilio-notifications-connector-data-output"></a>
+## Output data<a name="twilio-notifications-connector-data-output"></a>
 
-This connector publishes status information as output data\.
+This connector publishes status information as output data on an MQTT topic\.
 
-**Topic filter**  
+<a name="topic-filter"></a>**Topic filter in subscription**  
 `twilio/message/status`
 
 **Example output: Success**  
@@ -278,10 +298,41 @@ The `payload` property in the output is the response from the Twilio API when th
 
 ## Usage Example<a name="twilio-notifications-connector-usage"></a>
 
-The following example Lambda function sends an input message to the connector\. This example triggers a text message\.
+<a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
-**Note**  
-This Python function uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to publish an MQTT message\.
+**Note**  <a name="connectors-setup-get-started-topics"></a>
+The [Getting started with Greengrass connectors \(console\)](connectors-console.md) and [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md) topics contain end\-to\-end steps that show how to set up, deploy, and test the Twilio Notifications connector\.  
+ 
+
+1. Make sure you meet the [requirements](#twilio-notifications-connector-req) for the connector\.
+
+1. <a name="connectors-setup-function"></a>Create and publish a Lambda function that sends input data to the connector\.
+
+   Save the [example code](#twilio-notifications-connector-usage-example) as a PY file\. <a name="connectors-setup-function-sdk"></a>Download and unzip the [AWS IoT Greengrass Core SDK for Python](lambda-functions.md#lambda-sdks-core)\. Then, create a zip package that contains the PY file and the `greengrasssdk` folder at the root level\. This zip package is the deployment package that you upload to AWS Lambda\.
+
+   <a name="connectors-setup-function-publish"></a>After you create the Python 3\.7 Lambda function, publish a function version and create an alias\.
+
+1. Configure your Greengrass group\.
+
+   1. <a name="connectors-setup-gg-function"></a>Add the Lambda function by its alias \(recommended\)\. Configure the Lambda lifecycle as long\-lived \(or `"Pinned": true` in the CLI\)\.
+
+   1. <a name="connectors-setup-secret-resource"></a>Add the required secret resource and grant read access to the Lambda function\.
+
+   1. Add the connector and configure its [parameters](#twilio-notifications-connector-param)\.
+
+   1. Add subscriptions that allow the connector to receive [input data](#twilio-notifications-connector-data-input) and send [output data](#twilio-notifications-connector-data-output) on supported topic filters\.
+      + <a name="connectors-setup-subscription-input-data"></a>Set the Lambda function as the source, the connector as the target, and use a supported input topic filter\.
+      + <a name="connectors-setup-subscription-output-data"></a>Set the connector as the source, AWS IoT Core as the target, and use a supported output topic filter\. You use this subscription to view status messages in the AWS IoT console\.
+
+1. <a name="connectors-setup-deploy-group"></a>Deploy the group\.
+
+1. <a name="connectors-setup-test-sub"></a>In the AWS IoT console, on the **Test** page, subscribe to the output data topic to view status messages from the connector\. The example Lambda function is long\-lived and starts sending messages immediately after the group is deployed\.
+
+   When you're finished testing, you can set the Lambda lifecycle to on\-demand \(or `"Pinned": false` in the CLI\) and deploy the group\. This stops the function from sending messages\.
+
+### Example<a name="twilio-notifications-connector-usage-example"></a>
+
+The following example Lambda function sends an input message to the connector\. This example triggers a text message\.
 
 ```
 import greengrasssdk
@@ -305,14 +356,14 @@ def publish_basic_message():
         "id" : "request123"
     }
     
-    print "Message To Publish: ", txt
+    print("Message To Publish: ", txt)
 
     client.publish(topic=TXT_INPUT_TOPIC,
                    payload=json.dumps(txt))
 
 publish_basic_message()
 
-def function_handler(event, context):
+def lambda_handler(event, context):
     return
 ```
 
@@ -330,14 +381,15 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 4 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 3 | Fix to reduce excessive logging\. | 
 | 2 | Minor bug fixes and improvements\. | 
 | 1 | Initial release\.  | 
 
-A Greengrass group can contain only one version of the connector at a time\.
+<a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
-## See Also<a name="twilio-notifications-connector-see-also"></a>
-+ [Integrate with Services and Protocols Using Greengrass Connectors](connectors.md)
-+ [Getting Started with Greengrass Connectors \(Console\)](connectors-console.md)
-+ [Getting Started with Greengrass Connectors \(CLI\)](connectors-cli.md)
+## See also<a name="twilio-notifications-connector-see-also"></a>
++ [Integrate with services and protocols using Greengrass connectors](connectors.md)
++ [Getting started with Greengrass connectors \(console\)](connectors-console.md)
++ [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)
 + [Twilio API Reference](https://www.twilio.com/docs/api)

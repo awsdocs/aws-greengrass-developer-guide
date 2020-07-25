@@ -1,4 +1,4 @@
-# Support Policy for AWS IoT Device Tester for AWS IoT Greengrass<a name="idt-support-policy"></a>
+# Support policy for AWS IoT Device Tester for AWS IoT Greengrass<a name="idt-support-policy"></a>
 
 AWS IoT Device Tester for AWS IoT Greengrass is a test automation tool used to validate and [qualify](https://aws.amazon.com/partners/dqp/) your AWS IoT Greengrass devices for inclusion in the [AWS Partner Device Catalog](https://devices.amazonaws.com/)\. We recommend that you use the most recent version of AWS IoT Greengrass and AWS IoT Device Tester to test or qualify your devices\.
 

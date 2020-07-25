@@ -1,4 +1,4 @@
-# Create and Package the Lambda Function<a name="package"></a>
+# Create and package the Lambda function<a name="package"></a>
 
 In this step, you:
 + Create a Lambda function deployment package that contains the function code and dependencies\.
@@ -7,7 +7,7 @@ In this step, you:
 
  
 
-1. On your computer, go to the AWS IoT Greengrass Core SDK for Python that you downloaded and extracted in [Create and Package a Lambda Function](create-lambda.md) in Module 3\-1\.
+1. On your computer, go to the AWS IoT Greengrass Core SDK for Python that you downloaded and extracted in [Create and package a Lambda function](create-lambda.md) in Module 3\-1\.
 
    The Lambda function in this module uses:
    + The `greengrassHelloWorldCounter.py` file in `examples\HelloWorldCounter`\. This is your Lambda function code\.

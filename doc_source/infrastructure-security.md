@@ -1,4 +1,4 @@
-# Infrastructure Security in AWS IoT Greengrass<a name="infrastructure-security"></a>
+# Infrastructure security in AWS IoT Greengrass<a name="infrastructure-security"></a>
 
 As a managed service, AWS IoT Greengrass is protected by the AWS global network security procedures that are described in the [Amazon Web Services: Overview of Security Processes](https://d0.awsstatic.com/whitepapers/Security/AWS_Security_Whitepaper.pdf) whitepaper\.
 
@@ -6,4 +6,4 @@ You use AWS published API calls to access AWS IoT Greengrass through the network
 
 Requests must be signed by using an access key ID and a secret access key that is associated with an IAM principal\. Or you can use the [AWS Security Token Service](https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html) \(AWS STS\) to generate temporary security credentials to sign requests\.
 
-In an AWS IoT Greengrass environment, devices use X\.509 certificates and cryptographic keys to connect and authenticate to the AWS Cloud\. For more information, see [Device Authentication and Authorization for AWS IoT Greengrass](device-auth.md)\.
+In an AWS IoT Greengrass environment, devices use X\.509 certificates and cryptographic keys to connect and authenticate to the AWS Cloud\. For more information, see [Device authentication and authorization for AWS IoT Greengrass](device-auth.md)\.

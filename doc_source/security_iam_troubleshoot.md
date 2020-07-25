@@ -1,4 +1,4 @@
-# Troubleshooting Identity and Access Issues for AWS IoT Greengrass<a name="security_iam_troubleshoot"></a>
+# Troubleshooting identity and access issues for AWS IoT Greengrass<a name="security_iam_troubleshoot"></a>
 
 Use the following information to help you diagnose and fix common issues that you might encounter when working with AWS IoT Greengrass and IAM\.
 
@@ -27,7 +27,7 @@ In this case, Mateo asks his administrator to update his policies to allow him t
 
 ## Error: Greengrass is not authorized to assume the Service Role associated with this account, or the error: Failed: TES service role is not associated with this account\.<a name="troubleshoot-assume-service-role"></a>
 
-**Solution:** You might see this error when the deployment fails\. Check that a Greengrass service role is associated with your AWS account in the current AWS Region\. For more information, see [Managing the Greengrass Service Role \(CLI\)](service-role.md#manage-service-role-cli) or [Managing the Greengrass Service Role \(Console\)](service-role.md#manage-service-role-console)\.
+**Solution:** You might see this error when the deployment fails\. Check that a Greengrass service role is associated with your AWS account in the current AWS Region\. For more information, see [Managing the Greengrass service role \(CLI\)](service-role.md#manage-service-role-cli) or [Managing the Greengrass service role \(console\)](service-role.md#manage-service-role-console)\.
 
 ## Error: Permission denied when attempting to use role arn:aws:iam::<account\-id>:role/<role\-name> to access s3 url https://<region>\-greengrass\-updates\.s3\.<region>\.amazonaws\.com/core/<architecture>/greengrass\-core\-<distribution\-version>\.tar\.gz\.<a name="troubleshoot-ota-region-access"></a>
 
@@ -37,7 +37,7 @@ In this case, Mateo asks his administrator to update his policies to allow him t
 
 **Solution:** Make sure that AWS IoT Greengrass has permissions for `iot:UpdateThingShadow` and `iot:GetThingShadow` actions in the [Greengrass service role](service-role.md)\. If the service role uses the `AWSGreengrassResourceAccessRolePolicy` managed policy, these permissions are included by default\.
 
-See [Troubleshooting Shadow Synchronization Timeout Issues](gg-troubleshooting.md#troubleshooting-shadow-sync)\.
+See [Troubleshooting shadow synchronization timeout issues](gg-troubleshooting.md#troubleshooting-shadow-sync)\.
 
 The following are general IAM issues that you might encounter when working with AWS IoT Greengrass\.
 
@@ -63,6 +63,6 @@ To get started right away, see [Creating Your First IAM Delegated User and Group
 
 ## I want to allow people outside of my AWS account to access my AWS IoT Greengrass resources<a name="security_iam_troubleshoot-cross-account-access"></a>
 
-You can create an IAM role that users in other accounts or people outside of your organization can use to access your AWS resources\. You can specify the who is trusted to assume the role\. For more information, see [Providing Access to an IAM User in Another AWS Account That You Own](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_aws-accounts.html) and [Providing Access to AWS Accounts Owned by Third Parties](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html) in the *IAM User Guide*\.
+You can create an IAM role that users in other accounts or people outside of your organization can use to access your AWS resources\. You can specify the who is trusted to assume the role\. For more information, see [Providing access to an IAM user in another AWS account that you own](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_aws-accounts.html) and [Providing access to AWS accounts owned by third parties](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html) in the *IAM User Guide*\.
 
 AWS IoT Greengrass doesn't support cross\-account access based on resource\-based policies or access control lists \(ACLs\)\.

@@ -1,10 +1,10 @@
-# Access Machine Learning Resources from Lambda Functions<a name="access-ml-resources"></a>
+# Access machine learning resources from Lambda functions<a name="access-ml-resources"></a>
 
 User\-defined Lambda functions can access machine learning resources to run local inference on the AWS IoT Greengrass core\. A machine learning resource consists of the trained model and other artifacts that are downloaded to the core device\.
 
 To allow a Lambda function to access a machine learning resource on the core, you must attach the resource to the Lambda function and define access permissions\. The [containerization mode](lambda-group-config.md#lambda-function-containerization) of the affiliated \(or *attached*\) Lambda function determines how you do this\.
 
-## Access Permissions for Machine Learning Resources<a name="ml-resource-permissions"></a>
+## Access permissions for machine learning resources<a name="ml-resource-permissions"></a>
 
 Starting in AWS IoT Greengrass Core v1\.10\.0, you can define a resource owner for a machine learning resource\. The resource owner represents the OS group and permissions that AWS IoT Greengrass uses to download the resource artifacts\. If a resource owner is not defined, the downloaded resource artifacts are accessible only to root\.
 + If non\-containerized Lambda functions access a machine learning resource, you must define a resource owner because there's no permission control from the container\. Non\-containerized Lambda functions can inherit resource owner permissions and use them to access the resource\.
@@ -14,7 +14,7 @@ Starting in AWS IoT Greengrass Core v1\.10\.0, you can define a resource owner f
 
    
 
-### Resource Owner Properties<a name="ml-resource-owner"></a>
+### Resource owner properties<a name="ml-resource-owner"></a>
 
 A resource owner specifies a group owner and group owner permissions\.
 
@@ -34,10 +34,12 @@ The following table shows supported access permission configurations\.
 
 
 | Property | If only containerized Lambda functions access the resource | If any non\-containerized Lambda functions access the resource | 
-| --- | --- | --- | 
-| Function\-level properties | 
+| --- |--- |--- |
+| **Function\-level properties** | 
+| --- |
 | Permissions \(read/write\) |  Required unless the resource defines a resource owner\. If a resource owner is defined, function\-level permissions must be the same or more restrictive than the resource owner permissions\. If only containerized Lambda functions access the resource, we recommend that you don't define a resource owner\.  |  **Non\-containerized Lambda functions:** Not supported\. Non\-containerized Lambda functions must inherit resource\-level permissions\. **Containerized Lambda functions:** Optional, but must be the same or more restrictive than resource\-level permissions\. | 
-| Resource\-level properties | 
+| **Resource\-level properties** | 
+| --- |
 | Resource owner | Optional \(not recommended\)\. | Required\. | 
 | Permissions \(read/write\) | Optional \(not recommended\)\. | Required\. | 
 
@@ -46,10 +48,12 @@ The following table shows supported access permission configurations\.
 
 
 | Property | If only containerized Lambda functions access the resource | If any non\-containerized Lambda functions access the resource | 
-| --- | --- | --- | 
-| Function\-level properties | 
+| --- |--- |--- |
+| **Function\-level properties** | 
+| --- |
 | Permissions \(read/write\) |  Required\.  | Not supported\. | 
-| Resource\-level properties | 
+| **Resource\-level properties** | 
+| --- |
 | Resource owner | Not supported\. | Not supported\. | 
 | Permissions \(read/write\) | Not supported\. | Not supported\. | 
 
@@ -58,7 +62,7 @@ The following table shows supported access permission configurations\.
 **Note**  
 When you use the AWS IoT Greengrass API to configure Lambda functions and resources, the function\-level `ResourceId` property is also required\. The `ResourceId` property attaches the machine learning resource to the Lambda function\.
 
-## Defining Access Permissions for Lambda Functions \(Console\)<a name="ml-resource-permissions-console"></a>
+## Defining access permissions for Lambda functions \(console\)<a name="ml-resource-permissions-console"></a>
 
 In the AWS IoT console, you define access permissions when you configure a machine learning resource or attach one to a Lambda function\.
 
@@ -86,7 +90,7 @@ If any non\-containerized Lambda functions are attached to the machine learning 
 
   For containerized Lambda functions that also access the machine learning resource, choose to inherit the OS group permissions or choose function\-level permissions\. If you choose function\-level permissions, they must be the same or more restrictive than the OS group permissions\.
 
-## Defining Access Permissions for Lambda Functions \(API\)<a name="ml-resource-permissions-api"></a>
+## Defining access permissions for Lambda functions \(API\)<a name="ml-resource-permissions-api"></a>
 
 In the AWS IoT Greengrass API, you define permissions to machine learning resources in the `ResourceAccessPolicy` property for the Lambda function or the `OwnerSetting` property for the resource\.
 
@@ -205,7 +209,7 @@ If any non\-containerized Lambda functions are attached to the machine learning 
   ]
   ```
 
-## Accessing Machine Learning Resources from Lambda Function Code<a name="access-resource-function-code"></a>
+## Accessing machine learning resources from Lambda function code<a name="access-resource-function-code"></a>
 
 User\-defined Lambda functions use platform\-specific OS interfaces to access machine learning resources on a core device\.
 
@@ -243,7 +247,7 @@ Use the following information to help troubleshoot issues with accessing machine
 
 **Topics**
 + [InvalidMLModelOwner \- GroupOwnerSetting is provided in ML model resource, but GroupOwner or GroupPermission is not present](#nocontainer-lambda-invalid-ml-model-owner)
-+ [NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learning resource <resource\-id> with permission <ro/rw> in resource access policy\.](#nocontainer-lambda-invalid-resource-access-policy)
++ [NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learnin resource <resource\-id> with permission <ro/rw> in resource access policy\.](#nocontainer-lambda-invalid-resource-access-policy)
 + [Function <function\-arn> refers to Machine Learning resource <resource\-id> with missing permission in both ResourceAccessPolicy and resource OwnerSetting\.](#nocontainer-lambda-missing-access-permission)
 + [Function <function\-arn> refers to Machine Learning resource <resource\-id> with permission \\"rw\\", while resource owner setting GroupPermission only allows \\"ro\\"\.](#container-lambda-invalid-rw-permissions)
 + [NoContainer Function <function\-arn> refers to resources of nested destination path\.](#nocontainer-lambda-nested-destination-path)
@@ -255,7 +259,7 @@ Use the following information to help troubleshoot issues with accessing machine
 
  
 
-### NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learning resource <resource\-id> with permission <ro/rw> in resource access policy\.<a name="nocontainer-lambda-invalid-resource-access-policy"></a>
+### NoContainer function cannot configure permission when attaching Machine Learning resources\. <function\-arn> refers to Machine Learnin resource <resource\-id> with permission <ro/rw> in resource access policy\.<a name="nocontainer-lambda-invalid-resource-access-policy"></a>
 
 **Solution:** You receive this error if a non\-containerized Lambda function specifies function\-level permissions to a machine learning resource\. Non\-containerized functions must inherit permissions from the resource owner permissions defined on the machine learning resource\. To resolve this issue, choose to [inherit resource owner permissions](#non-container-config-console) \(console\) or [remove the permissions from the Lambda function's resource access policy](#non-container-config-api) \(API\)\.
 
@@ -285,8 +289,8 @@ Use the following information to help troubleshoot issues with accessing machine
 
 To resolve this issue, use a different OS group for one of the properties or attach the machine learning resource to the Lambda function\.
 
-## See Also<a name="access-ml-resources-see-also"></a>
-+ [Perform Machine Learning Inference](ml-inference.md)
-+ [How to Configure Machine Learning Inference Using the AWS Management Console](ml-console.md)
-+ [How to Configure Optimized Machine Learning Inference Using the AWS Management Console](ml-dlc-console.md)
+## See also<a name="access-ml-resources-see-also"></a>
++ [Perform machine learning inference](ml-inference.md)
++ [How to configure machine learning inference using the AWS Management Console](ml-console.md)
++ [How to configure optimized machine learning inference using the AWS Management Console](ml-dlc-console.md)
 + [AWS IoT Greengrass API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/api-doc.html)
