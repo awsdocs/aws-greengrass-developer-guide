@@ -94,6 +94,22 @@ You must provide this information using the `device.json` template located in ` 
         "value": "x86_64 | armv6l | armv7l | aarch64"
       },
       {
+        "name": "container",
+        "value": "yes | no"
+      },
+      {
+        "name": "docker",
+        "value": "yes | no"
+      },
+      {
+        "name": "streamManagement",
+        "value": "yes | no"
+      },
+      {
+        "name": "hsi",
+        "value": "yes | no"
+      },
+      {
         "name": "ml",
         "value": "mxnet" | "dlr" | "tensorflow" | "mxnet,dlr,tensorflow"
       },
@@ -188,6 +204,9 @@ Specify `password` only if `method` is set to `password`\.
   }
 ]
 ```
+**Note**  
+Specify for docker container, features `container`, `docker`, `hsi` are not supported right now\.  
+Specify `mlLambdaContainerizationMode` only the mode `process` is supported right now for docker container\.
 
 ------
 
@@ -215,6 +234,8 @@ An array that contains the device's supported features\.
 When you use IDT to test AWS IoT Greengrass running in a Docker container, the `os` field is your Docker operating system and `arch` is your Docker architecture\. Currently, only the x86\_64 Docker architecture is supported\.
 + Optional features: `ml`, `mlLambdaContainerizationMode`, `processor`\.
   + These features are required only for machine learning \(ML\) qualification tests\. For more information, see [Configure device\.json for ML qualification](#device-json-ml-qualification)\.
++ Optional features: `container`, `docker`, `hsi`, `streamManagement`\.
+  + `container`, `docker` and `hsi` features are not supported when device is a container\.
 
 `machineLearning `  
 Optional\. Configuration information for ML qualification tests\. For more information, see [Configure device\.json for ML qualification](#device-json-ml-qualification)\.
