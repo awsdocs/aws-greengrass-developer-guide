@@ -755,7 +755,7 @@ Use the following information to help troubleshoot issues with running an AWS Io
 
 ### Error: A firewall is blocking file Sharing between windows and the containers\.<a name="docker-troubleshooting-firewall"></a>
 
-**Solution:** You might receive this error or a `Firewall Detected` message when running Docker on a Windows computer\. See the [Error: A firewall is blocking file sharing between Windows and the containers](https://success.docker.com/article/error-a-firewall-is-blocking-file-sharing-between-windows-and-the-containers) Docker support issue\. This can also occur if you are signed in on a virtual private network \(VPN\) and your network settings are preventing the shared drive from being mounted\. In that situation, turn off VPN and re\-run the Docker container\.
+**Solution:** You might receive this error or a `Firewall Detected` message when running Docker on a Windows computer\. This can also occur if you are signed in on a virtual private network \(VPN\) and your network settings are preventing the shared drive from being mounted\. In that situation, turn off VPN and re\-run the Docker container\.
 
  
 

@@ -115,7 +115,7 @@ response = client.publish(
 ```
 
 **Note**  
-The AWS IoT Greengrass Core SDK supports sending MQTT messages with QoS = 0 only\.
+The AWS IoT Greengrass Core SDK supports sending MQTT messages with QoS = 0 only\. For more information, see [Message quality of service](gg-core.md#message-quality-of-service)\.
 
 The similarity between programming models also makes it possible for you to develop your Lambda functions in the cloud and then migrate them to AWS IoT Greengrass with minimal effort\. [Lambda executables](#lambda-executables) don't run in the cloud, so you can't use the AWS SDK to develop them in the cloud before deployment\.
 

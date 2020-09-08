@@ -105,9 +105,21 @@ Make sure that the AWS Region selected in the console is the same one that you u
 
     
 
-### Troubleshooting issues<a name="gg-device-setup-troubleshooting"></a>
+## Troubleshooting issues<a name="gg-device-setup-troubleshooting"></a>
 
-To troubleshoot issues with running Greengrass device setup, you can look for debug information in the log files:
+ You can use the following information to troubleshoot issues with the AWS IoT Greengrass device setup\. 
+
+### Error: Python \(python3\.7\) not found\. Attempting to install it\.\.\.<a name="ec2-python-install-location"></a>
+
+**Solution:** You might see this error when working with an Amazon EC2 instance\. This error occurs when Python is not installed in the `/usr/bin/python3.7` folder\. To resolve this error, move Python in the correct directory after installing it:
+
+```
+sudo ln -s /usr/local/bin/python3.7 /usr/bin/python3.7
+```
+
+### Additional troubleshooting<a name="gg-device-other"></a>
+
+To troubleshoot additional issues with the AWS IoT Greengrass device setup, you can look for debug information in the log files:
 + For issues with the Greengrass device setup configuration, check the `/tmp/greengrass-device-setup-bootstrap-epoch-timestamp.log` file\.
 + For issues with the Greengrass group or core environment setup, check the `GreengrassDeviceSetup-date-time.log` file in the same directory as `gg-device-setup-latest.sh` or in the location you specified\.
 

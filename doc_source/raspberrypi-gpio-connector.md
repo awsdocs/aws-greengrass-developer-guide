@@ -83,7 +83,7 @@ The interval \(in milliseconds\) between each polling operation, which checks in
 This value depends on your scenario and the type of devices that are polled\. For example, a value of `50` should be fast enough to detect a button press\.  
 Display name in the AWS IoT console: **Input GPIO polling period**  
 Required: `false`  
-Type: `integer`  
+Type: `string`  
 Valid pattern: `^$|^[1-9][0-9]*$`
 
 `OutputGpios`  
@@ -200,8 +200,6 @@ When publishing to this topic, the connector replaces the `+` wildcard with the 
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
-
- 
 
 1. Make sure you meet the [requirements](#raspberrypi-gpio-connector-req) for the connector\.
 

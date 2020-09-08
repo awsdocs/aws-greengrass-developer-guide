@@ -21,36 +21,7 @@ For information about version changes, see the [Changelog](#sns-connector-change
 This connector has the following requirements:
 
 ------
-#### [ Version 4 ]
-+ <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
-+ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sns-req-sns-config"></a>A configured SNS topic\. For more information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-topic.html) in the *Amazon Simple Notification Service Developer Guide*\.
-+ <a name="conn-sns-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `sns:Publish` action on the target Amazon SNStopic, as shown in the following example IAM policy\.
-
-  ```
-  {
-      "Version":"2012-10-17",
-      "Statement":[
-          {
-              "Sid":"Stmt1528133056761",
-              "Action":[
-                  "sns:Publish"
-              ],
-              "Effect":"Allow",
-              "Resource":[
-                  "arn:aws:sns:region:account-id:topic-name"
-              ]
-          }
-      ]
-   }
-  ```
-
-  This connector allows you to dynamically override the default topic in the input message payload\. If your implementation uses this feature, the IAM policy must allow `sns:Publish` permission on all target topics\. You can grant granular or conditional access to resources \(for example, by using a wildcard \* naming scheme\)\.
-
-  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
-
-------
-#### [ Version 3 ]
+#### [ Version 3 \- 4 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="conn-sns-req-sns-config"></a>A configured SNS topic\. For more information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-topic.html) in the *Amazon Simple Notification Service Developer Guide*\.
@@ -134,18 +105,7 @@ Valid values: `GreengrassContainer` or `NoContainer`
 Valid pattern: `^NoContainer$|^GreengrassContainer$`
 
 ------
-#### [ Version 3 ]
-
-`DefaultSNSArn`  <a name="sns-DefaultSNSArn"></a>
-The ARN of the default SNS topic to publish messages to\. The destination topic can be overridden by the `sns_topic_arn` property in the input message payload\.  
-The group role must allow `sns:Publish` permission to all target topics\. For more information, see [Requirements](#sns-connector-req)\.
-Display name in the AWS IoT console: **Default SNS topic ARN**  
-Required: `true`  
-Type: `string`  
-Valid pattern: `arn:aws:sns:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):([a-zA-Z0-9-_]+)$`
-
-------
-#### [ Versions 1 \- 2 ]
+#### [ Versions 1 \- 3 ]
 
 `DefaultSNSArn`  <a name="sns-DefaultSNSArn"></a>
 The ARN of the default SNS topic to publish messages to\. The destination topic can be overridden by the `sns_topic_arn` property in the input message payload\.  
@@ -287,8 +247,6 @@ This connector publishes status information as output data on an MQTT topic\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
-
- 
 
 1. Make sure you meet the [requirements](#sns-connector-req) for the connector\.
 

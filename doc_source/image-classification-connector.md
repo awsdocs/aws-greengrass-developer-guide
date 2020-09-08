@@ -1,6 +1,6 @@
 # ML Image Classification connector<a name="image-classification-connector"></a>
 
-The ML Image Classification [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs image classification using a model trained by the Amazon SageMaker image classification algorithm\.
+The ML Image Classification [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs image classification using a model trained by the SageMaker image classification algorithm\.
 
 User\-defined Lambda functions use the AWS IoT Greengrass Machine Learning SDK to submit inference requests to the local inference service\. The service runs inference locally and returns probabilities that the input image belongs to specific categories\.
 
@@ -39,7 +39,7 @@ These connectors have the following requirements:
 + AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet dependencies on the AWS IoT Greengrass core](#image-classification-connector-config)\.
-+ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image classification algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
++ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an SageMaker model source\. This model must be trained by the SageMaker image classification algorithm\. For more information, see [Image classification algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
 + <a name="req-image-classification-feedback"></a>The [ML Feedback connector](ml-feedback-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the connector to upload model input data and publish predictions to an MQTT topic\.
 + <a name="req-image-classification-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example IAM policy\.
 
@@ -68,7 +68,7 @@ These connectors have the following requirements:
 + AWS IoT Greengrass Core Software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-image-classification-framework"></a>Dependencies for the Apache MXNet framework installed on the core device\. For more information, see [Installing MXNet dependencies on the AWS IoT Greengrass core](#image-classification-connector-config)\.
-+ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an Amazon SageMaker model source\. This model must be trained by the Amazon SageMaker image classification algorithm\. For more information, see [Image classification algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
++ <a name="req-image-classification-resource"></a>An [ML resource](ml-inference.md#ml-resources) in the Greengrass group that references an SageMaker model source\. This model must be trained by the SageMaker image classification algorithm\. For more information, see [Image classification algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) in the *Amazon SageMaker Developer Guide*\.
 + <a name="req-image-classification-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `sagemaker:DescribeTrainingJob` action on the target training job, as shown in the following example IAM policy\.
 
   ```
@@ -116,7 +116,7 @@ Type: `string`
 Valid pattern: `[a-zA-Z0-9:_-]+`
 
 `MLModelSageMakerJobArn`  <a name="param-image-classification-mdljobarn"></a>
-The ARN of the Amazon SageMaker training job that represents the Amazon SageMaker model source\. The model must be trained by the Amazon SageMaker image classification algorithm\.  
+The ARN of the SageMaker training job that represents the SageMaker model source\. The model must be trained by the SageMaker image classification algorithm\.  
 Display name in the AWS IoT console: **SageMaker job ARN**  
 Required: `true`  
 Type: `string`  
@@ -177,7 +177,7 @@ Type: `string`
 Valid pattern: `[a-zA-Z0-9:_-]+`
 
 `MLModelSageMakerJobArn`  <a name="param-image-classification-mdljobarn"></a>
-The ARN of the Amazon SageMaker training job that represents the Amazon SageMaker model source\. The model must be trained by the Amazon SageMaker image classification algorithm\.  
+The ARN of the SageMaker training job that represents the SageMaker model source\. The model must be trained by the SageMaker image classification algorithm\.  
 Display name in the AWS IoT console: **SageMaker job ARN**  
 Required: `true`  
 Type: `string`  

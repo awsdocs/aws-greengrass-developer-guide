@@ -8,7 +8,7 @@ To get started performing local inference, see [How to configure machine learnin
 
 ## How AWS IoT Greengrass ML inference works<a name="how-ml-inference-works"></a>
 
-You can train your inference models anywhere, deploy them locally as *machine learning resources* in a Greengrass group, and then access them from Greengrass Lambda functions\. For example, you can build and train deep\-learning models in [Amazon SageMaker](https://console.aws.amazon.com/sagemaker) and deploy them to your Greengrass core\. Then, your Lambda functions can use the local models to perform inference on connected devices and send new training data back to the cloud\.
+You can train your inference models anywhere, deploy them locally as *machine learning resources* in a Greengrass group, and then access them from Greengrass Lambda functions\. For example, you can build and train deep\-learning models in [SageMaker](https://console.aws.amazon.com/sagemaker) and deploy them to your Greengrass core\. Then, your Lambda functions can use the local models to perform inference on connected devices and send new training data back to the cloud\.
 
 The following diagram shows the AWS IoT Greengrass ML inference workflow\.
 
@@ -27,12 +27,12 @@ To update a locally deployed model, first update the source model \(in the cloud
 
 ### Supported model sources<a name="supported-model-sources"></a>
 
-AWS IoT Greengrass supports Amazon SageMaker and Amazon S3 model sources for machine learning resources\.
+AWS IoT Greengrass supports SageMaker and Amazon S3 model sources for machine learning resources\.
 
 The following requirements apply to model sources:
-+ S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS IoT Greengrass ML inference currently supports the SSE\-S3 or SSE\-KMS encryption options only\. For more information about server\-side encryption options, see [Protecting data using server\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
-+ The names of S3 buckets that store your Amazon SageMaker and Amazon S3 model sources must not include periods \(`.`\)\. For more information, see the rule about using virtual hosted\-style buckets with SSL in [Rules for bucket naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service Developer Guide*\.
-+ Service\-level AWS Region support must be available for both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [Amazon SageMaker](https://docs.aws.amazon.com/general/latest/gr/sagemaker.html)\. Currently, AWS IoT Greengrass supports Amazon SageMaker models in the following Regions:
++ S3 buckets that store your SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS IoT Greengrass ML inference currently supports the SSE\-S3 or SSE\-KMS encryption options only\. For more information about server\-side encryption options, see [Protecting data using server\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
++ The names of S3 buckets that store your SageMaker and Amazon S3 model sources must not include periods \(`.`\)\. For more information, see the rule about using virtual hosted\-style buckets with SSL in [Rules for bucket naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service Developer Guide*\.
++ Service\-level AWS Region support must be available for both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [SageMaker](https://docs.aws.amazon.com/general/latest/gr/sagemaker.html)\. Currently, AWS IoT Greengrass supports SageMaker models in the following Regions:
   + US East \(Ohio\)
   + US East \(N\. Virginia\)
   + US West \(Oregon\)
@@ -46,9 +46,9 @@ The following requirements apply to model sources:
   + Europe \(London\)
 + AWS IoT Greengrass must have `read` permission to the model source, as described in the following sections\.
 
-**Amazon SageMaker**  
-AWS IoT Greengrass supports models that are saved as Amazon SageMaker training jobs\. Amazon SageMaker is a fully managed ML service that you can use to build and train models using built\-in or custom algorithms\. For more information, see [What is Amazon SageMaker?](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) in the *Amazon SageMaker Developer Guide*\.  
-If you configured your Amazon SageMaker environment by [creating a bucket](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-config-permissions.html) whose name contains `sagemaker`, then AWS IoT Greengrass has sufficient permission to access your Amazon SageMaker training jobs\. The `AWSGreengrassResourceAccessRolePolicy` managed policy allows access to buckets whose name contains the string `sagemaker`\. This policy is attached to the [Greengrass service role](service-role.md)\.  
+**SageMaker**  
+AWS IoT Greengrass supports models that are saved as SageMaker training jobs\. SageMaker is a fully managed ML service that you can use to build and train models using built\-in or custom algorithms\. For more information, see [What is SageMaker?](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) in the *SageMaker Developer Guide*\.  
+If you configured your SageMaker environment by [creating a bucket](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-config-permissions.html) whose name contains `sagemaker`, then AWS IoT Greengrass has sufficient permission to access your SageMaker training jobs\. The `AWSGreengrassResourceAccessRolePolicy` managed policy allows access to buckets whose name contains the string `sagemaker`\. This policy is attached to the [Greengrass service role](service-role.md)\.  
 Otherwise, you must grant AWS IoT Greengrass `read` permission to the bucket where your training job is stored\. To do this, embed the following inline policy in the service role\. You can list multiple bucket ARNs\.  
 
 ```
@@ -118,9 +118,9 @@ These runtimes and libraries can be installed on NVIDIA Jetson TX2, Intel Atom, 
 
 Be sure to read the following information about compatibility and limitations\.
 
-### Amazon SageMaker Neo deep learning runtime<a name="dlc-optimize-info"></a>
+### SageMaker Neo deep learning runtime<a name="dlc-optimize-info"></a>
 
- You can use the Amazon SageMaker Neo deep learning runtime to perform inference with optimized machine learning models on your AWS IoT Greengrass devices\. These models are optimized using the Amazon SageMaker Neo deep learning compiler to improve machine learning inference prediction speeds\. For more information about model optimization in Amazon SageMaker, see the [Amazon SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
+ You can use the SageMaker Neo deep learning runtime to perform inference with optimized machine learning models on your AWS IoT Greengrass devices\. These models are optimized using the SageMaker Neo deep learning compiler to improve machine learning inference prediction speeds\. For more information about model optimization in SageMaker, see the [SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
 
 **Note**  
  Currently, you can optimize machine learning models using the Neo deep learning compiler in specific AWS Regions only\. However, you can use the Neo deep learning runtime with optimized models in all AWS Regions where AWS IoT Greengrass core is supported\. For information, see [How to Configure Optimized Machine Learning Inference](ml-dlc-console.md)\. 

@@ -19,7 +19,8 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 6 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/6` | 
+| 7 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/7` | 
+| 6 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/6` | 
 | 5 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/5` | 
 | 4 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/4` | 
 | 3 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/3` | 
@@ -33,7 +34,7 @@ For information about version changes, see the [Changelog](#iot-sitewise-connect
 This connector has the following requirements:
 
 ------
-#### [ Version 6 ]
+#### [ Versions 6 and 7 ]
 
 **Important**  
 This version introduces new requirements: AWS IoT Greengrass Core software v1\.10\.0 and [stream manager](stream-manager.md)\.
@@ -202,7 +203,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 ## Parameters<a name="iot-sitewise-connector-param"></a>
 
 ------
-#### [ Versions 2, 3, 4, 5, and 6 ]<a name="conn-sitewise-params-v2"></a>
+#### [ Versions 2, 3, 4, 5, 6, and 7 ]<a name="conn-sitewise-params-v2"></a>
 
 `SiteWiseLocalStoragePath`  
 The directory on the AWS IoT Greengrass host that the IoT SiteWise connector can write persistent data to\. Defaults to `/var/sitewise`\.  
@@ -267,7 +268,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyIoTSiteWiseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/6"
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/7"
         }
     ]
 }'
@@ -303,7 +304,7 @@ This connector is subject to the following limits\.
 ## Licenses<a name="iot-sitewise-connector-license"></a>
 
 ------
-#### [ Version 6 ]
+#### [ Versions 6 and 7 ]
 
 The IoT SiteWise connector includes the following third\-party software/licensing:
 + [Milo](https://github.com/eclipse/milo/) / EDL 1\.0
@@ -328,7 +329,8 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | Date | 
 | --- | --- | --- | 
-|  6 \(recommended\)  |  Added support for CloudWatch metrics and automatic discovery of new OPC\-UA tags\. This version requires [stream manager](stream-manager.md) and AWS IoT Greengrass Core software v1\.10\.0 or higher\.  |  April 29, 2020  | 
+|  7  |  Fixed an issue with gateway metrics\.  |  August 14, 2020  | 
+|  6  |  Added support for CloudWatch metrics and automatic discovery of new OPC\-UA tags\. This version requires [stream manager](stream-manager.md) and AWS IoT Greengrass Core software v1\.10\.0 or higher\.  |  April 29, 2020  | 
 |  5  |  Fixed a compatibility issue with AWS IoT Greengrass Core software v1\.9\.4\.  |  February 12, 2020  | 
 |  4  |  Fixed an issue with OPC\-UA server reconnection\.  |  February 7, 2020  | 
 |  3  |  Removed `iot:*` permissions requirement\.  |  December 17, 2019  | 

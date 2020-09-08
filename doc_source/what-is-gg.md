@@ -156,7 +156,7 @@ New features:
 + Isolation and permission settings that allow Lambda functions to run without Greengrass containers and to use the permissions of a specified user and group\. For more information, see [Controlling execution of Greengrass Lambda functions by using group\-specific configuration](lambda-group-config.md)\.
 + You can run AWS IoT Greengrass in a Docker container \(on Windows, macOS, or Linux\) by configuring your Greengrass group to run with no containerization\. For more information, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
 + MQTT messaging on port 443 with Application Layer Protocol Negotiation \(ALPN\) or connection through a network proxy\. For more information, see [Connect on port 443 or through a network proxy](gg-core.md#alpn-network-proxy)\.
-+ The Amazon SageMaker Neo deep learning runtime, which supports machine learning models that have been optimized by the Amazon SageMaker Neo deep learning compiler\. For information about the Neo deep learning runtime, see [Runtimes and libraries for ML inference](ml-inference.md#ml-libraries)\.
++ The SageMaker Neo deep learning runtime, which supports machine learning models that have been optimized by the SageMaker Neo deep learning compiler\. For information about the Neo deep learning runtime, see [Runtimes and libraries for ML inference](ml-inference.md#ml-libraries)\.
 + Support for Raspbian Stretch \(2018\-06\-27\) on Raspberry Pi core devices\.
 Bug fixes and improvements:  
 + General performance improvements and bug fixes\.

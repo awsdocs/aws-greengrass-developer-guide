@@ -21,33 +21,7 @@ For information about version changes, see the [Changelog](#cloudwatch-metrics-c
 This connector has the following requirements:
 
 ------
-#### [ Version 4 ]
-+ <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
-+ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-cloudwatch-metrics-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `cloudwatch:PutMetricData` action, as shown in the following example IAM policy\.
-
-  ```
-  {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Sid": "Stmt1528133056761",
-              "Action": [
-                  "cloudwatch:PutMetricData"
-              ],
-              "Effect": "Allow",
-              "Resource": "*"
-          }
-      ]
-  }
-  ```
-
-  <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
-
-  For more information about CloudWatch permissions, see [ Amazon CloudWatch permissions reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/permissions-reference-cw.html) in the *IAM User Guide*\.
-
-------
-#### [ Version 3 ]
+#### [ Version 3 \- 4 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="conn-cloudwatch-metrics-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `cloudwatch:PutMetricData` action, as shown in the following example IAM policy\.
@@ -150,43 +124,7 @@ Valid values: `GreengrassContainer` or `NoContainer`
 Valid pattern: `^NoContainer$|^GreengrassContainer$`
 
 ------
-#### [ Version 3 ]
-
-`PublishInterval`  <a name="cw-metrics-PublishInterval"></a>
-The maximum number of seconds to wait before publishing batched metrics for a given namespace\. The maximum value is 900\. To configure the connector to publish metrics as they are received \(without batching\), specify 0\.  
-The connector publishes to CloudWatch after it receives 20 metrics in the same namespace or after the specified interval\.  
-The connector doesn't guarantee the order of publish events\.
-Display name in the AWS IoT console: **Publish interval**  
-Required: `true`  
-Type: `string`  
-Valid values: `0 - 900`  
-Valid pattern: `[0-9]|[1-9]\d|[1-9]\d\d|900`
-
-`PublishRegion`  <a name="cw-metrics-PublishRegion"></a>
-The AWS Region to post CloudWatch metrics to\. This value overrides the default Greengrass metrics Region\. It is required only when posting cross\-Region metrics\.  
-Display name in the AWS IoT console: **Publish region**  
-Required: `false`  
-Type: `string`  
-Valid pattern: `^$|([a-z]{2}-[a-z]+-\d{1})`
-
-`MemorySize`  <a name="cw-metrics-MemorySize"></a>
-The memory \(in KB\) to allocate to the connector\.  
-Display name in the AWS IoT console: **Memory size**  
-Required: `true`  
-Type: `string`  
-Valid pattern: `^[0-9]+$`
-
-`MaxMetricsToRetain`  <a name="cw-metrics-MaxMetricsToRetain"></a>
-The maximum number of metrics across all namespaces to save in memory before they are replaced with new metrics\. The minimum value is 2000\.  
-This limit applies when there's no connection to the internet and the connector starts to buffer the metrics to publish later\. When the buffer is full, the oldest metrics are replaced by new metrics\. Metrics in a given namespace are replaced only by metrics in the same namespace\.  
-Metrics are not saved if the host process for the connector is interrupted\. For example, this interruption can happen during group deployment or when the device restarts\.
-Display name in the AWS IoT console: **Maximum metrics to retain**  
-Required: `true`  
-Type: `string`  
-Valid pattern: `^([2-9]\d{3}|[1-9]\d{4,})$`
-
-------
-#### [ Versions 1 \- 2 ]
+#### [ Versions 1 \- 3 ]
 
 `PublishInterval`  <a name="cw-metrics-PublishInterval"></a>
 The maximum number of seconds to wait before publishing batched metrics for a given namespace\. The maximum value is 900\. To configure the connector to publish metrics as they are received \(without batching\), specify 0\.  
@@ -371,8 +309,6 @@ If the connector detects a retryable error \(for example, connection errors\), i
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
-
- 
 
 1. Make sure you meet the [requirements](#cloudwatch-metrics-connector-req) for the connector\.
 

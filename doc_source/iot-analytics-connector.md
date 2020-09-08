@@ -14,6 +14,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 4 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/4` | 
 | 3 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/3` | 
 | 2 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/2` | 
 | 1 | `arn:aws:greengrass:region::/connectors/IoTAnalytics/versions/1` | 
@@ -25,7 +26,7 @@ For information about version changes, see the [Changelog](#iot-analytics-connec
 This connector has the following requirements:
 
 ------
-#### [ Version 3 ]
+#### [ Version 3 \- 4 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-analytics-connector-limits)\.
@@ -154,6 +155,15 @@ Required: `false`
 Type: `string`  
 Valid pattern: `^[a-zA-Z0-9_]$`
 
+`IsolationMode`  <a name="IsolationMode"></a>
+The [containerization](connectors.md#connector-containerization) mode for this connector\. The default is `GreengrassContainer`, which means that the connector runs in an isolated runtime environment inside the AWS IoT Greengrass container\.  
+The default containerization setting for the group does not apply to connectors\.
+Display name in the AWS IoT console: **Container isolation mode**  
+Required: `false`  
+Type: `string`  
+Valid values: `GreengrassContainer` or `NoContainer`  
+Valid pattern: `^NoContainer$|^GreengrassContainer$`
+
 ### Create Connector Example \(AWS CLI\)<a name="iot-analytics-connector-create"></a>
 
 The following CLI command creates a `ConnectorDefinition` with an initial version that contains the IoT Analytics connector\.
@@ -192,8 +202,6 @@ Predefined topics
 The connector supports the following two structured MQTT topics that allow publishers to specify the channel name inline\.  
 + A [formatted message](#iot-analytics-connector-data-input-json) on the `iotanalytics/channels/+/messages/put` topic\. The IoT data in these input messages must be formatted as a JSON or base64\-encoded string\.
 + An unformatted message on the `iotanalytics/channels/+/messages/binary/put` topic\. Input messages received on this topic are treated as binary data and can contain any data type\.
-
-   
 
   To publish to predefined topics, replace the `+` wildcard with the channel name\. For example:
 
@@ -295,8 +303,6 @@ If the connector detects a retryable error \(for example, connection errors\), i
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
-
- 
 
 1. Make sure you meet the [requirements](#iot-analytics-connector-req) for the connector\.
 
@@ -400,6 +406,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 4 | Adds the `IsolationMode` parameter to configure the containerization mode for the connector\. | 
 | 3 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 2 | Fix to reduce excessive logging\. | 
 | 1 | Initial release\.  | 

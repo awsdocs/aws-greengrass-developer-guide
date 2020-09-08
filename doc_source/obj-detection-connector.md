@@ -1,6 +1,6 @@
 # ML Object Detection connector<a name="obj-detection-connector"></a>
 
-The ML Object Detection [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs object detection using an object detection model compiled by the Amazon SageMaker Neo deep learning compiler\. Two types of object detection models are supported: Single Shot Multibox Detector \(SSD\) and You Only Look Once \(YOLO\) v3\. For more information, see [Object Detection Model Requirements](#obj-detection-connector-req-model)\.
+The ML Object Detection [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs object detection using an object detection model compiled by the SageMaker Neo deep learning compiler\. Two types of object detection models are supported: Single Shot Multibox Detector \(SSD\) and You Only Look Once \(YOLO\) v3\. For more information, see [Object Detection Model Requirements](#obj-detection-connector-req-model)\.
 
  User\-defined Lambda functions use the AWS IoT Greengrass Machine Learning SDK to submit inference requests to the local inference service\. The service performs local inference on an input image and returns a list of predictions for each object detected in the image\. Each prediction contains an object category, a prediction confidence score, and pixel coordinates that specify a bounding box around the predicted object\. 
 
@@ -18,10 +18,10 @@ AWS IoT Greengrass provides ML Object Detection connectors for multiple platform
 These connectors have the following requirements:
 + AWS IoT Greengrass Core Software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
-+ Dependencies for the Amazon SageMaker Neo deep learning runtime installed on the core device\. For more information, see [Installing Neo deep learning runtime dependencies on the AWS IoT Greengrass core](#obj-detection-connector-config)\.
++ Dependencies for the SageMaker Neo deep learning runtime installed on the core device\. For more information, see [Installing Neo deep learning runtime dependencies on the AWS IoT Greengrass core](#obj-detection-connector-config)\.
 + An [ML resource](ml-inference.md#ml-resources) in the Greengrass group\. The ML resource must reference an Amazon S3 bucket that contains an object detection model\. For more information, see [Amazon S3 model sources](ml-inference.md#s3-ml-resources)\.
 **Note**  
-The model must be a Single Shot Multibox Detector or You Only Look Once v3 object detection model type\. It must be compiled using the Amazon SageMaker Neo deep learning compiler\. For more information, see [Object Detection Model Requirements](#obj-detection-connector-req-model)\.
+The model must be a Single Shot Multibox Detector or You Only Look Once v3 object detection model type\. It must be compiled using the SageMaker Neo deep learning compiler\. For more information, see [Object Detection Model Requirements](#obj-detection-connector-req-model)\.
 + <a name="req-image-classification-feedback"></a>The [ML Feedback connector](ml-feedback-connector.md) added to the Greengrass group and configured\. This is required only if you want to use the connector to upload model input data and publish predictions to an MQTT topic\.
 + [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml) v1\.1\.0 is required to interact with this connector\.
 
@@ -33,7 +33,7 @@ The ML Object Detection connectors support Single Shot multibox Detector \(SSD\)
 
 Your object detection model must be trained with 512 x 512 input images\. The pre\-trained models from the GluonCV Model Zoo already meet this requirement\.
 
-Trained object detection models must be compiled with the Amazon SageMaker Neo deep learning compiler\. When compiling, make sure the target hardware matches the hardware of your Greengrass core device\. For more information, see [ Amazon SageMaker Neo](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html) in the *Amazon SageMaker Developer Guide*\.
+Trained object detection models must be compiled with the SageMaker Neo deep learning compiler\. When compiling, make sure the target hardware matches the hardware of your Greengrass core device\. For more information, see [ SageMaker Neo](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html) in the *Amazon SageMaker Developer Guide*\.
 
 The compiled model must be added as an ML resource \([Amazon S3 model source](ml-inference.md#s3-ml-resources)\) to the same Greengrass group as the connector\.
 
@@ -238,7 +238,7 @@ The `invoke_inference_service` function in the AWS IoT Greengrass Machine Learni
 
 ## Installing Neo deep learning runtime dependencies on the AWS IoT Greengrass core<a name="obj-detection-connector-config"></a>
 
-The ML Object Detection connectors are bundled with the Amazon SageMaker Neo deep learning runtime \(DLR\)\. The connectors use the runtime to serve the ML model\. To use these connectors, you must install the dependencies for the DLR on your core device\. 
+The ML Object Detection connectors are bundled with the SageMaker Neo deep learning runtime \(DLR\)\. The connectors use the runtime to serve the ML model\. To use these connectors, you must install the dependencies for the DLR on your core device\. 
 
 Before you install the DLR dependencies, make sure that the required [system libraries](#obj-detection-connector-logging) \(with the specified minimum versions\) are present on the device\.
 

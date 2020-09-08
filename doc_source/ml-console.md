@@ -393,11 +393,11 @@ For the bucket to be accessible, your bucket name must contain the string **gree
 
 1. Choose **Save**\.
 
-### Using Amazon SageMaker trained models<a name="sm-models"></a>
+### Using SageMaker trained models<a name="sm-models"></a>
 
-This tutorial uses a model that's stored in Amazon S3, but you can easily use Amazon SageMaker models too\. The AWS IoT Greengrass console has built\-in Amazon SageMaker integration, so you don't need to manually upload these models to Amazon S3\. For requirements and limitations for using Amazon SageMaker models, see [Supported model sources](ml-inference.md#supported-model-sources)\.
+This tutorial uses a model that's stored in Amazon S3, but you can easily use SageMaker models too\. The AWS IoT Greengrass console has built\-in SageMaker integration, so you don't need to manually upload these models to Amazon S3\. For requirements and limitations for using SageMaker models, see [Supported model sources](ml-inference.md#supported-model-sources)\.
 
-To use an Amazon SageMaker model:
+To use an SageMaker model:
 + For **Model source**, choose **Use an existing SageMaker model**, and then choose the name of the model's training job\.
 + For **Local path**, enter the path to the directory where your Lambda function looks for the model\.
 

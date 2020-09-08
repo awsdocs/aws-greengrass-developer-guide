@@ -12,6 +12,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 5 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/5` | 
 | 4 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/4` | 
 | 3 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/3` | 
 | 2 | `arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/2` | 
@@ -24,7 +25,7 @@ For information about version changes, see the [Changelog](#twilio-notifications
 This connector has the following requirements:
 
 ------
-#### [ Version 4 ]
+#### [ Version 4 \- 5 ]
 + <a name="conn-req-ggc-v1.9.3-secrets"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This requirement includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -57,14 +58,17 @@ To create the secret in the Secrets Manager console, enter your token on the **P
 
 This connector provides the following parameters\.
 
-`TWILIO_ACCOUNT_SID`  
+------
+#### [ Version 5 ]
+
+`TWILIO_ACCOUNT_SID`  <a name="twilio-TWILIO_ACCOUNT_SID"></a>
 The Twilio account SID that's used to invoke the Twilio API\.  
 Display name in the AWS IoT console: **Twilio account SID**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
-`TwilioAuthTokenSecretArn`  
+`TwilioAuthTokenSecretArn`  <a name="twilio-TwilioAuthTokenSecretArn"></a>
 The ARN of the Secrets Manager secret that stores the Twilio auth token\.  
 This is used to access the value of the local secret on the core\.
 Display name in the AWS IoT console: **ARN of Twilio auth token secret**  
@@ -72,14 +76,14 @@ Required: `true`
 Type: `string`  
 Valid pattern: `arn:aws:secretsmanager:[a-z0-9\-]+:[0-9]{12}:secret:([a-zA-Z0-9\\]+/)*[a-zA-Z0-9/_+=,.@\-]+-[a-zA-Z0-9]+`
 
-`TwilioAuthTokenSecretArn-ResourceId`  
+`TwilioAuthTokenSecretArn-ResourceId`  <a name="twilio-TwilioAuthTokenSecretArn-ResourceId"></a>
 The ID of the secret resource in the Greengrass group that references the secret for the Twilio auth token\.  
 Display name in the AWS IoT console: **Twilio auth token resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
-`DefaultFromPhoneNumber`  
+`DefaultFromPhoneNumber`  <a name="twilio-DefaultFromPhoneNumber"></a>
 The default Twilio\-enabled phone number that Twilio uses to send messages\. Twilio uses this number to initiate the text or call\.  
 + If you don't configure a default phone number, you must specify a phone number in the `from_number` property in the input message body\.
 + If you do configure a default phone number, you can optionally override the default by specifying the `from_number` property in the input message body\.
@@ -87,6 +91,51 @@ Display name in the AWS IoT console: **Default from phone number**
 Required: `false`  
 Type: `string`  
 Valid pattern: `^$|\+[0-9]+`
+
+`IsolationMode`  <a name="IsolationMode"></a>
+The [containerization](connectors.md#connector-containerization) mode for this connector\. The default is `GreengrassContainer`, which means that the connector runs in an isolated runtime environment inside the AWS IoT Greengrass container\.  
+The default containerization setting for the group does not apply to connectors\.
+Display name in the AWS IoT console: **Container isolation mode**  
+Required: `false`  
+Type: `string`  
+Valid values: `GreengrassContainer` or `NoContainer`  
+Valid pattern: `^NoContainer$|^GreengrassContainer$`
+
+------
+#### [ Version 1 \- 4 ]
+
+`TWILIO_ACCOUNT_SID`  <a name="twilio-TWILIO_ACCOUNT_SID"></a>
+The Twilio account SID that's used to invoke the Twilio API\.  
+Display name in the AWS IoT console: **Twilio account SID**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `.+`
+
+`TwilioAuthTokenSecretArn`  <a name="twilio-TwilioAuthTokenSecretArn"></a>
+The ARN of the Secrets Manager secret that stores the Twilio auth token\.  
+This is used to access the value of the local secret on the core\.
+Display name in the AWS IoT console: **ARN of Twilio auth token secret**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `arn:aws:secretsmanager:[a-z0-9\-]+:[0-9]{12}:secret:([a-zA-Z0-9\\]+/)*[a-zA-Z0-9/_+=,.@\-]+-[a-zA-Z0-9]+`
+
+`TwilioAuthTokenSecretArn-ResourceId`  <a name="twilio-TwilioAuthTokenSecretArn-ResourceId"></a>
+The ID of the secret resource in the Greengrass group that references the secret for the Twilio auth token\.  
+Display name in the AWS IoT console: **Twilio auth token resource**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `.+`
+
+`DefaultFromPhoneNumber`  <a name="twilio-DefaultFromPhoneNumber"></a>
+The default Twilio\-enabled phone number that Twilio uses to send messages\. Twilio uses this number to initiate the text or call\.  
++ If you don't configure a default phone number, you must specify a phone number in the `from_number` property in the input message body\.
++ If you do configure a default phone number, you can optionally override the default by specifying the `from_number` property in the input message body\.
+Display name in the AWS IoT console: **Default from phone number**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^$|\+[0-9]+`
+
+------
 
 ### Create Connector Example \(AWS CLI\)<a name="twilio-notifications-connector-create"></a>
 
@@ -97,12 +146,13 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyTwilioNotificationsConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/4",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/TwilioNotifications/versions/5",
             "Parameters": {
                 "TWILIO_ACCOUNT_SID": "abcd12345xyz",
                 "TwilioAuthTokenSecretArn": "arn:aws:secretsmanager:region:account-id:secret:greengrass-secret-hash",
                 "TwilioAuthTokenSecretArn-ResourceId": "MyTwilioSecret",
-                "DefaultFromPhoneNumber": "+19999999999"
+                "DefaultFromPhoneNumber": "+19999999999",
+                "IsolationMode" : "GreengrassContainer"
             }
         }
     ]
@@ -301,8 +351,7 @@ The `payload` property in the output is the response from the Twilio API when th
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
-The [Getting started with Greengrass connectors \(console\)](connectors-console.md) and [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md) topics contain end\-to\-end steps that show how to set up, deploy, and test the Twilio Notifications connector\.  
- 
+The [Getting started with Greengrass connectors \(console\)](connectors-console.md) and [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md) topics contain end\-to\-end steps that show how to set up, deploy, and test the Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#twilio-notifications-connector-req) for the connector\.
 
@@ -381,6 +430,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 5 | <a name="isolation-mode-changelog"></a>Added the `IsolationMode` parameter to configure the containerization mode for the connector\. | 
 | 4 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 3 | Fix to reduce excessive logging\. | 
 | 2 | Minor bug fixes and improvements\. | 

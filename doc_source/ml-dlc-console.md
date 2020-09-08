@@ -2,7 +2,7 @@
 
 To follow the steps in this tutorial, you must be using AWS IoT Greengrass Core v1\.10 or later\.
 
- You can use the Amazon SageMaker Neo deep learning compiler to optimize the prediction efficiency of native machine learning inference models in Tensorflow, Apache MXNet, PyTorch, ONNX, and XGBoost frameworks for a smaller footprint and faster performance\. You can then download the optimized model and install the Amazon SageMaker Neo deep learning runtime and deploy them to your AWS IoT Greengrass devices for faster inference\. 
+ You can use the SageMaker Neo deep learning compiler to optimize the prediction efficiency of native machine learning inference models in Tensorflow, Apache MXNet, PyTorch, ONNX, and XGBoost frameworks for a smaller footprint and faster performance\. You can then download the optimized model and install the SageMaker Neo deep learning runtime and deploy them to your AWS IoT Greengrass devices for faster inference\. 
 
 This tutorial describes how to use the AWS Management Console to configure a Greengrass group to run a Lambda inference example that recognizes images from a camera locally, without sending data to the cloud\. The inference example accesses the camera module on a Raspberry Pi\. In this tutorial, you download a prepackaged model that is trained by Resnet\-50 and optimized in the Neo deep learning compiler\. You then use the model to perform local image classification on your AWS IoT Greengrass device\. 
 
@@ -293,7 +293,7 @@ We do not recommend running in containerized mode unless your business case requ
 
 1.  Choose **Update**\.
 
-## Step 5: Add a Amazon SageMaker Neo\-optimized model resource to the Greengrass group<a name="ml-console-dlc-add-resources"></a>
+## Step 5: Add a SageMaker Neo\-optimized model resource to the Greengrass group<a name="ml-console-dlc-add-resources"></a>
 
  In this step, create a resource for the optimized ML inference model and upload it to an Amazon S3 bucket\. Then, locate the Amazon S3 uploaded model in the AWS IoT Greengrass console and affiliate the newly created resource with the Lambda function\. This makes it possible for the function to access its resources on the core device\. 
 
@@ -320,7 +320,7 @@ If using the NVIDIA Jetson example, you need to use the `resnet18` directory in 
 
 1.  Under **Model from S3**, choose **Select**\. 
 **Note**  
- Currently, optimized Amazon SageMaker models are stored automatically in Amazon S3\. You can find your optimized model in your Amazon S3 bucket using this option\. For more information about model optimization in Amazon SageMaker, see the [Amazon SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
+ Currently, optimized SageMaker models are stored automatically in Amazon S3\. You can find your optimized model in your Amazon S3 bucket using this option\. For more information about model optimization in SageMaker, see the [SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
 
 1.  Choose **Upload a model**\. 
 
@@ -523,7 +523,7 @@ We do not recommend running in containerized mode unless your business case requ
       +  For **Read access to /sys directory**, choose **Enable**\. 
       +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
 
-1.  Add your Neo\-optimized model resource to the group\. Upload the model resources in the `resnet18` directory of the sample package you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. This directory contains precompiled model artifacts for an image classification model trained with Resnet\-18\. Follow the procedure in [Step 5: Add a Amazon SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources) with the following updates\. 
+1.  Add your Neo\-optimized model resource to the group\. Upload the model resources in the `resnet18` directory of the sample package you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. This directory contains precompiled model artifacts for an image classification model trained with Resnet\-18\. Follow the procedure in [Step 5: Add a SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources) with the following updates\. 
    + Compress the files inside the `resnet18` directory into a file named `resnet18.zip`\.
    + On the **Create a machine learning resource** page, for **Resource name**, enter **resnet18\_model**\.
    + Upload the `resnet18.zip` file\.
@@ -581,7 +581,7 @@ We do not recommend running in containerized mode unless your business case requ
       +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
       +  For **Read access to /sys directory**, choose **Enable**\. 
 
-1.  Add your Neo\-optimized model resource to the group\. Upload the model resources in the `resnet18` directory of the sample package you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. This directory contains precompiled model artifacts for an image classification model trained with Resnet\-18\. Follow the procedure in [Step 5: Add a Amazon SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources) with the following updates\. 
+1.  Add your Neo\-optimized model resource to the group\. Upload the model resources in the `resnet18` directory of the sample package you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. This directory contains precompiled model artifacts for an image classification model trained with Resnet\-18\. Follow the procedure in [Step 5: Add a SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources) with the following updates\. 
    + Compress the files inside the `resnet18` directory into a file named `resnet18.zip`\.
    + On the **Create a machine learning resource** page, for **Resource name**, enter **resnet18\_model**\.
    + Upload the `resnet18.zip` file\.
@@ -604,7 +604,7 @@ We do not recommend running in containerized mode unless your business case requ
              
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-dlc-console.html)
 
-1. **If running in containerized mode**, add the following local volume resource to grant access to your device camera\. Follow the procedure in [Step 5: Add a Amazon SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources)\.
+1. **If running in containerized mode**, add the following local volume resource to grant access to your device camera\. Follow the procedure in [Step 5: Add a SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources)\.
 **Note**  
  If you run in non\-containerized mode, AWS IoT Greengrass can access your device camera without configuring device resources\. 
    + For **Resource type**, choose **Volume**\.
@@ -710,4 +710,4 @@ This directory and its contents are in the Lambda runtime namespace, so they are
 
 ## Next steps<a name="next-dlc-steps"></a>
 
- Next, explore other optimized models\. For information, see the [Amazon SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
+ Next, explore other optimized models\. For information, see the [SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 

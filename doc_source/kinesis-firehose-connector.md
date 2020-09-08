@@ -353,8 +353,6 @@ If the connector detects a retryable error \(for example, connection errors\), i
 **Note**  <a name="connectors-setup-get-started-topics"></a>
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
- 
-
 1. Make sure you meet the [requirements](#kinesis-firehose-connector-req) for the connector\.
 
    <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.

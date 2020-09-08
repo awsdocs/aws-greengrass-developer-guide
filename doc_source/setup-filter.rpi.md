@@ -135,7 +135,6 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 1. <a name="install-java-8-runtime"></a>Optional\. Install the Java 8 runtime, which is required by [stream manager](stream-manager.md)\. This tutorial doesn't use stream manager, but it does use the **Default Group creation** workflow that enables stream manager by default\. Use the following commands to install the Java 8 runtime on the core device, or disable stream manager before you deploy your group\. Instructions for disabling stream manager are provided in Module 3\.
 
    ```
-   sudo apt update
    sudo apt install openjdk-8-jdk
    ```
 

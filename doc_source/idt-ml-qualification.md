@@ -133,7 +133,7 @@ If you're using Python 3\.6, you must create a symbolic link from Python 3\.7 to
   ```
   sudo ln -s path-to-python-3.6/python3.6 path-to-python-3.7/python3.7
   ```
-+ Amazon SageMaker Neo DLR\.
++ SageMaker Neo DLR\.
 + numpy\.
 
 After you install the DLR test dependencies, you must [compile the model](#ml-qualification-dlr-compile-model)\.
@@ -183,11 +183,11 @@ You must compile the DLR model before you can use it for ML qualification tests\
 
 ### Option 1: Use Amazon SageMaker to compile the model<a name="ml-qualification-compile-dlr-option-1"></a>
 
-Follow these steps to use Amazon SageMaker to compile the ML model provided by IDT\. This model is pretrained with Apache MXNet\.
+Follow these steps to use SageMaker to compile the ML model provided by IDT\. This model is pretrained with Apache MXNet\.
 
-1. Verify that your device type is supported by Amazon SageMaker\. For more information, see the [target device options](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_OutputConfig.html#sagemaker-Type-OutputConfig-TargetDevice) the *Amazon SageMaker API Reference*\. If your device type is not currently supported by Amazon SageMaker, follow the steps in [Option 2: Use TVM to compile the DLR model](#ml-qualification-compile-dlr-option-2)\.
+1. Verify that your device type is supported by SageMaker\. For more information, see the [target device options](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_OutputConfig.html#sagemaker-Type-OutputConfig-TargetDevice) the *Amazon SageMaker API Reference*\. If your device type is not currently supported by SageMaker, follow the steps in [Option 2: Use TVM to compile the DLR model](#ml-qualification-compile-dlr-option-2)\.
 **Note**  
-Running the DLR test with a model compiled by Amazon SageMaker might take 4 or 5 minutes\. Don’t stop IDT during this time\.
+Running the DLR test with a model compiled by SageMaker might take 4 or 5 minutes\. Don’t stop IDT during this time\.
 
 1. <a name="compile-dlr-download-uncompiled-model"></a>Download the tarball file that contains the uncompiled, pretrained MXNet model for DLR:
    + [dlr\-noncompiled\-model\-1\.0\.tar\.gz](https://d232ctwt5kahio.cloudfront.net/ml/dlr/noncompiled1.0/dlr-noncompiled-model-1.0.tar.gz)
@@ -239,11 +239,11 @@ We recommend that you compile the model on your target device\. This practice is
 
 1. Follow the instructions in the TVM documentation to [build and install TVM from source for your platform](https://docs.tvm.ai/install/from_source.html)\.
 
-1. After TVM is built, run the TVM compilation for the resnet18 model\. The following steps are based on [ Quick Start Tutorial for Compiling Deep Learning Models](https://docs.tvm.ai/tutorials/relay_quick_start.html#sphx-glr-tutorials-relay-quick-start-py) in the TVM documentation\.
+1. After TVM is built, run the TVM compilation for the resnet18 model\. The following steps are based on [ Quick Start Tutorial for Compiling Deep Learning Models](https://tvm.apache.org/docs/tutorials/get_started/relay_quick_start.html#sphx-glr-tutorials-get-started-relay-quick-start-py) in the TVM documentation\.
 
    1. Open the `relay_quick_start.py` file from the cloned TVM repository\.
 
-   1. Update the code that [defines a neural network in relay](https://tvm.apache.org/docs/tutorials/relay_quick_start.html#define-neural-network-in-relay)\. You can use one of following options:
+   1. Update the code that [defines a neural network in relay](https://tvm.apache.org/docs/tutorials/get_started/relay_quick_start.html#define-neural-network-in-relay)\. You can use one of following options:
       + Option 1: Use `mxnet.gluon.model_zoo.vision.get_model` to get the relay module and parameters:
 
         ```
@@ -255,7 +255,7 @@ We recommend that you compile the model on your target device\. This practice is
         + `resnet18v1-symbol.json`
         + `resnet18v1-0000.params`
 
-   1. Update the code that [saves and loads the compiled module](https://tvm.apache.org/docs/tutorials/relay_quick_start.html#save-and-load-compiled-module) to use the following code\.
+   1. Update the code that [saves and loads the compiled module](https://tvm.apache.org/docs/tutorials/get_started/relay_quick_start.html#save-and-load-compiled-module) to use the following code\.
 
       ```
       from tvm.contrib import util

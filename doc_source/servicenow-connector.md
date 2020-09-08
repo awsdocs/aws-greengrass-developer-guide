@@ -13,6 +13,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 4 | `arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/4` | 
 | 3 | `arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/3` | 
 | 2 | `arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/2` | 
 | 1 | `arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/1` | 
@@ -24,7 +25,7 @@ For information about version changes, see the [Changelog](#servicenow-connector
 This connector has the following requirements:
 
 ------
-#### [ Version 3 ]
+#### [ Version 3 \- 4 ]
 + <a name="conn-req-ggc-v1.9.3-secrets"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This requirement includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -49,7 +50,10 @@ This requirement includes allowing access to your Secrets Manager secrets\. If y
 
 This connector provides the following parameters:
 
-`PublishInterval`  
+------
+#### [ Version 4 ]
+
+`PublishInterval`  <a name="service-now-PublishInterval"></a>
 The maximum number of seconds to wait between publish events to ServiceNow\. The maximum value is 900\.  
 The connector publishes to ServiceNow when `PublishBatchSize` is reached or `PublishInterval` expires\.  
 Display name in the AWS IoT console: **Publish interval in seconds**  
@@ -58,7 +62,7 @@ Type: `string`
 Valid values: `1 - 900`  
 Valid pattern: `[1-9]|[1-9]\d|[1-9]\d\d|900`
 
-`PublishBatchSize`  
+`PublishBatchSize`  <a name="service-now-PublishBatchSize"></a>
 The maximum number of metric values that can be batched before they are published to ServiceNow\.  
 The connector publishes to ServiceNow when `PublishBatchSize` is reached or `PublishInterval` expires\.  
 Display name in the AWS IoT console: **Publish batch size**  
@@ -66,21 +70,21 @@ Required: `true`
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
-`InstanceName`  
+`InstanceName`  <a name="service-now-InstanceName"></a>
 The name of the instance used to connect to ServiceNow\.  
 Display name in the AWS IoT console: **Name of ServiceNow instance**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
-`DefaultTableName`  
+`DefaultTableName`  <a name="service-now-DefaultTableName"></a>
 The name of the table that contains the `GlideRecord` associated with the time series MetricBase database\. The `table` property in the input message payload can be used to override this value\.  
 Display name in the AWS IoT console: **Name of the table to contain the metric**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
-`MaxMetricsToRetain`  
+`MaxMetricsToRetain`  <a name="service-now-MaxMetricsToRetain"></a>
 The maximum number of metrics to save in memory before they are replaced with new metrics\.  
 This limit applies when there's no connection to the internet and the connector starts to buffer the metrics to publish later\. When the buffer is full, the oldest metrics are replaced by new metrics\.  
 Metrics are not saved if the host process for the connector is interrupted\. For example, this can happen during group deployment or when the device restarts\.
@@ -90,19 +94,88 @@ Required: `true`
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
-`AuthSecretArn`  
+`AuthSecretArn`  <a name="service-now-AuthSecretArn"></a>
 The secret in AWS Secrets Manager that stores the ServiceNow user name and password\. This must be a text type secret\. The secret must contain "user" and "password" keys with corresponding values\.  
 Display name in the AWS IoT console: **ARN of auth secret**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `arn:aws:secretsmanager:[a-z0-9\-]+:[0-9]{12}:secret:([a-zA-Z0-9\\]+/)*[a-zA-Z0-9/_+=,.@\-]+-[a-zA-Z0-9]+`
 
-`AuthSecretArn-ResourceId`  
+`AuthSecretArn-ResourceId`  <a name="service-now-AuthSecretArn-ResourceId"></a>
 The secret resource in the group that references the Secrets Manager secret for the ServiceNow credentials\.  
 Display name in the AWS IoT console: **Auth token resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
+
+`IsolationMode`  <a name="IsolationMode"></a>
+The [containerization](connectors.md#connector-containerization) mode for this connector\. The default is `GreengrassContainer`, which means that the connector runs in an isolated runtime environment inside the AWS IoT Greengrass container\.  
+The default containerization setting for the group does not apply to connectors\.
+Display name in the AWS IoT console: **Container isolation mode**  
+Required: `false`  
+Type: `string`  
+Valid values: `GreengrassContainer` or `NoContainer`  
+Valid pattern: `^NoContainer$|^GreengrassContainer$`
+
+------
+#### [ Version 1 \- 3 ]
+
+`PublishInterval`  <a name="service-now-PublishInterval"></a>
+The maximum number of seconds to wait between publish events to ServiceNow\. The maximum value is 900\.  
+The connector publishes to ServiceNow when `PublishBatchSize` is reached or `PublishInterval` expires\.  
+Display name in the AWS IoT console: **Publish interval in seconds**  
+Required: `true`  
+Type: `string`  
+Valid values: `1 - 900`  
+Valid pattern: `[1-9]|[1-9]\d|[1-9]\d\d|900`
+
+`PublishBatchSize`  <a name="service-now-PublishBatchSize"></a>
+The maximum number of metric values that can be batched before they are published to ServiceNow\.  
+The connector publishes to ServiceNow when `PublishBatchSize` is reached or `PublishInterval` expires\.  
+Display name in the AWS IoT console: **Publish batch size**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `^[0-9]+$`
+
+`InstanceName`  <a name="service-now-InstanceName"></a>
+The name of the instance used to connect to ServiceNow\.  
+Display name in the AWS IoT console: **Name of ServiceNow instance**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `.+`
+
+`DefaultTableName`  <a name="service-now-DefaultTableName"></a>
+The name of the table that contains the `GlideRecord` associated with the time series MetricBase database\. The `table` property in the input message payload can be used to override this value\.  
+Display name in the AWS IoT console: **Name of the table to contain the metric**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `.+`
+
+`MaxMetricsToRetain`  <a name="service-now-MaxMetricsToRetain"></a>
+The maximum number of metrics to save in memory before they are replaced with new metrics\.  
+This limit applies when there's no connection to the internet and the connector starts to buffer the metrics to publish later\. When the buffer is full, the oldest metrics are replaced by new metrics\.  
+Metrics are not saved if the host process for the connector is interrupted\. For example, this can happen during group deployment or when the device restarts\.
+This value should be greater than the batch size and large enough to hold messages based on the incoming rate of the MQTT messages\.  
+Display name in the AWS IoT console: **Maximum metrics to retain in memory**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `^[0-9]+$`
+
+`AuthSecretArn`  <a name="service-now-AuthSecretArn"></a>
+The secret in AWS Secrets Manager that stores the ServiceNow user name and password\. This must be a text type secret\. The secret must contain "user" and "password" keys with corresponding values\.  
+Display name in the AWS IoT console: **ARN of auth secret**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `arn:aws:secretsmanager:[a-z0-9\-]+:[0-9]{12}:secret:([a-zA-Z0-9\\]+/)*[a-zA-Z0-9/_+=,.@\-]+-[a-zA-Z0-9]+`
+
+`AuthSecretArn-ResourceId`  <a name="service-now-AuthSecretArn-ResourceId"></a>
+The secret resource in the group that references the Secrets Manager secret for the ServiceNow credentials\.  
+Display name in the AWS IoT console: **Auth token resource**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `.+`
+
+------
 
 ### Create Connector Example \(AWS CLI\)<a name="servicenow-connector-create"></a>
 
@@ -113,7 +186,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyServiceNowMetricBaseIntegrationConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/3",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ServiceNowMetricBaseIntegration/versions/4",
             "Parameters": {
                 "PublishInterval" : "10",
                 "PublishBatchSize" : "50",
@@ -121,7 +194,8 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
                 "DefaultTableName" : "u_greengrass_app",
                 "MaxMetricsToRetain" : "20000",
                 "AuthSecretArn" : "arn:aws:secretsmanager:region:account-id:secret:greengrass-secret-hash",
-                "AuthSecretArn-ResourceId" : "MySecretResource"
+                "AuthSecretArn-ResourceId" : "MySecretResource", 
+                "IsolationMode" : "GreengrassContainer"
             }
         }
     ]
@@ -231,8 +305,6 @@ If the connector detects a retryable error \(for example, connection errors\), i
 **Note**  <a name="connectors-setup-get-started-topics"></a>
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
- 
-
 1. Make sure you meet the [requirements](#servicenow-connector-req) for the connector\.
 
 1. <a name="connectors-setup-function"></a>Create and publish a Lambda function that sends input data to the connector\.
@@ -307,6 +379,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 4 | <a name="isolation-mode-changelog"></a>Added the `IsolationMode` parameter to configure the containerization mode for the connector\. | 
 | 3 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 2 | Fix to reduce excessive logging\. | 
 | 1 | Initial release\.  | 

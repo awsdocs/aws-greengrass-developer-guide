@@ -31,22 +31,22 @@ Make sure that your [endpoints correspond to your certificate type](gg-core.md#c
 
 1. On your computer \(not the AWS IoT Greengrass core device\), open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) \(terminal or command prompt\) windows\. One window represents the HelloWorld\_Publisher device and the other represents the HelloWorld\_Subscriber device\.
 
-   Upon execution, `basicDiscovery.py` attempts to collect information on the location of the AWS IoT Greengrass core at its endpoints\. This information is stored after the device has discovered and successfully connected to the core\. This allows future messaging and operations to be executed locally \(without the need for an internet connection\)\.
+   Upon execution, `basicPubSub.py` attempts to collect information on the location of the AWS IoT Greengrass core at its endpoints\. This information is stored after the device has discovered and successfully connected to the core\. This allows future messaging and operations to be executed locally \(without the need for an internet connection\)\.
 **Note**  
-You can run the following command from the folder that contains the `basicDiscovery.py` file for detailed script usage information:  
+You can run the following command from the folder that contains the `basicPubSub.py` file for detailed script usage information:  
 
    ```
-   python basicDiscovery.py --help
+   python basicPubSub.py --help
    ```
 
 1. From the HelloWorld\_Publisher device window, run the following commands\.
-   + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and `basicDiscovery.py`\.
+   + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and `basicPubSub.py`\.
    + Replace *AWS\_IOT\_ENDPOINT* with your endpoint\.
    + Replace the two *publisher* instances with the hash in the file name for your HelloWorld\_Publisher device\.
 
    ```
    cd path-to-certs-folder
-   python basicDiscovery.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert publisher.cert.pem --key publisher.private.key --thingName HelloWorld_Publisher --topic 'hello/world/pubsub' --mode publish --message 'Hello, World! Sent from HelloWorld_Publisher'
+   python basicPubSub.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert publisher.cert.pem --key publisher.private.key --clientId HelloWorld_Publisher --topic 'hello/world/pubsub' --mode publish --message 'Hello, World! Sent from HelloWorld_Publisher'
    ```
 
    You should see output similar to the following, which includes entries such as `Published topic 'hello/world/pubsub': {"message": "Hello, World! Sent from HelloWorld_Publisher", "sequence": 1}`\.
@@ -56,13 +56,13 @@ To troubleshoot a connection issue, you can try using [manual IP detection](#cor
 ![\[Screenshot of the publisher output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-076.png)
 
 1. From the HelloWorld\_Subscriber device window, run the following commands\.
-   + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and `basicDiscovery.py`\.
+   + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and `basicPubSub.py`\.
    + Replace *AWS\_IOT\_ENDPOINT* with your endpoint\.
    + Replace the two *subscriber* instances with the hash in the file name for your HelloWorld\_Subscriber device\.
 
    ```
    cd path-to-certs-folder
-   python basicDiscovery.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert subscriber.cert.pem --key subscriber.private.key --thingName HelloWorld_Subscriber --topic 'hello/world/pubsub' --mode subscribe
+   python basicPubSub.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert subscriber.cert.pem --key subscriber.private.key --clientId HelloWorld_Subscriber --topic 'hello/world/pubsub' --mode subscribe
    ```
 
    You should see the following output, which includes entries such as `Received message on topic hello/world/pubsub: {"message": "Hello, World! Sent from HelloWorld_Publisher", "sequence": 1}`\.  
@@ -70,7 +70,7 @@ To troubleshoot a connection issue, you can try using [manual IP detection](#cor
 
 Close the HelloWorld\_Publisher window to stop messages from accruing in the HelloWorld\_Subscriber window\.
 
-Testing on a corporate network might interfere with connecting to the core\. As a workaround, you can manually enter the endpoint\. This ensures that the `basicDiscovery.py` script connects to the correct IP address of the AWS IoT Greengrass core device\.
+Testing on a corporate network might interfere with connecting to the core\. As a workaround, you can manually enter the endpoint\. This ensures that the `basicPubSub.py` script connects to the correct IP address of the AWS IoT Greengrass core device\.
 
 **To manually enter the endpoint**
 

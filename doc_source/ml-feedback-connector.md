@@ -1,7 +1,7 @@
 # ML Feedback connector<a name="ml-feedback-connector"></a>
 
 The ML Feedback connector makes it easier to access your machine learning \(ML\) model data for model retraining and analysis\. The connector:
-+ Uploads input data \(samples\) used by your ML model to Amazon S3\. Model input can be in any format, such as images, JSON, or audio\. After samples are uploaded to the cloud, you can use them to retrain the model to improve the accuracy and precision of its predictions\. For example, you can use [Amazon SageMaker Ground Truth](https://docs.aws.amazon.com/sagemaker/latest/dg/sms.html) to label your samples and [Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) to retrain the model\.
++ Uploads input data \(samples\) used by your ML model to Amazon S3\. Model input can be in any format, such as images, JSON, or audio\. After samples are uploaded to the cloud, you can use them to retrain the model to improve the accuracy and precision of its predictions\. For example, you can use [SageMaker Ground Truth](https://docs.aws.amazon.com/sagemaker/latest/dg/sms.html) to label your samples and [SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) to retrain the model\.
 + Publishes the prediction results from the model as MQTT messages\. This lets you monitor and analyze the inference quality of your model in real time\. You can also store prediction results and use them to analyze trends over time\.
 + Publishes metrics about sample uploads and sample data to Amazon CloudWatch\.
 
@@ -61,7 +61,6 @@ Required: `true`
 Type: `string`  
 Valid pattern: `^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}$`  
 Examples: `MyConfig0`, `config-a`, `12id`
-   
 The body of a feedback configuration object contains the following properties\.    
 `s3-bucket-name`  
 The name of the destination Amazon S3 bucket\.  

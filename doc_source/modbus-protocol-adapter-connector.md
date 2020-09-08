@@ -556,8 +556,6 @@ If the request targets a nonexistent device or if the Modbus RTU network is not 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
- 
-
 1. Make sure you meet the [requirements](#modbus-protocol-adapter-connector-req) for the connector\.
 
 1. <a name="connectors-setup-function"></a>Create and publish a Lambda function that sends input data to the connector\.

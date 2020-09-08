@@ -880,7 +880,7 @@ AWS IoT Greengrass supports quality of service \(QoS\) levels 0 or 1, depending 
 
 ![\[The core as client and local message broker.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/mqtt-qos.png)
 
-For more information about QoS, see [Quality of Service Levels and Protocol Flows](https://mqtt.org/documentation) on the MQTT website\.
+For more information about MQTT and QoS, see [Getting Started](https://mqtt.org/getting-started/) on the MQTT website\.
 
 **Communication with the AWS Cloud**  
 + **Outbound messages use QoS 1**

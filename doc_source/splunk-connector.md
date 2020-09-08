@@ -13,6 +13,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 4 | `arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/4` | 
 | 3 | `arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/3` | 
 | 2 | `arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/2` | 
 | 1 | `arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/1` | 
@@ -24,7 +25,7 @@ For information about version changes, see the [Changelog](#splunk-connector-cha
 This connector has the following requirements:
 
 ------
-#### [ Version 3 ]
+#### [ Version 3 \- 4 ]
 + <a name="conn-req-ggc-v1.9.3-secrets"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This requirement includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
@@ -53,54 +54,120 @@ To create the secret in the Secrets Manager console, enter your token on the **P
 
 This connector provides the following parameters:
 
-`SplunkEndpoint`  
+------
+#### [ Version 4 ]
+
+`SplunkEndpoint`  <a name="splunk-SplunkEndpoint"></a>
 The endpoint of your Splunk instance\. This value must contain the protocol, hostname, and port\.  
 Display name in the AWS IoT console: **Splunk endpoint**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^(http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$`
 
-`MemorySize`  
+`MemorySize`  <a name="splunk-MemorySize"></a>
 The amount of memory \(in KB\) to allocate to the connector\.  
 Display name in the AWS IoT console: **Memory size**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
-`SplunkQueueSize`  
+`SplunkQueueSize`  <a name="splunk-SplunkQueueSize"></a>
 The maximum number of items to save in memory before the items are submitted or discarded\. When this limit is met, the oldest items in the queue are replaced with newer items\. This limit typically applies when there's no connection to the internet\.  
 Display name in the AWS IoT console: **Maximum items to retain**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
-`SplunkFlushIntervalSeconds`  
+`SplunkFlushIntervalSeconds`  <a name="splunk-SplunkFlushIntervalSeconds"></a>
 The interval \(in seconds\) for publishing received data to Splunk HEC\. The maximum value is 900\. To configure the connector to publish items as they are received \(without batching\), specify 0\.  
 Display name in the AWS IoT console: **Splunk publish interval**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `[0-9]|[1-9]\d|[1-9]\d\d|900`
 
-`SplunkTokenSecretArn`  
+`SplunkTokenSecretArn`  <a name="splunk-SplunkTokenSecretArn"></a>
 The secret in AWS Secrets Manager that stores the Splunk token\. This must be a text type secret\.  
 Display name in the AWS IoT console: **ARN of Splunk auth token secret**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `arn:aws:secretsmanager:[a-z]{2}-[a-z]+-\d{1}:\d{12}?:secret:[a-zA-Z0-9-_]+-[a-zA-Z0-9-_]+`
 
-`SplunkTokenSecretArn-ResourceId`  
+`SplunkTokenSecretArn-ResourceId`  <a name="splunk-SplunkTokenSecretArn-ResourceId"></a>
 The secret resource in the Greengrass group that references the Splunk secret\.  
 Display name in the AWS IoT console: **Splunk auth token resource**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `.+`
 
-`SplunkCustomCALocation`  
+`SplunkCustomCALocation`  <a name="splunk-SplunkCustomCALocation"></a>
 The file path of the custom certificate authority \(CA\) for Splunk \(for example, `/etc/ssl/certs/splunk.crt`\)\.  
 Display name in the AWS IoT console: **Splunk custom certificate authority location**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^$|/.*`
+
+`IsolationMode`  <a name="IsolationMode"></a>
+The [containerization](connectors.md#connector-containerization) mode for this connector\. The default is `GreengrassContainer`, which means that the connector runs in an isolated runtime environment inside the AWS IoT Greengrass container\.  
+The default containerization setting for the group does not apply to connectors\.
+Display name in the AWS IoT console: **Container isolation mode**  
+Required: `false`  
+Type: `string`  
+Valid values: `GreengrassContainer` or `NoContainer`  
+Valid pattern: `^NoContainer$|^GreengrassContainer$`
+
+------
+#### [ Version 1 \- 3 ]
+
+`SplunkEndpoint`  <a name="splunk-SplunkEndpoint"></a>
+The endpoint of your Splunk instance\. This value must contain the protocol, hostname, and port\.  
+Display name in the AWS IoT console: **Splunk endpoint**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `^(http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$`
+
+`MemorySize`  <a name="splunk-MemorySize"></a>
+The amount of memory \(in KB\) to allocate to the connector\.  
+Display name in the AWS IoT console: **Memory size**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `^[0-9]+$`
+
+`SplunkQueueSize`  <a name="splunk-SplunkQueueSize"></a>
+The maximum number of items to save in memory before the items are submitted or discarded\. When this limit is met, the oldest items in the queue are replaced with newer items\. This limit typically applies when there's no connection to the internet\.  
+Display name in the AWS IoT console: **Maximum items to retain**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `^[0-9]+$`
+
+`SplunkFlushIntervalSeconds`  <a name="splunk-SplunkFlushIntervalSeconds"></a>
+The interval \(in seconds\) for publishing received data to Splunk HEC\. The maximum value is 900\. To configure the connector to publish items as they are received \(without batching\), specify 0\.  
+Display name in the AWS IoT console: **Splunk publish interval**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `[0-9]|[1-9]\d|[1-9]\d\d|900`
+
+`SplunkTokenSecretArn`  <a name="splunk-SplunkTokenSecretArn"></a>
+The secret in AWS Secrets Manager that stores the Splunk token\. This must be a text type secret\.  
+Display name in the AWS IoT console: **ARN of Splunk auth token secret**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `arn:aws:secretsmanager:[a-z]{2}-[a-z]+-\d{1}:\d{12}?:secret:[a-zA-Z0-9-_]+-[a-zA-Z0-9-_]+`
+
+`SplunkTokenSecretArn-ResourceId`  <a name="splunk-SplunkTokenSecretArn-ResourceId"></a>
+The secret resource in the Greengrass group that references the Splunk secret\.  
+Display name in the AWS IoT console: **Splunk auth token resource**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `.+`
+
+`SplunkCustomCALocation`  <a name="splunk-SplunkCustomCALocation"></a>
+The file path of the custom certificate authority \(CA\) for Splunk \(for example, `/etc/ssl/certs/splunk.crt`\)\.  
+Display name in the AWS IoT console: **Splunk custom certificate authority location**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^$|/.*`
+
+------
 
 ### Create Connector Example \(AWS CLI\)<a name="splunk-connector-create"></a>
 
@@ -111,14 +178,15 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MySplunkIntegrationConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/3",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/SplunkIntegration/versions/4",
             "Parameters": {
                 "SplunkEndpoint": "https://myinstance.cloud.splunk.com:8088",
                 "MemorySize": 200000,
                 "SplunkQueueSize": 10000,
                 "SplunkFlushIntervalSeconds": 5,
                 "SplunkTokenSecretArn":"arn:aws:secretsmanager:region:account-id:secret:greengrass-secret-hash",
-                "SplunkTokenSecretArn-ResourceId": "MySplunkResource"
+                "SplunkTokenSecretArn-ResourceId": "MySplunkResource", 
+                "IsolationMode" : "GreengrassContainer"
             }
         }
     ]
@@ -215,8 +283,6 @@ If the connector detects a retryable error \(for example, connection errors\), i
 **Note**  <a name="connectors-setup-get-started-topics"></a>
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
- 
-
 1. Make sure you meet the [requirements](#splunk-connector-req) for the connector\.
 
 1. <a name="connectors-setup-function"></a>Create and publish a Lambda function that sends input data to the connector\.
@@ -286,6 +352,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 4 | <a name="isolation-mode-changelog"></a>Added the `IsolationMode` parameter to configure the containerization mode for the connector\. | 
 | 3 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 2 | Fix to reduce excessive logging\. | 
 | 1 | Initial release\.  | 
