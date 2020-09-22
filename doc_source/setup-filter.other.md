@@ -5,9 +5,20 @@ Follow the steps in this topic to set up a device \(other than a Raspberry Pi\) 
 **Tip**  
 Or, to use a script that sets up your environment and installs the AWS IoT Greengrass Core software for you, see [Quick start: Greengrass device setup](quick-start.md)\.
 
-If you're new to AWS IoT Greengrass, we recommend that you use a Raspberry Pi or an Amazon EC2 instance as your core device, and follow the [setup steps](module1.md) appropriate for your device\. To use a different device or [supported platform](what-is-gg.md#gg-platforms), follow the steps in this topic\.
+If you're new to AWS IoT Greengrass, we recommend that you use a Raspberry Pi or an Amazon EC2 instance as your core device, and follow the [setup steps](module1.md) appropriate for your device\.
 
- 
+If you plan to build a custom Linux\-based system using the Yocto Project, you can use the AWS IoT Greengrass Bitbake Recipe from the meta\-aws project\. This recipe also helps you develop a software platform that supports AWS edge software for embedded applications\. The Bitbake build installs, configures, and automatically runs the AWS IoT Greengrass Core software on your device\.
+
+Yocto Project  
+An open source collaboration project that helps you build custom Linux\-based systems for embedded applications regardless hardware architecture\. For more information, see the [Yocto Project](https://www.yoctoproject.org/)\.
+
+meta\-aws  
+An AWS managed project that provides Yocto recipes\. You can use the recipes to develop AWS edge sofware in Linux\-based systems built with [OpenEmbedded](https://www.openembedded.org/wiki/Main_Page) and Yocto Project\. For more information about this community supported capability, see the [meta\-aws](https://github.com/aws/meta-aws)project on GitHub\.
+
+meta\-aws\-demos  
+An AWS managed project that contains demonstrations for the meta\-aws project\. For more examples about the integration process, see the [meta\-aws\-demos](https://github.com/aws-samples/meta-aws-demos) project on GitHub\.
+
+To use a different device or [supported platform](what-is-gg.md#gg-platforms), follow the steps in this topic\.
 
 1. <a name="setup-jetson"></a>If your core device is an NVIDIA Jetson device, you must first flash the firmware with the JetPack 4\.3 installer\. If you're configuring a different device, skip to step 2\.
 **Note**  
@@ -58,15 +69,15 @@ If the `addgroup` command isn't available on your system, use the following comm
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script\.
 
    ```
-   mkdir greengrass-dependency-checker-GGCv1.10.x
-   cd greengrass-dependency-checker-GGCv1.10.x
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip
-   unzip greengrass-dependency-checker-GGCv1.10.x.zip
-   cd greengrass-dependency-checker-GGCv1.10.x
+   mkdir greengrass-dependency-checker-GGCv1.11.x
+   cd greengrass-dependency-checker-GGCv1.11.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.11.x.zip
+   unzip greengrass-dependency-checker-GGCv1.11.x.zip
+   cd greengrass-dependency-checker-GGCv1.11.x
    sudo ./check_ggc_dependencies | more
    ```
 **Note**  
-The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platforms and requires specific Linux system commands\. For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.10.x/README.md)\.
+The `check_ggc_dependencies` script runs on AWS IoT Greengrass supported platforms and requires specific Linux system commands\. For more information, see the dependency checker's [Readme](https://github.com/aws-samples/aws-greengrass-samples/blob/master/greengrass-dependency-checker-GGCv1.11.x/README.md)\.
 
 1. Install all required dependencies on your device, as indicated by the dependency checker output\. For missing kernel\-level dependencies, you might have to recompile your kernel\. For mounting Linux control groups \(`cgroups`\), you can run the [cgroupfs\-mount](https://raw.githubusercontent.com/tianon/cgroupfs-mount/master/cgroupfs-mount) script\. This allows AWS IoT Greengrass to set the memory limit for Lambda functions\. Cgroups are also required to run AWS IoT Greengrass in the default [containerization](lambda-group-config.md#lambda-containerization-considerations) mode\.
 

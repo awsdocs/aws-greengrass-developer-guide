@@ -15,6 +15,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 6 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/6` | 
 | 5 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/5` | 
 | 4 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/4` | 
 | 3 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/3` | 
@@ -167,6 +168,85 @@ It is your responsibility to secure the `DockerComposeFileDestinationPath` direc
 This connector provides the following parameters:
 
 ------
+#### [ Version 6 ]<a name="docker-app-connector-parameters-v1"></a>
+
+`DockerComposeFileS3Bucket`  
+The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
+Display name in the AWS IoT console: **Docker Compose file in S3**  
+In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
+Required: `true`  
+Type: `string`  
+Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
+
+`DockerComposeFileS3Key`  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
+Required: `true`  
+Type: `string`  
+Valid pattern `.+`
+
+`DockerComposeFileS3Version`  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
+Required: `false`  
+Type: `string`  
+Valid pattern `.+`
+
+`DockerComposeFileDestinationPath`  
+The absolute path of the local directory used to store a copy of the Docker Compose file\. This must be an existing directory\. The user specified for `DockerUserId` must have permission to create a file in this directory\. For more information, see [Setting up the Docker user on the AWS IoT Greengrass core](#docker-app-connector-linux-user)\.  
+This directory stores your Docker Compose file and the credentials for your Docker images from private repositories\. It is your responsibility to secure this directory\. For more information, see [Security notes](#docker-app-connector-security)\.
+Display name in the AWS IoT console: **Directory path for local Compose file**  
+Required: `true`  
+Type: `string`  
+Valid pattern `\/.*\/?`  
+Example: `/home/username/myCompose`
+
+`DockerUserId`  
+The UID of the Linux user that the connector runs as\. This user must belong to the `docker` Linux group on the core device and have write permissions to the `DockerComposeFileDestinationPath` directory\. For more information, see [Setting up the Docker user on the core](#docker-app-connector-linux-user)\.  
+<a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
+Display name in the AWS IoT console: **Docker user ID**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^[0-9]{1,5}$`
+
+`AWSSecretsArnList`  
+The Amazon Resource Names \(ARNs\) of the secrets in AWS Secrets Manager that contain the login information used to access your Docker images in private repositories\. For more information, see [Accessing Docker images from private repositories](#access-private-repositories)\.  
+Display name in the AWS IoT console: **Credentials for private repositories**  
+Required: `false`\. This parameter is required to access Docker images stored in private repositories\.  
+Type: `array` of `string`  
+Valid pattern: `[( ?,? ?"(arn:(aws(-[a-z]+)):secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:([a-zA-Z0-9\]+/)[a-zA-Z0-9/_+=,.@-]+-[a-zA-Z0-9]+)")]`
+
+`DockerContainerStatusLogFrequency`  
+The frequency \(in seconds\) at which the connector logs status information about the Docker containers running on the core\. The default is 300 seconds \(5 minutes\)\.  
+Display name in the AWS IoT console: **Logging frequency**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^[1-9]{1}[0-9]{0,3}$`
+
+`ForceDeploy`  
+Indicates whether to force the Docker deployment if it fails due to the improper cleanup of the last deployment\. The default is `False`\.  
+Display name in the AWS IoT console: **Force deployment**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^(true|false)$`
+
+`DockerPullBeforeUp`  
+Indicates whether the deployer should run `docker-compose pull` before running `docker-compose up` for a pull\-down\-up behavior\. The default is `True`\.  
+Display name in the AWS IoT console: **Docker Pull Before Up**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^(true|false)$`
+
+`StopContainersOnNewDeployment`  
+Indicates whether the connector should stop Docker Deployer managed docker containers when GGC is stopped \(when a new group deployment is made, or the kernel is shutdown\)\. The default is `True`\.  
+Display name in the AWS IoT console: **Docker stop on new deployment**  
+ We recommend leaving this parameter to its default `True` value\. Setting this parameter to `False` will cause your Docker container to continue running even after terminating the AWS IoT Greengrass core or starting a new deployment\. If you set this parameter to `False`, you must ensure that your Docker containers are maintained as necessary in the event of a `docker-compose` service name change or addition\.   
+ For more information please refer to the `docker-compose` compose file documentation\. 
+Required: `false`  
+Type: `string`  
+Valid pattern: `^(true|false)$`
+
+------
 #### [ Version 5 ]<a name="docker-app-connector-parameters-v1"></a>
 
 `DockerComposeFileS3Bucket`  
@@ -227,14 +307,14 @@ Indicates whether to force the Docker deployment if it fails due to the improper
 Display name in the AWS IoT console: **Force deployment**  
 Required: `false`  
 Type: `string`  
-Valid pattern: `^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$`
+Valid pattern: `^(true|false)$`
 
 `DockerPullBeforeUp`  
 Indicates whether the deployer should run `docker-compose pull` before running `docker-compose up` for a pull\-down\-up behavior\. The default is `True`\.  
 Display name in the AWS IoT console: **Docker Pull Before Up**  
 Required: `false`  
 Type: `string`  
-Valid pattern: `^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$`
+Valid pattern: `^(true|false)$`
 
 ------
 #### [ Versions 2 \- 4 ]<a name="docker-app-connector-parameters-v1"></a>
@@ -297,7 +377,7 @@ Indicates whether to force the Docker deployment if it fails due to the improper
 Display name in the AWS IoT console: **Force deployment**  
 Required: `false`  
 Type: `string`  
-Valid pattern: `^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$`
+Valid pattern: `^(true|false)$`
 
 ------
 #### [ Version 1 ]<a name="docker-app-connector-parameters-v1"></a>
@@ -665,6 +745,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 6 | Added `StopContainersOnNewDeployment` to override container clean up when a new deployment is made or GGC stops\. Safer shutdown and start up mechanisms\. YAML validation bug fix\. | 
 | 5 | Images are pulled before running `docker-compose down`\. | 
 | 4 | Added pull\-before\-up behavior to update Docker images\. | 
 | 3 | Fixed an issue with finding environment variables\. | 

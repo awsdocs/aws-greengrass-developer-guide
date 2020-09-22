@@ -94,9 +94,26 @@ You must provide this information using the `device.json` template located in ` 
         "value": "x86_64 | armv6l | armv7l | aarch64"
       },
       {
-        "name": "ml",
-        "value": "mxnet" | "dlr" | "tensorflow" | "mxnet,dlr,tensorflow"
+        "name": "container",
+        "value": "yes | no"
       },
+      {
+        "name": "docker",
+        "value": "yes | no"
+      },
+      {
+        "name": "streamManagement",
+        "value": "yes | no"
+      },
+      {
+        "name": "hsi",
+        "value": "yes | no"
+      },
+      {
+        "name": "ml",
+        "value": "mxnet | tensorflow | dlr | mxnet,dlr,tensorflow | no"
+      },
+      *********** Remove the section below if the device is not qualifying for ML **************,
       {
         "name": "mlLambdaContainerizationMode",
         "value": "container | process | both"
@@ -104,31 +121,36 @@ You must provide this information using the `device.json` template located in ` 
       {
         "name": "processor",
         "value": "cpu | gpu"
-      }
+      },
+      ******************************************************************************************
     ],
-    "machineLearning": {
-        "dlrModelPath": "</path/to/resnet18>",
-        "environmentVariables": [
-            {
-                "key": "<environment-variable-name>",
-                "value": "<Path:$PATH>"
-            }
-        ],
-        "deviceResources": [
-            {
-                "name": "<resource-name>",
-                "path": "<resource-path>",
-                "type": "device | volume"
-            }
-        ]
-    },
+    *********** Remove the section below if the device is not qualifying for HSI ***************
     "hsm": {
-      "p11Provider": "</path/to/pkcs11ProviderLibrary>",
-      "slotLabel": "<slot-label>",
-      "slotUserPin": "<pin>",
-      "privateKeyLabel": "<key-label>",
-      "openSSLEngine": "</path/to/openssl/engine>"
+      "p11Provider": "/path/to/pkcs11ProviderLibrary",
+      "slotLabel": "<slot_label>",
+      "slotUserPin": "<slot_pin>",
+      "privateKeyLabel": "<key_label>",
+      "openSSLEngine": "/path/to/openssl/engine"
     },
+    ********************************************************************************************
+    *********** Remove the section below if the device is not qualifying for ML ****************
+    "machineLearning": {
+      "dlrModelPath": "/path/to/compiled/dlr/model",
+      "environmentVariables": [
+        {
+          "key": "<environment-variable-name>",
+          "value": "<Path:$PATH>"
+        }
+      ],
+      "deviceResources": [
+        {
+          "name": "<resource-name>",
+          "path": "<resource-path>",
+          "type": "device | volume"
+        }
+      ]
+    },
+    ******************************************************************************************
     "kernelConfigLocation": "",
     "greengrassLocation": "",
     "devices": [
@@ -137,12 +159,13 @@ You must provide this information using the `device.json` template located in ` 
         "connectivity": {
           "protocol": "ssh",
           "ip": "<ip-address>",
+          "port": 22,
           "auth": {
-            "method": "pki" | "password",
+            "method": "pki | password",
             "credentials": {
-              "user": "<user>",
-              "privKeyPath": "</path/to/private/key>",
-              "password": "<your-password>"
+              "user": "<user-name>",
+              "privKeyPath": "/path/to/private/key",
+              "password": "<password>"
             }
           }
         }
@@ -172,16 +195,65 @@ Specify `password` only if `method` is set to `password`\.
       {
         "name": "arch",
         "value": "x86_64"
-      }
+      },
+      {
+        "name": "container",
+        "value": "no"
+      },
+      {
+        "name": "docker",
+        "value": "no"
+      },
+      {
+        "name": "streamManagement",
+        "value": "yes | no"
+      },
+      {
+        "name": "hsi",
+        "value": "no"
+      },
+      {
+        "name": "ml",
+        "value": "mxnet | tensorflow | dlr | mxnet,dlr,tensorflow | no"
+      },
+      *********** Remove the section below if the device is not qualifying for ML **************,
+      {
+        "name": "mlLambdaContainerizationMode",
+        "value": "process"
+      },
+      {
+        "name": "processor",
+        "value": "cpu | gpu"
+      },
+      ******************************************************************************************
     ],
+    *********** Remove the section below if the device is not qualifying for ML ****************
+    "machineLearning": {
+      "dlrModelPath": "/path/to/compiled/dlr/model",
+      "environmentVariables": [
+        {
+          "key": "<environment-variable-name>",
+          "value": "<Path:$PATH>"
+        }
+      ],
+      "deviceResources": [
+        {
+          "name": "<resource-name>",
+          "path": "<resource-path>",
+          "type": "device | volume"
+        }
+      ]
+    },
+    ******************************************************************************************
     "kernelConfigLocation": "",
-    "greengrassLocation": "/greengrass",
+    "greengrassLocation": "",
     "devices": [
       {
         "id": "<device-id>",
         "connectivity": {
           "protocol": "docker",
-          "containerId": "<container-name>" | "<container-id>"
+          "containerId": "<container-name | container-id>",
+          "containerUser": "<user>"
         }
       }
     ]
@@ -201,22 +273,42 @@ An alphanumeric value that uniquely identifies the device under test\. The SKU i
 If you want to list your board in the AWS Partner Device Catalog, the SKU you specify here must match the SKU that you use in the listing process\.
 
 `features`  
-An array that contains the device's supported features\.  
-+ Required features: `os`, `arch`\. All other features are optional and apply only to particular test scenarios\. Remove them if you aren't using the corresponding test scenarios\.
-+ Supported OS/architecture combinations:
-  + Linux, x86\_64
-  + Linux, ARMv6l
-  + Linux, ARMv7l
-  + Linux, AArch64
-  + Ubuntu, x86\_64
-  + OpenWrt, ARMv7l
-  + OpenWrt, AArch64
-**Note**  
-When you use IDT to test AWS IoT Greengrass running in a Docker container, the `os` field is your Docker operating system and `arch` is your Docker architecture\. Currently, only the x86\_64 Docker architecture is supported\.
-+ Optional features: `ml`, `mlLambdaContainerizationMode`, `processor`\.
-  + These features are required only for machine learning \(ML\) qualification tests\. For more information, see [Configure device\.json for ML qualification](#device-json-ml-qualification)\.
+An array that contains the device's supported features\. All features are required\.    
+`os` and `arch`  
+Supported operating system \(OS\) and architecture combinations:  
++ `linux`, `x86_64`
++ `linux`, `armv6l`
++ `linux`, `armv7l`
++ `linux`, `aarch64`
++ `ubuntu`, `x86_64`
++ `openwrt`, `armv7l`
++ `openwrt`, `aarch64`
+If you use IDT to test AWS IoT Greengrass running in a Docker container, only the x86\_64 Docker architecture is supported\.  
+`container`  
+<a name="description-container"></a>Validates that the device meets all of the software and hardware requirements to run Lambda functions in container mode on a Greengrass core\.  
+The valid value is `yes` or `no`\.  
+`docker`  
+<a name="description-docker"></a>Validates that the device meets all the required technical dependencies to use the Greengrass Docker application deployment connector to run containers  
+The valid value is `yes` or `no`\.  
+`streamManagement`  
+<a name="description-sm"></a>Validates that the device meets all of the required technical dependencies to run AWS IoT Greengrass stream manager\.  
+The valid value is `yes` or `no`\.  
+`hsi`  
+<a name="description-hsi"></a>Verifies that the provided HSI shared library can interface with the hardware security module \(HSM\) and implements the required PKCS\#11 APIs correctly\. The HSM and shared library must be able to sign a CSR, perform TLS operations, and provide the correct key lengths and public key algorithm\.  
+The valid value is `yes` or `no`\.  
+`ml`  
+<a name="description-ml"></a>Validates that the device meets all of the required technical dependencies to perform ML inference locally\.  
+The valid value can be any combination of `mxnet`, `tensorflow`, `dlr`, and `no` \(for example, `mxnet`, `mxnet,tensorflow`, `mxnet,tensorflow,dlr`, or `no`\)\.  
+`mlLambdaContainerizationMode`  
+Validates that the device meets all of the required technical dependencies to perform ML inference in container mode on a Greengrass device\.  
+The valid value is `container`, `process`, or `both`\.  
+`processor`  
+Validates that the device meets all of the hardware requirements for the specified processor type\.  
+The valid value is `cpu` or `gpu`\.
+If you don't want to use the `container`, `docker`, `streamManager`, `hsi`, or `ml` feature, you can set the corresponding `value` to `no`\.  
+Docker only supports feature qualification for `streamManagement` and `ml`\.
 
-`machineLearning `  
+`machineLearning`  
 Optional\. Configuration information for ML qualification tests\. For more information, see [Configure device\.json for ML qualification](#device-json-ml-qualification)\.
 
 `hsm`  
@@ -267,6 +359,11 @@ This value applies only if `connectivity.auth.method` is set to `pki`\.
 The user name for signing in to the device being tested\.  
 `connectivity.auth.credentials.privKeyPath`  
 The full path to the private key used to sign in to the device being tested\.
+
+`connectivity.port`  
+Optional\. The port number to use for SSH connections\.  
+The default value is 22\.  
+This property only applies if `connectivity.protocol` is set to `ssh`\.
 
 `greengrassLocation`  
 The location of AWS IoT Greengrass Core software on your devices\.  

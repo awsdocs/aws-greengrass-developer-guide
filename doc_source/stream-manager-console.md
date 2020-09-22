@@ -1,14 +1,14 @@
-# Export data streams to the AWS cloud \(console\)<a name="stream-manager-console"></a>
+# Export data streams to the AWS Cloud \(console\)<a name="stream-manager-console"></a>
 
-This tutorial shows you how to use the AWS IoT console to create and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
+This tutorial shows you how to use the AWS IoT console to configure and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
 
-## <a name="w51aac25c25b6"></a>
+## <a name="w64aac25c27b6"></a>
 
 Stream manager makes ingesting, processing, and exporting high\-volume data streams easier and more reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
 
 ![\[Diagram of the stream management workflow.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/stream-manager-scenario.png)
 
-The focus of this tutorial is to show how user\-defined Lambda functions use the `StreamManagerClient` object in the AWS IoT Greengrass Core SDK to interact with stream manager\. For simplicity, the Lambda function that you create for this tutorial generates simulated device data\.
+The focus of this tutorial is to show how user\-defined Lambda functions use the `StreamManagerClient` object in the AWS IoT Greengrass Core SDK to interact with stream manager\. For simplicity, the Python Lambda function that you create for this tutorial generates simulated device data\.
 
 ## Prerequisites<a name="stream-manager-console-prerequisites"></a>
 
@@ -29,16 +29,16 @@ Stream manager is not supported on OpenWrt distributions\.
     ```
 
     For more information, see [ How to download and install prebuilt OpenJDK packages](https://openjdk.java.net/install/) in the OpenJDK documentation\.
-+ AWS IoT Greengrass Core SDK for Python v1\.5\.0\. To use `StreamManagerClient` in the AWS IoT Greengrass Core SDK for Python, you must:
-  + Install Python 3\.7 or later\.
-  + Install package dependencies and include them in your Lambda function deployment package\. Instructions are provided in this tutorial\.
++ AWS IoT Greengrass Core SDK for Python v1\.5\.0 or later\. To use `StreamManagerClient` in the AWS IoT Greengrass Core SDK for Python, you must:
+  + Install Python 3\.7 or later on the core device\.
+  + Include the SDK and its dependencies in your Lambda function deployment package\. Instructions are provided in this tutorial\.
 **Tip**  
 You can use `StreamManagerClient` with Java or NodeJS\. For example code, see the [ AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/blob/master/samples/StreamManagerKinesis/src/main/java/com/amazonaws/greengrass/examples/StreamManagerKinesis.java) and [AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/blob/master/greengrassExamples/StreamManagerKinesis/index.js) on GitHub\.
 + A destination stream named **MyKinesisStream** created in Amazon Kinesis Data Streams in the same AWS Region as your Greengrass group\. For more information, see [Create a stream](https://docs.aws.amazon.com/streams/latest/dev/fundamental-stream.html#create-stream) in the *Amazon Kinesis Developer Guide*\.
 **Note**  
 In this tutorial, stream manager exports data to Kinesis Data Streams, which results in charges to your AWS account\. For information about pricing, see [Kinesis Data Streams pricing](https://aws.amazon.com/kinesis/data-streams/pricing/)\.  
 To avoid incurring charges, you can run this tutorial without creating a Kinesis data stream\. In this case, you check the logs to see that stream manager attempted to export the stream to Kinesis Data Streams\.
-+ An IAM policy added to the Greengrass [group role](group-role.md) that allows the `kinesis:PutRecords` action on the target data stream, as shown in the following example:
++ An IAM policy added to the [Greengrass group role](group-role.md) that allows the `kinesis:PutRecords` action on the target data stream, as shown in the following example:
 
   ```
   {
@@ -56,8 +56,6 @@ To avoid incurring charges, you can run this tutorial without creating a Kinesis
       ]
   }
   ```
-
-  For more information, see [Greengrass group role](group-role.md)\.
 
 The tutorial contains the following high\-level steps:
 
@@ -79,14 +77,14 @@ The tutorial should take about 20 minutes to complete\.
 
 ## Step 1: Create a Lambda function deployment package<a name="stream-manager-console-create-deployment-package"></a>
 
-### <a name="w51aac25c25c17b4"></a>
+### <a name="w64aac25c27c17b4"></a>
 
-In this step, you create a Lambda function deployment package that contains function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
+In this step, you create a Lambda function deployment package that contains Python function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
 
 **Note**  
- If using a user\-defined Lambda function, you must use the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to interact with stream manager\. For more information about requirements for the Greengrass stream manager, see [Greengrass stream manager requirements](stream-manager.md#stream-manager-requirements)\. 
+ Your user\-defined Lambda functions must use the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) to interact with stream manager\. For more information about requirements for the Greengrass stream manager, see [Greengrass stream manager requirements](stream-manager.md#stream-manager-requirements)\. 
 
-1.  Download the [AWS IoT Greengrass Core SDK for Python](lambda-functions.md#lambda-sdks-core) v1\.5\.0\.
+1.  Download the [AWS IoT Greengrass Core SDK for Python](lambda-functions.md#lambda-sdks-core) v1\.5\.0 or later\.
 
 1. <a name="unzip-ggc-sdk"></a>Unzip the downloaded package to get the SDK\. The SDK is the `greengrasssdk` folder\.
 
@@ -102,7 +100,7 @@ In this step, you create a Lambda function deployment package that contains func
 
 1. Save the following Python code function in a local file named `transfer_stream.py`\.
 **Tip**  
- For example code that use Java and NodeJS, see the [ AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/blob/master/samples/StreamManagerKinesis/src/main/java/com/amazonaws/greengrass/examples/StreamManagerKinesis.java) and [AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/blob/master/greengrassExamples/StreamManagerKinesis/index.js) on GitHub\.
+ For example code that uses Java and NodeJS, see the [ AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/blob/master/samples/StreamManagerKinesis/src/main/java/com/amazonaws/greengrass/examples/StreamManagerKinesis.java) and [AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/blob/master/greengrassExamples/StreamManagerKinesis/index.js) on GitHub\.
 
    ```
    import asyncio
@@ -198,7 +196,7 @@ In this step, you create a Lambda function deployment package that contains func
    + **transfer\_stream\.py**\. App logic\.
    + **greengrasssdk**\. Required library for Python Greengrass Lambda functions that publish MQTT messages\.
 
-     Stream manager operations are available in version 1\.5\.0 of the AWS IoT Greengrass Core SDK for Python\.
+     [Stream manager operations](work-with-streams.md) are available in version 1\.5\.0 or later of the AWS IoT Greengrass Core SDK for Python\.
    + The dependencies you installed for the AWS IoT Greengrass Core SDK for Python \(for example, the `cbor2` directories\)\.
 
    When you create the `zip` file, include only these items, not the containing folder\.
@@ -292,7 +290,7 @@ In this step, you make sure that stream manager is enabled\.
 1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
 ![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings.png)
 
-1. Under **Stream manager**, check the enabled or disabled status\. If disabled, choose **Edit**\. Then, choose **Enable** and **Save**\. You can use the default settings for this tutorial\.  
+1. Under **Stream manager**, check the enabled or disabled status\. If disabled, choose **Edit**\. Then, choose **Enable** and **Save**\. You can use the default parameter settings for this tutorial\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.  
 ![\[The Stream manager section on the group's Settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings-stream-manager-edit.png)
 
 **Note**  
@@ -382,6 +380,7 @@ If you need more troubleshooting information, you can [set the logging level](#s
 
 ## See also<a name="stream-manager-console-see-also"></a>
 + [Manage data streams on the AWS IoT Greengrass core](stream-manager.md)
-+ [Use StreamManagerClient to work with streams](work-with-streams.md)
 + [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)
-+ [Export data streams to the AWS cloud \(CLI\)](stream-manager-cli.md)
++ [Use StreamManagerClient to work with streams](work-with-streams.md)
++ [Export configurations for supported AWS Cloud destinations](stream-export-configurations.md)
++ [Export data streams to the AWS Cloud \(CLI\)](stream-manager-cli.md)

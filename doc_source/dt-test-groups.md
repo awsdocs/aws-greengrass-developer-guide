@@ -21,24 +21,24 @@ Checks that the version of AWS IoT Greengrass provided is compatible with the AW
 **Optional Test Groups**  
 These test groups are optional\. If you choose to qualify for optional tests, your device is listed with additional capabilities in the AWS Partner Device Catalog\.    
 Container Dependencies  
-Validates that the device meets all of the software and hardware requirements to run Lambda functions in container mode on a Greengrass core\.  
+<a name="description-container"></a>Validates that the device meets all of the software and hardware requirements to run Lambda functions in container mode on a Greengrass core\.  
 <a name="n-a-docker"></a>This test group is not applicable when testing in a [Docker container](docker-config-setup.md)\.  
 Deployment Container  
-Validates that Lambda functions can be deployed on the device and run in container mode on a Greengrass core\.  
+<a name="description-deployment-container"></a>Validates that Lambda functions can be deployed on the device and run in container mode on a Greengrass core\.  
 <a name="n-a-docker"></a>This test group is not applicable when testing in a [Docker container](docker-config-setup.md)\.  
 Docker Dependencies \(Supported for IDT v2\.2\.0 and later\)  
-Validates that the device meets all the required technical dependencies to use the Greengrass Docker application deployment connector to run containers\.  
+<a name="description-docker"></a>Validates that the device meets all the required technical dependencies to use the Greengrass Docker application deployment connector to run containers  
 <a name="n-a-docker"></a>This test group is not applicable when testing in a [Docker container](docker-config-setup.md)\.  
 Hardware Security Integration \(HSI\)  
-Verifies that the provided HSI shared library can interface with the hardware security module \(HSM\) and implements the required PKCS\#11 APIs correctly\. The HSM and shared library must be able to sign a CSR, perform TLS operations, and provide the correct key lengths and public key algorithm\.  
+<a name="description-hsi"></a>Verifies that the provided HSI shared library can interface with the hardware security module \(HSM\) and implements the required PKCS\#11 APIs correctly\. The HSM and shared library must be able to sign a CSR, perform TLS operations, and provide the correct key lengths and public key algorithm\.  
 Stream Manager Dependencies \(Supported for IDT v2\.2\.0 and later\)  
-Validates that the device meets all of the required technical dependencies to run AWS IoT Greengrass stream manager\.  
+<a name="description-sm"></a>Validates that the device meets all of the required technical dependencies to run AWS IoT Greengrass stream manager\.  
 Machine Learning Dependencies \(Supported for IDT v3\.1\.0 and later\)  
-Validates that the device meets all of the required technical dependencies to perform ML inference locally\.  
+<a name="description-ml"></a>Validates that the device meets all of the required technical dependencies to perform ML inference locally\.  
 Machine Learning Inference Tests \(Supported for IDT v3\.1\.0 and later\)  
-Validates that ML inference can be performed on the given device under test\. For more information, see [Optional: Configuring your device for ML qualification](idt-ml-qualification.md)\.  
+<a name="description-mlit"></a>Validates that ML inference can be performed on the given device under test\. For more information, see [Optional: Configuring your device for ML qualification](idt-ml-qualification.md)\.  
 Machine Learning Inference Container Tests \(Supported for IDT v3\.1\.0 and later\)  
-Validates that ML inference can be performed on the given device under test and run in container mode on a Greengrass core\. For more information, see [Optional: Configuring your device for ML qualification](idt-ml-qualification.md)\.
+<a name="description-mlict"></a>Validates that ML inference can be performed on the given device under test and run in container mode on a Greengrass core\. For more information, see [Optional: Configuring your device for ML qualification](idt-ml-qualification.md)\.
 
 ------
 #### [ IDT v1\.3\.3 and earlier ]

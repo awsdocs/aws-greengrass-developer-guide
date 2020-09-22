@@ -123,11 +123,11 @@ Softlinks are represented by `fs.protected_symlinks`\.
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands download, unzip, and run the dependency checker script in your Amazon EC2 instance\.
 
    ```
-   mkdir greengrass-dependency-checker-GGCv1.10.x
-   cd greengrass-dependency-checker-GGCv1.10.x
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip
-   unzip greengrass-dependency-checker-GGCv1.10.x.zip
-   cd greengrass-dependency-checker-GGCv1.10.x
+   mkdir greengrass-dependency-checker-GGCv1.11.x
+   cd greengrass-dependency-checker-GGCv1.11.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.11.x.zip
+   unzip greengrass-dependency-checker-GGCv1.11.x.zip
+   cd greengrass-dependency-checker-GGCv1.11.x
    sudo ./check_ggc_dependencies | more
    ```
 **Important**  

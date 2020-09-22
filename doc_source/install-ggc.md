@@ -104,17 +104,17 @@ In the following procedures, run the commands in a terminal window on your devic
    1. In the directory where you want to download the script, run the following command\. To use `curl`, replace `wget` in the command with `curl`\.
 
       ```
-      mkdir greengrass-dependency-checker-GGCv1.10.x
-      cd greengrass-dependency-checker-GGCv1.10.x
-      wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip
-      unzip greengrass-dependency-checker-GGCv1.10.x.zip
-      cd greengrass-dependency-checker-GGCv1.10.x
+      mkdir greengrass-dependency-checker-GGCv1.11.x
+      cd greengrass-dependency-checker-GGCv1.11.x
+      wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.11.x.zip
+      unzip greengrass-dependency-checker-GGCv1.11.x.zip
+      cd greengrass-dependency-checker-GGCv1.11.x
       sudo ./check_ggc_dependencies | more
       ```
 
    1. Where `more` appears, press the Spacebar key to page throught the output\.
       + If [stream manager](stream-manager.md) is enabled in your Greengrass group, you must also install the Java 8 runtime before you deploy the group\. This feature is enabled by default when you use the **Default Group creation** workflow in the AWS IoT Greengrass console to create a group\.
-      + You can install your target Lambda runtimes \(for example, Python 3\.7\) and ignore the warnings about other missing optional runtime prerequisites\.
+      + You can install your target Lambda runtimes \(for example, Python 3\.8\) and ignore the warnings about other missing optional runtime prerequisites\.
       + You can ignore warnings about missing shell commands\. These are required by the OTA update agent, which isn't included in this installation\.
 
        

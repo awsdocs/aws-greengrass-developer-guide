@@ -16,6 +16,7 @@ The following table lists supported [AWS Lambda runtimes](https://docs.aws.amazo
 
 | Language or platform | GGC version | 
 | --- | --- | 
+| Python 3\.8 | 1\.11 | 
 | Python 3\.7 | 1\.9 or later | 
 | Python 2\.7 | 1\.0 or later | 
 | Java 8 | 1\.1 or later | 
@@ -53,10 +54,10 @@ To include the AWS IoT Greengrass Core SDK dependency in the Lambda function dep
    
  **StreamManagerClient**  
 Only the following AWS IoT Greengrass Core SDKs can be used for [stream manager](stream-manager.md) operations:  <a name="streammanagerclient-sdk-versions"></a>
-+ Java SDK \(v1\.4\.0\)
-+ Python SDK \(v1\.5\.0\)
-+ Node\.js SDK \(v1\.6\.0\)
-In the AWS IoT Greengrass Core SDK for Python, support for stream manager requires Python 3\.7\. You must also install dependencies to include in your Python Lambda function deployment packages:  <a name="python-sdk-dependencies-stream-manager"></a>
++ Java SDK \(v1\.4\.0 or later\)
++ Python SDK \(v1\.5\.0 or later\)
++ Node\.js SDK \(v1\.6\.0 or later\)
+To use the AWS IoT Greengrass Core SDK for Python to interact with stream manager, you must install Python 3\.7 or later\. You must also install dependencies to include in your Python Lambda function deployment packages:  <a name="python-sdk-dependencies-stream-manager"></a>
 
 1. Navigate to the SDK directory that contains the `requirements.txt` file\. This file lists the dependencies\.
 

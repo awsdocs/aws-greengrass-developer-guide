@@ -11,7 +11,8 @@ After you configure and deploy the IoT SiteWise connector, you can add a gateway
 
 AWS IoT SiteWise receives data only from data streams that you have mapped to the measurement properties of AWS IoT SiteWise assets\. To map data streams to asset properties, you can set a property's alias to be equivalent to an OPC\-UA data stream path\. To learn about defining asset models and creating assets, see [Modeling industrial assets](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/industrial-asset-models) in the *AWS IoT SiteWise User Guide*\.
 
-**Note**  
+**Notes**  
+You can use stream manager to upload data to AWS IoT SiteWise from sources other than OPC\-UA servers\. Stream manager also provides customizable support for persistence and bandwidth management\. For more information, see [Manage data streams on the AWS IoT Greengrass core](stream-manager.md)\.  
 This connector runs in [No container](lambda-group-config.md#no-container-mode) isolation mode, so you can deploy it to a Greengrass group running in a Docker container\.
 
 This connector has the following versions\.

@@ -12,6 +12,7 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 We recommend that you avoid running as root unless absolutely necessary\. When you run a Lambda function as root, you increase the risk of unintended changes, such as accidentally deleting a critical file\. In addition, running as root increases the risks to your data and device from malicious individuals\. If you do need to run as root, you must update the AWS IoT Greengrass configuration to enable it\. For more information, see [Running a Lambda function as root](#lambda-running-as-root)\.  
 **UID \(number\)**  
 The user ID for the user that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent passwd command on your AWS IoT Greengrass core device to look up the user ID you want to use to run the Lambda function\.  
+If you use the same UID to run processes and the Lambda function on a Greengrass core device, your Greengrass group role can grant the processes temporary credentials\. The processes can use the temporary credentials across Greengrass core deployments\.  
 **GID \(number\)**  
 The group ID for the group that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent group command on your AWS IoT Greengrass core device to look up the group ID you want to use to run the Lambda function\.
 
@@ -157,9 +158,9 @@ You can use the AWS IoT Greengrass dependency checker to determine which isolati
 1. Download and run the AWS IoT Greengrass dependency checker from the [GitHub repository](https://github.com/aws-samples/aws-greengrass-samples)\.
 
    ```
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip
-   unzip greengrass-dependency-checker-GGCv1.10.x.zip
-   cd greengrass-dependency-checker-GGCv1.10.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.11.x.zip
+   unzip greengrass-dependency-checker-GGCv1.11.x.zip
+   cd greengrass-dependency-checker-GGCv1.11.x
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```

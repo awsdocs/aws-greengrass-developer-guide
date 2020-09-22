@@ -142,11 +142,11 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
 
    ```
    cd /home/pi/Downloads
-   mkdir greengrass-dependency-checker-GGCv1.10.x
-   cd greengrass-dependency-checker-GGCv1.10.x
-   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.10.x.zip
-   unzip greengrass-dependency-checker-GGCv1.10.x.zip
-   cd greengrass-dependency-checker-GGCv1.10.x
+   mkdir greengrass-dependency-checker-GGCv1.11.x
+   cd greengrass-dependency-checker-GGCv1.11.x
+   wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.11.x.zip
+   unzip greengrass-dependency-checker-GGCv1.11.x.zip
+   cd greengrass-dependency-checker-GGCv1.11.x
    sudo modprobe configs
    sudo ./check_ggc_dependencies | more
    ```

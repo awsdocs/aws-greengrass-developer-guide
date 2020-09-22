@@ -25,7 +25,7 @@ In this step, you install the SDK and get the `basicPubSub.py` sample function u
 
       ```
       cd path-to-SDK-folder
-      python setup.py install
+      sudo python setup.py install
       ```
 
 ------
@@ -198,7 +198,7 @@ Follow the installation prompts\. The download for the Xcode command line tools 
       cd ~
       git clone https://github.com/aws/aws-iot-device-sdk-python.git
       cd aws-iot-device-sdk-python
-      python setup.py install
+      sudo python setup.py install
       ```
 
 ------
