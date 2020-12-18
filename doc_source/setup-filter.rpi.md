@@ -11,7 +11,7 @@ If you are setting up a Raspberry Pi for the first time, you must follow all of 
 
 1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where you have inserted your SD card\. You can perform a quick format of the SD card\.
 
-1. Download the [Raspbian Buster](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) operating system as a `zip` file\.
+1. Download the [Raspbian Buster](https://downloads.raspberrypi.org/raspbian/images/raspbian-2020-02-14/) operating system as a `zip` file\.
 
 1. Using an SD card\-writing tool \(such as [Etcher](https://etcher.io/)\), follow the tool's instructions to flash the downloaded `zip` file onto the SD card\. Because the operating system image is large, this step might take some time\. Eject your SD card from your computer, and insert the microSD card into your Raspberry Pi\.
 
@@ -118,7 +118,7 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
       cd /boot/
       ```
 
-   1.  Use a text editor to open `cmdline.txt`\. Append the following to the end of the existing line, not as a new line\.
+   1.  Use a text editor to open `cmdline.txt`\. Append the following to the end of the existing line, not as a new line\. You might need to use the `sudo` command to edit as root \(for example, `sudo nano cmdline.txt`\)\.
 
       ```
       cgroup_enable=memory cgroup_memory=1
@@ -139,6 +139,9 @@ If you don't see the `98-rpi.conf` file, follow the instructions in the `README.
    ```
 
 1. To make sure that you have all required dependencies, download and run the Greengrass dependency checker from the [AWS IoT Greengrass Samples](https://github.com/aws-samples/aws-greengrass-samples) repository on GitHub\. These commands unzip and run the dependency checker script in the `Downloads` directory\.
+**Note**  
+ The dependency checker might fail if you are running version 5\.4\.51 of the Raspbian kernel\. This version does not mount memory cgroups correctly\. This might cause Lambda functions running in container mode to fail\.  
+For more information on updating your kernel, see the [ Cgroups not loaded after kernel upgrade](https://www.raspberrypi.org/forums/viewtopic.php?t=280656) in the Raspberry Pi forums\. 
 
    ```
    cd /home/pi/Downloads

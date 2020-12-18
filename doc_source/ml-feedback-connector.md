@@ -496,6 +496,8 @@ def function_handler(event, context):
 
 ## Licenses<a name="ml-feedback-connector-license"></a>
 
+
+
 The ML Feedback connector includes the following third\-party software/licensing:<a name="boto-3-licenses"></a>
 + [AWS SDK for Python \(Boto3\)](https://pypi.org/project/boto3/)/Apache License 2\.0
 + [botocore](https://pypi.org/project/botocore/)/Apache License 2\.0

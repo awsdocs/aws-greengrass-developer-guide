@@ -6,4 +6,4 @@ At least one version of AWS IoT Device Tester is available for each supported ve
 
 For each version of AWS IoT Device Tester, the three latest test suite versions are supported for qualification of devices\.
 
-You can also use any of the supported versions of AWS IoT Greengrass and AWS IoT Device Tester to test or qualify your devices\. Although you can continue to use [unsupported versions of AWS IoT Device Tester](idt-unsupported-versions.md), those versions do not receive bug fixes or updates\. If you have questions about the support policy, contact [AWS Customer Support](https://aws.amazon.com/contact-us/)\.
+You can also use any of the supported versions of AWS IoT Greengrass and AWS IoT Device Tester to test or qualify your devices\. Although you can continue to use [unsupported versions of AWS IoT Device Tester](dev-test-versions.md#idt-unsupported-versions), those versions do not receive bug fixes or updates\. If you have questions about the support policy, contact [AWS Customer Support](https://aws.amazon.com/contact-us/)\.

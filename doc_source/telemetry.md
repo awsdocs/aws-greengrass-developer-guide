@@ -34,9 +34,12 @@ The telemetry agent collects and publishes the following system metrics\.
 
 ## Configuring telemetry settings<a name="configure-telemetry-settings"></a>
 
-Greengrass telemetry uses the following default settings:
+Greengrass telemetry uses the following settings:
 + The telemetry agent aggregates telemetry data every hour\.
 + The telemetry agent publishes a telemetry message every 24 hours\.
+
+**Note**  
+The settings are unchangeable\.
 
 You can enable or disable the telemetry feature for a Greengrass core device\. AWS IoT Greengrass uses [shadows](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) to manage the telemetry configuration\. Your changes take effect immediately when the core has a connection to AWS IoT Core\.
 
@@ -387,14 +390,14 @@ Use the following steps to use the AWS Management Console to create an EventBrid
 Use the following steps to use the AWS CLI to create an EventBridge rule that receives telemetry data published by the Greengrss core\. This allows web servers, email addresses, and other topic subscribers to respond to the event\.
 
 1. Create the rule\.
-   + Replace *thing\-name* with the ID of your Greengrass group\.
+   + Replace *thing\-name* with the thing name of the core\.
 
      To get the thing name, you use the [get\-core\-definition\-version](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-core-definition-version.html) command\. The command returns the ARN of the thing that contains the thing name\.
 
    ```
    aws events put-rule \
      --name TestRule \
-     --event-pattern "{\"source\": [\"aws.greengrass\"], \"detail\": {\"thing-name\": [\"thing-name\"]}}"
+     --event-pattern "{\"source\": [\"aws.greengrass\"], \"detail\": {\"ThingName\": [\"thing-name\"]}}"
    ```
 
    Properties that are omitted from the pattern are ignored\.
@@ -408,7 +411,7 @@ Use the following steps to use the AWS CLI to create an EventBridge rule that re
      --targets "Id"="1","Arn"="queue-arn"
    ```
 **Note**  
-To allow Amazon EventBridge to invoke your target queue, you must add a resource\-based policy to your topic\. For more information, see [Amazon SNS permissions](https://docs.aws.amazon.com/eventbridge/latest/userguide/resource-based-policies-eventbridge.html#sqs-permissions) in the *Amazon EventBridge User Guide*\.
+To allow Amazon EventBridge to invoke your target queue, you must add a resource\-based policy to your topic\. For more information, see [Amazon SQS permissions](https://docs.aws.amazon.com/eventbridge/latest/userguide/resource-based-policies-eventbridge.html#sqs-permissions) in the *Amazon EventBridge User Guide*\.
 
 For more information, see [Events and event patterns in EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html) in the *Amazon EventBridge User Guide*\.
 

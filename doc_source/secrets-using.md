@@ -186,15 +186,14 @@ To allow a Greengrass Lambda function to access a local secret, you configure th
 
   ```
   import greengrasssdk
-   
-  # Creating a Greengrass Core SDK client
-  client = greengrasssdk.client('secretsmanager')
-   
-  # This handler is called when the function is invoked
-  # It uses the secretsmanager client to get the value of a secret
+  
+  secrets_client = greengrasssdk.client('secretsmanager')
+  secret_name = 'greengrass-MySecret-abc'
+  
+  
   def function_handler(event, context):
-      response = client.get_secret_value(SecretId='greengrass-MySecret-abc')
-      raw_secret = response.get('SecretString')
+      response = secrets_client.get_secret_value(SecretId=secret_name)
+      secret = response.get('SecretString')
   ```
 
   For text type secrets, the `get_secret_value` function returns a string\. For binary type secrets, it returns a base64\-encoded string\.
@@ -205,15 +204,17 @@ Make sure that your user\-defined Lambda functions handle secrets securely and d
 
   ```
   import greengrasssdk
-   
-  # Creating a greengrass core sdk client
-  client = greengrasssdk.client('secretsmanager')
-   
-  # This handler is called when the function is invoked
-  # It uses the secretsmanager client to get the value of a specific secret version
+  
+  secrets_client = greengrasssdk.client('secretsmanager')
+  secret_name = 'greengrass-TestSecret'
+  secret_version = 'MyTargetLabel'
+  
+  
+  # Get the value of a specific secret version
   def function_handler(event, context):
-      response = client.get_secret_value(SecretId='greengrass-MySecret-abc', VersionStage='MyTargetLabel')
-      raw_secret = response.get('SecretString')
+      response = secrets_client.get_secret_value(
+          SecretId=secret_name, VersionStage=secret_version)
+      secret = response.get('SecretString')
   ```
 
   For another example function that calls `get_secret_value`, see [Create a Lambda function deployment package](secrets-console.md#secrets-console-create-deployment-package)\.

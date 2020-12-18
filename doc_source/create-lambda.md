@@ -50,9 +50,10 @@ Depending on your distribution, you might need to install `zip` first \(for exam
 
    1.  On the **Configuration** tab, under **Function code**, choose **Actions**\. From the dropdown, choose **Upload a \.zip file**\. Then, choose `hello_world_python_lambda.zip`\. 
 
-   1.  Under **Basic settings**, choose **Edit**\. On the **Edit basic settings** page, set the remaining fields as follows: 
+   1.  Under **Runtime settings**, choose **Edit**\. On the **Edit runtime settings** page, set the remaining fields as follows: 
       + For **Runtime**, choose **Python 3\.7**\.
-      + For **Handler**, enter **greengrassHelloWorld\.function\_handler**
+      + For **Handler**, enter **greengrassHelloWorld\.function\_handler**  
+![\[The "Runtime settings" section with the "Runtime" field set to "Python 3.7" and the "Handler" field set to "greengrassHelloWorld.function_handler".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023-2.png)
 
    1. Choose **Save**\.
 **Note**  
@@ -65,7 +66,7 @@ The **Test** button on the AWS Lambda console doesn't work with this function\. 
    1. For **Version description**, enter **First version**, and then choose **Publish**\.  
 ![\[Screenshot with the Version description field set to First version and the Publish button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-027.png)
 
-1. <a name="create-version-alias"></a>Create an [alias](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html) for the Lambda function version:
+1. <a name="create-version-alias"></a>Create an [alias](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) for the Lambda function [version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html):
 **Note**  
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 

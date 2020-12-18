@@ -142,15 +142,30 @@ The Greengrass OTA update agent is the software component on the device that han
 **Note**  
 *greengrass\-root* represents the path where the AWS IoT Greengrass Core software is installed on your device\. Typically, this is the `/greengrass` directory\.
 
-You can start the OTA update agent by executing the binary manually or by integrating it as part of an init script, such as a systemd service file\. The binary should be run as root\. When it starts, the OTA update agent listens for AWS IoT Greengrass software update jobs from AWS IoT Core and executes them sequentially\. The OTA update agent ignores all other AWS IoT job types\.
+You can start the OTA update agent by executing the binary manually or by integrating it as part of an init script, such as a systemd service file\. If you execute the binary manually, it should be run as root\. When it starts, the OTA update agent listens for AWS IoT Greengrass software update jobs from AWS IoT Core and executes them sequentially\. The OTA update agent ignores all other AWS IoT job types\. 
 
-A core that is the target of an update must not run two instances of the OTA update agent\. Doing so causes the two agents to process the same jobs, which creates conflicts\.
+The following excerpt shows an example of a systemd service file to start, stop, and restart the OTA update agent: 
+
+```
+[Unit]
+Description=Greengrass OTA Daemon
+
+[Service]
+Type=forking
+Restart=on-failure
+ExecStart=/greengrass/ota/ota_agent/ggc-ota
+
+[Install]
+WantedBy=multi-user.target
+```
+
+A core that is the target of an update must not run two instances of the OTA update agent\. Doing so causes the two agents to process the same jobs, which creates conflicts\. 
 
 ## Integration with init systems<a name="integration-with-init"></a>
 
-During an OTA update, the OTA update agent restarts binaries on the core\. If the binaries are running, this might cause conflicts when an init system is monitoring the state of the AWS IoT Greengrass Core software or the agent during the update\.
+During an OTA update, the OTA update agent restarts binaries on the core device\. If the binaries are running, this might cause conflicts when an init system is monitoring the state of the AWS IoT Greengrass Core software or the agent during the update\. To help integrate the OTA update mechanism with your init monitoring strategies, you can write shell scripts that run before and after an update\. For example, you can use the `ggc_pre-update.sh` script to back up data or stop processes before the device shuts down\. 
 
-To help integrate the OTA update mechanism with your init monitoring strategies, you can write shell scripts that run before and after an update\. For example, you can write a script that backs up data or stops processes before the device shuts down\. To tell the OTA update agent to run these scripts, you must include the `"managedRespawn" : true` flag in the [config\.json](gg-core.md#config-json) file\. This setting is shown in the following excerpt:
+To tell the OTA update agent to run these scripts, you must include the `"managedRespawn" : true` flag in the [config\.json](gg-core.md#config-json) file\. This setting is shown in the following excerpt:
 
 ```
 {
@@ -165,7 +180,20 @@ To help integrate the OTA update mechanism with your init monitoring strategies,
 }
 ```
 
-When `managedRespawn` is set to `true`, the OTA update agent runs the scripts from the \./*greengrass\-root*/usr/scripts directory\. The directory tree should look like the following:
+### Managed respawn with OTA updates<a name="ota-managed-respawn"></a>
+
+The following requirements apply to OTA updates with `managedRespawn` set to `true`:
++ The following shell scripts must be present in the `/greengrass-root/usr/scripts` directory:
+  + `ggc_pre_update.sh`
+  + `ggc_post_update.sh`
+  + `ota_pre_update.sh`
+  + `ota_post_update.sh`
++ The scripts must return a successful return code\.
++ The scripts must be owned by root and executable by root only\.
++ The `ggc_pre_update.sh` script must stop the Greengrass daemon\. 
++ The `ggc_post_update.sh` script must start the Greengrass daemon\.
+
+The OTA update agent runs the scripts from the `/greengrass-root/usr/scripts`\. The directory tree should look like the following:
 
 ```
 <greengrass_root>
@@ -181,24 +209,27 @@ When `managedRespawn` is set to `true`, the OTA update agent runs the scripts fr
 |-- ota
 ```
 
-### Managed respawn with OTA updates<a name="ota-managed-respawn"></a>
+When `managedRespawn` is set to `true`, the OTA update agent checks the `/greengrass-root/usr/scripts` directory for these scripts before and after the software update\. If the scripts don't exist, the update fails\. 
 
-If `managedRespawn` is set to `true`, the OTA update agent checks the /*greengrass\-root*/usr/scripts directory for the scripts before and after the software update\. If the scripts don't exist, the update fails\.
-+ For OTA updates of the AWS IoT Greengrass Core software:
+**For OTA updates of the AWS IoT Greengrass Core software:**
++ Before starting the update, the agent runs the `ggc_pre_update.sh` script\. Use this script for commands that need to run before the OTA update agent starts the AWS IoT Greengrass Core software update, such as to back up data or stop any running processes\. The following example shows a simple script to stop the Greengrass daemon\.
 
-  Before starting the update, the agent runs the `ggc_pre_update.sh` script\. After completing the update, the agent runs the `ggc_post_update.sh` script\.
-+ For OTA updates of the OTA update agent software:
+  ```
+  #!/bin/bash
+  set -euo pipefail
+  systemctl stop greengrass
+  ```
++ After completing the update, the agent runs the `ggc_post_update.sh` script\. Use this script for commands that need to run after the OTA update agent starts the AWS IoT Greengrass Core software update, such as to restart processes\. The following example shows a simple script to start the Greengrass daemon\.
 
-  Before starting the update, the agent runs the `ota_pre_update.sh` script\. After completing the update, the agent runs the `ota_post_update.sh` script\.
+  ```
+  #!/bin/bash
+  set -euo pipefail
+  systemctl start greengrass
+  ```
 
-If `managedRespawn` is set to `true`, the following requirements apply:
-+ You must add the following scripts to the /*greengrass\-root*/usr/scripts directory:
-  + ggc\_pre\_update\.sh
-  + ggc\_post\_update\.sh
-  + ota\_pre\_update\.sh
-  + ota\_post\_update\.sh
-+ The scripts must return a successful return code\.
-+ The scripts must be owned by root and executable by root only\.
+**For OTA updates of the OTA update agent:**
++ Before starting the update, the agent runs the `ota_pre_update.sh` script\. Use this script for commands that need to run before the OTA update agent updates itself, such as to back up data or stop any running processes\.
++ After completing the update, the agent runs the `ota_post_update.sh` script\. Use this script for commands that need to run after the OTA update agent updates itself, such as to restart processes\.
 
 **Note**  
 If `managedRespawn` is set to `false`, the OTA update agent does not run the scripts\.

@@ -59,7 +59,7 @@ In this case, Mary asks her administrator to update her policies to allow her to
 
 To allow others to access AWS IoT Greengrass, you must create an IAM entity \(user or role\) for the person or application that needs access\. They will use the credentials for that entity to access AWS\. You must then attach a policy to the entity that grants them the correct permissions in AWS IoT Greengrass\.
 
-To get started right away, see [Creating Your First IAM Delegated User and Group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-delegated-user.html) in the *IAM User Guide*\.
+To get started right away, see [Creating your first IAM delegated user and group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-delegated-user.html) in the *IAM User Guide*\.
 
 ## I want to allow people outside of my AWS account to access my AWS IoT Greengrass resources<a name="security_iam_troubleshoot-cross-account-access"></a>
 

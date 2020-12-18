@@ -2,7 +2,7 @@
 
 AWS IoT devices can use the AWS IoT Device SDK for Python to communicate with AWS IoT and AWS IoT Greengrass core devices \(using the Python programming language\)\. For more information, including requirements, see the AWS IoT Device SDK for Python [ Readme](https://github.com/aws/aws-iot-device-sdk-python) on GitHub\.
 
-In this step, you install the SDK and get the `basicPubSub.py` sample function used by the simulated devices on your computer\.
+In this step, you install the SDK and get the `basicDiscovery.py` sample function used by the simulated devices on your computer\.
 
 1. To install the SDK on your computer, with all required components, choose your operating system:
 
@@ -37,7 +37,7 @@ In this step, you install the SDK and get the `basicPubSub.py` sample function u
       python --version
       ```
 
-      If no version information is returned or if the version number is less that 2\.7 for Python 2 or less than 3\.3 for Python 3, follow the instructions in [Downloading Python](https://wiki.python.org/moin/BeginnersGuide/Download) to install Python 2\.7\+ or Python 3\.3\+ \. For more information, see [Using Python on a Macintosh](https://docs.python.org/3/using/mac.html)\.
+      If no version information is returned or if the version number is less than 2\.7 for Python 2 or less than 3\.3 for Python 3, follow the instructions in [Downloading Python](https://wiki.python.org/moin/BeginnersGuide/Download) to install Python 2\.7\+ or Python 3\.3\+\. For more information, see [Using Python on a Macintosh](https://docs.python.org/3/using/mac.html)\.
 
    1. In the Terminal window, run the following commands to determine the OpenSSL version:
 
@@ -221,6 +221,8 @@ Follow the installation prompts\. The download for the Xcode command line tools 
       ```
 
       Make a note of the OpenSSL version value\. 
+**Note**  
+If you're running Python 3, use print\(ssl\.OPENSSL\_VERSION\)\.
 
       To close the Python shell, run the following command:
 
@@ -252,6 +254,6 @@ Follow the installation prompts\. The download for the Xcode command line tools 
 
 1. After the AWS IoT Device SDK for Python is installed, navigate to the `samples` folder and open the `greengrass` folder\.
 
-   For this tutorial, you copy the `basicPubSub.py` sample function, which uses the certificates and keys that you downloaded in [Create AWS IoT devices in an AWS IoT Greengrass group](device-group.md)\.
+   For this tutorial, you copy the `basicDiscovery.py` sample function, which uses the certificates and keys that you downloaded in [Create AWS IoT devices in an AWS IoT Greengrass group](device-group.md)\.
 
-1. Copy `basicPubSub.py` to the folder that contains the HelloWorld\_Publisher and HelloWorld\_Subscriber device certificates and keys\.
+1. Copy `basicDiscovery.py` to the folder that contains the HelloWorld\_Publisher and HelloWorld\_Subscriber device certificates and keys\.

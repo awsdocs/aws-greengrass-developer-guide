@@ -62,7 +62,7 @@
    list-group-versions --group-id groupId
    ```
 
-    The response contains information about all of the versions in the group\. Make a note of the ID of the group version you want to use\. 
+    The response contains information about all of the versions in the group\. Make a note of the `Version` value for the group version you want to use\. 
 
    ```
    {
@@ -89,7 +89,7 @@
    ...
    ```
 
-    Each record \(or line\) contains a group object\. Each group object contains its corresponding `groupId` and `groupVersionId` and a `DeploymentType`\. Currently, AWS IoT Greengrass supports `NewDeployment` bulk deployment types only\. 
+    Each record \(or line\) contains a group object\. Each group object contains its corresponding `GroupId` and `GroupVersionId` and a `DeploymentType`\. Currently, AWS IoT Greengrass supports `NewDeployment` bulk deployment types only\. 
 
     Save and close your file\. Make a note of the location of the file\. 
 
@@ -357,7 +357,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
  If the bulk deployment is not successful, you can try the following troubleshooting steps\. Run the commands in your terminal\. 
 
-### Troubleshoot input file errors<a name="w64aac15c28c23b5"></a>
+### Troubleshoot input file errors<a name="w86aac13c28c23b5"></a>
 
  The bulk deployment can fail in the event of syntax errors in the bulk deployment input file\. This returns a bulk deployment status of `Failed` with an error message indicating the line number of the first validation error\. There are four possible errors: 
 + 
@@ -389,7 +389,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
    This error indicates that the given input file line is not considered valid json\. 
 
-### Check for concurrent bulk deployments<a name="w64aac15c28c23b7"></a>
+### Check for concurrent bulk deployments<a name="w86aac13c28c23b7"></a>
 
  You cannot start a new bulk deployment while another one is still running or in a non\-terminal state\. This can result in a `Concurrent Deployment Error`\. You can use the ListBulkDeployments command to verify that a bulk deployment is not currently running\. This command lists your bulk deployments from most to least recent\. 
 
@@ -414,7 +414,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  This action results in a status of `Stopping` until the deployment is `Stopped`\. After the deployment has reached a `Stopped` status, you can start a new bulk deployment\. 
 
-### Check ErrorDetails<a name="w64aac15c28c23b9"></a>
+### Check ErrorDetails<a name="w86aac13c28c23b9"></a>
 
  Run the `GetBulkDeploymentStatus` command to return a JSON payload that contains information about any bulk deployment execution failure\. 
 
@@ -430,7 +430,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  When exiting with an error, the `ErrorDetails` JSON payload that is returned by this call contains more information about the bulk deployment execution failure\. An error status code in the `400` series, for example, indicates an input error, either in the input parameters or the caller dependencies\. 
 
-### Check the AWS IoT Greengrass core log<a name="w64aac15c28c23c11"></a>
+### Check the AWS IoT Greengrass core log<a name="w86aac13c28c23c11"></a>
 
  You can troubleshoot issues by viewing the AWS IoT Greengrass core logs\. Use the following commands to view `runtime.log`: 
 

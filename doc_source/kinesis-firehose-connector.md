@@ -9,6 +9,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 5 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/5` | 
 | 4 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/4` | 
 | 3 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/3` | 
 | 2 | `arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/2` | 
@@ -21,7 +22,7 @@ For information about version changes, see the [Changelog](#kinesis-firehose-con
 This connector has the following requirements:
 
 ------
-#### [ Version 4 ]
+#### [ Version 4 \- 5 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
 + <a name="req-kinesis-firehose-stream"></a>A configured Kinesis delivery stream\. For more information, see [Creating an Amazon Kinesis Data Firehose delivery stream](https://docs.aws.amazon.com/firehose/latest/dev/basic-create.html) in the *Amazon Kinesis Firehose Developer Guide*\.
@@ -116,6 +117,48 @@ This connector has the following requirements:
 This connector provides the following parameters:
 
 ------
+#### [ Versions 5 ]
+
+`DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
+The ARN of the default Kinesis Data Firehose delivery stream to send data to\. The destination stream can be overridden by the `delivery_stream_arn` property in the input message payload\.  
+The group role must allow the appropriate actions on all target delivery streams\. For more information, see [Requirements](#kinesis-firehose-connector-req)\.
+Display name in the AWS IoT console: **Default delivery stream ARN**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `arn:aws:firehose:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):deliverystream/([a-zA-Z0-9_\-.]+)$`
+
+`DeliveryStreamQueueSize`  <a name="kinesis-firehose-DeliveryStreamQueueSize"></a>
+The maximum number of records to retain in memory before new records for the same delivery stream are rejected\. The minimum value is 2000\.  
+Display name in the AWS IoT console: **Maximum number of records to buffer \(per stream\)**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `^([2-9]\\d{3}|[1-9]\\d{4,})$`
+
+`MemorySize`  <a name="kinesis-firehose-MemorySize"></a>
+The amount of memory \(in KB\) to allocate to this connector\.  
+Display name in the AWS IoT console: **Memory size**  
+Required: `true`  
+Type: `string`  
+Valid pattern: `^[0-9]+$`
+
+`PublishInterval`  <a name="kinesis-firehose-PublishInterval"></a>
+The interval \(in seconds\) for publishing records to Kinesis Data Firehose\. To disable batching, set this value to 0\.  
+Display name in the AWS IoT console: **Publish interval**  
+Required: `true`  
+Type: `string`  
+Valid values: `0 - 900`  
+Valid pattern: `[0-9]|[1-9]\\d|[1-9]\\d\\d|900`
+
+`IsolationMode`  <a name="IsolationMode"></a>
+The [containerization](connectors.md#connector-containerization) mode for this connector\. The default is `GreengrassContainer`, which means that the connector runs in an isolated runtime environment inside the AWS IoT Greengrass container\.  
+The default containerization setting for the group does not apply to connectors\.
+Display name in the AWS IoT console: **Container isolation mode**  
+Required: `false`  
+Type: `string`  
+Valid values: `GreengrassContainer` or `NoContainer`  
+Valid pattern: `^NoContainer$|^GreengrassContainer$`
+
+------
 #### [ Versions 2 \- 4 ]
 
 `DefaultDeliveryStreamArn`  <a name="kinesis-firehose-DefaultDeliveryStreamArn"></a>
@@ -126,21 +169,21 @@ Required: `true`
 Type: `string`  
 Valid pattern: `arn:aws:firehose:([a-z]{2}-[a-z]+-\d{1}):(\d{12}):deliverystream/([a-zA-Z0-9_\-.]+)$`
 
-`DeliveryStreamQueueSize`  
+`DeliveryStreamQueueSize`  <a name="kinesis-firehose-DeliveryStreamQueueSize"></a>
 The maximum number of records to retain in memory before new records for the same delivery stream are rejected\. The minimum value is 2000\.  
 Display name in the AWS IoT console: **Maximum number of records to buffer \(per stream\)**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^([2-9]\\d{3}|[1-9]\\d{4,})$`
 
-`MemorySize`  
+`MemorySize`  <a name="kinesis-firehose-MemorySize"></a>
 The amount of memory \(in KB\) to allocate to this connector\.  
 Display name in the AWS IoT console: **Memory size**  
 Required: `true`  
 Type: `string`  
 Valid pattern: `^[0-9]+$`
 
-`PublishInterval`  
+`PublishInterval`  <a name="kinesis-firehose-PublishInterval"></a>
 The interval \(in seconds\) for publishing records to Kinesis Data Firehose\. To disable batching, set this value to 0\.  
 Display name in the AWS IoT console: **Publish interval**  
 Required: `true`  
@@ -170,12 +213,13 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyKinesisFirehoseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/4",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/KinesisFirehose/versions/5",
             "Parameters": {
                 "DefaultDeliveryStreamArn": "arn:aws:firehose:region:account-id:deliverystream/stream-name",
                 "DeliveryStreamQueueSize": "5000",
                 "MemorySize": "65535",
-                "PublishInterval": "10"
+                "PublishInterval": "10", 
+                "IsolationMode" : "GreengrassContainer"
             }
         }
     ]
@@ -191,7 +235,7 @@ This connector accepts stream content on MQTT topics, and then sends the content
 + Binary data on the `kinesisfirehose/message/binary/#` topic\.
 
 ------
-#### [ Versions 2 \- 4 ]<a name="kinesis-firehose-input-data"></a>
+#### [ Versions 2 \- 5 ]<a name="kinesis-firehose-input-data"></a>
 
 **Topic filter**: `kinesisfirehose/message`  
 Use this topic to send a message that contains JSON data\.    
@@ -203,7 +247,7 @@ Type: `object` that includes the following properties:
 `data`  
 The data to send to the delivery stream\.  
 Required: `true`  
-Type: `bytes`  
+Type: `string`  
 `delivery_stream_arn`  
 The ARN of the target Kinesis delivery stream\. Include this property to override the default delivery stream\.  
 Required: `false`  
@@ -245,7 +289,7 @@ Type: `object` that includes the following properties:
 `data`  
 The data to send to the delivery stream\.  
 Required: `true`  
-Type: `bytes`  
+Type: `string`  
 `delivery_stream_arn`  
 The ARN of the target Kinesis delivery stream\. Include this property to override the default delivery stream\.  
 Required: `false`  
@@ -281,7 +325,7 @@ If you don't want to map a request to a response, you can publish your messages 
 This connector publishes status information as output data on an MQTT topic\.
 
 ------
-#### [ Versions 2 \- 4 ]
+#### [ Versions 2 \- 5 ]
 
 <a name="topic-filter"></a>**Topic filter in subscription**  <a name="kinesis-firehose-output-topic-status"></a>
 `kinesisfirehose/message/status`
@@ -351,6 +395,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
+If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#kinesis-firehose-connector-req) for the connector\.
@@ -431,6 +476,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 5 | <a name="isolation-mode-changelog"></a>Added the `IsolationMode` parameter to configure the containerization mode for the connector\. | 
 | 4 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 3 | Fix to reduce excessive logging and other minor bug fixes\.  | 
 | 2 | Added support for sending batched data records to Kinesis Data Firehose at a specified interval\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/kinesis-firehose-connector.html)  | 

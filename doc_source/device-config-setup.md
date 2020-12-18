@@ -1,4 +1,4 @@
-# Configuring your device<a name="device-config-setup"></a>
+# Configure your device to run IDT tests<a name="device-config-setup"></a>
 
 To configure your device you must install AWS IoT Greengrass dependencies, configure the AWS IoT Greengrass Core software, configure your host computer to access your device, and configure user permissions on your device\.
 
@@ -15,10 +15,6 @@ IDT for AWS IoT Greengrass tests your device for compatibility with a specific v
 **Note**  
 Each version of AWS IoT Greengrass has a corresponding IDT version\. You must download the version of IDT that corresponds to the version of AWS IoT Greengrass you are using\.
 
-There are two options for installing AWS IoT Greengrass on your device:
-+ Download the AWS IoT Greengrass Core software and configure IDT for AWS IoT Greengrass to use it\.
-+ Use an existing installation of the AWS IoT Greengrass Core software\.
-
 The following sections describe these options\. You only need to do one\.
 
 ### Option 1: Download the AWS IoT Greengrass Core software and configure AWS IoT Device Tester to use it<a name="download-gg"></a>
@@ -34,7 +30,7 @@ Do not change the name of the AWS IoT Greengrass tar\.gz file\. Do not place mul
 
 ### Option 2: Use an existing installation of AWS IoT Greengrass with AWS IoT Device Tester<a name="existing-gg"></a>
 
-Configure IDT to test the AWS IoT Greengrass Core software installed on your device by adding the `greengrassLocation` attribute to the `device.json` file in the `<device_tester_extract_location>/configs` folder\. For example:
+Configure IDT to test the AWS IoT Greengrass Core software installed on your device by adding the `greengrassLocation` attribute to the `device.json` file in the `<device-tester-extract-location>/configs` folder\. For example:
 
 ```
 "greengrassLocation" : "<path-to-greengrass-on-device>"
@@ -137,7 +133,7 @@ Follow these steps on the device under test to allow sudo access without being p
 
 ## Configure your device to test optional features<a name="optional-feature-config"></a>
 
-The following topics describe how to configure your devices to run IDT tests for optional features\. Follow these configuration steps only if you want to test these features\. Otherwise, continue to [Setting configuration to run the AWS IoT Greengrass qualification suite](set-config.md)\.
+The following topics describe how to configure your devices to run IDT tests for optional features\. Follow these configuration steps only if you want to test these features\. Otherwise, continue to [Configure IDT settings to run the AWS IoT Greengrass qualification suite](set-config.md)\.
 
 **Topics**
 + [Verify AWS IoT Greengrass dependencies on the device under test](#install-gg-dependencies)

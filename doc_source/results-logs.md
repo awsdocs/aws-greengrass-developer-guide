@@ -18,7 +18,7 @@ The `GGQ_Result.xml` report is in [JUnit XML format](https://llg.cubic.org/docs/
 + Aggregate summary of test results\.
 + Breakdown of test results by the AWS IoT Greengrass functionality that was tested\.
 
-### Interpreting AWS IoT Device Tester results<a name="interpreting-results-gg"></a>
+## Interpreting IDT reports<a name="interpreting-results-gg"></a>
 
 The report section in `awsiotdevicetester_report.xml` or `awsiotdevicetester_report.xml` lists the tests that were run and the results\.
 
@@ -96,7 +96,7 @@ When a test fails or an error occurs, `<failure>` or `<error>` tags are added to
 </testcase>
 ```
 
-### Viewing logs<a name="view-logs-gg"></a>
+## Viewing logs<a name="view-logs-gg"></a>
 
 IDT generates logs from test execution in `<devicetester-extract-location>/results/<execution-id>/logs`\. Two sets of logs are generated:
 

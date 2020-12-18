@@ -217,6 +217,7 @@ This connector accepts time series metrics on an MQTT topic and publishes the me
 **Message properties**    
 `request`  
 Information about the table, record, and metric\. This request represents the `seriesRef` object in a time series POST request\. For more information, see [ Clotho Time Series API \- POST](https://docs.servicenow.com/bundle/london-application-development/page/integrate/inbound-rest/concept/Clotho-Time-Series-API.html#clotho-POST-put)\.  
+  
 Required: `true`  
 Type: `object` that includes the following properties:    
 `subject`  
@@ -303,6 +304,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
+If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#servicenow-connector-req) for the connector\.

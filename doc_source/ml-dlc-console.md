@@ -339,9 +339,11 @@ If using the NVIDIA Jetson example, you need to use the `resnet18` directory in 
 
 1. Under **Identify resource owner and set access permissions**, choose **No OS group**\.
 
-1. Under **Lambda function affiliations**, choose **Select**\.
+1. **If running in containerized mode: **
 
-1. Choose **optimizedImageClassification**, choose **Read\-only access**, and then choose **Done**\.
+   1. Under **Lambda function affiliations**, choose **Select**\.
+
+   1. Choose **optimizedImageClassification**, choose **Read\-only access**, and then choose **Done**\.
 
 1.  Choose **Save**\. 
 

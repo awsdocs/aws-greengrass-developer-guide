@@ -1,18 +1,18 @@
 # IoT SiteWise connector<a name="iot-sitewise-connector"></a>
 
-The IoT SiteWise connector sends local device and equipment data to asset properties in AWS IoT SiteWise\. You can use this connector to collect data from multiple OPC\-UA servers and publish it to AWS IoT SiteWise\. The connector sends the data to asset properties in the current AWS account and Region\.
+The IoT SiteWise connector sends local device and equipment data to asset properties in AWS IoT SiteWise\. You can use this connector to collect data from multiple OPC\-UA servers and publish it to IoT SiteWise\. The connector sends the data to asset properties in the current AWS account and Region\.
 
 **Note**  
-AWS IoT SiteWise is a fully managed service that collects, processes, and visualizes data from industrial devices and equipment\. You can configure asset properties that process raw data sent from this connector to your assets' measurement properties\. For example, you can define a transform property that converts a device's Celsius temperature data points to Fahrenheit, or you can define a metric property that calculates the average hourly temperature\. For more information, see [What is AWS IoT SiteWise?](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/) in the *AWS IoT SiteWise User Guide*\.
+IoT SiteWise is a fully managed service that collects, processes, and visualizes data from industrial devices and equipment\. You can configure asset properties that process raw data sent from this connector to your assets' measurement properties\. For example, you can define a transform property that converts a device's Celsius temperature data points to Fahrenheit, or you can define a metric property that calculates the average hourly temperature\. For more information, see [What is AWS IoT SiteWise?](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/) in the *AWS IoT SiteWise User Guide*\.
 
-The connector sends data to AWS IoT SiteWise with the OPC\-UA data stream paths sent from the OPC\-UA servers\. For example, the data stream path `/company/windfarm/3/turbine/7/temperature` might represent the temperature sensor of turbine \#7 at wind farm \#3\. If the AWS IoT Greengrass core loses connection to the internet, the connector caches data until it can successfully connect to the AWS Cloud\. You can configure the maximum disk buffer size used for caching data\. If the cache size exceeds the maximum disk buffer size, the connector discards the oldest data from the queue\.
+The connector sends data to IoT SiteWise with the OPC\-UA data stream paths sent from the OPC\-UA servers\. For example, the data stream path `/company/windfarm/3/turbine/7/temperature` might represent the temperature sensor of turbine \#7 at wind farm \#3\. If the AWS IoT Greengrass core loses connection to the internet, the connector caches data until it can successfully connect to the AWS Cloud\. You can configure the maximum disk buffer size used for caching data\. If the cache size exceeds the maximum disk buffer size, the connector discards the oldest data from the queue\.
 
-After you configure and deploy the IoT SiteWise connector, you can add a gateway and OPC\-UA sources in the [AWS IoT SiteWise console](https://console.aws.amazon.com/iotsitewise/)\. When you configure a source in the console, you can filter or prefix the OPC\-UA data stream paths sent by the IoT SiteWise connector\. For instructions to finish setting up your gateway and sources, see [Adding the gateway](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/configure-gateway.html#add-gateway) in the *AWS IoT SiteWise User Guide*\.
+After you configure and deploy the IoT SiteWise connector, you can add a gateway and OPC\-UA sources in the [IoT SiteWise console](https://console.aws.amazon.com/iotsitewise/)\. When you configure a source in the console, you can filter or prefix the OPC\-UA data stream paths sent by the IoT SiteWise connector\. For instructions to finish setting up your gateway and sources, see [Adding the gateway](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/configure-gateway.html#add-gateway) in the *AWS IoT SiteWise User Guide*\.
 
-AWS IoT SiteWise receives data only from data streams that you have mapped to the measurement properties of AWS IoT SiteWise assets\. To map data streams to asset properties, you can set a property's alias to be equivalent to an OPC\-UA data stream path\. To learn about defining asset models and creating assets, see [Modeling industrial assets](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/industrial-asset-models) in the *AWS IoT SiteWise User Guide*\.
+IoT SiteWise receives data only from data streams that you have mapped to the measurement properties of IoT SiteWise assets\. To map data streams to asset properties, you can set a property's alias to be equivalent to an OPC\-UA data stream path\. To learn about defining asset models and creating assets, see [Modeling industrial assets](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/industrial-asset-models) in the *AWS IoT SiteWise User Guide*\.
 
 **Notes**  
-You can use stream manager to upload data to AWS IoT SiteWise from sources other than OPC\-UA servers\. Stream manager also provides customizable support for persistence and bandwidth management\. For more information, see [Manage data streams on the AWS IoT Greengrass core](stream-manager.md)\.  
+You can use stream manager to upload data to IoT SiteWise from sources other than OPC\-UA servers\. Stream manager also provides customizable support for persistence and bandwidth management\. For more information, see [Manage data streams on the AWS IoT Greengrass core](stream-manager.md)\.  
 This connector runs in [No container](lambda-group-config.md#no-container-mode) isolation mode, so you can deploy it to a Greengrass group running in a Docker container\.
 
 This connector has the following versions\.
@@ -20,7 +20,9 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 7 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/7` | 
+| 9 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/9` | 
+| 8 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/8` | 
+| 7 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/7` | 
 | 6 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/6` | 
 | 5 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/5` | 
 | 4 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/4` | 
@@ -35,15 +37,49 @@ For information about version changes, see the [Changelog](#iot-sitewise-connect
 This connector has the following requirements:
 
 ------
-#### [ Versions 6 and 7 ]
+#### [ Version 9 ]
+
+**Important**  
+This version introduces new requirements: AWS IoT Greengrass Core software v1\.10\.2 and [stream manager](stream-manager.md)\.
++ AWS IoT Greengrass Core software v1\.10\.2\.
++ <a name="conn-sitewise-req-stream-manager"></a>[Stream manager](stream-manager.md) enabled on the Greengrass group\.
++ <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
+
+  ```
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+               "Effect": "Allow",
+               "Action": "iotsitewise:BatchPutAssetPropertyValue",
+               "Resource": "*",
+               "Condition": {
+                   "StringLike": {
+                       "iotsitewise:assetHierarchyPath": [
+                           "/root node asset ID",
+                           "/root node asset ID/*"
+                       ]
+                   }
+               }
+          }
+      ]
+  }
+  ```
+
+  For more information, see [Adding and removing IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html) in the *IAM User Guide*\.
+
+------
+#### [ Versions 6, 7, and 8 ]
 
 **Important**  
 This version introduces new requirements: AWS IoT Greengrass Core software v1\.10\.0 and [stream manager](stream-manager.md)\.
 + <a name="conn-sitewise-req-ggc-1010"></a>AWS IoT Greengrass Core software v1\.10\.0\.
 + <a name="conn-sitewise-req-stream-manager"></a>[Stream manager](stream-manager.md) enabled on the Greengrass group\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-sitewise-connector-limits)\.
-+ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your AWS IoT SiteWise assets\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
   {
@@ -72,8 +108,8 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 #### [ Version 5 ]
 + <a name="conn-sitewise-req-ggc-194"></a>AWS IoT Greengrass Core software v1\.9\.4\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-sitewise-connector-limits)\.
-+ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your AWS IoT SiteWise assets\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
   {
@@ -102,8 +138,8 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 #### [ Version 4 ]
 + <a name="conn-sitewise-req-ggc-1010"></a>AWS IoT Greengrass Core software v1\.10\.0\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-sitewise-connector-limits)\.
-+ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your AWS IoT SiteWise assets\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
   {
@@ -132,8 +168,8 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 #### [ Version 3 ]
 + <a name="conn-sitewise-req-ggc-194"></a>AWS IoT Greengrass Core software v1\.9\.4\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-sitewise-connector-limits)\.
-+ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your AWS IoT SiteWise assets\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
   {
@@ -162,8 +198,8 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 #### [ Versions 1 and 2 ]
 + <a name="conn-sitewise-req-ggc-194"></a>AWS IoT Greengrass Core software v1\.9\.4\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-sitewise-connector-limits)\.
-+ <a name="conn-sitewise-req-policy-v1"></a>An IAM policy added to the Greengrass group role that allows access to AWS IoT Core and the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your AWS IoT SiteWise assets\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-policy-v1"></a>An IAM policy added to the Greengrass group role that allows access to AWS IoT Core and the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
   {
@@ -204,7 +240,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 ## Parameters<a name="iot-sitewise-connector-param"></a>
 
 ------
-#### [ Versions 2, 3, 4, 5, 6, and 7 ]<a name="conn-sitewise-params-v2"></a>
+#### [ Versions 2, 3, 4, 5, 6, 7, 8, and 9 ]<a name="conn-sitewise-params-v2"></a>
 
 `SiteWiseLocalStoragePath`  
 The directory on the AWS IoT Greengrass host that the IoT SiteWise connector can write persistent data to\. Defaults to `/var/sitewise`\.  
@@ -269,7 +305,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyIoTSiteWiseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/7"
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/8"
         }
     ]
 }'
@@ -290,22 +326,27 @@ This connector doesn't publish MQTT messages as output data\.
 
 ## Limits<a name="iot-sitewise-connector-limits"></a>
 
-This connector is subject to the following limits\.
-+ All limits imposed by AWS IoT SiteWise, including the following\. For more information, see [ AWS IoT SiteWise endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html#limits_iot_sitewise) in the *AWS General Reference*\. 
-  + Maximum number of gateways per AWS account\.
-  + Maximum number of OPC\-UA sources per gateway\.
-  + Maximum rate of timestamp\-quality\-value \(TQV\) data points stored per AWS account\.
-  + Maximum rate of TQV data points stored per asset property\.
-+ This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html#greengrass_region) and [AWS IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html#iot-sitewise_region) are supported\. Currently, this includes the following Regions:
-  + US East \(N\. Virginia\) \- `us-east-1`
-  + US West \(Oregon\) \- `us-west-2`
-  + Europe \(Frankfurt\) \- `eu-central-1`
-  + Europe \(Ireland\) \- `eu-west-1`
+This connector is subject to the following all limits imposed by IoT SiteWise, including the following\. For more informatison, see [ AWS IoT SiteWise endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) in the *AWS General Reference*\. 
++ Maximum number of gateways per AWS account\.
++ Maximum number of OPC\-UA sources per gateway\.
++ Maximum rate of timestamp\-quality\-value \(TQV\) data points stored per AWS account\.
++ Maximum rate of TQV data points stored per asset property\.
 
 ## Licenses<a name="iot-sitewise-connector-license"></a>
 
 ------
-#### [ Versions 6 and 7 ]
+#### [ Version 9 ]
+
+The IoT SiteWise connector includes the following third\-party software/licensing:
++  [Ethernet/IP Client](https://github.com/digitalpetri/ethernet-ip/blob/master/LICENSE) 
++  [MapDB](https://github.com/jankotek/mapdb/blob/master/LICENSE.txt) 
++  [Elsa](https://github.com/jankotek/elsa/blob/master/LICENSE.txt) 
++ [Eclipse Milo](https://github.com/eclipse/milo/blob/maintenance/0.2/LICENSE)
+
+This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
+
+------
+#### [ Versions 6, 7, and 8 ]
 
 The IoT SiteWise connector includes the following third\-party software/licensing:
 + [Milo](https://github.com/eclipse/milo/) / EDL 1\.0
@@ -330,6 +371,8 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | Date | 
 | --- | --- | --- | 
+|  9  |  Support launched for custom Greengrass `StreamManager` stream destinations, OPC\-UA deadbanding, custom scan mode and custom scan rate\. Also includes improved performance during configuration updates made from the IoT SiteWise gateway\.  |  December 15, 2020  | 
+|  8  |  Improved stability when the connector experiences intermittent network connectivity\.  |  November 19, 2020  | 
 |  7  |  Fixed an issue with gateway metrics\.  |  August 14, 2020  | 
 |  6  |  Added support for CloudWatch metrics and automatic discovery of new OPC\-UA tags\. This version requires [stream manager](stream-manager.md) and AWS IoT Greengrass Core software v1\.10\.0 or higher\.  |  April 29, 2020  | 
 |  5  |  Fixed a compatibility issue with AWS IoT Greengrass Core software v1\.9\.4\.  |  February 12, 2020  | 
@@ -348,4 +391,4 @@ The following table describes the changes in each version of the connector\.
   + [What is AWS IoT SiteWise?](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/)
   + [Using a gateway](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/gateway-connector.html)
   + [Gateway CloudWatch metrics](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-cloudwatch-metrics.html#gateway-metrics)
-  + [Troubleshooting an AWS IoT SiteWise gateway](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/troubleshooting.html#troubleshooting-gateway)
+  + [Troubleshooting an IoT SiteWise gateway](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/troubleshooting.html#troubleshooting-gateway)

@@ -1,10 +1,10 @@
-# Setting configuration to run the AWS IoT Greengrass qualification suite<a name="set-config"></a>
+# Configure IDT settings to run the AWS IoT Greengrass qualification suite<a name="set-config"></a>
 
 Before you run tests, you must configure settings for AWS credentials and devices on your host computer\.
 
 ## Configure your AWS credentials<a name="cfg-aws-gg"></a>
 
-You must configure your IAM user credentials in the `<device_tester_extract_location> /configs/config.json` file\. Use the credentials for the IDT for AWS IoT Greengrass user created in [Create and configure an AWS account](dev-tst-prereqs.md#config-aws-account-for-idt)\. You can specify your credentials in one of two ways:
+You must configure your IAM user credentials in the `<device-tester-extract-location> /configs/config.json` file\. Use the credentials for the IDT for AWS IoT Greengrass user created in [Create and configure an AWS account](dev-tst-prereqs.md#config-aws-account-for-idt)\. You can specify your credentials in one of two ways:
 + Credentials file
 + Environment variables
 
@@ -275,6 +275,7 @@ If you want to list your board in the AWS Partner Device Catalog, the SKU you sp
 `features`  
 An array that contains the device's supported features\. All features are required\.    
 `os` and `arch`  
+  
 Supported operating system \(OS\) and architecture combinations:  
 + `linux`, `x86_64`
 + `linux`, `armv6l`
@@ -377,7 +378,7 @@ Optional\. The path to the kernel configuration file\. AWS IoT Device Tester use
 
 This section describes the optional properties in the device configuration file that apply to ML qualification\. If you plan to run tests for ML qualification, you must define the properties that apply to your use case\.
 
-You can use the `device-ml.json` template to define the configuration settings for your device\. This template contains the optional ML properties\. You can also use `device.json` and add the ML qualification properties\. These files are located in `<device_tester_extract_location>/configs` and includes ML qualification properties\. If you use `device-ml.json`, you must rename the file to `device.json` before you run IDT tests\.
+You can use the `device-ml.json` template to define the configuration settings for your device\. This template contains the optional ML properties\. You can also use `device.json` and add the ML qualification properties\. These files are located in `<device-tester-extract-location>/configs` and includes ML qualification properties\. If you use `device-ml.json`, you must rename the file to `device.json` before you run IDT tests\.
 
 For information about device configuration properties that don't apply to ML qualification, see [Configure device\.json](#device-config)\.
 

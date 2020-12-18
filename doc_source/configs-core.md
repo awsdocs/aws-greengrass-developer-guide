@@ -2,7 +2,7 @@
 
 1. Make sure that your Greengrass core device is connected to the internet\. For example, try successfully navigating to a webpage\.
 
-1. Make sure that the Greengrass daemon is running on your core device\. Run the following commands in your core device terminal\.
+1. Make sure that the Greengrass daemon is running on your core device\. In your core device terminal, run the following commands to check whether the daemon is running and start it, if needed\.
 
    1. To check whether the daemon is running:
 

@@ -49,7 +49,7 @@
       cat user/region/account-id/GG_Car_Aggregator.log
       ```
 
-      <a name="check-connection-info"></a> The `lightController.py` and `trafficLight.py` scripts store connection information in the `groupCA` folder, which is created in the same folder as the scripts\. If you receive connection errors, make sure that the IP address in the `ggc-host` file matches the single IP address endpoint that you configured for your core in [this step](config-dev-subs.md#configure-ip-address)\.
+      <a name="check-connection-info"></a> The `lightController.py` and `trafficLight.py` scripts store connection information in the `groupCA` folder, which is created in the same folder as the scripts\. If you receive connection errors, make sure that the IP address in the `ggc-host` file matches the IP address endpoint for your core\.
 
    For more information, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 

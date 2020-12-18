@@ -49,7 +49,19 @@ When you use IDT, you must get the correct configuration files in place before y
 
 If you are still having issues, see the following debugging process\.
 
-### Where do I look?<a name="where-to-look"></a>
+**Topics**
++ [Where do I look for errors?](#where-to-look)
++ [Parsing errors](#parse-error)
++ [Required parameter missing error](#param-missing)
++ [Could not start test error](#could-not-start-test)
++ [Not authorized to access resource error](#not-authorized-to-access-resource)
++ [Permission denied errors](#pwd-sudo)
++ [SSH connection errors](#ssh-connect-errors)
++ [Timeout errors](#test-timeout)
++ [Command not found errors while testing](#cmd-not-found)
++ [Security exception on macOS](#macos-notarization-exception)
+
+### Where do I look for errors?<a name="where-to-look"></a>
 
 High\-level errors are displayed on the console during execution, and a summary of the failed tests with the error is displayed when all tests are complete\. `awsiotdevicetester_report.xml` contains a summary of all the errors that caused a test to fail\. The log files for each test run are stored in a directory named with an UUID for the test execution that was displayed on the console during the test run\.
 
@@ -135,3 +147,19 @@ For example, on a Raspberry Pi, run the following commands to install the requir
    ```
    sudo dpkg -i libssl1.0.0_1.0.2l-1~bpo8+1_armhf.deb
    ```
+
+### Security exception on macOS<a name="macos-notarization-exception"></a>
+
+When you run IDT on host machine that uses macOS 10\.15, the notarization ticket for IDT is not correctly detected and IDT is blocked from being run\. To run IDT, you will need to grant a security exception to the `devicetester_mac_x86-64` executable\. 
+
+**To grant a security exception to the IDT executable**
+
+1. Launch **System Preferences** from the Apple menu\.
+
+1. Choose **Security & Privacy**, then on the **General** tab, click the lock icon to make changes to security settings\.
+
+1. Look for the message `"devicetester_mac_x86-64" was blocked from use because it is not from an identified developer.` and choose **Allow Anyway**\.
+
+1. Accept the security warning\.
+
+If you have questions about the IDT support policy, contact [AWS Customer Support](https://aws.amazon.com/contact-us/)\.

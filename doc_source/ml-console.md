@@ -597,7 +597,7 @@ If your device is prebuilt with Python 3\.6, you can create a symlink to Python 
  If you're using AWS DeepLens, you can use the onboard camera or mount your own camera to perform inference on captured images instead of static images\. However, we strongly recommend you start with static images first\.   
 If you use a camera, make sure that the `awscam` APT package is installed and up to date\. For more information, see [Update your AWS DeepLens device](https://docs.aws.amazon.com/deeplens/latest/dg/deeplens-manual-updates.html) in the *AWS DeepLens Developer Guide*\.
 
-1. <a name="python-symlink"></a>If you're using Python 3\.6, make sure to create a symlink from Python 3\.7 to Python 3\.6\. This configures your device to use Python 3 with AWS IoT Greengrass\. Run the following command to locate your Python installation:
+1. <a name="python-symlink"></a>If you aren't using Python 3\.7, make sure to create a symlink from Python 3\.x to Python 3\.7\. This configures your device to use Python 3 with AWS IoT Greengrass\. Run the following command to locate your Python installation:
 
    ```
    which python3
@@ -606,7 +606,7 @@ If you use a camera, make sure that the `awscam` APT package is installed and up
    Run the following command to create the symlink:
 
    ```
-   sudo ln -s path-to-python-3.6/python3.6 path-to-python-3.7/python3.7
+   sudo ln -s path-to-python-3.x/python3.x path-to-python-3.7/python3.7
    ```
 
    Reboot the device\.

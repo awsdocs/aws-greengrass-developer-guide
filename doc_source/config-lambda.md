@@ -27,7 +27,7 @@ In this step, you:
 ![\[Screenshot of MyFirstGroup with the ellipsis and Edit Configuration highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-034.png)
 
 1. On the **Group\-specific Lambda configuration** page, make the following changes:
-   + Set **Timeout** to 25 seconds\. This Lambda function sleeps for 20 seconds before each invocation\.
+   + Set **Timeout** to 25 seconds\. This Lambda function sleeps for 5 seconds before each invocation\.
    + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
 
       

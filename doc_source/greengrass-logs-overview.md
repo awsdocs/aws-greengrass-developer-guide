@@ -244,6 +244,8 @@ When logging to CloudWatch is enabled, the logging component batches log events 
 
 ### Memory<a name="gg-log-limit-mem"></a>
 
+
+
 If AWS IoT Greengrass is configured to send logs to CloudWatch and a Lambda function logs more than 5 MB/second for a prolonged period of time, the internal processing pipeline eventually fills up\. The theoretical worst case is 6 MB per Lambda function\. 
 
 ### Clock skew<a name="gg-log-limit-skew"></a>

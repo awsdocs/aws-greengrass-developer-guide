@@ -1,4 +1,46 @@
-# Test group descriptions<a name="dt-test-groups"></a>
+# Use IDT to run the AWS IoT Greengrass qualification suite<a name="idt-gg-qualification"></a>
+
+You can use AWS IoT Device Tester \(IDT\) for AWS IoT Greengrass to verify that the AWS IoT Greengrass Core software runs on your hardware and can communicate with the AWS Cloud\. It also performs end\-to\-end tests with AWS IoT Core\. For example, it verifies that your device can send and receive MQTT messages and process them correctly\. 
+
+If you want to add your hardware to the AWS Partner Device Catalog, run the AWS IoT Greengrass qualification suite to generate test reports that you can submit to AWS IoT\. For more information, see [AWS Device Qualification Program](https://aws.amazon.com/partners/dqp/)\. 
+
+In addition to testing devices, IDT for AWS IoT Greengrass creates resources \(for example, AWS IoT things, AWS IoT Greengrass groups, Lambda functions, and so on\) in your AWS account to facilitate the qualification process\.
+
+<a name="idt-aws-credentials"></a>To create these resources, IDT for AWS IoT Greengrass uses the AWS credentials configured in the `config.json` file to make API calls on your behalf\. These resources are provisioned at various times during a test\.
+
+When you use IDT for AWS IoT Greengrass to run the AWS IoT Greengrass qualification suite, IDT performs the following steps:
+
+1. Loads and validates your device and credential configurations\.
+
+1. Performs selected tests with the required local and cloud resources\.
+
+1. Cleans up local and cloud resources\.
+
+1. Generates tests reports that indicate if your device passed the tests required for qualification\.
+
+## Test suite versions<a name="idt-test-suite-versions"></a>
+
+IDT for AWS IoT Greengrass organizes tests into test suites and test groups\.<a name="idt-test-suites-groups"></a>
++ A test suite is the set of test groups used to verify that a device works with particular versions of AWS IoT Greengrass\.
++ A test group is the set of individual tests related to a particular feature, such as Greengrass group deployments and MQTT messaging\.
+
+Starting in IDT v3\.0\.0, test suites are versioned using a `major.minor.patch` format, for example `GGQ_1.0.0`\. When you download IDT, the package includes the latest test suite version\.
+
+**Important**  
+IDT supports the three latest test suite versions for device qualification\. For more information, see [Support policy for AWS IoT Device Tester for AWS IoT Greengrass](idt-support-policy.md)\.  
+You can run `list-supported-products` to list the versions of AWS IoT Greengrass and test suites that are supported by your current version of IDT\. Tests from unsupported test suite versions are not valid for device qualification\. IDT doesn't print qualification reports for unsupported versions\.
+
+### Updates to IDT configuration settings<a name="idt-test-suite-versions-config-changes"></a>
+
+New tests might introduce new IDT configuration settings\.
++ If the settings are optional, IDT continues running the tests\.
++ If the settings are required, IDT notifies you and stops running\. After you configure the settings, restart the test run\.
+
+  Configuration settings are located in the `<device-tester-extract-location>/configs` folder\. For more information, see [Configure IDT settings to run the AWS IoT Greengrass qualification suite](set-config.md)\.
+
+If an updated test suite version adds configuration settings, IDT creates a copy of the original configuration file in `<device-tester-extract-location>/configs`\.
+
+## Test group descriptions<a name="dt-test-groups"></a>
 
 ------
 #### [ IDT v2\.0\.0 and later ]

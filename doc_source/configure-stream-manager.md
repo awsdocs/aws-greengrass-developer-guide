@@ -73,8 +73,8 @@ You can use the AWS IoT console for the following management tasks:
 
 Changes take effect after the Greengrass group is deployed\. For a tutorial that shows how to deploy a Greengrass group that contains a Lambda function that interacts with stream manager, see [Export data streams to the AWS Cloud \(console\)](stream-manager-console.md)\.
 
-**Note**  
-When you use the console to enable stream manager and deploy the group, the memory limit for stream manager is set to 4 GB\.
+**Note**  <a name="ggstreammanager-function-config-console"></a>
+When you use the console to enable stream manager and deploy the group, the memory size for stream manager is set to 4194304 KB \(4 GB\) by default\. We recommend that you set the memory size to at least 128000 KB\.
 
  
 
@@ -249,14 +249,17 @@ The following example configuration enables stream manager with default settings
 {
     "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
     "FunctionConfiguration": {
-        "MemorySize": 128000,
+        "MemorySize": 4194304,
         "Pinned": true,
         "Timeout": 3
     },
     "Id": "streamManager"
 }
 ```
-<a name="ggstreammanager-function-config"></a>For the `FunctionConfiguration` properties, `MemorySize` should be at least `128000`\. `Pinned` must be set to `true`\. `Timeout` is required by the function definition version, but `GGStreamManager` doesn't use it\.
+For the `FunctionConfiguration` properties, you might know the following:  
++ `MemorySize` is set to 4194304 KB \(4 GB\) with default settings\. You can always change this value\. We recommend that you set `MemorySize` to at least 128000 KB\.
++ `Pinned` must be set to `true`\.
++ `Timeout` is required by the function definition version, but `GGStreamManager` doesn't use it\.
 
 **Stream manager with custom settings**  <a name="enable-stream-manager-custom-settings"></a>
 The following example configuration enables stream manager with custom values for the storage directory, server port, and thread pool size parameters\.  
@@ -272,7 +275,7 @@ The following example configuration enables stream manager with custom values fo
                 "STREAM_MANAGER_EXPORTER_THREAD_POOL_SIZE": "4"
             }
         },
-        "MemorySize": 128000,
+        "MemorySize": 4194304,
         "Pinned": true,
         "Timeout": 3
     },
@@ -294,7 +297,7 @@ The following example configuration enables stream manager with custom values fo
                 "STREAM_MANAGER_EXPORTER_S3_DESTINATION_MULTIPART_UPLOAD_MIN_PART_SIZE_BYTES": "10485760"
             }
         },
-        "MemorySize": 128000,
+        "MemorySize": 4194304,
         "Pinned": true,
         "Timeout": 3
     },
@@ -357,7 +360,7 @@ The following example enables stream manager, by including the `GGStreamManager`
            {
                "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
                "FunctionConfiguration": {
-                   "MemorySize": 128000,
+                   "MemorySize":  4194304,
                    "Pinned": true,
                    "Timeout": 3
                },
@@ -395,7 +398,7 @@ The following example enables stream manager by including the `GGStreamManager` 
                            "STREAM_MANAGER_EXPORTER_THREAD_POOL_SIZE": "4"
                        }
                    },
-                   "MemorySize": 128000,
+                   "MemorySize":  4194304,
                    "Pinned": true,
                    "Timeout": 3
                },
@@ -415,7 +418,10 @@ The following example enables stream manager by including the `GGStreamManager` 
        ]
    }'
    ```
-<a name="ggstreammanager-function-config"></a>For the `FunctionConfiguration` properties, `MemorySize` should be at least `128000`\. `Pinned` must be set to `true`\. `Timeout` is required by the function definition version, but `GGStreamManager` doesn't use it\.  
+For the `FunctionConfiguration` properties, you might know the following:  
+   + `MemorySize` is set to 4194304 KB \(4 GB\) with default settings\. You can always change this value\. We recommend that you set `MemorySize` to at least 128000 KB\.
+   + `Pinned` must be set to `true`\.
+   + `Timeout` is required by the function definition version, but `GGStreamManager` doesn't use it\.  
 **Disable stream manager**  
 The following example omits the `GGStreamManager` function, which disables stream manager\.  
 

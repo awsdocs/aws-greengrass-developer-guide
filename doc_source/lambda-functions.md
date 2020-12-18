@@ -93,12 +93,12 @@ For example, the following Python Lambda function uses the AWS SDK for Python to
 
 ```
 import boto3
-        
-client = boto3.client('iot-data')
-response = client.publish(
-    topic = 'some/topic',
-    qos = 0,
-    payload = 'Some payload'.encode()
+
+iot_client = boto3.client('iot-data')
+response = iot_client.publish(
+    topic='some/topic',
+    qos=0,
+    payload='Some payload'.encode()
 )
 ```
 
@@ -106,12 +106,12 @@ To port the function for an AWS IoT Greengrass core, in the `import` statement a
 
 ```
 import greengrasssdk
-                        
-client = greengrasssdk.client('iot-data')
-response = client.publish(
-    topic = 'some/topic',
-    qos = 0,
-    payload = 'Some payload'.encode()
+
+iot_client = greengrasssdk.client('iot-data')
+iot_client.publish(
+    topic='some/topic',
+    qos=0,
+    payload='Some payload'.encode()
 )
 ```
 

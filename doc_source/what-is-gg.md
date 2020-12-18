@@ -775,13 +775,13 @@ For information about other options for installing the AWS IoT Greengrass Core s
 
 ### AWS IoT Greengrass snap software<a name="gg-snapstore-download"></a>
 
-<a name="snap-ggc-v1.8-only"></a>Currently, AWS IoT Greengrass snap software is available for AWS IoT Greengrass core version 1\.8 only\.
+<a name="gg-snap-description"></a>AWS IoT Greengrass snap v1\.11\.0 enables you to run a limited version of AWS IoT Greengrass through convenient software packages with all necessary dependencies in a containerized environment\.
 
-<a name="snap-ggc-desc"></a> The AWS IoT Greengrass snap software download makes it possible for you to run a version of AWS IoT Greengrass with limited functionality on Linux cloud, desktop, and IoT environments through convenient containerized software packages\. These packages, or snaps, contain the AWS IoT Greengrass Core software and its dependencies\. You can download and use these packages on your Linux environments as\-is\.
+**Note**  <a name="gg-snap-v1.11-note"></a>
+The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.0 and later\. Unsupported versions don't receive bug fixes or updates\.  
+The AWS IoT Greengrass snap doesn't support connectors and machine learning \(ML\) inference\.
 
-<a name="snap-ggc-limitations"></a> The AWS IoT Greengrass snap allows you to run a version of AWS IoT Greengrass with limited functionality on your Linux environments\. Currently, Java, Node\.js, and native Lambda functions are not supported\. Machine learning inference, connectors, and noncontainerized Lambda functions are also not supported\.
-
-For more information, see [Getting started with AWS IoT Greengrass snap](install-ggc.md#gg-snap-setup)\.
+For more information, see [Run AWS IoT Greengrass in a snap](install-ggc.md#gg-snap-support)\.
 
  
 

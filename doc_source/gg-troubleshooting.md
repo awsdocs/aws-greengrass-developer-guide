@@ -469,7 +469,7 @@ For more information, see [Using apt to install the AWS IoT Greengrass Core soft
 ### The deployment doesn't finish\.<a name="troubleshoot-stuck-deployment"></a>
 
 **Solution:** Do the following:
-+ Make sure that the AWS IoT Greengrass daemon is running on your core device\. Run the following commands in your core device terminal to check whether the daemon is running and start it, if needed\.
++ Make sure that the AWS IoT Greengrass daemon is running on your core device\. In your core device terminal, run the following commands to check whether the daemon is running and start it, if needed\.
 
   1. To check whether the daemon is running:
 

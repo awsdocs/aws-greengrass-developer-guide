@@ -9,7 +9,11 @@ AWS IoT Greengrass provides the following group\-specific configuration settings
 **Run as**  <a name="lambda-access-identity"></a>
 The access identity used to run a Lambda function\. By default, Lambda functions run as the group's [default access identity](#lambda-access-identity-groupsettings)\. Typically, this is the standard AWS IoT Greengrass system accounts \(ggc\_user and ggc\_group\)\. You can change the setting and choose the user ID and group ID that have the permissions required to run the Lambda function\. You can override both UID and GID or just one if you leave the other field blank\. This setting gives you more granular control over access to device resources\. We recommend that you configure your Greengrass hardware with appropriate resource limits, file permissions, and disk quotas for the users and groups whose permissions are used to run Lambda functions\.  
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.  
-We recommend that you avoid running as root unless absolutely necessary\. When you run a Lambda function as root, you increase the risk of unintended changes, such as accidentally deleting a critical file\. In addition, running as root increases the risks to your data and device from malicious individuals\. If you do need to run as root, you must update the AWS IoT Greengrass configuration to enable it\. For more information, see [Running a Lambda function as root](#lambda-running-as-root)\.  
+We recommend that you avoid running Lambda functions as root unless absolutely necessary\. Running as root increases the following risks:  
++ The risk of unintended changes, such as accidentally deleting a critical file\.
++ The risk to your data and device from malicious individuals\.
++ The risk of container escapes when Docker containers run with `--net=host` and `UID=EUID=0`\.
+If you do need to run as root, you must update the AWS IoT Greengrass configuration to enable it\. For more information, see [Running a Lambda function as root](#lambda-running-as-root)\.  
 **UID \(number\)**  
 The user ID for the user that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent passwd command on your AWS IoT Greengrass core device to look up the user ID you want to use to run the Lambda function\.  
 If you use the same UID to run processes and the Lambda function on a Greengrass core device, your Greengrass group role can grant the processes temporary credentials\. The processes can use the temporary credentials across Greengrass core deployments\.  
@@ -68,7 +72,10 @@ lambda(s)
 ```
 
 **Important**  
-We recommend that you avoid running as root unless absolutely necessary\. When you run a Lambda function as root, you increase the risk of unintended changes, such as accidentally deleting a critical file\. In addition, running as root increases the risks to your data and device from malicious individuals\.
+We recommend that you avoid running Lambda functions as root unless absolutely necessary\. Running as root increases the following risks:  
+The risk of unintended changes, such as accidentally deleting a critical file\.
+The risk to your data and device from malicious individuals\.
+The risk of container escapes when Docker containers run with `--net=host` and `UID=EUID=0`\.
 
 **To allow Lambda functions to run as root**
 

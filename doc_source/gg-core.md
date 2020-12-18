@@ -37,36 +37,40 @@ The following is an example `config.json` file\. This is the version that's gene
 
 ```
 {
-  "coreThing" : {
-    "caPath" : "root.ca.pem",
-    "certPath" : "hash.cert.pem",
-    "keyPath" : "hash.private.key",
-    "thingArn" : "arn:partition:iot:region:account-id:thing/core-thing-name",
-    "iotHost" : "host-prefix-ats.iot.region.amazonaws.com",
-    "ggHost" : "greengrass-ats.iot.region.amazonaws.com",
-    "keepAlive" : 600,   
-    "ggDaemonPort": 8000,
-    "systemComponentAuthTimeout": 5000
-  },
-  "runtime" : {
-    "maxWorkItemCount" : 1024,
-    "cgroup" : {
-      "useSystemd" : "yes"
-    }
-  },
-  "managedRespawn" : false,
-  "crypto" : {
-    "principals" : {
-      "SecretsManager" : {
-        "privateKeyPath" : "file:///greengrass/certs/hash.private.key"
-      },
-      "IoTCertificate" : {
-        "privateKeyPath" : "file:///greengrass/certs/hash.private.key",
-        "certificatePath" : "file:///greengrass/certs/hash.cert.pem"
-      } 
+    "coreThing": {
+        "caPath": "root.ca.pem",
+        "certPath": "hash.cert.pem",
+        "keyPath": "hash.private.key",
+        "thingArn": "arn:partition:iot:region:account-id:thing/core-thing-name",
+        "iotHost": "host-prefix-ats.iot.region.amazonaws.com",
+        "ggHost": "greengrass-ats.iot.region.amazonaws.com",
+        "keepAlive": 600,
+        "ggDaemonPort": 8000,
+        "systemComponentAuthTimeout": 5000
     },
-    "caPath" : "file:///greengrass/certs/root.ca.pem"
-  }
+    "runtime": {
+        "maxWorkItemCount": 1024,
+        "maxConcurrentLimit": 25,
+        "lruSize": 25,
+        "cgroup": {
+            "useSystemd": "yes"
+        }
+    },
+    "managedRespawn": false,
+    "crypto": {
+        "principals": {
+            "SecretsManager": {
+                "privateKeyPath": "file:///greengrass/certs/hash.private.key"
+            },
+            "IoTCertificate": {
+                "privateKeyPath": "file:///greengrass/certs/hash.private.key",
+                "certificatePath": "file:///greengrass/certs/hash.cert.pem"
+            }
+        },
+        "caPath": "file:///greengrass/certs/root.ca.pem"
+    },
+    "writeDirectory": "/var/snap/aws-iot-greengrass/current/ggc-write-directory",
+    "pidFileDirectory": "/var/snap/aws-iot-greengrass/current/pidFileDirectory"
 }
 ```
 
@@ -99,6 +103,8 @@ The `config.json` file supports the following properties:
 | Field | Description | Notes | 
 | --- |--- |--- |
 | maxWorkItemCount | Optional\. The maximum number of work items that the Greengrass daemon can process at a time\. Work items that exceed this limit are ignored\. The work item queue is shared by system components, user\-defined Lambda functions, and connectors\. | The default value is 1024\. The maximum value is limited by your device hardware\. Increasing this value increases the memory that AWS IoT Greengrass uses\. You can increase this value if you expect your core to receive heavy MQTT message traffic\. | 
+| maxConcurrentLimit | Optional\. The maximum number of concurrent unpinned Lambda workers that the Greengrass daemon can have\. You can specify a different integer to override this parameter\. | The default value is 25\. The minimum value is defined by lruSize\.  | 
+| lruSize | Optional\. Defines the minimum value for maxConcurrentLimit\. | The default value is 25\. | 
 | postStartHealthCheckTimeout | Optional\. The time \(in milliseconds\) after starting that the Greengrass daemon waits for the health check to finish\. | The default timeout is 30 seconds \(30000 ms\)\. | 
 | `cgroup` | 
 | --- |
@@ -138,6 +144,7 @@ The following configuration properties are also supported:
 | <a name="shared-config-mqttmaxconnectionretryinterval"></a> mqttMaxConnectionRetryInterval  |  Optional\. The maximum interval \(in seconds\) between MQTT connection retries if the connection is dropped\.  |  Specify this value as an unsigned integer\. The default is `60`\.  | 
 | <a name="shared-config-managedrespawn"></a> managedRespawn  |  Optional\. Indicates that the OTA agent needs to run custom code before an update\.  |  Valid values are `true` or `false`\. For more information, see [OTA updates of AWS IoT Greengrass Core software](core-ota-update.md)\.  | 
 | <a name="shared-config-writedirectory"></a> writeDirectory  |  Optional\. The write directory where AWS IoT Greengrass creates all read\-write resources\.  |  For more information, see [Configure a write directory for AWS IoT Greengrass](#write-directory)\.  | 
+| <a name="shared-config-piddirectory"></a>pidFileDirectory |  Optional\. AWS IoT Greengrass stores its process ID \(PID\) under this directory\.  |  The default value is `/var/run`\.  | 
 
 ------
 #### [ GGC v1\.10 ]
@@ -155,6 +162,8 @@ The following configuration properties are also supported:
   },
   "runtime" : {
     "maxWorkItemCount" : 1024,
+    "maxConcurrentLimit" : 25,
+    "lruSize": 25,
     "cgroup" : {
       "useSystemd" : "yes"
     }
@@ -202,6 +211,8 @@ The `config.json` file supports the following properties:
 | Field | Description | Notes | 
 | --- |--- |--- |
 | maxWorkItemCount | Optional\. The maximum number of work items that the Greengrass daemon can process at a time\. Work items that exceed this limit are ignored\. The work item queue is shared by system components, user\-defined Lambda functions, and connectors\. | The default value is 1024\. The maximum value is limited by your device hardware\. Increasing this value increases the memory that AWS IoT Greengrass uses\. You can increase this value if you expect your core to receive heavy MQTT message traffic\. | 
+| maxConcurrentLimit | Optional\. The maximum number of concurrent unpinned Lambda workers that the Greengrass daemon can have\. You can specify a different integer to override this parameter\. | The default value is 25\. The minimum value is defined by lruSize\.  | 
+| lruSize | Optional\. Defines the minimum value for maxConcurrentLimit\. | The default value is 25\. | 
 | postStartHealthCheckTimeout | Optional\. The time \(in milliseconds\) after starting that the Greengrass daemon waits for the health check to finish\. | The default timeout is 30 seconds \(30000 ms\)\. | 
 | `cgroup` | 
 | --- |
@@ -301,6 +312,8 @@ The `config.json` file supports the following properties:
 
 | Field | Description | Notes | 
 | --- |--- |--- |
+| maxConcurrentLimit | Optional\. The maximum number of concurrent unpinned Lambda workers that the Greengrass daemon can have\. You can specify a different integer to override this parameter\. | The default value is 25\. The minimum value is defined by lruSize\.  | 
+| lruSize | Optional\. Defines the minimum value for maxConcurrentLimit\. | The default value is 25\. | 
 | postStartHealthCheckTimeout | Optional\. The time \(in milliseconds\) after starting that the Greengrass daemon waits for the health check to finish\. | The default timeout is 30 seconds \(30000 ms\)\. | 
 | `cgroup` | 
 | --- |
@@ -1193,7 +1206,21 @@ Two Greengrass system components open MQTT connections with AWS IoT Core\. These
 | Operation | Client ID pattern | 
 | --- | --- | 
 | Deployments | `core-thing-name` Example: `MyCoreThing` Use this client ID for connect, disconnect, subscribe, and unsubscribe lifecycle event notifications\. | 
-| MQTT message exchange with AWS IoT Core |  `core-thing-name-cn` Example: `MyCoreThing-c01` `n` is an integer that starts at 00 and increments with each new connection to a maximum number of 250\. The number of connections is determined by the number of devices that sync their shadow state with AWS IoT Core \(maximum 2500 per group\) and the number of subscriptions with `cloud` as their source in the group \(maximum 10000 per group\)\. You can use the following formula to calculate the number of MQTT connections per account: `number of connections per account = (1 + (2 + number of MQTT topics in AWS IoT Core + number of device shadows synced) / 50) * Greengrass cores` Where, [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html) To reduce the number of MQTT connections and help reduce costs, you can use local Lambda functions to aggregate data at the edge\. Then you send the aggregated data to the AWS Cloud\. As a result, you use fewer MQTT topics in AWS IoT Core\. The spooler system component connects with AWS IoT Core to exchange messages for subscriptions with a cloud source or target\. The spooler also acts as proxy for message exchange between AWS IoT Core and the local shadow service and device certificate manager\.  If you enable [persistent sessions](#mqtt-persistent-sessions) for subscription with AWS IoT Core, the core opens at least one additional connection to use in a persistent session\. The system components don't support persistent sessions, so they can't share that connection\.   | 
+| Subscriptions |  `core-thing-name-cn` Example: `MyCoreThing-c01` `n` is an integer that starts at 00 and increments with each new connection to a maximum number of 250\. The number of connections is determined by the number of devices that sync their shadow state with AWS IoT Core \(maximum 2,500 per group\) and the number of subscriptions with `cloud` as their source in the group \(maximum 10,000 per group\)\. The spooler system component connects with AWS IoT Core to exchange messages for subscriptions with a cloud source or target\. The spooler also acts as proxy for message exchange between AWS IoT Core and the local shadow service and device certificate manager\.  | 
+
+To calculate the number of MQTT connections per group, use the following formula:
+
+`number of MQTT connections per group = number of connections for Deployment Agent + number of connections for Subscriptions`
+
+Where,
++ number of connections for Deployment Agent = 1\.
++ number of connections for Subscriptions = `(2 subscriptions for supporting certificate generation + number of MQTT topics in AWS IoT Core + number of device shadows synced) / 50`\.
+  + Where, `50` = the maximum number of subscriptions per connection that AWS IoT Core can support\.
+
+**Note**  
+If you enable [persistent sessions](#mqtt-persistent-sessions) for subscription with AWS IoT Core, the core opens at least one additional connection to use in a persistent session\. The system components don't support persistent sessions, so they can't share that connection\.
+
+To reduce the number of MQTT connections and help reduce costs, you can use local Lambda functions to aggregate data at the edge\. Then you send the aggregated data to the AWS Cloud\. As a result, you use fewer MQTT topics in AWS IoT Core\. For more information, see [AWS IoT Greengrass Pricing](https://aws.amazon.com/greengrass/pricing/)\.
 
 ------
 #### [ GGC v1\.8 ]

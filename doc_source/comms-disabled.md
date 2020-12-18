@@ -61,7 +61,7 @@ Make sure that your [endpoints correspond to your certificate type](gg-core.md#c
 
    When executed for the first time, each device script runs the AWS IoT Greengrass discovery service to connect to the AWS IoT Greengrass core \(through the internet\)\. After a device has discovered and successfully connected to the AWS IoT Greengrass core, future operations can be executed locally\.
 **Note**  
-<a name="check-connection-info"></a> The `lightController.py` and `trafficLight.py` scripts store connection information in the `groupCA` folder, which is created in the same folder as the scripts\. If you receive connection errors, make sure that the IP address in the `ggc-host` file matches the single IP address endpoint that you configured for your core in [this step](config-dev-subs.md#configure-ip-address)\.
+<a name="check-connection-info"></a> The `lightController.py` and `trafficLight.py` scripts store connection information in the `groupCA` folder, which is created in the same folder as the scripts\. If you receive connection errors, make sure that the IP address in the `ggc-host` file matches the IP address endpoint for your core\.
 
 1. In the AWS IoT console, choose your AWS IoT Greengrass group, choose **Devices**, and then choose **GG\_TrafficLight**\.  
 ![\[Screenshot of Devices page with GG_TrafficLIght highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-085.png)

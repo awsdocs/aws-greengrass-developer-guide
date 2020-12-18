@@ -2,7 +2,7 @@
 
 IDT for AWS IoT Greengrass provides machine learning \(ML\) qualification tests to validate that your devices can perform ML inference locally using cloud\-trained models\.
 
-To run ML qualification tests, you must first configure your devices as described in [Configuring your device](device-config-setup.md)\. Then, follow the steps in this topic to install dependencies for the ML frameworks that you want to run\.
+To run ML qualification tests, you must first configure your devices as described in [Configure your device to run IDT tests](device-config-setup.md)\. Then, follow the steps in this topic to install dependencies for the ML frameworks that you want to run\.
 
 IDT v3\.1\.0 or later is required to run tests for ML qualification\.
 

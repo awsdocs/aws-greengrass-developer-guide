@@ -113,26 +113,24 @@ To get the values of local secrets, your user\-defined Lambda functions must use
 
    ```
    import greengrasssdk
-    
-   # Create SDK clients.
-   secrets_client = greengrasssdk.client('secretsmanager')
-   message_client = greengrasssdk.client('iot-data')
-   message = ''
    
-   # This handler is called when the function is invoked.
-   # It uses the 'secretsmanager' client to get the value of the test secret using the secret name.
-   # The test secret is a text type, so the SDK returns a string. 
-   # For binary secret values, the SDK returns a base64-encoded string.
+   secrets_client = greengrasssdk.client('secretsmanager')
+   iot_client = greengrasssdk.client('iot-data')
+   secret_name = 'greengrass-TestSecret'
+   send_topic = 'secrets/output'
+   
+   
    def function_handler(event, context):
-       response = secrets_client.get_secret_value(SecretId='greengrass-TestSecret')
+       """
+       Gets a secret and publishes a message to indicate whether the secret was
+       successfully retrieved.
+       """
+       response = secrets_client.get_secret_value(SecretId=secret_name)
        secret_value = response.get('SecretString')
-       if secret_value is None:
-           message = 'Failed to retrieve secret.'
-       else:
-           message = 'Success! Retrieved secret.'
-       
-       message_client.publish(topic='secrets/output', payload=message)
-       print('published: ' + message)
+       message = (f'Failed to retrieve secret {secret_name}.' if secret_value is None else
+                  f'Successfully retrieved secret {secret_name}.')
+       iot_client.publish(topic=send_topic, payload=message)
+       print('Published: ' + message)
    ```
 
    The `get_secret_value` function supports the name or ARN of the Secrets Manager secret for the `SecretId` value\. This example uses the secret name\. For this example secret, AWS IoT Greengrass returns the key\-value pair: `{"test":"abcdefghi"}`\.

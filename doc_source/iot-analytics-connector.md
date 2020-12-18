@@ -29,7 +29,7 @@ This connector has the following requirements:
 #### [ Version 3 \- 4 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-analytics-connector-limits)\.
++ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html) are supported\.
 + <a name="conn-iot-analytics-req-ita-config"></a>All related AWS IoT Analytics entities and workflows are created and configured\. The entities include channels, pipeline, datastores, and datasets\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
 **Note**  
 Destination AWS IoT Analytics channels must use the same account and be in the same AWS Region as this connector\.
@@ -60,7 +60,7 @@ Destination AWS IoT Analytics channels must use the same account and be in the s
 #### [ Versions 1 \- 2 ]
 + <a name="conn-req-ggc-v1.7.0"></a>AWS IoT Greengrass Core software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in supported AWS Regions\. For more information, see [Limits](#iot-analytics-connector-limits)\.
++ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html) are supported\.
 + <a name="conn-iot-analytics-req-ita-config"></a>All related AWS IoT Analytics entities and workflows are created and configured\. The entities include channels, pipeline, datastores, and datasets\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
 **Note**  
 Destination AWS IoT Analytics channels must use the same account and be in the same AWS Region as this connector\.
@@ -302,6 +302,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
+If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#iot-analytics-connector-req) for the connector\.
@@ -378,13 +379,6 @@ This connector is subject to the following limits\.
   + Maximum size of messages sent by a device is 128 KB\.
   + Maximum message queue size in the Greengrass core router is 2\.5 MB\.
   + Maximum length of a topic string is 256 bytes of UTF\-8 encoded characters\.
-+ This connector can be used only in AWS Regions that are supported by both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html)\. Currently, this includes the following Regions:
-  + US East \(Ohio\) \- us\-east\-2
-  + US East \(N\. Virginia\) \- us\-east\-1
-  + US West \(Oregon\) \- us\-west\-2
-  + Asia Pacific \(Tokyo\) \- ap\-northeast\-1
-  + Europe \(Frankfurt\) \- eu\-central\-1
-  + Europe \(Ireland\) \- eu\-west\-1
 
 ## Licenses<a name="iot-analytics-connector-license"></a>
 

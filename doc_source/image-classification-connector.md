@@ -361,53 +361,54 @@ def function_handler(event, context):
 import logging
 from threading import Timer
 
-import numpy as np
+import numpy
 
-import greengrass_machine_learning_sdk as ml
+import greengrass_machine_learning_sdk as gg_ml
 
-# We assume the inference input image is provided as a local file
-# to this inference client Lambda function.
+# The inference input image.
 with open('/test_img/test.jpg', 'rb') as f:
     content = f.read()
 
-client = ml.client('inference')
+client = gg_ml.client('inference')
+
 
 def infer():
-    logging.info('invoking Greengrass ML Inference service')
+    logging.info('Invoking Greengrass ML Inference service')
 
     try:
         resp = client.invoke_inference_service(
             AlgoType='image-classification',
             ServiceName='imageClassification',
             ContentType='image/jpeg',
-            Body=content
-        )
-    except ml.GreengrassInferenceException as e:
-        logging.info('inference exception {}("{}")'.format(e.__class__.__name__, e))
+            Body=content)
+    except gg_ml.GreengrassInferenceException as e:
+        logging.info('Inference exception %s("%s")', e.__class__.__name__, e)
         return
-    except ml.GreengrassDependencyException as e:
-        logging.info('dependency exception {}("{}")'.format(e.__class__.__name__, e))
+    except gg_ml.GreengrassDependencyException as e:
+        logging.info('Dependency exception %s("%s")', e.__class__.__name__, e)
         return
 
-    logging.info('resp: {}'.format(resp))
+    logging.info('Response: %s', resp)
     predictions = resp['Body'].read()
-    logging.info('predictions: {}'.format(predictions))
-    
+    logging.info('Predictions: %s', predictions)
+
     # The connector output is in the format: [0.3,0.1,0.04,...]
     # Remove the '[' and ']' at the beginning and end.
     predictions = predictions[1:-1]
-    count = len(predictions.split(','))
-    predictions_arr = np.fromstring(predictions, count=count, sep=',')
+    predictions_arr = numpy.fromstring(predictions, sep=',')
+    logging.info("Split into %s predictions.", len(predictions_arr))
 
-    # Perform business logic that relies on the predictions_arr, which is an array
+    # Perform business logic that relies on predictions_arr, which is an array
     # of probabilities.
-    
+
     # Schedule the infer() function to run again in one second.
     Timer(1, infer).start()
-    return
+
 
 infer()
 
+
+# In this example, the required AWS Lambda handler is never called.
 def function_handler(event, context):
     return
 ```
@@ -756,11 +757,11 @@ The ML Image Classification connectors includes the following third\-party softw
 + [s3transfer](https://pypi.org/project/s3transfer/)/Apache License 2\.0
 + [urllib3](https://pypi.org/project/urllib3/)/MIT License
 + [Deep Neural Network Library \(DNNL\)](https://github.com/intel/mkl-dnn)/Apache License 2\.0
-+ [OpenMP\* Runtime Library](https://www.openmprtl.org/)/See [Intel OpenMP Runtime Library licensing](#openmp-license)\.
++ [OpenMP\* Runtime Library](https://software.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/optimization-and-programming-guide/openmp-support/openmp-library-support/openmp-run-time-library-routines.html)/See [Intel OpenMP Runtime Library licensing](#openmp-license)\.
 + [mxnet](https://pypi.org/project/mxnet/)/Apache License 2\.0
 + <a name="six-license"></a>[six](https://github.com/benjaminp/six)/MIT
 
-**Intel OpenMP Runtime Library licensing**\. The Intel® OpenMP\* runtime is dual\-licensed, with a commercial \(COM\) license as part of the Intel® Parallel Studio XE Suite products, and a BSD open source \(OSS\) license\. For more information, see [Licensing](https://www.openmprtl.org/faq/10) in the Intel® OpenMP\* Runtime Library documentation\.
+**Intel OpenMP Runtime Library licensing**\. The Intel® OpenMP\* runtime is dual\-licensed, with a commercial \(COM\) license as part of the Intel® Parallel Studio XE Suite products, and a BSD open source \(OSS\) license\.
 
 This connector is released under the [Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 

@@ -2,7 +2,7 @@
 
 This tutorial shows you how to use the AWS IoT console to configure and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
 
-## <a name="w64aac25c27b6"></a>
+## <a name="w86aac23c27b6"></a>
 
 Stream manager makes ingesting, processing, and exporting high\-volume data streams easier and more reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
 
@@ -77,7 +77,7 @@ The tutorial should take about 20 minutes to complete\.
 
 ## Step 1: Create a Lambda function deployment package<a name="stream-manager-console-create-deployment-package"></a>
 
-### <a name="w64aac25c27c17b4"></a>
+### <a name="w86aac23c27c17b4"></a>
 
 In this step, you create a Lambda function deployment package that contains Python function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
 
@@ -293,8 +293,8 @@ In this step, you make sure that stream manager is enabled\.
 1. Under **Stream manager**, check the enabled or disabled status\. If disabled, choose **Edit**\. Then, choose **Enable** and **Save**\. You can use the default parameter settings for this tutorial\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.  
 ![\[The Stream manager section on the group's Settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings-stream-manager-edit.png)
 
-**Note**  
-When you use the console to enable stream manager and deploy the group, the memory limit for stream manager is set to 4 GB\.
+**Note**  <a name="ggstreammanager-function-config-console"></a>
+When you use the console to enable stream manager and deploy the group, the memory size for stream manager is set to 4194304 KB \(4 GB\) by default\. We recommend that you set the memory size to at least 128000 KB\.
 
 ## Step 5: Configure local logging<a name="stream-manager-console-configure-logging"></a>
 

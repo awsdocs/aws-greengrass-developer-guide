@@ -25,18 +25,6 @@ On Windows, you can decompress `.tar.gz` files using a tool such as [7\-Zip](htt
 1. Make sure that the devices are set to use local shadows\. If not, choose the ellipsis \(**…**\), and then choose **Make local only**\.  
 ![\[Screenshot with LOCAL SHADOW ONLY highlighted for both devices.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-079.png)
 
-1. <a name="configure-ip-address"></a>The function code used in this module requires that you manually configure the core's endpoint\.
-
-   1. On the group configuration page, choose **Settings**\. 
-
-   1. For **Local connection detection**, choose **Manually manage connection information**, and then choose **View Cores for specific endpoint information**\.
-
-   1. Choose your core, and then choose **Connectivity**\.
-
-   1. Choose **Edit** and make sure that you have only one endpoint value\. This value must be the IP address endpoint for port 8883 of your AWS IoT Greengrass core device \(for example, `192.168.1.4`\)\.
-
-   1. Choose **Update**\.
-
 1. <a name="module5-subscriptions"></a>Add the subscriptions in the following table to your group\. For example, to create the first subscription:
 
    1. On the group configuration page, choose **Subscriptions**, and then choose **Add subscription**\.

@@ -54,7 +54,8 @@ We recommend that you install a credentials store to secure the local copies of 
           {
               "Sid": "AllowAccessToComposeFileS3Bucket",
               "Action": [
-                  "s3:GetObject"
+                  "s3:GetObject",
+                  "s3:GetObjectVersion"
               ],
               "Effect": "Allow",
               "Resource": "arn:aws:s3:::bucket-name/*" 
@@ -62,6 +63,8 @@ We recommend that you install a credentials store to secure the local copies of 
       ]
   }
   ```
+**Note**  
+If your S3 bucket is versioning\-enabled, then the role the must be configured to allow the `s3:GetObjectVersion` action as well\. For more information, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
   <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
 + <a name="docker-app-connector-ecr-perms"></a>If your Docker Compose file references a Docker image stored in Amazon ECR, the [Greengrass group role](group-role.md) configured to allow the following:

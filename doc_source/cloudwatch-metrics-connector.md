@@ -308,6 +308,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
+If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#cloudwatch-metrics-connector-req) for the connector\.

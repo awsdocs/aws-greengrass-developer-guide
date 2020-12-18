@@ -204,91 +204,422 @@ You can also run a Docker application on a Greengrass core device\. To do so, us
 
 ## Run AWS IoT Greengrass in a snap<a name="gg-snap-support"></a>
 
-<a name="snap-ggc-v1.8-only"></a>Currently, AWS IoT Greengrass snap software is available for AWS IoT Greengrass core version 1\.8 only\.
+<a name="gg-snap-description"></a>AWS IoT Greengrass snap v1\.11\.0 enables you to run a limited version of AWS IoT Greengrass through convenient software packages with all necessary dependencies in a containerized environment\.
 
-<a name="snap-ggc-desc"></a> The AWS IoT Greengrass snap software download makes it possible for you to run a version of AWS IoT Greengrass with limited functionality on Linux cloud, desktop, and IoT environments through convenient containerized software packages\. These packages, or snaps, contain the AWS IoT Greengrass Core software and its dependencies\. You can download and use these packages on your Linux environments as\-is\.
+**Note**  <a name="gg-snap-v1.11-note"></a>
+The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.0 and later\. Unsupported versions don't receive bug fixes or updates\.  
+The AWS IoT Greengrass snap doesn't support connectors and machine learning \(ML\) inference\.
 
-<a name="snap-ggc-limitations"></a> The AWS IoT Greengrass snap allows you to run a version of AWS IoT Greengrass with limited functionality on your Linux environments\. Currently, Java, Node\.js, and native Lambda functions are not supported\. Machine learning inference, connectors, and noncontainerized Lambda functions are also not supported\.
+### Snap concepts<a name="gg-snap-concepts"></a>
 
-### Getting started with AWS IoT Greengrass snap<a name="gg-snap-setup"></a>
+To help you understand how to use the AWS IoT Greengrass snap, here are essential snap concepts:
 
- Because the prepackaged AWS IoT Greengrass snap is designed to use system defaults, you might need to perform these other steps: 
-+  The AWS IoT Greengrass snap is configured to use default Greengrass user and group configurations\. This allows it to work easily with Greengrass groups or Lambda functions that run as root\. If you need to use Greengrass groups or Lambda functions that do not run as root, update these configurations and add them to your system\. 
-+  The AWS IoT Greengrass snap uses many interfaces that must be connected before the snap can operate normally\. These interfaces are connected automatically during setup\. If you use other options while you set up your snap, you might need to connect these interfaces manually\. 
+**[Channel](https://snapcraft.io/docs/channels)**  
+A snap component that defines which version of a snap is installed and tracked for updates\. Snaps are automatically updated to the latest version of the current channel\.
 
- For more information about the AWS IoT Greengrass snap and these modifications, see [Greengrass Snap Release Notes](https://assets.ubuntu.com/v1/15d52dd3-greengrass-snap-release-notes.pdf)\. 
+**[Interface](https://snapcraft.io/docs/interface-management)**  
+A snap component that grants access to resources, such as networks and user files\.  
+To run the AWS IoT Greengrass snap, the following interfaces must be connected\. Note that `greengrass-support-no-container` must be connected first and never disconnected\.  
 
-1.  Install and upgrade snapd by running the following command in your device's terminal: 
+```
+      - greengrass-support-no-container
+      - hardware-observe
+      - home-for-hooks
+      - hugepages-control
+      - log-observe
+      - mount-observe
+      - network
+      - network-bind
+      - network-control
+      - process-control
+      - system-observe
+```
+The other interfaces are optional\. If your Lambda functions require access to specific resources, you might need to connect to the appropriate interfaces\.
+
+**[Refresh](https://snapcraft.io/docs/keeping-snaps-up-to-date)**  
+Snaps are automatically updated\. The `snapd` daemon is the snap package manager that checks for updates four times a day by default\. Each update check is called a refresh\. When a refresh occurs, the daemon stops, the snap gets updated, and then the daemon restarts\.
+
+For more information, visit the [Snapcraft](https://snapcraft.io/) website\.
+
+### What's new with AWS IoT Greengrass snap v1\.11\.0<a name="gg-snap-whats-new"></a>
+
+The following describes what's new and changed with the latest version of the AWS IoT Greengrass snap\.
++ The latest version supports only the `snap_daemon` user, exposed as user ID \(UID\) and group \(GID\) `584788`\.
++ The latest version supports only noncontainerized Lambda functions\.
+**Important**  
+Because noncontainerized Lambda functions must share the same user \(`snap_daemon`\), the Lambda functions have no isolation from each other\. For more information, see [Controlling execution of Greengrass Lambda functions by using group\-specific configuration](https://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html)\.
++ The latest version supports C, C\+\+, Java 8, Node\.js 12\.x, Python 2\.7, Python 3\.7, and Python 3\.8 runtimes\.
+**Note**  
+To avoid redundant Python runtimes, Python 3\.7 Lambda functions actually run the Python 3\.8 runtime\.
+
+### Getting started with AWS IoT Greengrass snap<a name="gg-snap-get-started"></a>
+
+The following procedure helps you install and configure the AWS IoT Greengrass snap on your device\.
+
+#### Requirements<a name="gg-snap-requirements"></a>
+
+The following requirements apply, when you run the AWS IoT Greengrass snap:
++ You must run the AWS IoT Greengrass snap on a supported Linux distribution, such as Ubuntu, Linux Mint, Debian, and Fedora\.
++ You must install the `snapd` daemon on your device\. The `snapd` daemon including the `snap` tool manages the snap environment on your device\. 
+
+For the list of supported Linux distributions and installation instructions, see [Installing snapd](https://snapcraft.io/docs/installing-snapd) in the *Snap documentation*\.
+
+#### Install and configure the AWS IoT Greengrass snap<a name="gg-snap-install-config"></a>
+
+The following tutorial shows you how to install and configure the AWS IoT Greengrass snap on your device\.
+
+**Note**  
+Although this tutorial uses an Amazon EC2 instance \(x86 t2\.micro Ubuntu 20\.04\), you can run the AWS IoT Greengrass snap with physical hardware, such as a Raspberry Pi\.
+The `snapd` daemon is preinstalled on Ubuntu\.
+
+1. Install the `core18` snap by running the following command in your device's terminal:
 
    ```
-   sudo apt-get update && sudo apt-get upgrade snapd
+   sudo snap install core18
    ```
 
-1.  If you need to use Greengrass groups or Lambda functions that do not run as root, update your default Greengrass user and group configurations, and add them to your system\. For more information about updating user and group configurations with AWS IoT Greengrass, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\. 
-   + For the Ubuntu Core system:
-     +  To add the `ggc_user` user, use: 
+   The `core18` snap is a [base snap](https://snapcraft.io/docs/base-snaps) that provides a runtime environment with commonly used libraries\. This snap is built from [Ubuntu 18\.04 LTS](http://releases.ubuntu.com/18.04/)\.
 
-       ```
-       sudo adduser --extrausers --system ggc_user
-       ```
-     +  To add the `ggc_group` group, use: 
-
-       ```
-       sudo addgroup --extrausers --system ggc_group 
-       ```
-   + For the Ubuntu classic system:
-     +  To add the `ggc_user` user to an Ubuntu classic system, omit the `--extrausers` flag and use: 
-
-       ```
-       sudo adduser --system ggc_user
-       ```
-     +  To add the `ggc_group` to an Ubuntu classic system, omit the `--extrausers` flag and use: 
-
-       ```
-       sudo addgroup --system ggc_group
-       ```
-
-1.  In your terminal, run the following command to install the Greengrass snap: 
+1. Upgrade `snapd` by running the following command:
 
    ```
-   sudo snap install aws-iot-greengrass
+   sudo snap install --channel=edge snapd; sudo snap refresh --channel=edge snapd
    ```
 **Note**  
- You can also use the AWS IoT Greengrass snap download link to install the Greengrass snap locally\. If you are installing locally from this file and do not have the associated assertions, use the `--dangerous` flag:   
+`snapd` support for the AWS IoT Greengrass snap hasn't reached the stable channel\. We recommend that you use `--channel=edge` instead of `--channel=stable`\.
+
+1. Run the `snap list` command to check if you have the AWS IoT Greengrass snap installed\.
+
+   The following example response shows that `snapd` is installed, but `aws-iot-greengrass` isn't\.
 
    ```
-   sudo snap install --dangerous aws-iot-greengrass*.snap
+   Name              Version               Rev    Tracking         Publisher   Notes
+   amazon-ssm-agent  3.0.161.0             2996   latest/stable/…  aws✓        classic
+   core              16-2.48               10444  latest/stable    canonical✓  core
+   core18            20200929              1932   latest/stable    canonical✓  base
+   lxd               4.0.4                 18150  4.0/stable/…     canonical✓  -
+   snapd             2.48+git548.g929ccfb  10526  latest/edge      canonical✓  snapd
    ```
- The `--dangerous` flag interferes with the AWS IoT Greengrass snap's ability to connect its required interfaces\. If you use this flag, you must manually connect the required interfaces using the snap connect command\.   For more information, see [Greengrass Snap Release Notes](https://assets.ubuntu.com/v1/15d52dd3-greengrass-snap-release-notes.pdf)\. 
 
-1.  After the snap is installed, run the following command to add your Greengrass certificate and configuration files: 
+1. Choose one of the following options to install AWS IoT Greengrass snap v1\.11\.0\.
+   + To install the AWS IoT Greengrass snap, run the following command:
+
+     ```
+     sudo snap install aws-iot-greengrass
+     ```
+
+     Example response:
+
+     ```
+     aws-iot-greengrass 1.11.0 from Amazon Web Services (aws✓) installed
+     ```
+   + To migrate from v1\.8 to v1\.11 or update to the latest version, run the following command:
+
+     ```
+     sudo snap refresh --channel=latest aws-iot-greengrass
+     ```
+
+   Like other snaps, the AWS IoT Greengrass snap uses channels to manage minor versions\. Snaps are automatically updated to the latest version of the current channel\. For examples, if you specify `--channel=1.8.x`, your AWS IoT Greengrass snap is updated to v1\.8\.4\. Currently, `--channel=1.11.x` is not supported\.
+
+   You can run the `snap info aws-iot-greengrass` command to get the list of available channels for AWS IoT Greengrass\.
+
+   Example response:
 
    ```
-   sudo snap set aws-iot-greengrass gg-certs=/path-to-the-certs/22e592db.tgz
+   name:      aws-iot-greengrass
+   summary:   AWS supported software that extends cloud capabilities to local devices.
+   publisher: Amazon Web Services (aws✓)
+   store-url: https://snapcraft.io/aws-iot-greengrass
+   contact:   https://forums.aws.amazon.com/forum.jspa?forumID=254&start=0
+   license:   unset
+   description: |
+     AWS IoT Greengrass seamlessly extends AWS onto edge devices so they can act locally on the data
+     they generate, while still using the cloud for management, analytics, and durable storage.
+     
+     AWS IoT Greenrgass snap v1.11.0 enables you to run a limited version of AWS IoT Greengrass with
+     all necessary dependencies in a containerized environment.
+     
+     The AWS IoT Greengrass snap doesn’t support connectors and machine learning (ML) inference.
+     
+     By downloading this software you agree to the Greengrass Core Software License Agreement
+     (https://s3-us-west-2.amazonaws.com/greengrass-release-license/greengrass-license-v1.pdf).
+     
+     For more information, see Run AWS IoT Greengrass in a snap
+     (https://docs.aws.amazon.com/greengrass/latest/developerguide/install-ggc.html#gg-snap-support) in
+     the AWS IoT Greengrass Developer.
+     
+     If you need help, try the AWS IoT Greengrass forum
+     (https://forums.aws.amazon.com/forum.jspa?forumID=254) or connect with an AWS IQ expert
+     (https://iq.aws.amazon.com/services/aws/greengrass).
+   services:
+     aws-iot-greengrass.greengrassd: forking, disabled, inactive
+   snap-id:      SRDuhPJGj4XPxFNNZQKOTvURAp0wxKnd
+   tracking:     latest/stable
+   refresh-date: today at 01:19 UTC
+   channels:
+     latest/stable:    1.11.0 2020-12-04 (44) 111MB -
+     latest/candidate: 1.11.0 2020-12-04 (44) 111MB -
+     latest/beta:      1.11.0 2020-12-04 (44) 111MB -
+     latest/edge:      1.11.0 2020-12-01 (44) 111MB -
+     1.8.x/stable:     1.8.4  2020-12-01  (4)  98MB -
+     1.8.x/candidate:  1.8.4  2020-12-01  (4)  98MB -
+     1.8.x/beta:       ↑                            
+     1.8.x/edge:       ↑                            
+   installed:          1.11.0            (44) 111MB -
+   ```
+
+1. To run the AWS IoT Greengrass snap, the following interfaces must be connected:
+**Important**  
+`greengrass-support-no-container` must be connected first and never disconnected\.
+
+   ```
+   sudo snap connect aws-iot-greengrass:greengrass-support-no-container
+   sudo snap connect aws-iot-greengrass:hardware-observe
+   sudo snap connect aws-iot-greengrass:home-for-hooks
+   sudo snap connect aws-iot-greengrass:hugepages-control
+   sudo snap connect aws-iot-greengrass:log-observe
+   sudo snap connect aws-iot-greengrass:mount-observe
+   sudo snap connect aws-iot-greengrass:network
+   sudo snap connect aws-iot-greengrass:network-bind
+   sudo snap connect aws-iot-greengrass:network-control
+   sudo snap connect aws-iot-greengrass:process-control
+   sudo snap connect aws-iot-greengrass:system-observe
+   ```
+
+1. To access specific resources that your Lambda functions need, you might connect to additional interfaces\.
+
+   Run the following command to get the list of AWS IoT Greengrass snap supported interfaces:
+
+   ```
+   snap connections aws-iot-greengrass
+   ```
+
+   Example response:
+
+   ```
+   Interface                Plug                                                Slot                 Notes
+   camera                   aws-iot-greengrass:camera                           -                    -
+   dvb                      aws-iot-greengrass:dvb                              -                    -
+   gpio                     aws-iot-greengrass:gpio                             -                    -
+   gpio-memory-control      aws-iot-greengrass:gpio-memory-control              -                    -
+   greengrass-support       aws-iot-greengrass:greengrass-support-no-container  :greengrass-support  -
+   hardware-observe         aws-iot-greengrass:hardware-observe                 :hardware-observe    manual
+   hardware-random-control  aws-iot-greengrass:hardware-random-control          -                    -
+   home                     aws-iot-greengrass:home-for-greengrassd             -                    -
+   home                     aws-iot-greengrass:home-for-hooks                   :home                manual
+   hugepages-control        aws-iot-greengrass:hugepages-control                :hugepages-control   manual
+   i2c                      aws-iot-greengrass:i2c                              -                    -
+   iio                      aws-iot-greengrass:iio                              -                    -
+   joystick                 aws-iot-greengrass:joystick                         -                    -
+   log-observe              aws-iot-greengrass:log-observe                      :log-observe         manual
+   mount-observe            aws-iot-greengrass:mount-observe                    :mount-observe       manual
+   network                  aws-iot-greengrass:network                          :network             -
+   network-bind             aws-iot-greengrass:network-bind                     :network-bind        -
+   network-control          aws-iot-greengrass:network-control                  :network-control     -
+   opengl                   aws-iot-greengrass:opengl                           :opengl              -
+   optical-drive            aws-iot-greengrass:optical-drive                    :optical-drive       -
+   process-control          aws-iot-greengrass:process-control                  :process-control     -
+   raw-usb                  aws-iot-greengrass:raw-usb                          -                    -
+   removable-media          aws-iot-greengrass:removable-media                  -                    -
+   serial-port              aws-iot-greengrass:serial-port                      -                    -
+   spi                      aws-iot-greengrass:spi                              -                    -
+   system-observe           aws-iot-greengrass:system-observe                   :system-observe      -
+   ```
+
+   If you see a hyphen \(\-\) in the Slot column, the corresponding interface isn't connected\.
+
+1. Follow [Configure AWS IoT Greengrass on AWS IoT](https://docs.aws.amazon.com/greengrass/latest/developerguide/gg-config.html) to create a Greengrass group and download the security resources and configuration file; for example, `c6973960cc-setup.tar.gz`\.
+
+   This compressed file contains the core device certificate and cryptographic keys that enable secure communications between AWS IoT Core and the `config.json` file that contains configuration information specific to your Greengrass core\. This information includes the location of certificate files and the AWS IoT Core endpoint\.
+**Note**  
+If you downloaded the file to a different device, follow the first two steps in [Start AWS IoT Greengrass on the core device](https://docs.aws.amazon.com/greengrass/latest/developerguide/gg-device-start.html) to transfer the files to the AWS IoT Greengrass core device\.
+
+1. For the AWS IoT Greengrass snap, make sure that you update the [config\.json](https://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html#config-json) file, as shown in the following:
+   + Replace *hash* with the 10\-digit hash number that is used for your security resources and configuration file names\.
+   + Run the `tar -xzf hash-setup.tar.gz -C my-certs/` command to decompress the `hash-setup.tar.gz` file\.
+
+   ```
+   {
+     ...
+     "crypto" : {
+       "principals" : {
+         "SecretsManager" : {
+           "privateKeyPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/hash.private.key"
+         },
+         "IoTCertificate" : {
+           "privateKeyPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/hash.private.key",
+           "certificatePath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/hash.cert.pem"
+         }
+       },
+       "caPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/root.ca.pem"
+     },
+     "writeDirectory": "/var/snap/aws-iot-greengrass/current/ggc-write-directory",
+     "pidFileDirectory": "/var/snap/aws-iot-greengrass/current/pidFileDirectory"
+   }
+   ```
+
+1. Run the following command to add your AWS IoT Greengrass certificate and configuration files:
+
+   ```
+   sudo snap set aws-iot-greengrass gg-certs=/home/ubuntu/my-certs
+   ```
+
+### Deploying a Lambda function<a name="gg-snap-lambda"></a>
+
+This section shows you how to deploy a customer managed Lambda function on the AWS IoT Greengrass snap\.
+
+**Important**  
+AWS IoT Greengrass snap v1\.11 only supports noncontainerized Lambda functions\.
+
+1. Run the following command to start the AWS IoT Greengrass daemon:
+
+   ```
+   sudo snap start aws-iot-greengrass
+   ```
+
+   Example response:
+
+   ```
+   Started.
    ```
 **Note**  
- If necessary, you can troubleshoot issues by viewing the AWS IoT Greengrass core logs, particularly `runtime.log`\. You can print the contents of `runtime.log` to your terminal by running the following command:   
+If you get an error, you can use the `snap run` command for a detailed error message\. For more troubleshooting information, see [error: cannot perform the following tasks: \- Run service command "start" for services \["greengrassd"\] of snap "aws\-iot\-greengrass" \(\[start snap\.aws\-iot\-greengrass\.greengrassd\.service\] failed with exit status 1: Job for snap\.aws\-iot\-greengrass\.greengrassd\.service failed because the control process exited with error code\. See "systemctl status snap\.aws\-iot\-greengrass\.greengrassd\.service" and "journalctl \-xe" for details\.\)](#gg-snap-troubleshoot-snaprun)\.
+
+1. Run the following command to confirm that the daemon is running: 
 
    ```
-   sudo cat /var/snap/aws-iot-greengrass/current/ggc-writable/var/log/system/runtime.log
+   snap services aws-iot-greengrass.greengrassd
    ```
 
-1.  Run the following command to validate that your setup is functioning correctly: 
+   Example response:
 
    ```
-   $ snap services aws-iot-greengrass
+   Service                         Startup   Current  Notes
+   aws-iot-greengrass.greengrassd  disabled  active   -
    ```
 
-   You should see the following response:
+1. Follow [Module 3 \(part 1\): Lambda functions on AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/module3-I.html) to create and deploy a Hello World Lambda function\. However, before you deploy the Lambda function, complete the next step\.
 
-   ```
-   Service                         Startup  Current  Notes
-   aws-iot-greengrass.greengrassd  enabled  active   -
-   ```
+1. Make sure that your Lambda function run as the `snap_daemon` user and in the no container mode\. To update the settings of your Greengrass group, do the following in the AWS IoT Greengrass console:
 
- Your Greengrass setup is now complete\. You can now use the AWS IoT Greengrass console, AWS REST API, or AWS CLI to deploy the Greengrass groups associated with this snap\. For information about using the console to deploy a Greengrass group, see the [Deploy cloud configurations to an AWS IoT Greengrass core device](https://docs.aws.amazon.com/greengrass/latest/developerguide/configs-core.html)\. For information about using the CLI or REST API to deploy a Greengrass group, see [CreateDeployment](https://docs.aws.amazon.com/greengrass/latest/apireference/createdeployment-post.html) in the *AWS IoT Greengrass API Reference*\. 
+   1. Sign in to the AWS IoT Greengrass console\.
 
- For more information about configuring local resource access with snap AppArmor confinement, using the snapd REST API, and configuring snap interfaces, see [Greengrass Snap Release Notes](https://assets.ubuntu.com/v1/15d52dd3-greengrass-snap-release-notes.pdf)\. 
+   1. In the navigation pane, under **Greengrass**, choose **Groups**\.
+
+   1. Under **Greengrass groups**, choose the target group\.
+
+   1. On the group configuration page, in the navigation pane, choose **Settings**\.
+
+   1. Under **Lambda runtime environment**, do the following:
+
+      1. For **Default Lambda function user ID/ group ID**, choose **Another user ID/group ID**, and then enter **584788** for both **UID \(number\)** and **GID \(number\)**\.
+
+      1. For **Default Lambda function containerization**, choose **No container**\.
+
+### Stopping the AWS IoT Greengrass daemon<a name="gg-snap-stop"></a>
+
+You can use the `snap stop` command to stop a service\.
+
+To stop the AWS IoT Greengrass daemon, run the following command:
+
+```
+sudo snap stop aws-iot-greengrass
+```
+
+The command should return `Stopped.`\.
+
+To check if you successfully stopped the snap, run the following command:
+
+```
+snap services aws-iot-greengrass.greengrassd
+```
+
+Example response:
+
+```
+Service                         Startup   Current   Notes
+aws-iot-greengrass.greengrassd  disabled  inactive  -
+```
+
+### Uninstalling the AWS IoT Greengrass snap<a name="gg-snap-uninstall"></a>
+
+To uninstall the AWS IoT Greengrass snap, run the following command:
+
+```
+sudo snap remove aws-iot-greengrass
+```
+
+Example response:
+
+```
+aws-iot-greengrass removed
+```
+
+### Troubleshooting the AWS IoT Greengrass snap<a name="gg-snap-troubleshoot"></a>
+
+Use the following information to help troubleshoot issues with the AWS IoT Greengrass snap\.
+
+#### Got permission denied errors\.<a name="gg-snap-troubleshoot-permission-denied"></a>
+
+**Solution**: Permission denied errors are often because of missing interfaces\. For the list of missing interfaces and detailed troubleshooting information, you can use the `snappy-debug` tool\.
+
+Run the following command to install the tool\.
+
+```
+sudo snap install snappy-debug
+```
+
+Example response:
+
+```
+snappy-debug 0.36-snapd2.45.1 from Canonical✓ installed
+```
+
+Run the `sudo snappy-debug` command in a separate terminal session\. The operation continues until a permission denied error occurs\.
+
+For example, if your Lambda function tries to read a file in the `$HOME` directory, you may get the following response:
+
+```
+INFO: Following '/var/log/syslog'. If have dropped messages, use:
+INFO: $ sudo journalctl --output=short --follow --all | sudo snappy-debug
+kernel.printk_ratelimit = 0
+= AppArmor =
+Time: Dec  6 04:48:26
+Log: apparmor="DENIED" operation="mknod" profile="snap.aws-iot-greengrass.greengrassd" name="/home/ubuntu/my-file.txt" pid=12345 comm="touch" requested_mask="c" denied_mask="c" fsuid=0 ouid=0
+File: /home/ubuntu/my-file.txt (write)
+Suggestion:
+* add 'home' to 'plugs'
+```
+
+This example shows that creating the `/home/ubuntu/my-file.txt` file caused the permission error\. It also suggests that you add `home` to `plugs`\. However, this sugguestion is not applicable\. The `home-for-greengrassd` and `home-for-hooks` plugs are only given the read\-only access\.
+
+For more information, see [The snappy\-debug snap](https://snapcraft.io/docs/debug-snaps#heading--snappy-debug) in the *Snap documentation*\.
+
+#### error: cannot perform the following tasks: \- Run service command "start" for services \["greengrassd"\] of snap "aws\-iot\-greengrass" \(\[start snap\.aws\-iot\-greengrass\.greengrassd\.service\] failed with exit status 1: Job for snap\.aws\-iot\-greengrass\.greengrassd\.service failed because the control process exited with error code\. See "systemctl status snap\.aws\-iot\-greengrass\.greengrassd\.service" and "journalctl \-xe" for details\.\)<a name="gg-snap-troubleshoot-snaprun"></a>
+
+**Solution**: You might see this error when the `snap start aws-iot-greengrass` command fails to start the AWS IoT Greengrass Core software\.
+
+For more troubleshooting information, run the following command:
+
+```
+sudo snap run aws-iot-greengrass.greengrassd
+```
+
+Example response:
+
+```
+Couldn't find /snap/aws-iot-greengrass/44/greengrass/config/config.json.
+```
+
+This examples shows that AWS IoT Greengrass couldn't find the `config.json` file\. You might check the configuration and certificate files\.
+
+#### /var/snap/aws\-iot\-greengrass/current/ggc\-write\-directory/packages/1\.11\.0/rootfs/merged is not an absolute path or is a symlink\.<a name="gg-snap-troubleshoot-lambda"></a>
+
+**Solution**: The AWS IoT Greengrass snap supports only noncontainerized Lambda functions\. Make sure that you run your Lambda functions in the no container mode\. For more information, see [Considerations when choosing Lambda function containerization](https://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html#no-container-mode) in the *AWS IoT Greengrass Developer Guide*\.
+
+#### The snapd daemon failed to restart after you ran the sudo snap refresh snapd command\.<a name="gg-snap-troubleshoot-snapd"></a>
+
+**Solution**: Follow steps 6 through 8 in [Install and configure the AWS IoT Greengrass snap](#gg-snap-install-config) to add the AWS IoT Greengrass certificate and configuration files to the AWS IoT Greengrass snap\.
 
 ## Archive an AWS IoT Greengrass Core software installation<a name="archive-ggc-version"></a>
 

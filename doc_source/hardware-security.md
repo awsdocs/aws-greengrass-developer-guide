@@ -140,6 +140,7 @@ The `crypto` object contains the following properties:
 The following are security and performance\-related provisioning practices\.
 
 **Security**  
+  
 + Generate private keys directly on the HSM by using the internal hardware random\-number generator\.
 **Note**  
 If you configure private keys to use with this feature \(by following the instructions provided by the hardware vendor\), be aware that AWS IoT Greengrass currently supports only the PKCS1 v1\.5 padding mechanism for encryption and decryption of [local secrets](secrets.md)\. AWS IoT Greengrass doesn't support Optimal Asymmetric Encryption Padding \(OAEP\)\.
