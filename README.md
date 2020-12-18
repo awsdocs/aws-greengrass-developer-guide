@@ -1,6 +1,6 @@
 ## AWS Greengrass Developer Guide
 
-The open source version of the AWS Greengrass developer guide
+The open source version of the [AWS IoT Greengrass V1 Developer Guide](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html). You can submit feedback and requests for changes by submitting issues in this repository.
 
 ## License Summary
 
