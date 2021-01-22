@@ -9,7 +9,7 @@ If you are setting up a Raspberry Pi for the first time, you must follow all of 
 
  
 
-1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter_4/index.html) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where you have inserted your SD card\. You can perform a quick format of the SD card\.
+1. Download and install an SD card formatter such as [SD Memory Card Formatter](https://www.sdcard.org/downloads/formatter/) or [PiBakery](http://www.pibakery.org/download.html)\. Insert the SD card into your computer\. Start the program and choose the drive where you have inserted your SD card\. You can perform a quick format of the SD card\.
 
 1. Download the [Raspbian Buster](https://downloads.raspberrypi.org/raspbian/images/raspbian-2020-02-14/) operating system as a `zip` file\.
 

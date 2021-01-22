@@ -1,6 +1,9 @@
 # Get deployment notifications<a name="deployment-notifications"></a>
 
-Using Amazon EventBridge event rules, you can get notifications about state changes for your Greengrass group deployments\. EventBridge delivers a near real\-time stream of system events that describes changes in AWS resources\.
+Amazon EventBridge event rules provide you with notifications about state changes for your Greengrass group deployments\. EventBridge delivers a near real\-time stream of system events that describes changes in AWS resources\. AWS IoT Greengrass sends these events to EventBridge on an *at least once* basis\. This means that AWS IoT Greengrass might send multiple copies of a given event to ensure delivery\. Additionally, your event listeners might not receive the events in the order that the events occurred\.
+
+**Note**  
+Amazon EventBridge is an event bus service that you can use to connect your applications with data from a variety of sources, such as [Greengrass core devices](telemetry.md) and deployment notifications\. For more information, see [What is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) in the *Amazon EventBridge User Guide*\.
 
 AWS IoT Greengrass emits an event when group deployments change state\. You can create an EventBridge rule that runs for all state transitions or transitions to states you specify\. When a deployment enters a state that triggers a rule, EventBridge invokes the target actions defined in the rule\. This allows you to send notifications, capture event information, take corrective action, or initiate other events in response to a state change\. For example, you can create rules for the following use cases:
 + Trigger post\-deployment operations, such as downloading assets and notifying personnel\.

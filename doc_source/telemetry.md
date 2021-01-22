@@ -1,6 +1,9 @@
 # Gathering system health telemetry data from AWS IoT Greengrass core devices<a name="telemetry"></a>
 
-System health telemetry data is diagnostic data that can help you monitor the performance of critical operations on your Greengrass core devices\. The telemetry agent on the Greengrass core collects local telemetry data and publishes it to AWS Cloud without any customer interaction\.
+System health telemetry data is diagnostic data that can help you monitor the performance of critical operations on your Greengrass core devices\. The telemetry agent on the Greengrass core collects local telemetry data and publishes it to Amazon EventBridge without requiring any customer interaction\. Core devices publish telemetry data to EventBridge on a best effort basis\. For example, core devices might fail to deliver telemetry data while offline\.
+
+**Note**  
+Amazon EventBridge is an event bus service that you can use to connect your applications with data from a variety of sources, such as Greengrass core devices and [deployment notifications](deployment-notifications.md)\. For more information, see [What is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) in the *Amazon EventBridge User Guide*\.
 
 You can create projects and applications to retrieve, analyze, transform, and report telemetry data from your edge devices\. Domain experts, such as process engineers, can use these applications to quickly gain insights into fleet health\.
 
@@ -20,11 +23,11 @@ The telemetry agent collects and publishes the following system metrics\.
 |  `SystemMemUsage`  |  The amount of memory currently in use by all applications on the Greengrass core device, including the operating system\.  |  System  | 
 |  `CpuUsage`  |  The amount of CPU currently in use by all applications on the Greengrass core device, including the operating system\.  |  System  | 
 |  `TotalNumberOfFDs`  |  The number of file descriptors stored by the operating system of the Greengrass core device\. One file descriptor uniquely identifies one open file\.  |  System  | 
-|  `LambdaOutOfMemory`  |  The number of executions that result in the Lambda function running out of memory\.  |  System  | 
+|  `LambdaOutOfMemory`  |  The number of runs that result in the Lambda function running out of memory\.  |  System  | 
 |  `DroppedMessageCount`  |  The number of dropped messages that are destined for AWS IoT Core\.  |  `GGCloudSpooler` system component  | 
 |  `LambdaTimeout`  |  The number of timeouts for running the user\-defined Lambda function\.  |  User\-defined Lambda function, AWS Cloud, and system  | 
-|  `LambdaUngracefullyKilled`  |  The number of executions that the user\-defined Lambda function fails to complete\.  |  User\-defined Lambda function, AWS Cloud, and system   | 
-|  `LambdaError`  |  The number of executions that result in the user\-defined Lambda function writing error logs\.  |  User\-defined Lambda function, AWS Cloud, and system  | 
+|  `LambdaUngracefullyKilled`  |  The number of runs that the user\-defined Lambda function fails to complete\.  |  User\-defined Lambda function, AWS Cloud, and system   | 
+|  `LambdaError`  |  The number of runs that result in the user\-defined Lambda function writing error logs\.  |  User\-defined Lambda function, AWS Cloud, and system  | 
 |  `BytesAppended`  |  The number of bytes of data appended to stream manager\.  |  `GGStreamManager` system component  | 
 |  `BytesUploadtedToIoTAnalytics`  |  The number of bytes of data that stream manager exports to channels in AWS IoT Analytics\.  |  `GGStreamManager` system component  | 
 |  `BytesUploadedToKinesis`  |  The number of bytes of data that stream manager exports to streams in Amazon Kinesis Data Streams\.  |  `GGStreamManager` system component  | 

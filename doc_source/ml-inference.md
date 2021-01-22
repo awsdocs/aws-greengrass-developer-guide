@@ -142,7 +142,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow model\-serving limitations on Raspberry Pi<a name="w86aac20c15c17"></a>
+### TensorFlow model\-serving limitations on Raspberry Pi<a name="w99aac20c15c17"></a>
 
 The following recommendations for improving inference results are based on our tests with the TensorFlow 32\-bit Arm libraries on the Raspberry Pi platform\. These recommendations are intended for advanced users for reference only, without guarantees of any kind\.
 + Models that are trained using the [Checkpoint](https://www.tensorflow.org/get_started/checkpoints) format should be "frozen" to the protocol buffer format before serving\. For an example, see the [TensorFlow\-Slim image classification model library](https://github.com/tensorflow/models/tree/master/research/slim)\.

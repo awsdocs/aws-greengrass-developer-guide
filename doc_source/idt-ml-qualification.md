@@ -190,7 +190,7 @@ Follow these steps to use SageMaker to compile the ML model provided by IDT\. Th
 Running the DLR test with a model compiled by SageMaker might take 4 or 5 minutes\. Don’t stop IDT during this time\.
 
 1. <a name="compile-dlr-download-uncompiled-model"></a>Download the tarball file that contains the uncompiled, pretrained MXNet model for DLR:
-   + [dlr\-noncompiled\-model\-1\.0\.tar\.gz](https://d232ctwt5kahio.cloudfront.net/ml/dlr/noncompiled1.0/dlr-noncompiled-model-1.0.tar.gz)
+   + [dlr\-noncompiled\-model\-1\.0\.tar\.gz](https://docs.aws.amazon.com/greengrass/latest/developerguide/download-dlr-noncompiled-model-1.0.html)
 
 1. <a name="compile-dlr-decompress-uncompiled-model"></a>Decompress the tarball\. This command generates the following directory structure\.  
 ![\[The resnet18 directory contains three files.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/idt/idt-ml-qualification-dlr-uncompiled.png)
@@ -232,7 +232,7 @@ We recommend that you compile the model on your target device\. This practice is
  
 
 1. <a name="compile-dlr-download-uncompiled-model"></a>Download the tarball file that contains the uncompiled, pretrained MXNet model for DLR:
-   + [dlr\-noncompiled\-model\-1\.0\.tar\.gz](https://d232ctwt5kahio.cloudfront.net/ml/dlr/noncompiled1.0/dlr-noncompiled-model-1.0.tar.gz)
+   + [dlr\-noncompiled\-model\-1\.0\.tar\.gz](https://docs.aws.amazon.com/greengrass/latest/developerguide/download-dlr-noncompiled-model-1.0.html)
 
 1. <a name="compile-dlr-decompress-uncompiled-model"></a>Decompress the tarball\. This command generates the following directory structure\.  
 ![\[The resnet18 directory contains three files.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/idt/idt-ml-qualification-dlr-uncompiled.png)

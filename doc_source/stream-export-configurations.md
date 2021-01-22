@@ -196,9 +196,6 @@ This export destination has the following requirements:
               "Effect": "Allow",
               "Action": [
                   "s3:PutObject",
-                  "s3:UploadPart",
-                  "s3:InitiateMultipartUpload",
-                  "s3:CompleteMultipartUpload",
                   "s3:AbortMultipartUpload",
                   "s3:ListMultipartUploads"
               ],

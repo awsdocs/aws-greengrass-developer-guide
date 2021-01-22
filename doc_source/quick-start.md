@@ -97,6 +97,14 @@ On platforms that require a reboot, your input values from the previous session,
    When the setup is complete, the terminal displays a success status message that's similar to the following\.  
 ![\[Success message in the terminal output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/quick-start-completed.png)
 
+1. Review the new Greengrass group that the script configures using the input values you provide\. 
+
+   1. Sign in to the [AWS Management Console](https://console.aws.amazon.com/) on your computer and open the AWS IoT console\. 
+**Note**  
+Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment\. By default, the Region is US West \(Oregon\)\.
+
+   1. In the navigation pane, choose **Greengrass**, then choose **Groups** to locate the newly created group\. 
+
 1. <a name="quick-start-next-steps"></a>If you included the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or to learn how to remove the Lambda function from the group, continue to [Verify the Lambda function is running on the core device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
 **Note**  
 Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment\. By default, the Region is US West \(Oregon\)\.

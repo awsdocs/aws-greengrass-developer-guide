@@ -1,7 +1,7 @@
 # AWS IoT Greengrass Developer Guide, Version 1
 
 -----
-*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -126,8 +126,8 @@ Amazon's trademarks and trade dress may not be used in
    + [Calling the local health check API](health-check.md)
 + [Tagging your AWS IoT Greengrass resources](tagging.md)
 + [AWS CloudFormation support for AWS IoT Greengrass](cloudformation-support.md)
-+ [Using AWS IoT Device Tester for AWS IoT Greengrass](device-tester-for-greengrass-ug.md)
-   + [Supported versions of AWS IoT Device Tester for AWS IoT Greengrass](dev-test-versions.md)
++ [Using AWS IoT Device Tester for AWS IoT Greengrass V1](device-tester-for-greengrass-ug.md)
+   + [Supported versions of AWS IoT Device Tester for AWS IoT Greengrass V1](dev-test-versions.md)
    + [Use IDT to run the AWS IoT Greengrass qualification suite](idt-gg-qualification.md)
       + [Prerequisites for running the AWS IoT Greengrass qualification suite](dev-tst-prereqs.md)
       + [Configure your device to run IDT tests](device-config-setup.md)

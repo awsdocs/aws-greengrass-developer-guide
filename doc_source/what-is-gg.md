@@ -65,9 +65,9 @@ The following tabs describe what's new and changed in AWS IoT Greengrass Core so
 ------
 #### [ GGC v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
-1\.11\.0 \- Current version  
+1\.11\.0  
 New features:  <a name="what-new-v1110"></a>
-+ A telemetry agent on the Greengrass core collects local telemetry data and publishes it to AWS Cloud\. To retrieve the telmetry data for further processing, customers can create an Amazon EventBridge rule and subscribe to a target\. For more information, see [Gathering system health telemetry data from AWS IoT Greengrass core devices](https://docs.aws.amazon.com/greengrass/latest/developerguide/telemetry.html)\.
++ A telemetry agent on the Greengrass core collects local telemetry data and publishes it to AWS Cloud\. To retrieve the telemetry data for further processing, customers can create an Amazon EventBridge rule and subscribe to a target\. For more information, see [Gathering system health telemetry data from AWS IoT Greengrass core devices](https://docs.aws.amazon.com/greengrass/latest/developerguide/telemetry.html)\.
 + A local HTTP API returns a snapshot of the current state of local worker processes started by AWS IoT Greengrass\. For more information, see [Calling the local health check API](https://docs.aws.amazon.com/greengrass/latest/developerguide/health-check.html)\.
 + A [stream manager](stream-manager.md) automatically exports data to Amazon S3 and AWS IoT SiteWise\.
 
@@ -116,7 +116,7 @@ New features:  <a name="what-new-v1100"></a>
 + General performance improvements and bug fixes\.
 
 ------
-#### [ GGC v1\.9 ]
+#### [ Deprecated versions ]
 
 1\.9\.4  
 Bug fixes and improvements:  
@@ -145,9 +145,6 @@ New features:
 + <a name="what-new-v190-ec-key"></a>Elliptic Curve \(EC\) key for the local MQTT server\. The local MQTT server supports EC keys in addition to RSA keys\. \(The MQTT server certificate has an SHA\-256 RSA signature, regardless of the key type\.\) For more information, see [AWS IoT Greengrass core security principals](gg-sec.md#gg-principals)\.
 Bug fixes and improvements:  
 + General performance improvements and bug fixes\.
-
-------
-#### [ Deprecated versions ]
 
 1\.8\.4  
 Fixed an issue with shadow synchronization and device certificate manager reconnection\.  
@@ -184,7 +181,7 @@ New features:
 Bug fixes and improvements:  
 + General performance improvements and bug fixes\.
 In addition, the following features are available with this release:  
-+ The AWS IoT Device Tester for AWS IoT Greengrass, which you can use to verify that your CPU architecture, kernel configuration, and drivers work with AWS IoT Greengrass\. For more information, see [Using AWS IoT Device Tester for AWS IoT Greengrass](device-tester-for-greengrass-ug.md)\.
++ The AWS IoT Device Tester for AWS IoT Greengrass, which you can use to verify that your CPU architecture, kernel configuration, and drivers work with AWS IoT Greengrass\. For more information, see [Using AWS IoT Device Tester for AWS IoT Greengrass V1](device-tester-for-greengrass-ug.md)\.
 + The AWS IoT Greengrass Core software, AWS IoT Greengrass Core SDK, and AWS IoT Greengrass Machine Learning SDK packages are available for download through Amazon CloudFront\. For more information, see [AWS IoT Greengrass downloads](#gg-downloads)\.
 
 1\.6\.1  
@@ -645,9 +642,9 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 ------
 #### [ v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
-1\.11\.0 \- Current version  
+1\.11\.0  
 New features:  <a name="what-new-v1110"></a>
-+ A telemetry agent on the Greengrass core collects local telemetry data and publishes it to AWS Cloud\. To retrieve the telmetry data for further processing, customers can create an Amazon EventBridge rule and subscribe to a target\. For more information, see [Gathering system health telemetry data from AWS IoT Greengrass core devices](https://docs.aws.amazon.com/greengrass/latest/developerguide/telemetry.html)\.
++ A telemetry agent on the Greengrass core collects local telemetry data and publishes it to AWS Cloud\. To retrieve the telemetry data for further processing, customers can create an Amazon EventBridge rule and subscribe to a target\. For more information, see [Gathering system health telemetry data from AWS IoT Greengrass core devices](https://docs.aws.amazon.com/greengrass/latest/developerguide/telemetry.html)\.
 + A local HTTP API returns a snapshot of the current state of local worker processes started by AWS IoT Greengrass\. For more information, see [Calling the local health check API](https://docs.aws.amazon.com/greengrass/latest/developerguide/health-check.html)\.
 + A [stream manager](stream-manager.md) automatically exports data to Amazon S3 and AWS IoT SiteWise\.
 
@@ -879,7 +876,7 @@ The [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml
 
 ------
 #### [  v1\.1\.0  ]
-+  [ Python 3\.7](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-sdk/downloads/python/3.7/greengrass-machine-learning-python-sdk-1.1.0.tar.gz) \- Current version\. 
++  [ Python 3\.7](https://d1onfpft10uf5o.cloudfront.net/greengrass-ml-sdk/downloads/python/3.7/greengrass-machine-learning-python-sdk-1.1.0.tar.gz)\. 
 
 ------
 #### [  v1\.0\.0  ]
