@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Module 3 \(part 2\): Lambda functions on AWS IoT Greengrass<a name="module3-II"></a>
 
 This module explores the differences between on\-demand and long\-lived Lambda functions running on the AWS IoT Greengrass core\.

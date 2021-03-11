@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # IDT usage metrics<a name="idt-usage-metrics"></a>
 
 If you provide AWS credentials with required permissions, AWS IoT Device Tester collects and submits usage metrics to AWS\. This is an opt\-in feature and is used to improve IDT functionality\. IDT collects information such as the following: 

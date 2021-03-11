@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Monitoring with AWS IoT Greengrass logs<a name="greengrass-logs-overview"></a>
 
 AWS IoT Greengrass consists of the cloud service and the AWS IoT Greengrass Core software\. The AWS IoT Greengrass Core software can write logs to Amazon CloudWatch and to the local file system of your core device\. Lambda functions and connectors running on the core can also write logs to CloudWatch Logs and the local file system\. You can use logs to monitor events and troubleshoot issues\. All AWS IoT Greengrass log entries include a timestamp, log level, and information about the event\. Changes to logging settings take effect after you deploy the group\.
@@ -51,7 +57,7 @@ You can grant more granular access to your log resources\. For more information,
      
 **Using the console**  
 
-  1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+  1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
   1. <a name="group-choose-target-group"></a>Choose the target group\.
 
@@ -125,7 +131,7 @@ To allow AWS IoT Greengrass to write logs to CloudWatch Logs, your group role mu
 
 You can configure logging on the group's **Settings** page\.
 
-1. In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. Choose the group where you want to configure logging\.
 
@@ -198,7 +204,7 @@ The maximum amount of local storage, in KB, to use for storing logs\. This field
 ### Configuration example<a name="config-logs-examples"></a>
 
 The following `LoggerDefinitionVersion` example specifies a logging configuration that:
-+ Turns on file system `ERROR` \(and above\) logging for AWS IoT Greengrass system components\.
++ Turns on file system `ERROR` and above logging for AWS IoT Greengrass system components\.
 + Turns on file system `INFO` \(and above\) logging for user\-defined Lambda functions\.
 + Turns on CloudWatch `INFO` \(and above\) logging for user\-defined Lambda functions\.
 
@@ -281,4 +287,4 @@ When Lambda functions are terminated \(for example, during deployment\), a few s
 
 ## CloudTrail logs<a name="cloudtrail-integration"></a>
 
-AWS IoT Greengrass is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in AWS IoT Greengrass\. For more information, see [Logging AWS IoT Greengrass API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
+AWS IoT Greengrass runs with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in AWS IoT Greengrass\. For more information, see [Logging AWS IoT Greengrass API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.

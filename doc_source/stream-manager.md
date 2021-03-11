@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Manage data streams on the AWS IoT Greengrass core<a name="stream-manager"></a>
 
 AWS IoT Greengrass stream manager makes it easier and more reliable to transfer high\-volume IoT data to the AWS Cloud\. Stream manager processes data streams locally and exports them to the AWS Cloud automatically\. This feature integrates with common edge scenarios, such as machine learning \(ML\) inference, where data is processed and analyzed locally before being exported to the AWS Cloud or local storage destinations\.
@@ -20,7 +26,7 @@ Your IoT applications can include multiple user\-defined Lambda functions that r
 
 An example workflow is shown in the following diagram\.
 
-![\[Diagram of the stream manager workflow.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/stream-manager-architecture.png)
+![\[Diagram of the stream manager workflow.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/stream-manager-architecture.png)
 
 To use stream manager, start by configuring stream manager parameters to define group\-level runtime settings that apply to all streams on the Greengrass core\. These customizable settings allow you to control how stream manager stores, processes, and exports streams based on your business need and environment constraints\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.
 

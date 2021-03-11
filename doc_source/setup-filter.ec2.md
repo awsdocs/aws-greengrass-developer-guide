@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Setting up an Amazon EC2 instance<a name="setup-filter.ec2"></a>
 
 Follow the steps in this topic to set up an Amazon EC2 instance to use as your AWS IoT Greengrass core\.
@@ -14,10 +20,10 @@ Or, to use a script that sets up your environment and installs the AWS IoT Green
 1. After your Amazon EC2 instance is running, enable port 8883 to allow incoming MQTT communications so that other devices can connect with the AWS IoT Greengrass core\.
 
    1. In the navigation pane of the Amazon EC2 console, choose **Security Groups**\.  
-![\[Navigation pane with Security Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.1.png)
+![\[Navigation pane with Security Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-002.6.1.png)
 
    1. Select the security group for the instance that you just launched, and then choose the **Inbound** tab\.  
-![\[Inbound tab highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.2.png)
+![\[Inbound tab highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-002.6.2.png)
 
    1. Choose **Edit**\.
 
@@ -30,14 +36,14 @@ Or, to use a script that sets up your environment and installs the AWS IoT Green
       + For **Description**, enter **MQTT Communications**\.
 
          
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.3.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-002.6.3.png)
 
 1. Connect to your Amazon EC2 instance\.
 
    1. In the navigation pane, choose **Instances**, choose your instance, and then choose **Connect**\.
 
    1. Follow the instructions on the **Connect To Your Instance** page to connect to your instance [ by using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) and your private key file\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-002.6.4.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-002.6.4.png)
 
    You can use [PuTTY](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) for Windows or Terminal for macOS\. For more information, see [ Connect to your Linux instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 

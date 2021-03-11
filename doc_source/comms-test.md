@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Test communications<a name="comms-test"></a>
 
 1. On your computer, open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows\. Just as in [Module 5](module5.md), one window is for the GG\_Switch device and the other is for the GG\_TrafficLight device\. You use them to run the same commands that you ran in Module 5\.
@@ -23,10 +29,10 @@
 1. Choose **US East \(N\. Virginia\)** in the AWS Region menu\. This is the Region where the `GG_Car_Aggregator` function creates the table\.
 
 1. In the navigation pane, choose **Tables**, and then choose the **CarStats** table\.   
-![\[Screenshots of DynamoDB console with CarStats and Items tab highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-099.png)
+![\[Screenshots of DynamoDB console with CarStats and Items tab highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-099.png)
 
    On the **Items** tab, you should see entries with basic statistics on cars passed \(one entry for every three minutes\)\. You might need to choose the refresh button to view updates to the table\.  
-![\[DynamoDB CarStats screenshot showing multiple record entries.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-100.png)
+![\[DynamoDB CarStats screenshot showing multiple record entries.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-100.png)
 
 1. If the test is not successful, you can look for troubleshooting information in the Greengrass logs\.
 

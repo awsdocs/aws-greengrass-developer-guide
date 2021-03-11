@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Run Lambda functions on the AWS IoT Greengrass core<a name="lambda-functions"></a>
 
 AWS IoT Greengrass provides a containerized Lambda runtime environment for user\-defined code that you author in AWS Lambda\. Lambda functions that are deployed to an AWS IoT Greengrass core run in the core's local Lambda runtime\. Local Lambda functions can be triggered by local events, messages from the cloud, and other sources, which brings local compute functionality to connected devices\. For example, you can use Greengrass Lambda functions to filter device data before transmitting the data to the cloud\.
@@ -76,7 +82,7 @@ This support is intended for cores with size constraints\. We recommend that you
 Enables local Lambda functions to consume machine learning \(ML\) models that are deployed to the Greengrass core as ML resources\. Lambda functions can use the SDK to invoke and interact with a local inference service that's deployed to the core as a connector\. Lambda functions and ML connectors can also use the SDK to send data to the ML Feedback connector for uploading and publishing\. For more information, including code examples that use the SDK, see [ML Image Classification connector](image-classification-connector.md), [ML Object Detection connector](obj-detection-connector.md), and [ML Feedback connector](ml-feedback-connector.md)\.  
 The following table lists supported languages or platforms for SDK versions and the versions of AWS IoT Greengrass Core software they can run on\.    
 ****    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/lambda-functions.html)
 For download information, see [AWS IoT Greengrass ML SDK software](what-is-gg.md#gg-ml-sdk-download)\.
 
 **AWS SDKs**  <a name="lambda-sdks-aws"></a>

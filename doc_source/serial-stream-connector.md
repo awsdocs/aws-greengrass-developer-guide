@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Serial Stream connector<a name="serial-stream-connector"></a>
 
 The Serial Stream [connector](connectors.md) reads and writes to a serial port on an AWS IoT Greengrass core device\.
@@ -293,7 +299,7 @@ Use this topic to receive response data from a read operation\. The response dat
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
-If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
+If you use other Python runtimes, you can create a symlink from Python3\.x to Python 3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#serial-stream-connector-req) for the connector\.

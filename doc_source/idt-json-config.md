@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Create IDT test suite configuration files<a name="idt-json-config"></a>
 
 This section describes the formats in which you create JSON configuration files that you include when you write a custom test suite\.<a name="required-json"></a>Required JSON files

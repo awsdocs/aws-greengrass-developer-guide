@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Hardware security integration<a name="hardware-security"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
@@ -8,7 +14,7 @@ Search for devices that are qualified for this feature in the [AWS Partner Devic
 
 The following diagram shows the hardware security architecture for an AWS IoT Greengrass core\.
 
-![\[\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/hardware-security-arch.png)
+![\[\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/hardware-security-arch.png)
 
 On a standard installation, AWS IoT Greengrass uses two private keys\. One key is used by the AWS IoT client \(IoT client\) component during the Transport Layer Security \(TLS\) handshake when a Greengrass core connects to AWS IoT Core\. \(This key is also referred to as the core private key\.\) The other key is used by the local MQTT server, which enables Greengrass devices to communicate with the Greengrass core\. If you want to use hardware security for both components, you can use a shared private key or separate private keys\. For more information, see [Provisioning practices for AWS IoT Greengrass hardware security](#optional-provisioning)\.
 
@@ -84,7 +90,7 @@ The `crypto` object contains the following properties:
 | OpenSSLEngine |  Optional\. The absolute path to the OpenSSL engine `.so` file to enable PKCS\#11 support on OpenSSL\.  |  Must be a path to a file on the file system\. This property is required if you're using the Greengrass OTA update agent with hardware security\. For more information, see [Configure support for over\-the\-air updates](#hardware-security-ota-updates)\.  | 
 | P11Provider |  The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  |  Must be a path to a file on the file system\.  | 
 | slotLabel |  The slot label that's used to identify the hardware module\.  |  Must conform to PKCS\#11 label specifications\.  | 
-| slotUserPin |  The user pin that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
+| slotUserPin |  The user PIN that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
 | `principals` | 
 | --- |
 | IoTCertificate | The certificate and private key that the core uses to make requests to AWS IoT\. | 
@@ -104,7 +110,7 @@ The `crypto` object contains the following properties:
 | OpenSSLEngine |  Optional\. The absolute path to the OpenSSL engine `.so` file to enable PKCS\#11 support on OpenSSL\.  |  Must be a path to a file on the file system\. This property is required if you're using the Greengrass OTA update agent with hardware security\. For more information, see [Configure support for over\-the\-air updates](#hardware-security-ota-updates)\.  | 
 | P11Provider |  The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  |  Must be a path to a file on the file system\.  | 
 | slotLabel |  The slot label that's used to identify the hardware module\.  |  Must conform to PKCS\#11 label specifications\.  | 
-| slotUserPin |  The user pin that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
+| slotUserPin |  The user PIN that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
 | `principals` | 
 | --- |
 | IoTCertificate | The certificate and private key that the core uses to make requests to AWS IoT\. | 
@@ -124,7 +130,7 @@ The `crypto` object contains the following properties:
 | OpenSSLEngine |  Optional\. The absolute path to the OpenSSL engine `.so` file to enable PKCS\#11 support on OpenSSL\.  |  Must be a path to a file on the file system\. This property is required if you're using the Greengrass OTA update agent with hardware security\. For more information, see [Configure support for over\-the\-air updates](#hardware-security-ota-updates)\.  | 
 | P11Provider |  The absolute path to the PKCS\#11 implementation's libdl\-loadable library\.  |  Must be a path to a file on the file system\.  | 
 | slotLabel |  The slot label that's used to identify the hardware module\.  |  Must conform to PKCS\#11 label specifications\.  | 
-| slotUserPin |  The user pin that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
+| slotUserPin |  The user PIN that's used to authenticate the Greengrass core to the module\.  |  Must have sufficient permissions to perform C\_Sign with the configured private keys\.  | 
 | `principals` | 
 | --- |
 | IoTCertificate | The certificate and private key that the core uses to make requests to AWS IoT\. | 
@@ -152,12 +158,12 @@ The practice of rotating keys doesn't apply when private keys are generated on a
 The following diagram shows the IoT client component and local MQTT server on the AWS IoT Greengrass core\. If you want to use an HSM configuration for both components, you can use the same private key or separate private keys\. If you use separate keys, they must be stored in the same slot\.  
 AWS IoT Greengrass doesn't impose any limits on the number of keys that you store on the HSM, so you can store private keys for the IoT client, MQTT server, and secrets manager components\. However, some HSM vendors might impose limits on the number of keys you can store in a slot\.
 
-![\[\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/multi-key-diagram.png)
+![\[\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/multi-key-diagram.png)
 In general, the IoT client key is not used very frequently because the AWS IoT Greengrass Core software maintains long\-lived connections to the cloud\. However, the MQTT server key is used every time that a Greengrass device connects to the core\. These interactions directly affect performance\.  
 When the MQTT server key is stored on the HSM, the rate at which devices can connect depends on the number of RSA signature operations per second that the HSM can perform\. For example, if the HSM takes 300 milliseconds to perform an RSASSA\-PKCS1\-v1\.5 signature on an RSA\-2048 private key, then only three devices can connect to the Greengrass core per second\. After the connections are made, the HSM is no longer used and the standard [quotas for AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html#limits_greengrass) apply\.  
 To mitigate performance bottlenecks, you can store the private key for the MQTT server on the file system instead of on the HSM\. With this configuration, the MQTT server behaves as if hardware security isn't enabled\.  
 AWS IoT Greengrass supports multiple key\-storage configurations for the IoT client and MQTT server components, so you can optimize for your security and performance requirements\. The following table includes example configurations\.      
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/hardware-security.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/hardware-security.html)
 To configure the Greengrass core to use file system\-based keys for the MQTT server, omit the `principals.MQTTServerCertificate` section from `config.json` \(or specify a file\-based path to the key if you're not using the default key generated by AWS IoT Greengrass\)\. The resulting `crypto` object looks like this:  
 
 ```

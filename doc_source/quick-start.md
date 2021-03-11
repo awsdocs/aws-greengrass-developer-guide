@@ -1,13 +1,19 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Quick start: Greengrass device setup<a name="quick-start"></a>
 
-Greengrass device setup is a script that sets up your core device in minutes, so you can quickly start using AWS IoT Greengrass\. The script:
+Greengrass device setup is a script that sets up your core device in minutes, so that you can start using AWS IoT Greengrass\. Use this script to:
 
-1. Configures your device and installs the AWS IoT Greengrass Core software\.
+1. Configure your device and installs the AWS IoT Greengrass Core software\.
 
-1. Configures your cloud\-based resources\.
+1. Configure your cloud\-based resources\.
 
-1. Deploys a Greengrass group with a Hello World Lambda function that sends MQTT messages to AWS IoT\. This optional step sets up the Greengrass environment shown in the following diagram\.  
-![\[Hello World Lambda function sending an MQTT message to AWS IoT from the AWS IoT Greengrass core.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/quick-start-gg-architecture.png)
+1. Optionally deploy a Greengrass group with a Hello World Lambda function that sends MQTT messages to AWS IoT from the AWS IoT Greengrass core\. This sets up the Greengrass environment shown in the following diagram\.  
+![\[Hello World Lambda function sending an MQTT message to AWS IoT from the AWS IoT Greengrass core.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/quick-start-gg-architecture.png)
 
 ## Requirements<a name="gg-device-setup-requirements"></a>
 
@@ -58,7 +64,7 @@ If you're running Greengrass device setup on a Raspbian or OpenWrt platform, mak
 1. Proceed through the command prompts for [input values](#gg-device-setup-input)\. You can press the **Enter** key to use the default value or type a custom value and then press **Enter**\.
 
    The script writes status messages to the terminal that are similar to the following\.  
-![\[Output messages in the terminal.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/quick-start-in-progress.png)
+![\[Output messages in the terminal.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/quick-start-in-progress.png)
 
 1. If your core device is running Raspbian or OpenWrt, reboot the device when prompted, provide your credentials, and then restart the script\.
 
@@ -95,7 +101,7 @@ For OpenWrt platforms:
 On platforms that require a reboot, your input values from the previous session, excluding credentials, are temporarily stored in the `GreengrassDeviceSetup.config.info` file\.
 
    When the setup is complete, the terminal displays a success status message that's similar to the following\.  
-![\[Success message in the terminal output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/quick-start-completed.png)
+![\[Success message in the terminal output.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/quick-start-completed.png)
 
 1. Review the new Greengrass group that the script configures using the input values you provide\. 
 
@@ -103,9 +109,9 @@ On platforms that require a reboot, your input values from the previous session,
 **Note**  
 Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment\. By default, the Region is US West \(Oregon\)\.
 
-   1. In the navigation pane, choose **Greengrass**, then choose **Groups** to locate the newly created group\. 
+   1. In the navigation pane, choose **Greengrass**, then choose **Classic \(V1\)**, and then choose **Groups** to locate the newly created group\. 
 
-1. <a name="quick-start-next-steps"></a>If you included the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or to learn how to remove the Lambda function from the group, continue to [Verify the Lambda function is running on the core device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
+1. <a name="quick-start-next-steps"></a>If you included the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or for information about how to remove the Lambda function from the group, continue to [Verify the Lambda function is running on the core device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
 **Note**  
 Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment\. By default, the Region is US West \(Oregon\)\.
 
@@ -298,9 +304,9 @@ For OpenWrt platforms:
 On platforms that require a reboot, your input values from the previous session, excluding credentials, are temporarily stored in the `GreengrassDeviceSetup.config.info` file\.
 
    When the setup is complete, the terminal displays a success status message that's similar to the following\.  
-![\[Success message in the terminal output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/quick-start-completed.png)
+![\[Success message in the terminal output.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/quick-start-completed.png)
 
-1. <a name="quick-start-next-steps"></a>If you included the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or to learn how to remove the Lambda function from the group, continue to [Verify the Lambda function is running on the core device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
+1. <a name="quick-start-next-steps"></a>If you included the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or for information about how to remove the Lambda function from the group, continue to [Verify the Lambda function is running on the core device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
 **Note**  
 Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment\. By default, the Region is US West \(Oregon\)\.
 
@@ -369,9 +375,9 @@ For OpenWrt platforms:
 On platforms that require a reboot, your input values from the previous session, excluding credentials, are temporarily stored in the `GreengrassDeviceSetup.config.info` file\.
 
    When the setup is complete, the terminal displays a success status message that's similar to the following\.  
-![\[Success message in the terminal output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/quick-start-completed.png)
+![\[Success message in the terminal output.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/quick-start-completed.png)
 
-1. <a name="quick-start-next-steps"></a>If you included the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or to learn how to remove the Lambda function from the group, continue to [Verify the Lambda function is running on the core device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
+1. <a name="quick-start-next-steps"></a>If you included the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or for information about how to remove the Lambda function from the group, continue to [Verify the Lambda function is running on the core device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
 **Note**  
 Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment\. By default, the Region is US West \(Oregon\)\.
 

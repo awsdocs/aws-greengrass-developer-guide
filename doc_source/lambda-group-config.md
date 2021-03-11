@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Controlling execution of Greengrass Lambda functions by using group\-specific configuration<a name="lambda-group-config"></a>
 
 AWS IoT Greengrass provides cloud\-based management of Greengrass Lambda functions\. Although a Lambda function's code and dependencies are managed using AWS Lambda, you can configure how the Lambda function behaves when it runs in a Greengrass group\.
@@ -58,7 +64,7 @@ The [containerization mode](#lambda-function-containerization) affects how Lambd
 + Non\-containerized Lambda functions must access local device and volume resources directly through the file system on the core device\.
 + To allow non\-containerized Lambda functions to access machine learning resources in the Greengrass group, you must set the resource owner and access permissions properties on the machine learning resource\. For more information, see [Access machine learning resources from Lambda functions](access-ml-resources.md)\.
 
-For information about using the AWS IoT Greengrass API to set group\-specific configuration settings for user\-defined Lambda functions, see [CreateFunctionDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html) in the *AWS IoT Greengrass API Reference* or [create\-function\-definition](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html) in the *AWS CLI Command Reference*\. To deploy Lambda functions to a Greengrass core, create a function definition version that contains your functions, create a group version that references the function definition version and other group components, and then [deploy the group](deployments.md)\.
+For information about using the AWS IoT Greengrass API to set group\-specific configuration settings for user\-defined Lambda functions, see [CreateFunctionDefinition](https://docs.aws.amazon.com/greengrass/latest/apireference/createfunctiondefinition-post.html) in the *AWS IoT Greengrass Version 1 API Reference* or [create\-function\-definition](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html) in the *AWS CLI Command Reference*\. To deploy Lambda functions to a Greengrass core, create a function definition version that contains your functions, create a group version that references the function definition version and other group components, and then [deploy the group](deployments.md)\.
 
 ## Running a Lambda function as root<a name="lambda-running-as-root"></a>
 
@@ -128,8 +134,8 @@ Here are some example use cases for running without containerization:
 
 | Containerization | Notes | 
 | --- | --- | 
-| Greengrass container | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html) | 
-| No container | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html) | 
+| Greengrass container | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/lambda-group-config.html) | 
+| No container | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/lambda-group-config.html) | 
 
 **Note**  
 The default containerization setting for the Greengrass group doesn't apply to [connectors](connectors.md)\.
@@ -140,7 +146,7 @@ Changing the containerization for a Lambda function can cause problems when you 
 
 **To change containerization settings for a Lambda function**
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="lambda-choose-group"></a>Choose the group that contains the Lambda function whose settings you want to change\.
 
@@ -188,7 +194,7 @@ The default access identity can be configured to run as the standard AWS IoT Gre
 
 **To modify the default access identity for your AWS IoT Greengrass group**
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-group"></a>Choose the group whose settings you want to change\.
 
@@ -221,7 +227,7 @@ If you want to change the default containerization for the group, but have one o
 
 **To modify containerization settings for your AWS IoT Greengrass group**
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-group"></a>Choose the group whose settings you want to change\.
 

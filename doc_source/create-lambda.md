@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Create and package a Lambda function<a name="create-lambda"></a>
 
 The example Python Lambda function in this module uses the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for Python to publish MQTT messages\.
@@ -23,7 +29,7 @@ To complete this module, Python 3\.7 must be installed on your core device\.
 1. Copy the `greengrasssdk` folder into the `HelloWorld` folder that contains `greengrassHelloWorld.py`\.
 
 1. To create the Lambda function deployment package, save `greengrassHelloWorld.py` and the `greengrasssdk` folder to a compressed `zip` file named `hello_world_python_lambda.zip`\. The `py` file and `greengrasssdk` folder must be in the root of the directory\.  
-![\[Screenshot showing zipped contents of hello_word_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-017.png)
+![\[Screenshot showing zipped contents of hello_word_python_lambda.zip.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-017.png)
 
    On UNIX\-like systems \(including the Mac terminal\), you can use the following command to package the file and folder:
 
@@ -44,7 +50,7 @@ Depending on your distribution, you might need to install `zip` first \(for exam
    + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    Choose **Create function**\.  
-![\[The "Basic information" section with the "Function name" field set to "Greengrass_HelloWorld" and the "Runtime" field set to "Python 3.7".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023.png)
+![\[The "Basic information" section with the "Function name" field set to "Greengrass_HelloWorld" and the "Runtime" field set to "Python 3.7".\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-023.png)
 
 1. Upload your Lambda function deployment package:
 
@@ -53,7 +59,7 @@ Depending on your distribution, you might need to install `zip` first \(for exam
    1.  Under **Runtime settings**, choose **Edit**\. On the **Edit runtime settings** page, set the remaining fields as follows: 
       + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **greengrassHelloWorld\.function\_handler**  
-![\[The "Runtime settings" section with the "Runtime" field set to "Python 3.7" and the "Handler" field set to "greengrassHelloWorld.function_handler".\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-023-2.png)
+![\[The "Runtime settings" section with the "Runtime" field set to "Python 3.7" and the "Handler" field set to "greengrassHelloWorld.function_handler".\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-023-2.png)
 
    1. Choose **Save**\.
 **Note**  
@@ -61,21 +67,22 @@ The **Test** button on the AWS Lambda console doesn't work with this function\. 
 
 1. <a name="publish-function-version"></a>Publish the Lambda function:
 
-   1. From **Actions**, choose **Publish new version**\.
+   1. From the **Actions** menu at the top of the page, choose **Publish new version**\.  
+![\[Screenshot of the Actions menu with Publish new version highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-026.png)
 
    1. For **Version description**, enter **First version**, and then choose **Publish**\.  
-![\[Screenshot with the Version description field set to First version and the Publish button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-027.png)
+![\[Screenshot with the Version description field set to First version and the Publish button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-027.png)
 
 1. <a name="create-version-alias"></a>Create an [alias](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html) for the Lambda function [version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html):
 **Note**  
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
-   1. From **Actions**, choose **Create alias**\.  
-![\[Screenshot of the Actions menu set to Create alias.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-028.png)
+   1. From the **Actions** menu at the top of the page, choose **Create alias**\.  
+![\[Screenshot of the Actions menu set to Create alias.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-028.png)
 
    1. Name the alias **GG\_HelloWorld**, set the version to **1** \(which corresponds to the version that you just published\), and then choose **Create**\.
 **Note**  
 AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
          
-![\[Screenshot of Create a new alias with the Name field set to GG_HelloWorld, the Version field set to 1, and the Create button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-029.png)
+![\[Screenshot of Create a new alias with the Name field set to GG_HelloWorld, and the Version field set to 1.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-029.png)

@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Greengrass Discovery RESTful API<a name="gg-discover-api"></a>
 
 All devices that communicate with an AWS IoT Greengrass core must be a member of a Greengrass group\. Each group must have a Greengrass core\. The Discovery API enables devices to retrieve information required to connect to a Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS IoT Greengrass service and use the Discovery API to find:

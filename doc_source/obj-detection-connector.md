@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # ML Object Detection connector<a name="obj-detection-connector"></a>
 
 The ML Object Detection [connectors](connectors.md) provide a machine learning \(ML\) inference service that runs on the AWS IoT Greengrass core\. This local inference service performs object detection using an object detection model compiled by the SageMaker Neo deep learning compiler\. Two types of object detection models are supported: Single Shot Multibox Detector \(SSD\) and You Only Look Once \(YOLO\) v3\. For more information, see [Object Detection Model Requirements](#obj-detection-connector-req-model)\.
@@ -211,8 +217,8 @@ def infer():
 
     logging.info('resp: {}'.format(resp))
     predictions = resp['Body'].read().decode("utf-8")
-    logging.info('predictions: {}'.format(predictions_str))
-    predictions = eval(predictions_str) 
+    logging.info('predictions: {}'.format(predictions))
+    predictions = eval(predictions) 
 
     # Perform business logic that relies on the predictions.
     

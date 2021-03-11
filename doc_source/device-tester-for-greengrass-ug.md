@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Using AWS IoT Device Tester for AWS IoT Greengrass V1<a name="device-tester-for-greengrass-ug"></a>
 
 AWS IoT Device Tester \(IDT\) is a downloadable testing framework that lets you validate IoT devices\. You can use IDT for AWS IoT Greengrass to run the AWS IoT Greengrass qualification suite, and create and run custom test suites for your devices\.
@@ -10,7 +16,7 @@ Use IDT for AWS IoT Greengrass to verify that the AWS IoT Greengrass Core softwa
 
 If you want to add your hardware to the AWS Partner Device Catalog, run the AWS IoT Greengrass qualification suite to generate test reports that you can submit to AWS IoT\. For more information, see [AWS Device Qualification Program](https://aws.amazon.com/partners/dqp/)\. 
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/devicetester_gg.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/devicetester_gg.png)
 
 AWS IoT Device Tester for AWS IoT Greengrass organizes tests using the concepts of *test suites* and *test groups*\.<a name="idt-test-suites-groups"></a>
 + A test suite is the set of test groups used to verify that a device works with particular versions of AWS IoT Greengrass\.

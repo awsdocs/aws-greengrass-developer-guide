@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Tagging your AWS IoT Greengrass resources<a name="tagging"></a>
 
 Tags can help you organize and manage your AWS IoT Greengrass groups\. You can use tags to assign metadata to groups, bulk deployments, and the cores, devices, and other resources that are added to groups\. Tags can also be used in IAM policies to define conditional access to your Greengrass resources\.
@@ -16,12 +22,12 @@ You can create, view, and manage tags for your Greengrass `Group` resources in t
 **To assign tags when you create a group**  
 You can assign tags to a group when you create the group\. To show the tagging input fields, on the **Name your Group** dialog box, choose **Apply tags to the Group \(optional\)**\.  
 
-![\[The Apply tags to the Group section of the Name your Group page with one tag key and value defined.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-create-group-tags.png)
+![\[The Apply tags to the Group section of the Name your Group page with one tag key and value defined.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-create-group-tags.png)
 
 **To view and manage tags from the group configuration page**  
 You can view and manage tags from the group configuration page\. On the **Tags** page for the group, choose **Add tags** or **Manage tags** to add, edit, or remove group tags\.  
 
-![\[The Tags page showing several tag key-value pairs.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-tags.png)
+![\[The Tags page showing several tag key-value pairs.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-tags.png)
 
 ### Tagging support in the AWS IoT Greengrass API<a name="tagging-support-api"></a>
 

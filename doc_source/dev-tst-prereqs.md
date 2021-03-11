@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Prerequisites for running the AWS IoT Greengrass qualification suite<a name="dev-tst-prereqs"></a>
 
 This section describes the prerequisites for using AWS IoT Device Tester \(IDT\) for AWS IoT Greengrass to run the AWS IoT Greengrass qualification suite\.

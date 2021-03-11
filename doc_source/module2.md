@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Module 2: Installing the AWS IoT Greengrass Core software<a name="module2"></a>
 
 This module shows you how to install the AWS IoT Greengrass Core software on your chosen device\. In this module, you first create a Greengrass group and core\. Then, you download, configure, and start the software on your core device\. For more information about AWS IoT Greengrass Core software functionality, see [Configure the AWS IoT Greengrass core](gg-core.md)\.

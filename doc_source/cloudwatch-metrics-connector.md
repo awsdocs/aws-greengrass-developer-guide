@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # CloudWatch Metrics connector<a name="cloudwatch-metrics-connector"></a>
 
 The CloudWatch Metrics [connector](connectors.md) publishes custom metrics from Greengrass devices to Amazon CloudWatch\. The connector provides a centralized infrastructure for publishing CloudWatch metrics, which you can use to monitor and analyze the Greengrass core environment, and act on local events\. For more information, see [Using Amazon CloudWatch metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) in the *Amazon CloudWatch User Guide*\.
@@ -24,7 +30,7 @@ This connector has the following requirements:
 #### [ Version 3 \- 4 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
 + [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-cloudwatch-metrics-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `cloudwatch:PutMetricData` action, as shown in the following example IAM policy\.
++ <a name="conn-cloudwatch-metrics-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `cloudwatch:PutMetricData` action, as shown in the following example AWS Identity and Access Management \(IAM\) policy\.
 
   ```
   {
@@ -50,7 +56,7 @@ This connector has the following requirements:
 #### [ Versions 1 \- 2 ]
 + <a name="conn-req-ggc-v1.7.0"></a>AWS IoT Greengrass Core software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-cloudwatch-metrics-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `cloudwatch:PutMetricData` action, as shown in the following example IAM policy\.
++ <a name="conn-cloudwatch-metrics-req-iam-policy"></a>The [Greengrass group role](group-role.md) configured to allow the `cloudwatch:PutMetricData` action, as shown in the following example AWS Identity and Access Management \(IAM\) policy\.
 
   ```
   {
@@ -308,7 +314,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
-If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
+If you use other Python runtimes, you can create a symlink from Python3\.x to Python 3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#cloudwatch-metrics-connector-req) for the connector\.

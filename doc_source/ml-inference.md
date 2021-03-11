@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Perform machine learning inference<a name="ml-inference"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.6 or later\.
@@ -12,7 +18,7 @@ You can train your inference models anywhere, deploy them locally as *machine le
 
 The following diagram shows the AWS IoT Greengrass ML inference workflow\.
 
-![\[Components of the machine learning workflow and the information flow between the core device, AWS IoT Greengrass service, and cloud-trained models.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/diagram-ml-overview.png)
+![\[Components of the machine learning workflow and the information flow between the core device, AWS IoT Greengrass service, and cloud-trained models.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/diagram-ml-overview.png)
 
 AWS IoT Greengrass ML inference simplifies each step of the ML workflow, including:
 + Building and deploying ML framework prototypes\.
@@ -103,7 +109,7 @@ To enable AWS IoT Greengrass to access models that are stored in Amazon S3 bucke
 
 The following requirements apply for creating and using machine learning resources:
 + You must be using AWS IoT Greengrass Core v1\.6 or later\.
-+ User\-defined Lambda functions can perform `read` or `read and write` operations on the resource\. Permissions for other operations are not available\.  The containerization mode of affiliated Lambda functions determines how you set access permissions\. For more information, see [Access machine learning resources from Lambda functions](access-ml-resources.md)\.
++ User\-defined Lambda functions can perform `read` or `read and write` operations on the resource\. Permissions for other operations are not available\. The containerization mode of affiliated Lambda functions determines how you set access permissions\. For more information, see [Access machine learning resources from Lambda functions](access-ml-resources.md)\.
 + You must provide the full path of the resource on the operating system of the core device\.
 + A resource name or ID has a maximum length of 128 characters and must use the pattern `[a-zA-Z0-9:_-]+`\.
 
@@ -134,7 +140,7 @@ Apache MXNet doesn't currently ensure forward compatibility, so models that you 
 Greengrass Lambda functions that access local MXNet models must set the following environment variable:
 
 ```
-MXNET_ENGINE_TYPE=NaiveEngine
+MXNET_ENGINE_TYPE=NativeEngine
 ```
 
 You can set the environment variable in the function code or add it to the function's group\-specific configuration\. For an example that adds it as a configuration setting, see this [step](ml-console.md#ml-console-config-lambda)\.
@@ -142,7 +148,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow model\-serving limitations on Raspberry Pi<a name="w99aac20c15c17"></a>
+### TensorFlow model\-serving limitations on Raspberry Pi<a name="w101aac23c15c17"></a>
 
 The following recommendations for improving inference results are based on our tests with the TensorFlow 32\-bit Arm libraries on the Raspberry Pi platform\. These recommendations are intended for advanced users for reference only, without guarantees of any kind\.
 + Models that are trained using the [Checkpoint](https://www.tensorflow.org/get_started/checkpoints) format should be "frozen" to the protocol buffer format before serving\. For an example, see the [TensorFlow\-Slim image classification model library](https://github.com/tensorflow/models/tree/master/research/slim)\.

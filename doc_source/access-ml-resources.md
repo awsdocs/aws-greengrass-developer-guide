@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Access machine learning resources from Lambda functions<a name="access-ml-resources"></a>
 
 User\-defined Lambda functions can access machine learning resources to run local inference on the AWS IoT Greengrass core\. A machine learning resource consists of the trained model and other artifacts that are downloaded to the core device\.
@@ -72,10 +78,10 @@ If only containerized Lambda functions are attached to the machine learning reso
 
    
 + Choose **Read\-only access** or **Read and write access** for the Lambda function access permissions\. You can do this when you attach the Lambda function to the machine learning resource:  
-![\[Resource owner set to No OS group and Lambda function permissions set to Read-only access in the resource configuration.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/ml-resource-access-perms.png)
+![\[Resource owner set to No OS group and Lambda function permissions set to Read-only access in the resource configuration.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/ml-resource-access-perms.png)
 
   Or, when you attach the machine learning resource to the Lambda function:  
-![\[Resource owner set to No OS group and Lambda function permissions set to Read-only access in the function configuration.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-ml-resource-access.png)
+![\[Resource owner set to No OS group and Lambda function permissions set to Read-only access in the function configuration.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/lambda-ml-resource-access.png)
  
 
 **Non\-containerized Lambda functions** \(requires GGC v1\.10 or later\)  
@@ -84,9 +90,9 @@ If any non\-containerized Lambda functions are attached to the machine learning 
 
    
 + Choose **Read\-only access** or **Read and write access** for the OS group permissions\.  
-![\[Specifying an OS group and access permissions for a machine learning resource.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/ml-resource-resource-owner.png)
+![\[Specifying an OS group and access permissions for a machine learning resource.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/ml-resource-resource-owner.png)
 + Choose **Inherit resource owner permissions** for non\-containerized Lambda function access permissions\. You can do this when you affiliate the Lambda function and the resource:  
-![\[Inheriting the access permissions of a machine learning resource.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/inherit-ml-resource-access-perms.png)
+![\[Inheriting the access permissions of a machine learning resource.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/inherit-ml-resource-access-perms.png)
 
   For containerized Lambda functions that also access the machine learning resource, choose to inherit the OS group permissions or choose function\-level permissions\. If you choose function\-level permissions, they must be the same or more restrictive than the OS group permissions\.
 
@@ -293,4 +299,4 @@ To resolve this issue, use a different OS group for one of the properties or att
 + [Perform machine learning inference](ml-inference.md)
 + [How to configure machine learning inference using the AWS Management Console](ml-console.md)
 + [How to configure optimized machine learning inference using the AWS Management Console](ml-dlc-console.md)
-+ [AWS IoT Greengrass API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/api-doc.html)
++ [AWS IoT Greengrass Version 1 API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/api-doc.html)

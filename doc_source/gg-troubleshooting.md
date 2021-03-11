@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Troubleshooting AWS IoT Greengrass<a name="gg-troubleshooting"></a>
 
 This section provides troubleshooting information and possible solutions to help resolve issues with AWS IoT Greengrass\.
@@ -6,7 +12,7 @@ This section provides troubleshooting information and possible solutions to help
 
 ## AWS IoT Greengrass Core issues<a name="gg-troubleshooting-coreissues"></a>
 
-If the AWS IoT Greengrass Core software does not start, try the following general troublehooting steps:
+If the AWS IoT Greengrass Core software does not start, try the following general troubleshooting steps:
 + Make sure that you install the binaries that are appropriate for your architecture\. For more information, see [AWS IoT Greengrass Core Software](what-is-gg.md#gg-core-download-tab)\.
 + Make sure that your core device has local storage available\. For more information, see [Troubleshooting storage issues](#troubleshooting-storage)\.
 + Check `runtime.log` and `crash.log` for error messages\. For more information, see [Troubleshooting with logs](#troubleshooting-logs)\.
@@ -282,7 +288,7 @@ To resolve this issue, add a local volume resource to the group and then deploy 
 
 **Solution:** You might see this error in runtime\.log when the deployment fails\. This error occurs if a Lambda function in the AWS IoT Greengrass group cannot access the `/usr` directory in the core's file system\.
 
-You can confirm that this is is the case by checking `GGCanary.log` for additional errors\. If the Lambda function cannot access the `/usr` directory, `GGCanary.log` will contain the following error:
+You can confirm that this is the case by checking `GGCanary.log` for additional errors\. If the Lambda function cannot access the `/usr` directory, `GGCanary.log` will contain the following error:
 
 ```
 [ERROR]-standard_init_linux.go:207: exec user process caused "no such file or directory"
@@ -297,27 +303,29 @@ To resolve this issue, add a local volume resource to the group and then deploy 
 
 ### Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}<a name="troubleshoot-symbolic-links"></a>
 
-**Solution:** You might see this error in `runtime.log` when the AWS IoT Greengrass Core software doesn't start and your Linux kernel version is 4\.19\.57 or earlier\. This issue might be more common on Debian operating systems\.
+**Solution:** You might see this error in the `runtime.log` file when the AWS IoT Greengrass Core software doesn't start\. This issue might be more common on Debian operating systems\.
 
-To resolve this issue, do one of the following:
-+ If you're running AWS IoT Greengrass Core software v1\.9\.3 or later, add the `system.useOverlayWithTmpfs` property to [config\.json](gg-core.md#config-json), and set the value to `true`\. For example:
+To resolve this issue, do the following:
 
-  ```
-  {
-    "system": {
-      "useOverlayWithTmpfs": true
-    },
-    "coreThing": {
-      "caPath": "root-ca.pem",
-      "certPath": "cloud.pem.crt",
-      "keyPath": "cloud.pem.key",
-      ...
-    },
-    ...
-  }
-  ```
-+ If you're running AWS IoT Greengrass Core software v1\.9\.2 or earlier on a Raspberry Pi, update to AWS IoT Greengrass Core software v1\.9\.3 or later\. For information about over\-the\-air updates for AWS IoT Greengrass software, see [OTA updates of AWS IoT Greengrass Core software](core-ota-update.md)\.
-+ Upgrade the Linux kernel on your device\. We recommend version 4\.4 or later\.
+1. Upgrade the AWS IoT Greengrass Core software to v1\.9\.3 or later\. This should automatically resolve this issue\.
+
+1. If you still get this error after you upgrade the AWS IoT Greengrass Core software, set the `system.useOverlayWithTmpfs` property to `true` in the [config\.json](gg-core.md#config-json) file\.   
+**Example**  
+
+   ```
+   {
+     "system": {
+       "useOverlayWithTmpfs": true
+     },
+     "coreThing": {
+       "caPath": "root-ca.pem",
+       "certPath": "cloud.pem.crt",
+       "keyPath": "cloud.pem.key",
+       ...
+     },
+     ...
+   }
+   ```
 
 **Note**  
 Your AWS IoT Greengrass Core software version is shown in the error message\. To find your Linux kernel version, run `uname -r`\.
@@ -369,7 +377,7 @@ Use the following information to help troubleshoot deployment issues\.
 1. On the group configuration page, choose **Deployments**\. This page displays the deployment history for the group, including the date and time, group version, and status of each deployment attempt\.
 
 1. Find the row that contains the deployment you want to redeploy\. In the **Status** column, choose the ellipsis \(**…**\), and then choose **Re\-deploy**\.  
-![\[Deployments page showing the Re-Deploy action for a deployment.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-redeployment.png)
+![\[Deployments page showing the Re-Deploy action for a deployment.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-redeployment.png)
 
 **To redeploy a deployment \(CLI\)**
 
@@ -462,7 +470,7 @@ wget -O aws-iot-greengrass-keyring.deb https://d1onfpft10uf5o.cloudfront.net/gre
 sudo dpkg -i aws-iot-greengrass-keyring.deb
 ```
 
-For more information, see [Using apt to install the AWS IoT Greengrass Core software](install-ggc.md#ggc-package-manager-install)\.
+For more information, see [Use apt to install the AWS IoT Greengrass Core software](install-ggc.md#ggc-package-manager-install)\.
 
  
 
@@ -798,13 +806,16 @@ Shows messages about which component failed\.
 `greengrass-root/ggc/var/log/system/`  
 Contains all logs from AWS IoT Greengrass system components, such as the certificate manager and the connection manager\. By using the messages in `ggc/var/log/system/` and `ggc/var/log/system/runtime.log`, you should be able to find out which error occurred in AWS IoT Greengrass system components\.
 
+`greengrass-root/ggc/var/log/system/localwatch/`  
+Contains the logs for the AWS IoT Greengrass component that handles uploading Greengrass logs to CloudWatch Logs\. If you cannot view Greengrass logs in CloudWatch, then you can use these logs for troubleshooting\.
+
 `greengrass-root/ggc/var/log/user/`  
 Contains all logs from user\-defined Lambda functions\. Check this folder to find error messages from your local Lambda functions\.
 
 **Note**  
 By default, *greengrass\-root* is the `/greengrass` directory\. If a [write directory](gg-core.md#write-directory) is configured, then the logs are under that directory\.
 
-If the logs are configured to be stored on the cloud, use CloudWatch Logs to view log messages\. `crash.log` is found only in file system logs on the AWS IoT Greengrass core device\.
+If the logs are configured to be stored on the cloud, use CloudWatch Logs to view log messages\. `crash.log` is found only in file system logs on the AWS IoT Greengrass core device\. 
 
 If AWS IoT is configured to write logs to CloudWatch, check those logs if connection errors occur when system components attempt to connect to AWS IoT\.
 

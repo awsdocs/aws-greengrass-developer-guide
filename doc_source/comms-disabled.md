@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Test communications \(device syncs disabled\)<a name="comms-disabled"></a>
 
 1. <a name="ping-device"></a>Make sure that your computer and the AWS IoT Greengrass core device are connected to the internet using the same network\.
@@ -15,7 +21,7 @@
       ```
 
       Output similar to the following indicates successful communication between the computer and the AWS IoT Greengrass core device \(0% packet loss\):  
-![\[Successful ping command output.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-075.5.png)
+![\[Successful ping command output.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-075.5.png)
 **Note**  
 If you're unable to ping an EC2 instance that's running AWS IoT Greengrass, make sure that the inbound security group rules for the instance allow ICMP traffic for [Echo request](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-rules-reference.html#sg-rules-ping) messages\. For more information, see [ Adding rules to a security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule) in the *Amazon EC2 User Guide for Linux Instances*\.  
 On Windows host computers, in the Windows Firewall with Advanced Security app, you might also need to enable an inbound rule that allows inbound echo requests \(for example, **File and Printer Sharing \(Echo Request \- ICMPv4\-In\)**\), or create one\.
@@ -25,7 +31,7 @@ On Windows host computers, in the Windows Firewall with Advanced Security app, y
    1. <a name="iot-settings"></a>In the [AWS IoT console](https://console.aws.amazon.com/iot/), in the navigation pane, choose **Settings**\.
 
    1. <a name="iot-settings-endpoint"></a>Under **Settings**, make a note of the value of **Endpoint**\. You use this value to replace the *AWS\_IOT\_ENDPOINT* placeholder in the commands in the following steps\.  
-![\[AWS IoT endpoint value.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-075.7.png)
+![\[AWS IoT endpoint value.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-075.7.png)
 **Note**  
 Make sure that your [endpoints correspond to your certificate type](gg-core.md#certificate-endpoints)\.
 
@@ -54,17 +60,17 @@ Make sure that your [endpoints correspond to your certificate type](gg-core.md#c
       Every 20 seconds, the switch updates the shadow state to G, Y, and R, and the light displays its new state, as shown next\.
 
       GG\_Switch output:  
-![\[Screenshot of the output associated with GG_Switch.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-083.png)
+![\[Screenshot of the output associated with GG_Switch.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-083.png)
 
       GG\_TrafficLight output:  
-![\[Screenshot of the output associated with GG_TrafficLight.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-084.png)
+![\[Screenshot of the output associated with GG_TrafficLight.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-084.png)
 
    When executed for the first time, each device script runs the AWS IoT Greengrass discovery service to connect to the AWS IoT Greengrass core \(through the internet\)\. After a device has discovered and successfully connected to the AWS IoT Greengrass core, future operations can be executed locally\.
 **Note**  
 <a name="check-connection-info"></a> The `lightController.py` and `trafficLight.py` scripts store connection information in the `groupCA` folder, which is created in the same folder as the scripts\. If you receive connection errors, make sure that the IP address in the `ggc-host` file matches the IP address endpoint for your core\.
 
 1. In the AWS IoT console, choose your AWS IoT Greengrass group, choose **Devices**, and then choose **GG\_TrafficLight**\.  
-![\[Screenshot of Devices page with GG_TrafficLIght highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-085.png)
+![\[Screenshot of Devices page with GG_TrafficLIght highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-085.png)
 
 1. Choose **Shadow**\. After the GG\_Switch changes states, there should not be any updates to this shadow topic in **Shadow State**\. That's because the GG\_TrafficLight is set to **LOCAL SHADOW ONLY** as opposed to **SHADOW SYNCING TO CLOUD**\.
 

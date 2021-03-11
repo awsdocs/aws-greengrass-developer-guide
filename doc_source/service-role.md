@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Greengrass service role<a name="service-role"></a>
 
 The Greengrass service role is an AWS Identity and Access Management \(IAM\) service role that authorizes AWS IoT Greengrass to access resources from AWS services on your behalf\. This makes it possible for AWS IoT Greengrass to perform essential tasks, such as retrieving your AWS Lambda functions and managing AWS IoT shadows\.
@@ -35,7 +41,7 @@ Use the following steps to find the service role that AWS IoT Greengrass is usin
 1. <a name="iot-settings"></a>In the [AWS IoT console](https://console.aws.amazon.com/iot/), in the navigation pane, choose **Settings**\.
 
 1. Scroll to the **Greengrass service role** section to see your service role and its policies\.  
-![\[The Greengrass service role displayed on the Settings page of the AWS IoT console.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-iot-settings-service-role.png)
+![\[The Greengrass service role displayed on the Settings page of the AWS IoT console.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-iot-settings-service-role.png)
 
    If you don't see a service role, you can let the console create or configure one for you\. For more information, see [Create the Greengrass service role](#create-service-role-console)\.
 

@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Create and configure the Lambda function<a name="create-config-lambda"></a>
 
 In this step, you create a Lambda function that tracks the number of cars that pass the traffic light\. Every time that the `GG_TrafficLight` shadow state changes to `G`, the Lambda function simulates the passing of a random number of cars \(from 1 to 20\)\. On every third `G` light change, the Lambda function sends basic statistics, such as min and max, to a DynamoDB table\.
@@ -21,7 +27,7 @@ This example Python file is stored in the AWS IoT Greengrass Core SDK repository
    ```
 
    This results in a directory listing similar to the following:  
-![\[Screenshot of directory listing showing carAggregator.py.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-095.png)
+![\[Screenshot of directory listing showing carAggregator.py.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-095.png)
 
 1. Compress the contents of the `car_aggregator` folder into a `.zip` file named `car_aggregator.zip`\. \(Compress the folder's contents, not the folder\.\) This is your Lambda function deployment package\.
 
@@ -30,7 +36,7 @@ This example Python file is stored in the AWS IoT Greengrass Core SDK repository
    + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
    Choose **Create function**\.  
-![\[Basic information section with Function name set to GG_Car_Aggregator and Runtime set to Python 3.7.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-095.5.png)
+![\[Basic information section with Function name set to GG_Car_Aggregator and Runtime set to Python 3.7.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-095.5.png)
 
 1. Upload your Lambda function deployment package:
 
@@ -42,7 +48,7 @@ This example Python file is stored in the AWS IoT Greengrass Core SDK repository
    1. Choose **Upload**, and then choose `car_aggregator.zip`\.
 
    1. Choose **Save**\.  
-![\[Screenshot of GG_Car_Aggregator with the Handler field set to carAggregator.function_handler.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-096.png)
+![\[Screenshot of GG_Car_Aggregator with the Handler field set to carAggregator.function_handler.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-096.png)
 
 1. Publish the Lambda function, and then create an alias named **GG\_CarAggregator**\. For step\-by\-step instructions, see the steps to [publish the Lambda function](create-lambda.md#publish-function-version) and [create an alias](create-lambda.md#create-version-alias) in Module 3 \(Part 1\)\.
 
@@ -51,22 +57,22 @@ This example Python file is stored in the AWS IoT Greengrass Core SDK repository
    1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.
 
    1. Choose **Use existing Lambda**\.  
-![\[Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-096.2.png)
+![\[Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-096.2.png)
 
    1. Choose **GG\_Car\_Aggregator**, and then choose **Next**\.  
-![\[GG_Car_Aggregator and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-096.3.png)
+![\[GG_Car_Aggregator and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-096.3.png)
 
    1. Choose **Alias: GG\_CarAggregator**, and then choose **Finish**\.  
-![\[Alias: GG_CarAggregator and Finish highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-096.4.png)
+![\[Alias: GG_CarAggregator and Finish highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-096.4.png)
 **Note**  
 You can remove other Lambda functions from earlier modules\.
 
 1. Edit the Lambda function configuration:
 
    1. Choose the ellipsis \(**…**\) associated with the Lambda function, and then choose **Edit Configuration**\.  
-![\[The Edit Configuration option highlighted for the Lambda function.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-097.5.png)
+![\[The Edit Configuration option highlighted for the Lambda function.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-097.5.png)
 
    1. Under **Memory limit**, enter **64 MB**\.
 
    1. Under **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**, and then choose **Update**\.  
-![\[GG_Car_Aggregator configuration page with Make this function long-lived and keep it running indefinitely highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-098.png)
+![\[GG_Car_Aggregator configuration page with Make this function long-lived and keep it running indefinitely highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-098.png)

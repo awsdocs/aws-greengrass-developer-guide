@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # AWS CloudFormation support for AWS IoT Greengrass<a name="cloudformation-support"></a>
 
 AWS CloudFormation is a service that can help you create, manage, and replicate your AWS resources\. You can use AWS CloudFormation templates to define AWS IoT Greengrass groups and the devices, subscriptions, and other components that you want to deploy\. For an example, see [Example template](#cloudformation-support-example)\.
@@ -40,12 +46,12 @@ The `CommandToDeployGroup` statement in the [example template](#cloudformation-s
 
 **To deploy the group \(console\)**  
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. Choose your group\.
 
 1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
-![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)
+![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-040.png)
 
    This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 

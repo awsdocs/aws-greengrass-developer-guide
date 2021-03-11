@@ -1,20 +1,26 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Integrate with services and protocols using Greengrass connectors<a name="connectors"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
-Greengrass connectors are prebuilt modules that help accelerate the development lifecycle for common edge scenarios\. They make it easier to interact with local infrastructure, device protocols, AWS, and other cloud services\. With connectors, you can spend less time learning new protocols and APIs and more time focusing on the logic that matters to your business\.
+Connectors in AWS IoT Greengrass are prebuilt modules that make it more efficient to interact with local infrastructure, device protocols, AWS, and other cloud services\. By using connectors, you can spend less time learning new protocols and APIs and more time focusing on the logic that matters to your business\.
 
 The following diagram shows where connectors can fit into the AWS IoT Greengrass landscape\.
 
-![\[Connectors connect to devices, services, and local resources.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/connectors/connectors-arch.png)
+![\[Connectors connect to devices, services, and local resources.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/connectors/connectors-arch.png)
 
 Many connectors use MQTT messages to communicate with devices and Greengrass Lambda functions in the group, or with AWS IoT and the local shadow service\. In the following example, the Twilio Notifications connector receives MQTT messages from a user\-defined Lambda function, uses a local reference of a secret from AWS Secrets Manager, and calls the Twilio API\.
 
-![\[A connector receiving an MQTT message from a Lambda function and calling a service.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/connectors/twilio-solution.png)
+![\[A connector receiving an MQTT message from a Lambda function and calling a service.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/connectors/twilio-solution.png)
 
 For tutorials that create this solution, see [Getting started with Greengrass connectors \(console\)](connectors-console.md) and [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)\.
 
-Greengrass connectors can help you quickly extend device capabilities or create single\-purpose devices\. Connectors can make it easier to:
+Greengrass connectors can help you extend device capabilities or create single\-purpose devices\. By using connectors, you can:
 + Implement reusable business logic\.
 + Interact with cloud and local services, including AWS and third\-party services\.
 + Ingest and process device data\.
@@ -24,20 +30,20 @@ AWS provides a set of Greengrass connectors that simplify interactions with comm
 
 ## Requirements<a name="connectors-reqs"></a>
 
-The following requirements apply for connectors:
-+ You must meet the requirements of each connector that you're using\. These requirements might include the minimum AWS IoT Greengrass Core software version, device prerequisites, required permissions, and limits\. For more information, see [AWS\-provided Greengrass connectors](connectors-list.md)\.
-+ A Greengrass group can contain only one configured instance of a given connector, but the instance can be used in multiple subscriptions\. For more information, see [Configuration parameters](#connectors-parameters)\.
+To use connectors, keep these points in mind:
++ Each connector that you use has requirements that you must meet\. These requirements might include the minimum AWS IoT Greengrass Core software version, device prerequisites, required permissions, and limits\. For more information, see [AWS\-provided Greengrass connectors](connectors-list.md)\.
++ A Greengrass group can contain only one configured instance of a given connector\. However, you can use the instance in multiple subscriptions\. For more information, see [Configuration parameters](#connectors-parameters)\.
 + When the [default containerization](lambda-group-config.md#lambda-containerization-groupsettings) for the Greengrass group is set to **No container**, the connectors in the group must run without containerization\. To find connectors that support **No container** mode, see [AWS\-provided Greengrass connectors](connectors-list.md)\.
 
 ## Using Greengrass connectors<a name="use-applications"></a>
 
 A connector is a type of group component\. Like other group components, such as devices and user\-defined Lambda functions, you add connectors to groups, configure their settings, and deploy them to the AWS IoT Greengrass core\. Connectors run in the core environment\.
 
-Some connectors can be deployed as simple standalone applications\. For example, the Device Defender connector reads system metrics from the core device and sends them to AWS IoT Device Defender for analysis\.
+You can deploy some connectors as simple standalone applications\. For example, the Device Defender connector reads system metrics from the core device and sends them to AWS IoT Device Defender for analysis\.
 
-Other connectors can be used as building blocks in larger solutions\. The following example solution uses the Modbus\-RTU Protocol Adapter connector to process messages from sensors and the Twilio Notifications connector to trigger Twilio messages\.
+You can add other connectors as building blocks in larger solutions\. The following example solution uses the Modbus\-RTU Protocol Adapter connector to process messages from sensors and the Twilio Notifications connector to initiate Twilio messages\.
 
-![\[Data flow from Lambda function to Modbus-RTU Protocol Adapter connector to Lambda function to Twilio Notifications connector to Twilio.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/connectors/modbus-twilio-solution.png)
+![\[Data flow from Lambda function to Modbus-RTU Protocol Adapter connector to Lambda function to Twilio Notifications connector to Twilio.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/connectors/modbus-twilio-solution.png)
 
 Solutions often include user\-defined Lambda functions that sit next to connectors and process the data that the connector sends or receives\. In this example, the TempMonitor function receives data from Modbus\-RTU Protocol Adapter, runs some business logic, and then sends data to Twilio Notifications\.
 
@@ -47,7 +53,7 @@ To create and deploy a solution, you follow this general process:
 
 1. Identify the connectors to include in the solution, and add them to your group\. The example solution uses Modbus\-RTU Protocol Adapter and Twilio Notifications\. To help you find connectors that apply to your scenario, and to learn about their individual requirements, see [AWS\-provided Greengrass connectors](connectors-list.md)\.
 
-1. Identify whether user\-defined Lambda functions, devices, or resources are needed, and then create and add them to the group\. This might include functions that contain business logic or process data into a format required by another entity in the solution\. The example solution uses functions to send Modbus RTU requests and trigger Twilio notifications\. It also includes a local device resource for the Modbus RTU serial port and a secret resource for the Twilio authentication token\.
+1. Identify whether user\-defined Lambda functions, devices, or resources are needed, and then create and add them to the group\. This might include functions that contain business logic or process data into a format required by another entity in the solution\. The example solution uses functions to send Modbus RTU requests and initiate Twilio notifications\. It also includes a local device resource for the Modbus RTU serial port and a secret resource for the Twilio authentication token\.
 **Note**  
 Secret resources reference passwords, tokens, and other secrets from AWS Secrets Manager\. Secrets can be used by connectors and Lambda functions to authenticate with services and applications\. By default, AWS IoT Greengrass can access secrets with names that start with "*greengrass\-*"\. For more information, see [Deploy secrets to the AWS IoT Greengrass core](secrets.md)\.
 
@@ -55,7 +61,7 @@ Secret resources reference passwords, tokens, and other secrets from AWS Secrets
 
 1. Deploy the group to the Greengrass core\.
 
-To learn how to create and deploy a connector, see the following tutorials:
+For information about creating and deploying a connector, see the following tutorials:
 + [Getting started with Greengrass connectors \(console\)](connectors-console.md)
 + [Getting started with Greengrass connectors \(CLI\)](connectors-cli.md)
 
@@ -115,7 +121,7 @@ The `+` and `#` characters in the previous examples are wildcards\. These wildca
 
   As an example, for topic `sensor/#`, messages can be published to `sensor/`, `sensor/id-123`, and `sensor/group-a/id-123`, but not to `sensor`\.
 
-Wildcard characters are valid only when subscribing to topics\. Messages can't be published to topics that contain wildcards\. Check the documentation for the connector to learn about its input or output topic requirements\. For more information, see [AWS\-provided Greengrass connectors](connectors-list.md)\.
+Wildcard characters are valid only when subscribing to topics\. Messages can't be published to topics that contain wildcards\. Check the documentation for the connector for more information about its input or output topic requirements\. For more information, see [AWS\-provided Greengrass connectors](connectors-list.md)\.
 
 ## Containerization support<a name="connector-containerization"></a>
 
@@ -134,7 +140,9 @@ Connector providers might release new versions of a connector that add features,
 
 In the AWS IoT console, you can check for new versions for the connectors in your Greengrass group\.
 
-1. Choose **Greengrass**, **Groups**, and then choose your group\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+
+1. Under **Greengrass groups**, choose your group\.
 
 1. Choose **Connectors** to display the connectors in the group\.
 

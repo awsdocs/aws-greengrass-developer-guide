@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # IoT Analytics connector<a name="iot-analytics-connector"></a>
 
 The IoT Analytics connector sends local device data to AWS IoT Analytics\. You can use this connector as a central hub to collect data from sensors on the Greengrass core device and from [connected Greengrass devices](what-is-gg.md#greengrass-devices)\. The connector sends the data to AWS IoT Analytics channels in the current AWS account and Region\. It can send data to a default destination channel and to dynamically specified channels\.
@@ -302,7 +308,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
-If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
+If you use other Python runtimes, you can create a symlink from Python3\.x to Python 3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#iot-analytics-connector-req) for the connector\.

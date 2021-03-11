@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Docker application deployment connector<a name="docker-app-connector"></a>
 
 The Greengrass Docker application deployment connector makes it easier to run your Docker images on an AWS IoT Greengrass core\. The connector uses Docker Compose to start a multi\-container Docker application from a `docker-compose.yml` file\. Specifically, the connector runs `docker-compose` commands to manage Docker containers on a single core device\. For more information, see [Overview of Docker Compose](https://docs.docker.com/compose/) in the Docker documentation\. The connector can access Docker images stored in Docker container registries, such as Amazon Elastic Container Registry \(Amazon ECR\), Docker Hub, and private Docker trusted registries\.
@@ -42,8 +48,8 @@ We recommend that you install a credentials store to secure the local copies of 
 + [Docker Compose](https://docs.docker.com/compose/install/) installed on the Greengrass core\. The `docker-compose` executable must be in the `/usr/bin` or `/usr/local/bin` directory\.
 
   The following Docker Compose versions are verified to work with the connector\.    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/docker-app-connector.html)
-+ A single Docker Compose file \(for example, `docker-compose.yml`\), stored in Amazon S3\. The format must be compatible with the version of Docker Compose installed on the core\. You should test the file before you use it on your core\. If you edit the file after you deploy the Greengrass group, you must redeploy the group to update your local copy on the core\.
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/docker-app-connector.html)
++ A single Docker Compose file \(for example, `docker-compose.yml`\), stored in Amazon Simple Storage Service \(Amazon S3\)\. The format must be compatible with the version of Docker Compose installed on the core\. You should test the file before you use it on your core\. If you edit the file after you deploy the Greengrass group, you must redeploy the group to update your local copy on the core\.
 + A Linux user with permission to call the local Docker daemon and write to the directory that stores the local copy of your Compose file\. For more information, see [Setting up the Docker user on the core](#docker-app-connector-linux-user)\.
 + The [Greengrass group role](group-role.md) configured to allow the `s3:GetObject` action on the S3 bucket that contains your Compose file\. This permission is shown in the following example IAM policy\.
 
@@ -154,7 +160,7 @@ Use this login information to create a secret for each AWS Marketplace registry 
 **To create secrets \(console\)**  
 In the AWS Secrets Manager console, choose **Other type of secrets**\. Under **Specify the key\-value pairs to be stored for this secret**, add rows for `username`, `password`, and `registryUrl`\. For more information, see [Creating a basic secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) in the *AWS Secrets Manager User Guide*\.  
 
-![\[Creating a secret with username, password, and registryUrl keys.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/connectors/secret-docker-trusted-registry.png)
+![\[Creating a secret with username, password, and registryUrl keys.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/connectors/secret-docker-trusted-registry.png)
 
 **To create secrets \(CLI\)**  
 In the AWS CLI, use the Secrets Manager `create-secret` command, as shown in the following example\. For more information, see [create\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html) in the *AWS CLI Command Reference*\.  
@@ -563,7 +569,7 @@ When you use the Greengrass Docker application deployment connector, you should 
 
   You must have root permissions to access local logs\.
 + Updating Docker images\. Docker caches images on the core device\. If you update a Docker image and want to propagate the change to the core device, make sure to change the tag for the image in the Compose file\. Changes take effect after the Greengrass group is deployed\.
-+ 10\-minute timeout for cleanup operations\. When the Greengrass daemon stops \(during a restart\), the `docker-compose down` command is triggered\. All Docker containers have a maximum of 10 minutes after `docker-compose down` is triggered to perform any cleanup operations\. If the cleanup isn't complete in 10 minutes, you must clean up the remaining containers manually\. For more information, see [docker rm](https://docs.docker.com/engine/reference/commandline/rm/) in the Docker CLI documentation\.
++ 10\-minute timeout for cleanup operations\. When the Greengrass daemon stops during a restart, the `docker-compose down` command is initiated\. All Docker containers have a maximum of 10 minutes after `docker-compose down` is initiated to perform any cleanup operations\. If the cleanup isn't complete in 10 minutes, you must clean up the remaining containers manually\. For more information, see [docker rm](https://docs.docker.com/engine/reference/commandline/rm/) in the Docker CLI documentation\.
 + Running Docker commands\. To troubleshoot issues, you can run Docker commands in a terminal window on the core device\. For example, run the following command to see the Docker containers that were started by the connector:
 
   ```
@@ -583,7 +589,7 @@ AWS IoT Greengrass supports the following communication channels between Greengr
 You can configure a Docker container as a Greengrass device and add it to a Greengrass group\. Then, you can create subscriptions that allow MQTT communication between the Docker container and Greengrass components or AWS IoT\. In the following procedure, you create a subscription that allows the Docker container device to receive shadow update messages from the local shadow service\. You can follow this pattern to create other subscriptions\.
 
 **Note**  
-In this procedure, we assume you have already created a Greengrass group and a Greengrass core \(v1\.10 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\.
+This procedure assumes that you have already created a Greengrass group and a Greengrass core \(v1\.10 or later\)\. For information about creating a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\.
 
 **To configure a Docker container as a Greengrass device and add it to a Greengrass group**
 
@@ -600,12 +606,12 @@ In this procedure, we assume you have already created a Greengrass group and a G
          -  /path-to-device-certs/:/path-accessible-in-container
    ```
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
 1. <a name="gg-group-add-device"></a>On the group configuration page, choose **Devices**, and then choose **Add Device**\.  
-![\[Screenshot of the Devices page with the Add your first Device button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-066.png)
+![\[Screenshot of the Devices page with the Add your first Device button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-066.png)
 
 1. <a name="gg-group-create-device"></a>On the **Add a Device** page, choose **Create New Device**\.
 
@@ -614,7 +620,7 @@ In this procedure, we assume you have already created a Greengrass group and a G
 1. <a name="gg-group-generate-default-device-certs"></a>On the **Set up security** page, for **1\-Click**, choose **Use Defaults**\. This option generates a device certificate with an attached [AWS IoT policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) and public and private key\.
 
 1. On the **Download security credentials** page, download the certificates and keys to the directory you created in step 1, and then choose **Finish**\.  
-![\[Screenshot of the Download security credentials page with the Download these resources as a tar.gz button highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-070.png)
+![\[Screenshot of the Download security credentials page with the Download these resources as a tar.gz button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-070.png)
 
 1. Decompress the `hash-setup.tar.gz` file\. For example, run the following command\. The *hash* placeholder is the hash in the name of the `tar.gz` file you downloaded \(for example, `bcc5afd26d`\)\.
 
@@ -642,7 +648,7 @@ The maximum size of a shadow document is 8 KB\. For more information, see [AWS I
 **To create a subscription that allows the Docker container device to receive MQTT messages from the local shadow service**
 
 1. <a name="shared-subscriptions-addsubscription"></a>On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.  
-![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-subscriptions.png)
+![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-subscriptions.png)
 
 1. On the **Select your source and target** page, configure the source and target, as follows:
 

@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Use the IDT context<a name="idt-context"></a>
 
 When IDT runs a test suite, the test suite can access a set of data that can be used to determine how each test runs\. This data is called the IDT context\. For example, user data configuration provided by test runners in a `userdata.json` file is made available to test suites in the IDT context\. 

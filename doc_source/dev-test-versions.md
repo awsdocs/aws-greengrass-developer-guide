@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Supported versions of AWS IoT Device Tester for AWS IoT Greengrass V1<a name="dev-test-versions"></a>
 
 This topic lists supported versions of IDT for AWS IoT Greengrass V1\. As a best practice, we recommend that you use the latest version of IDT for AWS IoT Greengrass V1 that supports your target version of AWS IoT Greengrass V1\. New releases of AWS IoT Greengrass might require you to download a new version of IDT for AWS IoT Greengrass\. 

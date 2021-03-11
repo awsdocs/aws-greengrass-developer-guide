@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Key management for the Greengrass core device<a name="key-management"></a>
 
 It's the responsibility of the customer to guarantee secure storage of cryptographic \(public and private\) keys on the Greengrass core device\. AWS IoT Greengrass uses public and private keys for the following scenarios:

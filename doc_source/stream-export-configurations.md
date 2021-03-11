@@ -1,8 +1,14 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Export configurations for supported AWS Cloud destinations<a name="stream-export-configurations"></a>
 
 User\-defined Lambda functions use `StreamManagerClient` in the AWS IoT Greengrass Core SDK to interact with stream manager\. When a Lambda function [creates a stream](work-with-streams.md#streammanagerclient-create-message-stream) or [updates a stream](work-with-streams.md#streammanagerclient-create-message-stream), it passes a `MessageStreamDefinition` object that represents stream properties, including the export definition\. The `ExportDefinition` object contains the export configurations defined for the stream\. Stream manager uses these export configurations to determine where and how to export the stream\.
 
-![\[Object model diagram of the ExportDefinition property type.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/stream-manager-exportconfigs.png)
+![\[Object model diagram of the ExportDefinition property type.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/stream-manager-exportconfigs.png)
 
 You can define zero or more export configurations on a stream, including multiple export configurations for a single destination type\. For example, you can export a stream to two AWS IoT Analytics channels and one Kinesis data stream\.
 
@@ -197,7 +203,7 @@ This export destination has the following requirements:
               "Action": [
                   "s3:PutObject",
                   "s3:AbortMultipartUpload",
-                  "s3:ListMultipartUploads"
+                  "s3:ListMultipartUploadParts"
               ],
               "Resource": [
                   "arn:aws:s3:::bucket-1-name/*",
@@ -219,7 +225,7 @@ To create a stream that exports to Amazon S3, your Lambda functions use the `S3E
 
  This high\-level workflow is shown in the following diagram\.
 
-![\[Diagram of the stream manager workflow for Amazon S3 exports.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/stream-manager-s3.png)
+![\[Diagram of the stream manager workflow for Amazon S3 exports.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/stream-manager-s3.png)
 
 Stream manager uses the multipart upload threshold property, [minimum part size](configure-stream-manager.md#stream-manager-minimum-part-size) setting, and size of the input file to determine how to upload data\. The multipart upload threshold must be greater or equal to the minimum part size\. If you want to upload data in parallel, you can create multiple streams\.
 

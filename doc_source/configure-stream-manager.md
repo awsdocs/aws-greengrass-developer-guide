@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Configure AWS IoT Greengrass stream manager<a name="configure-stream-manager"></a>
 
 On the AWS IoT Greengrass core, stream manager can store, process, and export IoT device data\. Stream manager provides parameters that you use to configure group\-level runtime settings\. These settings apply to all streams on the Greengrass core\. You can use the AWS IoT console or AWS IoT Greengrass API to configure stream manager settings\. Changes take effect after the group is deployed\.
@@ -80,20 +86,20 @@ When you use the console to enable stream manager and deploy the group, the memo
 
 ### To check if stream manager is enabled \(console\)<a name="check-stream-manager-console"></a>
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
 1. <a name="group-choose-settings"></a>Choose **Settings**\.
 
 1. Under **Stream manager**, check the enabled or disabled status\. Any custom stream manager settings that are configured are also displayed\.  
-![\[The Stream manager section on the Settings page of the AWS IoT console.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings-stream-manager.png)
+![\[The Stream manager section on the Settings page of the AWS IoT console.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings-stream-manager.png)
 
  
 
 ### To enable or disable stream manager during group creation \(console\)<a name="enable-stream-manager-console-new-group"></a>
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. Choose **Create Group**\. Your choice on the next page determines how you configure stream manager for the group\.
 
@@ -125,7 +131,7 @@ When you use the console to enable stream manager and deploy the group, the memo
         1. On the **Configure stream manager** page, choose **Disable**\.
 
               
-![\[The Stream manager page in the create group workflow.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/create-group-stream-manager.png)
+![\[The Stream manager page in the create group workflow.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/create-group-stream-manager.png)
 
 1. Choose **Next**\.
 
@@ -139,7 +145,7 @@ When stream manager is enabled, you must [install the Java 8 runtime](stream-man
 
 ### To enable or disable stream manager for an existing group \(console\)<a name="enable-stream-manager-console-existing-group"></a>
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
@@ -155,7 +161,7 @@ When stream manager is enabled, you must [install the Java 8 runtime](stream-man
 
 ### To change stream manager settings \(console\)<a name="change-stream-manager-console"></a>
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 

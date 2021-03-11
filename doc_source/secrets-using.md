@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Working with secret resources<a name="secrets-using"></a>
 
 AWS IoT Greengrass uses *secret resources* to integrate secrets from AWS Secrets Manager into a Greengrass group\. A secret resource is a reference to a Secrets Manager secret\. For more information, see [Deploy secrets to the AWS IoT Greengrass core](secrets.md)\.
@@ -37,7 +43,7 @@ Secret resources always include the `AWSCURRENT` staging label, and they can opt
 
 In the AWS IoT Greengrass console, you create and manage secret resources from the **Secrets** tab on the group's **Resources** page\. For tutorials that create a secret resource and add it to a group, see [How to create a secret resource \(console\)](secrets-console.md) and [Getting started with Greengrass connectors \(console\)](connectors-console.md)\.
 
-![\[A secret resource on the Secret tab on the Resources page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/connectors/secret-resource-twilio-auth-token.png)
+![\[A secret resource on the Secret tab on the Resources page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/connectors/secret-resource-twilio-auth-token.png)
 
 **Note**  
 Alternatively, the console allows you to create a secret and secret resource when you configure a connector or Lambda function\. You can do this from the connector's **Configure parameters** page or the Lambda function's **Resources** page\.

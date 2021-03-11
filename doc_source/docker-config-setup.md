@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Optional: Configuring your Docker container for IDT for AWS IoT Greengrass<a name="docker-config-setup"></a>
 
 AWS IoT Greengrass provides a Docker image and Dockerfile that make it easier to run the AWS IoT Greengrass Core software in a Docker container\. After you set up the AWS IoT Greengrass container, you can run IDT tests\. Currently, only x86\_64 Docker architectures are supported to run IDT for AWS IoT Greengrass\.

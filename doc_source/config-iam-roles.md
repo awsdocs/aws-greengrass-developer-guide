@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Configure the group role<a name="config-iam-roles"></a>
 
 The group role is an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that you create and attach to your Greengrass group\. This role contains the permissions that deployed Lambda functions \(and other AWS IoT Greengrass features\) use to access AWS services\. For more information, see [Greengrass group role](group-role.md)\.
@@ -58,14 +64,14 @@ First, create a customer\-managed policy that grants permissions required by the
 1. Under **Choose the service that will use this role**, choose **Greengrass**, and then choose **Next: Permissions**\.
 
 1. Under **Attach permissions policies**, select the new **greengrass\_CarStats\_Table** policy\.  
-![\[Screenshot of the Attach permissions policies page with the new policy selected.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-gs-mod6-attach-policy.png)
+![\[Screenshot of the Attach permissions policies page with the new policy selected.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-gs-mod6-attach-policy.png)
 
 1. Choose **Next: Tags**, and then choose **Next: Review**\. Tags aren't used in this tutorial\.
 
 1. For **Role name**, enter **Greengrass\_Group\_Role**\.
 
 1. For **Role description**, enter **Greengrass group role for connectors and user\-defined Lambda functions**\.  
-![\[Screenshot of the Review page displaying the role name, description, and policies.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-gs-mod6-review-group-role.png)
+![\[Screenshot of the Review page displaying the role name, description, and policies.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-gs-mod6-review-group-role.png)
 
 1. Choose **Create role**\.
 
@@ -73,9 +79,11 @@ First, create a customer\-managed policy that grants permissions required by the
 
    Now, add the role to your Greengrass group\.
 
-1. In the AWS IoT console, under **Greengrass**, choose **Groups**, and then choose your AWS IoT Greengrass group\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+
+1. Under **Greengrass groups**, choose your group\.
 
 1. Choose **Settings**, and then choose **Add Role**\.  
-![\[Group settings page with Add Role highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-093.png)
+![\[Group settings page with Add Role highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-093.png)
 
 1. Choose **Greengrass\_Group\_Role** from your list of roles, and then choose **Save**\.

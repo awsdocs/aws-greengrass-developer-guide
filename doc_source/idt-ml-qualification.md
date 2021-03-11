@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Optional: Configuring your device for ML qualification<a name="idt-ml-qualification"></a>
 
 IDT for AWS IoT Greengrass provides machine learning \(ML\) qualification tests to validate that your devices can perform ML inference locally using cloud\-trained models\.
@@ -193,7 +199,7 @@ Running the DLR test with a model compiled by SageMaker might take 4 or 5 minute
    + [dlr\-noncompiled\-model\-1\.0\.tar\.gz](https://docs.aws.amazon.com/greengrass/latest/developerguide/download-dlr-noncompiled-model-1.0.html)
 
 1. <a name="compile-dlr-decompress-uncompiled-model"></a>Decompress the tarball\. This command generates the following directory structure\.  
-![\[The resnet18 directory contains three files.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/idt/idt-ml-qualification-dlr-uncompiled.png)
+![\[The resnet18 directory contains three files.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/idt/idt-ml-qualification-dlr-uncompiled.png)
 
 1. Move `synset.txt` out of the `resnet18` directory\. Make a note of the new location\. You copy this file to compiled model directory later\.
 
@@ -220,7 +226,7 @@ Running the DLR test with a model compiled by SageMaker might take 4 or 5 minute
 1. Change the name of the compiled model directory to `resnet18`\.
 
    Your compiled model directory must have the following directory structure\.  
-![\[The resnet18 compiled model directory contains four files.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/idt/idt-ml-qualification-dlr-compiled-sm.png)
+![\[The resnet18 compiled model directory contains four files.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/idt/idt-ml-qualification-dlr-compiled-sm.png)
 
 ### Option 2: Use TVM to compile the DLR model<a name="ml-qualification-compile-dlr-option-2"></a>
 
@@ -235,7 +241,7 @@ We recommend that you compile the model on your target device\. This practice is
    + [dlr\-noncompiled\-model\-1\.0\.tar\.gz](https://docs.aws.amazon.com/greengrass/latest/developerguide/download-dlr-noncompiled-model-1.0.html)
 
 1. <a name="compile-dlr-decompress-uncompiled-model"></a>Decompress the tarball\. This command generates the following directory structure\.  
-![\[The resnet18 directory contains three files.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/idt/idt-ml-qualification-dlr-uncompiled.png)
+![\[The resnet18 directory contains three files.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/idt/idt-ml-qualification-dlr-uncompiled.png)
 
 1. Follow the instructions in the TVM documentation to [build and install TVM from source for your platform](https://docs.tvm.ai/install/from_source.html)\.
 
@@ -284,6 +290,6 @@ We recommend that you compile the model on your target device\. This practice is
 1. Copy the compiled model directory to your host computer\. Then copy `synset.txt` from the uncompiled model that you downloaded in step 1 into the compiled model directory\.
 
    Your compiled model directory must have the following directory structure\.  
-![\[The resnet18 compiled model directory contains four files.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/idt/idt-ml-qualification-dlr-compiled-tvm.png)
+![\[The resnet18 compiled model directory contains four files.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/idt/idt-ml-qualification-dlr-compiled-tvm.png)
 
 Next, [configure your AWS credentials and `device.json` file](set-config.md)\.

@@ -1,12 +1,18 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Export data streams to the AWS Cloud \(CLI\)<a name="stream-manager-cli"></a>
 
 This tutorial shows you how to use the AWS CLI to configure and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
 
-## <a name="w99aac23c30b6"></a>
+## <a name="w101aac26c30b6"></a>
 
-Stream manager makes ingesting, processing, and exporting high\-volume data streams easier and more reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
+Stream manager makes ingesting, processing, and exporting high\-volume data streams more efficient and reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
 
-![\[Diagram of the stream management workflow.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/stream-manager-scenario.png)
+![\[Diagram of the stream management workflow.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/stream-manager-scenario.png)
 
 The focus of this tutorial is to show how user\-defined Lambda functions use the `StreamManagerClient` object in the AWS IoT Greengrass Core SDK to interact with stream manager\. For simplicity, the Python Lambda function that you create for this tutorial generates simulated device data\.
 
@@ -15,7 +21,7 @@ When you use the AWS IoT Greengrass API, which includes the Greengrass commands 
 ## Prerequisites<a name="stream-manager-cli-prerequisites"></a>
 
 To complete this tutorial, you need:<a name="stream-manager-howto-prereqs"></a>
-+ A Greengrass group and a Greengrass core \(v1\.10 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
++ A Greengrass group and a Greengrass core \(v1\.10 or later\)\. For information about how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 **Note**  <a name="stream-manager-not-supported-openwrt"></a>
 Stream manager is not supported on OpenWrt distributions\.
 + The Java 8 runtime \(JDK 8\) installed on the core device\.<a name="install-java8-runtime-general"></a>
@@ -62,9 +68,9 @@ To avoid incurring charges, you can run this tutorial without creating a Kinesis
 
    
 
-  The example commands in this tutorial are written for Linux and other Unix\-based systems\. If you're using Windows, see [Specifying parameter values for the AWS command line interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html) to learn about differences in syntax\.
+  The example commands in this tutorial are written for Linux and other Unix\-based systems\. If you're using Windows, see [Specifying parameter values for the AWS command line interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html) for more information about differences in syntax\.
 
-  If the command contains a JSON string, the tutorial provides an example that has the JSON on a single line\. On some systems, it might be easier to edit and run commands using this format\.
+  If the command contains a JSON string, the tutorial provides an example that has the JSON on a single line\. On some systems, it might be more efficient to edit and run commands using this format\.
 
  
 
@@ -90,7 +96,7 @@ The tutorial should take about 30 minutes to complete\.
 
 ## Step 1: Create a Lambda function deployment package<a name="stream-manager-cli-create-deployment-package"></a>
 
-### <a name="w99aac23c30c21b4"></a>
+### <a name="w101aac26c30c21b4"></a>
 
 In this step, you create a Lambda function deployment package that contains Python function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
 
@@ -289,7 +295,7 @@ This step creates a function definition version that references the system `GGSt
 
    The following definition version enables stream manager with default [parameter settings](configure-stream-manager.md)\. To configure custom settings, you must define environment variables for corresponding stream manager parameters\. For an example, see [To enable, disable, or configure stream manager \(CLI\)](configure-stream-manager.md#enable-stream-manager-cli)\. AWS IoT Greengrass uses default settings for parameters that are omitted\. `MemorySize` should be at least `128000`\. `Pinned` must be set to `true`\.
 **Note**  
-<a name="long-lived-lambda"></a>A *long\-lived* \(or *pinned*\) Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container\. This is in contrast to an *on\-demand* Lambda function, which starts when invoked and stops when there are no tasks left to execute\. For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
+<a name="long-lived-lambda"></a>A *long\-lived* \(or *pinned*\) Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container\. This is in contrast to an *on\-demand* Lambda function, which starts when invoked and stops when there are no tasks left to run\. For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
    + Replace *arbitrary\-function\-id* with a name for the function, such as **stream\-manager**\.
    + Replace *alias\-arn* with the `AliasArn` that you copied when you created the alias for the `TransferStream` Lambda function\.
 

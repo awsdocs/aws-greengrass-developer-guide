@@ -1,10 +1,16 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # What is AWS IoT Greengrass?<a name="what-is-gg"></a>
 
 AWS IoT Greengrass is software that extends cloud capabilities to local devices\. This enables devices to collect and analyze data closer to the source of information, react autonomously to local events, and communicate securely with each other on local networks\. Local devices can also communicate securely with AWS IoT Core and export IoT data to the AWS Cloud\. AWS IoT Greengrass developers can use AWS Lambda functions and prebuilt [connectors](connectors.md) to create serverless applications that are deployed to devices for local execution\.
 
 The following diagram shows the basic architecture of AWS IoT Greengrass\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/greengrass.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/greengrass.png)
 
 AWS IoT Greengrass makes it possible for customers to build IoT devices and application logic\. Specifically, AWS IoT Greengrass provides cloud\-based management of application logic that runs on devices\. Locally deployed Lambda functions and connectors are triggered by local events, messages from the cloud, or other sources\.
 
@@ -41,7 +47,7 @@ AWS IoT Greengrass consists of:
 ## AWS IoT Greengrass Core software<a name="gg-core-software"></a>
 
 The AWS IoT Greengrass Core software provides the following functionality:<a name="ggc-software-features"></a>
-+ Deployment and local execution of connectors and Lambda functions\.
++ Deployment and the local running of connectors and Lambda functions\.
 + Process data streams locally with automatic exports to the AWS Cloud\.
 + MQTT messaging over the local network between devices, connectors, and Lambda functions using managed subscriptions\.
 + MQTT messaging between AWS IoT and devices, connectors, and Lambda functions using managed subscriptions\.
@@ -73,9 +79,9 @@ New features:  <a name="what-new-v1110"></a>
 
   New [stream manager parameters](configure-stream-manager.md) let you update existing streams and pause or resume data export\.
 + Support for running Python 3\.8\.x Lambda functions on the core\.
-+ A new `ggDaemonPort` property in [`config.json`](gg-core.md#config-json) lets you configurate the Greengrass core IPC port number\. The default port number is 8000\.
++ A new `ggDaemonPort` property in [`config.json`](gg-core.md#config-json) that use to configure the Greengrass core IPC port number\. The default port number is 8000\.
 
-  A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) lets you configurate the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
+  A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
 + Increased the maximum number of AWS IoT devices per AWS IoT Greengrass group from 200 to 2500\. 
 
   Increased the maximum number of subscriptions per group from 1000 to 10000\. 
@@ -91,9 +97,14 @@ Bug fixes and improvements:  <a name="bug-fix-v1110"></a>
 ------
 #### [ GGC v1\.10 ]<a name="ggc-v1.10-tab"></a>
 
+1\.10\.3  
+Bug fixes and improvements:  
++ A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
++ Fixed an issue that caused increased memory utilization for stream manager\.
+
 1\.10\.2  
 Bug fixes and improvements:  
-+ A new `mqttOperationTimeout` property in [config\.json](gg-core.md#config-json) allows you to set the timeout for publish, subscribe, and unsubscribe operations in MQTT connections with AWS IoT Core\.
++ A new `mqttOperationTimeout` property in [config\.json](gg-core.md#config-json) that you use to set the timeout for publish, subscribe, and unsubscribe operations in MQTT connections with AWS IoT Core\.
 + General performance improvements and bug fixes\.
 
 1\.10\.1  
@@ -229,7 +240,7 @@ Initial version
 
 A Greengrass group is a collection of settings and components, such as a Greengrass core, devices, and subscriptions\. Groups are used to define a scope of interaction\. For example, a group might represent one floor of a building, one truck, or an entire mining site\. The following diagram shows the components that can make up a Greengrass group\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-group.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-group.png)
 
 In the preceding diagram:
 
@@ -282,7 +293,7 @@ In a Greengrass group, you can create subscriptions that allow devices to commun
 
 The following table shows how these device types are related\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/devices.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/devices.png)
 
 The AWS IoT Greengrass core device stores certificates in two locations:<a name="ggc-certificate-locations"></a>
 + Core device certificate in `/greengrass-root/certs`\. Typically, the core device certificate is named `hash.cert.pem` \(for example, `86c84488a5.cert.pem`\)\. This certificate is used by the AWS IoT client for mutual authentication when the core connects to the AWS IoT Core and AWS IoT Greengrass services\.
@@ -650,9 +661,9 @@ New features:  <a name="what-new-v1110"></a>
 
   New [stream manager parameters](configure-stream-manager.md) let you update existing streams and pause or resume data export\.
 + Support for running Python 3\.8\.x Lambda functions on the core\.
-+ A new `ggDaemonPort` property in [`config.json`](gg-core.md#config-json) lets you configurate the Greengrass core IPC port number\. The default port number is 8000\.
++ A new `ggDaemonPort` property in [`config.json`](gg-core.md#config-json) that use to configure the Greengrass core IPC port number\. The default port number is 8000\.
 
-  A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) lets you configurate the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
+  A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
 + Increased the maximum number of AWS IoT devices per AWS IoT Greengrass group from 200 to 2500\. 
 
   Increased the maximum number of subscriptions per group from 1000 to 10000\. 
@@ -683,9 +694,14 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 ------
 #### [ v1\.10 ]<a name="ggc-v1.10-tab"></a>
 
+1\.10\.3  
+Bug fixes and improvements:  
++ A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
++ Fixed an issue that caused increased memory utilization for stream manager\.
+
 1\.10\.2  
 Bug fixes and improvements:  
-+ A new `mqttOperationTimeout` property in [config\.json](gg-core.md#config-json) allows you to set the timeout for publish, subscribe, and unsubscribe operations in MQTT connections with AWS IoT Core\.
++ A new `mqttOperationTimeout` property in [config\.json](gg-core.md#config-json) that you use to set the timeout for publish, subscribe, and unsubscribe operations in MQTT connections with AWS IoT Core\.
 + General performance improvements and bug fixes\.
 
 1\.10\.1  
@@ -712,38 +728,28 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 | Architecture | Distribution | OS | Link | 
 | --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/greengrass-linux-aarch64-1.10.2.tar.gz) | 
-| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/greengrass-openwrt-aarch64-1.10.2.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/greengrass-linux-armv7l-1.10.2.tar.gz) | 
-| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/greengrass-openwrt-armv7l-1.10.2.tar.gz) | 
-| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/greengrass-linux-armv6l-1.10.2.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/greengrass-linux-x86-64-1.10.2.tar.gz) | 
+| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-linux-aarch64-1.10.3.tar.gz) | 
+| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-openwrt-aarch64-1.10.3.tar.gz) | 
+| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-linux-armv7l-1.10.3.tar.gz) | 
+| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-openwrt-armv7l-1.10.3.tar.gz) | 
+| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-linux-armv6l-1.10.3.tar.gz) | 
+| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-linux-x86-64-1.10.3.tar.gz) | 
 
 ------
-#### [  v1\.9  ]
+#### [ Deprecated versions ]
 
-New features in v1\.9:
+1\.9\.4  
+New features in v1\.9:  
 + <a name="what-new-v190-runtimes"></a>Support for Python 3\.7 and Node\.js 8\.10 Lambda runtimes\. Lambda functions that use Python 3\.7 and Node\.js 8\.10 runtimes can now run on an AWS IoT Greengrass core\. \(AWS IoT Greengrass continues to support the Python 2\.7 and Node\.js 6\.10 runtimes\.\)
 + <a name="what-new-v190-mqtt-opt"></a>Optimized MQTT connections\. The Greengrass core establishes fewer connections with the AWS IoT Core\. This change can reduce operational costs for charges that are based on the number of connections\.
 + <a name="what-new-v190-ec-key"></a>Elliptic Curve \(EC\) key for the local MQTT server\. The local MQTT server supports EC keys in addition to RSA keys\. \(The MQTT server certificate has an SHA\-256 RSA signature, regardless of the key type\.\) For more information, see [AWS IoT Greengrass core security principals](gg-sec.md#gg-principals)\.
 + <a name="what-new-v192-openwrt"></a>Support for [OpenWrt](https://openwrt.org/)\. AWS IoT Greengrass Core software v1\.9\.2 or later can be installed on OpenWrt distributions with Armv8 \(AArch64\) and Armv7l architectures\. Currently, OpenWrt does not support ML inference\.
 + <a name="what-new-v193-armv6l"></a>Support for Armv6l\. AWS IoT Greengrass Core software v1\.9\.3 or later can be installed on Raspbian distributions on Armv6l architectures \(for example, on Raspberry Pi Zero devices\)\.
 + <a name="what-new-v193-ota-alpn"></a>OTA updates on port 443 with ALPN\. Greengrass cores that use port 443 for MQTT traffic now support over\-the\-air \(OTA\) software updates\. AWS IoT Greengrass uses the Application Layer Protocol Network \(ALPN\) TLS extension to enable these connections\. For more information, see [OTA updates of AWS IoT Greengrass Core software](core-ota-update.md) and [Connect on port 443 or through a network proxy](gg-core.md#alpn-network-proxy)\.
+To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.      
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/what-is-gg.html)
 
-To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
-
-
-| Architecture | Distribution | OS | Link | 
-| --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/greengrass-linux-aarch64-1.9.4.tar.gz) | 
-| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/greengrass-openwrt-aarch64-1.9.4.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/greengrass-linux-armv7l-1.9.4.tar.gz) | 
-| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/greengrass-openwrt-armv7l-1.9.4.tar.gz) | 
-| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/greengrass-linux-armv6l-1.9.4.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/greengrass-linux-x86-64-1.9.4.tar.gz) | 
-
-------
-#### [  v1\.8  ]
+v1\.8\.4  
 + <a name="what-new-v180"></a>New features:
   + Configurable default access identity for Lambda functions in the group\. This group\-level setting determines the default permissions that are used to run Lambda functions\. You can set the user ID, group ID, or both\. Individual Lambda functions can override the default access identity of their group\. For more information, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
   + HTTPS traffic over port 443\. HTTPS communication can be configured to travel over port 443 instead of the default port 8443\. This complements AWS IoT Greengrass support for the Application Layer Protocol Network \(ALPN\) TLS extension and allows all Greengrass messaging traffic—both MQTT and HTTPS—to use port 443\. For more information, see [Connect on port 443 or through a network proxy](gg-core.md#alpn-network-proxy)\.
@@ -752,15 +758,8 @@ To install the AWS IoT Greengrass Core software on your core device, download th
   Bug fixes and improvements:
   + Fixed an issue with shadow synchronization and device certificate manager reconnection\.
   + General performance improvements and bug fixes\.
-
-To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
-
-
-| Architecture | Distribution | OS | Link | 
-| --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Ubuntu 14\.04 \- 16\.04 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.4/greengrass-linux-aarch64-1.8.4.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.4/greengrass-linux-armv7l-1.8.4.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.4/greengrass-linux-x86-64-1.8.4.tar.gz) | 
+To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.      
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/what-is-gg.html)
 
 ------
 
@@ -772,7 +771,7 @@ For information about other options for installing the AWS IoT Greengrass Core s
 
 ### AWS IoT Greengrass snap software<a name="gg-snapstore-download"></a>
 
-<a name="gg-snap-description"></a>AWS IoT Greengrass snap v1\.11\.0 enables you to run a limited version of AWS IoT Greengrass through convenient software packages with all necessary dependencies in a containerized environment\.
+<a name="gg-snap-description"></a>AWS IoT Greengrass snap v1\.11\.0 enables you to run a limited version of AWS IoT Greengrass through convenient software packages, along with all necessary dependencies, in a containerized environment\.
 
 **Note**  <a name="gg-snap-v1.11-note"></a>
 The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.0 and later\. Unsupported versions don't receive bug fixes or updates\.  
@@ -789,10 +788,12 @@ AWS provides a Dockerfile and Docker images that make it easier for you to run A
 Dockerfile  
 Dockerfiles contain source code for building custom AWS IoT Greengrass container images\. Images can be modified to run on different platform architectures or to reduce the image size\. For instructions, see the README file\.  
 Download your target AWS IoT Greengrass Core software version\.  
-+  [ Dockerfile for AWS IoT Greengrass v1\.11\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/aws-greengrass-docker-1.11.0.tar.gz)\. 
-+  [ Dockerfile for AWS IoT Greengrass v1\.10\.2](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/aws-greengrass-docker-1.10.2.tar.gz)\. 
-+  [ Dockerfile for AWS IoT Greengrass v1\.9\.4](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/aws-greengrass-docker-1.9.4.tar.gz)\. 
-+  [ Dockerfile for AWS IoT Greengrass v1\.8\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.1/aws-greengrass-docker-1.8.1.tar.gz)\. 
++  [Dockerfile for AWS IoT Greengrass v1\.11\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/aws-greengrass-docker-1.11.0.tar.gz)\. 
++  [ Dockerfile for AWS IoT Greengrass v1\.10\.2](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/aws-greengrass-docker-1.10.2.tar.gz)\.   
+v1\.9\.4  
+ [ Dockerfile for AWS IoT Greengrass v1\.9\.4](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/aws-greengrass-docker-1.9.4.tar.gz)\.   
+v1\.8\.1  
+ [ Dockerfile for AWS IoT Greengrass v1\.8\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.1/aws-greengrass-docker-1.8.1.tar.gz)\. 
  
 
 Docker image  

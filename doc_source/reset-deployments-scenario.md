@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Reset deployments<a name="reset-deployments-scenario"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.1 and later\.
@@ -19,12 +25,12 @@ The reset deployments operation first cleans up all deployment information store
 
 You can reset group deployments from group configuration page in the AWS IoT console\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. Choose the target group\.
 
 1. From **Actions**, choose **Reset Deployments**\.  
-![\[The Deployments page for a Greengrass group.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-deployments.png)
+![\[The Deployments page for a Greengrass group.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-deployments.png)
 
 ## Reset deployments with the AWS IoT Greengrass API<a name="reset-deployments-api"></a>
 
@@ -76,5 +82,5 @@ If the reset operation fails, error information is returned in the response\.
 
 ## See also<a name="reset-deployments-see-also"></a>
 + [Deploy AWS IoT Greengrass groups to an AWS IoT Greengrass core](deployments.md)
-+ [ResetDeployments ](https://docs.aws.amazon.com/greengrass/latest/apireference/resetdeployments-post.html) in the *AWS IoT Greengrass API Reference*
-+ [GetDeploymentStatus ](https://docs.aws.amazon.com/greengrass/latest/apireference/getdeploymentstatus-get.html) in the *AWS IoT Greengrass API Reference*
++ [ResetDeployments ](https://docs.aws.amazon.com/greengrass/latest/apireference/resetdeployments-post.html) in the *AWS IoT Greengrass Version 1 API Reference*
++ [GetDeploymentStatus ](https://docs.aws.amazon.com/greengrass/latest/apireference/getdeploymentstatus-get.html) in the *AWS IoT Greengrass Version 1 API Reference*

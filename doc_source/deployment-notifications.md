@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Get deployment notifications<a name="deployment-notifications"></a>
 
 Amazon EventBridge event rules provide you with notifications about state changes for your Greengrass group deployments\. EventBridge delivers a near real\-time stream of system events that describes changes in AWS resources\. AWS IoT Greengrass sends these events to EventBridge on an *at least once* basis\. This means that AWS IoT Greengrass might send multiple copies of a given event to ensure delivery\. Additionally, your event listeners might not receive the events in the order that the events occurred\.
@@ -5,8 +11,8 @@ Amazon EventBridge event rules provide you with notifications about state change
 **Note**  
 Amazon EventBridge is an event bus service that you can use to connect your applications with data from a variety of sources, such as [Greengrass core devices](telemetry.md) and deployment notifications\. For more information, see [What is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) in the *Amazon EventBridge User Guide*\.
 
-AWS IoT Greengrass emits an event when group deployments change state\. You can create an EventBridge rule that runs for all state transitions or transitions to states you specify\. When a deployment enters a state that triggers a rule, EventBridge invokes the target actions defined in the rule\. This allows you to send notifications, capture event information, take corrective action, or initiate other events in response to a state change\. For example, you can create rules for the following use cases:
-+ Trigger post\-deployment operations, such as downloading assets and notifying personnel\.
+AWS IoT Greengrass emits an event when group deployments change state\. You can create an EventBridge rule that runs for all state transitions or transitions to states you specify\. When a deployment enters a state that initiates a rule, EventBridge invokes the target actions defined in the rule\. This allows you to send notifications, capture event information, take corrective action, or initiate other events in response to a state change\. For example, you can create rules for the following use cases:
++ Initiate post\-deployment operations, such as downloading assets and notifying personnel\.
 + Send notifications upon a successful or failed deployment\.
 + Publish custom metrics about deployment events\.
 
@@ -59,13 +65,13 @@ AWS IoT Greengrass doesn't use the `resources` property, so it's always empty\.
 
 ## Prerequisites for creating EventBridge rules<a name="create-events-rule-prereqs"></a>
 
-Before you create an EventBridge rule for AWS IoT Greengrass, you should do the following:
+Before you create an EventBridge rule for AWS IoT Greengrass, do the following:
 + Familiarize yourself with events, rules, and targets in EventBridge\.
-+ Create and configure the targets invoked by your EventBridge rules\. Rules can invoke many types of target, including:
-  + Amazon SNS topics
++ Create and configure the targets invoked by your EventBridge rules\. Rules can invoke many types of targets, including:
+  + Amazon Simple Notification Service \(Amazon SNS\)
   + AWS Lambda functions
-  + Kinesis streams
-  + Amazon SQS queues
+  + Amazon Kinesis Video Streams
+  + Amazon Simple Queue Service \(Amazon SQS\) queues
 
 For more information, see [What is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) and [Getting started with Amazon EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-getting-set-up.html) in the *Amazon EventBridge User Guide*\.
 
@@ -89,13 +95,13 @@ Use the following steps to create an EventBridge rule that publishes an Amazon S
 
    1. For **Event type**, choose **Greengrass Deployment Status Change**\.
 **Note**  
-The **AWS API Call via CloudTrail** event type is based on AWS IoT Greengrass integration with AWS CloudTrail\. You can use this option to create rules triggered by read or write calls to the AWS IoT Greengrass API\. For more information, see [Logging AWS IoT Greengrass API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
+The **AWS API Call via CloudTrail** event type is based on AWS IoT Greengrass integration with AWS CloudTrail\. You can use this option to create rules initiated by read or write calls to the AWS IoT Greengrass API\. For more information, see [Logging AWS IoT Greengrass API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
 
-   1. Choose the deployment states that trigger a notification\.
+   1. Choose the deployment states that initiate a notification\.
       + To receive notifications for all state change events, choose **Any state**\.
       + To receive notifications for some state change events only, choose **Specific state\(s\)**, and then choose the target states\.
 
-   1. Choose the deployment types that trigger a notification\.
+   1. Choose the deployment types that initiate a notification\.
       + To receive notifications for all deployment types, choose **Any state**\.
       + To receive notifications for some deployment types only, choose **Specific state\(s\)**, and then choose the target deployment types\.
 

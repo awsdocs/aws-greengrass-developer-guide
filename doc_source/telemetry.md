@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Gathering system health telemetry data from AWS IoT Greengrass core devices<a name="telemetry"></a>
 
 System health telemetry data is diagnostic data that can help you monitor the performance of critical operations on your Greengrass core devices\. The telemetry agent on the Greengrass core collects local telemetry data and publishes it to Amazon EventBridge without requiring any customer interaction\. Core devices publish telemetry data to EventBridge on a best effort basis\. For example, core devices might fail to deliver telemetry data while offline\.
@@ -5,7 +11,7 @@ System health telemetry data is diagnostic data that can help you monitor the pe
 **Note**  
 Amazon EventBridge is an event bus service that you can use to connect your applications with data from a variety of sources, such as Greengrass core devices and [deployment notifications](deployment-notifications.md)\. For more information, see [What is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html) in the *Amazon EventBridge User Guide*\.
 
-You can create projects and applications to retrieve, analyze, transform, and report telemetry data from your edge devices\. Domain experts, such as process engineers, can use these applications to quickly gain insights into fleet health\.
+You can create projects and applications to retrieve, analyze, transform, and report telemetry data from your edge devices\. Domain experts, such as process engineers, can use these applications to gain insights into fleet health\.
 
 To ensure that the Greengrass edge components function properly, AWS IoT Greengrass uses the data for development and quality improvement purposes\. This feature also helps inform new and enhanced edge capabilities\. AWS IoT Greengrass only retains telemetry data for up to seven days\.
 
@@ -46,9 +52,9 @@ The settings are unchangeable\.
 
 You can enable or disable the telemetry feature for a Greengrass core device\. AWS IoT Greengrass uses [shadows](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) to manage the telemetry configuration\. Your changes take effect immediately when the core has a connection to AWS IoT Core\.
 
-The telemetry agent publishes data using the MQTT protocol with a quality of service \(QoS\) level of 0, which means that it doesn't confirm delivery or retry publishing attempts\. Telemetry messages share an MQTT connection with other messages for subscriptions destined for AWS IoT Core\.
+The telemetry agent publishes data using the MQTT protocol with a quality of service \(QoS\) level of 0\. This means that it doesn't confirm delivery or retry publishing attempts\. Telemetry messages share an MQTT connection with other messages for subscriptions destined for AWS IoT Core\.
 
-Aside from your data link costs, the data transfer from the core to AWS IoT Core is free because the agent publishes to an AWS reserved topic\. However, depending on your use case, you might incur costs when you receive or process the data\.
+Aside from your data link costs, the data transfer from the core to AWS IoT Core is no charge\. This is because the agent publishes to an AWS reserved topic\. However, depending on your use case, you might incur costs when you receive or process the data\.
 
 ### Requirements<a name="configure-telemetry-settings-reqs"></a>
 
@@ -100,7 +106,7 @@ The following shows how to update the telemetry settings of a Greengrass core in
 
 1. Sign in to the [AWS IoT Greengrass console](https://console.aws.amazon.com/greengrass/)\.
 
-1. In the navigation pane, under **Greengrass**, choose **Groups**\.
+1. In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. Under **Greengrass groups**, choose your target group\.
 
@@ -390,7 +396,7 @@ Use the following steps to use the AWS Management Console to create an EventBrid
 
 ### Create an event rule to get telemetry data \(CLI\)<a name="create-telemetry-event-rule-cli"></a>
 
-Use the following steps to use the AWS CLI to create an EventBridge rule that receives telemetry data published by the Greengrss core\. This allows web servers, email addresses, and other topic subscribers to respond to the event\.
+Use the following steps to use the AWS CLI to create an EventBridge rule that receives telemetry data published by the Greengrass core\. This allows web servers, email addresses, and other topic subscribers to respond to the event\.
 
 1. Create the rule\.
    + Replace *thing\-name* with the thing name of the core\.

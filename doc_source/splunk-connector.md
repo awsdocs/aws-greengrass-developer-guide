@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Splunk Integration connector<a name="splunk-connector"></a>
 
 The Splunk Integration [connector](connectors.md) publishes data from Greengrass devices to Splunk\. This allows you to use Splunk to monitor and analyze the Greengrass core environment, and act on local events\. The connector integrates with HTTP Event Collector \(HEC\)\. For more information, see [Introduction to Splunk HTTP Event Collector](https://dev.splunk.com/view/event-collector/SP-CAAAE6M) in the Splunk documentation\.
@@ -5,7 +11,7 @@ The Splunk Integration [connector](connectors.md) publishes data from Greengrass
 This connector receives logging and event data on an MQTT topic and publishes the data as is to the Splunk API\.
 
 You can use this connector to support industrial scenarios, such as:
-+ Operators can use periodic data from actuators and sensors \(for example, temperature, pressure, and water readings\) to trigger alarms when values exceed certain thresholds\.
++ Operators can use periodic data from actuators and sensors \(for example, temperature, pressure, and water readings\) to initiate alarms when values exceed certain thresholds\.
 + Developers use data collected from industrial machinery to build ML models that can monitor the equipment for potential issues\.
 
 This connector has the following versions\.
@@ -281,7 +287,7 @@ If the connector detects a retryable error \(for example, connection errors\), i
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
-If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
+If you use other Python runtimes, you can create a symlink from Python3\.x to Python 3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#splunk-connector-req) for the connector\.

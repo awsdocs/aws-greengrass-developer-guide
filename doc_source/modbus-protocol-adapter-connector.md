@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Modbus\-RTU Protocol Adapter connector<a name="modbus-protocol-adapter-connector"></a>
 
 The Modbus\-RTU Protocol Adapter [connector](connectors.md) polls information from Modbus RTU devices that are in the AWS IoT Greengrass group\.
@@ -510,7 +516,7 @@ Exceptions can occur when the request format is valid, but the request is not co
 
 This connector performs validation checks on the Modbus request\. For example, it checks for invalid formats and missing fields\. If the validation fails, the connector doesn't send the request\. Instead, it returns a response that contains the following information:
 + The `status` is set to `No Response`\.
-+ The `error` contains the error reason\.
++ The `error` contains the reason for the error\.
 + The `error_message` contains the error message\.
 
 **Examples:**
@@ -524,7 +530,7 @@ This connector performs validation checks on the Modbus request\. For example, i
         "device": 1,
     	"operation": "ReadCoilsRequest",
     	"payload": {
-        	"error": "Invalid address field. Expected Expected <type 'int'>, got <type 'str'>"
+        	"error": "Invalid address field. Expected <type 'int'>, got <type 'str'>"
     	}
      },
      "id" : "TestRequest"
@@ -554,7 +560,7 @@ If the request targets a nonexistent device or if the Modbus RTU network is not 
 <a name="connectors-setup-intro"></a>Use the following high\-level steps to set up an example Python 3\.7 Lambda function that you can use to try out the connector\.
 
 **Note**  <a name="connectors-setup-get-started-topics"></a>
-If you use other Python runtimes, you can create a symlink from phthon3\.x to python3\.7\.
+If you use other Python runtimes, you can create a symlink from Python3\.x to Python 3\.7\.
 The [Get started with connectors \(console\)](connectors-console.md) and [Get started with connectors \(CLI\)](connectors-cli.md) topics contain detailed steps that show you how to configure and deploy an example Twilio Notifications connector\.
 
 1. Make sure you meet the [requirements](#modbus-protocol-adapter-connector-req) for the connector\.

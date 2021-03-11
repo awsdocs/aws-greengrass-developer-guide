@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # OTA updates of AWS IoT Greengrass Core software<a name="core-ota-update"></a>
 
 The AWS IoT Greengrass Core software package includes an update agent that can perform over\-the\-air \(OTA\) updates of AWS IoT Greengrass software\. You can use OTA updates to install the latest version of the AWS IoT Greengrass Core software or OTA update agent software on one or more cores\. With OTA updates, your core devices don't have to be physically present\.

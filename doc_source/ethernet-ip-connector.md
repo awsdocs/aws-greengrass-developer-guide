@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # IoT Ethernet IP Protocol Adapter connector<a name="ethernet-ip-connector"></a>
 
 The IoT Ethernet IP Protocol Adapter [connector](connectors.md) collects data from local devices using the Ethernet/IP protocol\. You can use this connector to collect data from multiple devices and publish it to a `StreamManager` message stream\. 
@@ -5,7 +11,7 @@ The IoT Ethernet IP Protocol Adapter [connector](connectors.md) collects data fr
 You can also use this connector with the IoT SiteWise connector and your IoT SiteWise gateway\. Your gateway must supply the configuration for the connector\. For more information, see [Configure an Ethernet/IP \(EIP\) source](http://docs.aws.amazon.com/iot-sitewise/latest/userguide/configure-eip-source.html) in the IoT SiteWise user guide\. 
 
 **Note**  
- This connector runs in [No container](lambda-group-config.md#no-container-mode) isolation mode, so you can deploy it to a AWS IoT Greengrass group running in a Docker container\. 
+This connector runs in [No container](lambda-group-config.md#no-container-mode) isolation mode, so you can deploy it to a AWS IoT Greengrass group running in a Docker container\. 
 
 This connector has the following versions\.
 
@@ -28,7 +34,7 @@ This connector has the following requirements:
 + A minimum of 256 MB additional RAM\. This requirement is in addition to AWS IoT Greengrass Core memory requirements\.
 
 **Note**  
- This connector is only available in the following regions:   
+ This connector is available only in the following Regions:   
 ap\-southeast\-1
 ap\-southeast\-2
 eu\-central\-1

@@ -1,16 +1,22 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Getting started with Greengrass connectors \(CLI\)<a name="connectors-cli"></a>
 
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS CLI to work with connectors\.
 
-## <a name="w99aac27c44b8"></a>
+## <a name="w101aac30c44b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
 
 In this tutorial, you configure and deploy the [ Twilio Notifications](twilio-notifications-connector.md) connector\. The connector receives Twilio message information as input data, and then triggers a Twilio text message\. The data flow is shown in following diagram\.
 
-![\[Data flow from Lambda function to Twilio Notifications connector to Twilio.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/connectors/twilio-solution.png)
+![\[Data flow from Lambda function to Twilio Notifications connector to Twilio.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/connectors/twilio-solution.png)
 
 After you configure the connector, you create a Lambda function and a subscription\.
 + The function evaluates simulated data from a temperature sensor\. It conditionally publishes the Twilio message information to an MQTT topic\. This is the topic that the connector subscribes to\.
@@ -58,7 +64,7 @@ The AWS IoT Greengrass API lets you create multiple definitions for a component 
 
 To complete this tutorial, you need:
 
-### <a name="w99aac27c44c26b6"></a>
+### <a name="w101aac30c44c26b6"></a>
 + A Greengrass group and a Greengrass core \(v1\.9\.3 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 + Python 3\.7 installed on the AWS IoT Greengrass core device\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
@@ -179,7 +185,7 @@ In this step, you configure parameters for the Twilio Notifications connector\.
 
 ## Step 4: Create a Lambda function deployment package<a name="connectors-cli-create-deployment-package"></a>
 
-### <a name="w99aac27c44c34b4"></a>
+### <a name="w101aac30c44c34b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -505,16 +511,16 @@ Deploy the group to the core device\.
 
 ## Test the solution<a name="connectors-cli-test-solution"></a>
 
-### <a name="w99aac27c44c46b4"></a>
+### <a name="w101aac30c44c46b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values, and then choose **Subscribe to topic**\. The Twilio Notifications connector publishes status information to this topic\.    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-cli.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/connectors-cli.html)
 
 1. For **Publish**, use the following values, and then choose **Publish to topic** to invoke the function\.    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-cli.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/connectors-cli.html)
 
    If successful, the recipient receives the text message and the console displays the `success` status from the [output data](twilio-notifications-connector.md#twilio-notifications-connector-data-output)\.
 

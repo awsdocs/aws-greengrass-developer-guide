@@ -1,6 +1,12 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # How to configure machine learning inference using the AWS Management Console<a name="ml-console"></a>
 
-To follow the steps in this tutorial, you must be using AWS IoT Greengrass Core v1\.10 or later\.
+To follow the steps in this tutorial, you need AWS IoT Greengrass Core v1\.10 or later\.
 
 You can perform machine learning \(ML\) inference locally on a Greengrass core device using locally generated data\. For information, including requirements and constraints, see [Perform machine learning inference](ml-inference.md)\.
 
@@ -32,11 +38,11 @@ To complete this tutorial, you need:
 + Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+, set up and configured for use with AWS IoT Greengrass\. To set up your Raspberry Pi with AWS IoT Greengrass, run the [Greengrass Device Setup](quick-start.md) script, or make sure that you have completed [Module 1](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html) and [Module 2](https://docs.aws.amazon.com/greengrass/latest/developerguide/module2.html) of [Getting started with AWS IoT Greengrass](gg-gs.md)\.
 **Note**  
 The Raspberry Pi might require a 2\.5A [power supply](https://www.raspberrypi.org/documentation/hardware/raspberrypi/power/) to run the deep learning frameworks that are typically used for image classification\. A power supply with a lower rating might cause the device to reboot\.
-+ [Raspberry Pi Camera Module V2 \- 8 megapixel, 1080p](https://www.amazon.com/Raspberry-Pi-Camera-Module-Megapixel/dp/B01ER2SKFS)\. To learn how to set up the camera, see [Connecting the camera](https://www.raspberrypi.org/documentation/usage/camera/) in the Raspberry Pi documentation\. 
-+ A Greengrass group and a Greengrass core\. To learn how to create a Greengrass group or core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\.
++ [Raspberry Pi Camera Module V2 \- 8 megapixel, 1080p](https://www.amazon.com/Raspberry-Pi-Camera-Module-Megapixel/dp/B01ER2SKFS)\. For information about how to set up the camera, see [Connecting the camera](https://www.raspberrypi.org/documentation/usage/camera/) in the Raspberry Pi documentation\. 
++ A Greengrass group and a Greengrass core\. For information about how to create a Greengrass group or core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\.
 
 **Note**  
-This tutorial uses a Raspberry Pi, but AWS IoT Greengrass supports other platforms, such as [Intel Atom](#atom-lambda-config) and [NVIDIA Jetson TX2](#jetson-lambda-config)\. In the example for Jetson TX2, you can use static images instead of images streamed from a camera\. If using the Jetson TX2 example, you might need to install Python 3\.6 instead of Python 3\.7\. For information about configuring your device so you can install the AWS IoT Greengrass Core software, see [Setting up other devices](setup-filter.other.md)\.  
+This tutorial uses a Raspberry Pi, but AWS IoT Greengrass supports other platforms, such as [Intel Atom](#atom-lambda-config) and [NVIDIA Jetson TX2](#jetson-lambda-config)\. In the example for Jetson TX2, you can use static images instead of images streamed from a camera\. If using the Jetson TX2 example, you might need to install Python 3\.6 instead of Python 3\.7\. For information about configuring your device so that you can install the AWS IoT Greengrass Core software, see [Setting up other devices](setup-filter.other.md)\.  
 For third party platforms that AWS IoT Greengrass does not support, you must run your Lambda function in non\-containerized mode\. To run in non\-containerized mode, you must run your Lambda function as root\. For more information, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations) and [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
 
 ## Step 1: Configure the Raspberry Pi<a name="config-raspberry-pi"></a>
@@ -142,7 +148,7 @@ We recommend installing version 1\.5\.0 and building MXNet from source for this 
 
 ## Step 3: Create an MXNet model package<a name="package-ml-model"></a>
 
-In this step, create a model package that contains a sample pretrained MXNet model to upload to Amazon S3\. AWS IoT Greengrass can use a model package from Amazon S3, provided that you use the tar\.gz or zip format\.
+In this step, create a model package that contains a sample pretrained MXNet model to upload to Amazon Simple Storage Service \(Amazon S3\)\. AWS IoT Greengrass can use a model package from Amazon S3, provided that you use the tar\.gz or zip format\.
 
 1. On your computer, download the MXNet sample for Raspberry Pi from [Machine learning samples](what-is-gg.md#gg-ml-samples)\.
 
@@ -186,16 +192,16 @@ If a new version is available, you can download it and upgrade the SDK version i
 
    Next, create the Lambda function\.
 
-1. In the AWS IoT console, in the navigation pane, choose **Greengrass**, and then choose **Groups**\.  
-![\[The navigation pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-groups.png)
+1. In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.  
+![\[The navigation pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-groups.png)
 
 1. Choose the Greengrass group where you want to add the Lambda function\.
 
 1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
-![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas.png)
+![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas.png)
 
 1. On the **Add a Lambda to your Greengrass Group** page, choose **Create new Lambda**\. This opens the AWS Lambda console\.  
-![\[The Add a Lambda to your Greengrass Group page with Create new Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas-new-lambda.png)
+![\[The Add a Lambda to your Greengrass Group page with Create new Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas-new-lambda.png)
 
 1. Choose **Author from scratch** and use the following values to create your function:
    + For **Function name**, enter **greengrassObjectClassification**\.
@@ -204,7 +210,7 @@ If a new version is available, you can download it and upgrade the SDK version i
    For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
 1. Choose **Create function**\.  
-![\[The Create function page with Create function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/create-function.png)
+![\[The Create function page with Create function highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/create-function.png)
 
     
 
@@ -216,7 +222,7 @@ If a new version is available, you can download it and upgrade the SDK version i
    + For **Handler**, enter **greengrassObjectClassification\.function\_handler**\.
 
 1. Choose **Upload**\.  
-![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/upload-deployment-package.png)
+![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/upload-deployment-package.png)
 
 1. Choose your `greengrassObjectClassification.zip` deployment package\.
 
@@ -229,12 +235,12 @@ If a new version is available, you can download it and upgrade the SDK version i
 Greengrass groups can reference a Lambda function by alias \(recommended\) or by version\. Using an alias makes it easier to manage code updates because you don't have to change your subscription table or group definition when the function code is updated\. Instead, you just point the alias to the new function version\.
 
 1. From the **Actions** menu, choose **Publish new version**\.  
-![\[The Publish new version option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-publish-version.png)
+![\[The Publish new version option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/lambda-publish-version.png)
 
 1. For **Version description**, enter **First version**, and then choose **Publish**\.
 
 1. On the **greengrassObjectClassification: 1** configuration page, from the **Actions** menu, choose **Create alias**\.  
-![\[The Create alias option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-create-alias.png)
+![\[The Create alias option in the Actions menu.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/lambda-create-alias.png)
 
 1. On the **Create a new alias** page, use the following values:
    + For **Name**, enter **mlTest**\.
@@ -243,7 +249,7 @@ Greengrass groups can reference a Lambda function by alias \(recommended\) or by
 AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 
 1. Choose **Create**\.  
-![\[The Create a new alias page with Create highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda-create-alias-create.png)
+![\[The Create a new alias page with Create highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/lambda-create-alias-create.png)
 
    Now, add the Lambda function to your Greengrass group\.
 
@@ -256,10 +262,10 @@ First, add the Lambda function to your Greengrass group\.
 1. In the AWS IoT console, open the group configuration page\.
 
 1. Choose **Lambdas**, and then choose **Add Lambda**\.  
-![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas.png)
+![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas.png)
 
 1. On the **Add a Lambda to your Greengrass Group** page, choose **Use existing Lambda**\.  
-![\[The Add a Lambda to your Greengrass Group page with Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-lambdas-existing-lambda.png)
+![\[The Add a Lambda to your Greengrass Group page with Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas-existing-lambda.png)
 
 1. Choose **greengrassObjectClassification**, and then choose **Next**\.
 
@@ -270,7 +276,7 @@ First, add the Lambda function to your Greengrass group\.
    Next, configure the lifecycle and environment variables of the Lambda function\.
 
 1. On the **Lambdas** page, choose the **greengrassObjectClassification** Lambda function\.  
-![\[The Lambdas page with the greengrassObjectClassification Lambda function highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/lambda.png)
+![\[The Lambdas page with the greengrassObjectClassification Lambda function highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/lambda.png)
 
 1. On the **greengrassObjectClassification** configuration page, choose **Edit**\.
 
@@ -323,7 +329,7 @@ If you run in non\-containerized mode, AWS IoT Greengrass can access your device
 First, create two local device resources for the camera: one for shared memory and one for the device interface\. For more information about local resource access, see [Access local resources with Lambda functions and connectors](access-local-resources.md)\.
 
 1. On the group configuration page, choose **Resources**\.  
-![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
+![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-resources.png)
 
 1. On the **Local** tab, choose **Add a local resource**\.
 
@@ -336,12 +342,12 @@ First, create two local device resources for the camera: one for shared memory a
    + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
 
      The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group owner file access permission](access-local-resources.md#lra-group-owner)\.  
-![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/local-resource-vcsm.png)
+![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/local-resource-vcsm.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
 
 1. Choose **greengrassObjectClassification**, choose **Read and write access**, and then choose **Done**\.  
-![\[Lambda function affiliation properties with Done highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/local-resource-vcsm-lambda.png)
+![\[Lambda function affiliation properties with Done highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/local-resource-vcsm-lambda.png)
 
    Next, you add a local device resource for the camera interface\.
 
@@ -352,7 +358,7 @@ First, create two local device resources for the camera: one for shared memory a
    + For **Resource type**, choose **Device**\.
    + For **Device path**, enter **/dev/vchiq**\.
    + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.   
-![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/local-resource-vchiq.png)
+![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/local-resource-vchiq.png)
 
 1. Under **Lambda function affiliations**, choose **Select**\.
 
@@ -367,7 +373,7 @@ Now, add the inference model as a machine learning resource\. This step includes
 1. On the **Resources** page for your group, choose **Machine Learning**, and then choose **Add a machine learning resource**\.
 
 1. On the **Create a machine learning resource** page, for **Resource name**, enter **squeezenet\_model**\.  
-![\[The Add Machine Learning Model page with updated properties.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/ml-resource-squeezenet.png)
+![\[The Add Machine Learning Model page with updated properties.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/ml-resource-squeezenet.png)
 
 1. For **Model source**, choose **Upload a model in S3**\.
 
@@ -375,11 +381,11 @@ Now, add the inference model as a machine learning resource\. This step includes
 
 1.  Choose **Upload a model**\. This opens up a new tab to the Amazon S3 console\. 
 
-1.  In the Amazon S3 console tab, upload the `squeezenet.zip` file to an Amazon S3 bucket\. For information, see [ How do I upload files and folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service Console User Guide*\. 
+1.  On the Amazon S3 console tab, upload the `squeezenet.zip` file to an S3 bucket\. For information, see [ How do I upload files and folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html)in the *Amazon Simple Storage Service Console User Guide*\. 
 **Note**  
-For the bucket to be accessible, your bucket name must contain the string **greengrass**\. Choose a unique name \(such as **greengrass\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
+For the S3 bucket to be accessible, your bucket name must contain the string **greengrass** and the bucket must be in the same region that you use for AWS IoT Greengrass\. Choose a unique name \(such as **greengrass\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
 
-1.  In the AWS IoT Greengrass console tab, locate and choose your Amazon S3 bucket\. Locate your uploaded `squeezenet.zip` file, and choose **Select**\. You might need to choose **Refresh** to update the list of available buckets and files\. 
+1. On the AWS IoT Greengrass console tab, locate and choose your S3 bucket\. Locate your uploaded `squeezenet.zip` file, and choose **Select**\. You might need to choose **Refresh** to update the list of available buckets and files\. 
 
 1. For **Local path**, enter **/greengrass\-machine\-learning/mxnet/squeezenet**\.
 
@@ -406,7 +412,7 @@ To use an SageMaker model:
 In this step, add a subscription to the group\. This subscription enables the Lambda function to send prediction results to AWS IoT by publishing to an MQTT topic\.
 
 1. On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.  
-![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-subscriptions.png)
+![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-subscriptions.png)
 
 1. On the **Select your source and target** page, configure the source and target, as follows:
 
@@ -415,10 +421,10 @@ In this step, add a subscription to the group\. This subscription enables the La
    1. In **Select a target**, choose **Services**, and then choose **IoT Cloud**\.
 
    1. Choose **Next**\.  
-![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/add-subscription.png)
+![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/add-subscription.png)
 
 1. On the **Filter your data with a topic** page, in **Topic filter**, enter **hello/world**, and then choose **Next**\.  
-![\[The Filter your data with a topic page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/add-subscription-topic.png)
+![\[The Filter your data with a topic page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/add-subscription-topic.png)
 
 1. Choose **Finish**\.
 
@@ -446,12 +452,12 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
       ```
 
 1. On the group configuration page, choose **Deployments**, and from the **Actions** menu, choose **Deploy**\.  
-![\[The group page with Deployments and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-deployments-deploy.png)
+![\[The group page with Deployments and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-deployments-deploy.png)
 
 1. On the **Configure how devices discover your core** page, choose **Automatic detection**\.
 
    This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
-![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-discovery.png)
+![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-discovery.png)
 **Note**  
 If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
@@ -467,7 +473,7 @@ Now you can verify whether the deployment is configured correctly\. To test, you
 If a monitor is attached to the Raspberry Pi, the live camera feed is displayed in a preview window\.
 
 1. In the AWS IoT console, choose **Test**\.  
-![\[The navigation pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-test.png)
+![\[The navigation pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)
 
 1. For **Subscriptions**, use the following values:
    + For the subscription topic, use hello/world\.
@@ -476,7 +482,7 @@ If a monitor is attached to the Raspberry Pi, the live camera feed is displayed 
 1. Choose **Subscribe to topic**\.
 
    If the test is successful, the messages from the Lambda function appear at the bottom of the page\. Each message contains the top five prediction results of the image, using the format: probability, predicted class ID, and corresponding class name\.  
-![\[The Subscriptions page showing test results with message data.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/ml-inference/prediction-results.png)
+![\[The Subscriptions page showing test results with message data.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/prediction-results.png)
 
 ### Troubleshooting AWS IoT Greengrass ML inference<a name="ml-inference-troubleshooting"></a>
 
@@ -640,7 +646,7 @@ We do not recommend running in containerized mode unless your business case requ
 If you run in non\-containerized mode, AWS IoT Greengrass can access your device GPU without configuring device resources\. 
 
    1. On the group configuration page, choose **Resources**\.  
-![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-resources.png)
+![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-resources.png)
 
    1. On the **Local** tab, choose **Add a local resource**\.
 
@@ -706,7 +712,7 @@ You also must update your `config.json` file to grant root access to your Lambda
         For more information about running without containerization, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations)\.
       +  For **Read access to /sys directory**, choose **Enable**\. 
       +  Under **Environment variables**, add the following key\-value pairs to your Lambda function\. This configures AWS IoT Greengrass to use the MXNet framework\.     
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/ml-console.html)
 
    1.  **To run in containerized mode instead:** 
 **Note**  
@@ -714,7 +720,7 @@ We do not recommend running in containerized mode unless your business case requ
       + Increase the **Memory limit** value\. Use 500 MB for CPU, or at least 2000 MB for GPU\. 
       +  For **Read access to /sys directory**, choose **Enable**\. 
       +  Under **Environment variables**, add the following key\-value pairs to your Lambda function\. This configures AWS IoT Greengrass to use the MXNet framework\.     
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/ml-console.html)
 
 1. **If running in containerized mode**, add the following local device resources to grant access to your device GPU\. Follow the procedure in [Step 6: Add resources to the Greengrass group](#ml-console-add-resources)\.
 **Note**  
@@ -726,7 +732,7 @@ We do not recommend running in containerized mode unless your business case requ
    + For **Lambda function affiliations**, grant **Read and write access** to your Lambda function\.
 
           
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/ml-console.html)
 
 1. **If running in containerized mode**, add the following local volume resource to grant access to your device camera\. Follow the procedure in [Step 6: Add resources to the Greengrass group](#ml-console-add-resources)\.
 **Note**  
@@ -736,4 +742,4 @@ We do not recommend running in containerized mode unless your business case requ
    + For **Lambda function affiliations**, grant **Read and write access** to your Lambda function\.
 
           
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/ml-console.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/ml-console.html)

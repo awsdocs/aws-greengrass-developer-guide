@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Tutorial: Build and run the sample IDT test suite<a name="build-sample-suite"></a>
 
 The AWS IoT Device Tester download includes the source code for a sample test suite\. You can complete this tutorial to build and run the sample test suite to understand how you can use AWS IoT Device Tester for AWS IoT Greengrass to run custom test suites\.

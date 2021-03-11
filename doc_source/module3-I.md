@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Module 3 \(part 1\): Lambda functions on AWS IoT Greengrass<a name="module3-I"></a>
 
 This module shows you how to create and deploy a Lambda function that sends MQTT messages from your AWS IoT Greengrass core device\. The module describes Lambda function configurations, subscriptions used to allow MQTT messaging, and deployments to a core device\.

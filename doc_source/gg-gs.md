@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Getting started with AWS IoT Greengrass<a name="gg-gs"></a>
 
 This Getting Started tutorial includes several modules designed to show you AWS IoT Greengrass basics and help you get started using AWS IoT Greengrass\. This tutorial covers fundamental concepts, such as:
@@ -18,7 +24,7 @@ You can choose how to use this tutorial to set up your core device:
    
 + Walk through the steps in Module 1 through Module 3\-1 to examine Greengrass requirements and processes more closely\. These steps set up your core device, create and configure a Greengrass group that contains a Hello World Lambda function, and deploy your Greengrass group\. Typically, this takes an hour or two to complete\.
 
-![\[Getting Started modules\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/getting-started-modules.png)
+![\[Getting Started modules\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/getting-started-modules.png)
 
 **Quick Start**  
 [Greengrass device setup](quick-start.md) configures your core device and Greengrass resources\. The script:  

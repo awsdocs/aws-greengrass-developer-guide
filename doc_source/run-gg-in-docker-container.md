@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Running AWS IoT Greengrass in a Docker container<a name="run-gg-in-docker-container"></a>
 
 AWS IoT Greengrass can be configured to run in a [Docker](https://www.docker.com/) container\.
@@ -343,7 +349,7 @@ If the container doesn't open the shell and exits immediately, you can debug the
 
 When you run AWS IoT Greengrass in a Docker container, all Lambda functions must run without containerization\. In this step, you set the default containerization for the group to **No container**\. You must do this before you deploy the group for the first time\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-group"></a>Choose the group whose settings you want to change\.
 

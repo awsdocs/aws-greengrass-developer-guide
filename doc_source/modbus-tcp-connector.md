@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Modbus\-TCP Protocol Adapter connector<a name="modbus-tcp-connector"></a>
 
 The Modbus\-TCP Protocol Adapter [connector](connectors.md) collects data from local devices through the ModbusTCP protocol and publishes it to the selected `StreamManager` streams\.

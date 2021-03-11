@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Install the AWS IoT Device SDK for Python<a name="IoT-SDK"></a>
 
 AWS IoT devices can use the AWS IoT Device SDK for Python to communicate with AWS IoT and AWS IoT Greengrass core devices \(using the Python programming language\)\. For more information, including requirements, see the AWS IoT Device SDK for Python [ Readme](https://github.com/aws/aws-iot-device-sdk-python) on GitHub\.
@@ -25,7 +31,7 @@ In this step, you install the SDK and get the `basicDiscovery.py` sample functio
 
       ```
       cd path-to-SDK-folder
-      sudo python setup.py install
+      python setup.py install
       ```
 
 ------

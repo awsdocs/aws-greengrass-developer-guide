@@ -1,18 +1,24 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Deploy AWS IoT Greengrass groups to an AWS IoT Greengrass core<a name="deployments"></a>
 
-AWS IoT Greengrass groups are used to organize entities in your edge environment\. Groups also control how the entities in the group can interact with each other and with the AWS Cloud\. For example, only the Lambda functions in the group are deployed for local execution and only the devices in the group can communicate using the local MQTT server\.
+Use AWS IoT Greengrass groups to organize entities in your edge environment\. You also use groups to control how the entities in the group interact with each other and with the AWS Cloud\. For example, only the Lambda functions in the group are deployed for running locally, and only the devices in the group can communicate using the local MQTT server\.
 
 A group must include a [core](gg-core.md), which is an AWS IoT device that runs the AWS IoT Greengrass Core software\. The core acts as an edge gateway and provides AWS IoT Core capabilities in the edge environment\. Depending on your business need, you can also add the following entities to a group:
 + **Devices**\. Represented as things in the AWS IoT registry\. These devices must run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](what-is-gg.md#iot-device-sdk) or [ AWS IoT Greengrass Discovery API](gg-discover-api.md) to get connection information for the core\. Only devices that are members of the group can connect to the core\.
-+ **Lambda functions**\. User\-defined serverless applications that execute code on the core\. Lambda functions are authored in AWS Lambda and referenced from a Greengrass group\. For more information, see [Run Lambda functions on the AWS IoT Greengrass core](lambda-functions.md)\.
-+ **Connectors**\. Predefined serverless applications that execute code on the core\. Connectors can provide built\-in integration with local infrastructure, device protocols, AWS, and other cloud services\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
++ **Lambda functions**\. User\-defined serverless applications that run code on the core\. Lambda functions are authored in AWS Lambda and referenced from a Greengrass group\. For more information, see [Run Lambda functions on the AWS IoT Greengrass core](lambda-functions.md)\.
++ **Connectors**\. Predefined serverless applications that run code on the core\. Connectors can provide built\-in integration with local infrastructure, device protocols, AWS, and other cloud services\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
 + **Subscriptions**\. Defines the publishers, subscribers, and MQTT topics \(or subjects\) that are authorized for MQTT communication\.
 + **Resources**\. References to local [devices and volumes](access-local-resources.md), [machine learning models](ml-inference.md), and [secrets](secrets.md), used for access control by Greengrass Lambda functions and connectors\.
 + **Loggers**\. Logging configurations for AWS IoT Greengrass system components and Lambda functions\. For more information, see [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)\.
 
 You manage your Greengrass group in the AWS Cloud and then deploy it to a core\. The deployment copies the group configuration to the `group.json` file on the core device\. This file is located in `greengrass-root/ggc/deployments/group`\.
 
-![\[Cloud definition of Greengrass group deployed to a core device.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/group-deploy.png)
+![\[Cloud definition of Greengrass group deployed to a core device.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/group-deploy.png)
 
 **Note**  
 During a deployment, the Greengrass daemon process on the core device stops and then restarts\.
@@ -21,10 +27,10 @@ During a deployment, the Greengrass daemon process on the core device stops and 
 
 You can deploy a group and manage its deployments from the group's configuration page in the AWS IoT console\.
 
-![\[The Deployments page for a Greengrass group.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-deployments.png)
+![\[The Deployments page for a Greengrass group.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-deployments.png)
 
 **Note**  
-To open this page in the console, choose **Greengrass** and **Groups**, and then choose your group\.
+To open this page in the console, choose **Greengrass**, then **Classic \(V1\)**, then **Groups**, and then under **Greengrass groups**, choose your group\.
 
 **To deploy the current version of the group**  
 + From **Actions**, choose **Deploy**\.
@@ -42,7 +48,7 @@ You might want to redeploy a deployment if the current deployment fails or rever
 1. From the navigation pane, choose **Deployments**\.
 
 1. On the row that contains the deployment, in the **Status** column, choose the ellipsis \(**…**\), and then choose **Re\-deploy**\.  
-![\[Deployments page showing the Re-Deploy action for a deployment.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-redeployment.png)
+![\[Deployments page showing the Re-Deploy action for a deployment.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-redeployment.png)
 
 **To reset group deployments**  
 You might want to reset group deployments to move or delete a group or to remove deployment information\. For more information, see [Reset deployments](reset-deployments-scenario.md)\.  
@@ -130,13 +136,13 @@ When programming with the AWS IoT Greengrass API, it's helpful to understand the
 
 In the AWS IoT Greengrass API, the top\-level `Group` object consists of metadata and a list of `GroupVersion` objects\. `GroupVersion` objects are associated with a `Group` by ID\.
 
-![\[A diagram of a group, which consists of metadata and a list of group versions.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/om-group.png)
+![\[A diagram of a group, which consists of metadata and a list of group versions.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/om-group.png)
 
 ### Group versions<a name="api-overview-versions"></a>
 
 `GroupVersion` objects define group membership\. Each `GroupVersion` references a `CoreDefinitionVersion` and other component versions by ARN\. These references determine which entities to include in the group\.
 
-![\[A diagram of a group version that references other version types by ARN.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/om-groupversion.png)
+![\[A diagram of a group version that references other version types by ARN.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/om-groupversion.png)
 
 For example, to include three Lambda functions, one device, and two subscriptions in the group, the `GroupVersion` references:
 + The `CoreDefinitionVersion` that contains the required core\.
@@ -164,7 +170,7 @@ Components that you add to groups have a three\-level hierarchy:
 
 The following example `DeviceDefinition` references three `DeviceDefinitionVersion` objects that each contain multiple `Device` objects\. Only one `DeviceDefinitionVersion` at a time is used in a group\.
 
-![\[A diagram of a device hierarchy, which consists of DeviceDefinition, DeviceDefinitionVersion, and Device objects.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/om-devicedefinition.png)
+![\[A diagram of a device hierarchy, which consists of DeviceDefinition, DeviceDefinitionVersion, and Device objects.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/om-devicedefinition.png)
 
 ### Updating groups<a name="api-update-groups"></a>
 
@@ -193,5 +199,5 @@ Greengrass Lambda functions can reference a Lambda function by alias ARN or vers
 + [Reset deployments](reset-deployments-scenario.md)
 + [Create bulk deployments for groups](bulk-deploy-cli.md)
 + [Troubleshooting Deployment Issues](gg-troubleshooting.md#gg-troubleshooting-deploymentissues)<a name="see-also-gg-api-cli"></a>
-+ [AWS IoT Greengrass API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/)
++ [AWS IoT Greengrass Version 1 API Reference](https://docs.aws.amazon.com/greengrass/latest/apireference/)
 + <a name="see-also-gg-cli"></a>[AWS IoT Greengrass commands](https://docs.aws.amazon.com/cli/latest/reference/greengrass/index.html) in the *AWS CLI Command Reference*

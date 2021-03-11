@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Device Defender connector<a name="device-defender-connector"></a>
 
 The Device Defender [connector](connectors.md) notifies administrators of changes in the state of a Greengrass core device\. This can help identify unusual behavior that might indicate a compromised device\.

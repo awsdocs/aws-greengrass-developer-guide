@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Configure settings for test runners<a name="set-config-custom"></a>
 
 To run custom test suites, test runners must configure their settings based on the test suite that they want to run\. Settings are specified based on JSON configuration file templates located in the `<device-tester-extract-location>/configs/` folder\. If required, test runners must also set up AWS credentials that IDT will use to connect to the AWS cloud\. 

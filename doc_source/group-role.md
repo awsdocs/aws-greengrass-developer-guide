@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Greengrass group role<a name="group-role"></a>
 
 The Greengrass group role is an IAM role that authorizes code running on a Greengrass core to access your AWS resources\. You create the role and manage permissions in AWS Identity and Access Management \(IAM\) and attach the role to your Greengrass group\. A Greengrass group has one group role\. To add or change permissions, you can attach a different role or change the IAM policies that are attached to the role\.
@@ -31,12 +37,12 @@ The user who is signed in to the console must have permissions to manage the rol
 
 Follow these steps to find the role that is attched to a Greengrass group\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
 1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
-![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings.png)
+![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings.png)
 
 If a role is attached to the group, it appears under **Group Role**\.
 
@@ -59,12 +65,12 @@ After the role is configured, use the AWS IoT console to add the role to the gro
 **Note**  
 This procedure is required only to choose a role for the group\. It's not required after changing the permissions of the currently selected group role\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
 1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
-![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings.png)
+![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings.png)
 
 1. Under **Group Role**, choose to add or change the role:
    + To add the role, choose **Add Role**\.
@@ -78,12 +84,12 @@ This procedure is required only to choose a role for the group\. It's not requir
 
 Follow these steps to detach the role from a Greengrass group\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, choose **Greengrass**, and then choose **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
 1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
-![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/console-group-settings.png)
+![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings.png)
 
 1. Under **Group Role**, choose the ellipses \(**…**\) for the role, and then choose **Remove IAM Role**\.
 

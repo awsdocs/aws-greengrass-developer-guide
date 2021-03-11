@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Configure devices and subscriptions<a name="config-dev-subs"></a>
 
 Shadows can be synced to AWS IoT when the AWS IoT Greengrass core is connected to the internet\. In this module, you first use local shadows without syncing to the cloud\. Then, you enable cloud syncing\.
@@ -10,7 +16,7 @@ Each device has its own shadow\. For more information, see [Device shadow servic
    + Make a note of the hash component in the file names of the security resources for the devices\. You use these values later\.
 
       
-![\[Screenshot showing the two devices, GG_TrafficLight and GG_Switch.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-078.png)
+![\[Screenshot showing the two devices, GG_TrafficLight and GG_Switch.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-078.png)
 
 1. Decompress the downloaded certificates and keys for both devices into a single folder on your computer\. For example, run the following command for each `.tar.gz` file\.
 
@@ -23,7 +29,7 @@ On Windows, you can decompress `.tar.gz` files using a tool such as [7\-Zip](htt
 1. Copy the `root-ca-cert.pem` file that you downloaded in the [previous module](device-group.md#root-ca-device) to this folder\.
 
 1. Make sure that the devices are set to use local shadows\. If not, choose the ellipsis \(**…**\), and then choose **Make local only**\.  
-![\[Screenshot with LOCAL SHADOW ONLY highlighted for both devices.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-079.png)
+![\[Screenshot with LOCAL SHADOW ONLY highlighted for both devices.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-079.png)
 
 1. <a name="module5-subscriptions"></a>Add the subscriptions in the following table to your group\. For example, to create the first subscription:
 
@@ -40,10 +46,10 @@ On Windows, you can decompress `.tar.gz` files using a tool such as [7\-Zip](htt
    1. Choose **Next**, and then choose **Finish**\.
 
    The topics must be entered exactly as shown in the table\. Although it's possible to use wildcards to consolidate some of the subscriptions, we don't recommend this practice\. For more information, see [Shadow MQTT topics](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html) in the *AWS IoT Developer Guide*\.    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/config-dev-subs.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/config-dev-subs.html)
 
    The new subscriptions are displayed on the **Subscriptions** page\. To see the full topic path of a subscription, hover your mouse over the **Topic** column\.  
-![\[Tabular data on the Subscriptions page. The page contains Source, Target, and Topic columns.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-080.png)
+![\[Tabular data on the Subscriptions page. The page contains Source, Target, and Topic columns.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-080.png)
 **Note**  
 For information about the `$` character, see [Reserved topics](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html#reserved-topics)\.
 
@@ -56,6 +62,6 @@ For information about the `$` character, see [Reserved topics](https://docs.aws.
 1. Make sure that the Greengrass daemon is running, as described in [Deploy cloud configurations to a core device](configs-core.md)\.
 
 1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
-![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/latest/developerguide/images/gg-get-started-040.png)
+![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-040.png)
 
    This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.

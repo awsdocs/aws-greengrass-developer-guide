@@ -1,3 +1,9 @@
+--------
+
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+
+--------
+
 # Compliance validation for AWS IoT Greengrass<a name="compliance-validation"></a>
 
 Third\-party auditors assess the security and compliance of AWS IoT Greengrass as part of multiple AWS compliance programs\. These include SOC, PCI, FedRAMP, HIPAA, and others\.
