@@ -71,6 +71,12 @@ The following tabs describe what's new and changed in AWS IoT Greengrass Core so
 ------
 #### [ GGC v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
+1\.11\.1  
+ Bug fixes and improvements:  
++ Fixed an issue that caused increased memory use for stream manager\.
++ Fixed an issue that caused stream manager to reset the sequence number of the stream to `0` if the Greengrass core device was turned off for longer than the specified time\-to\-live \(TTL\) period of the stream data\.
++ Fixed an issue that prevented stream manager from correctly stopping retry attempts to export data to the AWS Cloud\.
+
 1\.11\.0  
 New features:  <a name="what-new-v1110"></a>
 + A telemetry agent on the Greengrass core collects local telemetry data and publishes it to AWS Cloud\. To retrieve the telemetry data for further processing, customers can create an Amazon EventBridge rule and subscribe to a target\. For more information, see [Gathering system health telemetry data from AWS IoT Greengrass core devices](https://docs.aws.amazon.com/greengrass/latest/developerguide/telemetry.html)\.
@@ -100,7 +106,7 @@ Bug fixes and improvements:  <a name="bug-fix-v1110"></a>
 1\.10\.3  
 Bug fixes and improvements:  
 + A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
-+ Fixed an issue that caused increased memory utilization for stream manager\.
++ Fixed an issue that caused increased memory use for stream manager\.
 
 1\.10\.2  
 Bug fixes and improvements:  
@@ -653,6 +659,12 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 ------
 #### [ v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
+1\.11\.1  
+ Bug fixes and improvements:  
++ Fixed an issue that caused increased memory use for stream manager\.
++ Fixed an issue that caused stream manager to reset the sequence number of the stream to `0` if the Greengrass core device was turned off for longer than the specified time\-to\-live \(TTL\) period of the stream data\.
++ Fixed an issue that prevented stream manager from correctly stopping retry attempts to export data to the AWS Cloud\.
+
 1\.11\.0  
 New features:  <a name="what-new-v1110"></a>
 + A telemetry agent on the Greengrass core collects local telemetry data and publishes it to AWS Cloud\. To retrieve the telemetry data for further processing, customers can create an Amazon EventBridge rule and subscribe to a target\. For more information, see [Gathering system health telemetry data from AWS IoT Greengrass core devices](https://docs.aws.amazon.com/greengrass/latest/developerguide/telemetry.html)\.
@@ -684,12 +696,12 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 | Architecture | Distribution | OS | Link | 
 | --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/greengrass-linux-aarch64-1.11.0.tar.gz) | 
-| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/greengrass-openwrt-aarch64-1.11.0.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/greengrass-linux-armv7l-1.11.0.tar.gz) | 
-| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/greengrass-openwrt-armv7l-1.11.0.tar.gz) | 
-| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/greengrass-linux-armv6l-1.11.0.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/greengrass-linux-x86-64-1.11.0.tar.gz) | 
+| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-linux-aarch64-1.11.1.tar.gz) | 
+| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-openwrt-aarch64-1.11.1.tar.gz) | 
+| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-linux-armv7l-1.11.1.tar.gz) | 
+| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-openwrt-armv7l-1.11.1.tar.gz) | 
+| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-linux-armv6l-1.11.1.tar.gz) | 
+| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-linux-x86-64-1.11.1.tar.gz) | 
 
 ------
 #### [ v1\.10 ]<a name="ggc-v1.10-tab"></a>
@@ -697,7 +709,7 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 1\.10\.3  
 Bug fixes and improvements:  
 + A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
-+ Fixed an issue that caused increased memory utilization for stream manager\.
++ Fixed an issue that caused increased memory use for stream manager\.
 
 1\.10\.2  
 Bug fixes and improvements:  
@@ -774,7 +786,7 @@ For information about other options for installing the AWS IoT Greengrass Core s
 <a name="gg-snap-description"></a>AWS IoT Greengrass snap v1\.11\.0 enables you to run a limited version of AWS IoT Greengrass through convenient software packages, along with all necessary dependencies, in a containerized environment\.
 
 **Note**  <a name="gg-snap-v1.11-note"></a>
-The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.0 and later\. Unsupported versions don't receive bug fixes or updates\.  
+The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.0\. AWS IoT Greengrass doesn’t provide a snap for v1\.11\.1\. Unsupported versions don't receive bug fixes or updates\.   
 The AWS IoT Greengrass snap doesn't support connectors and machine learning \(ML\) inference\.
 
 For more information, see [Run AWS IoT Greengrass in a snap](install-ggc.md#gg-snap-support)\.
@@ -787,7 +799,7 @@ AWS provides a Dockerfile and Docker images that make it easier for you to run A
 
 Dockerfile  
 Dockerfiles contain source code for building custom AWS IoT Greengrass container images\. Images can be modified to run on different platform architectures or to reduce the image size\. For instructions, see the README file\.  
-Download your target AWS IoT Greengrass Core software version\.  
+Download your target AWS IoT Greengrass Core software version\. AWS IoT Greengrass doesn’t provide Dockerfiles for AWS IoT Greengrass Core software v1\.11\.1 and v1\.10\.3\.  
 +  [Dockerfile for AWS IoT Greengrass v1\.11\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/aws-greengrass-docker-1.11.0.tar.gz)\. 
 +  [ Dockerfile for AWS IoT Greengrass v1\.10\.2](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/aws-greengrass-docker-1.10.2.tar.gz)\.   
 v1\.9\.4  
@@ -798,9 +810,9 @@ v1\.8\.1
 
 Docker image  
 Docker images have the AWS IoT Greengrass Core software and dependencies installed on Amazon Linux 2 \(x86\_64\) and Alpine Linux \(x86\_64, Armv7l, or AArch64\) base images\. You can use prebuilt images to start experimenting with AWS IoT Greengrass\.  
-Download a prebuilt image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or Amazon Elastic Container Registry \(Amazon ECR\)\.  
-For steps that describe how to download and run a prebuilt image from Amazon ECR, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
-The `latest` tag represents the latest stable version of the AWS IoT Greengrass Core software and dependencies installed on the Amazon Linux 2 base image\. To find tags for all available images, check the **Tags** page on Docker Hub\.  
+Download a prebuilt image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or Amazon Elastic Container Registry \(Amazon ECR\)\. For steps that describe how to download and run a prebuilt image from Amazon ECR, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.  
+The `latest` tag represents the latest stable version of the AWS IoT Greengrass Core software and dependencies installed on the Amazon Linux 2 base image\. To find tags for all available images, check the **Tags** page on Docker Hub\.   
+AWS IoT Greengrass doesn’t provide Docker images for AWS IoT Greengrass Core software v1\.11\.1\.  
 By default, `alpine-aarch64` and `alpine-armv7l` images can run only on Arm\-based hosts\. To run these images on an x86 host, you can install [QEMU](https://www.qemu.org/) and mount the QEMU libraries on the host\. For example:  
 
 ```

@@ -14,7 +14,7 @@ The process of setting up the Docker container to run IDT tests depends on wheth
 + [Use the Docker image](#docker-config-setup-docker-image)\. The Docker image has the AWS IoT Greengrass Core software and dependencies installed\.
 + [Use the Dockerfile](#docker-config-setup-dockerfile)\. The Dockerfile contains source code you can use to build custom AWS IoT Greengrass container images\. The image can be modified to run on different platform architectures or to reduce the image size\.
 **Note**  
-To run IDT tests on your own custom container images, your image must include the dependencies defined in the Dockerfile provided by AWS IoT Greengrass\.
+AWS IoT Greengrass doesn't provide Dockerfiles or Docker images for AWS IoT Greengrass core software version 1\.11\.1\. To run IDT tests on your own custom container images, your image must include the dependencies defined in the Dockerfile provided by AWS IoT Greengrass\.
 
 The following features aren't available when you run AWS IoT Greengrass in a Docker container:<a name="docker-image-unsupported-features"></a>
 + [Connectors](connectors.md) that run in **Greengrass container** mode\. To run a connector in a Docker container, the connector must run in **No container** mode\. To find connectors that support **No container** mode, see [AWS\-provided Greengrass connectors](connectors-list.md)\. Some of these connectors have an isolation mode parameter that you must set to **No container**\.

@@ -26,7 +26,8 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 10 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/10` | 
+| 11 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/11` | 
+| 10 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/10` | 
 | 9 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/9` | 
 | 8 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/8` | 
 | 7 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/7` | 
@@ -44,7 +45,7 @@ For information about version changes, see the [Changelog](#iot-sitewise-connect
 This connector has the following requirements:
 
 ------
-#### [ Version 9 and 10 ]
+#### [ Version 9, 10, and 11 ]
 
 **Important**  
 This version introduces new requirements: AWS IoT Greengrass Core software v1\.10\.2 and [stream manager](stream-manager.md)\.
@@ -247,7 +248,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 ## Parameters<a name="iot-sitewise-connector-param"></a>
 
 ------
-#### [ Versions 2, 3, 4, 5, 6, 7, 8, 9, and 10 ]<a name="conn-sitewise-params-v2"></a>
+#### [ Versions 2, 3, 4, 5, 6, 7, 8, 9, 10, and 11 ]<a name="conn-sitewise-params-v2"></a>
 
 `SiteWiseLocalStoragePath`  
 The directory on the AWS IoT Greengrass host that the IoT SiteWise connector can write persistent data to\. Defaults to `/var/sitewise`\.  
@@ -312,7 +313,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyIoTSiteWiseConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/8"
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/11"
         }
     ]
 }'
@@ -342,10 +343,9 @@ This connector is subject to the following all limits imposed by IoT SiteWise, i
 ## Licenses<a name="iot-sitewise-connector-license"></a>
 
 ------
-#### [ Version 9 and 10 ]
+#### [ Version 9, 10, and 11 ]
 
 The IoT SiteWise connector includes the following third\-party software/licensing:
-+  [Ethernet/IP Client](https://github.com/digitalpetri/ethernet-ip/blob/master/LICENSE) 
 +  [MapDB](https://github.com/jankotek/mapdb/blob/master/LICENSE.txt) 
 +  [Elsa](https://github.com/jankotek/elsa/blob/master/LICENSE.txt) 
 + [Eclipse Milo](https://github.com/eclipse/milo/blob/maintenance/0.2/LICENSE)
@@ -378,6 +378,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | Date | 
 | --- | --- | --- | 
+|  11  |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/iot-sitewise-connector.html)  |  March 24, 2021  | 
 |  10  |  Configured `StreamManager` to improve handling when the source connection is lost and re\-established\. This version also accepts OPC\-UA values with a `ServerTimestamp` when no `SourceTimestamp` is available\.  |  January 22, 2021  | 
 |  9  |  Support launched for custom Greengrass `StreamManager` stream destinations, OPC\-UA deadbanding, custom scan mode and custom scan rate\. Also includes improved performance during configuration updates made from the IoT SiteWise gateway\.  |  December 15, 2020  | 
 |  8  |  Improved stability when the connector experiences intermittent network connectivity\.  |  November 19, 2020  | 

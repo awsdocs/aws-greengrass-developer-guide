@@ -905,11 +905,11 @@ For more information about MQTT and QoS, see [Getting Started](https://mqtt.org/
 **Communication with the AWS Cloud**  
 + **Outbound messages use QoS 1**
 
-  The core sends messages destined for AWS Cloud targets using QoS 1\. AWS IoT Greengrass uses an MQTT message queue to process these messages\. If message delivery isn't confirmed by AWS IoT Core, the message is spooled to be retried later \(unless the queue is full\)\. This can help minimize data loss from intermittent connectivity\.
+  The core sends messages destined for AWS Cloud targets using QoS 1\. AWS IoT Greengrass uses an MQTT message queue to process these messages\. If message delivery isn't confirmed by AWS IoT, the message is spooled to be retried later\. The message cannot be retried if the queue is full\. The message delivery confirmation can help minimize data loss from intermittent connectivity\.
 
-  For more information, including how to configure a local storage cache that can persist messages destined for AWS Cloud targets, see [MQTT message queue for cloud targets](#mqtt-message-queue)\.
+  Because outbound messages to AWS IoT use QoS 1, the maximum rate at which the Greengrass core can send messages depends on the latency between the core and AWS IoT\. Each time the core sends a message, it waits until AWS IoT acknowledges the message before it sends the next message\. For example, if the round\-trip time between the core and its AWS Region is 50 milliseconds, the core can send up to 20 messages per second\. Consider this behavior when you choose the AWS Region where your core connects\. To ingest high\-volume IoT data to the AWS Cloud, you can use [stream manager](stream-manager.md)\.
 
-   
+  For more information about the MQTT message queue, including how to configure a local storage cache that can persist messages destined for AWS Cloud targets, see [MQTT message queue for cloud targets](#mqtt-message-queue)\.
 + **Inbound messages use QoS 0 \(default\) or QoS 1**
 
   By default, the core subscribes with QoS 0 to messages from AWS Cloud sources\. If you enable persistent sessions, the core subscribes with QoS 1\. This can help minimize data loss from intermittent connectivity\. To manage the QoS for these subscriptions, you configure persistence settings on the local spooler system component\.

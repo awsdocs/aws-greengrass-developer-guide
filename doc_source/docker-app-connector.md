@@ -21,6 +21,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 7 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/7` | 
 | 6 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/6` | 
 | 5 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/5` | 
 | 4 | `arn:aws:greengrass:region::/connectors/DockerApplicationDeployment/versions/4` | 
@@ -144,18 +145,15 @@ Each secret must contain the following keys:
 To allow AWS IoT Greengrass to access a secret by default, the name of the secret must start with *greengrass\-*\. Otherwise, your Greengrass service role must grant access\. For more information, see [Allow AWS IoT Greengrass to get secret values](secrets.md#secrets-config-service-role)\.
 
 **To get login information for Docker images from AWS Marketplace**  
-Use the `aws ecr get-login` command to get your user name, password, and registry URL for Docker images from AWS Marketplace\.  
 
-```
-aws ecr get-login --no-include-email --region region --registry-ids registry-id
-```
-You can find the registry ID on the container product launch page on the AWS Marketplace website\. Under **Container Images**, choose **View container image details**\.
-The output contains the login information that you use to create a secret\. For example, in the following output, the `-u` value is the user name, the `-p` value is the password, and the registry URL is the URL at the end of the output\.  
+1. Get your password for Docker images from AWS Marketplace by using the `aws ecr get-login-password` command\. For more information, see [get\-login\-password](https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html) in the *AWS CLI Command Reference*\.
 
-```
-docker login -u AWS -p eyGuYXlsbGkxU0NveDNKaTY4ak...c0MzFyMTIxfQ== https://123456789012.dkr.ecr.region.amazonaws.com
-```
-Use this login information to create a secret for each AWS Marketplace registry that stores Docker images referenced in your Compose file\. For more information, see [get\-login](https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html) in the *AWS CLI Command Reference*\.
+   ```
+   aws ecr get-login-password
+   ```
+
+1. Retrieve the registry URL for the Docker image\. Open the AWS Marketplace website, and open the container product launch page\. Under **Container Images**, choose **View container image details** to locate the user name and registry URL\.
+Use the retrieved user name, password, and registry URL to create a secret for each AWS Marketplace registry that stores Docker images referenced in your Compose file\. 
 
 **To create secrets \(console\)**  
 In the AWS Secrets Manager console, choose **Other type of secrets**\. Under **Specify the key\-value pairs to be stored for this secret**, add rows for `username`, `password`, and `registryUrl`\. For more information, see [Creating a basic secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) in the *AWS Secrets Manager User Guide*\.  
@@ -175,6 +173,91 @@ It is your responsibility to secure the `DockerComposeFileDestinationPath` direc
 ## Parameters<a name="docker-app-connector-param"></a>
 
 This connector provides the following parameters:
+
+------
+#### [ Version 7 ]<a name="docker-app-connector-parameters-v1"></a>
+
+`DockerComposeFileS3Bucket`  
+The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
+Display name in the AWS IoT console: **Docker Compose file in S3**  
+In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
+Required: `true`  
+Type: `string`  
+Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
+
+`DockerComposeFileS3Key`  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
+Required: `true`  
+Type: `string`  
+Valid pattern `.+`
+
+`DockerComposeFileS3Version`  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
+Required: `false`  
+Type: `string`  
+Valid pattern `.+`
+
+`DockerComposeFileDestinationPath`  
+The absolute path of the local directory used to store a copy of the Docker Compose file\. This must be an existing directory\. The user specified for `DockerUserId` must have permission to create a file in this directory\. For more information, see [Setting up the Docker user on the AWS IoT Greengrass core](#docker-app-connector-linux-user)\.  
+This directory stores your Docker Compose file and the credentials for your Docker images from private repositories\. It is your responsibility to secure this directory\. For more information, see [Security notes](#docker-app-connector-security)\.
+Display name in the AWS IoT console: **Directory path for local Compose file**  
+Required: `true`  
+Type: `string`  
+Valid pattern `\/.*\/?`  
+Example: `/home/username/myCompose`
+
+`DockerUserId`  
+The UID of the Linux user that the connector runs as\. This user must belong to the `docker` Linux group on the core device and have write permissions to the `DockerComposeFileDestinationPath` directory\. For more information, see [Setting up the Docker user on the core](#docker-app-connector-linux-user)\.  
+<a name="avoid-running-as-root"></a>We recommend that you avoid running as root unless absolutely necessary\. If you do specify the root user, you must allow Lambda functions to run as root on the AWS IoT Greengrass core\. For more information, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
+Display name in the AWS IoT console: **Docker user ID**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^[0-9]{1,5}$`
+
+`AWSSecretsArnList`  
+The Amazon Resource Names \(ARNs\) of the secrets in AWS Secrets Manager that contain the login information used to access your Docker images in private repositories\. For more information, see [Accessing Docker images from private repositories](#access-private-repositories)\.  
+Display name in the AWS IoT console: **Credentials for private repositories**  
+Required: `false`\. This parameter is required to access Docker images stored in private repositories\.  
+Type: `array` of `string`  
+Valid pattern: `[( ?,? ?"(arn:(aws(-[a-z]+)):secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:([a-zA-Z0-9\]+/)[a-zA-Z0-9/_+=,.@-]+-[a-zA-Z0-9]+)")]`
+
+`DockerContainerStatusLogFrequency`  
+The frequency \(in seconds\) at which the connector logs status information about the Docker containers running on the core\. The default is 300 seconds \(5 minutes\)\.  
+Display name in the AWS IoT console: **Logging frequency**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^[1-9]{1}[0-9]{0,3}$`
+
+`ForceDeploy`  
+Indicates whether to force the Docker deployment if it fails because of the improper cleanup of the last deployment\. The default value is `False`\.  
+Display name in the AWS IoT console: **Force deployment**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^(true|false)$`
+
+`DockerPullBeforeUp`  
+Indicates whether the deployer should run `docker-compose pull` before running `docker-compose up` for a pull\-down\-up behavior\. The default value is `True`\.  
+Display name in the AWS IoT console: **Docker Pull Before Up**  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^(true|false)$`
+
+`StopContainersOnNewDeployment`  
+Indicates whether the connector should stop Docker Deployer managed docker containers when GGC is stopped \(GGC stops when a new group is deployed, or the kernel is shut down\)\. The default value is `True`\.  
+Display name in the AWS IoT console: **Docker stop on new deployment**  
+We recommend keeping this parameter set to its default `True` value\. The parameter to `False` causes your Docker container to continue running even after terminating the AWS IoT Greengrass core or starting a new deployment\. If you set this parameter to `False`, you must ensure that your Docker containers are maintained as necessary in the event of a `docker-compose` service name change or addition\.   
+For more information, see the `docker-compose` compose file documentation\. 
+Required: `false`  
+Type: `string`  
+Valid pattern: `^(true|false)$`
+
+`DockerOfflineMode`  
+Indicates whether to use the existing Docker Compose file when AWS IoT Greengrass starts offline\. The default value is `False`\.  
+Required: `false`  
+Type: `string`  
+Valid pattern: `^(true|false)$`
 
 ------
 #### [ Version 6 ]<a name="docker-app-connector-parameters-v1"></a>
@@ -233,24 +316,24 @@ Type: `string`
 Valid pattern: `^[1-9]{1}[0-9]{0,3}$`
 
 `ForceDeploy`  
-Indicates whether to force the Docker deployment if it fails due to the improper cleanup of the last deployment\. The default is `False`\.  
+Indicates whether to force the Docker deployment if it fails because of the improper cleanup of the last deployment\. The default value is `False`\.  
 Display name in the AWS IoT console: **Force deployment**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^(true|false)$`
 
 `DockerPullBeforeUp`  
-Indicates whether the deployer should run `docker-compose pull` before running `docker-compose up` for a pull\-down\-up behavior\. The default is `True`\.  
+Indicates whether the deployer should run `docker-compose pull` before running `docker-compose up` for a pull\-down\-up behavior\. The default value is `True`\.  
 Display name in the AWS IoT console: **Docker Pull Before Up**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^(true|false)$`
 
 `StopContainersOnNewDeployment`  
-Indicates whether the connector should stop Docker Deployer managed docker containers when GGC is stopped \(when a new group deployment is made, or the kernel is shutdown\)\. The default is `True`\.  
+Indicates whether the connector should stop Docker Deployer managed docker containers when GGC is stopped \(when a new group deployment is made, or the kernel is shutdown\)\. The default value is `True`\.  
 Display name in the AWS IoT console: **Docker stop on new deployment**  
- We recommend leaving this parameter to its default `True` value\. Setting this parameter to `False` will cause your Docker container to continue running even after terminating the AWS IoT Greengrass core or starting a new deployment\. If you set this parameter to `False`, you must ensure that your Docker containers are maintained as necessary in the event of a `docker-compose` service name change or addition\.   
- For more information please refer to the `docker-compose` compose file documentation\. 
+We recommend keeping this parameter set to its default `True` value\. The parameter to `False` causes your Docker container to continue running even after terminating the AWS IoT Greengrass core or starting a new deployment\. If you set this parameter to `False`, you must ensure that your Docker containers are maintained as necessary in the event of a `docker-compose` service name change or addition\.   
+ For more information, see the `docker-compose` compose file documentation\. 
 Required: `false`  
 Type: `string`  
 Valid pattern: `^(true|false)$`
@@ -312,14 +395,14 @@ Type: `string`
 Valid pattern: `^[1-9]{1}[0-9]{0,3}$`
 
 `ForceDeploy`  
-Indicates whether to force the Docker deployment if it fails due to the improper cleanup of the last deployment\. The default is `False`\.  
+Indicates whether to force the Docker deployment if it fails because of the improper cleanup of the last deployment\. The default value is `False`\.  
 Display name in the AWS IoT console: **Force deployment**  
 Required: `false`  
 Type: `string`  
 Valid pattern: `^(true|false)$`
 
 `DockerPullBeforeUp`  
-Indicates whether the deployer should run `docker-compose pull` before running `docker-compose up` for a pull\-down\-up behavior\. The default is `True`\.  
+Indicates whether the deployer should run `docker-compose pull` before running `docker-compose up` for a pull\-down\-up behavior\. The default value is `True`\.  
 Display name in the AWS IoT console: **Docker Pull Before Up**  
 Required: `false`  
 Type: `string`  
@@ -382,7 +465,7 @@ Type: `string`
 Valid pattern: `^[1-9]{1}[0-9]{0,3}$`
 
 `ForceDeploy`  
-Indicates whether to force the Docker deployment if it fails due to the improper cleanup of the last deployment\. The default is `False`\.  
+Indicates whether to force the Docker deployment if it fails because of the improper cleanup of the last deployment\. The default value is `False`\.  
 Display name in the AWS IoT console: **Force deployment**  
 Required: `false`  
 Type: `string`  
@@ -560,22 +643,25 @@ We recommend that you create a Linux user instead of using the default `ggc_user
 ## Usage information<a name="docker-app-connector-usage-info"></a>
 
 When you use the Greengrass Docker application deployment connector, you should be aware of the following implementation\-specific usage information\.
-+ Fixed prefix for project names\. The connector prepends the `greengrassdockerapplicationdeployment` prefix to the names of the Docker containers that it starts\. The connector uses this prefix as the project name in the `docker-compose` commands that it runs\.
-+ Logging behavior\. The connector writes status information and troubleshooting information to a log file\. You can configure AWS IoT Greengrass to send logs to CloudWatch Logs and to write logs locally\. For more information, see [Logging for connectors](connectors.md#connectors-logging)\. This is the path to the local log for the connector:
++ **Fixed prefix for project names\.** The connector prepends the `greengrassdockerapplicationdeployment` prefix to the names of the Docker containers that it starts\. The connector uses this prefix as the project name in the `docker-compose` commands that it runs\.
++ **Logging behavior\.** The connector writes status information and troubleshooting information to a log file\. You can configure AWS IoT Greengrass to send logs to CloudWatch Logs and to write logs locally\. For more information, see [Logging for connectors](connectors.md#connectors-logging)\. This is the path to the local log for the connector:
 
   ```
   /greengrass-root/ggc/var/log/user/region/aws/DockerApplicationDeployment.log
   ```
 
   You must have root permissions to access local logs\.
-+ Updating Docker images\. Docker caches images on the core device\. If you update a Docker image and want to propagate the change to the core device, make sure to change the tag for the image in the Compose file\. Changes take effect after the Greengrass group is deployed\.
-+ 10\-minute timeout for cleanup operations\. When the Greengrass daemon stops during a restart, the `docker-compose down` command is initiated\. All Docker containers have a maximum of 10 minutes after `docker-compose down` is initiated to perform any cleanup operations\. If the cleanup isn't complete in 10 minutes, you must clean up the remaining containers manually\. For more information, see [docker rm](https://docs.docker.com/engine/reference/commandline/rm/) in the Docker CLI documentation\.
-+ Running Docker commands\. To troubleshoot issues, you can run Docker commands in a terminal window on the core device\. For example, run the following command to see the Docker containers that were started by the connector:
++ **Updating Docker images\.** Docker caches images on the core device\. If you update a Docker image and want to propagate the change to the core device, make sure to change the tag for the image in the Compose file\. Changes take effect after the Greengrass group is deployed\.
++ **10\-minute timeout for cleanup operations\.** When the Greengrass daemon stops during a restart, the `docker-compose down` command is initiated\. All Docker containers have a maximum of 10 minutes after `docker-compose down` is initiated to perform any cleanup operations\. If the cleanup isn't completed in 10 minutes, you must clean up the remaining containers manually\. For more information, see [docker rm](https://docs.docker.com/engine/reference/commandline/rm/) in the Docker CLI documentation\.
++ **Running Docker commands\.** To troubleshoot issues, you can run Docker commands in a terminal window on the core device\. For example, run the following command to see the Docker containers that were started by the connector:
 
   ```
   docker ps --filter name="greengrassdockerapplicationdeployment"
   ```
-+ Reserved resource ID\. The connector uses the `DOCKER_DEPLOYER_SECRET_RESOURCE_RESERVED_ID_index` ID for the Greengrass resources it creates in the Greengrass group\. Resource IDs must be unique in the group, so don't assign a resource ID that might conflict with this reserved resource ID\.
++ **Reserved resource ID\.** The connector uses the `DOCKER_DEPLOYER_SECRET_RESOURCE_RESERVED_ID_index` ID for the Greengrass resources it creates in the Greengrass group\. Resource IDs must be unique in the group, so don't assign a resource ID that might conflict with this reserved resource ID\.
++ **Offline mode\.** When you set the `DockerOfflineMode` configuration parameter to `True`, then the Docker connector is able to operate in *offline mode*\. This can happen when a Greengrass group deployment restarts while the core device is offline, and the connector cannot establish a connection to Amazon S3 or Amazon ECR to retrieve the Docker Compose file\.
+
+  With offline mode enabled, the connector attempts to download your Compose file, and run `docker login` commands as it would for a normal restart\. If these attempts fail, then the connector looks for a locally stored Compose file in the folder that was specified using the `DockerComposeFileDestinationPath` parameter\. If a local Compose file exists, then the connector follows the normal sequence of `docker-compose` commands and pulls from local images\. If the Compose file or the local images are not present, then the connector fails\. The behavior of the `ForceDeploy` and `StopContainersOnNewDeployment` parameters remains the same in offline mode\. 
 
 ## Communicating with Docker containers<a name="docker-app-connector-communicating"></a>
 
@@ -752,14 +838,15 @@ This connector is released under the [Greengrass Core Software License Agreement
 The following table describes the changes in each version of the connector\.
 
 
-| Version | Changes | 
+|  Version  |  Changes  | 
 | --- | --- | 
-| 6 | Added `StopContainersOnNewDeployment` to override container clean up when a new deployment is made or GGC stops\. Safer shutdown and start up mechanisms\. YAML validation bug fix\. | 
-| 5 | Images are pulled before running `docker-compose down`\. | 
-| 4 | Added pull\-before\-up behavior to update Docker images\. | 
-| 3 | Fixed an issue with finding environment variables\. | 
-| 2 | Added the `ForceDeploy` parameter\. | 
-| 1 | Initial release\.  | 
+|  7  |  Added `DockerOfflineMode` to use an existing Docker Compose file when AWS IoT Greengrass starts offline\. Implemented retries for the `docker login` command\. Support for 32\-bit UIDs\.   | 
+|  6  |  Added `StopContainersOnNewDeployment` to override container clean up when a new deployment is made or GGC stops\. Safer shutdown and start up mechanisms\. YAML validation bug fix\.  | 
+|  5  |  Images are pulled before running `docker-compose down`\.  | 
+|  4  |  Added pull\-before\-up behavior to update Docker images\.  | 
+|  3  |  Fixed an issue with finding environment variables\.  | 
+|  2  |  Added the `ForceDeploy` parameter\.  | 
+|  1  |  Initial release\.  | 
 
 <a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 

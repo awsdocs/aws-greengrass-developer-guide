@@ -121,7 +121,7 @@ In the following procedures, run the commands in a terminal window on your devic
 
       These steps install the certificates and keys to `/greengrass/certs` and the configuration file to `/greengrass/config`\. For more information, see [AWS IoT Greengrass core configuration file](gg-core.md#config-json)\.
 
-1. Download and run the dependency checker for AWS IoT Greengrass\. The dependency checker makes sure you have all of the required dependencies for the AWS IoT Greengrass Core software\. You can skip this step if you're upgrading from one patch version to another patch version \(for example, v1\.9\.3 to v1\.9\.4\)\.
+1. Download and run the dependency checker for AWS IoT Greengrass\. The dependency checker makes sure you have all of the required dependencies for the AWS IoT Greengrass Core software\. You can skip this step if you're upgrading from one patch version to another patch version \(for example, v1\.10\.2 to v1\.10\.3\)\.
 
    1. In the directory where you want to download the script, run the following command\. To use `curl`, replace `wget` in the command with `curl`\.
 
@@ -229,7 +229,7 @@ You can also run a Docker application on a Greengrass core device\. To do so, us
 <a name="gg-snap-description"></a>AWS IoT Greengrass snap v1\.11\.0 enables you to run a limited version of AWS IoT Greengrass through convenient software packages, along with all necessary dependencies, in a containerized environment\.
 
 **Note**  <a name="gg-snap-v1.11-note"></a>
-The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.0 and later\. Unsupported versions don't receive bug fixes or updates\.  
+The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.0\. AWS IoT Greengrass doesn’t provide a snap for v1\.11\.1\. Unsupported versions don't receive bug fixes or updates\.   
 The AWS IoT Greengrass snap doesn't support connectors and machine learning \(ML\) inference\.
 
 ### Snap concepts<a name="gg-snap-concepts"></a>
@@ -265,12 +265,12 @@ For more information, see the [Snapcraft](https://snapcraft.io/) website\.
 
 ### What's new with AWS IoT Greengrass snap v1\.11\.0<a name="gg-snap-whats-new"></a>
 
-The following describes what's new and changed with the latest version of the AWS IoT Greengrass snap\.
-+ The latest version supports only the `snap_daemon` user, exposed as user ID \(UID\) and group \(GID\) `584788`\.
-+ The latest version supports only noncontainerized Lambda functions\.
+The following describes what's new and changed with the version 1\.11\.0 of the AWS IoT Greengrass snap\.
++ This version supports only the `snap_daemon` user, exposed as user ID \(UID\) and group \(GID\) `584788`\.
++ This version supports only noncontainerized Lambda functions\.
 **Important**  
 Because noncontainerized Lambda functions must share the same user \(`snap_daemon`\), the Lambda functions have no isolation from each other\. For more information, see [Controlling execution of Greengrass Lambda functions by using group\-specific configuration](https://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html)\.
-+ The latest version supports C, C\+\+, Java 8, Node\.js 12\.x, Python 2\.7, Python 3\.7, and Python 3\.8 runtimes\.
++ This version supports C, C\+\+, Java 8, Node\.js 12\.x, Python 2\.7, Python 3\.7, and Python 3\.8 runtimes\.
 **Note**  
 To avoid redundant Python runtimes, Python 3\.7 Lambda functions actually run the Python 3\.8 runtime\.
 
@@ -335,13 +335,13 @@ The `snapd` daemon is preinstalled on Ubuntu\.
      ```
      aws-iot-greengrass 1.11.0 from Amazon Web Services (aws✓) installed
      ```
-   + To migrate from v1\.8 to v1\.11 or update to the latest version, run the following command:
+   + To migrate from v1\.8 to v1\.11 or update to the latest available version, run the following command:
 
      ```
-     sudo snap refresh --channel=latest aws-iot-greengrass
+     sudo snap refresh --channel=1.11.x aws-iot-greengrass
      ```
 
-   Like other snaps, the AWS IoT Greengrass snap uses channels to manage minor versions\. Snaps are automatically updated to the latest version of the current channel\. For examples, if you specify `--channel=1.8.x`, your AWS IoT Greengrass snap is updated to v1\.8\.4\. Currently, `--channel=1.11.x` is not supported\.
+   Like other snaps, the AWS IoT Greengrass snap uses channels to manage minor versions\. Snaps are automatically updated to the latest version of the current channel\. For examples, if you specify `--channel=1.8.x`, your AWS IoT Greengrass snap is updated to v1\.8\.4\. 
 
    You can run the `snap info aws-iot-greengrass` command to get the list of available channels for AWS IoT Greengrass\.
 
