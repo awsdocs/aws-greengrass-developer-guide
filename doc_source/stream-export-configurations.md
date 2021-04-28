@@ -12,6 +12,8 @@ User\-defined Lambda functions use `StreamManagerClient` in the AWS IoT Greengra
 
 You can define zero or more export configurations on a stream, including multiple export configurations for a single destination type\. For example, you can export a stream to two AWS IoT Analytics channels and one Kinesis data stream\.
 
+For failed export attempts, stream manager continually retries exporting data to the AWS Cloud at intervals of up to five minutes\. The number of retry attempts doesn't have a maximum limit\.
+
 **Note**  
 <a name="streammanagerclient-http-config"></a>`StreamManagerClient` also provides a target destination you can use to export streams to an HTTP server\. This target is intended for testing purposes only\. It is not stable or supported for use in production environments\.
 
@@ -107,9 +109,9 @@ This export destination has the following requirements:
 
 To create a stream that exports to Kinesis Data Streams, your Lambda functions [create a stream](work-with-streams.md#streammanagerclient-create-message-stream) with an export definition that includes one or more `KinesisConfig` objects\. This object defines export settings, such as the target data stream, batch size, batch interval, and priority\.
 
-When your Lambda functions receive data from devices, they [append messages](work-with-streams.md#streammanagerclient-append-message) that contain a blob of data to the target stream\.
+When your Lambda functions receive data from devices, they [append messages](work-with-streams.md#streammanagerclient-append-message) that contain a blob of data to the target stream\. Then, stream manager exports the data based on the batch settings and priority defined in the stream's export configurations\.
 
-Then, stream manager exports the data based on the batch settings and priority defined in the stream's export configurations\.
+Stream manager generates a unique, random UUID as a partition key for each record uploaded to Amazon Kinesis\. 
 
  
 

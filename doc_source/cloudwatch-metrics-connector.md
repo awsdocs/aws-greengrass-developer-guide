@@ -234,6 +234,7 @@ Type: `string`
 The time that the metric data was received, expressed as the number of milliseconds since `Jan 1, 1970 00:00:00 UTC`\. If this value is omitted, the connector uses the time that it received the message\.  
 Required: `false`  
 Type: `timestamp`  
+When you send multiple metrics within a single Lambda function, we recommend that you retrieve the timestamp separately for each metric\. Don't use a variable to store the timestamp\.  
 `value`  
 The value for the metric\.  
 CloudWatch rejects values that are too small or too large\. Values must be in the range of `8.515920e-109` to `1.174271e+108` \(Base 10\) or `2e-360` to `2e360` \(Base 2\)\. Special values \(for example, `NaN`, `+Infinity`, `-Infinity`\) are not supported\.

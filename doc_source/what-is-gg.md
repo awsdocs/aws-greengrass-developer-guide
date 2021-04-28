@@ -44,6 +44,17 @@ AWS IoT Greengrass consists of:
   + Local secrets manager
   + Connectors with built\-in integration with services, protocols, and software
 
+**Topics**
++ [AWS IoT Greengrass Core software](#gg-core-software)
++ [AWS IoT Greengrass groups](#gg-group)
++ [Devices in AWS IoT Greengrass](#devices)
++ [SDKs](#gg-sdks)
++ [Supported platforms and requirements](#gg-platforms)
++ [AWS IoT Greengrass downloads](#gg-downloads)
++ [We want to hear from you](#contact-us)
++ [Install the AWS IoT Greengrass Core software](install-ggc.md)
++ [Configure the AWS IoT Greengrass core](gg-core.md)
+
 ## AWS IoT Greengrass Core software<a name="gg-core-software"></a>
 
 The AWS IoT Greengrass Core software provides the following functionality:<a name="ggc-software-features"></a>
@@ -652,6 +663,14 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 
  You can use the following information to find and download software for use with AWS IoT Greengrass\. 
 
+**Topics**
++ [AWS IoT Greengrass Core software](#gg-core-download-tab)
++ [AWS IoT Greengrass snap software](#gg-snapstore-download)
++ [AWS IoT Greengrass Docker software](#gg-docker-download)
++ [AWS IoT Greengrass Core SDK](#gg-core-sdk-download)
++ [Supported machine learning runtimes and libraries](#ml-runtimes-libs)
++ [AWS IoT Greengrass ML SDK software](#gg-ml-sdk-download)
+
 ### AWS IoT Greengrass Core software<a name="gg-core-download-tab"></a>
 
 <a name="ggc-software-descripton"></a> The AWS IoT Greengrass Core software extends AWS functionality onto an AWS IoT Greengrass core device, making it possible for local devices to act locally on the data they generate\.
@@ -810,8 +829,9 @@ v1\.8\.1
 
 Docker image  
 Docker images have the AWS IoT Greengrass Core software and dependencies installed on Amazon Linux 2 \(x86\_64\) and Alpine Linux \(x86\_64, Armv7l, or AArch64\) base images\. You can use prebuilt images to start experimenting with AWS IoT Greengrass\.  
-Download a prebuilt image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or Amazon Elastic Container Registry \(Amazon ECR\)\. For steps that describe how to download and run a prebuilt image from Amazon ECR, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.  
-The `latest` tag represents the latest stable version of the AWS IoT Greengrass Core software and dependencies installed on the Amazon Linux 2 base image\. To find tags for all available images, check the **Tags** page on Docker Hub\.   
+Download a prebuilt image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or Amazon Elastic Container Registry \(Amazon ECR\)\.  
++ For Docker Hub, use the *version* tag to download a specific version of the Greengrass Docker image\. To find tags for all available images, check the **Tags** page on Docker Hub\. 
++ For Amazon ECR, use the `latest` tag to download the latest available version of the Greengrass Docker image\. For more information about listing available image versions and downloading images from Amazon ECR, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
 AWS IoT Greengrass doesn’t provide Docker images for AWS IoT Greengrass Core software v1\.11\.1\.  
 By default, `alpine-aarch64` and `alpine-armv7l` images can run only on Arm\-based hosts\. To run these images on an x86 host, you can install [QEMU](https://www.qemu.org/) and mount the QEMU libraries on the host\. For example:  
 
