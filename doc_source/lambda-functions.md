@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -24,7 +24,7 @@ The following table lists supported [AWS Lambda runtimes](https://docs.aws.amazo
 | --- | --- | 
 | Python 3\.8 | 1\.11 | 
 | Python 3\.7 | 1\.9 or later | 
-| Python 2\.7 | 1\.0 or later | 
+| Python 2\.7 \* | 1\.0 or later | 
 | Java 8 | 1\.1 or later | 
 | Node\.js 12\.x | 1\.10 or later | 
 | Node\.js 8\.10 \* | 1\.9 or later | 
@@ -95,7 +95,7 @@ For more information about creating a deployment package, see [Create and packag
 
 The AWS IoT Greengrass Core SDK follows the AWS SDK programming model, which makes it easy to port Lambda functions that are developed for the cloud to Lambda functions that run on an AWS IoT Greengrass core\.
 
-For example, the following Python Lambda function uses the AWS SDK for Python to publish a message to the topic `some/topic` in the cloud:
+For example, the following Python Lambda function uses the AWS SDK for Python \(Boto3\) to publish a message to the topic `some/topic` in the cloud:
 
 ```
 import boto3

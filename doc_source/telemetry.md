@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -35,7 +35,7 @@ The telemetry agent collects and publishes the following system metrics\.
 |  `LambdaUngracefullyKilled`  |  The number of runs that the user\-defined Lambda function fails to complete\.  |  User\-defined Lambda function, AWS Cloud, and system   | 
 |  `LambdaError`  |  The number of runs that result in the user\-defined Lambda function writing error logs\.  |  User\-defined Lambda function, AWS Cloud, and system  | 
 |  `BytesAppended`  |  The number of bytes of data appended to stream manager\.  |  `GGStreamManager` system component  | 
-|  `BytesUploadtedToIoTAnalytics`  |  The number of bytes of data that stream manager exports to channels in AWS IoT Analytics\.  |  `GGStreamManager` system component  | 
+|  `BytesUploadedToIoTAnalytics`  |  The number of bytes of data that stream manager exports to channels in AWS IoT Analytics\.  |  `GGStreamManager` system component  | 
 |  `BytesUploadedToKinesis`  |  The number of bytes of data that stream manager exports to streams in Amazon Kinesis Data Streams\.  |  `GGStreamManager` system component  | 
 |  `BytesUploadedToIoTSiteWise`  |  The number of bytes of data that stream manager exports to asset properties in AWS IoT SiteWise\.  |  `GGStreamManager` system component  | 
 |  `BytesUploadedToS3ExportTaskExecutor`  |  The number of bytes of data that stream manager exports to objects in Amazon S3\.  |  `GGStreamManager` system component  | 

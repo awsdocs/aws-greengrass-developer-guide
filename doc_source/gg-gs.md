@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -89,7 +89,7 @@ To complete this tutorial, you need the following:
 + An Amazon Web Services \(AWS\) account\. If you don't have one, see [Create an AWS account](#create-aws-account)\.
 + The use of an AWS [Region](https://en.wikipedia.org/wiki/Amazon_Web_Services#Availability_and_topology) that supports AWS IoT Greengrass\. For the list of supported regions for AWS IoT Greengrass, see [AWS endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\.
 **Note**  
-Make a note of your AWS Region and make sure that it is consistently used throughout this tutorial\. If you switch AWS Regions during the tutorial, you might experience problems completing the steps\.
+Make a note of your AWS Region and make sure that it is consistently used throughout this tutorial\. If you switch your AWS Region during the tutorial, you might experience problems completing the steps\.
 + A Raspberry Pi 4 Model B, or Raspberry Pi 3 Model B/B\+, with a 8 GB microSD card, or an Amazon EC2 instance\. Because AWS IoT Greengrass should ideally be used with physical hardware, we recommend that you use a Raspberry Pi\.
 **Note**  
 Run the following command to get the model of your Raspberry Pi:  

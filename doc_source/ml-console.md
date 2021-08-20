@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -216,19 +216,18 @@ If a new version is available, you can download it and upgrade the SDK version i
 
    Now, upload your Lambda function deployment package and register the handler\.
 
-1. On the **Configuration** tab for the `greengrassObjectClassification` function, for **Function code**, use the following values:
-   + For **Code entry type**, choose **Upload a \.zip file**\. 
-   + For **Runtime**, choose **Python 3\.7**\.
-   + For **Handler**, enter **greengrassObjectClassification\.function\_handler**\.
+1. Upload your Lambda function deployment package\.
 
-1. Choose **Upload**\.  
-![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/upload-deployment-package.png)
+   1. <a name="lambda-console-upload"></a>On the **Code** tab, under **Code source**, choose **Upload from**\. From the dropdown, choose **\.zip file**\.  
+![\[The Upload from dropdown with .zip file highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/lra-console/upload-deployment-package.png)
 
-1. Choose your `greengrassObjectClassification.zip` deployment package\.
+   1. Choose **Upload**, and then choose your `greengrassObjectClassification.zip` deployment package\. Then, choose **Save**\.
 
-1. Choose **Save**\.
+   1. <a name="lambda-console-runtime-settings-para"></a>On the **Code** tab for the function, under **Runtime settings**, choose **Edit**, and then enter the following values\.
+      + For **Runtime**, choose **Python 3\.7**\.
+      + For **Handler**, enter **greengrassObjectClassification\.function\_handler**\.
 
-    
+      Choose **Save**\.
 
    Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 **Note**  
@@ -440,7 +439,7 @@ In this step, deploy the current version of the group definition to the Greengra
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.3/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 

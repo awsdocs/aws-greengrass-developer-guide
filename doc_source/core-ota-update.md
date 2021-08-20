@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -46,10 +46,10 @@ Your AWS account must include an Amazon S3 URL signer role that can be used to a
 For role permissions, you can use the AWS managed policy or create a custom policy\.  
 + **Use the AWS managed policy**
 
-  The [ GreengrassOTAUpdateArtifactAccess](https://console.aws.amazon.com/iam/home?region=us-west-2#/policies/arn%3Aaws%3Aiam%3A%3Aaws%3Apolicy%2Fservice-role%2FGreengrassOTAUpdateArtifactAccess) managed policy is provided by AWS IoT Greengrass\. Use this policy if you want to allow access in all AWS Regions supported by AWS IoT Greengrass, both current and future\.
+  The [ GreengrassOTAUpdateArtifactAccess](https://console.aws.amazon.com/iam/home?region=us-west-2#/policies/arn%3Aaws%3Aiam%3A%3Aaws%3Apolicy%2Fservice-role%2FGreengrassOTAUpdateArtifactAccess) managed policy is provided by AWS IoT Greengrass\. Use this policy if you want to allow access in all Amazon Web Services Regions supported by AWS IoT Greengrass, both current and future\.
 + **Create a custom policy**
 
-  You should create a custom policy if you want to explicitly specify the AWS Regions where your cores are deployed\. The following example policy allows access to AWS IoT Greengrass software updates in six Regions\.
+  You should create a custom policy if you want to explicitly specify the Amazon Web Services Regions where your cores are deployed\. The following example policy allows access to AWS IoT Greengrass software updates in six Regions\.
 
   ```
   {
@@ -276,7 +276,7 @@ For more information, see [Integration with init systems](#integration-with-init
 
    1. In the AWS IoT console, choose **Manage**, and then choose **Jobs**\.
 
-   1. Choose **Create**, and then choose **Create Core update job**\.
+   1. Choose **Create job**, and then choose **Create Greengrass V1 Core update job**\.
 
    1. On the **Create a Greengrass update** page, define the properties for the update job, and then choose **Create**\. For example:
       + For **Select devices to update**, choose the cores to update\. You can select individual core things and thing groups that contain cores\.

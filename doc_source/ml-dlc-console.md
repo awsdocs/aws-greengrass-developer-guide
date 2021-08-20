@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -207,17 +207,17 @@ If a new version is available, you can download it and upgrade the SDK version i
 
 Now, upload your Lambda function deployment package and register the handler\.
 
-1.  On the **Configuration** tab for the `optimizedImageClassification` function, for **Function code**, use the following values: 
-   + For **Code entry type**, choose **Upload a \.zip file**\.
+1. <a name="lambda-console-upload"></a>On the **Code** tab, under **Code source**, choose **Upload from**\. From the dropdown, choose **\.zip file**\.  
+![\[The Upload from dropdown with .zip file highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/lra-console/upload-deployment-package.png)
+
+1. Choose your `optimizedImageClassification.zip` deployment package, and then choose **Save**\.
+
+1. <a name="lambda-console-runtime-settings-para"></a>On the **Code** tab for the function, under **Runtime settings**, choose **Edit**, and then enter the following values\.
    + For **Runtime**, choose **Python 3\.7**\.
    + For **Handler**, enter **inference\.handler**\.
 
-1. Choose **Upload**\.  
-![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-ml2-lambda-upload.png)
-
-1. Choose your `optimizedImageClassification.zip` deployment package\.
-
-1.  Choose **Save**\.
+   Choose **Save**\.  
+![\[The Runtime settings section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-ml2-lambda-upload.png)
 
  
 

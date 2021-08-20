@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -189,7 +189,7 @@ Tests Skipped:          0
 Test Groups:
     sample_group:       PASSED
 ----------------------------------
-Path to AWS IoT Device Tester Report: /path/to/devicetester/results/87e673c6-1226-11eb-9269-8c8590419f30/awsiotdevicetester_report.xml
+Path to IoT Device Tester Report: /path/to/devicetester/results/87e673c6-1226-11eb-9269-8c8590419f30/awsiotdevicetester_report.xml
 Path to Test Execution Logs: /path/to/devicetester/results/87e673c6-1226-11eb-9269-8c8590419f30/logs
 Path to Aggregated JUnit Report: /path/to/devicetester/results/87e673c6-1226-11eb-9269-8c8590419f30/IDTSampleSuitePython_Report.xml
 ```

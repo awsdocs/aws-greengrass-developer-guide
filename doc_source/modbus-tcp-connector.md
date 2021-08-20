@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -19,6 +19,7 @@ This connector has the following versions\.
 | Version | ARN | 
 | --- | --- | 
 | 1 | `arn:aws:greengrass:region::/connectors/ModbusTCPConnector/versions/1` | 
+| 2 | `arn:aws:greengrass:region::/connectors/ModbusTCPConnector/versions/2` | 
 
 For information about version changes, see the [Changelog](#modbus-tcp-connector-changelog)\.
 
@@ -27,7 +28,7 @@ For information about version changes, see the [Changelog](#modbus-tcp-connector
 This connector has the following requirements:
 
 ------
-#### [ Version 1 ]
+#### [ Version 1 \- 2 ]
 + AWS IoT Greengrass Core software v1\.10\.2 or later\.
 + Stream manager enabled on the AWS IoT Greengrass group\.
 + Java 8 installed on the core device and added to the `PATH` environment variable\.
@@ -40,6 +41,7 @@ eu\-central\-1
 eu\-west\-1
 us\-east\-1
 us\-west\-2
+cn\-north\-1
 
 ------
 
@@ -121,10 +123,9 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyModbusTCPConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ModbusTCP/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ModbusTCP/versions/2",
             "Parameters": {
-                "capability_configuration": "{\"sources\": [{ \"type\": \"ModBusTCPSource\", \"name\": \"SourceName1\", \"measurementDataStreamPrefix\": \"SourceName1_Prefix\", \"destination\": { \"type\": \"StreamManager\", \"streamName\": \"SiteWise_Stream_1\", \"streamBufferSize\": 8 }, \"endpoint\": { \"ipAddress\": \"127.0.0.1\", \"port\": 8081, \"unitId\": 1 }, \"propertyGroups\": [{ \"name\": \"PropertyGroupName\", \"tagPathDefinitions\": [{ \"type\": \"ModBusTCPAddress\", \"tag\": \"TT-001\", \"address\": \"30001\", \"size\": 2, \"srcDataType\": \"float\", \"transformation\": \"byteWordSwap\", \"dstDataType\": \"double\" }], \"scanMode\": { \"type\": \"POLL\", \"rate\": 100 }}]}]}",
-                "local_storage_path": "/var/MyModbusTCPConnectorState"
+                "capability_configuration": "{\"version\":1,\"namespace\":\"iotsitewise:modbuscollector:1\",\"configuration\":\"{\"sources\":[{\"type\":\"ModBusTCPSource\",\"name\":\"SourceName1\",\"measurementDataStreamPrefix\":\"\",\"endpoint\":{\"ipAddress\":\"127.0.0.1\",\"port\":8081,\"unitId\":1},\"propertyGroups\":[{\"name\":\"PropertyGroupName\",\"tagPathDefinitions\":[{\"type\":\"ModBusTCPAddress\",\"tag\":\"TT-001\",\"address\":\"30001\",\"size\":2,\"srcDataType\":\"hexdump\",\"transformation\":\"noSwap\",\"dstDataType\":\"string\"}],\"scanMode\":{\"rate\":200,\"type\":\"POLL\"}}],\"destination\":{\"type\":\"StreamManager\",\"streamName\":\"SiteWise_Stream\",\"streamBufferSize\":10},\"minimumInterRequestDuration\":200}]}\"}"
             }
         }
     ]
@@ -168,9 +169,10 @@ This connector is released under the [Greengrass Core Software License Agreement
 The following table describes the changes in each version of the connector\.
 
 
-| Version | Changes | 
-| --- | --- | 
-| 1 | Initial release\.  | 
+| Version | Changes | Date | 
+| --- | --- | --- | 
+| 2 | Added support for ASCII, UTF8, and ISO8859 encoded source strings\. | May 24, 2021 | 
+| 1 | Initial release\. | December 15, 2020 | 
 
 <a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 

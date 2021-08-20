@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -38,7 +38,7 @@ For more information, see [AWS IoT Greengrass core security principals](gg-sec.m
 Core devices and Greengrass connected devices download a root CA certificate used for authentication with AWS IoT Core and AWS IoT Greengrass services\. We recommend that you use an Amazon Trust Services \(ATS\) root CA certificate, such as [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\. For more information, see [CA certificates for server authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html#server-authentication-certs) in the *AWS IoT Core Developer Guide*\.
 
 **Note**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some Amazon Web Services Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
 
 Greengrass connected devices also download the Greengrass group CA certificate\. This is used to validate the MQTT server certificate on the Greengrass core during mutual authentication\. For more information, see [Device connection workflow](gg-sec.md#gg-sec-connection)\. The default expiration of the MQTT server certificate is seven days\.
 
@@ -58,14 +58,17 @@ In the AWS IoT console, you can manage the certificate on the group's **Settings
 
 Use AWS IoT policies to authorize access to the AWS IoT Core and AWS IoT Greengrass data plane\. The AWS IoT Core data plane consists of operations for devices, users, and applications, such as connecting to AWS IoT Core and subscribing to topics\. The AWS IoT Greengrass data plane consists of operations for Greengrass devices, such as retrieving deployments and updating connectivity information\.
 
-An AWS IoT policy is a JSON document that's similar to an IAM policy\. It contains one or more policy statements that specify the following properties:
-+ `Effect`\. The access mode: `Allow` or `Deny`\.
+An AWS IoT policy is a JSON document that's similar to an [IAM policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html#policies-grammar-json)\. It contains one or more policy statements that specify the following properties:
++ `Effect`\. The access mode, which can be `Allow` or `Deny`\.
 + `Action`\. The list of actions that are allowed or denied by the policy\.
 + `Resource`\. The list of resources on which the action is allowed or denied\.
 
+AWS IoT policies support `*` as a wildcard character, and treat MQTT wildcard characters \(`+` and `#`\) as literal strings\. For more information about the `*` wildcard, see [Using wildcard in resource ARNs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html#reference_policies_elements_resource_wildcards) in the *AWS Identity and Access Management User Guide*\.
+
 For more information, see [AWS IoT policies](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) and [AWS IoT policy actions](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policy-actions.html) in the *AWS IoT Core Developer Guide*\.
 
- 
+**Note**  
+AWS IoT Core enables you to attach AWS IoT policies to thing groups to define permissions for groups of devices\. Thing group policies don't allow access to AWS IoT Greengrass data plane operations\. To allow a thing access to an AWS IoT Greengrass data plane operation, add the permission to an AWS IoT policy that you attach to the thing's certificate\.
 
 ### AWS IoT Greengrass policy actions<a name="gg-policy-actions"></a>Greengrass Core Actions
 
@@ -125,7 +128,7 @@ The following example policy includes the minimum set of actions required to sup
                 "iot:Connect"
             ],
             "Resource": [
-                "*"
+                "arn:aws:iot:region:account-id:client/core-name-*"
             ]
         },
         {
@@ -202,7 +205,7 @@ The following example policy includes the minimum set of actions required to sup
                 "greengrass:UpdateConnectivityInfo"
             ],
             "Resource": [
-                "arn:aws:iot:region:account-id:thing/core-name"
+                "arn:aws:greengrass:region:account-id:/greengrass/things/core-name-*/connectivityInfo"
             ]
         }
     ]

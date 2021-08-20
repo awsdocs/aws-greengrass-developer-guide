@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -132,7 +132,7 @@ AWS also provides the [IoT SiteWise connector](iot-sitewise-connector.md), which
 This export destination has the following requirements:
 + Target asset properties in AWS IoT SiteWise must be in the same AWS account and AWS Region as the Greengrass group\.
 **Note**  
-For the list of AWS Regions that AWS IoT SiteWise supports, see [AWS IoT SiteWise endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html#iot-sitewise_region) in the *AWS General Reference*\.
+For the list of Regions that AWS IoT SiteWise supports, see [AWS IoT SiteWise endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html#iot-sitewise_region) in the *AWS General Reference*\.
 + The [Greengrass group role](group-role.md) must allow the `iotsitewise:BatchPutAssetPropertyValue` permission to target asset properties\. The following example policy uses the `iotsitewise:assetHierarchyPath` condition key to grant access to a target root asset and its children\. You can remove the `Condition` from the policy to allow access to all of your AWS IoT SiteWise assets or specify ARNs of individual assets\.
 
   ```

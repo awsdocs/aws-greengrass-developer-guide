@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -10,14 +10,14 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 ![\[Screenshot of AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)
 
 1. Choose **Subscribe to topic**, and configure the following fields:
-   + For **Subscription topic**, enter **hello/world**\. \(Don't choose **Subscribe to topic** yet\.\)
+   + For **Subscription topic**, enter **hello/world**\. \(Don't choose **Subscribe** yet\.\)
    + For **Quality of Service**, choose **0**\.
    + For **MQTT payload display**, choose **Display payloads as strings**\.
 
       
-![\[Screenshot of Subscriptions test page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-044.png)
+![\[Screenshot of MQTT test client page with topic subscription information.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-044.png)
 
-1. Choose **Subscribe to topic**\.
+1. Under Subscriptions, choose the **hello/world** topic\.
 
 Assuming the Lambda function is running on your device, it publishes messages similar to the following to the `hello/world` topic:
 

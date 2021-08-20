@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -52,7 +52,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 + AWS IoT Greengrass Core software v1\.10\.2\.
 + <a name="conn-sitewise-req-stream-manager"></a>[Stream manager](stream-manager.md) enabled on the Greengrass group\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in Amazon Web Services Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
 + <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
@@ -86,7 +86,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 + <a name="conn-sitewise-req-ggc-1010"></a>AWS IoT Greengrass Core software v1\.10\.0\.
 + <a name="conn-sitewise-req-stream-manager"></a>[Stream manager](stream-manager.md) enabled on the Greengrass group\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in Amazon Web Services Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
 + <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
@@ -116,7 +116,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 #### [ Version 5 ]
 + <a name="conn-sitewise-req-ggc-194"></a>AWS IoT Greengrass Core software v1\.9\.4\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in Amazon Web Services Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
 + <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
@@ -146,7 +146,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 #### [ Version 4 ]
 + <a name="conn-sitewise-req-ggc-1010"></a>AWS IoT Greengrass Core software v1\.10\.0\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in Amazon Web Services Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
 + <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
@@ -176,7 +176,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 #### [ Version 3 ]
 + <a name="conn-sitewise-req-ggc-194"></a>AWS IoT Greengrass Core software v1\.9\.4\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in Amazon Web Services Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
 + <a name="conn-sitewise-req-policy-v3"></a>An IAM policy added to the Greengrass group role\. This role allows the AWS IoT Greengrass group access to the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```
@@ -206,7 +206,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 #### [ Versions 1 and 2 ]
 + <a name="conn-sitewise-req-ggc-194"></a>AWS IoT Greengrass Core software v1\.9\.4\.
 + <a name="conn-sitewise-req-java-8"></a>Java 8 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-sitewise-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
++ <a name="conn-sitewise-req-regions"></a>This connector can be used only in Amazon Web Services Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [IoT SiteWise](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) are supported\.
 + <a name="conn-sitewise-req-policy-v1"></a>An IAM policy added to the Greengrass group role that allows access to AWS IoT Core and the `iotsitewise:BatchPutAssetPropertyValue` action on the target root asset and its children, as shown in the following example\. You can remove the `Condition` from the policy to allow the connector to access all of your IoT SiteWise assets\.
 
   ```

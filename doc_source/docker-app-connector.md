@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -37,7 +37,14 @@ This connector has the following requirements:
 + AWS IoT Greengrass Core software v1\.10 or later\.
 **Note**  
 This connector is not supported on OpenWrt distributions\.
-+ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-req-py-3.7-and-3.8"></a>[Python](https://www.python.org/) version 3\.7 or 3\.8 installed on the core device and added to the PATH environment variable\.
+**Note**  <a name="use-runtime-py3.8"></a>
+To use Python 3\.8, run the following command to create a symbolic link from the the default Python 3\.7 installation folder to the installed Python 3\.8 binaries\.  
+
+  ```
+  sudo ln -s path-to-python-3.8/python3.8 /usr/bin/python3.7
+  ```
+This configures your device to meet the Python requirement for AWS IoT Greengrass\.
 + A minimum of 36 MB RAM on the Greengrass core for the connector to monitor running Docker containers\. The total memory requirement depends on the number of Docker containers that run on the core\.
 + [Docker Engine](https://docs.docker.com/install/) 1\.9\.1 or later installed on the Greengrass core\. Version 19\.0\.3 is the latest version that is verified to work with the connector\.
 
@@ -717,7 +724,7 @@ This procedure assumes that you have already created a Greengrass group and a Gr
 
 1. Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some AWS Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
+Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some Amazon Web Services Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
 
    Download the appropriate ATS root CA certificate to the core device\. For example, you can use the following `wget` commands to download `AmazonRootCA1.pem` to your file path\.
 

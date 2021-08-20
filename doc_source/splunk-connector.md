@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -35,7 +35,14 @@ This connector has the following requirements:
 + <a name="conn-req-ggc-v1.9.3-secrets"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\. AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
 **Note**  
 This requirement includes allowing access to your Secrets Manager secrets\. If you're using the default Greengrass service role, Greengrass has permission to get the values of secrets with names that start with *greengrass\-*\.
-+ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-req-py-3.7-and-3.8"></a>[Python](https://www.python.org/) version 3\.7 or 3\.8 installed on the core device and added to the PATH environment variable\.
+**Note**  <a name="use-runtime-py3.8"></a>
+To use Python 3\.8, run the following command to create a symbolic link from the the default Python 3\.7 installation folder to the installed Python 3\.8 binaries\.  
+
+  ```
+  sudo ln -s path-to-python-3.8/python3.8 /usr/bin/python3.7
+  ```
+This configures your device to meet the Python requirement for AWS IoT Greengrass\.
 + <a name="conn-splunk-req-http-event-collector"></a>The HTTP Event Collector functionality must be enabled in Splunk\. For more information, see [Set up and use HTTP eEvent Collector in Splunk Web](https://docs.splunk.com/Documentation/Splunk/7.2.0/Data/UsetheHTTPEventCollector) in the Splunk documentation\.
 + <a name="conn-splunk-req-secret"></a>A text type secret in AWS Secrets Manager that stores your Splunk HTTP Event Collector token\. For more information, see [About event collector tokens](https://docs.splunk.com/Documentation/Splunk/7.2.0/Data/UsetheHTTPEventCollector#About_Event_Collector_tokens) in the Splunk documentation and [Creating a basic secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) in the *AWS Secrets Manager User Guide*\.
 **Note**  

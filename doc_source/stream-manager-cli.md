@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -8,7 +8,7 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 
 This tutorial shows you how to use the AWS CLI to configure and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
 
-## <a name="w101aac26c30b6"></a>
+## <a name="w110aac26c30b6"></a>
 
 Stream manager makes ingesting, processing, and exporting high\-volume data streams more efficient and reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
 
@@ -23,7 +23,7 @@ When you use the AWS IoT Greengrass API, which includes the Greengrass commands 
 To complete this tutorial, you need:<a name="stream-manager-howto-prereqs"></a>
 + A Greengrass group and a Greengrass core \(v1\.10 or later\)\. For information about how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 **Note**  <a name="stream-manager-not-supported-openwrt"></a>
-Stream manager is not supported on OpenWrt distributions\.
+<a name="stream-manager-not-supported-openwrt-para"></a>Stream manager is not supported on OpenWrt distributions\.
 + The Java 8 runtime \(JDK 8\) installed on the core device\.<a name="install-java8-runtime-general"></a>
   + For Debian\-based distributions \(including Raspbian\) or Ubuntu\-based distributions, run the following command:
 
@@ -96,7 +96,7 @@ The tutorial should take about 30 minutes to complete\.
 
 ## Step 1: Create a Lambda function deployment package<a name="stream-manager-cli-create-deployment-package"></a>
 
-### <a name="w101aac26c30c21b4"></a>
+### <a name="w110aac26c30c21b4"></a>
 
 In this step, you create a Lambda function deployment package that contains Python function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
 

@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -31,6 +31,8 @@ AWS provides the following connectors that support common AWS IoT Greengrass sce
 | [SNS](sns-connector.md) | Sends messages to an Amazon SNS topic\. | <a name="python-connectors-runtime"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/connectors-list.html) | Yes | 
 | [Splunk Integration](splunk-connector.md) | Publishes data to Splunk HEC\. | <a name="python-connectors-runtime"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/connectors-list.html) | Yes | 
 | [Twilio Notifications](twilio-notifications-connector.md) | Initiates a Twilio text or voice message\. | <a name="python-connectors-runtime"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/connectors-list.html) | Yes | 
+
+\* To use the Python 3\.8 runtimes, you must create a symbolic link from the default Python 3\.7 installation folder to the installed Python 3\.8 binaries\. For more information, see the connector\-specific requirements\.
 
 **Note**  
 We recommend that you [upgrade connector versions](connectors.md#upgrade-connector-versions) from Python 2\.7 to Python 3\.7\. Continued support for Python 2\.7 connectors depends on AWS Lambda runtime support\. For more information, see [Runtime support policy](https://docs.aws.amazon.com/lambda/latest/dg/runtime-support-policy.html) in the *AWS Lambda Developer Guide*\.

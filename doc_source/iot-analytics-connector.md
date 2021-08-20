@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -34,8 +34,15 @@ This connector has the following requirements:
 ------
 #### [ Version 3 \- 4 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
-+ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html) are supported\.
++ <a name="conn-req-py-3.7-and-3.8"></a>[Python](https://www.python.org/) version 3\.7 or 3\.8 installed on the core device and added to the PATH environment variable\.
+**Note**  <a name="use-runtime-py3.8"></a>
+To use Python 3\.8, run the following command to create a symbolic link from the the default Python 3\.7 installation folder to the installed Python 3\.8 binaries\.  
+
+  ```
+  sudo ln -s path-to-python-3.8/python3.8 /usr/bin/python3.7
+  ```
+This configures your device to meet the Python requirement for AWS IoT Greengrass\.
++ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in Amazon Web Services Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html) are supported\.
 + <a name="conn-iot-analytics-req-ita-config"></a>All related AWS IoT Analytics entities and workflows are created and configured\. The entities include channels, pipeline, datastores, and datasets\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
 **Note**  
 Destination AWS IoT Analytics channels must use the same account and be in the same AWS Region as this connector\.
@@ -66,7 +73,7 @@ Destination AWS IoT Analytics channels must use the same account and be in the s
 #### [ Versions 1 \- 2 ]
 + <a name="conn-req-ggc-v1.7.0"></a>AWS IoT Greengrass Core software v1\.7 or later\.
 + [Python](https://www.python.org/) version 2\.7 installed on the core device and added to the PATH environment variable\.
-+ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in AWS Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html) are supported\.
++ <a name="conn-iot-analytics-req-regions"></a>This connector can be used only in Amazon Web Services Regions where both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [AWS IoT Analytics](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html) are supported\.
 + <a name="conn-iot-analytics-req-ita-config"></a>All related AWS IoT Analytics entities and workflows are created and configured\. The entities include channels, pipeline, datastores, and datasets\. For more information, see the [AWS CLI](https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html) or [console](https://docs.aws.amazon.com/iotanalytics/latest/userguide/quickstart.html) procedures in the *AWS IoT Analytics User Guide*\.
 **Note**  
 Destination AWS IoT Analytics channels must use the same account and be in the same AWS Region as this connector\.
@@ -372,7 +379,7 @@ def lambda_handler(event, context):
 ## Limits<a name="iot-analytics-connector-limits"></a>
 
 This connector is subject to the following limits\.
-+ All limits imposed by the AWS SDK for Python \(boto3\) for the AWS IoT Analytics [ `batch_put_message`](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotanalytics.html#IoTAnalytics.Client.batch_put_message) action\.
++ All limits imposed by the AWS SDK for Python \(Boto3\) for the AWS IoT Analytics [ `batch_put_message`](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotanalytics.html#IoTAnalytics.Client.batch_put_message) action\.
 + All quotas imposed by the AWS IoT Analytics [ BatchPutMessage](https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage) API\. For more information, see [ Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html#limits_iot_analytics) for AWS IoT Analytics in the *AWS General Reference*\.
   + 100,000 messages per second per channel\.
   + 100 messages per batch\.

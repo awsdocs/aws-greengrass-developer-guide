@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -82,6 +82,15 @@ The following tabs describe what's new and changed in AWS IoT Greengrass Core so
 ------
 #### [ GGC v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
+1\.11\.3  
+Bug fixes and improvements:  
++ Fixed an issue that caused AWS IoT Greengrass Core software running in a snap on an Ubuntu device to stop responding after a sudden power loss to the device\.
++ Fixed an issue that caused delayed delivery of MQTT messages to long\-lived Lambda functions\. 
++ Fixed an issue that caused MQTT messages to not be sent correctly when the `maxWorkItemCount` value was set to a value greater than `1024`\. 
++ Fixed an issue that caused the OTA update agent to ignore the MQTT `KeepAlive` period specified in the `keepAlive` property in [`config.json`](gg-core.md#config-json)\.
++ General performance improvements and bug fixes\. 
+If you use stream manager to export data to the cloud, you can't upgrade to AWS IoT Greengrass Core software v1\.11\.3 from an earlier v1\.x version\. When you attempt an OTA update, stream manager doesn't start and the update fails\. If you are installing AWS IoT Greengrass Core software for the first time, we strongly recommend that you deploy the latest version of the software\.
+
 1\.11\.1  
  Bug fixes and improvements:  
 + Fixed an issue that caused increased memory use for stream manager\.
@@ -113,6 +122,14 @@ Bug fixes and improvements:  <a name="bug-fix-v1110"></a>
 
 ------
 #### [ GGC v1\.10 ]<a name="ggc-v1.10-tab"></a>
+
+1\.10\.4  
+Bug fixes and improvements:  
++ Fixed an issue that caused AWS IoT Greengrass Core software running in a snap on an Ubuntu device to stop responding after a sudden power loss to the device\.
++ Fixed an issue that caused delayed delivery of MQTT messages to long\-lived Lambda functions\. 
++ Fixed an issue that caused MQTT messages to not be sent correctly when the `maxWorkItemCount` value was set to a value greater than `1024`\. 
++ Fixed an issue that caused the OTA update agent to ignore the MQTT `KeepAlive` period specified in the `keepAlive` property in [`config.json`](gg-core.md#config-json)\. 
++ General performance improvements and bug fixes\. 
 
 1\.10\.3  
 Bug fixes and improvements:  
@@ -678,6 +695,15 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 ------
 #### [ v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
+1\.11\.3  
+Bug fixes and improvements:  
++ Fixed an issue that caused AWS IoT Greengrass Core software running in a snap on an Ubuntu device to stop responding after a sudden power loss to the device\.
++ Fixed an issue that caused delayed delivery of MQTT messages to long\-lived Lambda functions\. 
++ Fixed an issue that caused MQTT messages to not be sent correctly when the `maxWorkItemCount` value was set to a value greater than `1024`\. 
++ Fixed an issue that caused the OTA update agent to ignore the MQTT `KeepAlive` period specified in the `keepAlive` property in [`config.json`](gg-core.md#config-json)\.
++ General performance improvements and bug fixes\. 
+If you use stream manager to export data to the cloud, you can't upgrade to AWS IoT Greengrass Core software v1\.11\.3 from an earlier v1\.x version\. When you attempt an OTA update, stream manager doesn't start and the update fails\. If you are installing AWS IoT Greengrass Core software for the first time, we strongly recommend that you deploy the latest version of the software\.
+
 1\.11\.1  
  Bug fixes and improvements:  
 + Fixed an issue that caused increased memory use for stream manager\.
@@ -715,15 +741,23 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 | Architecture | Distribution | OS | Link | 
 | --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-linux-aarch64-1.11.1.tar.gz) | 
-| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-openwrt-aarch64-1.11.1.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-linux-armv7l-1.11.1.tar.gz) | 
-| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-openwrt-armv7l-1.11.1.tar.gz) | 
-| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-linux-armv6l-1.11.1.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.1/greengrass-linux-x86-64-1.11.1.tar.gz) | 
+| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.3/greengrass-linux-aarch64-1.11.3.tar.gz) | 
+| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.3/greengrass-openwrt-aarch64-1.11.3.tar.gz) | 
+| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.3/greengrass-linux-armv7l-1.11.3.tar.gz) | 
+| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.3/greengrass-openwrt-armv7l-1.11.3.tar.gz) | 
+| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.3/greengrass-linux-armv6l-1.11.3.tar.gz) | 
+| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.3/greengrass-linux-x86-64-1.11.3.tar.gz) | 
 
 ------
 #### [ v1\.10 ]<a name="ggc-v1.10-tab"></a>
+
+1\.10\.4  
+Bug fixes and improvements:  
++ Fixed an issue that caused AWS IoT Greengrass Core software running in a snap on an Ubuntu device to stop responding after a sudden power loss to the device\.
++ Fixed an issue that caused delayed delivery of MQTT messages to long\-lived Lambda functions\. 
++ Fixed an issue that caused MQTT messages to not be sent correctly when the `maxWorkItemCount` value was set to a value greater than `1024`\. 
++ Fixed an issue that caused the OTA update agent to ignore the MQTT `KeepAlive` period specified in the `keepAlive` property in [`config.json`](gg-core.md#config-json)\. 
++ General performance improvements and bug fixes\. 
 
 1\.10\.3  
 Bug fixes and improvements:  
@@ -759,12 +793,12 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 | Architecture | Distribution | OS | Link | 
 | --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-linux-aarch64-1.10.3.tar.gz) | 
-| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-openwrt-aarch64-1.10.3.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-linux-armv7l-1.10.3.tar.gz) | 
-| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-openwrt-armv7l-1.10.3.tar.gz) | 
-| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-linux-armv6l-1.10.3.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.3/greengrass-linux-x86-64-1.10.3.tar.gz) | 
+| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-aarch64-1.10.4.tar.gz) | 
+| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-openwrt-aarch64-1.10.4.tar.gz) | 
+| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-armv7l-1.10.4.tar.gz) | 
+| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-openwrt-armv7l-1.10.4.tar.gz) | 
+| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-armv6l-1.10.4.tar.gz) | 
+| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-x86-64-1.10.4.tar.gz) | 
 
 ------
 #### [ Deprecated versions ]
@@ -802,10 +836,10 @@ For information about other options for installing the AWS IoT Greengrass Core s
 
 ### AWS IoT Greengrass snap software<a name="gg-snapstore-download"></a>
 
-<a name="gg-snap-description"></a>AWS IoT Greengrass snap v1\.11\.0 enables you to run a limited version of AWS IoT Greengrass through convenient software packages, along with all necessary dependencies, in a containerized environment\.
+<a name="gg-snap-description"></a>AWS IoT Greengrass snap 1\.11\.x enables you to run a limited version of AWS IoT Greengrass through convenient software packages, along with all necessary dependencies, in a containerized environment\.
 
 **Note**  <a name="gg-snap-v1.11-note"></a>
-The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.0\. AWS IoT Greengrass doesn’t provide a snap for v1\.11\.1\. Unsupported versions don't receive bug fixes or updates\.   
+The AWS IoT Greengrass snap is available for AWS IoT Greengrass Core software v1\.11\.x\. AWS IoT Greengrass doesn’t provide a snap for v1\.10\.x\. Unsupported versions don't receive bug fixes or updates\.   
 The AWS IoT Greengrass snap doesn't support connectors and machine learning \(ML\) inference\.
 
 For more information, see [Run AWS IoT Greengrass in a snap](install-ggc.md#gg-snap-support)\.
@@ -818,12 +852,12 @@ AWS provides a Dockerfile and Docker images that make it easier for you to run A
 
 Dockerfile  
 Dockerfiles contain source code for building custom AWS IoT Greengrass container images\. Images can be modified to run on different platform architectures or to reduce the image size\. For instructions, see the README file\.  
-Download your target AWS IoT Greengrass Core software version\. AWS IoT Greengrass doesn’t provide Dockerfiles for AWS IoT Greengrass Core software v1\.11\.1 and v1\.10\.3\.  
+Download your target AWS IoT Greengrass Core software version\.  
 +  [Dockerfile for AWS IoT Greengrass v1\.11\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/aws-greengrass-docker-1.11.0.tar.gz)\. 
 +  [ Dockerfile for AWS IoT Greengrass v1\.10\.2](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/aws-greengrass-docker-1.10.2.tar.gz)\.   
-v1\.9\.4  
+v1\.9  
  [ Dockerfile for AWS IoT Greengrass v1\.9\.4](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/aws-greengrass-docker-1.9.4.tar.gz)\.   
-v1\.8\.1  
+v1\.8  
  [ Dockerfile for AWS IoT Greengrass v1\.8\.1](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.8.1/aws-greengrass-docker-1.8.1.tar.gz)\. 
  
 

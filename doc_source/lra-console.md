@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -99,9 +99,7 @@ First, create the Lambda function\.
 
 1. In the AWS Management Console, choose **Services**, and open the AWS Lambda console\.
 
-1. Choose **Create function**\.
-
-1. Choose **Author from scratch**\.
+1. <a name="lambda-console-create-function"></a>Choose **Create function** and then choose **Author from scratch**\.
 
 1. In the **Basic information** section, use the following values\.
 
@@ -116,26 +114,20 @@ First, create the Lambda function\.
 
     
 
-   Now, upload your Lambda function deployment package and register the handler\.
+1. Upload your Lambda function deployment package and register the handler\.
 
-1. On the **Configuration** tab for the function, in **Function code**, use the following values\.
+   1. <a name="lambda-console-upload"></a>On the **Code** tab, under **Code source**, choose **Upload from**\. From the dropdown, choose **\.zip file**\.  
+![\[The Upload from dropdown with .zip file highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/lra-console/upload-deployment-package.png)
 
-   1. For **Code entry type**, choose **Upload a \.zip file**\.
+   1. Choose **Upload**, and then choose your `lraTestLambda.zip` deployment package\. Then, choose **Save**\.
 
-   1. For **Runtime**, choose **Python 3\.7**\.
+   1. <a name="lambda-console-runtime-settings-para"></a>On the **Code** tab for the function, under **Runtime settings**, choose **Edit**, and then enter the following values\.
+      + For **Runtime**, choose **Python 3\.7**\.
+      + For **Handler**, enter **lraTest\.function\_handler**\.
 
-   1. For **Handler**, enter **lraTest\.function\_handler**\.
-
-1. Choose **Upload**\.  
-![\[The Function code section with Upload highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/lra-console/upload-deployment-package.png)
-
-1. Choose your `lraTestLambda.zip` deployment package\.
-
-1. At the top of the page, choose **Save**\.  
-![\[The TestLRA function page with Save highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/lra-console/save-function.png)
+   1. <a name="lambda-console-save-config"></a>Choose **Save**\.
 **Note**  
-The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.  
-You can see your code in the **Function code** section by choosing **Edit code inline** from the **Code entry type** menu\.
+The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.
 
    Next, publish the first version of your Lambda function\. Then, create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 
@@ -284,7 +276,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.0/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.3/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 

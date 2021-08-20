@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -39,7 +39,8 @@ Make sure that your [endpoints correspond to your certificate type](gg-core.md#c
 
    Upon execution, `basicDiscovery.py` attempts to collect information on the location of the AWS IoT Greengrass core at its endpoints\. This information is stored after the device has discovered and successfully connected to the core\. This allows future messaging and operations to be executed locally \(without the need for an internet connection\)\.
 **Note**  
-You can run the following command from the folder that contains the `basicDiscovery.py` file for detailed script usage information:  
+Client IDs used for MQTT connections must match the thing name of the client device\. The `basicDiscovery.py` script sets the client ID for MQTT connections to the thing name that you specify when you run the script\.   
+Run the following command from the folder that contains the `basicDiscovery.py` file for detailed script usage information:  
 
    ```
    python basicDiscovery.py --help

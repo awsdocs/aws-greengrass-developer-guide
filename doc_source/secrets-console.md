@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -168,20 +168,18 @@ In this step, you use the AWS Lambda console to create a Lambda function and con
 
 1. Next, register the handler and upload your Lambda function deployment package\.
 
-   1. On the **Configuration** tab for the SecretTest function, in **Function code**, use the following values:
-      + For **Code entry type**, choose **Upload a \.zip file**\.
+   1. <a name="lambda-console-upload"></a>On the **Code** tab, under **Code source**, choose **Upload from**\. From the dropdown, choose **\.zip file**\.  
+![\[The Upload from dropdown with .zip file highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/lra-console/upload-deployment-package.png)
+
+   1. Choose **Upload**, then choose your `secret_test_python.zip` deployment package\. Then, choose **Save**\.
+
+   1. <a name="lambda-console-runtime-settings-para"></a>On the **Code** tab for the function, under **Runtime settings**, choose **Edit**, and then enter the following values\.
       + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **secret\_test\.function\_handler**
-
-   1. <a name="lambda-console-upload"></a>Choose **Upload**\.
-
-   1. Choose your `secret_test_python.zip` deployment package\.
 
    1. <a name="lambda-console-save-config"></a>Choose **Save**\.
 **Note**  
 The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.
-**Tip**  
-You can see your code in the **Function code** section by choosing **Edit code inline** from the **Code entry type** menu\.
 
 1. Now, publish the first version of your Lambda function and create an [alias for the version](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.
 **Note**  
@@ -303,10 +301,10 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)
 
-1. For **Subscriptions**, use the following values, and then choose **Subscribe to topic**\.    
+1. For **Subscribe to topic**, use the following values, and then choose **Subscribe**\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/secrets-console.html)
 
-1. For **Publish**, use the following values, and then choose **Publish to topic** to invoke the function\.    
+1. For **Publish to topic**, use the following values, and then choose **Publish** to invoke the function\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/secrets-console.html)
 
    If successful, the function publishes a "Success" message\.

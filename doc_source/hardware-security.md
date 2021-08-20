@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -198,7 +198,7 @@ When connecting to the Greengrass core from Greengrass devices over the local ne
 
 To enable over\-the\-air \(OTA\) updates of the AWS IoT Greengrass Core software when using hardware security, you must install the OpenSC libp11 [PKCS\#11 wrapper library](https://github.com/OpenSC/libp11) and edit the Greengrass configuration file\. For more information about OTA updates, see [OTA updates of AWS IoT Greengrass Core software](core-ota-update.md)\.
 
-1. Stop the AWS Greengrass daemon\.
+1. Stop the Greengrass daemon\.
 
    ```
    cd /greengrass-root/ggc/core/
@@ -247,7 +247,7 @@ To enable over\-the\-air \(OTA\) updates of the AWS IoT Greengrass Core software
 **Note**  
 If the `OpenSSLEngine` property doesn't exist in the `PKCS11` object, then add it\.
 
-1. Start the AWS Greengrass daemon\.
+1. Start the Greengrass daemon\.
 
    ```
    cd /greengrass-root/ggc/core/

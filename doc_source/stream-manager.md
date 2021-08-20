@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -38,8 +38,10 @@ For tutorials that configure a simple workflow, see [Export data streams to the 
 
 The following requirements apply for using stream manager:
 + You must use AWS IoT Greengrass Core software v1\.10 or later, with stream manager enabled\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.
-**Note**  <a name="stream-manager-not-supported-openwrt"></a>
-Stream manager is not supported on OpenWrt distributions\.
+**Note**  <a name="stream-manager-upgrade-note"></a>
+If you use stream manager to export data to the cloud, you can't upgrade to AWS IoT Greengrass Core software v1\.11\.3 from an earlier v1\.x version\. When you attempt an OTA update, stream manager doesn't start and the update fails\. If you are installing AWS IoT Greengrass Core software for the first time, we strongly recommend that you deploy the latest version of the software\.
+
+  <a name="stream-manager-not-supported-openwrt-para"></a>Stream manager is not supported on OpenWrt distributions\.
 + The Java 8 runtime \(JDK 8\) must be installed on the core\.<a name="install-java8-runtime-general"></a>
   + For Debian\-based distributions \(including Raspbian\) or Ubuntu\-based distributions, run the following command:
 

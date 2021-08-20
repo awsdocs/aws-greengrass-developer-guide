@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -31,13 +31,13 @@ An *[on\-demand](lambda-functions.md#lambda-lifecycle)* Lambda function is simil
       
 ![\[Screenshot of Subscriptions test page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-056.png)
 
-1. Choose **Subscribe to topic**\.
+1. Choose **Subscribe**\.
 **Note**  
 You should not see any messages after you subscribe\.
 
 1. To test the on\-demand lifecycle, invoke the function by publishing a message to the `hello/world/counter/trigger` topic\. You can use the default message\.
 
-   1. Choose **Publish to topic** three times quickly, within five seconds of each press of the button\.  
+   1. Choose **Publish** three times quickly, within five seconds of each press of the button\.  
 ![\[Screenshot showing the Publish to topic button, which must be clicked rapidly three times.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-063.png)
 
       Each publish invokes the function handler and creates a container for each invocation\. The invocation count is not incremented for the three times you triggered the function because each on\-demand Lambda function has its own container/sandbox\.  

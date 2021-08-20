@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -33,7 +33,14 @@ This connector has the following requirements:
 ------
 #### [ Version 3 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
-+ [Python](https://www.python.org/) version 3\.7 installed on the core device and added to the PATH environment variable\.
++ <a name="conn-req-py-3.7-and-3.8"></a>[Python](https://www.python.org/) version 3\.7 or 3\.8 installed on the core device and added to the PATH environment variable\.
+**Note**  <a name="use-runtime-py3.8"></a>
+To use Python 3\.8, run the following command to create a symbolic link from the the default Python 3\.7 installation folder to the installed Python 3\.8 binaries\.  
+
+  ```
+  sudo ln -s path-to-python-3.8/python3.8 /usr/bin/python3.7
+  ```
+This configures your device to meet the Python requirement for AWS IoT Greengrass\.
 + <a name="conn-serial-stream-req-serial-port-resource"></a>A [local device resource](access-local-resources.md) in the Greengrass group that points to the target serial port\.
 **Note**  
 Before you deploy this connector, we recommend that you set up the serial port and verify that you can read and write to it\. 

@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -69,6 +69,6 @@ To get started right away, see [Creating your first IAM delegated user and group
 
 ## I want to allow people outside of my AWS account to access my AWS IoT Greengrass resources<a name="security_iam_troubleshoot-cross-account-access"></a>
 
-You can create an IAM role that users in other accounts or people outside of your organization can use to access your AWS resources\. You can specify the who is trusted to assume the role\. For more information, see [Providing access to an IAM user in another AWS account that you own](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_aws-accounts.html) and [Providing access to AWS accounts owned by third parties](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html) in the *IAM User Guide*\.
+You can create an IAM role that users in other accounts or people outside of your organization can use to access your AWS resources\. You can specify the who is trusted to assume the role\. For more information, see [Providing access to an IAM user in another AWS account that you own](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_aws-accounts.html) and [Providing access to Amazon Web Services accounts owned by third parties](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html) in the *IAM User Guide*\.
 
 AWS IoT Greengrass doesn't support cross\-account access based on resource\-based policies or access control lists \(ACLs\)\.

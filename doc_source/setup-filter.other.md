@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -13,16 +13,16 @@ Or, to use a script that sets up your environment and installs the AWS IoT Green
 
 If you're new to AWS IoT Greengrass, we recommend that you use a Raspberry Pi or an Amazon EC2 instance as your core device, and follow the [setup steps](module1.md) appropriate for your device\.
 
-If you plan to build a custom Linux\-based system using the Yocto Project, you can use the AWS IoT Greengrass Bitbake Recipe from the meta\-aws project\. This recipe also helps you develop a software platform that supports AWS edge software for embedded applications\. The Bitbake build installs, configures, and automatically runs the AWS IoT Greengrass Core software on your device\.
+If you plan to build a custom Linux\-based system using the Yocto Project, you can use the AWS IoT Greengrass Bitbake Recipe from the `meta-aws` project\. This recipe also helps you develop a software platform that supports AWS edge software for embedded applications\. The Bitbake build installs, configures, and automatically runs the AWS IoT Greengrass Core software on your device\.
 
 Yocto Project  
 An open source collaboration project that helps you build custom Linux\-based systems for embedded applications regardless hardware architecture\. For more information, see the [Yocto Project](https://www.yoctoproject.org/)\.
 
-meta\-aws  
-An AWS managed project that provides Yocto recipes\. You can use the recipes to develop AWS edge sofware in Linux\-based systems built with [OpenEmbedded](https://www.openembedded.org/wiki/Main_Page) and Yocto Project\. For more information about this community supported capability, see the [meta\-aws](https://github.com/aws/meta-aws)project on GitHub\.
+`meta-aws`  
+An AWS managed project that provides Yocto recipes\. You can use the recipes to develop AWS edge sofware in Linux\-based systems built with [OpenEmbedded](https://www.openembedded.org/wiki/Main_Page) and Yocto Project\. For more information about this community supported capability, see the [https://github.com/aws/meta-aws](https://github.com/aws/meta-aws)project on GitHub\.
 
-meta\-aws\-demos  
-An AWS managed project that contains demonstrations for the meta\-aws project\. For more examples about the integration process, see the [meta\-aws\-demos](https://github.com/aws-samples/meta-aws-demos) project on GitHub\.
+`meta-aws-demos`  
+An AWS managed project that contains demonstrations for the `meta-aws` project\. For more examples about the integration process, see the [https://github.com/aws-samples/meta-aws-demos](https://github.com/aws-samples/meta-aws-demos) project on GitHub\.
 
 To use a different device or [supported platform](what-is-gg.md#gg-platforms), follow the steps in this topic\.
 

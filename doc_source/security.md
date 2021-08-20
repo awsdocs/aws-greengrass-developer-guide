@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -25,4 +25,5 @@ This documentation helps you understand how to apply the shared responsibility m
 + [Resilience in AWS IoT Greengrass](disaster-recovery-resiliency.md)
 + [Infrastructure security in AWS IoT Greengrass](infrastructure-security.md)
 + [Configuration and vulnerability analysis in AWS IoT Greengrass](vulnerability-analysis-and-management.md)
++ [AWS IoT Greengrass and interface VPC endpoints \(AWS PrivateLink\)](vpc-interface-endpoints.md)
 + [Security best practices for AWS IoT Greengrass](security-best-practices.md)

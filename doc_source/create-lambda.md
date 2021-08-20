@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -54,14 +54,17 @@ Depending on your distribution, you might need to install `zip` first \(for exam
 
 1. Upload your Lambda function deployment package:
 
-   1.  On the **Configuration** tab, under **Function code**, choose **Actions**\. From the dropdown, choose **Upload a \.zip file**\. Then, choose `hello_world_python_lambda.zip`\. 
+   1. <a name="lambda-console-upload"></a>On the **Code** tab, under **Code source**, choose **Upload from**\. From the dropdown, choose **\.zip file**\.  
+![\[The Upload from dropdown with .zip file highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/lra-console/upload-deployment-package.png)
 
-   1.  Under **Runtime settings**, choose **Edit**\. On the **Edit runtime settings** page, set the remaining fields as follows: 
+   1. Choose **Upload**, and then choose your `hello_world_python_lambda.zip` deployment package\. Then, choose **Save**\.
+
+   1. <a name="lambda-console-runtime-settings-para"></a>On the **Code** tab for the function, under **Runtime settings**, choose **Edit**, and then enter the following values\.
       + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **greengrassHelloWorld\.function\_handler**  
 ![\[The "Runtime settings" section with the "Runtime" field set to "Python 3.7" and the "Handler" field set to "greengrassHelloWorld.function_handler".\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-023-2.png)
 
-   1. Choose **Save**\.
+   1. <a name="lambda-console-save-config"></a>Choose **Save**\.
 **Note**  
 The **Test** button on the AWS Lambda console doesn't work with this function\. The AWS IoT Greengrass Core SDK doesn't contain modules that are required to run your Greengrass Lambda functions independently in the AWS Lambda console\. These modules \(for example, `greengrass_common`\) are supplied to the functions after they are deployed to your Greengrass core\.
 
@@ -80,7 +83,7 @@ Greengrass groups can reference a Lambda function by alias \(recommended\) or by
    1. From the **Actions** menu at the top of the page, choose **Create alias**\.  
 ![\[Screenshot of the Actions menu set to Create alias.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-028.png)
 
-   1. Name the alias **GG\_HelloWorld**, set the version to **1** \(which corresponds to the version that you just published\), and then choose **Create**\.
+   1. Name the alias **GG\_HelloWorld**, set the version to **1** \(which corresponds to the version that you just published\), and then choose **Save**\.
 **Note**  
 AWS IoT Greengrass doesn't support Lambda aliases for **$LATEST** versions\.
 

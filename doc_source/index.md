@@ -1,7 +1,7 @@
 # AWS IoT Greengrass Developer Guide, Version 1
 
 -----
-*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -118,6 +118,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Resilience in AWS IoT Greengrass](disaster-recovery-resiliency.md)
    + [Infrastructure security in AWS IoT Greengrass](infrastructure-security.md)
    + [Configuration and vulnerability analysis in AWS IoT Greengrass](vulnerability-analysis-and-management.md)
+   + [AWS IoT Greengrass and interface VPC endpoints (AWS PrivateLink)](vpc-interface-endpoints.md)
    + [Security best practices for AWS IoT Greengrass](security-best-practices.md)
 + [Logging and monitoring in AWS IoT Greengrass](logging-and-monitoring.md)
    + [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)

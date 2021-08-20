@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -56,7 +56,7 @@ In this step, you create subscriptions that allow the Lambda function and AWS Io
       
 ![\[Subscriptions screenshot with hello/world/counter, 0, Display payloads as strings, and the Subscribe to topic button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-056.png)
 
-1. Choose **Subscribe to topic**\.
+1. Choose **Subscribe**\.
 
    Unlike [Part 1](module3-I.md) of this module, you shouldn't see any messages after you subscribe to `hello/world/counter`\. This is because the `greengrassHelloWorldCounter.py` code that publishes to the `hello/world/counter` topic is inside the function handler, which runs only when the function is invoked\.
 

@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -20,7 +20,7 @@ This example Python file is stored in the AWS IoT Greengrass Core SDK repository
    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
    ```
 
-1. Run the following command in a [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) window to install the [Boto 3 \- The AWS SDK for Python](https://github.com/boto/boto3/blob/develop/README.rst) package and its dependencies in the `car_aggregator` folder\. Greengrass Lambda functions use the AWS SDK to access other AWS services\. \(For Windows, use an [elevated command prompt](https://technet.microsoft.com/en-us/library/cc947813(v=ws.10).aspx)\.\)
+1. Run the following command in a [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) window to install the [AWS SDK for Python \(Boto3\)](https://github.com/boto/boto3/blob/develop/README.rst) package and its dependencies in the `car_aggregator` folder\. Greengrass Lambda functions use the AWS SDK to access other AWS services\. \(For Windows, use an [elevated command prompt](https://technet.microsoft.com/en-us/library/cc947813(v=ws.10).aspx)\.\)
 
    ```
    pip install boto3 -t path-to-car_aggregator-folder
@@ -40,15 +40,16 @@ This example Python file is stored in the AWS IoT Greengrass Core SDK repository
 
 1. Upload your Lambda function deployment package:
 
-   1. On the **Configuration** tab, under **Function code**, set the following fields:
-      + For **Code entry type**, choose **Upload a \.zip file**\.
+   1. <a name="lambda-console-upload"></a>On the **Code** tab, under **Code source**, choose **Upload from**\. From the dropdown, choose **\.zip file**\.  
+![\[The Upload from dropdown with .zip file highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/lra-console/upload-deployment-package.png)
+
+   1. Choose upload, and then choose your `car_aggregator.zip` deployment package\. Then, choose **Save**\.
+
+   1. <a name="lambda-console-runtime-settings-para"></a>On the **Code** tab for the function, under **Runtime settings**, choose **Edit**, and then enter the following values\.
       + For **Runtime**, choose **Python 3\.7**\.
       + For **Handler**, enter **carAggregator\.function\_handler**
 
-   1. Choose **Upload**, and then choose `car_aggregator.zip`\.
-
-   1. Choose **Save**\.  
-![\[Screenshot of GG_Car_Aggregator with the Handler field set to carAggregator.function_handler.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-096.png)
+   1. Choose **Save**\.
 
 1. Publish the Lambda function, and then create an alias named **GG\_CarAggregator**\. For step\-by\-step instructions, see the steps to [publish the Lambda function](create-lambda.md#publish-function-version) and [create an alias](create-lambda.md#create-version-alias) in Module 3 \(Part 1\)\.
 

@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -20,7 +20,7 @@ To use this API, send HTTP requests to the Discovery API endpoint\. For example:
 https://greengrass-ats.iot.region.amazonaws.com:port/greengrass/discover/thing/thing-name
 ```
 
-For a list of supported AWS Regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS IoT Greengrass endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT Core operations are different from the Discovery API endpoints\.
+For a list of supported Amazon Web Services Regions and endpoints for the AWS IoT Greengrass Discovery API, see [AWS IoT Greengrass endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) in the *AWS General Reference*\. This is a data plane only API\. The endpoints for group management and AWS IoT Core operations are different from the Discovery API endpoints\.
 
 ## Request<a name="gg-discover-request"></a>
 

@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass Version 2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
 
 --------
 
@@ -129,7 +129,7 @@ Be sure to read the following information about compatibility and limitations\.
  You can use the SageMaker Neo deep learning runtime to perform inference with optimized machine learning models on your AWS IoT Greengrass devices\. These models are optimized using the SageMaker Neo deep learning compiler to improve machine learning inference prediction speeds\. For more information about model optimization in SageMaker, see the [SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
 
 **Note**  
- Currently, you can optimize machine learning models using the Neo deep learning compiler in specific AWS Regions only\. However, you can use the Neo deep learning runtime with optimized models in all AWS Regions where AWS IoT Greengrass core is supported\. For information, see [How to Configure Optimized Machine Learning Inference](ml-dlc-console.md)\. 
+ Currently, you can optimize machine learning models using the Neo deep learning compiler in specific Amazon Web Services Regions only\. However, you can use the Neo deep learning runtime with optimized models in each AWS Region where AWS IoT Greengrass core is supported\. For information, see [How to Configure Optimized Machine Learning Inference](ml-dlc-console.md)\. 
 
 ### MXNet versioning<a name="mxnet-version-compatibility"></a>
 
@@ -148,7 +148,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow model\-serving limitations on Raspberry Pi<a name="w101aac23c15c17"></a>
+### TensorFlow model\-serving limitations on Raspberry Pi<a name="w110aac23c15c17"></a>
 
 The following recommendations for improving inference results are based on our tests with the TensorFlow 32\-bit Arm libraries on the Raspberry Pi platform\. These recommendations are intended for advanced users for reference only, without guarantees of any kind\.
 + Models that are trained using the [Checkpoint](https://www.tensorflow.org/guide/checkpoint) format should be "frozen" to the protocol buffer format before serving\. For an example, see the [TensorFlow\-Slim image classification model library](https://github.com/tensorflow/models/tree/master/research/slim)\.
