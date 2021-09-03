@@ -16,7 +16,7 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.3/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.4/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 

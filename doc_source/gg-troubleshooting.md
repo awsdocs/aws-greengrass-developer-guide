@@ -44,6 +44,7 @@ Search the following symptoms and errors to find information to help troubleshoo
 + [Error: \[ERROR\]\-runtime execution error: unable to start lambda container\. \{"errorString": "failed to initialize container mounts: failed to create overlay fs for container: mounting overlay at /greengrass/ggc/packages/<ggc\-version>/rootfs/merged failed: failed to mount with args source=\\"no\_source\\" dest=\\"/greengrass/ggc/packages/<ggc\-version>/rootfs/merged\\" fstype=\\"overlay\\" flags=\\"0\\" data=\\"lowerdir=/greengrass/ggc/packages/<ggc\-version>/dns:/,upperdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/upper,workdir=/greengrass/ggc/packages/<ggc\-version>/rootfs/work\\": too many levels of symbolic links"\}](#troubleshoot-symbolic-links)
 + [Error: \[DEBUG\]\-Failed to get routes\. Discarding message\.](#troubleshoot-failed-to-get-routes)
 + [Error: \[Errno 24\] Too many open <lambda\-function>,\[Errno 24\] Too many open files](#troubleshoot-too-many-open-files)
++ [Error: ds server failed to start listening to socket: listen unix <ggc\-path>/ggc/socket/greengrass\_ipc\.sock: bind: invalid argument](#troubleshoot-install-path-too-long)
 
  
 
@@ -344,6 +345,10 @@ Your AWS IoT Greengrass Core software version is shown in the error message\. To
 
  
 
+### Error: ds server failed to start listening to socket: listen unix <ggc\-path>/ggc/socket/greengrass\_ipc\.sock: bind: invalid argument<a name="troubleshoot-install-path-too-long"></a>
+
+**Solution:** You might see this error when the AWS IoT Greengrass Core software doesn't start\. This error occurs when the AWS IoT Greengrass Core software is installed to a folder with a long file path\. Reinstall the AWS IoT Greengrass Core software to a folder with a file path that has fewer than 79 bytes, if you don't use a [write directory](gg-core.md#write-directory), or 83 bytes, if you do use a write directory\.
+
 ## Deployment issues<a name="gg-troubleshooting-deploymentissues"></a>
 
 Use the following information to help troubleshoot deployment issues\.
@@ -485,7 +490,7 @@ For more information, see [Use apt to install the AWS IoT Greengrass Core softwa
      ps aux | grep -E 'greengrass.*daemon'
      ```
 
-     If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.3/bin/daemon`, then the daemon is running\.
+     If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.4/bin/daemon`, then the daemon is running\.
 
      The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 

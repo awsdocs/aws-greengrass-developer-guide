@@ -38,8 +38,6 @@ For tutorials that configure a simple workflow, see [Export data streams to the 
 
 The following requirements apply for using stream manager:
 + You must use AWS IoT Greengrass Core software v1\.10 or later, with stream manager enabled\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.
-**Note**  <a name="stream-manager-upgrade-note"></a>
-If you use stream manager to export data to the cloud, you can't upgrade to AWS IoT Greengrass Core software v1\.11\.3 from an earlier v1\.x version\. When you attempt an OTA update, stream manager doesn't start and the update fails\. If you are installing AWS IoT Greengrass Core software for the first time, we strongly recommend that you deploy the latest version of the software\.
 
   <a name="stream-manager-not-supported-openwrt-para"></a>Stream manager is not supported on OpenWrt distributions\.
 + The Java 8 runtime \(JDK 8\) must be installed on the core\.<a name="install-java8-runtime-general"></a>

@@ -6,7 +6,10 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 
 # AWS IoT Greengrass and interface VPC endpoints \(AWS PrivateLink\)<a name="vpc-interface-endpoints"></a>
 
-You can establish a private connection between your VPC and the AWS IoT Greengrass control plane by creating an *interface VPC endpoint*\. Interface endpoints are powered by [AWS PrivateLink](http://aws.amazon.com/privatelink), a technology that enables you to access AWS IoT Greengrass APIs privately without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to communicate with AWS IoT Greengrass APIs\. Traffic between your VPC and AWS IoT Greengrass does not leave the Amazon network\.
+You can establish a private connection between your VPC and the AWS IoT Greengrass control plane by creating an *interface VPC endpoint*\. You can use this endpoint to manage groups, Lambda functions, deployments, and other resources in the AWS IoT Greengrass service\. Interface endpoints are powered by [AWS PrivateLink](http://aws.amazon.com/privatelink), a technology that enables you to access AWS IoT Greengrass APIs privately without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to communicate with AWS IoT Greengrass APIs\. Traffic between your VPC and AWS IoT Greengrass does not leave the Amazon network\.
+
+**Note**  
+Currently, you can't configure Greengrass core devices to operate completely within your VPC\.
 
 Each interface endpoint is represented by one or more [Elastic Network Interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) in your subnets\. 
 

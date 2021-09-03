@@ -861,7 +861,7 @@ Follow these steps only if you want to make the Greengrass root directory read\-
 
       ```
       sudo chown -R ggc_user:ggc_group /greengrass-root/certs/
-      sudo chown -R ggc_user:ggc_group /greengrass-root/ggc/packages/1.11.3/lambda/
+      sudo chown -R ggc_user:ggc_group /greengrass-root/ggc/packages/1.11.4/lambda/
       ```
 **Note**  
 The ggc\_user and ggc\_group accounts are used by default to run system Lambda functions\. If you configured the group\-level [default access identity](lambda-group-config.md#lambda-access-identity-groupsettings) to use different accounts, you should give permissions to that user \(UID\) and group \(GID\) instead\.

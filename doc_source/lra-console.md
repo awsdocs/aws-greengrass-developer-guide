@@ -276,7 +276,7 @@ In this step, you deploy the current version of the group definition\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.3/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.4/bin/daemon`, then the daemon is running\.
 **Note**  
 The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 

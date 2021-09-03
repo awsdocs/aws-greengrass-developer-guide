@@ -333,7 +333,7 @@ The `snapd` daemon is preinstalled on Ubuntu\.
      Example response:
 
      ```
-     aws-iot-greengrass 1.11.3 from Amazon Web Services (aws) installed
+     aws-iot-greengrass 1.11.4 from Amazon Web Services (aws) installed
      ```
    + To migrate from an earlier version to v1\.11\.x or update to the latest available patch version, run the following command:
 
@@ -341,7 +341,7 @@ The `snapd` daemon is preinstalled on Ubuntu\.
      sudo snap refresh --channel=1.11.x aws-iot-greengrass
      ```
 
-   Like other snaps, the AWS IoT Greengrass snap uses channels to manage minor versions\. Snaps are automatically updated to the latest available version of the current channel\. For examples, if you specify `--channel=1.11.x`, your AWS IoT Greengrass snap is updated to v1\.11\.3\. 
+   Like other snaps, the AWS IoT Greengrass snap uses channels to manage minor versions\. Snaps are automatically updated to the latest available version of the current channel\. For examples, if you specify `--channel=1.11.x`, your AWS IoT Greengrass snap is updated to v1\.11\.4\. 
 
    You can run the `snap info aws-iot-greengrass` command to get the list of available channels for AWS IoT Greengrass\.
 
@@ -625,7 +625,7 @@ Couldn't find /snap/aws-iot-greengrass/44/greengrass/config/config.json.
 
 This examples shows that AWS IoT Greengrass couldn't find the `config.json` file\. You might check the configuration and certificate files\.
 
-#### /var/snap/aws\-iot\-greengrass/current/ggc\-write\-directory/packages/1\.11\.3/rootfs/merged is not an absolute path or is a symlink\.<a name="gg-snap-troubleshoot-lambda"></a>
+#### /var/snap/aws\-iot\-greengrass/current/ggc\-write\-directory/packages/1\.11\.4/rootfs/merged is not an absolute path or is a symlink\.<a name="gg-snap-troubleshoot-lambda"></a>
 
 **Solution**: The AWS IoT Greengrass snap supports only noncontainerized Lambda functions\. Make sure that you run your Lambda functions in the no container mode\. For more information, see [Considerations when choosing Lambda function containerization](https://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html#no-container-mode) in the *AWS IoT Greengrass Version 1 Developer Guide*\.
 
