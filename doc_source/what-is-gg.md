@@ -374,15 +374,15 @@ You can download the AWS IoT Greengrass Core software from the [AWS IoT Greengra
 
 Supported platforms:
 + <a name="arch_armv7l_193"></a>Architecture: Armv7l
-  + OS: Linux; Distribution: [Raspbian Buster, 2019\-07\-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/)\. AWS IoT Greengrass might work with other distributions for a Raspberry Pi, but we recommend Raspbian because it's the officially supported distribution\.
-  + OS: Linux; Distribution: [OpenWrt](https://openwrt.org/)
+  + OS: Linux
+  + OS: Linux \([OpenWrt](https://openwrt.org/)\)
 + <a name="arch_armv8-aarch64_190"></a>Architecture: Armv8 \(AArch64\)
-  + OS: Linux; Distribution: [Arch Linux](https://www.archlinux.org/)
-  + OS: Linux; Distribution: [OpenWrt](https://openwrt.org/)
+  + OS: Linux
+  + OS: Linux \([OpenWrt](https://openwrt.org/)\)
 + <a name="arch_armv6l_193"></a>Architecture: Armv6l
-  + OS: Linux; Distribution: [Raspbian Buster, 2019\-07\-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/)
+  + OS: Linux
 + <a name="arch_x86-64_amazonlinux_190"></a>Architecture: x86\_64
-  + OS: Linux; Distribution: Amazon Linux \(amzn2\-ami\-hvm\-2\.0\.20190313\-x86\_64\-gp2\), Ubuntu 18\.04
+  + OS: Linux
 + <a name="arch_docker_180"></a>Windows, macOS, and Linux platforms can run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
 
 Requirements:
@@ -456,15 +456,15 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 
 Supported platforms:
 + <a name="arch_armv7l_193"></a>Architecture: Armv7l
-  + OS: Linux; Distribution: [Raspbian Buster, 2019\-07\-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/)\. AWS IoT Greengrass might work with other distributions for a Raspberry Pi, but we recommend Raspbian because it's the officially supported distribution\.
-  + OS: Linux; Distribution: [OpenWrt](https://openwrt.org/)
+  + OS: Linux
+  + OS: Linux \([OpenWrt](https://openwrt.org/)\)
 + <a name="arch_armv8-aarch64_190"></a>Architecture: Armv8 \(AArch64\)
-  + OS: Linux; Distribution: [Arch Linux](https://www.archlinux.org/)
-  + OS: Linux; Distribution: [OpenWrt](https://openwrt.org/)
+  + OS: Linux
+  + OS: Linux \([OpenWrt](https://openwrt.org/)\)
 + <a name="arch_armv6l_193"></a>Architecture: Armv6l
-  + OS: Linux; Distribution: [Raspbian Buster, 2019\-07\-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/)
+  + OS: Linux
 + <a name="arch_x86-64_amazonlinux_190"></a>Architecture: x86\_64
-  + OS: Linux; Distribution: Amazon Linux \(amzn2\-ami\-hvm\-2\.0\.20190313\-x86\_64\-gp2\), Ubuntu 18\.04
+  + OS: Linux
 + <a name="arch_docker_180"></a>Windows, macOS, and Linux platforms can run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
 
 Requirements:
@@ -537,15 +537,15 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 
 Supported platforms:
 + <a name="arch_armv7l_193"></a>Architecture: Armv7l
-  + OS: Linux; Distribution: [Raspbian Buster, 2019\-07\-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/)\. AWS IoT Greengrass might work with other distributions for a Raspberry Pi, but we recommend Raspbian because it's the officially supported distribution\.
-  + OS: Linux; Distribution: [OpenWrt](https://openwrt.org/)
+  + OS: Linux
+  + OS: Linux \([OpenWrt](https://openwrt.org/)\)
 + <a name="arch_armv8-aarch64_190"></a>Architecture: Armv8 \(AArch64\)
-  + OS: Linux; Distribution: [Arch Linux](https://www.archlinux.org/)
-  + OS: Linux; Distribution: [OpenWrt](https://openwrt.org/)
+  + OS: Linux
+  + OS: Linux \([OpenWrt](https://openwrt.org/)\)
 + <a name="arch_armv6l_193"></a>Architecture: Armv6l
-  + OS: Linux; Distribution: [Raspbian Buster, 2019\-07\-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/)
+  + OS: Linux
 + <a name="arch_x86-64_amazonlinux_190"></a>Architecture: x86\_64
-  + OS: Linux; Distribution: Amazon Linux \(amzn2\-ami\-hvm\-2\.0\.20190313\-x86\_64\-gp2\), Ubuntu 18\.04
+  + OS: Linux
 + <a name="arch_docker_180"></a>Windows, macOS, and Linux platforms can run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
 
 Requirements:
@@ -613,9 +613,9 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 ------
 #### [ GGC v1\.8 ]
 + Supported platforms:
-  + <a name="arch_armv7l_rpi_180"></a>Architecture: Armv7l; OS: Linux; Distribution: [Raspbian Stretch, 2018\-06\-29](https://downloads.raspberrypi.org/raspbian/images/raspbian-2018-06-29/)\. Other versions might work with AWS IoT Greengrass, but we recommend this because it is the officially supported distribution\.
-  + <a name="arch_x86-64_amazonlinux_180"></a>Architecture: x86\_64; OS: Linux; Distribution: Amazon Linux \(amzn\-ami\-hvm\-2016\.09\.1\.20170119\-x86\_64\-ebs\), Ubuntu 14\.04 – 16\.04
-  + <a name="arch_armv8-aarch64_archlinux_180"></a>Architecture: Armv8 \(AArch64\); OS: Linux; Distribution: Arch Linux
+  + <a name="arch_armv7l_rpi_180"></a>Architecture: Armv7l; OS: Linux
+  + <a name="arch_x86-64_amazonlinux_180"></a>Architecture: x86\_64; OS: Linux
+  + <a name="arch_armv8-aarch64_archlinux_180"></a>Architecture: Armv8 \(AArch64\); OS: Linux
   + <a name="arch_docker_180"></a>Windows, macOS, and Linux platforms can run AWS IoT Greengrass in a Docker container\. For more information, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
   + <a name="arch_snap_180"></a>Linux platforms can run a version of AWS IoT Greengrass with limited functionality using the Greengrass snap, which is available through [Snapcraft](https://snapcraft.io/aws-iot-greengrass)\. For more information, see [AWS IoT Greengrass snap software](#gg-snapstore-download)\.
 + The following items are required:
@@ -743,20 +743,20 @@ Bug fixes and improvements:  <a name="bug-fix-v1110"></a>
 + Fixed an issue to let the Greengrass deployment agent remove unused machine learning model artifacts from the `mlmodel_public` folder\.
 + General performance improvements and bug fixes\.
 
-To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
+To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
 
 **Tip**  
 <a name="ggc-install-options"></a>AWS IoT Greengrass also provides other options for installing the AWS IoT Greengrass Core software\. For example, you can use [Greengrass device setup](quick-start.md) to configure your environment and install the latest version of the AWS IoT Greengrass Core software\. Or, on supported Debian platforms, you can use the [APT package manager](install-ggc.md#ggc-package-manager) to install or upgrade the AWS IoT Greengrass Core software\. For more information, see [Install the AWS IoT Greengrass Core software](install-ggc.md)\.
 
 
-| Architecture | Distribution | OS | Link | 
-| --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-aarch64-1.11.4.tar.gz) | 
-| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-openwrt-aarch64-1.11.4.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-armv7l-1.11.4.tar.gz) | 
-| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-openwrt-armv7l-1.11.4.tar.gz) | 
-| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-armv6l-1.11.4.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-x86-64-1.11.4.tar.gz) | 
+| Architecture | Operating system | Link | 
+| --- | --- | --- | 
+| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-aarch64-1.11.4.tar.gz) | 
+| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-openwrt-aarch64-1.11.4.tar.gz) | 
+| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-armv7l-1.11.4.tar.gz) | 
+| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-openwrt-armv7l-1.11.4.tar.gz) | 
+| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-armv6l-1.11.4.tar.gz) | 
+| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-x86-64-1.11.4.tar.gz) | 
 
 ------
 #### [ v1\.10 ]<a name="ggc-v1.10-tab"></a>
@@ -798,17 +798,17 @@ New features:  <a name="what-new-v1100"></a>
 + <a name="bug-fix-v1100-ota"></a>Over\-the\-air \(OTA\) updates with hardware security integration can be configured with OpenSSL 1\.1\.
 + General performance improvements and bug fixes\.
 
-To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
+To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
 
 
-| Architecture | Distribution | OS | Link | 
-| --- | --- | --- | --- | 
-| Armv8 \(AArch64\) | Arch Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-aarch64-1.10.4.tar.gz) | 
-| Armv8 \(AArch64\) | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-openwrt-aarch64-1.10.4.tar.gz) | 
-| Armv7l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-armv7l-1.10.4.tar.gz) | 
-| Armv7l | OpenWrt | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-openwrt-armv7l-1.10.4.tar.gz) | 
-| Armv6l | Raspbian | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-armv6l-1.10.4.tar.gz) | 
-| x86\_64 | Linux | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-x86-64-1.10.4.tar.gz) | 
+| Architecture | Operating system | Link | 
+| --- | --- | --- | 
+| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-aarch64-1.10.4.tar.gz) | 
+| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-openwrt-aarch64-1.10.4.tar.gz) | 
+| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-armv7l-1.10.4.tar.gz) | 
+| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-openwrt-armv7l-1.10.4.tar.gz) | 
+| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-armv6l-1.10.4.tar.gz) | 
+| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-x86-64-1.10.4.tar.gz) | 
 
 ------
 #### [ Deprecated versions ]
@@ -821,7 +821,7 @@ New features in v1\.9:
 + <a name="what-new-v192-openwrt"></a>Support for [OpenWrt](https://openwrt.org/)\. AWS IoT Greengrass Core software v1\.9\.2 or later can be installed on OpenWrt distributions with Armv8 \(AArch64\) and Armv7l architectures\. Currently, OpenWrt does not support ML inference\.
 + <a name="what-new-v193-armv6l"></a>Support for Armv6l\. AWS IoT Greengrass Core software v1\.9\.3 or later can be installed on Raspbian distributions on Armv6l architectures \(for example, on Raspberry Pi Zero devices\)\.
 + <a name="what-new-v193-ota-alpn"></a>OTA updates on port 443 with ALPN\. Greengrass cores that use port 443 for MQTT traffic now support over\-the\-air \(OTA\) software updates\. AWS IoT Greengrass uses the Application Layer Protocol Network \(ALPN\) TLS extension to enable these connections\. For more information, see [OTA updates of AWS IoT Greengrass Core software](core-ota-update.md) and [Connect on port 443 or through a network proxy](gg-core.md#alpn-network-proxy)\.
-To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.      
+To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.      
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/what-is-gg.html)
 
 v1\.8\.4  
@@ -833,7 +833,7 @@ v1\.8\.4
   Bug fixes and improvements:
   + Fixed an issue with shadow synchronization and device certificate manager reconnection\.
   + General performance improvements and bug fixes\.
-To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture, distribution, and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.      
+To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.      
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/what-is-gg.html)
 
 ------

@@ -330,7 +330,7 @@ If using the NVIDIA Jetson example, you need to use the `resnet18` directory in 
 
 1.  Choose **Upload a model**\. 
 
-1.  On the Amazon S3 console tab, upload your zip file to an Amazon S3 bucket\. For information, see [ How do I upload files and folders to an S3 bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service Console User Guide*\. 
+1.  On the Amazon S3 console tab, upload your zip file to an Amazon S3 bucket\. For information, see [ How do I upload files and folders to an S3 bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service User Guide*\. 
 **Note**  
  Your bucket name must contain the string **greengrass**\. Choose a unique name \(such as **greengrass\-dlr\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
 

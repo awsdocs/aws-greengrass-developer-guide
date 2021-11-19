@@ -36,8 +36,8 @@ To update a locally deployed model, first update the source model \(in the cloud
 AWS IoT Greengrass supports SageMaker and Amazon S3 model sources for machine learning resources\.
 
 The following requirements apply to model sources:
-+ S3 buckets that store your SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS IoT Greengrass ML inference currently supports the SSE\-S3 or SSE\-KMS encryption options only\. For more information about server\-side encryption options, see [Protecting data using server\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
-+ The names of S3 buckets that store your SageMaker and Amazon S3 model sources must not include periods \(`.`\)\. For more information, see the rule about using virtual hosted\-style buckets with SSL in [Rules for bucket naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service Developer Guide*\.
++ S3 buckets that store your SageMaker and Amazon S3 model sources must not be encrypted using SSE\-C\. For buckets that use server\-side encryption, AWS IoT Greengrass ML inference currently supports the SSE\-S3 or SSE\-KMS encryption options only\. For more information about server\-side encryption options, see [Protecting data using server\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the *Amazon Simple Storage Service User Guide*\.
++ The names of S3 buckets that store your SageMaker and Amazon S3 model sources must not include periods \(`.`\)\. For more information, see the rule about using virtual hosted\-style buckets with SSL in [Rules for bucket naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service User Guide*\.
 + Service\-level AWS Region support must be available for both [AWS IoT Greengrass](https://docs.aws.amazon.com/general/latest/gr/greengrass.html) and [SageMaker](https://docs.aws.amazon.com/general/latest/gr/sagemaker.html)\. Currently, AWS IoT Greengrass supports SageMaker models in the following Regions:
   + US East \(Ohio\)
   + US East \(N\. Virginia\)
@@ -148,7 +148,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow model\-serving limitations on Raspberry Pi<a name="w110aac23c15c17"></a>
+### TensorFlow model\-serving limitations on Raspberry Pi<a name="w112aac22c15c17"></a>
 
 The following recommendations for improving inference results are based on our tests with the TensorFlow 32\-bit Arm libraries on the Raspberry Pi platform\. These recommendations are intended for advanced users for reference only, without guarantees of any kind\.
 + Models that are trained using the [Checkpoint](https://www.tensorflow.org/guide/checkpoint) format should be "frozen" to the protocol buffer format before serving\. For an example, see the [TensorFlow\-Slim image classification model library](https://github.com/tensorflow/models/tree/master/research/slim)\.

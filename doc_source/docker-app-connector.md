@@ -78,7 +78,7 @@ We recommend that you install a credentials store to secure the local copies of 
   }
   ```
 **Note**  
-If your S3 bucket is versioning\-enabled, then the role the must be configured to allow the `s3:GetObjectVersion` action as well\. For more information, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.
+If your S3 bucket is versioning\-enabled, then the role the must be configured to allow the `s3:GetObjectVersion` action as well\. For more information, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service User Guide*\.
 
   <a name="set-up-group-role"></a>For the group role requirement, you must configure the role to grant the required permissions and make sure the role has been added to the group\. For more information, see [Managing the Greengrass group role \(console\)](group-role.md#manage-group-role-console) or [Managing the Greengrass group role \(CLI\)](group-role.md#manage-group-role-cli)\.
 + <a name="docker-app-connector-ecr-perms"></a>If your Docker Compose file references a Docker image stored in Amazon ECR, the [Greengrass group role](group-role.md) configured to allow the following:
@@ -185,7 +185,7 @@ This connector provides the following parameters:
 #### [ Version 7 ]<a name="docker-app-connector-parameters-v1"></a>
 
 `DockerComposeFileS3Bucket`  
-The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
+The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service User Guide*\.  
 Display name in the AWS IoT console: **Docker Compose file in S3**  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
@@ -193,14 +193,14 @@ Type: `string`
 Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
 
 `DockerComposeFileS3Key`  
-The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileS3Version`  
-The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `false`  
 Type: `string`  
@@ -270,7 +270,7 @@ Valid pattern: `^(true|false)$`
 #### [ Version 6 ]<a name="docker-app-connector-parameters-v1"></a>
 
 `DockerComposeFileS3Bucket`  
-The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
+The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service User Guide*\.  
 Display name in the AWS IoT console: **Docker Compose file in S3**  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
@@ -278,14 +278,14 @@ Type: `string`
 Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
 
 `DockerComposeFileS3Key`  
-The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileS3Version`  
-The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `false`  
 Type: `string`  
@@ -349,7 +349,7 @@ Valid pattern: `^(true|false)$`
 #### [ Version 5 ]<a name="docker-app-connector-parameters-v1"></a>
 
 `DockerComposeFileS3Bucket`  
-The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
+The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service User Guide*\.  
 Display name in the AWS IoT console: **Docker Compose file in S3**  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
@@ -357,14 +357,14 @@ Type: `string`
 Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
 
 `DockerComposeFileS3Key`  
-The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileS3Version`  
-The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `false`  
 Type: `string`  
@@ -419,7 +419,7 @@ Valid pattern: `^(true|false)$`
 #### [ Versions 2 \- 4 ]<a name="docker-app-connector-parameters-v1"></a>
 
 `DockerComposeFileS3Bucket`  
-The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
+The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service User Guide*\.  
 Display name in the AWS IoT console: **Docker Compose file in S3**  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
@@ -427,14 +427,14 @@ Type: `string`
 Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
 
 `DockerComposeFileS3Key`  
-The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileS3Version`  
-The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `false`  
 Type: `string`  
@@ -482,7 +482,7 @@ Valid pattern: `^(true|false)$`
 #### [ Version 1 ]<a name="docker-app-connector-parameters-v1"></a>
 
 `DockerComposeFileS3Bucket`  
-The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service Developer Guide*\.  
+The name of the S3 bucket that contains your Docker Compose file\. When you create the bucket, make sure to follow the [rules for bucket names](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html) described in the *Amazon Simple Storage Service User Guide*\.  
 Display name in the AWS IoT console: **Docker Compose file in S3**  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
@@ -490,14 +490,14 @@ Type: `string`
 Valid pattern `[a-zA-Z0-9\\-\\.]{3,63}`
 
 `DockerComposeFileS3Key`  
-The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object key for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `true`  
 Type: `string`  
 Valid pattern `.+`
 
 `DockerComposeFileS3Version`  
-The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The object version for your Docker Compose file in Amazon S3\. For more information, including object key naming guidelines, see [Using versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html) in the *Amazon Simple Storage Service User Guide*\.  
 In the console, the **Docker Compose file in S3** property combines the `DockerComposeFileS3Bucket`, `DockerComposeFileS3Key`, and `DockerComposeFileS3Version` parameters\.
 Required: `false`  
 Type: `string`  
@@ -751,58 +751,115 @@ The maximum size of a shadow document is 8 KB\. For more information, see [AWS I
 
    1. Choose **Next**\.
 
-   1. On the **Filter your data with a topic** page, for **Topic filter**, choose **$aws/things/TestCore/shadow/update/accepted**, and then choose **Next**\.
+   1. On the **Filter your data with a topic** page, for **Topic filter**, choose **$aws/things/*MyDockerDevice*/shadow/update/accepted**, and then choose **Next**\. Replace *MyDockerDevice* with the name of the device that you created earlier\.
 
    1. Choose **Finish**\.
 
 Include the following code snippet in the Docker image that you reference in your Compose file\. This is the Greengrass device code\. Also, add code in your Docker container that starts the Greengrass device inside the container\. It can run as a separate process in the image or in a separate thread\.
 
 ```
+import os
+import sys
+import time
+import uuid
+
 from AWSIoTPythonSDK.core.greengrass.discovery.providers import DiscoveryInfoProvider
+from AWSIoTPythonSDK.exception.AWSIoTExceptions import DiscoveryInvalidRequestException
+from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
+
+# Replace thingName with the name you registered for the Docker device.
+thingName = "MyDockerDevice"
+clientId = thingName
+
+# Replace host with the IoT endpoint for your AWS account.
+host = "myPrefix.iot.region.amazonaws.com"
+
+# Replace topic with the topic where the Docker container subscribes.
+topic = "$aws/things/MyDockerDevice/shadow/update/accepted"
+
+# Replace these paths based on the download location of the certificates for the Docker container.
+rootCAPath = "/path-accessible-in-container/rootCA.pem"
+certificatePath = "/path-accessible-in-container/certId.cert.pem"
+privateKeyPath = "/path-accessible-in-container/certId.private.key"
+
 
 # Discover Greengrass cores.
 discoveryInfoProvider = DiscoveryInfoProvider()
 discoveryInfoProvider.configureEndpoint(host)
-
-# Configure these paths based on the download location of the certificates.
 discoveryInfoProvider.configureCredentials(rootCAPath, certificatePath, privateKeyPath)
 discoveryInfoProvider.configureTimeout(10)  # 10 seconds.
 
-# Get discovery info from AWS IoT.
+GROUP_CA_PATH = "./groupCA/"
+MQTT_QOS = 1
 
-# thingName is the name you registered for the device.
-discoveryInfo = discoveryInfoProvider.discover(thingName)
-caList = discoveryInfo.getAllCas()
-coreList = discoveryInfo.getAllCores()
+discovered = False
+groupCA = None
+coreInfo = None
+
+try:
+    # Get discovery info from AWS IoT.
+    discoveryInfo = discoveryInfoProvider.discover(thingName)
+    caList = discoveryInfo.getAllCas()
+    coreList = discoveryInfo.getAllCores()
+
+    # Use first discovery result.
+    groupId, ca = caList[0]
+    coreInfo = coreList[0]
+
+    # Save the group CA to a local file.
+    groupCA = GROUP_CA_PATH + groupId + "_CA_" + str(uuid.uuid4()) + ".crt"
+    if not os.path.exists(GROUP_CA_PATH):
+        os.makedirs(GROUP_CA_PATH)
+    groupCAFile = open(groupCA, "w")
+    groupCAFile.write(ca)
+    groupCAFile.close()
+    discovered = True
+except DiscoveryInvalidRequestException as e:
+    print("Invalid discovery request detected!")
+    print("Type: %s" % str(type(e)))
+    print("Error message: %s" % str(e))
+    print("Stopping...")
+except BaseException as e:
+    print("Error in discovery!")
+    print("Type: %s" % str(type(e)))
+    print("Error message: %s" % str(e))
+    print("Stopping...")
+
+myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
+myAWSIoTMQTTClient.configureCredentials(groupCA, privateKeyPath, certificatePath)
+
 
 # Try to connect to the Greengrass core.
+connected = False
 for connectivityInfo in coreInfo.connectivityInfoList:
     currentHost = connectivityInfo.host
     currentPort = connectivityInfo.port
     myAWSIoTMQTTClient.configureEndpoint(currentHost, currentPort)
     try:
-    	myAWSIoTMQTTClient.connect()
-	    connected = True
+        myAWSIoTMQTTClient.connect()
+        connected = True
+    except BaseException as e:
+        print("Error in connect!")
+        print("Type: %s" % str(type(e)))
+        print("Error message: %s" % str(e))
+    if connected:
         break
-	except BaseException as e:
-		print("Error in connect!")
+
 if not connected:
-	print("Cannot connect to core %s. Exiting..." % coreInfo.coreThingArn)
+    print("Cannot connect to core %s. Exiting..." % coreInfo.coreThingArn)
     sys.exit(-2)
 
 # Handle the MQTT message received from GGShadowService.
 def customCallback(client, userdata, message):
-    print("Received a message on MQTT")
+    print("Received an MQTT message")
     print(message)
 
 # Subscribe to the MQTT topic.
-
-# The topic is the "$aws/things/TestCore/shadow/update/accepted".
-myAWSIoTMQTTClient.subscribe(topic, 1, customCallback)
+myAWSIoTMQTTClient.subscribe(topic, MQTT_QOS, customCallback)
 
 # Keep the process alive to listen for messages.
 while True:
-	time.sleep(1)
+    time.sleep(1)
 ```
 
 ## Security notes<a name="docker-app-connector-security"></a>

@@ -87,7 +87,7 @@ Required: `true`
 Type: `string`  
 Examples: `image/jpeg`, `application/json`, `audio/ogg`  
 `s3-prefix`  
-The key prefix to use for uploaded samples\. A prefix is similar to a directory name\. It allows you to store similar data under the same directory in a bucket\. For more information, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service Developer Guide*\.  
+The key prefix to use for uploaded samples\. A prefix is similar to a directory name\. It allows you to store similar data under the same directory in a bucket\. For more information, see [Object key and metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html) in the *Amazon Simple Storage Service User Guide*\.  
 Required: `false`  
 Type: `string`  
 `file-ext`  

@@ -6,7 +6,7 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 
 # Kinesis Firehose<a name="kinesis-firehose-connector"></a>
 
-The Kinesis Firehose [connector](connectors.md) publishes data through an Amazon Kinesis Data Firehose delivery stream to destinations such as Amazon S3, Amazon Redshift, or Amazon Elasticsearch Service\.
+The Kinesis Firehose [connector](connectors.md) publishes data through an Amazon Kinesis Data Firehose delivery stream to destinations such as Amazon S3, Amazon Redshift, or Amazon OpenSearch Service\.
 
 This connector is a data producer for a Kinesis delivery stream\. It receives input data on an MQTT topic, and sends the data to a specified delivery stream\. The delivery stream then sends the data record to the configured destination \(for example, an S3 bucket\)\.
 

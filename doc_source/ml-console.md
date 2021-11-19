@@ -380,7 +380,7 @@ Now, add the inference model as a machine learning resource\. This step includes
 
 1.  Choose **Upload a model**\. This opens up a new tab to the Amazon S3 console\. 
 
-1.  On the Amazon S3 console tab, upload the `squeezenet.zip` file to an S3 bucket\. For information, see [ How do I upload files and folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html)in the *Amazon Simple Storage Service Console User Guide*\. 
+1.  On the Amazon S3 console tab, upload the `squeezenet.zip` file to an S3 bucket\. For information, see [ How do I upload files and folders to an S3 Bucket? ](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html)in the *Amazon Simple Storage Service User Guide*\. 
 **Note**  
 For the S3 bucket to be accessible, your bucket name must contain the string **greengrass** and the bucket must be in the same region that you use for AWS IoT Greengrass\. Choose a unique name \(such as **greengrass\-bucket\-*user\-id*\-*epoch\-time***\)\. Don't use a period \(`.`\) in the bucket name\. 
 

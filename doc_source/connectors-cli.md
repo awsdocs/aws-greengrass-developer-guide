@@ -10,7 +10,7 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS CLI to work with connectors\.
 
-## <a name="w110aac30c43b8"></a>
+## <a name="w112aac29c43b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
 
@@ -64,7 +64,7 @@ The AWS IoT Greengrass API lets you create multiple definitions for a component 
 
 To complete this tutorial, you need:
 
-### <a name="w110aac30c43c26b6"></a>
+### <a name="w112aac29c43c26b6"></a>
 + A Greengrass group and a Greengrass core \(v1\.9\.3 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 + Python 3\.7 installed on the AWS IoT Greengrass core device\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
@@ -185,7 +185,7 @@ In this step, you configure parameters for the Twilio Notifications connector\.
 
 ## Step 4: Create a Lambda function deployment package<a name="connectors-cli-create-deployment-package"></a>
 
-### <a name="w110aac30c43c34b4"></a>
+### <a name="w112aac29c43c34b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -511,7 +511,7 @@ Deploy the group to the core device\.
 
 ## Test the solution<a name="connectors-cli-test-solution"></a>
 
-### <a name="w110aac30c43c46b4"></a>
+### <a name="w112aac29c43c46b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)

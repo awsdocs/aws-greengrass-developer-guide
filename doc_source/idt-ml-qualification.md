@@ -245,11 +245,11 @@ We recommend that you compile the model on your target device\. This practice is
 
 1. Follow the instructions in the TVM documentation to [build and install TVM from source for your platform](https://docs.tvm.ai/install/from_source.html)\.
 
-1. After TVM is built, run the TVM compilation for the resnet18 model\. The following steps are based on [ Quick Start Tutorial for Compiling Deep Learning Models](https://tvm.apache.org/docs/tutorials/get_started/relay_quick_start.html#sphx-glr-tutorials-get-started-relay-quick-start-py) in the TVM documentation\.
+1. After TVM is built, run the TVM compilation for the resnet18 model\. The following steps are based on [ Quick Start Tutorial for Compiling Deep Learning Models](https://tvm.apache.org/docs/tutorial/relay_quick_start.html#sphx-glr-tutorials-get-started-relay-quick-start-py) in the TVM documentation\.
 
    1. Open the `relay_quick_start.py` file from the cloned TVM repository\.
 
-   1. Update the code that [defines a neural network in relay](https://tvm.apache.org/docs/tutorials/get_started/relay_quick_start.html#define-neural-network-in-relay)\. You can use one of following options:
+   1. Update the code that [defines a neural network in relay](https://tvm.apache.org/docs/tutorial/relay_quick_start.html#define-neural-network-in-relay)\. You can use one of following options:
       + Option 1: Use `mxnet.gluon.model_zoo.vision.get_model` to get the relay module and parameters:
 
         ```
@@ -261,7 +261,7 @@ We recommend that you compile the model on your target device\. This practice is
         + `resnet18v1-symbol.json`
         + `resnet18v1-0000.params`
 
-   1. Update the code that [saves and loads the compiled module](https://tvm.apache.org/docs/tutorials/get_started/relay_quick_start.html#save-and-load-compiled-module) to use the following code\.
+   1. Update the code that [saves and loads the compiled module](https://tvm.apache.org/docs/tutorial/relay_quick_start.html#save-and-load-compiled-module) to use the following code\.
 
       ```
       from tvm.contrib import util

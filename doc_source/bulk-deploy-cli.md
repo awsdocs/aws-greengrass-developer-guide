@@ -14,7 +14,7 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 
 1. [Create and upload the bulk deployment input file](#bulk-deploy-cli-create-input-file)
 
-1. [Create and configure an IAM execution role](#bulk-deploy-cli-create-role)
+1. [Create and configure an IAM execution role for bulk deployments](#bulk-deploy-cli-create-role)
 
 1. [Allow your execution role access to your S3 Bucket](#bulk-deploy-cli-modify-bucket)
 
@@ -27,7 +27,7 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
  To complete this tutorial, you need: 
 +  One or more deployable Greengrass groups\. For more information about creating AWS IoT Greengrass groups and cores, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. 
 +  The AWS CLI installed and configured on your machine\. For information, see the [ AWS CLI User Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)\. 
-+ An S3 bucket created in the same AWS Region as AWS IoT Greengrass\. For information, see [ Creating and configuring an S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-configure-bucket.html) in the *Amazon Simple Storage Service Console User Guide*\. 
++ An S3 bucket created in the same AWS Region as AWS IoT Greengrass\. For information, see [ Creating and configuring an S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-configure-bucket.html) in the *Amazon Simple Storage Service User Guide*\. 
 **Note**  
  Currently, SSE KMS enabled buckets are not supported\. 
 
@@ -140,6 +140,8 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 
 1.  Modify the trust relationship for your execution role to include AWS IoT Greengrass\. This allows AWS IoT Greengrass to use your execution role and the permissions attached to it\. For information, see [Editing the trust relationship for an existing role](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/edit_trust.html)\. 
 
+   We recommend that you also include the `aws:SourceArn` and `aws:SourceAccount` global condition context keys in your trust policy to help prevent the *confused deputy* security problem\. The condition context keys restrict access to allow only those requests that come from the specified account and Greengrass workspace\. For more information about the confused deputy problem, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
+
    ```
    {
      "Version": "2012-10-17",
@@ -150,7 +152,15 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
          "Principal": {
            "Service": "greengrass.amazonaws.com"
          },
-         "Action": "sts:AssumeRole"
+         "Action": "sts:AssumeRole",
+         "Condition": {
+           "StringEquals": {
+             "aws:SourceAccount": "account-id"
+           },
+           "ArnLike": {
+             "aws:SourceArn": "arn:aws:greengrass:region:account-id:*"
+           }
+         }
        }
      ]
    }
@@ -158,7 +168,7 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 
 1.  Give IAM `PassRole` permissions for your execution role to your IAM user\. This IAM user is the one used to initiate the bulk deployment\. `PassRole` permissions allow your IAM user to pass your execution role to AWS IoT Greengrass for use\. For more information, see [Granting a user permissions to pass a role to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html)\. 
 
-    Use the following example to update your trust policy document\. Modify this example, as necessary\. 
+    Use the following example to update the IAM policy attached to your execution role\. Modify this example, as necessary\. 
 
    ```
     {
@@ -171,8 +181,13 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
                    "iam:PassRole"
                ],
                "Resource": [
-                   "arn:aws:iam::123456789012:user/executionRoleArn"
+                   "arn:aws:iam::account-id:user/executionRoleArn"
                ]
+               "Condition": {
+                   "StringEquals": {
+                       "iam:PassedToService": "greengrass.amazonaws.com"
+                   }
+               }
            }
        ]
    }
@@ -363,7 +378,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
  If the bulk deployment is not successful, you can try the following troubleshooting steps\. Run the commands in your terminal\. 
 
-### Troubleshoot input file errors<a name="w110aac15c28c23b5"></a>
+### Troubleshoot input file errors<a name="w112aac14c28c23b5"></a>
 
  The bulk deployment can fail in the event of syntax errors in the bulk deployment input file\. This returns a bulk deployment status of `Failed` with an error message indicating the line number of the first validation error\. There are four possible errors: 
 + 
@@ -395,7 +410,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
    This error indicates that the given input file line is not considered valid json\. 
 
-### Check for concurrent bulk deployments<a name="w110aac15c28c23b7"></a>
+### Check for concurrent bulk deployments<a name="w112aac14c28c23b7"></a>
 
  You cannot start a new bulk deployment while another one is still running or in a non\-terminal state\. This can result in a `Concurrent Deployment Error`\. You can use the ListBulkDeployments command to verify that a bulk deployment is not currently running\. This command lists your bulk deployments from most to least recent\. 
 
@@ -420,7 +435,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  This action results in a status of `Stopping` until the deployment is `Stopped`\. After the deployment has reached a `Stopped` status, you can start a new bulk deployment\. 
 
-### Check ErrorDetails<a name="w110aac15c28c23b9"></a>
+### Check ErrorDetails<a name="w112aac14c28c23b9"></a>
 
  Run the `GetBulkDeploymentStatus` command to return a JSON payload that contains information about any bulk deployment execution failure\. 
 
@@ -436,7 +451,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  When exiting with an error, the `ErrorDetails` JSON payload that is returned by this call contains more information about the bulk deployment execution failure\. An error status code in the `400` series, for example, indicates an input error, either in the input parameters or the caller dependencies\. 
 
-### Check the AWS IoT Greengrass core log<a name="w110aac15c28c23c11"></a>
+### Check the AWS IoT Greengrass core log<a name="w112aac14c28c23c11"></a>
 
  You can troubleshoot issues by viewing the AWS IoT Greengrass core logs\. Use the following commands to view `runtime.log`: 
 

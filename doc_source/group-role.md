@@ -35,7 +35,7 @@ The user who is signed in to the console must have permissions to manage the rol
 
 ### Find your Greengrass group role \(console\)<a name="get-group-role-console"></a>
 
-Follow these steps to find the role that is attched to a Greengrass group\.
+Follow these steps to find the role that is attached to a Greengrass group\.
 
 1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
 
@@ -54,7 +54,10 @@ Follow these steps to choose an IAM role from your AWS account to add to a Green
 
 A group role has the following requirements:
 + AWS IoT Greengrass defined as a trusted entity\.
-+ The permission policies attached to the role must grant the permissions to your AWS resources that are required by the Lambda functions and connectors in the group, and by Greengrass system components\.
++ The permission policies attached to the role must grant the permissions to your AWS resources that are required by the Lambda functions and connectors in the group, and by Greengrass system components\. 
+
+**Note**  
+We recommend that you also include the `aws:SourceArn` and `aws:SourceAccount` global condition context keys in your trust policy to help prevent the *confused deputy* security problem\. The condition context keys restrict access to allow only those requests that come from the specified account and Greengrass workspace\. For more information about the confused deputy problem, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
 
 Use the IAM console to create and configure the role and its permissions\. For steps that create an example role that allows access to an Amazon DynamoDB table, see [Configure the group role](config-iam-roles.md)\. For general steps, see [Creating a role for an AWS service \(console\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console) in the *IAM User Guide*\.
 
@@ -175,7 +178,7 @@ Follow these steps to create a role and associate it with a Greengrass group\.
 
 **To create the group role using IAM**
 
-1. Create the role with a trust policy that allows AWS IoT Greengrass to assume the role\. This example creates a role named `MyGreengrassGroupRole`, but you can use a different name\.
+1. Create the role with a trust policy that allows AWS IoT Greengrass to assume the role\. This example creates a role named `MyGreengrassGroupRole`, but you can use a different name\. We recommend that you also include the `aws:SourceArn` and `aws:SourceAccount` global condition context keys in your trust policy to help prevent the *confused deputy* security problem\. The condition context keys restrict access to allow only those requests that come from the specified account and Greengrass workspace\. For more information about the confused deputy problem, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
 
 ------
 #### [ Linux, macOS, or Unix ]
@@ -189,7 +192,15 @@ Follow these steps to create a role and associate it with a Greengrass group\.
          "Principal": {
            "Service": "greengrass.amazonaws.com"
          },
-         "Action": "sts:AssumeRole"
+         "Action": "sts:AssumeRole",
+         "Condition": {
+           "StringEquals": {
+             "aws:SourceAccount": "account-id"
+           },
+           "ArnLike": {
+             "aws:SourceArn": "arn:aws:greengrass:region:account-id:/greengrass/groups/group-id"
+           }
+         }
        }
      ]
    }'
@@ -199,7 +210,7 @@ Follow these steps to create a role and associate it with a Greengrass group\.
 #### [ Windows command prompt ]
 
    ```
-   aws iam create-role --role-name MyGreengrassGroupRole --assume-role-policy-document "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"greengrass.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"
+   aws iam create-role --role-name MyGreengrassGroupRole --assume-role-policy-document "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"greengrass.amazonaws.com\"},\"Action\":\"sts:AssumeRole\",\"Condition\":{\"ArnLike\":{\"aws:SourceArn\":\"arn:aws:greengrass:region:account-id:/greengrass/groups/group-id\"},\"StringEquals\":{\"aws:SourceAccount\":\"account-id\"}}}]}"
    ```
 
 ------

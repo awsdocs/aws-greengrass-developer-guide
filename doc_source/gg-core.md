@@ -924,7 +924,10 @@ Although direct communication between Lambda functions doesn't use MQTT messagin
 
 MQTT messages that are destined for AWS Cloud targets are queued to await processing\. Queued messages are processed in first in, first out \(FIFO\) order\. After a message is processed and published to AWS IoT Core, the message is removed from the queue\.
 
-By default, the Greengrass core stores unprocessed messages destined for AWS Cloud targets in memory\. You can configure the core to store unprocessed messages in a local storage cache instead\. Unlike in\-memory storage, the local storage cache has the ability to persist across core restarts \(for example, after a group deployment or a device reboot\), so AWS IoT Greengrass can continue to process the messages\. You can also configure the storage size\.
+By default, the Greengrass core stores in memory unprocessed messages destined for AWS Cloud targets\. You can configure the core to store unprocessed messages in a local storage cache instead\. Unlike in\-memory storage, the local storage cache has the ability to persist across core restarts \(for example, after a group deployment or a device reboot\), so AWS IoT Greengrass can continue to process the messages\. You can also configure the storage size\.
+
+**Warning**  
+The Greengrass core might queue duplicate MQTT messages when it loses connection, because it retries a publish operation before the MQTT client detects that it's offline\. To avoid duplicate MQTT messages for cloud targets, configure the core's `keepAlive` value to less than half of its `mqttOperationTimeout` value\. For more information, see [AWS IoT Greengrass core configuration file](#config-json)\.
 
 AWS IoT Greengrass uses the spooler system component \(the `GGCloudSpooler` Lambda function\) to manage the message queue\. You can use the following `GGCloudSpooler` environment variables to configure storage settings\.
 + **GG\_CONFIG\_STORAGE\_TYPE**\. The location of the message queue\. The following are valid values:

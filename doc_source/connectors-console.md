@@ -10,7 +10,7 @@ This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS Management Console to work with connectors\.
 
-## <a name="w110aac30c41b8"></a>
+## <a name="w112aac29c41b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
 
@@ -50,7 +50,7 @@ The tutorial should take about 20 minutes to complete\.
 
 To complete this tutorial, you need:
 
-### <a name="w110aac30c41c16b6"></a>
+### <a name="w112aac29c41c16b6"></a>
 + A Greengrass group and a Greengrass core \(v1\.9\.3 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 + Python 3\.7 installed on the AWS IoT Greengrass core device\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
@@ -132,7 +132,7 @@ When you choose the resource, the **ARN of Twilio auth token secret** property i
 
 ## Step 4: Create a Lambda function deployment package<a name="connectors-console-create-deployment-package"></a>
 
-### <a name="w110aac30c41c24b4"></a>
+### <a name="w112aac29c41c24b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -334,7 +334,7 @@ If prompted, grant permission to create the [Greengrass service role](service-ro
 
 ## Test the solution<a name="connectors-console-test-solution"></a>
 
-### <a name="w110aac30c41c34b4"></a>
+### <a name="w112aac29c41c34b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)

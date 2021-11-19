@@ -8,7 +8,7 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 
 This tutorial shows you how to use the AWS IoT console to configure and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
 
-## <a name="w110aac26c27b6"></a>
+## <a name="w112aac25c27b6"></a>
 
 Stream manager makes ingesting, processing, and exporting high\-volume data streams more efficient and reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
 
@@ -83,7 +83,7 @@ The tutorial should take about 20 minutes to complete\.
 
 ## Step 1: Create a Lambda function deployment package<a name="stream-manager-console-create-deployment-package"></a>
 
-### <a name="w110aac26c27c17b4"></a>
+### <a name="w112aac25c27c17b4"></a>
 
 In this step, you create a Lambda function deployment package that contains Python function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
 

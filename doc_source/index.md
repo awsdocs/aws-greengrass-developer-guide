@@ -112,6 +112,7 @@ Amazon's trademarks and trade dress may not be used in
       + [How AWS IoT Greengrass works with IAM](security_iam_service-with-iam.md)
       + [Greengrass service role](service-role.md)
       + [Greengrass group role](group-role.md)
+      + [Cross-service confused deputy prevention](cross-service-confused-deputy-prevention.md)
       + [Identity-based policy examples for AWS IoT Greengrass](security_iam_id-based-policy-examples.md)
       + [Troubleshooting identity and access issues for AWS IoT Greengrass](security_iam_troubleshoot.md)
    + [Compliance validation for AWS IoT Greengrass](compliance-validation.md)

@@ -49,7 +49,7 @@ First, create a customer\-managed policy that grants permissions required by the
    }
    ```
 
-1. Choose **Review policy**\.
+1. Choose **Next: Tags**, and then choose **Next: Review**\. Tags aren't used in this tutorial\.
 
 1. For **Name**, enter **greengrass\_CarStats\_Table**, and then choose **Create policy**\.
 
@@ -66,7 +66,7 @@ First, create a customer\-managed policy that grants permissions required by the
 1. Under **Attach permissions policies**, select the new **greengrass\_CarStats\_Table** policy\.  
 ![\[Screenshot of the Attach permissions policies page with the new policy selected.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-gs-mod6-attach-policy.png)
 
-1. Choose **Next: Tags**, and then choose **Next: Review**\. Tags aren't used in this tutorial\.
+1. Choose **Next: Tags**, and then choose **Next: Review**\.
 
 1. For **Role name**, enter **Greengrass\_Group\_Role**\.
 

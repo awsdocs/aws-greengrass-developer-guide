@@ -68,7 +68,7 @@ If you grant permission, the console checks whether a role named `Greengrass_Ser
 + If the role doesn't exist, the console creates a default Greengrass service role and attaches it to your AWS account in the current AWS Region\.
 
 **Note**  
-If you want to create a service role with custom role policies, use the IAM console to create or modify the role\. For more information, see [Creating a role to delegate permissions to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) or [Modifying a role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_modify.html) in the *IAM User Guide*\. Make sure that the role grants permissions that are equivalent to the `AWSGreengrassResourceAccessRolePolicy` managed policy for the features and resources that you use\.  
+If you want to create a service role with custom role policies, use the IAM console to create or modify the role\. For more information, see [Creating a role to delegate permissions to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) or [Modifying a role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_modify.html) in the *IAM User Guide*\. Make sure that the role grants permissions that are equivalent to the `AWSGreengrassResourceAccessRolePolicy` managed policy for the features and resources that you use\. We recommend that you also include the `aws:SourceArn` and `aws:SourceAccount` global condition context keys in your trust policy to help prevent the *confused deputy* security problem\. The condition context keys restrict access to allow only those requests that come from the specified account and Greengrass workspace\. For more information about the confused deputy problem, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.  
 If you create a service role, return to the AWS IoT console and attach the role to the group\. You can do this under **Greengrass service role** on the group's **Settings** page\.
 
  
@@ -148,7 +148,7 @@ Use the following steps to create a role and associate it with your AWS account\
 
 **To create the service role using IAM**
 
-1. Create the role with a trust policy that allows AWS IoT Greengrass to assume the role\. This example creates a role named `Greengrass_ServiceRole`, but you can use a different name\.
+1. Create the role with a trust policy that allows AWS IoT Greengrass to assume the role\. This example creates a role named `Greengrass_ServiceRole`, but you can use a different name\. We recommend that you also include the `aws:SourceArn` and `aws:SourceAccount` global condition context keys in your trust policy to help prevent the *confused deputy* security problem\. The condition context keys restrict access to allow only those requests that come from the specified account and Greengrass workspace\. For more information about the confused deputy problem, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
 
 ------
 #### [ Linux, macOS, or Unix ]
@@ -162,7 +162,15 @@ Use the following steps to create a role and associate it with your AWS account\
          "Principal": {
            "Service": "greengrass.amazonaws.com"
          },
-         "Action": "sts:AssumeRole"
+         "Action": "sts:AssumeRole",
+         "Condition": {
+           "StringEquals": {
+             "aws:SourceAccount": "account-id"
+           },
+           "ArnLike": {
+             "aws:SourceArn": "arn:aws:greengrass:region:account-id:*"
+           }
+         }
        }
      ]
    }'
@@ -172,7 +180,7 @@ Use the following steps to create a role and associate it with your AWS account\
 #### [ Windows command prompt ]
 
    ```
-   aws iam create-role --role-name Greengrass_ServiceRole --assume-role-policy-document "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"greengrass.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"
+   aws iam create-role --role-name Greengrass_ServiceRole --assume-role-policy-document "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"greengrass.amazonaws.com\"},\"Action\":\"sts:AssumeRole\",\"Condition\":{\"ArnLike\":{\"aws:SourceArn\":\"arn:aws:greengrass:region:account-id:*\"},\"StringEquals\":{\"aws:SourceAccount\":\"account-id\"}}}]}"
    ```
 
 ------
