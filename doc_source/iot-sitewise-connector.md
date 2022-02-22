@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -26,7 +26,8 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 11 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/11` | 
+| 12 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/12` | 
+| 11 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/11` | 
 | 10 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/10` | 
 | 9 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/9` | 
 | 8 | `arn:aws:greengrass:region::/connectors/IoTSiteWise/versions/8` | 
@@ -45,7 +46,7 @@ For information about version changes, see the [Changelog](#iot-sitewise-connect
 This connector has the following requirements:
 
 ------
-#### [ Version 9, 10, and 11 ]
+#### [ Version 9, 10, 11, and 12 ]
 
 **Important**  
 This version introduces new requirements: AWS IoT Greengrass Core software v1\.10\.2 and [stream manager](stream-manager.md)\.
@@ -248,7 +249,7 @@ This version introduces new requirements: AWS IoT Greengrass Core software v1\.1
 ## Parameters<a name="iot-sitewise-connector-param"></a>
 
 ------
-#### [ Versions 2, 3, 4, 5, 6, 7, 8, 9, 10, and 11 ]<a name="conn-sitewise-params-v2"></a>
+#### [ Versions 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, and 12 ]<a name="conn-sitewise-params-v2"></a>
 
 `SiteWiseLocalStoragePath`  
 The directory on the AWS IoT Greengrass host that the IoT SiteWise connector can write persistent data to\. Defaults to `/var/sitewise`\.  
@@ -334,7 +335,7 @@ This connector doesn't publish MQTT messages as output data\.
 
 ## Limits<a name="iot-sitewise-connector-limits"></a>
 
-This connector is subject to the following all limits imposed by IoT SiteWise, including the following\. For more informatison, see [ AWS IoT SiteWise endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) in the *AWS General Reference*\. 
+This connector is subject to the following all limits imposed by IoT SiteWise, including the following\. For more informatison, see [AWS IoT SiteWise endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-sitewise.html) in the *AWS General Reference*\. 
 + Maximum number of gateways per AWS account\.
 + Maximum number of OPC\-UA sources per gateway\.
 + Maximum rate of timestamp\-quality\-value \(TQV\) data points stored per AWS account\.
@@ -343,7 +344,7 @@ This connector is subject to the following all limits imposed by IoT SiteWise, i
 ## Licenses<a name="iot-sitewise-connector-license"></a>
 
 ------
-#### [ Version 9, 10, and 11 ]
+#### [ Version 9, 10, 11, and 12 ]
 
 The IoT SiteWise connector includes the following third\-party software/licensing:
 +  [MapDB](https://github.com/jankotek/mapdb/blob/master/LICENSE.txt) 
@@ -378,6 +379,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | Date | 
 | --- | --- | --- | 
+|  12  |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/iot-sitewise-connector.html)  |  December 22, 2021  | 
 |  11  |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/iot-sitewise-connector.html)  |  March 24, 2021  | 
 |  10  |  Configured `StreamManager` to improve handling when the source connection is lost and re\-established\. This version also accepts OPC\-UA values with a `ServerTimestamp` when no `SourceTimestamp` is available\.  |  January 22, 2021  | 
 |  9  |  Support launched for custom Greengrass `StreamManager` stream destinations, OPC\-UA deadbanding, custom scan mode and custom scan rate\. Also includes improved performance during configuration updates made from the IoT SiteWise gateway\.  |  December 15, 2020  | 

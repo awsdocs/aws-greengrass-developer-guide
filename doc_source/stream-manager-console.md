@@ -1,14 +1,12 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
 # Export data streams to the AWS Cloud \(console\)<a name="stream-manager-console"></a>
 
 This tutorial shows you how to use the AWS IoT console to configure and deploy an AWS IoT Greengrass group with stream manager enabled\. The group contains a user\-defined Lambda function that writes to a stream in stream manager, which is then exported automatically to the AWS Cloud\.
-
-## <a name="w112aac25c27b6"></a>
 
 Stream manager makes ingesting, processing, and exporting high\-volume data streams more efficient and reliable\. In this tutorial, you create a `TransferStream` Lambda function that consumes IoT data\. The Lambda function uses the AWS IoT Greengrass Core SDK to create a stream in stream manager and then read and write to it\. Stream manager then exports the stream to Kinesis Data Streams\. The following diagram shows this workflow\.
 
@@ -39,7 +37,7 @@ To complete this tutorial, you need:<a name="stream-manager-howto-prereqs"></a>
   + Install Python 3\.7 or later on the core device\.
   + Include the SDK and its dependencies in your Lambda function deployment package\. Instructions are provided in this tutorial\.
 **Tip**  
-You can use `StreamManagerClient` with Java or NodeJS\. For example code, see the [ AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/blob/master/samples/StreamManagerKinesis/src/main/java/com/amazonaws/greengrass/examples/StreamManagerKinesis.java) and [AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/blob/master/greengrassExamples/StreamManagerKinesis/index.js) on GitHub\.
+You can use `StreamManagerClient` with Java or NodeJS\. For example code, see the [AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/blob/master/samples/StreamManagerKinesis/src/main/java/com/amazonaws/greengrass/examples/StreamManagerKinesis.java) and [AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/blob/master/greengrassExamples/StreamManagerKinesis/index.js) on GitHub\.
 + A destination stream named **MyKinesisStream** created in Amazon Kinesis Data Streams in the same AWS Region as your Greengrass group\. For more information, see [Create a stream](https://docs.aws.amazon.com/streams/latest/dev/fundamental-stream.html#create-stream) in the *Amazon Kinesis Developer Guide*\.
 **Note**  
 In this tutorial, stream manager exports data to Kinesis Data Streams, which results in charges to your AWS account\. For information about pricing, see [Kinesis Data Streams pricing](https://aws.amazon.com/kinesis/data-streams/pricing/)\.  
@@ -83,8 +81,6 @@ The tutorial should take about 20 minutes to complete\.
 
 ## Step 1: Create a Lambda function deployment package<a name="stream-manager-console-create-deployment-package"></a>
 
-### <a name="w112aac25c27c17b4"></a>
-
 In this step, you create a Lambda function deployment package that contains Python function code and dependencies\. You upload this package later when you create the Lambda function in AWS Lambda\. The Lambda function uses the AWS IoT Greengrass Core SDK to create and interact with local streams\.
 
 **Note**  
@@ -106,7 +102,7 @@ In this step, you create a Lambda function deployment package that contains Pyth
 
 1. Save the following Python code function in a local file named `transfer_stream.py`\.
 **Tip**  
- For example code that uses Java and NodeJS, see the [ AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/blob/master/samples/StreamManagerKinesis/src/main/java/com/amazonaws/greengrass/examples/StreamManagerKinesis.java) and [AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/blob/master/greengrassExamples/StreamManagerKinesis/index.js) on GitHub\.
+ For example code that uses Java and NodeJS, see the [AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/blob/master/samples/StreamManagerKinesis/src/main/java/com/amazonaws/greengrass/examples/StreamManagerKinesis.java) and [AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/blob/master/greengrassExamples/StreamManagerKinesis/index.js) on GitHub\.
 
    ```
    import asyncio

@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -33,161 +33,19 @@ Run Greengrass device setup to configure your device, install the latest AWS IoT
 
 ## Install the AWS IoT Greengrass Core software from an APT repository<a name="ggc-package-manager"></a>
 
-You can use the Advanced Package Tool \(APT\) package management system to install the latest version of the AWS IoT Greengrass Core software on your core device\. The APT repository provided by AWS IoT Greengrass includes the following packages:
+**Important**  
+As of February 11, 2022, you can no longer install or update the AWS IoT Greengrass Core software from an APT repository\. On devices where you added the AWS IoT Greengrass repository, you must [remove the repository from the sources list](#ggc-package-manager-remove-sources)\. Devices that run the software from the APT repository will continue to operate normally\. We recommend that you update the AWS IoT Greengrass Core software using [tar files](#download-and-extract-tarball)\.
+
+The APT repository provided by AWS IoT Greengrass includes the following packages:
 + `aws-iot-greengrass-core`\. Installs the AWS IoT Greengrass Core software\.
 + `aws-iot-greengrass-keyring`\. Installs the GnuPG \(GPG\) keys used to sign the AWS IoT Greengrass package repository\.
 
   By downloading this software, you agree to the [ Greengrass Core Software License Agreement](https://greengrass-release-license.s3.us-west-2.amazonaws.com/greengrass-license-v1.pdf)\.
 
 **Topics**
-+ [Considerations](#greengrass-package-manager-considerations)
-+ [Requirements](#ggc-package-manager-reqs)
-+ [Use apt to install the AWS IoT Greengrass Core software](#ggc-package-manager-install)
 + [Use systemd scripts to manage the Greengrass daemon lifecycle](#ggc-package-manager-systemd)
-
-### Considerations<a name="greengrass-package-manager-considerations"></a>
-
-You should be aware of the following considerations when you use the `apt` command to install the AWS IoT Greengrass Core software:
-
-**The AWS IoT Greengrass Core software is installed in the root directory\.**  
-The `apt` command installs the AWS IoT Greengrass Core software in a `greengrass` directory in the root file system\. If `/greengrass` is already present, the command installs the new software version, but does not overwrite any group information or core configuration\.
-
-**Over\-the\-air \(OTA\) updates are not supported\.**  <a name="ota-updates-not-supported"></a>
-You can use APT to upgrade the AWS IoT Greengrass Core software on your core device, but it doesn't support the safe update path provided by the AWS IoT Greengrass OTA update agent\. The OTA update agent is a software component included with the AWS IoT Greengrass Core software package that's installed when you use the [Download and extract a tar\.gz file](#download-and-extract-tarball) or [Run the Greengrass device setup script](#run-device-setup-script) installation options\. The OTA update agent helps to guarantee that the core continues to function after an update by rolling back if the updates fails\. For more information, see [OTA updates of AWS IoT Greengrass Core software](core-ota-update.md)\.
-
-**APT installs the latest available version by default\.**  
-When you use the default `apt install` command, it installs the latest available version of the AWS IoT Greengrass Core software\. If you are running a previous version of AWS IoT Greengrass Core software, and you want to upgrade only to the latest available patch release for that version, then you must specify that version in your `apt install` command\. For example, the following command installs v1\.10\.3 of the AWS IoT Greengrass Core software\.  
-
-```
-sudo apt install aws-iot-greengrass-core=1.10.3-1
-```
-You can install only the latest available patch for any version of the AWS IoT Greengrass Core software\. After you install the latest patch, you cannot use APT to install a previous patch release for that version\. Instead, you must manually download the software and then install it\. For information about specific versions of the AWS IoT Greengrass Core software, see [AWS IoT Greengrass Core software versions](what-is-gg.md#ggc-versions)\.
-
-**We recommend that you keep the keyring package updated\.**  <a name="install-keyring-package"></a>
-Keeping the `aws-iot-greengrass-keyring` package updated allows you to receive updates for the GPG keys used to authenticate AWS IoT Greengrass APT repositories\. It also allows you to upgrade the AWS IoT Greengrass Core software more easily\. These trusted keys are installed in `/etc/apt/trusted.gpg.d/`\. Public keys are valid for two years\. If they expire, you must reconfigure the keyring package:  
-
-```
-wget -O aws-iot-greengrass-keyring.deb https://d1onfpft10uf5o.cloudfront.net/greengrass-apt/downloads/aws-iot-greengrass-keyring.deb
-sudo dpkg -i aws-iot-greengrass-keyring.deb
-```
-In the unlikely event that the keys managed by AWS IoT Greengrass become compromised, you must update the `aws-iot-greengrass-keyring` package to replace the compromised keys with new keys\. For more information, contact [AWS Customer Support](https://aws.amazon.com/contact-us/)\.
-
-### Requirements<a name="ggc-package-manager-reqs"></a>
-
-The following requirements apply for using `apt` to install the AWS IoT Greengrass Core software:
-+ Your device must be running one of the following platforms:    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/install-ggc.html)
-+ You must have root access on the device\.
-+ To complete the steps in the following procedures, the following shell commands must be installed on the device: `sudo`, `wget` or `curl`, `dpkg`, `echo`, `unzip`, and `tar`\.
-
-### Use apt to install the AWS IoT Greengrass Core software<a name="ggc-package-manager-install"></a>
-
-You can use the APT package management system to install the AWS IoT Greengrass Core software on your device\. Some core configuration steps might be required before you install the software\.
-
-In the following procedures, run the commands in a terminal window on your device\.
-
-**To configure your core**
-
-1. If you're setting up AWS IoT Greengrass for the first time, you must configure your core\. If the `adduser` or `addgroup` command is not available, use `useradd` or `groupadd` instead\.
-
-   1. Create the `ggc_user` and `ggc_group` system accounts\.
-
-      ```
-      sudo adduser --system ggc_user
-      sudo addgroup --system ggc_group
-      ```
-
-   1. Set up your core device certificates and keys and your core configuration file\.
-
-      1. Follow the steps in [Configure AWS IoT Greengrass on AWS IoT](gg-config.md) to create a Greengrass group and register your core\. This process also generates a security resources package that you download\. The package is a tar\.gz file that contains a core device certificate, public\-private keys, and the core configuration file\. The name of the file starts with a 10\-digit hash \(for example, `c6973960cc-setup.tar.gz`\) that's also used for the certificate and key file names\.
-
-         Skip step 11 where you download the AWS IoT Greengrass Core software\.
-
-      1. Transfer the package to your core device and run the following command to install the security resources\. Replace *hash* with the 10\-digit hash from your tar\.gz file\.
-
-         ```
-         sudo mkdir -p /greengrass
-         sudo tar -xzvf hash-setup.tar.gz -C /greengrass
-         ```
-
-      1. Download a root CA certificate\. For information about choosing the appropriate root CA certificate, see [Server authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Core Developer Guide*\.
-
-         The following example downloads `AmazonRootCA1.pem`\. To use `curl`, replace `wget -O` in the command with `curl`\.
-
-         ```
-         cd /greengrass/certs/
-         sudo wget -O root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
-         ```
-
-      These steps install the certificates and keys to `/greengrass/certs` and the configuration file to `/greengrass/config`\. For more information, see [AWS IoT Greengrass core configuration file](gg-core.md#config-json)\.
-
-1. Download and run the dependency checker for AWS IoT Greengrass\. The dependency checker makes sure you have all of the required dependencies for the AWS IoT Greengrass Core software\. You can skip this step if you're upgrading from one patch version to another patch version \(for example, v1\.10\.2 to v1\.10\.3\)\.
-
-   1. In the directory where you want to download the script, run the following command\. To use `curl`, replace `wget` in the command with `curl`\.
-
-      ```
-      mkdir greengrass-dependency-checker-GGCv1.11.x
-      cd greengrass-dependency-checker-GGCv1.11.x
-      wget https://github.com/aws-samples/aws-greengrass-samples/raw/master/greengrass-dependency-checker-GGCv1.11.x.zip
-      unzip greengrass-dependency-checker-GGCv1.11.x.zip
-      cd greengrass-dependency-checker-GGCv1.11.x
-      sudo ./check_ggc_dependencies | more
-      ```
-
-   1. Where `more` appears, press the Spacebar key to page throught the output\.
-      + If [stream manager](stream-manager.md) is enabled in your Greengrass group, you must also install the Java 8 runtime before you deploy the group\. This feature is enabled by default when you use the **Default Group creation** workflow in the AWS IoT Greengrass console to create a group\.
-      + You can install your target Lambda runtimes \(for example, Python 3\.8\) and ignore the warnings about other missing optional runtime prerequisites\.
-      + You can ignore warnings about missing shell commands\. These are required by the OTA update agent, which isn't included in this installation\.
-
-       
-
-**To install the AWS IoT Greengrass Core software**
-
-1. Install the AWS IoT Greengrass keyring package and add the repository\. To use `curl`, replace `wget -O` in the command with `curl`\.
-
-   ```
-   wget -O aws-iot-greengrass-keyring.deb https://d1onfpft10uf5o.cloudfront.net/greengrass-apt/downloads/aws-iot-greengrass-keyring.deb
-   sudo dpkg -i aws-iot-greengrass-keyring.deb
-   echo "deb https://dnw9lb6lzp2d8.cloudfront.net stable main" | sudo tee /etc/apt/sources.list.d/greengrass.list
-   ```
-**Note**  
-If you keep the keyring package updated on your device, this step is required only the first time you install the AWS IoT Greengrass Core software from the APT repository\.
-
-1. Update your list of packages\.
-
-   ```
-   sudo apt update
-   ```
-
-1. Install the AWS IoT Greengrass Core software\.
-
-   ```
-   sudo apt install aws-iot-greengrass-core
-   ```
-
-1. Start the Greengrass daemon\. The following commands use [systemd scripts](#ggc-package-manager-systemd) installed with the `aws-iot-greengrass-core` package\.
-
-   ```
-   systemctl start greengrass.service
-   systemctl status greengrass.service
-   ```
-
-   If the output displays an `Active` state of `active (running)`, the daemon started successfully\.
-
- 
-
-**To stop using the APT repository**
-
-If you want to stop using the APT repository for AWS IoT Greengrass, remove the packages and update your sources list\.
-
-**Note**  
-The `remove` command removes the packages, but not your configuration information\. If you also want to permanently remove all configuration information \(including device certificates, group information, and log files\), replace `remove` in the following command with `purge`\.
-
-```
-sudo apt remove aws-iot-greengrass-core aws-iot-greengrass-keyring
-sudo rm /etc/apt/sources.list.d/greengrass.list
-sudo apt update
-```
++ [Uninstall the AWS IoT Greengrass core software using the APT repository](#ggc-package-manager-uninstall)
++ [Remove the AWS IoT Greengrass core software repository sources](#ggc-package-manager-remove-sources)
 
 ### Use systemd scripts to manage the Greengrass daemon lifecycle<a name="ggc-package-manager-systemd"></a>
 
@@ -213,7 +71,38 @@ The `aws-iot-greengrass-core` package also installs `systemd` scripts that you c
   systemctl status greengrass.service
   ```
 
- 
+### Uninstall the AWS IoT Greengrass core software using the APT repository<a name="ggc-package-manager-uninstall"></a>
+
+When you uninstall the AWS IoT Greengrass core software, you can choose whether to preserve or remove the AWS IoT Greengrass core software's configuration information, such as device certificates, group information, and log files\.
+
+**To uninstall the AWS IoT Greengrass core software and preserve configuration information**
++ Run the following command to remove the AWS IoT Greengrass core software packages and preserve configuration information in the `/greengrass` folder\.
+
+  ```
+  sudo apt remove aws-iot-greengrass-core aws-iot-greengrass-keyring
+  ```
+
+**To uninstall the AWS IoT Greengrass core software and remove configuration information**
+
+1. Run the following command to remove the AWS IoT Greengrass core software packages and remove configuration information from the `/greengrass folder`\.
+
+   ```
+   sudo apt purge aws-iot-greengrass-core aws-iot-greengrass-keyring
+   ```
+
+1. Remove the AWS IoT Greengrass core software repository from your sources list\. For more information, see [Remove the AWS IoT Greengrass core software repository sources](#ggc-package-manager-remove-sources)\.
+
+### Remove the AWS IoT Greengrass core software repository sources<a name="ggc-package-manager-remove-sources"></a>
+
+You can remove the AWS IoT Greengrass core software repository sources when you no longer need to install or update the AWS IoT Greengrass core software from the APT repository\. After February 11, 2022, you must remove the repository from your sources list to avoid an error when you run `apt update`\.
+
+**To remove the APT repository from the sources list**
++ Run the following commands to remove the AWS IoT Greengrass core software repository from the sources list\.
+
+  ```
+  sudo rm /etc/apt/sources.list.d/greengrass.list
+  sudo apt update
+  ```
 
 ## Run AWS IoT Greengrass in a Docker container<a name="gg-docker-support"></a>
 
@@ -333,7 +222,7 @@ The `snapd` daemon is preinstalled on Ubuntu\.
      Example response:
 
      ```
-     aws-iot-greengrass 1.11.4 from Amazon Web Services (aws) installed
+     aws-iot-greengrass 1.11.5 from Amazon Web Services (aws) installed
      ```
    + To migrate from an earlier version to v1\.11\.x or update to the latest available patch version, run the following command:
 
@@ -341,7 +230,7 @@ The `snapd` daemon is preinstalled on Ubuntu\.
      sudo snap refresh --channel=1.11.x aws-iot-greengrass
      ```
 
-   Like other snaps, the AWS IoT Greengrass snap uses channels to manage minor versions\. Snaps are automatically updated to the latest available version of the current channel\. For examples, if you specify `--channel=1.11.x`, your AWS IoT Greengrass snap is updated to v1\.11\.4\. 
+   Like other snaps, the AWS IoT Greengrass snap uses channels to manage minor versions\. Snaps are automatically updated to the latest available version of the current channel\. For examples, if you specify `--channel=1.11.x`, your AWS IoT Greengrass snap is updated to v1\.11\.5\. 
 
    You can run the `snap info aws-iot-greengrass` command to get the list of available channels for AWS IoT Greengrass\.
 
@@ -352,7 +241,7 @@ The `snapd` daemon is preinstalled on Ubuntu\.
    summary:   AWS supported software that extends cloud capabilities to local devices.
    publisher: Amazon Web Services (aws✓)
    store-url: https://snapcraft.io/aws-iot-greengrass
-   contact:   https://forums.aws.amazon.com/forum.jspa?forumID=254&start=0
+   contact:   https://repost.aws/tags/TA4ckIed1sR4enZBey29rKTg/aws-io-t-greengrass
    license:   Proprietary
    description: |
      AWS IoT Greengrass seamlessly extends AWS onto edge devices so they can act locally on the data
@@ -365,8 +254,8 @@ The `snapd` daemon is preinstalled on Ubuntu\.
      For more information, see Run AWS IoT Greengrass in a snap
      (https://docs.aws.amazon.com/greengrass/latest/developerguide/install-ggc.html#gg-snap-support) in
      the AWS IoT Greengrass Developer.
-     If you need help, try the AWS IoT Greengrass forum
-     (https://forums.aws.amazon.com/forum.jspa?forumID=254) or connect with an AWS IQ expert
+     If you need help, try the AWS IoT Greengrass tag on AWS re:Post
+     (https://repost.aws/tags/TA4ckIed1sR4enZBey29rKTg/aws-io-t-greengrass) or connect with an AWS IQ expert
      (https://iq.aws.amazon.com/services/aws/greengrass).
    snap-id: SRDuhPJGj4XPxFNNZQKOTvURAp0wxKnd
    channels:
@@ -625,7 +514,7 @@ Couldn't find /snap/aws-iot-greengrass/44/greengrass/config/config.json.
 
 This examples shows that AWS IoT Greengrass couldn't find the `config.json` file\. You might check the configuration and certificate files\.
 
-#### /var/snap/aws\-iot\-greengrass/current/ggc\-write\-directory/packages/1\.11\.4/rootfs/merged is not an absolute path or is a symlink\.<a name="gg-snap-troubleshoot-lambda"></a>
+#### /var/snap/aws\-iot\-greengrass/current/ggc\-write\-directory/packages/1\.11\.5/rootfs/merged is not an absolute path or is a symlink\.<a name="gg-snap-troubleshoot-lambda"></a>
 
 **Solution**: The AWS IoT Greengrass snap supports only noncontainerized Lambda functions\. Make sure that you run your Lambda functions in the no container mode\. For more information, see [Considerations when choosing Lambda function containerization](https://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-group-config.html#no-container-mode) in the *AWS IoT Greengrass Version 1 Developer Guide*\.
 

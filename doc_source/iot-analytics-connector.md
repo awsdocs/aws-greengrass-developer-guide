@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -13,7 +13,7 @@ AWS IoT Analytics is a fully managed service that allows you to collect, store, 
 
 The connector accepts formatted and unformatted data on [input MQTT topics](#iot-analytics-connector-data-input)\. It supports two predefined topics where the destination channel is specified inline\. It can also receive messages on customer\-defined topics that are [configured in subscriptions](connectors.md#connectors-inputs-outputs)\. This can be used to route messages from devices that publish to fixed topics or handle unstructured or stack\-dependent data from resource\-constrained devices\.
 
-This connector uses the [ `BatchPutMessage`](https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage) API to send data \(as a JSON or base64\-encoded string\) to the destination channel\. The connector can process raw data into a format that conforms to API requirements\. The connector buffers input messages in per\-channel queues and asynchronously processes the batches\. It provides parameters that allow you to control queueing and batching behavior and to restrict memory consumption\. For example, you can configure the maximum queue size, batch interval, memory size, and number of active channels\.
+This connector uses the [https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage](https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage) API to send data \(as a JSON or base64\-encoded string\) to the destination channel\. The connector can process raw data into a format that conforms to API requirements\. The connector buffers input messages in per\-channel queues and asynchronously processes the batches\. It provides parameters that allow you to control queueing and batching behavior and to restrict memory consumption\. For example, you can configure the maximum queue size, batch interval, memory size, and number of active channels\.
 
 This connector has the following versions\.
 
@@ -379,7 +379,7 @@ def lambda_handler(event, context):
 ## Limits<a name="iot-analytics-connector-limits"></a>
 
 This connector is subject to the following limits\.
-+ All limits imposed by the AWS SDK for Python \(Boto3\) for the AWS IoT Analytics [ `batch_put_message`](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotanalytics.html#IoTAnalytics.Client.batch_put_message) action\.
++ All limits imposed by the AWS SDK for Python \(Boto3\) for the AWS IoT Analytics [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotanalytics.html#IoTAnalytics.Client.batch_put_message](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotanalytics.html#IoTAnalytics.Client.batch_put_message) action\.
 + All quotas imposed by the AWS IoT Analytics [ BatchPutMessage](https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage) API\. For more information, see [ Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-analytics.html#limits_iot_analytics) for AWS IoT Analytics in the *AWS General Reference*\.
   + 100,000 messages per second per channel\.
   + 100 messages per batch\.

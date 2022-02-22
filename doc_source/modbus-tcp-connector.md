@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -18,8 +18,9 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
-| 1 | `arn:aws:greengrass:region::/connectors/ModbusTCPConnector/versions/1` | 
+| 3 | `arn:aws:greengrass:region::/connectors/ModbusTCPConnector/versions/3` | 
 | 2 | `arn:aws:greengrass:region::/connectors/ModbusTCPConnector/versions/2` | 
+| 1 | `arn:aws:greengrass:region::/connectors/ModbusTCPConnector/versions/1` | 
 
 For information about version changes, see the [Changelog](#modbus-tcp-connector-changelog)\.
 
@@ -28,7 +29,7 @@ For information about version changes, see the [Changelog](#modbus-tcp-connector
 This connector has the following requirements:
 
 ------
-#### [ Version 1 \- 2 ]
+#### [ Version 1 \- 3 ]
 + AWS IoT Greengrass Core software v1\.10\.2 or later\.
 + Stream manager enabled on the AWS IoT Greengrass group\.
 + Java 8 installed on the core device and added to the `PATH` environment variable\.
@@ -123,7 +124,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyModbusTCPConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ModbusTCP/versions/2",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/ModbusTCP/versions/3",
             "Parameters": {
                 "capability_configuration": "{\"version\":1,\"namespace\":\"iotsitewise:modbuscollector:1\",\"configuration\":\"{\"sources\":[{\"type\":\"ModBusTCPSource\",\"name\":\"SourceName1\",\"measurementDataStreamPrefix\":\"\",\"endpoint\":{\"ipAddress\":\"127.0.0.1\",\"port\":8081,\"unitId\":1},\"propertyGroups\":[{\"name\":\"PropertyGroupName\",\"tagPathDefinitions\":[{\"type\":\"ModBusTCPAddress\",\"tag\":\"TT-001\",\"address\":\"30001\",\"size\":2,\"srcDataType\":\"hexdump\",\"transformation\":\"noSwap\",\"dstDataType\":\"string\"}],\"scanMode\":{\"rate\":200,\"type\":\"POLL\"}}],\"destination\":{\"type\":\"StreamManager\",\"streamName\":\"SiteWise_Stream\",\"streamBufferSize\":10},\"minimumInterRequestDuration\":200}]}\"}"
             }
@@ -145,15 +146,15 @@ This connector publishes data to `StreamManager`\. You must configure the destin
 
 ```
 {
- "alias" : "string",
- "messages" : [
- {
- "name": "string",
- "value": boolean|double|integer|string,
- "timestamp": number,
- "quality": "string"
- }
- ]
+    "alias": "string",
+    "messages": [
+        {
+            "name": "string",
+            "value": boolean|double|integer|string,
+            "timestamp": number,
+            "quality": "string"
+        }
+    ]
 }
 ```
 
@@ -171,6 +172,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | Date | 
 | --- | --- | --- | 
+| 3 \(recommended\) | This version contains bug fixes\. | December 22, 2021 | 
 | 2 | Added support for ASCII, UTF8, and ISO8859 encoded source strings\. | May 24, 2021 | 
 | 1 | Initial release\. | December 15, 2020 | 
 

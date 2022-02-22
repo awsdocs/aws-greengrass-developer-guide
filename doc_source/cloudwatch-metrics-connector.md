@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -15,6 +15,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 5 | `arn:aws:greengrass:region::/connectors/CloudWatchMetrics/versions/5` | 
 | 4 | `arn:aws:greengrass:region::/connectors/CloudWatchMetrics/versions/4` | 
 | 3 | `arn:aws:greengrass:region::/connectors/CloudWatchMetrics/versions/3` | 
 | 2 | `arn:aws:greengrass:region::/connectors/CloudWatchMetrics/versions/2` | 
@@ -27,7 +28,7 @@ For information about version changes, see the [Changelog](#cloudwatch-metrics-c
 This connector has the following requirements:
 
 ------
-#### [ Version 3 \- 4 ]
+#### [ Version 3 \- 5 ]
 + <a name="conn-req-ggc-v1.9.3"></a>AWS IoT Greengrass Core software v1\.9\.3 or later\.
 + <a name="conn-req-py-3.7-and-3.8"></a>[Python](https://www.python.org/) version 3\.7 or 3\.8 installed on the core device and added to the PATH environment variable\.
 **Note**  <a name="use-runtime-py3.8"></a>
@@ -92,7 +93,7 @@ This configures your device to meet the Python requirement for AWS IoT Greengras
 This connector provides the following parameters:
 
 ------
-#### [ Version 4 ]
+#### [ Versions 4 \- 5 ]
 
 `PublishInterval`  <a name="cw-metrics-PublishInterval"></a>
 The maximum number of seconds to wait before publishing batched metrics for a given namespace\. The maximum value is 900\. To configure the connector to publish metrics as they are received \(without batching\), specify 0\.  
@@ -208,7 +209,7 @@ This connector accepts metrics on an MQTT topic and publishes the metrics to Clo
 **Message properties**    
 `request`  
 Information about the metric in this message\.  
-The request object contains the metric data to publish to CloudWatch\. The metric values must meet the specifications of the [ `PutMetricData`](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html) API\. Only the `namespace`, `metricData.metricName`, and `metricData.value` properties are required\.  
+The request object contains the metric data to publish to CloudWatch\. The metric values must meet the specifications of the [https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html) API\. Only the `namespace`, `metricData.metricName`, and `metricData.value` properties are required\.  
 Required: `true`  
 Type: `object` that includes the following properties:    
 `namespace`  
@@ -241,7 +242,7 @@ Type: `string`
 The time that the metric data was received, expressed as the number of seconds since `Jan 1, 1970 00:00:00 UTC`\. If this value is omitted, the connector uses the time that it received the message\.  
 Required: `false`  
 Type: `timestamp`  
-When you send multiple metrics within a single Lambda function, we recommend that you retrieve the timestamp separately for each metric\. Don't use a variable to store the timestamp\.  
+If you use between versions 1 and 4 of this connector, we recommend that you retrieve the timestamp separately for each metric when you send multiple metrics from a single source\. Don't use a variable to store the timestamp\.  
 `value`  
 The value for the metric\.  
 CloudWatch rejects values that are too small or too large\. Values must be in the range of `8.515920e-109` to `1.174271e+108` \(Base 10\) or `2e-360` to `2e360` \(Base 2\)\. Special values \(for example, `NaN`, `+Infinity`, `-Infinity`\) are not supported\.
@@ -254,7 +255,7 @@ Type: `string`
 Valid values: `Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None`
 
 Limits  
-All limits that are imposed by the CloudWatch [ `PutMetricData`](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html) API apply to metrics when using this connector\. The following limits are especially important:  
+All limits that are imposed by the CloudWatch [https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html) API apply to metrics when using this connector\. The following limits are especially important:  
 + 40 KB limit on API payload
 + 20 metrics per API request
 + 150 transactions per second \(TPS\) for the `PutMetricData` API
@@ -414,6 +415,7 @@ The following table describes the changes in each version of the connector\.
 
 | Version | Changes | 
 | --- | --- | 
+| 5 | Fix to add support for duplicate timestamps in input data\. | 
 | 4 | <a name="isolation-mode-changelog"></a>Added the `IsolationMode` parameter to configure the containerization mode for the connector\. | 
 | 3 | <a name="upgrade-runtime-py3.7"></a>Upgraded the Lambda runtime to Python 3\.7, which changes the runtime requirement\. | 
 | 2 | Fix to reduce excessive logging\. | 

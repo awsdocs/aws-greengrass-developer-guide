@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -148,7 +148,7 @@ You can set the environment variable in the function code or add it to the funct
 **Note**  
 For general use of the MXNet framework, such as running a third\-party code example, the environment variable must be configured on the Raspberry Pi\.
 
-### TensorFlow model\-serving limitations on Raspberry Pi<a name="w112aac22c15c17"></a>
+### TensorFlow model\-serving limitations on Raspberry Pi<a name="tensorflow-limitations"></a>
 
 The following recommendations for improving inference results are based on our tests with the TensorFlow 32\-bit Arm libraries on the Raspberry Pi platform\. These recommendations are intended for advanced users for reference only, without guarantees of any kind\.
 + Models that are trained using the [Checkpoint](https://www.tensorflow.org/guide/checkpoint) format should be "frozen" to the protocol buffer format before serving\. For an example, see the [TensorFlow\-Slim image classification model library](https://github.com/tensorflow/models/tree/master/research/slim)\.

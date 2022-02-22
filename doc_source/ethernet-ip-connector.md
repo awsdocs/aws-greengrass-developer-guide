@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -18,6 +18,7 @@ This connector has the following versions\.
 
 | Version | ARN | 
 | --- | --- | 
+| 2 \(recommended\) | `arn:aws:greengrass:region::/connectors/IoTEIPProtocolAdaptor/versions/2` | 
 | 1 | `arn:aws:greengrass:region::/connectors/IoTEIPProtocolAdaptor/versions/1` | 
 
 For information about version changes, see the [Changelog](#ethernet-ip-connector-changelog)\.
@@ -27,7 +28,7 @@ For information about version changes, see the [Changelog](#ethernet-ip-connecto
 This connector has the following requirements:
 
 ------
-#### [ Version 1 ]
+#### [ Version 1 and 2 ]
 + AWS IoT Greengrass Core software v1\.10\.2 or later\.
 + Stream manager enabled on the AWS IoT Greengrass group\.
 + Java 8 installed on the core device and added to the `PATH` environment variable\.
@@ -35,6 +36,7 @@ This connector has the following requirements:
 
 **Note**  
  This connector is available only in the following Regions:   
+cn\-north\-1
 ap\-southeast\-1
 ap\-southeast\-2
 eu\-central\-1
@@ -66,37 +68,37 @@ Type: A well\-formed JSON string that defines the set of supported feedback conf
 ```
 {
     "sources": [
- {
- "type": "EIPSource",
- "name": "TestSource",
- "endpoint": {
- "ipAddress": "52.89.2.42",
- "port": 44818
- },
- "destination": {
- "type": "StreamManager",
- "streamName": "MyOutput_Stream",
- "streamBufferSize": 10
- },
- "destinationPathPrefix": "EIPSource_Prefix",
- "propertyGroups": [
- {
- "name": "DriveTemperatures",
- "scanMode": {
- "type": "POLL",
- "rate": 10000
- },
- "tagPathDefinitions": [
- {
- "type": "EIPTagPath",
- "path": "arrayREAL[0]",
- "dstDataType": "double"
- }
- ]
- }
- ]
- }
- ]
+        {
+            "type": "EIPSource",
+            "name": "TestSource",
+            "endpoint": {
+                "ipAddress": "52.89.2.42",
+                "port": 44818
+            },
+            "destination": {
+                "type": "StreamManager",
+                "streamName": "MyOutput_Stream",
+                "streamBufferSize": 10
+            },
+            "destinationPathPrefix": "EIPSource_Prefix",
+            "propertyGroups": [
+                {
+                    "name": "DriveTemperatures",
+                    "scanMode": {
+                        "type": "POLL",
+                        "rate": 10000
+                    },
+                    "tagPathDefinitions": [
+                        {
+                            "type": "EIPTagPath",
+                            "path": "arrayREAL[0]",
+                            "dstDataType": "double"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
 ```
 
@@ -110,7 +112,7 @@ aws greengrass create-connector-definition --name MyGreengrassConnectors --initi
     "Connectors": [
         {
             "Id": "MyIoTEIPProtocolConnector",
-            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTEIPProtocolAdaptor/versions/1",
+            "ConnectorArn": "arn:aws:greengrass:region::/connectors/IoTEIPProtocolAdaptor/versions/2",
             "Parameters": {
                 "ProtocolAdaptorConfiguration": "{ \"sources\": [{ \"type\": \"EIPSource\", \"name\": \"Source1\", \"endpoint\": { \"ipAddress\": \"54.245.77.218\", \"port\": 44818 }, \"destinationPathPrefix\": \"EIPConnector_Prefix\", \"propertyGroups\": [{ \"name\": \"Values\", \"scanMode\": { \"type\": \"POLL\", \"rate\": 2000 }, \"tagPathDefinitions\": [{ \"type\": \"EIPTagPath\", \"path\": \"arrayREAL[0]\", \"dstDataType\": \"double\" }]}]}]}",
                 "LocalStoragePath": "/var/MyIoTEIPProtocolConnectorState"
@@ -133,15 +135,15 @@ This connector publishes data to `StreamManager`\. You must configure the destin
 
 ```
 {
- "alias" : "string",
- "messages" : [
- {
- "name": "string",
- "value": boolean|double|integer|string,
- "timestamp": number,
- "quality": "string"
- }
- ]
+    "alias": "string",
+    "messages": [
+        {
+            "name": "string",
+            "value": boolean|double|integer|string,
+            "timestamp": number,
+            "quality": "string"
+        }
+    ]
 }
 ```
 
@@ -159,9 +161,10 @@ This connector is released under the [Greengrass Core Software License Agreement
 The following table describes the changes in each version of the connector\.
 
 
-| Version | Changes | 
-| --- | --- | 
-| 1 | Initial release\.  | 
+| Version | Changes | Date | 
+| --- | --- | --- | 
+| 2 | This version contains bug fixes\. | December 23, 2021 | 
+| 1 | Initial release\. | December 15, 2020 | 
 
 <a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 

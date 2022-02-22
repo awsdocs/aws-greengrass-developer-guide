@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -82,6 +82,10 @@ The following tabs describe what's new and changed in AWS IoT Greengrass Core so
 ------
 #### [ GGC v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
+1\.11\.5  
+Bug fixes and improvements:  
++ General performance improvements and bug fixes\.
+
 1\.11\.4  
 Bug fixes and improvements:  
 + Fixed an issue with stream manager that prevented upgrades to AWS IoT Greengrass Core software v1\.11\.3\. If you are using stream manager to export data to the cloud, you can now use an OTA update to upgrade an earlier v1\.x version of the AWS IoT Greengrass Core software to v1\.11\.4\.
@@ -127,6 +131,10 @@ Bug fixes and improvements:  <a name="bug-fix-v1110"></a>
 
 ------
 #### [ GGC v1\.10 ]<a name="ggc-v1.10-tab"></a>
+
+1\.10\.5  
+Bug fixes and improvements:  
++ General performance improvements and bug fixes\. 
 
 1\.10\.4  
 Bug fixes and improvements:  
@@ -326,7 +334,7 @@ A Greengrass core is a device that runs the AWS IoT Greengrass Core software, wh
 A Greengrass group must contain exactly one core\.
 
 Device connected to a Greengrass core  <a name="greengrass-devices"></a>
-Connected devices \(also called *Greengrass devices*\) also have their own device certificate for AWS IoT Core authentication, a device shadow, and an entry in the AWS IoT Core registry\. <a name="gg-device-discovery"></a>Greengrass devices can run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](#iot-device-sdk) or [ AWS IoT Greengrass Discovery API](gg-discover-api.md) to get discovery information used to connect and authenticate with the core in the same Greengrass group\. To learn how to use the AWS IoT console to create and configure a device for AWS IoT Greengrass, see [Module 4: Interacting with devices in an AWS IoT Greengrass group](module4.md)\. Or, for examples that show you how to use the AWS CLI to create and configure a device for AWS IoT Greengrass, see [create\-device\-definition](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-device-definition.html) in the *AWS CLI Command Reference*\.  
+Connected devices \(also called *Greengrass devices*\) also have their own device certificate for AWS IoT Core authentication, a device shadow, and an entry in the AWS IoT Core registry\. <a name="gg-device-discovery"></a>Greengrass devices can run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](#iot-device-sdk) or [AWS IoT Greengrass Discovery API](gg-discover-api.md) to get discovery information used to connect and authenticate with the core in the same Greengrass group\. To learn how to use the AWS IoT console to create and configure a device for AWS IoT Greengrass, see [Module 4: Interacting with devices in an AWS IoT Greengrass group](module4.md)\. Or, for examples that show you how to use the AWS CLI to create and configure a device for AWS IoT Greengrass, see [create\-device\-definition](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-device-definition.html) in the *AWS CLI Command Reference*\.  
 In a Greengrass group, you can create subscriptions that allow devices to communicate over MQTT with Lambda functions, connectors, and other devices in the group, and with AWS IoT Core or the local shadow service\. MQTT messages are routed through the core\. If the core device loses connectivity to the cloud, devices can continue to communicate over the local network\. Devices can vary in size, from smaller microcontroller\-based devices to large appliances\. Currently, a Greengrass group can contain up to 2500 devices\. A device can be a member of up to 10 groups\.  
 <a name="sitewise-connector-opcua-support"></a>OPC\-UA is an information exchange standard for industrial communication\. To implement support for OPC\-UA on the Greengrass core, you can use the [IoT SiteWise connector](iot-sitewise-connector.md)\. The connector sends industrial device data from OPC\-UA servers to asset properties in AWS IoT SiteWise\.
 
@@ -700,6 +708,10 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 ------
 #### [ v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
+1\.11\.5  
+Bug fixes and improvements:  
++ General performance improvements and bug fixes\.
+
 1\.11\.4  
 Bug fixes and improvements:  
 + Fixed an issue with stream manager that prevented upgrades to AWS IoT Greengrass Core software v1\.11\.3\. If you are using stream manager to export data to the cloud, you can now use an OTA update to upgrade an earlier v1\.x version of the AWS IoT Greengrass Core software to v1\.11\.4\.
@@ -751,15 +763,19 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 | Architecture | Operating system | Link | 
 | --- | --- | --- | 
-| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-aarch64-1.11.4.tar.gz) | 
-| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-openwrt-aarch64-1.11.4.tar.gz) | 
-| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-armv7l-1.11.4.tar.gz) | 
-| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-openwrt-armv7l-1.11.4.tar.gz) | 
-| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-armv6l-1.11.4.tar.gz) | 
-| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.4/greengrass-linux-x86-64-1.11.4.tar.gz) | 
+| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-linux-aarch64-1.11.5.tar.gz) | 
+| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-openwrt-aarch64-1.11.5.tar.gz) | 
+| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-linux-armv7l-1.11.5.tar.gz) | 
+| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-openwrt-armv7l-1.11.5.tar.gz) | 
+| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-linux-armv6l-1.11.5.tar.gz) | 
+| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-linux-x86-64-1.11.5.tar.gz) | 
 
 ------
 #### [ v1\.10 ]<a name="ggc-v1.10-tab"></a>
+
+1\.10\.5  
+Bug fixes and improvements:  
++ General performance improvements and bug fixes\. 
 
 1\.10\.4  
 Bug fixes and improvements:  
@@ -803,12 +819,12 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 | Architecture | Operating system | Link | 
 | --- | --- | --- | 
-| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-aarch64-1.10.4.tar.gz) | 
-| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-openwrt-aarch64-1.10.4.tar.gz) | 
-| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-armv7l-1.10.4.tar.gz) | 
-| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-openwrt-armv7l-1.10.4.tar.gz) | 
-| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-armv6l-1.10.4.tar.gz) | 
-| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.4/greengrass-linux-x86-64-1.10.4.tar.gz) | 
+| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-linux-aarch64-1.10.5.tar.gz) | 
+| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-openwrt-aarch64-1.10.5.tar.gz) | 
+| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-linux-armv7l-1.10.5.tar.gz) | 
+| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-openwrt-armv7l-1.10.5.tar.gz) | 
+| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-linux-armv6l-1.10.5.tar.gz) | 
+| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-linux-x86-64-1.10.5.tar.gz) | 
 
 ------
 #### [ Deprecated versions ]
@@ -863,8 +879,8 @@ AWS provides a Dockerfile and Docker images that make it easier for you to run A
 Dockerfile  
 Dockerfiles contain source code for building custom AWS IoT Greengrass container images\. Images can be modified to run on different platform architectures or to reduce the image size\. For instructions, see the README file\.  
 Download your target AWS IoT Greengrass Core software version\.  
-+  [Dockerfile for AWS IoT Greengrass v1\.11\.0](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.0/aws-greengrass-docker-1.11.0.tar.gz)\. 
-+  [ Dockerfile for AWS IoT Greengrass v1\.10\.2](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.2/aws-greengrass-docker-1.10.2.tar.gz)\.   
++  [Dockerfile for AWS IoT Greengrass v1\.11\.5](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/aws-greengrass-docker-1.11.5.tar.gz)\. 
++  [ Dockerfile for AWS IoT Greengrass v1\.10\.5](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/aws-greengrass-docker-1.10.5.tar.gz)\.   
 v1\.9  
  [ Dockerfile for AWS IoT Greengrass v1\.9\.4](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/aws-greengrass-docker-1.9.4.tar.gz)\.   
 v1\.8  
@@ -896,10 +912,10 @@ Lambda functions use the AWS IoT Greengrass Core SDK to interact with the AWS Io
 + Interact with [stream manager](stream-manager.md)\.
 
 Download the AWS IoT Greengrass Core SDK for your language or platform from GitHub\.<a name="gg-core-sdk-download-list"></a>
-+ [ AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/)
-+ [ AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/)
-+ [ AWS IoT Greengrass Core SDK for Python](https://github.com/aws/aws-greengrass-core-sdk-python/)
-+ [ AWS IoT Greengrass Core SDK for C](https://github.com/aws/aws-greengrass-core-sdk-c/)
++ [AWS IoT Greengrass Core SDK for Java](https://github.com/aws/aws-greengrass-core-sdk-java/)
++ [AWS IoT Greengrass Core SDK for Node\.js](https://github.com/aws/aws-greengrass-core-sdk-js/)
++ [AWS IoT Greengrass Core SDK for Python](https://github.com/aws/aws-greengrass-core-sdk-python/)
++ [AWS IoT Greengrass Core SDK for C](https://github.com/aws/aws-greengrass-core-sdk-c/)
 
 For more information, see [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core)\.
 
@@ -963,4 +979,4 @@ The [AWS IoT Greengrass Machine Learning SDK](lambda-functions.md#lambda-sdks-ml
 
 ## We want to hear from you<a name="contact-us"></a>
 
-We welcome your feedback\. To contact us, visit the [AWS IoT Greengrass forum](https://forums.aws.amazon.com/forum.jspa?forumID=254)\.
+We welcome your feedback\. To contact us, visit [AWS re:Post](https://repost.aws/) and use the [AWS IoT Greengrass tag](https://repost.aws/tags/TA4ckIed1sR4enZBey29rKTg/aws-io-t-greengrass)\.

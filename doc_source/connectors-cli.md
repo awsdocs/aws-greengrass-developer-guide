@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -9,8 +9,6 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.
 
 This tutorial shows how to use the AWS CLI to work with connectors\.
-
-## <a name="w112aac29c43b8"></a>
 
 Use connectors to accelerate your development life cycle\. Connectors are prebuilt, reusable modules that can make it easier to interact with services, protocols, and resources\. They can help you deploy business logic to Greengrass devices more quickly\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
 
@@ -63,8 +61,6 @@ The AWS IoT Greengrass API lets you create multiple definitions for a component 
 ## Prerequisites<a name="connectors-cli-prerequisites"></a>
 
 To complete this tutorial, you need:
-
-### <a name="w112aac29c43c26b6"></a>
 + A Greengrass group and a Greengrass core \(v1\.9\.3 or later\)\. To learn how to create a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. The Getting Started tutorial also includes steps for installing the AWS IoT Greengrass Core software\.
 + Python 3\.7 installed on the AWS IoT Greengrass core device\.
 +  AWS IoT Greengrass must be configured to support local secrets, as described in [Secrets Requirements](secrets.md#secrets-reqs)\.
@@ -184,8 +180,6 @@ In this step, you configure parameters for the Twilio Notifications connector\.
 1. Copy the `LatestVersionArn` of the connector definition from the output\. You use this value to add the connector definition version to the group version that you deploy to the core\.
 
 ## Step 4: Create a Lambda function deployment package<a name="connectors-cli-create-deployment-package"></a>
-
-### <a name="w112aac29c43c34b4"></a>
 
 To create a Lambda function, you must first create a Lambda function *deployment package* that contains the function code and dependencies\. Greengrass Lambda functions require the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for tasks such as communicating with MQTT messages in the core environment and accessing local secrets\. This tutorial creates a Python function, so you use the Python version of the SDK in the deployment package\.
 
@@ -475,7 +469,7 @@ Deploy the group to the core device\.
       ps aux | grep -E 'greengrass.*daemon'
       ```
 
-      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.4/bin/daemon`, then the daemon is running\.
+      If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.5/bin/daemon`, then the daemon is running\.
 
    1. To start the daemon:
 
@@ -510,8 +504,6 @@ Deploy the group to the core device\.
    If the status is `Success`, the deployment was successful\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
 ## Test the solution<a name="connectors-cli-test-solution"></a>
-
-### <a name="w112aac29c43c46b4"></a>
 
 1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
 ![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)

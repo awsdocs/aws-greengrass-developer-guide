@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -137,7 +137,7 @@ To troubleshoot additional issues with the AWS IoT Greengrass device setup, you 
 + For issues with the Greengrass device setup configuration, check the `/tmp/greengrass-device-setup-bootstrap-epoch-timestamp.log` file\.
 + For issues with the Greengrass group or core environment setup, check the `GreengrassDeviceSetup-date-time.log` file in the same directory as `gg-device-setup-latest.sh` or in the location you specified\.
 
-For more troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md) or check the [AWS IoT Greengrass forum](https://forums.aws.amazon.com/forum.jspa?forumID=254)\.
+For more troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md) or check the [AWS IoT Greengrass tag on AWS re:Post](https://repost.aws/tags/TA4ckIed1sR4enZBey29rKTg/aws-io-t-greengrass)\.
 
 ## Greengrass device setup configuration options<a name="gg-device-setup-options"></a>
 

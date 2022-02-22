@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -81,7 +81,7 @@ try:
             kinesis=None,
             iot_analytics=None,
             iot_sitewise=None,
-            s3=None
+            s3_task_executor=None
         )
     ))
 except StreamManagerException:
@@ -112,8 +112,8 @@ try (final StreamManagerClient client = GreengrassClientBuilder.streamManagerCli
                             new ExportDefinition()
                                     .withKinesis(null)
                                     .withIotAnalytics(null)
-                                    .withIotSiteWise(null)
-                                    .withS3(null)
+                                    .withIotSitewise(null)
+                                    .withS3TaskExecutor(null)
                     )
  
     );
@@ -144,8 +144,8 @@ client.onConnected(async () => {
                     new ExportDefinition()
                         .withKinesis(null)
                         .withIotAnalytics(null)
-                        .withIotSiteWise(null)
-                        .withS3(null)
+                        .withIotSitewise(null)
+                        .withS3TaskExecutor(null)
                 )
         );
     } catch (e) {
@@ -262,8 +262,7 @@ This snippet has the following requirements:
 client = StreamManagerClient()
  
 try:
-    # SiteWise requires unique timestamps in all messages and also needs timestamps not earlier
-    # than 10 minutes in the past. Add some randomness to time and offset.
+    # SiteWise requires unique timestamps in all messages. Add some randomness to time and offset.
 
     # Note: To create a new asset property data, you should use the classes defined in the
     # greengrasssdk.stream_manager module.
@@ -295,8 +294,7 @@ try (final StreamManagerClient client = GreengrassClientBuilder.streamManagerCli
     // com.amazonaws.greengrass.streammanager.model.sitewise package.
     List<AssetPropertyValue> entries = new ArrayList<>() ;
 
-    // IoTSiteWise requires unique timestamps in all messages and also needs timestamps not earlier
-    // than 10 minutes in the past. Add some randomness to time and offset.
+    // IoTSiteWise requires unique timestamps in all messages. Add some randomness to time and offset.
     final int maxTimeRandomness = 60;
     final int maxOffsetRandomness = 10000;
     double randomValue = rand.nextDouble();

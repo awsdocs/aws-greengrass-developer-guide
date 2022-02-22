@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -26,7 +26,7 @@ You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Gre
 
  To complete this tutorial, you need: 
 +  One or more deployable Greengrass groups\. For more information about creating AWS IoT Greengrass groups and cores, see [Getting started with AWS IoT Greengrass](gg-gs.md)\. 
-+  The AWS CLI installed and configured on your machine\. For information, see the [ AWS CLI User Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)\. 
++  The AWS CLI installed and configured on your machine\. For information, see the [AWS CLI User Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)\. 
 + An S3 bucket created in the same AWS Region as AWS IoT Greengrass\. For information, see [ Creating and configuring an S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-configure-bucket.html) in the *Amazon Simple Storage Service User Guide*\. 
 **Note**  
  Currently, SSE KMS enabled buckets are not supported\. 
@@ -378,7 +378,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
  If the bulk deployment is not successful, you can try the following troubleshooting steps\. Run the commands in your terminal\. 
 
-### Troubleshoot input file errors<a name="w112aac14c28c23b5"></a>
+### Troubleshoot input file errors<a name="bulk-deploy-cli-troubleshooting-input-file-errors"></a>
 
  The bulk deployment can fail in the event of syntax errors in the bulk deployment input file\. This returns a bulk deployment status of `Failed` with an error message indicating the line number of the first validation error\. There are four possible errors: 
 + 
@@ -410,7 +410,7 @@ aws greengrass list-bulk-deployment-detailed-reports --bulk-deployment-id 123456
 
    This error indicates that the given input file line is not considered valid json\. 
 
-### Check for concurrent bulk deployments<a name="w112aac14c28c23b7"></a>
+### Check for concurrent bulk deployments<a name="bulk-deploy-cli-troubleshooting-concurrent-bulk-deployments"></a>
 
  You cannot start a new bulk deployment while another one is still running or in a non\-terminal state\. This can result in a `Concurrent Deployment Error`\. You can use the ListBulkDeployments command to verify that a bulk deployment is not currently running\. This command lists your bulk deployments from most to least recent\. 
 
@@ -435,7 +435,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  This action results in a status of `Stopping` until the deployment is `Stopped`\. After the deployment has reached a `Stopped` status, you can start a new bulk deployment\. 
 
-### Check ErrorDetails<a name="w112aac14c28c23b9"></a>
+### Check ErrorDetails<a name="bulk-deploy-cli-troubleshooting-check-error-details"></a>
 
  Run the `GetBulkDeploymentStatus` command to return a JSON payload that contains information about any bulk deployment execution failure\. 
 
@@ -451,7 +451,7 @@ aws greengrass stop-bulk-deployment --bulk-deployment-id BulkDeploymentId
 
  When exiting with an error, the `ErrorDetails` JSON payload that is returned by this call contains more information about the bulk deployment execution failure\. An error status code in the `400` series, for example, indicates an input error, either in the input parameters or the caller dependencies\. 
 
-### Check the AWS IoT Greengrass core log<a name="w112aac14c28c23c11"></a>
+### Check the AWS IoT Greengrass core log<a name="bulk-deploy-cli-troubleshooting-check-core-log"></a>
 
  You can troubleshoot issues by viewing the AWS IoT Greengrass core logs\. Use the following commands to view `runtime.log`: 
 

@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -861,7 +861,7 @@ Follow these steps only if you want to make the Greengrass root directory read\-
 
       ```
       sudo chown -R ggc_user:ggc_group /greengrass-root/certs/
-      sudo chown -R ggc_user:ggc_group /greengrass-root/ggc/packages/1.11.4/lambda/
+      sudo chown -R ggc_user:ggc_group /greengrass-root/ggc/packages/1.11.5/lambda/
       ```
 **Note**  
 The ggc\_user and ggc\_group accounts are used by default to run system Lambda functions\. If you configured the group\-level [default access identity](lambda-group-config.md#lambda-access-identity-groupsettings) to use different accounts, you should give permissions to that user \(UID\) and group \(GID\) instead\.
@@ -944,7 +944,7 @@ This feature is available for AWS IoT Greengrass Core v1\.6 and later\. Earlier 
 
 You can configure AWS IoT Greengrass to cache messages to the file system so they persist across core restarts\. To do this, you deploy a function definition version where the `GGCloudSpooler` function sets the storage type to `FileSystem`\. You must use the AWS IoT Greengrass API to configure the local storage cache\. You can't do this in the console\.
 
-The following procedure uses the [ `create-function-definition-version`](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure the spooler to save queued messages to the file system\. It also configures a 2\.6 MB queue size\.
+The following procedure uses the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure the spooler to save queued messages to the file system\. It also configures a 2\.6 MB queue size\.
 
 1. <a name="get-group-id-latestversion"></a>Get the IDs of the target Greengrass group and group version\. This procedure assumes that this is the latest group and group version\. The following query returns the most recently created group\.
 
@@ -1057,7 +1057,7 @@ You can use the [maxWorkItemCount](#config-json-runtime) configuration property 
 
 You can configure AWS IoT Greengrass to use persistent sessions with AWS IoT Core\. To do this, you deploy a function definition version where the `GGCloudSpooler` function sets the subscription quality to `AtLeastOncePersistent`\. This setting applies to all your subscriptions that have AWS IoT Core \(`cloud`\) as the source\. You must use the AWS IoT Greengrass API to configure persistent sessions\. You can't do this in the console\.
 
-The following procedure uses the [ `create-function-definition-version`](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure the spooler to use persistent sessions\. In this procedure, we assume that you're updating the configuration of the latest group version of an existing group\.
+The following procedure uses the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure the spooler to use persistent sessions\. In this procedure, we assume that you're updating the configuration of the latest group version of an existing group\.
 
 1. <a name="get-group-id-latestversion"></a>Get the IDs of the target Greengrass group and group version\. This procedure assumes that this is the latest group and group version\. The following query returns the most recently created group\.
 
@@ -1151,7 +1151,7 @@ If you previously set the `GG_CONFIG_STORAGE_TYPE` or `GG_CONFIG_MAX_SIZE_BYTES`
 
 This feature is available for AWS IoT Greengrass Core v1\.8 and later\.
 
-The Greengrass core opens MQTT connections with AWS IoT Core for operations such as shadow sync and certificate management\. For these connections, the core generates predictable client IDs based on the core thing name\. Predictable client IDs can be used with monitoring, auditing, and pricing features, including AWS IoT Device Defender and [ AWS IoT lifecycle events](https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html)\. You can also create logic around predictable client IDs \(for example, [subscribe policy](https://docs.aws.amazon.com/iot/latest/developerguide/pub-sub-policy.html#pub-sub-policy-cert) templates based on certificate attributes\)\.
+The Greengrass core opens MQTT connections with AWS IoT Core for operations such as shadow sync and certificate management\. For these connections, the core generates predictable client IDs based on the core thing name\. Predictable client IDs can be used with monitoring, auditing, and pricing features, including AWS IoT Device Defender and [AWS IoT lifecycle events](https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html)\. You can also create logic around predictable client IDs \(for example, [subscribe policy](https://docs.aws.amazon.com/iot/latest/developerguide/pub-sub-policy.html#pub-sub-policy-cert) templates based on certificate attributes\)\.
 
 ------
 #### [ GGC v1\.9 and later ]
@@ -1330,7 +1330,7 @@ To manage automatic discovery with the AWS IoT Greengrass API, you must configur
    arn:aws:greengrass:region:account-id:/greengrass/groups/function-definition-id/versions/function-definition-version-id
    ```
 **Note**  
-You can optionally create a function definition by running the [ `create-function-definition`](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html) command, and then copy the ID from the output\.
+You can optionally create a function definition by running the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition.html) command, and then copy the ID from the output\.
 
 1.  Use the [https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-function-definition-version.html](https://docs.aws.amazon.com/cli/latest/reference/greengrass/get-function-definition-version.html) command to get the current definition state\. Use the *function\-definition\-id* you copied for the function definiton\. For example, *4d941bc7\-92a1\-4f45\-8d64\-EXAMPLEf76c3*\. 
 

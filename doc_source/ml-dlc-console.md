@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -168,7 +168,7 @@ We recommend installing version 1\.1\.0 for this tutorial\.
    + `inference.py` is the inference code used in this tutorial\. You can use this code as a template to create your own inference function\.
    + <a name="ml-samples-ggc-sdk"></a>`greengrasssdk` is version 1\.5\.0 of the AWS IoT Greengrass Core SDK for Python\.
 **Note**  <a name="ml-samples-ggc-sdk-upgrade"></a>
-If a new version is available, you can download it and upgrade the SDK version in your deployment package\. For more information, see [ AWS IoT Greengrass Core SDK for Python](https://github.com/aws/aws-greengrass-core-sdk-python/) on GitHub\.
+If a new version is available, you can download it and upgrade the SDK version in your deployment package\. For more information, see [AWS IoT Greengrass Core SDK for Python](https://github.com/aws/aws-greengrass-core-sdk-python/) on GitHub\.
 
 1.  Compress the contents of the `examples` directory into a file named `optimizedImageClassification.zip`\. This is your deployment package\. 
 

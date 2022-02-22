@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1\. AWS IoT Greengrass Version 2 is the latest major version of AWS IoT Greengrass\. For more information about using AWS IoT Greengrass V2, see the [https://docs.aws.amazon.com/greengrass/v2/developerguide](https://docs.aws.amazon.com/greengrass/v2/developerguide)\.
+You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
 
 --------
 
@@ -45,6 +45,8 @@ Search the following symptoms and errors to find information to help troubleshoo
 + [Error: \[DEBUG\]\-Failed to get routes\. Discarding message\.](#troubleshoot-failed-to-get-routes)
 + [Error: \[Errno 24\] Too many open <lambda\-function>,\[Errno 24\] Too many open files](#troubleshoot-too-many-open-files)
 + [Error: ds server failed to start listening to socket: listen unix <ggc\-path>/ggc/socket/greengrass\_ipc\.sock: bind: invalid argument](#troubleshoot-install-path-too-long)
++ [\[INFO\] \(Copier\) aws\.greengrass\.StreamManager: stdout\. Caused by: com\.fasterxml\.jackson\.databind\.JsonMappingException: Instant exceeds minimum or maximum instant](#troubleshoot-stream-manager-instant-exceeds-maximun-minimum)
++ [GPG error: https://dnw9lb6lzp2d8\.cloudfront\.net stable InRelease: The following signatures were invalid: EXPKEYSIG 68D644ABD2327D47 AWS Greengrass Master Key](#troubleshoot-apt-repository-invalid-signature)
 
  
 
@@ -349,6 +351,35 @@ Your AWS IoT Greengrass Core software version is shown in the error message\. To
 
 **Solution:** You might see this error when the AWS IoT Greengrass Core software doesn't start\. This error occurs when the AWS IoT Greengrass Core software is installed to a folder with a long file path\. Reinstall the AWS IoT Greengrass Core software to a folder with a file path that has fewer than 79 bytes, if you don't use a [write directory](gg-core.md#write-directory), or 83 bytes, if you do use a write directory\.
 
+### \[INFO\] \(Copier\) aws\.greengrass\.StreamManager: stdout\. Caused by: com\.fasterxml\.jackson\.databind\.JsonMappingException: Instant exceeds minimum or maximum instant<a name="troubleshoot-stream-manager-instant-exceeds-maximun-minimum"></a>
+
+When you upgrade AWS IoT Greengrass core software to v1\.11\.3, you might see the following error in the stream manager logs if stream manager fails to start\. 
+
+```
+2021-07-16T00:54:58.568Z [INFO] (Copier) aws.greengrass.StreamManager: stdout. Caused by: com.fasterxml.jackson.databind.JsonMappingException: Instant exceeds minimum or maximum instant (through reference chain: com.amazonaws.iot.greengrass.streammanager.export.PersistedSuccessExportStatesV1["lastExportTime"]). {scriptName=services.aws.greengrass.StreamManager.lifecycle.startup.script, serviceName=aws.greengrass.StreamManager, currentState=STARTING}
+2021-07-16T00:54:58.579Z [INFO] (Copier) aws.greengrass.StreamManager: stdout. Caused by: java.time.DateTimeException: Instant exceeds minimum or maximum instant. {scriptName=services.aws.greengrass.StreamManager.lifecycle.startup.script, serviceName=aws.greengrass.StreamManager, currentState=STARTING}
+```
+
+If you're using a version of AWS IoT Greengrass core software older than v1\.11\.3, and you want to upgrade to a later version, use an OTA update to upgrade to v1\.11\.4\. 
+
+### GPG error: https://dnw9lb6lzp2d8\.cloudfront\.net stable InRelease: The following signatures were invalid: EXPKEYSIG 68D644ABD2327D47 AWS Greengrass Master Key<a name="troubleshoot-apt-repository-invalid-signature"></a>
+
+When you run `apt update` on a device where you [installed the AWS IoT Greengrass core software from an APT repository](install-ggc.md#ggc-package-manager), you might see the following error\.
+
+```
+Err:4 https://dnw9lb6lzp2d8.cloudfront.net stable InRelease
+  The following signatures were invalid: EXPKEYSIG 68D644ABD2327D47 AWS Greengrass Master Key
+Reading package lists... Done                             
+W: GPG error: https://dnw9lb6lzp2d8.cloudfront.net stable InRelease: The following signatures were invalid: EXPKEYSIG 68D644ABD2327D47 AWS Greengrass Master Key
+```
+
+This error occurs because AWS IoT Greengrass no longer offers the option to install or update the AWS IoT Greengrass core software from the APT repository\. To successfully run `apt update`, remove the AWS IoT Greengrass repository from the device's sources list\.
+
+```
+sudo rm /etc/apt/sources.list.d/greengrass.list 
+sudo apt update
+```
+
 ## Deployment issues<a name="gg-troubleshooting-deploymentissues"></a>
 
 Use the following information to help troubleshoot deployment issues\.
@@ -359,7 +390,6 @@ Use the following information to help troubleshoot deployment issues\.
 + [A ConcurrentDeployment error occurs when you run the create\-deployment command for the first time\.](#troubleshoot-concurrent-deployment)
 + [Error: Greengrass is not authorized to assume the Service Role associated with this account, or the error: Failed: TES service role is not associated with this account\.](#troubleshoot-assume-service-role)
 + [Error: unable to execute download step in deployment\. error while downloading: error while downloading the Group definition file: \.\.\. x509: certificate has expired or is not yet valid](#troubleshoot-x509-certificate-expired)
-+ [Error: An error occurred during the signature verification\. The repository is not updated and the previous index files will be used\. GPG error: https://dnw9lb6lzp2d8\.cloudfront\.net stable InRelease: The following signatures couldn't be verified because the public key is not available: NO\_PUBKEY 68D644ABDEXAMPLE](#troubleshoot-expired-missing-key)
 + [The deployment doesn't finish\.](#troubleshoot-stuck-deployment)
 + [Error: Unable to find java or java8 executables, or the error: Deployment <deployment\-id> of type NewDeployment for group <group\-id> failed error: worker with <worker\-id> failed to initialize with reason Installed Java version must be greater than or equal to 8](#java-8-runtime-requirement)
 + [The deployment doesn't finish, and runtime\.log contains multiple "wait 1s for container to stop" entries\.](#troubleshoot-wait-container-stop)
@@ -466,19 +496,6 @@ These AWS CLI commands use example values for the group and deployment ID\. When
 
  
 
-### Error: An error occurred during the signature verification\. The repository is not updated and the previous index files will be used\. GPG error: https://dnw9lb6lzp2d8\.cloudfront\.net stable InRelease: The following signatures couldn't be verified because the public key is not available: NO\_PUBKEY 68D644ABDEXAMPLE<a name="troubleshoot-expired-missing-key"></a>
-
-**Solution:** You might see this error when the trusted keys used to authenticate the APT repository packages for AWS IoT Greengrass are missing, expired, or invalid\. To resolve this issue, install the keyring package:
-
-```
-wget -O aws-iot-greengrass-keyring.deb https://d1onfpft10uf5o.cloudfront.net/greengrass-apt/downloads/aws-iot-greengrass-keyring.deb
-sudo dpkg -i aws-iot-greengrass-keyring.deb
-```
-
-For more information, see [Use apt to install the AWS IoT Greengrass Core software](install-ggc.md#ggc-package-manager-install)\.
-
- 
-
 ### The deployment doesn't finish\.<a name="troubleshoot-stuck-deployment"></a>
 
 **Solution:** Do the following:
@@ -490,7 +507,7 @@ For more information, see [Use apt to install the AWS IoT Greengrass Core softwa
      ps aux | grep -E 'greengrass.*daemon'
      ```
 
-     If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.4/bin/daemon`, then the daemon is running\.
+     If the output contains a `root` entry for `/greengrass/ggc/packages/1.11.5/bin/daemon`, then the daemon is running\.
 
      The version in the path depends on the AWS IoT Greengrass Core software version that's installed on your core device\.
 
@@ -879,6 +896,6 @@ If no `shadowSyncTimeout` value is specified in `config.json`, the default is 5 
 **Note**  
 For AWS IoT Greengrass Core software v1\.6 and earlier, the default `shadowSyncTimeout` is 1 second\.
 
-## Check the AWS IoT Greengrass forum<a name="troubleshooting-forum"></a>
+## Check AWS re:Post<a name="troubleshooting-repost"></a>
 
-If you're unable to resolve your issue using the troubleshooting information in this topic, you can search the [AWS IoT Greengrass forum](https://forums.aws.amazon.com/forum.jspa?forumID=254) for related issues or post a new forum thread\. Members of the AWS IoT Greengrass team actively monitor the forum\.
+If you're unable to resolve your issue using the troubleshooting information in this topic, you can search the [Troubleshooting AWS IoT Greengrass](#gg-troubleshooting) or check the [AWS IoT Greengrass tag on AWS re:Post](https://repost.aws/tags/TA4ckIed1sR4enZBey29rKTg/aws-io-t-greengrass) for related issues or post a new question\. Members of the AWS IoT Greengrass team actively monitor AWS re:Post\.
