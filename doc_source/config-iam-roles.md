@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
+AWS IoT Greengrass Version 1 no longer receives feature updates, and will receive only security patches and bug fixes until June 30, 2023\. For more information, see the [AWS IoT Greengrass V1 maintenance policy](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. We strongly recommend that you [migrate to AWS IoT Greengrass Version 2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html), which adds [significant new features](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [support for additional platforms](https://docs.aws.amazon.com/greengrass/v2/developerguide/operating-system-feature-support-matrix.html)\.
 
 --------
 
@@ -59,23 +59,17 @@ First, create a customer\-managed policy that grants permissions required by the
 
 1. In the navigation pane, choose **Roles**, and then choose **Create role**\.
 
-1. Under **Select type of trusted entity**, choose **AWS service**\.
+1. Under **Trusted entity type**, choose **AWS service**\.
 
-1. Under **Choose the service that will use this role**, choose **Greengrass**, and then choose **Next: Permissions**\.
+1. Under **Use case**, **Use cases for other AWS services** choose **Greengrass**, select **Greengrass**, and then choose **Next**\.
 
-1. Under **Attach permissions policies**, select the new **greengrass\_CarStats\_Table** policy\.  
-![\[Screenshot of the Attach permissions policies page with the new policy selected.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-gs-mod6-attach-policy.png)
-
-1. Choose **Next: Tags**, and then choose **Next: Review**\.
+1. Under **Permissions policies**, select the new **greengrass\_CarStats\_Table** policy, and then choose **Next**\.
 
 1. For **Role name**, enter **Greengrass\_Group\_Role**\.
 
-1. For **Role description**, enter **Greengrass group role for connectors and user\-defined Lambda functions**\.  
-![\[Screenshot of the Review page displaying the role name, description, and policies.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-gs-mod6-review-group-role.png)
+1. For **Description**, enter **Greengrass group role for connectors and user\-defined Lambda functions**\.
 
 1. Choose **Create role**\.
-
-    
 
    Now, add the role to your Greengrass group\.
 

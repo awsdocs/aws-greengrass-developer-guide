@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
+AWS IoT Greengrass Version 1 no longer receives feature updates, and will receive only security patches and bug fixes until June 30, 2023\. For more information, see the [AWS IoT Greengrass V1 maintenance policy](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. We strongly recommend that you [migrate to AWS IoT Greengrass Version 2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html), which adds [significant new features](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [support for additional platforms](https://docs.aws.amazon.com/greengrass/v2/developerguide/operating-system-feature-support-matrix.html)\.
 
 --------
 
@@ -82,6 +82,13 @@ The following tabs describe what's new and changed in AWS IoT Greengrass Core so
 ------
 #### [ GGC v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
+1\.11\.6  
+Bug fixes and improvements:  
++ Improved resilience if sudden power loss occurs during a deployment\.
++ Fixed an issue where stream manager data corruption could prevent the AWS IoT Greengrass Core software from starting\.
++ Fixed an issue where new AWS IoT devices couldn't connect to the core in certain scenarios\.
++ Fixed an issue where stream manager stream names couldn't contain `.log`\.
+
 1\.11\.5  
 Bug fixes and improvements:  
 + General performance improvements and bug fixes\.
@@ -130,7 +137,7 @@ Bug fixes and improvements:  <a name="bug-fix-v1110"></a>
 + General performance improvements and bug fixes\.
 
 ------
-#### [ GGC v1\.10 ]<a name="ggc-v1.10-tab"></a>
+#### [ Extended life versions ]<a name="ggc-v1.10-tab"></a>
 
 1\.10\.5  
 Bug fixes and improvements:  
@@ -138,20 +145,20 @@ Bug fixes and improvements:
 
 1\.10\.4  
 Bug fixes and improvements:  
-+ Fixed an issue that caused AWS IoT Greengrass Core software running in a snap on an Ubuntu device to stop responding after a sudden power loss to the device\.
-+ Fixed an issue that caused delayed delivery of MQTT messages to long\-lived Lambda functions\. 
-+ Fixed an issue that caused MQTT messages to not be sent correctly when the `maxWorkItemCount` value was set to a value greater than `1024`\. 
-+ Fixed an issue that caused the OTA update agent to ignore the MQTT `KeepAlive` period specified in the `keepAlive` property in [`config.json`](gg-core.md#config-json)\. 
++ <a name="bug-fix-v1104-snap-power-loss"></a>Fixed an issue that caused AWS IoT Greengrass Core software running in a snap on an Ubuntu device to stop responding after a sudden power loss to the device\.
++ <a name="bug-fix-v1104-mqtt-long-lived-delay"></a>Fixed an issue that caused delayed delivery of MQTT messages to long\-lived Lambda functions\. 
++ <a name="bug-fix-v1104-mqtt-max-work-item-count"></a>Fixed an issue that caused MQTT messages to not be sent correctly when the `maxWorkItemCount` value was set to a value greater than `1024`\. 
++ <a name="bug-fix-v1104-ota-mqtt-keep-alive"></a>Fixed an issue that caused the OTA update agent to ignore the MQTT `KeepAlive` period specified in the `keepAlive` property in [`config.json`](gg-core.md#config-json)\. 
 + General performance improvements and bug fixes\. 
 
 1\.10\.3  
 Bug fixes and improvements:  
-+ A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
-+ Fixed an issue that caused increased memory use for stream manager\.
++ <a name="bug-fix-v1103-system-component-auth-timeout"></a>A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
++ <a name="bug-fix-v1103-stream-manager-mem-usage"></a>Fixed an issue that caused increased memory use for stream manager\.
 
 1\.10\.2  
 Bug fixes and improvements:  
-+ A new `mqttOperationTimeout` property in [config\.json](gg-core.md#config-json) that you use to set the timeout for publish, subscribe, and unsubscribe operations in MQTT connections with AWS IoT Core\.
++ <a name="bug-fix-v1102-mqtt-operation-timeout"></a>A new `mqttOperationTimeout` property in [config\.json](gg-core.md#config-json) that you use to set the timeout for publish, subscribe, and unsubscribe operations in MQTT connections with AWS IoT Core\.
 + General performance improvements and bug fixes\.
 
 1\.10\.1  
@@ -172,9 +179,6 @@ New features:  <a name="what-new-v1100"></a>
 + Support for running Node\.js 12\.x Lambda functions on the core\.<a name="bug-fix-v1100"></a>
 + <a name="bug-fix-v1100-ota"></a>Over\-the\-air \(OTA\) updates with hardware security integration can be configured with OpenSSL 1\.1\.
 + General performance improvements and bug fixes\.
-
-------
-#### [ Deprecated versions ]
 
 1\.9\.4  
 Bug fixes and improvements:  
@@ -708,6 +712,13 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 ------
 #### [ v1\.11 ]<a name="ggc-v1.11-tab"></a>
 
+1\.11\.6  
+Bug fixes and improvements:  
++ Improved resilience if sudden power loss occurs during a deployment\.
++ Fixed an issue where stream manager data corruption could prevent the AWS IoT Greengrass Core software from starting\.
++ Fixed an issue where new AWS IoT devices couldn't connect to the core in certain scenarios\.
++ Fixed an issue where stream manager stream names couldn't contain `.log`\.
+
 1\.11\.5  
 Bug fixes and improvements:  
 + General performance improvements and bug fixes\.
@@ -763,46 +774,18 @@ To install the AWS IoT Greengrass Core software on your core device, download th
 
 | Architecture | Operating system | Link | 
 | --- | --- | --- | 
-| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-linux-aarch64-1.11.5.tar.gz) | 
-| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-openwrt-aarch64-1.11.5.tar.gz) | 
-| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-linux-armv7l-1.11.5.tar.gz) | 
-| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-openwrt-armv7l-1.11.5.tar.gz) | 
-| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-linux-armv6l-1.11.5.tar.gz) | 
-| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/greengrass-linux-x86-64-1.11.5.tar.gz) | 
+| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.6/greengrass-linux-aarch64-1.11.6.tar.gz) | 
+| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.6/greengrass-openwrt-aarch64-1.11.6.tar.gz) | 
+| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.6/greengrass-linux-armv7l-1.11.6.tar.gz) | 
+| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.6/greengrass-openwrt-armv7l-1.11.6.tar.gz) | 
+| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.6/greengrass-linux-armv6l-1.11.6.tar.gz) | 
+| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.6/greengrass-linux-x86-64-1.11.6.tar.gz) | 
 
 ------
-#### [ v1\.10 ]<a name="ggc-v1.10-tab"></a>
+#### [ Extended life versions ]
 
 1\.10\.5  
-Bug fixes and improvements:  
-+ General performance improvements and bug fixes\. 
-
-1\.10\.4  
-Bug fixes and improvements:  
-+ Fixed an issue that caused AWS IoT Greengrass Core software running in a snap on an Ubuntu device to stop responding after a sudden power loss to the device\.
-+ Fixed an issue that caused delayed delivery of MQTT messages to long\-lived Lambda functions\. 
-+ Fixed an issue that caused MQTT messages to not be sent correctly when the `maxWorkItemCount` value was set to a value greater than `1024`\. 
-+ Fixed an issue that caused the OTA update agent to ignore the MQTT `KeepAlive` period specified in the `keepAlive` property in [`config.json`](gg-core.md#config-json)\. 
-+ General performance improvements and bug fixes\. 
-
-1\.10\.3  
-Bug fixes and improvements:  
-+ A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
-+ Fixed an issue that caused increased memory use for stream manager\.
-
-1\.10\.2  
-Bug fixes and improvements:  
-+ A new `mqttOperationTimeout` property in [config\.json](gg-core.md#config-json) that you use to set the timeout for publish, subscribe, and unsubscribe operations in MQTT connections with AWS IoT Core\.
-+ General performance improvements and bug fixes\.
-
-1\.10\.1  
-Bug fixes and improvements:  
-+ <a name="bug-fix-v1101-stream-mgr"></a>[Stream manager](stream-manager.md) is more resilient to file data corruption\.
-+ <a name="bug-fix-v1101-sysfs"></a>Fixed an issue that causes a sysfs mount failure on devices using Linux kernel 5\.1 and later\.
-+ General performance improvements and bug fixes\.
-
-1\.10\.0  
-New features:  <a name="what-new-v1100"></a>
+New features in v1\.10:  <a name="what-new-v1100"></a>
 + A stream manager that processes data streams locally and exports them to the AWS Cloud automatically\. This feature requires Java 8 on the Greengrass core device\. For more information, see [Manage data streams on the AWS IoT Greengrass core](stream-manager.md)\.
 + A new Greengrass Docker application deployment connector that runs a Docker application on a core device\. For more information, see [Docker application deployment connector](docker-app-connector.md)\.
 + A new IoT SiteWise connector that sends industrial device data from OPC\-UA servers to asset properties in AWS IoT SiteWise\. For more information, see [IoT SiteWise connector](iot-sitewise-connector.md)\.
@@ -810,24 +793,21 @@ New features:  <a name="what-new-v1100"></a>
 + Support for MQTT persistent sessions with AWS IoT\. For more information, see [MQTT persistent sessions with AWS IoT Core](gg-core.md#mqtt-persistent-sessions)\.
 + Local MQTT traffic can travel over a port other than the default port 8883\. For more information, see [Configure the MQTT port for local messaging](gg-core.md#config-local-mqtt-port)\.
 + New `queueFullPolicy` options in the [AWS IoT Greengrass Core SDK](lambda-functions.md#lambda-sdks-core) for reliable message publishing from Lambda functions\.
-+ Support for running Node\.js 12\.x Lambda functions on the core\.<a name="bug-fix-v1100"></a>
++ Support for running Node\.js 12\.x Lambda functions on the core\.
+Bug fixes and improvements:  
 + <a name="bug-fix-v1100-ota"></a>Over\-the\-air \(OTA\) updates with hardware security integration can be configured with OpenSSL 1\.1\.
-+ General performance improvements and bug fixes\.
-
-To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.
-
-
-| Architecture | Operating system | Link | 
-| --- | --- | --- | 
-| Armv8 \(AArch64\) | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-linux-aarch64-1.10.5.tar.gz) | 
-| Armv8 \(AArch64\) | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-openwrt-aarch64-1.10.5.tar.gz) | 
-| Armv7l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-linux-armv7l-1.10.5.tar.gz) | 
-| Armv7l | Linux \(OpenWrt\) | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-openwrt-armv7l-1.10.5.tar.gz) | 
-| Armv6l | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-linux-armv6l-1.10.5.tar.gz) | 
-| x86\_64 | Linux | [Download](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/greengrass-linux-x86-64-1.10.5.tar.gz) | 
-
-------
-#### [ Deprecated versions ]
++ <a name="bug-fix-v1101-stream-mgr"></a>[Stream manager](stream-manager.md) is more resilient to file data corruption\.
++ <a name="bug-fix-v1101-sysfs"></a>Fixed an issue that causes a sysfs mount failure on devices using Linux kernel 5\.1 and later\.
++ <a name="bug-fix-v1102-mqtt-operation-timeout"></a>A new `mqttOperationTimeout` property in [config\.json](gg-core.md#config-json) that you use to set the timeout for publish, subscribe, and unsubscribe operations in MQTT connections with AWS IoT Core\.
++ <a name="bug-fix-v1103-stream-manager-mem-usage"></a>Fixed an issue that caused increased memory use for stream manager\.
++ <a name="bug-fix-v1103-system-component-auth-timeout"></a>A new `systemComponentAuthTimeout` property in [`config.json`](gg-core.md#config-json) that you use to configure the timeout for Greengrass core IPC authentication\. The default timeout is 5000 milliseconds\.
++ <a name="bug-fix-v1104-ota-mqtt-keep-alive"></a>Fixed an issue that caused the OTA update agent to ignore the MQTT `KeepAlive` period specified in the `keepAlive` property in [`config.json`](gg-core.md#config-json)\. 
++ <a name="bug-fix-v1104-mqtt-max-work-item-count"></a>Fixed an issue that caused MQTT messages to not be sent correctly when the `maxWorkItemCount` value was set to a value greater than `1024`\. 
++ <a name="bug-fix-v1104-mqtt-long-lived-delay"></a>Fixed an issue that caused delayed delivery of MQTT messages to long\-lived Lambda functions\. 
++ <a name="bug-fix-v1104-snap-power-loss"></a>Fixed an issue that caused AWS IoT Greengrass Core software running in a snap on an Ubuntu device to stop responding after a sudden power loss to the device\.
++ General performance improvements and bug fixes\. 
+To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.      
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/what-is-gg.html)
 
 1\.9\.4  
 New features in v1\.9:  
@@ -840,7 +820,7 @@ New features in v1\.9:
 To install the AWS IoT Greengrass Core software on your core device, download the package for your architecture and operating system \(OS\), and then follow the steps in the [Getting Started Guide](gg-gs.md)\.      
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/what-is-gg.html)
 
-v1\.8\.4  
+1\.8\.4  
 + <a name="what-new-v180"></a>New features:
   + Configurable default access identity for Lambda functions in the group\. This group\-level setting determines the default permissions that are used to run Lambda functions\. You can set the user ID, group ID, or both\. Individual Lambda functions can override the default access identity of their group\. For more information, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
   + HTTPS traffic over port 443\. HTTPS communication can be configured to travel over port 443 instead of the default port 8443\. This complements AWS IoT Greengrass support for the Application Layer Protocol Network \(ALPN\) TLS extension and allows all Greengrass messaging traffic—both MQTT and HTTPS—to use port 443\. For more information, see [Connect on port 443 or through a network proxy](gg-core.md#alpn-network-proxy)\.
@@ -879,8 +859,9 @@ AWS provides a Dockerfile and Docker images that make it easier for you to run A
 Dockerfile  
 Dockerfiles contain source code for building custom AWS IoT Greengrass container images\. Images can be modified to run on different platform architectures or to reduce the image size\. For instructions, see the README file\.  
 Download your target AWS IoT Greengrass Core software version\.  
-+  [Dockerfile for AWS IoT Greengrass v1\.11\.5](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.5/aws-greengrass-docker-1.11.5.tar.gz)\. 
-+  [ Dockerfile for AWS IoT Greengrass v1\.10\.5](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/aws-greengrass-docker-1.10.5.tar.gz)\.   
++  [Dockerfile for AWS IoT Greengrass v1\.11\.6](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.11.6/aws-greengrass-docker-1.11.6.tar.gz)\.   
+v1\.10  
+ [ Dockerfile for AWS IoT Greengrass v1\.10\.5](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.10.5/aws-greengrass-docker-1.10.5.tar.gz)\.   
 v1\.9  
  [ Dockerfile for AWS IoT Greengrass v1\.9\.4](https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/1.9.4/aws-greengrass-docker-1.9.4.tar.gz)\.   
 v1\.8  
@@ -889,6 +870,7 @@ v1\.8
 
 Docker image  
 Docker images have the AWS IoT Greengrass Core software and dependencies installed on Amazon Linux 2 \(x86\_64\) and Alpine Linux \(x86\_64, Armv7l, or AArch64\) base images\. You can use prebuilt images to start experimenting with AWS IoT Greengrass\.  
+Starting with v1\.11\.6 of the AWS IoT Greengrass Core software, the Greengrass Docker images no longer include Python 2\.7, because Python 2\.7 reached end\-of\-life in 2020 and no longer receives security updates\. If you choose to update to these Docker images, we recommend that you validate that your applications work with the new Docker images before you deploy the updates to production devices\. If you require Python 2\.7 for your application that uses a Greengrass Docker image, you can modify the Greengrass Dockerfile to include Python 2\.7 for your application\.
 Download a prebuilt image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or Amazon Elastic Container Registry \(Amazon ECR\)\.  
 + For Docker Hub, use the *version* tag to download a specific version of the Greengrass Docker image\. To find tags for all available images, check the **Tags** page on Docker Hub\. 
 + For Amazon ECR, use the `latest` tag to download the latest available version of the Greengrass Docker image\. For more information about listing available image versions and downloading images from Amazon ECR, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.

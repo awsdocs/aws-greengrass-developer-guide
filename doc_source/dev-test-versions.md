@@ -1,12 +1,12 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
+AWS IoT Greengrass Version 1 no longer receives feature updates, and will receive only security patches and bug fixes until June 30, 2023\. For more information, see the [AWS IoT Greengrass V1 maintenance policy](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. We strongly recommend that you [migrate to AWS IoT Greengrass Version 2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html), which adds [significant new features](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [support for additional platforms](https://docs.aws.amazon.com/greengrass/v2/developerguide/operating-system-feature-support-matrix.html)\.
 
 --------
 
 # Supported versions of AWS IoT Device Tester for AWS IoT Greengrass V1<a name="dev-test-versions"></a>
 
-This topic lists supported versions of IDT for AWS IoT Greengrass V1\. We recommend that you use the latest version of IDT for AWS IoT Greengrass V1 that supports your target version of AWS IoT Greengrass V1\. New releases of AWS IoT Greengrass might require you to download a new version of IDT for AWS IoT Greengrass\. 
+Because AWS IoT Greengrass Version 1 has been moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html), IDT for AWS IoT Greengrass V1 no longer generates signed qualification reports\. We recommend that you use [IDT for AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/device-tester-for-greengrass-ug.html)\. 
 
 For information about IDT for AWS IoT Greengrass V2, see [Using AWS IoT Device Tester for AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/device-tester-for-greengrass-ug.html) in the *AWS IoT Greengrass V2 Developer Guide*\. 
 
@@ -17,27 +17,17 @@ By downloading the software, you agree to the [AWS IoT Device Tester License Agr
 
 
 
-## Latest IDT version for AWS IoT Greengrass<a name="idt-latest-version"></a>
+## Unsupported IDT versions for for AWS IoT Greengrass<a name="idt-unsupported-versions"></a>
 
-You can use the latest version of IDT for AWS IoT Greengrass with the AWS IoT Greengrass versions listed here\. We recommend that you use the latest version of IDT if it supports your target AWS IoT Greengrass version\.
+This topic lists unsupported versions of IDT for AWS IoT Greengrass\. Unsupported versions do not receive bug fixes or updates\. For more information, see [Support policy for AWS IoT Device Tester for AWS IoT Greengrass V1](idt-support-policy.md)\.
 
-**IDT v4\.4\.1 for AWS IoT Greengrass**     
-Supported AWS IoT Greengrass versions: v1\.11\.5, v1\.10\.5    
-Software downloads:  
-+ IDT v4\.4\.1 with test suite GGQ\_1\.3\.1 for [Linux](https://docs.aws.amazon.com/greengrass/latest/developerguide/devicetester_greengrass_4.4.1_testsuite_1.3.1_linux.zip)
-+ IDT v4\.4\.1 with test suite GGQ\_1\.3\.1 for [macOS](https://docs.aws.amazon.com/greengrass/latest/developerguide/devicetester_greengrass_4.4.1_testsuite_1.3.1_mac.zip)
-+ IDT v4\.4\.1 with test suite GGQ\_1\.3\.1 for [Windows](https://docs.aws.amazon.com/greengrass/latest/developerguide/devicetester_greengrass_4.4.1_testsuite_1.3.1_win.zip)
-<a name="unzip-package-to-local-drive"></a>IDT does not support being run by multiple users from a shared location, such as an NFS directory or a Windows network shared folder\. We recommend that you extract the IDT package to a local drive and run the IDT binary on your local workstation\.  
+**IDT v4\.4\.1 for AWS IoT Greengrass versions v1\.11\.6, v1\.10\.5**     
 Release notes:  
-+ Enables you to validate and qualify devices running AWS IoT Greengrass core software v1\.11\.5 and v1\.10\.5\.
++ Enables you to validate and qualify devices running AWS IoT Greengrass core software v1\.11\.6 and v1\.10\.5\.
 + Contains minor bug fixes\.  
 Test suite version:    
 `GGQ_1.3.1`  
 + Released 2021\.12\.20
-
-## Unsupported IDT versions for for AWS IoT Greengrass<a name="idt-unsupported-versions"></a>
-
-This topic lists unsupported versions of IDT for AWS IoT Greengrass\. Unsupported versions do not receive bug fixes or updates\. For more information, see [Support policy for AWS IoT Device Tester for AWS IoT Greengrass V1](idt-support-policy.md)\.
 
 **IDT v4\.1\.0 for AWS IoT Greengrass versions v1\.11\.4, v1\.10\.4**     
 Release notes:  

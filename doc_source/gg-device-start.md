@@ -1,6 +1,6 @@
 --------
 
-You are viewing the documentation for AWS IoT Greengrass Version 1, which has moved into [maintenance mode](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. If you're new to AWS IoT Greengrass, we strongly recommend that you use AWS IoT Greengrass Version 2, which receives new features, includes all key V1 features, and supports additional platforms and continuous deployments to large fleets of devices\. For more information, see [What's new in AWS IoT Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [Move from AWS IoT Greengrass V1 to V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html)\.
+AWS IoT Greengrass Version 1 no longer receives feature updates, and will receive only security patches and bug fixes until June 30, 2023\. For more information, see the [AWS IoT Greengrass V1 maintenance policy](https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html)\. We strongly recommend that you [migrate to AWS IoT Greengrass Version 2](https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html), which adds [significant new features](https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html) and [support for additional platforms](https://docs.aws.amazon.com/greengrass/v2/developerguide/operating-system-feature-support-matrix.html)\.
 
 --------
 
@@ -11,7 +11,7 @@ This tutorial provides instructions for starting AWS IoT Greengrass on your Rasp
 
 In the previous steps, you downloaded two files to your computer:
 + `hash-setup.tar.gz` \(for example, `c6973960cc-setup.tar.gz`\)\. This compressed file contains the core device certificate and cryptographic keys that enable secure communications between AWS IoT Core and the `config.json` file that contains configuration information specific to your Greengrass core\. This information includes the location of certificate files and the AWS IoT Core endpoint\.
-+ `greengrass-OS-architecture-1.11.5.tar.gz`\. This compressed file contains the AWS IoT Greengrass Core software that runs on the core device\.
++ `greengrass-OS-architecture-1.11.6.tar.gz`\. This compressed file contains the AWS IoT Greengrass Core software that runs on the core device\.
 
  
 
@@ -35,7 +35,7 @@ For an NVIDIA Jetson TX2, the default user name is **nvidia** and the default pa
 
    ```
    cd path-to-downloaded-files
-   pscp -pw Pi-password greengrass-OS-architecture-1.11.5.tar.gz pi@IP-address:/home/pi
+   pscp -pw Pi-password greengrass-OS-architecture-1.11.6.tar.gz pi@IP-address:/home/pi
    pscp -pw Pi-password hash-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -52,7 +52,7 @@ You might be prompted for two passwords\. If so, the first password is for the M
 
    ```
    cd path-to-downloaded-files
-   scp greengrass-OS-architecture-1.11.5.tar.gz pi@IP-address:/home/pi
+   scp greengrass-OS-architecture-1.11.6.tar.gz pi@IP-address:/home/pi
    scp hash-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -66,7 +66,7 @@ You might be prompted for two passwords\. If so, the first password is for the M
 
    ```
    cd path-to-downloaded-files
-   scp greengrass-OS-architecture-1.11.5.tar.gz pi@IP-address:/home/pi
+   scp greengrass-OS-architecture-1.11.6.tar.gz pi@IP-address:/home/pi
    scp hash-setup.tar.gz pi@IP-address:/home/pi
    ```
 
@@ -91,7 +91,7 @@ You might be prompted for two passwords\. If so, the first password is for the M
    + The second command copies the core device certificate and keys into the `/greengrass/certs` folder and the [`config.json`](gg-core.md#config-json) file into the `/greengrass/config` folder \(through the `-C /greengrass` argument\)\.
 
    ```
-   sudo tar -xzvf greengrass-OS-architecture-1.11.5.tar.gz -C /
+   sudo tar -xzvf greengrass-OS-architecture-1.11.6.tar.gz -C /
    sudo tar -xzvf hash-setup.tar.gz -C /greengrass
    ```
 **Note**  
@@ -133,4 +133,4 @@ To set up your core device to start AWS IoT Greengrass on system boot, see [Conf
    ps aux | grep PID-number
    ```
 
-   You should see an entry for the PID with a path to the running Greengrass daemon \(for example, `/greengrass/ggc/packages/1.11.5/bin/daemon`\)\. If you run into issues starting AWS IoT Greengrass, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+   You should see an entry for the PID with a path to the running Greengrass daemon \(for example, `/greengrass/ggc/packages/1.11.6/bin/daemon`\)\. If you run into issues starting AWS IoT Greengrass, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
