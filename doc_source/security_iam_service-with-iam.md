@@ -191,7 +191,7 @@ This feature allows a service to assume a [service role](https://docs.aws.amazon
 
 AWS IoT Greengrass uses a service role to access some of your AWS resources on your behalf\. For more information, see [Greengrass service role](service-role.md)\.
 
-### Choosing an IAM role in the AWS IoT Greengrassconsole<a name="security_iam_service-with-iam-roles-choose"></a>
+### Choosing an IAM role in the AWS IoT Greengrass console<a name="security_iam_service-with-iam-roles-choose"></a>
 
 In the AWS IoT Greengrass console, you might need to choose a Greengrass service role or a Greengrass group role from a list of IAM roles in your account\.
 + The Greengrass service role allows AWS IoT Greengrass to access your AWS resources in other services on your behalf\. Typically, you don't need to choose the service role because the console can create and configure it for you\. For more information, see [Greengrass service role](service-role.md)\.
