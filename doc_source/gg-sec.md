@@ -19,7 +19,7 @@ B \- Core device certificate
 An X\.509 certificate used to authenticate a Greengrass core with AWS IoT Core and AWS IoT Greengrass\. For more information, see [Device authentication and authorization for AWS IoT Greengrass](device-auth.md)\.
 
 C \- Device certificate  
-An X\.509 certificate used to authenticate a Greengrass \(connected\) device with AWS IoT Core and AWS IoT Greengrass\. For more information, see [Device authentication and authorization for AWS IoT Greengrass](device-auth.md)\.
+An X\.509 certificate used to authenticate a client device, which is also known as a connected device, with AWS IoT Core and AWS IoT Greengrass\. For more information, see [Device authentication and authorization for AWS IoT Greengrass](device-auth.md)\.
 
 D \- Group role  
 A customer\-created IAM role assumed by AWS IoT Greengrass when calling AWS services from a Greengrass core\.  
@@ -27,18 +27,18 @@ You use this role to specify access permissions that your user\-defined Lambda f
 AWS IoT Greengrass doesn't use the Lambda execution role that's specified in AWS Lambda for the cloud version of a Lambda function\.
 
 E \- MQTT server certificate  
-The certificate used for Transport Layer Security \(TLS\) mutual authentication between a Greengrass core device and connected devices in the Greengrass group\. The certificate is signed by the group CA certificate, which is stored in the AWS Cloud\.
+The certificate used for Transport Layer Security \(TLS\) mutual authentication between a Greengrass core device and client devices in the Greengrass group\. The certificate is signed by the group CA certificate, which is stored in the AWS Cloud\.
 
 ## Device connection workflow<a name="gg-sec-connection"></a>
 
-This section describes how Greengrass connected devices connect to the AWS IoT Greengrass service and Greengrass core devices\. Greengrass connected devices are registered AWS IoT Core devices that are in the same Greengrass group as the core device\. 
+This section describes how client devices connect to the AWS IoT Greengrass service and Greengrass core devices\. Client devices are registered AWS IoT Core devices that are in the same Greengrass group as the core device\. 
 + A Greengrass core device uses its device certificate, private key, and the AWS IoT Core root CA certificate to connect to the AWS IoT Greengrass service\. On the core device, the `crypto` object in the [configuration file](gg-core.md#config-json) specifies the file path for these items\.
 + The Greengrass core device downloads group membership information from the AWS IoT Greengrass service\.
 + When a deployment is made to the Greengrass core device, the Device Certificate Manager \(DCM\) handles local server certificate management for the Greengrass core device\.
-+ A connected device connects to the AWS IoT Greengrass service using its device certificate, private key, and the AWS IoT Core root CA certificate\. After making the connection, the AWS IoT Core device uses the Greengrass Discovery Service to find the IP address of its Greengrass core device\. The device also downloads the group CA certificate, which is used for TLS mutual authentication with the Greengrass core device\.
-+ A connected device attempts to connect to the Greengrass core device, passing its device certificate and client ID\. If the client ID matches the thing name of the device and the certificate is valid \(part of the Greengrass group\), the connection is made\. Otherwise, the connection is terminated\. 
++ A client device connects to the AWS IoT Greengrass service using its device certificate, private key, and the AWS IoT Core root CA certificate\. After making the connection, the client device uses the Greengrass Discovery Service to find the IP address of its Greengrass core device\. The client device also downloads the group CA certificate, which is used for TLS mutual authentication with the Greengrass core device\.
++ A client device attempts to connect to the Greengrass core device, passing its device certificate and client ID\. If the client ID matches the thing name of the client device and the certificate is valid \(part of the Greengrass group\), the connection is made\. Otherwise, the connection is terminated\. 
 
-The AWS IoT policy for connected devices must grant the `greengrass:Discover` permission to allow devices to discover connectivity information for the core\. For more information about the policy statement, see [Discovery authorization](gg-discover-api.md#gg-discover-auth)\.
+The AWS IoT policy for client devices must grant the `greengrass:Discover` permission to allow client devices to discover connectivity information for the core\. For more information about the policy statement, see [Discovery authorization](gg-discover-api.md#gg-discover-auth)\.
 
 ## Configuring AWS IoT Greengrass security<a name="gg-config-sec"></a>
 
@@ -77,7 +77,7 @@ The AWS IoT client \(IoT client\) manages communication over the internet betwee
 The IoT client supports RSA and EC certificates and keys\. The certificate and private key path are specified for the `IoTCertificate` principal in `config.json`\.
 
 **MQTT Server**  
-The local MQTT server manages communication over the local network between the Greengrass core and other Greengrass devices in the group\. AWS IoT Greengrass uses X\.509 certificates with public and private keys for mutual authentication when establishing TLS connections for this communication\.  
+The local MQTT server manages communication over the local network between the Greengrass core and client devices in the group\. AWS IoT Greengrass uses X\.509 certificates with public and private keys for mutual authentication when establishing TLS connections for this communication\.  
 By default, AWS IoT Greengrass generates an RSA private key for you\. To configure the core to use a different private key, you must provide the key path for the `MQTTServerCertificate` principal in `config.json`\. You are responsible for rotating a customer\-provided key\.    
 **Private key support**    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/gg-sec.html)
@@ -108,7 +108,7 @@ Currently, AWS IoT Greengrass supports only the [PKCS\#1 v1\.5](https://tools.ie
 
 ## Managed subscriptions in the MQTT messaging workflow<a name="gg-msg-workflow"></a>
 
-AWS IoT Greengrass uses a subscription table to define how MQTT messages can be exchanged between devices, functions, and connectors in a Greengrass group, and with AWS IoT Core or the local shadow service\. Each subscription specifies a source, target, and MQTT topic \(or subject\) over which messages are sent or received\. AWS IoT Greengrass allows messages to be sent from a source to a target only if a corresponding subscription is defined\.
+AWS IoT Greengrass uses a subscription table to define how MQTT messages can be exchanged between client devices, functions, and connectors in a Greengrass group, and with AWS IoT Core or the local shadow service\. Each subscription specifies a source, target, and MQTT topic \(or subject\) over which messages are sent or received\. AWS IoT Greengrass allows messages to be sent from a source to a target only if a corresponding subscription is defined\.
 
 A subscription defines the message flow in one direction only, from the source to the target\. To support two\-way message exchange, you must create two subscriptions, one for each direction\.
 

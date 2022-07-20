@@ -4,58 +4,117 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
 --------
 
-# Create AWS IoT devices in an AWS IoT Greengrass group<a name="device-group"></a>
+# Create client devices in an AWS IoT Greengrass group<a name="device-group"></a>
 
-In this step, you add two AWS IoT devices to your Greengrass group\. This process includes registering the devices and configuring certificates and keys to allow them to connect to AWS IoT Greengrass\.
+In this step, you add two client devices to your Greengrass group\. This process includes registering the devices as AWS IoT things and configuring certificates and keys to allow them to connect to AWS IoT Greengrass\.
 
- 
-
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="gg-group-add-device"></a>On the group configuration page, choose **Devices**, and then choose **Add Device**\.  
-![\[Screenshot of the Devices page with the Add your first Device button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-066.png)
+1. <a name="gg-group-add-device"></a>On the group configuration page, choose **Client devices**, and then choose **Associate**\.
 
-1. <a name="gg-group-create-device"></a>On the **Add a Device** page, choose **Create New Device**\.
+1. <a name="gg-group-create-device"></a>In the **Associate a client device with this group** modal, choose **Create new AWS IoT thing**\.
 
-1. On the **Create a Registry entry for a device** page, register this device as **HelloWorld\_Publisher**, and then choose **Next**\.  
-![\[Screenshot of Create a Registry entry for a device with the Name field set to HelloWorld_Publisher and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-068.png)
+   The **Create things** page opens in a new tab\.
 
-1. <a name="gg-group-generate-default-device-certs"></a>On the **Set up security** page, for **1\-Click**, choose **Use Defaults**\. This option generates a device certificate with an attached [AWS IoT policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) and public and private key\.
+1. <a name="gg-group-create-single-thing"></a>On the **Create things** page, choose **Create single thing**, and then choose **Next**\.
 
-1. Create a folder on your computer\. Download the certificate and keys for your device into the folder\.  
-![\[Screenshot of the Download security credentials page with the Download these resources as a tar.gz button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-070.png)
+1. On the **Specify thing properties** page, register this client device as **HelloWorld\_Publisher**, and then choose **Next**\.
 
-   Make a note of the common *hash* component in the file names for the HelloWorld\_Publisher device certificate and keys \(in this example, `bcc5afd26d`\)\. You need it later\. Choose **Finish**\.
+1. <a name="gg-group-create-device-configure-certificate"></a>On the **Configure device certificate** page, choose **Next**\.
 
-1. Decompress the `hash-setup.tar.gz` file\. For example, run the following command:
+1. <a name="gg-group-create-device-attach-policy"></a>On the **Attach policies to certificate** page, do one of the following:
+   + Select an existing policy that grants permissions that client devices require, and then choose **Create thing**\.
 
-   ```
-   tar -xzf hash-setup.tar.gz
-   ```
-**Note**  
-On Windows, you can decompress `.tar.gz` files using a tool such as [7\-Zip](http://www.7-zip.org/) or [WinZip](http://www.winzip.com/)\.
+     A modal opens where you can download the certificates and keys that the device uses to connect to the AWS Cloud and the core\.
+   + Create and attach a new policy that grants client device permissions\. Do the following:
 
-1. Choose **Add Device** and repeat steps 3 \- 7 to add a new device to the group\.
+     1. Choose **Create policy**\.
 
-   Name this device **HelloWorld\_Subscriber**\. Download the certificates and keys for the device to your computer\. Save and decompress them in the same folder that you created for HelloWorld\_Publisher\.
+        The **Create policy** page opens in a new tab\.
 
-   Again, make a note of the common *hash* component in the file names for the HelloWorld\_Subscriber device\.
+     1. On the **Create policy** page, do the following:
 
-   You should now have two devices in your AWS IoT Greengrass group:  
-![\[Screenshot showing the HelloWorld_Publisher and HelloWorld_Subscriber devices.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-071.png)
+        1. For **Policy name**, enter a name that describes the policy, such as **GreengrassV1ClientDevicePolicy**\.
 
-1. <a name="root-ca-device"></a>Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\. Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some Amazon Web Services Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
+        1. On the **Policy statements** tab, under **Policy document**, choose **JSON**\.
 
-   Save the root CA certificate as `root-ca-cert.pem` in the same folder as the device certificates and keys for both devices\. All these files should be in one folder on your computer \(not on the Greengrass core device\)\.
-   + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate, such as [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\.
-   + For legacy endpoints, download a [ VeriSign root CA certificate](https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem)\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you use an ATS endpoint and download an ATS root CA certificate\.
-**Note**  
-If you're using a web browser on the Mac and you see This certificate is already installed as a certificate authority, open a Terminal window and download the certificate into the folder that contains the HelloWorld\_Publisher and HelloWorld\_Subscriber device certificates and keys\. For example, if you're using an ATS endpoint, you can run the following command to download the Amazon Root CA 1 certificate\.  
+        1. Enter the following policy document\. This policy allows the client device to discover Greengrass cores and communicate on all MQTT topics\. For information about how to restrict this policy's access, see [Device authentication and authorization for AWS IoT Greengrass](device-auth.md)\.
 
-   ```
-   cd path-to-folder-containing-device-certificates
-   curl -o ./root-ca-cert.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
-   ```
-Run `cat root-ca-cert.pem` to ensure that the file is not empty\. If the file is empty, check the URL and try the `curl` command again\.
+           ```
+           {
+             "Version": "2012-10-17",
+             "Statement": [
+               {
+                 "Effect": "Allow",
+                 "Action": [
+                   "iot:Publish",
+                   "iot:Subscribe",
+                   "iot:Connect",
+                   "iot:Receive"
+                 ],
+                 "Resource": [
+                   "*"
+                 ]
+               },
+               {
+                 "Effect": "Allow",
+                 "Action": [
+                   "greengrass:*"
+                 ],
+                 "Resource": [
+                   "*"
+                 ]
+               }
+             ]
+           }
+           ```
+
+        1. Choose **Create** to create the policy\.
+
+     1. Return to the browser tab with the **Attach policies to certificate** page open\. Do the following:
+
+        1. In the **Policies** list, select the policy that you created, such as **GreengrassV1ClientDevicePolicy**\.
+
+           If you don't see the policy, choose the refresh button\.
+
+        1. Choose **Create thing**\.
+
+           A modal opens where you can download the certificates and keys that the device uses to connect to the AWS Cloud and the core\.
+
+1. <a name="gg-group-create-device-download-certs"></a>In the **Download certificates and keys** modal, download the device's certificates\.
+**Important**  
+Before you choose **Done**, download the security resources\.
+
+   Do the following:
+
+   1. For **Device certificate**, choose **Download** to download the device certificate\.
+
+   1. For **Public key file**, choose **Download** to download the public key for the certificate\.
+
+   1. For **Private key file**, choose **Download** to download the private key file for the certificate\.
+
+   1. Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\. Under **Root CA certificates**, choose **Download** for a root CA certificate\.
+
+   1. Choose **Done**\.
+
+   Make a note of the certificate ID that's common in the file names for the device certificate and keys\. You need it later\.
+
+1. Return to the browser tab with the **Associate a client device with this group** modal open\. Do the following:
+
+   1. For **AWS IoT thing name**, choose the **HelloWorld\_Publisher** thing that you created\.
+
+      If you don't see the thing, choose the refresh button\.
+
+   1. Choose **Associate**\.
+
+1. Repeat steps 3 \- 10 to add a second client device to the group\.
+
+   Name this client device **HelloWorld\_Subscriber**\. Download the certificates and keys for this client device to your computer\. Again, make a note of the certificate's ID that's common in the file names for the HelloWorld\_Subscriber device\.
+
+   You should now have two client devices in your Greengrass group:
+   + HelloWorld\_Publisher
+   + HelloWorld\_Subscriber
+
+1. Create a folder on your computer for these client devices' security credentials\. Copy the certificates and keys into this folder\.

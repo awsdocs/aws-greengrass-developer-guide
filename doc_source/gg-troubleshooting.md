@@ -409,9 +409,9 @@ Use the following information to help troubleshoot deployment issues\.
 
 **To redeploy a deployment \(console\)**
 
-1. On the group configuration page, choose **Deployments**\. This page displays the deployment history for the group, including the date and time, group version, and status of each deployment attempt\.
+1. On the group configuration page, choose the **Deployments** tab\. This page displays the deployment history for the group, including the date and time, group version, and status of each deployment attempt\.
 
-1. Find the row that contains the deployment you want to redeploy\. In the **Status** column, choose the ellipsis \(**…**\), and then choose **Re\-deploy**\.  
+1. Find the row that contains the deployment you want to redeploy\. Select the deployment you want to redeploy and choose **Redeploy**\.  
 ![\[Deployments page showing the Re-Deploy action for a deployment.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-redeployment.png)
 
 **To redeploy a deployment \(CLI\)**
@@ -703,7 +703,7 @@ Use the following information to help troubleshoot issues with the AWS IoT Green
 
 ### Error: Device is a member of too many groups, devices may not be in more than 10 groups<a name="troubleshoot-device-in-too-many-groups"></a>
 
-**Solution:** This is a known limitation\. A [Greengrass device](what-is-gg.md#greengrass-devices) can be a member of up to 10 groups\.
+**Solution:** This is a known limitation\. A [client device](what-is-gg.md#greengrass-devices) can be a member of up to 10 groups\.
 
  
 

@@ -12,7 +12,7 @@ AWS IoT Greengrass provides cloud\-based management of Greengrass Lambda functio
 
 AWS IoT Greengrass provides the following group\-specific configuration settings for Greengrass Lambda functions\.
 
-**Run as**  <a name="lambda-access-identity"></a>
+**System user and group**  <a name="lambda-access-identity"></a>
 The access identity used to run a Lambda function\. By default, Lambda functions run as the group's [default access identity](#lambda-access-identity-groupsettings)\. Typically, this is the standard AWS IoT Greengrass system accounts \(ggc\_user and ggc\_group\)\. You can change the setting and choose the user ID and group ID that have the permissions required to run the Lambda function\. You can override both UID and GID or just one if you leave the other field blank\. This setting gives you more granular control over access to device resources\. We recommend that you configure your Greengrass hardware with appropriate resource limits, file permissions, and disk quotas for the users and groups whose permissions are used to run Lambda functions\.  
 This feature is available for AWS IoT Greengrass Core v1\.7 and later\.  
 We recommend that you avoid running Lambda functions as root unless absolutely necessary\. Running as root increases the following risks:  
@@ -20,13 +20,13 @@ We recommend that you avoid running Lambda functions as root unless absolutely n
 + The risk to your data and device from malicious individuals\.
 + The risk of container escapes when Docker containers run with `--net=host` and `UID=EUID=0`\.
 If you do need to run as root, you must update the AWS IoT Greengrass configuration to enable it\. For more information, see [Running a Lambda function as root](#lambda-running-as-root)\.  
-**UID \(number\)**  
-The user ID for the user that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent passwd command on your AWS IoT Greengrass core device to look up the user ID you want to use to run the Lambda function\.  
+**System user ID \(number\)**  
+The user ID for the user that has the permissions required to run the Lambda function\. This setting is only available if you choose to run as **Another user ID/group ID**\. You can use the getent passwd command on your AWS IoT Greengrass core device to look up the user ID you want to use to run the Lambda function\.  
 If you use the same UID to run processes and the Lambda function on a Greengrass core device, your Greengrass group role can grant the processes temporary credentials\. The processes can use the temporary credentials across Greengrass core deployments\.  
-**GID \(number\)**  
-The group ID for the group that has the permissions required to run the Lambda function\. This setting is only available if you choose **Run as another user ID/group ID**\. You can use the getent group command on your AWS IoT Greengrass core device to look up the group ID you want to use to run the Lambda function\.
+**System group ID \(number\)**  
+The group ID for the group that has the permissions required to run the Lambda function\. This setting is only available if you choose to run as **Another user ID/group ID**\. You can use the getent group command on your AWS IoT Greengrass core device to look up the group ID you want to use to run the Lambda function\.
 
-**Containerization**  <a name="lambda-function-containerization"></a>
+**Lambda function containerization**  <a name="lambda-function-containerization"></a>
 Choose whether the Lambda function runs with the default containerization for the group, or specify the containerization that should always be used for this Lambda function\.  
 A Lambda function's containerization mode determines its level of isolation\.  
 + Containerized Lambda functions run in **Greengrass container** mode\. The Lambda function runs in an isolated runtime environment \(or namespace\) inside the AWS IoT Greengrass container\.
@@ -42,7 +42,7 @@ The memory limit setting becomes unavailable when you change the Lambda function
 **Timeout**  
 The amount of time before the function or request is terminated\. The default is 3 seconds\.
 
-**Lifecycle**  
+**Pinned**  
 A Lambda function lifecycle can be *on\-demand* or *long\-lived*\. The default is on\-demand\.  
 An on\-demand Lambda function starts in a new or reused container when invoked\. Requests to the function might be processed by any available container\. A long\-lived—or *pinned*—Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container \(or sandbox\)\. All requests to the function are processed by the same container\. For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
 
@@ -50,16 +50,19 @@ An on\-demand Lambda function starts in a new or reused container when invoked\.
 Whether the function can access the host's /sys folder\. Use this when the function must read device information from /sys\. The default is false\.  
 This setting is not available when you run a Lambda function without containerization\. The value of this setting is discarded when you change the Lambda function to run without containerization\.
 
-**Input payload data type**  
+**Encoding type**  
 The expected encoding type of the input payload for the function, either JSON or binary\. The default is JSON\.  
 Support for the binary encoding type is available starting in AWS IoT Greengrass Core Software v1\.5\.0 and AWS IoT Greengrass Core SDK v1\.1\.0\. Accepting binary input data can be useful for functions that interact with device data, because the restricted hardware capabilities of devices often make it difficult or impossible for them to construct a JSON data type\.  
 [Lambda executables](lambda-functions.md#lambda-executables) support the binary encoding type only, not JSON\.
+
+**Process arguments**  
+The command\-line arguments are passed to the Lambda function when it runs\.
 
 **Environment variables**  
 Key\-value pairs that can dynamically pass settings to function code and libraries\. Local environment variables work the same way as [AWS Lambda function environment variables](https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html), but are available in the core environment\.
 
 **Resource access policies**  
-A list of up to 10 [local resources](access-local-resources.md), [secret resources](secrets.md), and [machine learning resources](ml-inference.md) that the Lambda function is allowed to access, and the corresponding `read-only` or `read-write` permission\. In the console, these *affiliated* resources are listed on the function's **Resources** page\.  
+A list of up to 10 [local resources](access-local-resources.md), [secret resources](secrets.md), and [machine learning resources](ml-inference.md) that the Lambda function is allowed to access, and the corresponding `read-only` or `read-write` permission\. In the console, these *affiliated* resources are listed on the group configuration page in the **Resources** tab\.  
 The [containerization mode](#lambda-function-containerization) affects how Lambda functions can access local device and volume resources and machine learning resources\.  
 + Non\-containerized Lambda functions must access local device and volume resources directly through the file system on the core device\.
 + To allow non\-containerized Lambda functions to access machine learning resources in the Greengrass group, you must set the resource owner and access permissions properties on the machine learning resource\. For more information, see [Access machine learning resources from Lambda functions](access-ml-resources.md)\.
@@ -146,17 +149,17 @@ Changing the containerization for a Lambda function can cause problems when you 
 
 **To change containerization settings for a Lambda function**
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="lambda-choose-group"></a>Choose the group that contains the Lambda function whose settings you want to change\.
 
-1. <a name="lambda-choose-lambdas"></a>Choose **Lambdas**\.
+1. <a name="lambda-choose-lambdas"></a>Choose the **Lambda functions** tab\.
 
 1. <a name="lambda-edit-lambda"></a>On the Lambda function that you want to change, choose the ellipsis \(**…**\) and then choose **Edit configuration**\.
 
 1. Change the containerization settings\. If you configure the Lambda function to run in a Greengrass container, you must also set **Memory limit** and **Read access to /sys directory**\.
 
-1. <a name="lambda-save-changes"></a>Choose **Update** to save the changes to your Lambda function\.
+1. <a name="lambda-save-changes"></a>Choose **Save** and then **Confirm** to save the changes to your Lambda function\.
 
 The changes take effect when the group is deployed\.
 
@@ -194,19 +197,19 @@ The default access identity can be configured to run as the standard AWS IoT Gre
 
 **To modify the default access identity for your AWS IoT Greengrass group**
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-group"></a>Choose the group whose settings you want to change\.
 
-1. <a name="group-choose-settings"></a>Choose **Settings**\.
+1. Choose the **Lambda functions** tab and, under the **Default Lambda function runtime environment** section, choose **Edit**\.
 
-1. Under **Lambda runtime environment**, for **Default Lambda function user ID/ group ID**, choose **Another user ID/group ID**\.
+1. In the **Edit default Lambda function runtime environment** page, under **Default system user and group**, choose **Another user ID/group ID**\.
 
-   When you choose this option, the **UID \(number\)** and **GID \(number\)** fields are displayed\.
+   When you choose this option, the **System user ID \(number\)** and **System group ID \(number\)** fields are displayed\.
 
 1. Enter a user ID, group ID, or both\. If you leave a field blank, the respective Greengrass system account \(ggc\_user or ggc\_group\) is used\.
-   + For **UID \(number\)**, enter the user ID for the user who has the permissions you want to use by default to run Lambda functions in the group\. You can use the getent passwd command on your AWS IoT Greengrass device to look up the user ID\.
-   + For **GID \(number\)**, enter the group ID for the group that has the permissions you want to use by default to run Lambda functions in the group\. You can use the getent group command on your AWS IoT Greengrass device to look up the group ID\.
+   + For **System user ID \(number\)**, enter the user ID for the user who has the permissions you want to use by default to run Lambda functions in the group\. You can use the getent passwd command on your AWS IoT Greengrass device to look up the user ID\.
+   + For **System group ID \(number\)**, enter the group ID for the group that has the permissions you want to use by default to run Lambda functions in the group\. You can use the getent group command on your AWS IoT Greengrass device to look up the group ID\.
 **Important**  
 Running as the root user increases risks to your data and device\. Do not run as root \(UID/GID=0\) unless your business case requires it\. For more information, see [Running a Lambda function as root](#lambda-running-as-root)\.
 
@@ -227,12 +230,16 @@ If you want to change the default containerization for the group, but have one o
 
 **To modify containerization settings for your AWS IoT Greengrass group**
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-group"></a>Choose the group whose settings you want to change\.
 
-1. <a name="group-choose-settings"></a>Choose **Settings**\.
+1. Choose the **Lambda functions** tab\.
 
-1. Under **Lambda runtime environment**, change the containerization setting\.
+1. Under **Default Lambda function runtime environment**, choose **Edit**\.
+
+1. In the **Edit default Lambda function runtime environment**, page, under **Default Lambda function containerization**, change the containerization setting\.
+
+1. Choose **Save**\.
 
 The changes take effect when the group is deployed\.

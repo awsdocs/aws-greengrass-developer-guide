@@ -417,7 +417,7 @@ First, get the group ID and the ARN of the core definition version\. These value
       aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
       ```
 **Note**  
-<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** tab\.
 
    1. <a name="copy-target-group-id"></a>Copy the `Id` of the target group from the output\. You use this to get the core definition version and when you deploy the group\.
 
@@ -505,8 +505,7 @@ Deploy the group to the core device\.
 
 ## Test the solution<a name="connectors-cli-test-solution"></a>
 
-1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)
+1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.
 
 1. For **Subscribe to topic**, use the following values, and then choose **Subscribe**\. The Twilio Notifications connector publishes status information to this topic\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/connectors-cli.html)

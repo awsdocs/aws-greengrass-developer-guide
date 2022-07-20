@@ -27,21 +27,19 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
    Now you're ready to deploy the Lambda function and subscription configurations to your Greengrass core device\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. Under **Greengrass groups**, choose the group that you created in [Module 2](module2.md)\.
 
-1. On the group configuration page, from **Actions**, choose **Deploy**\.  
-![\[Screenshot of the Group page with Deployments, Actions menu, and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-040.png)
+1. On the group configuration page, choose **Deploy**\.
 
-1. On the **Configure how devices discover your core** page, choose **Automatic detection**\. This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
-![\[Screenshot of Configure how Devices discover your Core with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-discovery.png)
+1. On the **Lambda functions** tab, in the **System Lambda functions** section, choose **IP detector**\.
+
+1. Choose **Edit** and select **Automatically detect and override MQTT broker endpoints**\. This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.
 
 The first deployment might take a few minutes\. When the deployment is complete, you should see **Successfully completed** in the **Status** column on the **Deployments** page:
 
 **Note**  
 The deployment status is also displayed below the group's name on the page header\.
-
-![\[Screenshot showing a status of Successfully completed.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-042.png)
 
 For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.

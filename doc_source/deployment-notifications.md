@@ -79,45 +79,57 @@ For more information, see [What is Amazon EventBridge?](https://docs.aws.amazon.
 
 Use the following steps to create an EventBridge rule that publishes an Amazon SNS topic when the deployment state changes for a group\. This allows web servers, email addresses, and other topic subscribers to respond to the event\. For more information, see [Creating a EventBridge rule that triggers on an event from an AWS resource](https://docs.aws.amazon.com/eventbridge/latest/userguide/create-eventbridge-rule.html) in the *Amazon EventBridge User Guide*\.
 
-1. Open the [Amazon EventBridge console](https://console.aws.amazon.com/events/) and choose **Create rule**\.
+1. Open the [Amazon EventBridge console](https://console.aws.amazon.com/events/)\.
 
-1. Under **Name and description**, enter a name and description for the rule\.
+1. In the navigation pane, choose **Rules**\.
 
-1. Under **Define pattern**, configure the rule pattern\.
+1. Choose **Create rule**\.
 
-   1. Choose **Event pattern**\.
+1. Enter a name and description for the rule\.
 
-   1. Choose **Pre\-defined pattern by service**\.
+   A rule can't have the same name as another rule in the same Region and on the same event bus\.
 
-   1. For **Service provider**, choose **AWS**\.
+1. For **Event bus**, choose the event bus that you want to associate with this rule\. If you want this rule to match events that come from your account, select **AWS default event bus**\. When an AWS service in your account emits an event, it always goes to your account's default event bus\.
 
-   1. For **Service name**, choose **Greengrass**\.
+1. For **Rule type**, choose **Rule with an event pattern**\.
 
-   1. For **Event type**, choose **Greengrass Deployment Status Change**\.
+1. Choose **Next**\.
+
+1. For **Event source**, choose **AWS services**\.
+
+1. For **Event pattern**, choose **AWS services**\.
+
+1. For **AWS service**, choose Greengrass\.
+
+1. For **Event type**, choose **Greengrass Deployment Status Change**\.
 **Note**  
 The **AWS API Call via CloudTrail** event type is based on AWS IoT Greengrass integration with AWS CloudTrail\. You can use this option to create rules initiated by read or write calls to the AWS IoT Greengrass API\. For more information, see [Logging AWS IoT Greengrass API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
 
-   1. Choose the deployment states that initiate a notification\.
-      + To receive notifications for all state change events, choose **Any state**\.
-      + To receive notifications for some state change events only, choose **Specific state\(s\)**, and then choose the target states\.
+1. Choose the deployment states that initiate a notification\.
+   + To receive notifications for all state change events, choose **Any state**\.
+   + To receive notifications for some state change events only, choose **Specific state\(s\)**, and then choose the target states\.
 
-   1. Choose the deployment types that initiate a notification\.
-      + To receive notifications for all deployment types, choose **Any state**\.
-      + To receive notifications for some deployment types only, choose **Specific state\(s\)**, and then choose the target deployment types\.
+1. Choose the deployment types that initiate a notification\.
+   + To receive notifications for all deployment types, choose **Any state**\.
+   + To receive notifications for some deployment types only, choose **Specific state\(s\)**, and then choose the target deployment types\.
 
-1. Under **Select event bus**, keep the default event bus options\.
+1. Choose **Next**\.
 
-1. Under **Select targets**, configure your target\. This example uses an Amazon SNS topic, but you can configure other target types to send notifications\.
+1. For **Target types**, choose **AWS service**\.
+
+1. For **Select a target**, configure your target\. This example uses an Amazon SNS topic, but you can configure other target types to send notifications\.
 
    1. For **Target**, choose **SNS topic**\.
 
    1. For **Topic**, choose your target topic\.
 
-   1. Choose **Add target**\.
+   1. Choose **Next**\.
 
-1. Under **Tags \- optional**, define tags for the rule or leave the fields empty\.
+1. Under **Tags**, define tags for the rule or leave the fields empty\.
 
-1. Choose **Create**\.
+1. Choose **Next**\.
+
+1. Review the details of the rule and choose **Create rule**\.
 
 ## Configure deployment notifications \(CLI\)<a name="create-events-rule-cli"></a>
 

@@ -59,14 +59,13 @@ For more information about this process, see [ Step 1: Create and store your sec
 
 1. <a name="create-secret-step-create"></a>Choose **Store a new secret**\.
 
-1. <a name="create-secret-step-othertype"></a>Under **Select secret type**, choose **Other type of secrets**\.
+1. <a name="create-secret-step-othertype"></a>Under **Choose secret type**, choose **Other type of secret**\.
 
 1. Under **Specify the key\-value pairs to be stored for this secret**:
    + For **Key**, enter **test**\.
-   + For **Value**, enter **abcdefghi**\.  
-![\[Specifying the secret's key and value in the Secrets Manager console.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/secrets-manager-key-value.png)
+   + For **Value**, enter **abcdefghi**\.
 
-1. <a name="create-secret-step-encryption"></a>Keep **DefaultEncryptionKey** selected for the encryption key, and then choose **Next**\.
+1. <a name="create-secret-step-encryption"></a>Keep **aws/secretsmanager** selected for the encryption key, and then choose **Next**\.
 **Note**  
 You aren't charged by AWS KMS if you use the default AWS managed key that Secrets Manager creates in your account\.
 
@@ -74,7 +73,7 @@ You aren't charged by AWS KMS if you use the default AWS managed key that Secret
 **Note**  
 By default, the Greengrass service role allows AWS IoT Greengrass to get the value of secrets with names that start with *greengrass\-*\. For more information, see [secrets requirements](secrets.md#secrets-reqs)\.
 
-1. <a name="create-secret-step-rotation"></a>This tutorial doesn't require rotation, so choose **Disable automatic rotation**, and then choose **Next**\.
+1. <a name="create-secret-step-rotation"></a>This tutorial doesn't require rotation, so choose disable automatic rotation, and then choose **Next**\.
 
 1. <a name="create-secret-step-review"></a>On the **Review** page, review your settings, and then choose **Store**\.
 
@@ -84,25 +83,25 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
 In this step, you configure a group resource that references the Secrets Manager secret\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="create-secret-resource-step-choosegroup"></a>Choose the group that you want to add the secret resource to\.
 
-1. <a name="create-secret-resource-step-secretstab"></a>On the group configuration page, choose **Resources**, and then choose **Secret**\. This tab displays the secret resources that belong to the group\. You can add, edit, and remove secret resources from this tab\.  
-![\[The Secret tab on the group's Resources page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-resources-secret-zero.png)
+1. <a name="create-secret-resource-step-secretstab"></a>On the group configuration page, choose the **Resources** tab, and then scroll down to the **Secrets** section\. The **Secrets** section displays the secret resources that belong to the group\. You can add, edit, and remove secret resources from this section\.
 **Note**  
 Alternatively, the console allows you to create a secret and secret resource when you configure a connector or Lambda function\. You can do this from the connector's **Configure parameters** page or the Lambda function's **Resources** page\.
 
-1. <a name="create-secret-resource-step-addsecretresource"></a>Choose **Add a secret resource**\.
+1. <a name="create-secret-resource-step-addsecretresource"></a>Choose **Add** under the **Secrets** section\.
 
-1. On the **Add a secret resource to your group** page, choose **Select**, and then choose **greengrass\-TestSecret**\.  
-![\[The Add a secret resource to your group page with Select highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-resources-secret-add-select.png)
+1. On the **Add a secret resource** page, enter **MyTestSecret** in the **Resource name**\.
 
-1. <a name="create-secret-resource-step-selectlabels"></a>On the **Select labels \(Optional\)** page, choose **Next**\. The AWSCURRENT staging label represents the latest version of the secret\. This label is always included in a secret resource\.
+1. Under **Secret**, choose **greengrass\-TestSecret**\.
+
+1. <a name="create-secret-resource-step-selectlabels"></a>In the **Select labels \(Optional\)** section, the AWSCURRENT staging label represents the latest version of the secret\. This label is always included in a secret resource\.
 **Note**  
 This tutorial requires the AWSCURRENT label only\. You can optionally include labels that are required by your Lambda function or connector\.
 
-1. On the **Name your secret resource** page, enter **MyTestSecret**, and then choose **Save**\.
+1. Choose **Add resource**\.
 
 ## Step 3: Create a Lambda function deployment package<a name="secrets-console-create-deployment-package"></a>
 
@@ -205,59 +204,90 @@ Now you're ready to add the Lambda function to your Greengrass group and attach 
 
 In this step, you add the Lambda function to the Greengrass group in the AWS IoT console\.
 
-1. <a name="choose-add-lambda"></a>On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
-![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas.png)
+1. <a name="choose-add-lambda"></a>On the group configuration page, choose the **Lambda functions** tab\.
 
-1. <a name="add-lambda-to-group-console"></a>On the **Add a Lambda to your Greengrass Group** page, choose **Use existing Lambda**\.  
-![\[The Add a Lambda to your Greengrass Group page with Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas-existing-lambda.png)
+1. Under the **My Lambda functions** section, choose **Add**\.
 
-1. On the **Use existing Lambda** page, choose **SecretTest**, and then choose **Next**\.
+1. For the **Lambda function**, choose **SecretTest**\.
 
-1. On the **Select a Lambda version** page, choose **Alias:GG\_SecretTest**, and then choose **Finish**\.
+1. For the **Lambda function version**, choose the alias to the version that you published\.
 
-Next, affiliate the secret resource with the function\.
+Next, configure the lifecycle of the Lambda function\.
+
+1. In the **Lambda function configuration** section, make the following updates\.
+**Note**  
+ We recommend that you run your Lambda function without containerization unless your business case requires it\. This helps enable access to your device GPU and camera without configuring device resources\. If you run without containerization, you must also grant root access to your AWS IoT Greengrass Lambda functions\. 
+
+   1. **To run without containerization:**
+      + For **System user and group**, choose **Another user ID/group ID**\. For **System user ID**, enter **0**\. For **System group ID**, enter **0**\.
+
+        This allows your Lambda function to run as root\. For more information about running as root, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
+**Tip**  
+You also must update your `config.json` file to grant root access to your Lambda function\. For the procedure, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
+      + For **Lambda function containerization**, choose **No container**\.
+
+        For more information about running without containerization, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations)\.
+      + For **Timeout**, enter **10 seconds**\.
+      + For **Pinned**, choose **True**\.
+
+        For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
+      + Under **Additional Parameter**, for **Read access to /sys directory**, choose **Enabled**\.
+
+   1.  **To run in containerized mode instead:** 
+**Note**  
+We do not recommend running in containerized mode unless your business case requires it\.
+      + For **System user and group**, choose **Use group default**\.
+      + For **Lambda function containerization**, choose **Use group default**\.
+      + For **Memory limit**, enter **1024 MB**\.
+      + For **Timeout**, enter **10 seconds**\.
+      + For **Pinned**, choose **True**\.
+
+        For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
+      + Under **Additional Parameters**, for **Read access to /sys directory**, choose **Enabled**\.
+
+1.  Choose **Add Lambda function**\.
+
+Next, associate the secret resource with the function\.
 
 ## Step 6: Attach the secret resource to the Lambda function<a name="secrets-console-affiliate-gg-function"></a>
 
-In this step, you attach the secret resource to the Lambda function in your Greengrass group\. This affiliates the resource with the function, which allows the function to get the value of the local secret\.
+In this step, you associate the secret resource to the Lambda function in your Greengrass group\. This associates the resource with the function, which allows the function to get the value of the local secret\.
 
-1. On the group's **Lambdas** page, choose the **SecretTest** function\.
+1. On the group configuration page, choose the **Lambda functions** tab\.
 
-1. On the function's details page, choose **Resources**, choose **Secret**, and then choose **Attach a secret resource**\.  
-![\[The Resources page with Attach a secret resource highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-function-resources-secret-attach.png)
+1. Choose the **SecretTest** function\.
 
-1. On the **Attach a secret resource to your Lambda function** page, choose **Choose secret resource**\.
+1. On the function's details page, choose **Resources**\.
 
-1. On the **Select a secret resource from your group** page, choose **MyTestSecret**, and then choose **Save**\.
+1. Scroll to the **Secrets** section and choose **Associate**\.
+
+1. Choose **MyTestSecret**, and then choose **Associate**\.
 
 ## Step 7: Add subscriptions to the Greengrass group<a name="secrets-console-create-subscription"></a>
 
 In this step, you add subscriptions that allow AWS IoT and the Lambda function to exchange messages\. One subscription allows AWS IoT to invoke the function, and one allows the function to send output data to AWS IoT\.
 
-1. <a name="shared-subscriptions-addsubscription"></a>On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.  
-![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-subscriptions.png)
+1. <a name="shared-subscriptions-addsubscription"></a>On the group configuration page, choose the **Subscriptions** tab, and then choose **Add Subscription**\.
 
 1. Create a subscription that allows AWS IoT to publish messages to the function\.
 
-   On the **Select your source and target** page, configure the source and target:
+   On the group configuration page, choose the **Subscriptions** tab, and then choose **Add subscription**\.
 
-   1. For **Select a source**, choose **Services**, and then choose **IoT Cloud**\.
+1. On the **Create a subscription** page, configure the source and target, as follows:
 
-   1. For **Select a target**, choose **Lambdas**, and then choose **SecretTest**\.
+   1. In **Source type**, choose **Lambda function**, and then choose **IoT Cloud**\.
 
-   1. Choose **Next**\.
+   1. In **Target type**, choose **Service**, and then choose **SecretTest**\.
 
-1. On the **Filter your data with a topic** page, for **Topic filter**, enter **secrets/input**, and then choose **Next**\.
+   1. In the **Topic filter**, enter **secrets/input**, and then choose **Create subscription**\. 
 
-1. Choose **Finish**\.
+1. Add a second subscription\. Choose the **Subscriptions** tab, choose **Add subscription**, and configure the source and target, as follows: 
 
-1. Repeat steps 1 \- 4 to create a subscription that allows the function to publish status to AWS IoT\.
+   1. In **Source type**, choose **Services**, and then choose **SecretTest**\.
 
-   1. For **Select a source**, choose **Lambdas**, and then choose **SecretTest**\.
+   1. In **Target type**, choose **Lambda function**, and then choose **IoT Cloud**\.
 
-   1. For **Select a target**, choose **Services**, and then choose **IoT Cloud**\.
-
-   1. For **Topic filter**, enter **secrets/output**\.
+   1. In the **Topic filter**, enter **secrets/output**, and then choose **Create subscription**\.
 
 ## Step 8: Deploy the Greengrass group<a name="secrets-console-create-deployment"></a>
 
@@ -282,24 +312,27 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
       sudo ./greengrassd start
       ```
 
-1. <a name="shared-deploy-group-deploy"></a>On the group configuration page, choose **Deployments**, and from the **Actions** menu, choose **Deploy**\.  
-![\[The group page with Deployments and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-deployments-deploy.png)
+1. <a name="shared-deploy-group-deploy"></a>On the group configuration page, choose **Deploy**\.
 
-1. <a name="shared-deploy-group-ipconfig"></a>If prompted, on the **Configure how devices discover your core** page, choose **Automatic detection**\.
+1. <a name="shared-deploy-group-ipconfig"></a>
 
-   This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
-![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-discovery.png)
+   1. In the **Lambda functions** tab, under the **System Lambda functions** section, select **IP detector** and choose **Edit**\.
+
+   1. In the **Edit IP detector settings** dialog box, select ** Automatically detect and override MQTT broker endpoints**\.
+
+   1. Choose **Save**\.
+
+      This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.
 **Note**  
 If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
-   The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.
+      The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Completed**\.
 
-   For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+      For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
 ## Test the Lambda function<a name="secrets-console-test-solution"></a>
 
-1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)
+1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.
 
 1. For **Subscribe to topic**, use the following values, and then choose **Subscribe**\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/secrets-console.html)

@@ -37,7 +37,7 @@ Search for devices that are qualified for this feature in the [AWS Partner Devic
 + If you're using the Greengrass OTA update agent, the [OpenSSL libp11 PKCS\#11](https://github.com/OpenSC/libp11) wrapper library must be installed\. For more information, see [Configure support for over\-the\-air updates](#hardware-security-ota-updates)\.
 
 In addition, make sure that the following conditions are met:
-+ The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
++ The IoT client certificates that are associated with the private key are registered in AWS IoT and activated\. You can verify this in the AWS IoT console under **Manage**, expand **All devices**, choose **Things** and choose the **Certificates** tab for the core thing\.
 + The AWS IoT Greengrass Core software v1\.7 or later is installed on the core device, as described in [Module 2](module2.md) of the Getting Started tutorial\. Version 1\.9 or later is required to use an EC key for the MQTT server\.
 + The certificates are attached to the Greengrass core\. You can verify this from the **Manage** page for the core thing in the AWS IoT console\.
 

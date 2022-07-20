@@ -28,16 +28,15 @@ On Windows host computers, in the Windows Firewall with Advanced Security app, y
 
 1. Get your AWS IoT endpoint\.
 
-   1. <a name="iot-settings"></a>In the [AWS IoT console](https://console.aws.amazon.com/iot/), in the navigation pane, choose **Settings**\.
+   1. <a name="iot-settings"></a>From the [AWS IoT console](https://console.aws.amazon.com/iot/) navigation pane, choose **Settings**\.
 
-   1. <a name="iot-settings-endpoint"></a>Under **Settings**, make a note of the value of **Endpoint**\. You use this value to replace the *AWS\_IOT\_ENDPOINT* placeholder in the commands in the following steps\.  
-![\[AWS IoT endpoint value.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-075.7.png)
+   1. <a name="iot-settings-endpoint"></a>Under **Device data endpoint**, make a note of the value of **Endpoint**\. You use this value to replace the *AWS\_IOT\_ENDPOINT* placeholder in the commands in the following steps\.
 **Note**  
 Make sure that your [endpoints correspond to your certificate type](gg-core.md#certificate-endpoints)\.
 
-1. On your computer \(not the AWS IoT Greengrass core device\), open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) \(terminal or command prompt\) windows\. One window represents the HelloWorld\_Publisher device and the other represents the HelloWorld\_Subscriber device\.
+1. On your computer \(not the AWS IoT Greengrass core device\), open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) \(terminal or command prompt\) windows\. One window represents the HelloWorld\_Publisher client device and the other represents the HelloWorld\_Subscriber client device\.
 
-   Upon execution, `basicDiscovery.py` attempts to collect information on the location of the AWS IoT Greengrass core at its endpoints\. This information is stored after the device has discovered and successfully connected to the core\. This allows future messaging and operations to be executed locally \(without the need for an internet connection\)\.
+   Upon execution, `basicDiscovery.py` attempts to collect information on the location of the AWS IoT Greengrass core at its endpoints\. This information is stored after the client device has discovered and successfully connected to the core\. This allows future messaging and operations to be executed locally \(without the need for an internet connection\)\.
 **Note**  
 Client IDs used for MQTT connections must match the thing name of the client device\. The `basicDiscovery.py` script sets the client ID for MQTT connections to the thing name that you specify when you run the script\.   
 Run the following command from the folder that contains the `basicDiscovery.py` file for detailed script usage information:  
@@ -46,14 +45,14 @@ Run the following command from the folder that contains the `basicDiscovery.py` 
    python basicDiscovery.py --help
    ```
 
-1. From the HelloWorld\_Publisher device window, run the following commands\.
+1. From the HelloWorld\_Publisher client device window, run the following commands\.
    + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and `basicDiscovery.py`\.
    + Replace *AWS\_IOT\_ENDPOINT* with your endpoint\.
-   + Replace the two *publisher* instances with the hash in the file name for your HelloWorld\_Publisher device\.
+   + Replace the two *publisherCertId* instances with the certificate ID in the file name for your HelloWorld\_Publisher client device\.
 
    ```
    cd path-to-certs-folder
-   python basicDiscovery.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert publisher.cert.pem --key publisher.private.key --thingName HelloWorld_Publisher --topic 'hello/world/pubsub' --mode publish --message 'Hello, World! Sent from HelloWorld_Publisher'
+   python basicDiscovery.py --endpoint AWS_IOT_ENDPOINT --rootCA AmazonRootCA1.pem --cert publisherCertId-certificate.pem.crt --key publisherCertId-private.pem.key --thingName HelloWorld_Publisher --topic 'hello/world/pubsub' --mode publish --message 'Hello, World! Sent from HelloWorld_Publisher'
    ```
 
    You should see output similar to the following, which includes entries such as `Published topic 'hello/world/pubsub': {"message": "Hello, World! Sent from HelloWorld_Publisher", "sequence": 1}`\.
@@ -62,14 +61,14 @@ If the script returns an `error: unrecognized arguments` message, change the sin
 To troubleshoot a connection issue, you can try using [manual IP detection](#corp-network-manual-detection)\.  
 ![\[Screenshot of the publisher output.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-076.png)
 
-1. From the HelloWorld\_Subscriber device window, run the following commands\.
+1. From the HelloWorld\_Subscriber client device window, run the following commands\.
    + Replace *path\-to\-certs\-folder* with the path to the folder that contains the certificates, keys, and `basicDiscovery.py`\.
    + Replace *AWS\_IOT\_ENDPOINT* with your endpoint\.
-   + Replace the two *subscriber* instances with the hash in the file name for your HelloWorld\_Subscriber device\.
+   + Replace the two *subscriberCertId* instances with the certificate ID in the file name for your HelloWorld\_Subscriber client device\.
 
    ```
    cd path-to-certs-folder
-   python basicDiscovery.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert subscriber.cert.pem --key subscriber.private.key --thingName HelloWorld_Subscriber --topic 'hello/world/pubsub' --mode subscribe
+   python basicDiscovery.py --endpoint AWS_IOT_ENDPOINT --rootCA AmazonRootCA1.pem --cert subscriberCertId-certificate.pem.crt --key subscriberCertId-private.pem.key --thingName HelloWorld_Subscriber --topic 'hello/world/pubsub' --mode subscribe
    ```
 
    You should see the following output, which includes entries such as `Received message on topic hello/world/pubsub: {"message": "Hello, World! Sent from HelloWorld_Publisher", "sequence": 1}`\.  
@@ -81,16 +80,24 @@ Testing on a corporate network might interfere with connecting to the core\. As 
 
 **To manually enter the endpoint**
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. Under **Greengrass groups**, choose your group\.
 
-1. Choose **Settings**\. 
+1. Configure the core to manually manage MQTT broker endpoints\. Do the following:
 
-1. For **Local connection detection**, choose **Manually manage connection information**, and then choose **View Cores for specific endpoint information**\.
+   1. On the group configuration page, choose the **Lambda functions** tab\.
 
-1. Choose your core, and then choose **Connectivity**\.
+   1. Under **System Lambda functions**, choose **IP detector**, and then choose **Edit**\.
 
-1. Choose **Edit** and make sure that you have only one endpoint value\. This value must be the IP address endpoint for port 8883 of your AWS IoT Greengrass core device \(for example, `192.168.1.4`\)\.
+   1. In the **Edit IP detector settings**, choose **Manually manage MQTT broker endpoints**, and then choose **Save**\.
 
-1. Choose **Update**\.
+1. Enter the MQTT broker endpoint for the core\. Do the following:
+
+   1. Under **Overview**, choose the **Greengrass core**\.
+
+   1. Under **MQTT broker endpoints**, choose **Manage endpoints**\.
+
+   1. Choose **Add endpoint** and make sure that you have only one endpoint value\. This value must be the IP address endpoint for port 8883 of your AWS IoT Greengrass core device \(for example, `192.168.1.4`\)\.
+
+   1. Choose **Update**\.

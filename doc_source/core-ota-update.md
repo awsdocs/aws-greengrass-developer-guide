@@ -274,13 +274,17 @@ For more information, see [Integration with init systems](#integration-with-init
       
 **Use the console**  
 
-   1. In the AWS IoT console, choose **Manage**, and then choose **Jobs**\.
+   1. Navigate to the AWS IoT console\.
 
-   1. Choose **Create job**, and then choose **Create Greengrass V1 Core update job**\.
+   1. Under **Manage**, expand **Remote actions**, and choose **Jobs**\.
+
+   1. Choose **Create job**, choose **Create Greengrass V1 Core update job**, and then choose **Next**\.
 
    1. On the **Create a Greengrass update** page, define the properties for the update job, and then choose **Create**\. For example:
       + For **Select devices to update**, choose the cores to update\. You can select individual core things and thing groups that contain cores\.
       + For **S3 URL Signer Role**, choose your [signer role](#ota-permissions)\.
+      + For **Update Agent Log Level**, select the log level\.
+      + For **Architecture type**, select your architecture type\.
       + For **Select what component of the Greengrass Core you want to update**, choose to update the AWS IoT Greengrass Core software or **** to update the OTA update agent software\.
 
    1. On the **Jobs** page, choose your new job to see the update status\.

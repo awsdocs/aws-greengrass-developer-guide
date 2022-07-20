@@ -20,14 +20,10 @@ Tags allow you to categorize your AWS IoT Greengrass resources, for example, by 
 You can create, view, and manage tags for your Greengrass `Group` resources in the AWS IoT console\. Before you create tags, be aware of tagging restrictions\. For more information, see [Tag naming and usage conventions](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*\.
 
 **To assign tags when you create a group**  
-You can assign tags to a group when you create the group\. To show the tagging input fields, on the **Name your Group** dialog box, choose **Apply tags to the Group \(optional\)**\.  
-
-![\[The Apply tags to the Group section of the Name your Group page with one tag key and value defined.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-create-group-tags.png)
+You can assign tags to a group when you create the group\. Choose **Add new tag** under the **Tags** section to show the tagging input fields\.
 
 **To view and manage tags from the group configuration page**  
-You can view and manage tags from the group configuration page\. On the **Tags** page for the group, choose **Add tags** or **Manage tags** to add, edit, or remove group tags\.  
-
-![\[The Tags page showing several tag key-value pairs.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-tags.png)
+You can view and manage tags from the group configuration page by choosing **View settings**\. In the **Tags** section for the group, choose **Manage tags** to add, edit, or remove group tags\.
 
 ### Tagging support in the AWS IoT Greengrass API<a name="tagging-support-api"></a>
 

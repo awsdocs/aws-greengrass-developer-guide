@@ -57,11 +57,11 @@ You can grant more granular access to your log resources\. For more information,
      
 **Using the console**  
 
-  1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+  1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
   1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-  1. Choose **Settings**\. Under **Group Role**, you can view, attach, or remove the group role\.
+  1. Choose **View settings**\. Under **Group role**, you can view, associate, or disassociate the group role\.
 
      For steps that show you how to attach the group role, see [group role](group-role.md)\.
    
@@ -131,11 +131,11 @@ To allow AWS IoT Greengrass to write logs to CloudWatch Logs, your group role mu
 
 You can configure logging on the group's **Settings** page\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. Choose the group where you want to configure logging\.
 
-1. On the group configuration page, choose **Settings**\.
+1. On the group configuration page, choose the **Logs** tab\.
 
 1. Choose the logging location, as follows:
    + To configure CloudWatch logging, for **CloudWatch logs configuration**, choose **Edit**\.
@@ -143,19 +143,9 @@ You can configure logging on the group's **Settings** page\.
 
    You can configure logging for one location or both locations\.
 
-1. On the **Configure Group logging** page, choose **Add another log type**\.
-
-1. Choose the event source, as follows:
-   + To log events from user\-defined Lambda functions, choose **User Lambdas**\.
-   + To log events from AWS IoT Greengrass system components, choose **Greengrass system**\.
-
-   You can choose one component or both components\.
-
-1. Choose **Update**\.
+1. In the edit logs configuration modal, select **Greengrass system log level** or **User Lambda functions log level**\. You can choose one component or both components\.
 
 1. Choose the lowest level of events that you want to log\. Events below this threshold are filtered out and aren't stored\.
-
-1. For file system logs, specify a disk space limit\.
 
 1. Choose **Save**\. Changes take effect after you deploy the group\.
 

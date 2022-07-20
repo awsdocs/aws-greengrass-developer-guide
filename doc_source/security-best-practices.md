@@ -12,7 +12,7 @@ This topic contains security best practices for AWS IoT Greengrass\.
 
 Follow the principle of least privilege by using the minimum set of permissions in IAM roles\. Limit the use of the `*` wildcard for the `Action` and `Resource` properties in your IAM policies\. Instead, declare a finite set of actions and resources when possible\. For more information about least privilege and other policy best practices, see [Policy best practices](security_iam_id-based-policy-examples.md#security_iam_service-with-iam-policy-best-practices)\.
 
-The least privilege best practice also applies to AWS IoT policies you attach to your Greengrass core and connected devices\.
+The least privilege best practice also applies to AWS IoT policies you attach to your Greengrass core and client devices\.
 
 ## Don't hardcode credentials in Lambda functions<a name="no-hardcoded-credentials"></a>
 
@@ -48,22 +48,22 @@ For more information, see the [ Keep your device's clock in sync](https://docs.a
 
 ## Manage device authentication with the Greengrass core<a name="manage-device-authentication-with-core"></a>
 
-<a name="gg-device-discovery"></a>Greengrass devices can run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](what-is-gg.md#iot-device-sdk) or [AWS IoT Greengrass Discovery API](gg-discover-api.md) to get discovery information used to connect and authenticate with the core in the same Greengrass group\. Discovery information includes:
-+ Connectivity information for the Greengrass core that's in the same Greengrass group as the device\. This information includes the host address and port number of each endpoint for the core device\.
-+ The group CA certificate used to sign the local MQTT server certificate\. Devices use the group CA certificate to validate the MQTT server certificate presented by the core\.
+<a name="gg-device-discovery"></a>Client devices can run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](what-is-gg.md#iot-device-sdk) or [AWS IoT Greengrass Discovery API](gg-discover-api.md) to get discovery information used to connect and authenticate with the core in the same Greengrass group\. Discovery information includes:
++ Connectivity information for the Greengrass core that's in the same Greengrass group as the client device\. This information includes the host address and port number of each endpoint for the core device\.
++ The group CA certificate used to sign the local MQTT server certificate\. Client devices use the group CA certificate to validate the MQTT server certificate presented by the core\.
 
-The following are best practices for connected devices to manage mutual authentication with a Greengrass core\. These practices can help mitigate your risk if your core device is compromised\.
+The following are best practices for client devices to manage mutual authentication with a Greengrass core\. These practices can help mitigate your risk if your core device is compromised\.
 
 **Validate the local MQTT server certificate for each connection\.**  
-Devices should validate the MQTT server certificate presented by the core every time they establish a connection with the core\. This validation is the *connected device* side of the mutual authentication between a core device and connected devices\. Devices must be able to detect a failure and terminate the connection\.
+Client devices should validate the MQTT server certificate presented by the core every time they establish a connection with the core\. This validation is the *client device* side of the mutual authentication between a core device and client devices\. Client devices must be able to detect a failure and terminate the connection\.
 
 **Do not hardcode discovery information\.**  
-Devices should rely on discovery operations to get core connectivity information and the group CA certificate, even if the core uses a static IP address\. Devices should not hardcode this discovery information\.
+Client devices should rely on discovery operations to get core connectivity information and the group CA certificate, even if the core uses a static IP address\. Client devices should not hardcode this discovery information\.
 
 **Periodically update discovery information\.**  
-Devices should periodically run discovery to update core connectivity information and the group CA certificate\. We recommend that devices update this information before they establish a connection with the core\. Because shorter durations between discovery operations can minimize your potential exposure time, we recommend that devices periodically disconnect and reconnect to trigger the update\.
+Client devices should periodically run discovery to update core connectivity information and the group CA certificate\. We recommend that client devices update this information before they establish a connection with the core\. Because shorter durations between discovery operations can minimize your potential exposure time, we recommend that client devices periodically disconnect and reconnect to trigger the update\.
 
-If you lose control of a Greengrass core device and you want to prevent connected devices from transmitting data to the core, do the following:<a name="make-devices-distrust-core"></a>
+If you lose control of a Greengrass core device and you want to prevent client devices from transmitting data to the core, do the following:<a name="make-devices-distrust-core"></a>
 
 1. Remove the Greengrass core from the Greengrass group\.
 

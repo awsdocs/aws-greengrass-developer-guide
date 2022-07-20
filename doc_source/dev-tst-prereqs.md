@@ -109,7 +109,9 @@ The following policy grants permission to create and manage roles required by ID
 [GreengrassOTAUpdateArtifactAccess](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/service-role/GreengrassOTAUpdateArtifactAccess)
 [AWSLambdaBasicExecutionRole](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole)
 
-   1. Choose **Review policy**\.
+   1. Choose **Next: Tags**\.
+
+   1. Choose **Next: Review**\.
 
    1. For **Name**, enter **IDTGreengrassIAMPermissions**\. Under **Summary**, review the permissions granted by your policy\.
 

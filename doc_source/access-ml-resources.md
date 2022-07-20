@@ -74,27 +74,17 @@ In the AWS IoT console, you define access permissions when you configure a machi
 
 **Containerized Lambda functions**  
 If only containerized Lambda functions are attached to the machine learning resource:  
-+ Choose **No OS group** as the resource owner for the machine learning resource\. This is the recommended setting when only containerized Lambda functions access the machine learning resource\. Otherwise, you might give attached Lambda functions more access permissions than they need\.
++ Choose **No system group** as the resource owner for the machine learning resource\. This is the recommended setting when only containerized Lambda functions access the machine learning resource\. Otherwise, you might give attached Lambda functions more access permissions than they need\.
 
    
-+ Choose **Read\-only access** or **Read and write access** for the Lambda function access permissions\. You can do this when you attach the Lambda function to the machine learning resource:  
-![\[Resource owner set to No OS group and Lambda function permissions set to Read-only access in the resource configuration.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/ml-resource-access-perms.png)
-
-  Or, when you attach the machine learning resource to the Lambda function:  
-![\[Resource owner set to No OS group and Lambda function permissions set to Read-only access in the function configuration.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/lambda-ml-resource-access.png)
  
 
 **Non\-containerized Lambda functions** \(requires GGC v1\.10 or later\)  
 If any non\-containerized Lambda functions are attached to the machine learning resource:  
-+ Specify the ID of the OS group \(GID\) to use as the resource owner for the machine learning resource\. Choose **Specify OS group and permission** and enter the GID\. You can use the `getent group` command on your core device to look up the ID of an OS group\.
++ Specify the **System group ID \(GID\)** to use as the resource owner for the machine learning resource\. Choose **Specify system group and permissions** and enter the GID\. You can use the `getent group` command on your core device to look up the ID of a system group\.
 
    
-+ Choose **Read\-only access** or **Read and write access** for the OS group permissions\.  
-![\[Specifying an OS group and access permissions for a machine learning resource.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/ml-resource-resource-owner.png)
-+ Choose **Inherit resource owner permissions** for non\-containerized Lambda function access permissions\. You can do this when you affiliate the Lambda function and the resource:  
-![\[Inheriting the access permissions of a machine learning resource.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/inherit-ml-resource-access-perms.png)
-
-  For containerized Lambda functions that also access the machine learning resource, choose to inherit the OS group permissions or choose function\-level permissions\. If you choose function\-level permissions, they must be the same or more restrictive than the OS group permissions\.
++ Choose **Read\-only access** or **Read and write access** for the **System group permissions**\.
 
 ## Defining access permissions for Lambda functions \(API\)<a name="ml-resource-permissions-api"></a>
 

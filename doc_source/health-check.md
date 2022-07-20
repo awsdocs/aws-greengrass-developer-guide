@@ -200,7 +200,7 @@ Manages the queue for MQTT messages that have AWS IoT Core as the source or targ
 ARN: `arn:aws:lambda:::function:GGCloudSpooler:1`
 
 `GGConnManager`  
-Routes MQTT messages between the Greengrass core and connected devices\.  
+Routes MQTT messages between the Greengrass core and client devices\.  
 ARN: `arn:aws:lambda:::function:GGConnManager`
 
 `GGDeviceCertificateManager`  
@@ -216,11 +216,11 @@ Manages secure storage of local secrets and access by user\-defined Lambda and c
 ARN: `arn:aws:lambda:::function:GGSecretManager:1`
 
 `GGShadowService`  
-Manages local shadows for connected devices\.  
+Manages local shadows for client devices\.  
 ARN: `arn:aws:lambda:::function:GGShadowService`
 
 `GGShadowSyncManager`  
-Synchronizes local shadows with the AWS Cloud for the core device and connected devices, if the device's `syncShadow` property is set to `true`\.  
+Synchronizes local shadows with the AWS Cloud for the core device and client devices, if the device's `syncShadow` property is set to `true`\.  
 ARN: `arn:aws:lambda:::function:GGShadowSyncManager`
 
 `GGStreamManager`  

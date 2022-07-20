@@ -8,7 +8,7 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
 AWS IoT Greengrass has three modes of communication where data is in transit:
 + [Data in transit over the internet](#data-in-transit-internet)\. Communication between a Greengrass core and AWS IoT Greengrass over the internet is encrypted\.
-+ [Data in transit over the local network](#data-in-transit-local-network)\. Communication between a Greengrass core and connected devices over a local network is encrypted\.
++ [Data in transit over the local network](#data-in-transit-local-network)\. Communication between a Greengrass core and client devices over a local network is encrypted\.
 + [Data on the core device](#data-in-transit-locally)\. Communication between components on the Greengrass core device is not encrypted\.
 
 ## Data in transit over the internet<a name="data-in-transit-internet"></a>
@@ -17,7 +17,7 @@ AWS IoT Greengrass uses Transport Layer Security \(TLS\) to encrypt all communic
 
 ## Data in transit over the local network<a name="data-in-transit-local-network"></a>
 
-AWS IoT Greengrass uses TLS to encrypt all communication over the local network between the Greengrass core and connected Greengrass devices\. For more information, see [Supported Cipher Suites for Local Network Communication](gg-sec.md#gg-cipher-suites)\.
+AWS IoT Greengrass uses TLS to encrypt all communication over the local network between the Greengrass core and client devices\. For more information, see [Supported Cipher Suites for Local Network Communication](gg-sec.md#gg-cipher-suites)\.
 
 It is your responsibility to protect the local network and private keys\.<a name="customer-responsibility-device-security"></a>
 
@@ -26,7 +26,7 @@ For Greengrass core devices, it's your responsibility to:
 + Keep system libraries updated with the latest security patches\.
 + Protect private keys\. For more information, see [Key management for the Greengrass core device](key-management.md)\.
 
-For connected devices, it's your responsibility to:  
+For client devices, it's your responsibility to:  
 + Keep the TLS stack up to date\.
 + Protect private keys\.
 

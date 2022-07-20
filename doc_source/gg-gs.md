@@ -9,8 +9,8 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 This Getting Started tutorial includes several modules designed to show you AWS IoT Greengrass basics and help you get started using AWS IoT Greengrass\. This tutorial covers fundamental concepts, such as:
 + Configuring AWS IoT Greengrass cores and groups\.
 + The deployment process for running AWS Lambda functions at the edge\.
-+ Connecting AWS IoT devices to the AWS IoT Greengrass core\.
-+ Creating subscriptions to allow MQTT communication between local Lambda functions, devices, and AWS IoT\.
++ Connecting AWS IoT devices, called client devices, to the AWS IoT Greengrass core\.
++ Creating subscriptions to allow MQTT communication between local Lambda functions, client devices, and AWS IoT\.
 
 ## Choose how to get started with AWS IoT Greengrass<a name="gg-getting-started"></a>
 
@@ -58,13 +58,13 @@ AWS IoT Greengrass also provides other options for installing the AWS IoT Greeng
 + Test on\-demand and long\-lived functions\.
 
 **Modules 4 and 5**  
-[Module 4](module4.md) shows how devices connect to the core and communicate with each other\.  
-[Module 5](module5.md) shows how devices can use shadows to control state\.  
+[Module 4](module4.md) shows how client devices connect to the core and communicate with each other\.  
+[Module 5](module5.md) shows how client devices can use shadows to control state\.  
 + Register and provision AWS IoT devices \(represented by command\-line terminals\)\.
-+ Install the AWS IoT Device SDK for Python\. This is used by devices to discover the Greengrass core\.
-+ Add the devices to your Greengrass group\.
++ Install the AWS IoT Device SDK for Python\. This is used by client devices to discover the Greengrass core\.
++ Add the client devices to your Greengrass group\.
 + Create subscriptions that allow MQTT communication\.
-+ Deploy a Greengrass group that contains your devices\.
++ Deploy a Greengrass group that contains your client devices\.
 + Test device\-to\-device commumication\.
 + Test shadow state updates\.
 

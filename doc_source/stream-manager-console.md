@@ -259,41 +259,35 @@ Now you're ready to add the Lambda function to your Greengrass group\.
 
 In this step, you add the Lambda function to the group and then configure its lifecycle and environment variables\. For more information, see [Controlling execution of Greengrass Lambda functions by using group\-specific configuration](lambda-group-config.md)\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="choose-add-lambda"></a>On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
-![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas.png)
+1. <a name="choose-add-lambda"></a>On the group configuration page, choose the **Lambda functions** tab\.
 
-1. <a name="add-lambda-to-group-console"></a>On the **Add a Lambda to your Greengrass Group** page, choose **Use existing Lambda**\.  
-![\[The Add a Lambda to your Greengrass Group page with Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas-existing-lambda.png)
+1. Under **My Lambda functions**, choose **Add**\.
 
-1. On the **Use existing Lambda** page, choose **TransferStream**, and then choose **Next**\.
+1. On the **Add Lambda function** page, choose the **Lambda function** for your Lambda function\.
 
-1. On the **Select a Lambda version** page, choose **Alias:GG\_TransferStream**, and then choose **Finish**\.
+1. For the **Lambda version**, choose **Alias:GG\_TransferStream**\.
 
    Now, configure properties that determine the behavior of the Lambda function in the Greengrass group\.
 
-1. For the **TransferStream** Lambda function, choose the ellipsis \(**…**\), and then choose **Edit Configuration**\.
-
-1. On the **Group\-specific Lambda configuration** page, make the following changes:
+1. In the **Lambda function configuration** section, make the following changes:
    + Set **Memory limit** to 32 MB\.
-   + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
+   + For **Pinned**, choose **True**\.
 **Note**  
 <a name="long-lived-lambda"></a>A *long\-lived* \(or *pinned*\) Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container\. This is in contrast to an *on\-demand* Lambda function, which starts when invoked and stops when there are no tasks left to run\. For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
 
-1. Choose **Update**\.
+1. Choose **Add Lambda function**\.
 
 ## Step 4: Enable stream manager<a name="stream-manager-console-enable-stream-manager"></a>
 
 In this step, you make sure that stream manager is enabled\.
 
-1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
-![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings.png)
+1. On the group configuration page, choose the **Lambda functions** tab\.
 
-1. Under **Stream manager**, check the enabled or disabled status\. If disabled, choose **Edit**\. Then, choose **Enable** and **Save**\. You can use the default parameter settings for this tutorial\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.  
-![\[The Stream manager section on the group's Settings page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings-stream-manager-edit.png)
+1. Under **System Lambda functions**, select **Stream manager**, and check the status\. If disabled, choose **Edit**\. Then, choose **Enable** and **Save**\. You can use the default parameter settings for this tutorial\. For more information, see [Configure AWS IoT Greengrass stream manager](configure-stream-manager.md)\.
 
 **Note**  <a name="ggstreammanager-function-config-console"></a>
 When you use the console to enable stream manager and deploy the group, the memory size for stream manager is set to 4194304 KB \(4 GB\) by default\. We recommend that you set the memory size to at least 128000 KB\.
@@ -302,12 +296,11 @@ When you use the console to enable stream manager and deploy the group, the memo
 
 In this step, you configure AWS IoT Greengrass system components, user\-defined Lambda functions, and connectors in the group to write logs to the file system of the core device\. You can use logs to troubleshoot any issues you might encounter\. For more information, see [Monitoring with AWS IoT Greengrass logs](greengrass-logs-overview.md)\.
 
-1. <a name="shared-group-settings-local-logs-configuration"></a>Under **Local logs configuration**, check if local logging is configured\.  
-![\[Logs configuration section showing Greengrass system logs and user Lambda logs configuration.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/local-logs.png)
+1. <a name="shared-group-settings-local-logs-configuration"></a>Under **Local logs configuration**, check if local logging is configured\.
 
 1. <a name="shared-group-settings-local-logs-edit"></a>If logs aren't configured for Greengrass system components or user\-defined Lambda functions, choose **Edit**\.
 
-1. <a name="shared-group-settings-local-logs-event-source"></a>Choose **Add another log type**, choose **User Lambdas** and **Greengrass system**, and then choose **Update**\.
+1. <a name="shared-group-settings-local-logs-event-source"></a>Choose **User Lambda functions log level** and **Greengrass system log level**\.
 
 1. <a name="shared-group-settings-local-logs-save"></a>Keep the default values for logging level and disk space limit, and then choose **Save**\.
 
@@ -334,19 +327,23 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
       sudo ./greengrassd start
       ```
 
-1. <a name="shared-deploy-group-deploy"></a>On the group configuration page, choose **Deployments**, and from the **Actions** menu, choose **Deploy**\.  
-![\[The group page with Deployments and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-deployments-deploy.png)
+1. <a name="shared-deploy-group-deploy"></a>On the group configuration page, choose **Deploy**\.
 
-1. <a name="shared-deploy-group-ipconfig"></a>If prompted, on the **Configure how devices discover your core** page, choose **Automatic detection**\.
+1. <a name="shared-deploy-group-ipconfig"></a>
 
-   This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
-![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-discovery.png)
+   1. In the **Lambda functions** tab, under the **System Lambda functions** section, select **IP detector** and choose **Edit**\.
+
+   1. In the **Edit IP detector settings** dialog box, select ** Automatically detect and override MQTT broker endpoints**\.
+
+   1. Choose **Save**\.
+
+      This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.
 **Note**  
 If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
-   The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.
+      The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Completed**\.
 
-   For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+      For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
 ## Step 7: Test the application<a name="stream-manager-console-test-application"></a>
 
@@ -368,7 +365,7 @@ Or, run the following commands to stop the Greengrass daemon\. This prevents the
 
 1. Remove the **TransferStream** Lambda function from the core\.
 
-   1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+   1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
    1. Under **Greengrass groups**, choose your group\.
 

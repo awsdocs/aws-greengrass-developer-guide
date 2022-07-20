@@ -183,16 +183,7 @@ If a new version is available, you can download it and upgrade the SDK version i
 
 1.  Now, add the Lambda function to your Greengrass group\. 
 
-   In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.  
-![\[The navigation pane in the AWS IoT console with Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-groups.png)
-
-1. Choose the Greengrass group where you want to add the Lambda function\.
-
-1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
-![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas.png)
-
-1.  On the **Add a Lambda to your Greengrass Group** page, choose **Create new Lambda**\. This opens the AWS Lambda console\.   
-![\[The Add a Lambda to your Greengrass Group page with Create new Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas-new-lambda.png)
+   From the Lambda console page, choose **Functions** and choose **Create function**\.
 
 1. Choose **Author from scratch** and use the following values to create your function:
    + For **Function name**, enter **optimizedImageClassification**\. 
@@ -201,7 +192,7 @@ If a new version is available, you can download it and upgrade the SDK version i
    For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.  
 ![\[The Basic information section of the Create function page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-dlr-lambda-creation.png)
 
-1.  Choose **Create function**\. 
+1. Choose **Create function**\. 
 
  
 
@@ -250,54 +241,50 @@ In this step, add the Lambda function to the group, and then configure its lifec
 
 First, add the Lambda function to your Greengrass group\.
 
-1.  On the **Add a Lambda to your Greengrass Group** page, choose **Use existing Lambda**\.   
-![\[The Add a Lambda to your Greengrass Group page with Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas-existing-lambda.png)
+1. In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
-1.  Choose **optimizedImageClassification**, and then choose **Next**\. 
+1. On the groups configuration page, choose the **Lambda functions** tab, and choose **Add**\. 
 
-1. On the **Select a Lambda version** page, choose **Alias:mlTestOpt**, and then choose **Finish**\.
+1.  Choose the **Lambda function** and select **optimizedImageClassification**\. 
+
+1. On the **Lambda function version**, choose the alias to the version that you published\.
 
  
 
 Next, configure the lifecycle of the Lambda function\.
 
-1. On the **Lambdas** page, choose the **optimizedImageClassification** Lambda function\.  
-![\[The Lambdas page with the optimizedImageClassification Lambda function highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-ml2-lambda-page.png)
-
-1. On the **optimizedImageClassification** configuration page, choose **Edit**\.
-
-1. On the **Group\-specific Lambda configuration** page, make the following updates\.
+1. In the **Lambda function configuration** section, make the following updates\.
 **Note**  
  We recommend that you run your Lambda function without containerization unless your business case requires it\. This helps enable access to your device GPU and camera without configuring device resources\. If you run without containerization, you must also grant root access to your AWS IoT Greengrass Lambda functions\. 
 
    1. **To run without containerization:**
-      + For **Run as**, choose **Another user ID/group ID**\. For **UID**, enter **0**\. For **GUID**, enter **0**\.
+      + For **System user and group**, choose **Another user ID/group ID**\. For **System user ID**, enter **0**\. For **System group ID**, enter **0**\.
 
         This allows your Lambda function to run as root\. For more information about running as root, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
 **Tip**  
 You also must update your `config.json` file to grant root access to your Lambda function\. For the procedure, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
-      + For **Containerization**, choose **No container**\.
+      + For **Lambda function containerization**, choose **No container**\.
 
         For more information about running without containerization, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations)\.
       + For **Timeout**, enter **10 seconds**\.
-      + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
+      + For **Pinned**, choose **True**\.
 
         For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
-      + For **Read access to /sys directory**, choose **Enable**\.
+      + Under **Additional Parameter**, for **Read access to /sys directory**, choose **Enabled**\.
 
    1.  **To run in containerized mode instead:** 
 **Note**  
 We do not recommend running in containerized mode unless your business case requires it\.
-      + For **Run as**, choose **Use group default**\.
-      + For **Containerization**, choose **Use group default**\.
+      + For **System user and group**, choose **Use group default**\.
+      + For **Lambda function containerization**, choose **Use group default**\.
       + For **Memory limit**, enter **1024 MB**\.
       + For **Timeout**, enter **10 seconds**\.
-      + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
+      + For **Pinned**, choose **True**\.
 
         For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
-      + For **Read access to /sys directory**, choose **Enable**\.
+      + Under **Additional Parameters**, for **Read access to /sys directory**, choose **Enabled**\.
 
-1.  Choose **Update**\.
+1.  Choose **Add Lambda function**\.
 
 ## Step 5: Add a SageMaker Neo\-optimized model resource to the Greengrass group<a name="ml-console-dlc-add-resources"></a>
 
@@ -319,12 +306,11 @@ If using the NVIDIA Jetson example, you need to use the `resnet18` directory in 
    zip -r resnet50.zip .
    ```
 
-1.  On the group configuration page for your AWS IoT Greengrass group, choose **Resources**\. Navigate to the **Machine Learning** section and choose **Add machine learning resource**\. On the **Create a machine learning resource** page, for **Resource name**, enter **resnet50\_model**\.  
-![\[The Add Machine Learning Model page with updated properties.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-ml2-add-ml-model.png)
+1.  On the group configuration page for your AWS IoT Greengrass group, choose the **Resources** tab\. Navigate to the **Machine Learning** section and choose **Add machine learning resource**\. On the **Create a machine learning resource** page, for **Resource name**, enter **resnet50\_model**\.
 
-1. For **Model source**, choose **Upload a model in S3**\.
+1. For **Model source**, choose **Use a model stored in S3, such as a model optimized through Deep Learning Compiler**\.
 
-1.  Under **Model from S3**, choose **Select**\. 
+1.  Under **S3 URI**, choose **Browse S3**\. 
 **Note**  
  Currently, optimized SageMaker models are stored automatically in Amazon S3\. You can find your optimized model in your Amazon S3 bucket using this option\. For more information about model optimization in SageMaker, see the [SageMaker Neo documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html)\. 
 
@@ -336,22 +322,18 @@ If using the NVIDIA Jetson example, you need to use the `resnet18` directory in 
 
 1.  In the AWS IoT Greengrass console tab, locate and choose your Amazon S3 bucket\. Locate your uploaded `resnet50.zip` file, and choose **Select**\. You might need to refresh the page to update the list of available buckets and files\. 
 
-1.  In **Local path**, enter **/ml\_model**\.   
-![\[The updated local path.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/local-path.png)
+1.  In **Destination path**, enter **/ml\_model**\.   
+![\[The updated destination path.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/local-path.png)
 
     This is the destination for the local model in the Lambda runtime namespace\. When you deploy the group, AWS IoT Greengrass retrieves the source model package and then extracts the contents to the specified directory\. 
 **Note**  
  We strongly recommend that you use the exact path provided for your local path\. Using a different local model destination path in this step causes some troubleshooting commands provided in this tutorial to be inaccurate\. If you use a different path, you must set up a `MODEL_PATH` environment variable that uses the exact path you provide here\. For information about environment variables, see [AWS Lambda environment variables](https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html)\. 
 
-1. Under **Identify resource owner and set access permissions**, choose **No OS group**\.
-
 1. **If running in containerized mode: **
 
-   1. Under **Lambda function affiliations**, choose **Select**\.
+   1. Under **System group owner and file access permissions**, choose **Specify system group and permissions**\.
 
-   1. Choose **optimizedImageClassification**, choose **Read\-only access**, and then choose **Done**\.
-
-1.  Choose **Save**\. 
+   1. Choose **Read\-only access** and then choose **Add resource**\.
 
 ## Step 6: Add your camera device resource to the Greengrass group<a name="ml-console-dlc-add-cam-resource"></a>
 
@@ -360,76 +342,51 @@ If using the NVIDIA Jetson example, you need to use the `resnet18` directory in 
 **Note**  
 If you run in non\-containerized mode, AWS IoT Greengrass can access your device GPU and camera without configuring this device resource\. 
 
-1. On the group configuration page, choose **Resources**\.  
-![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-resources.png)
+1. On the group configuration page, choose the the **Resources** tab\.
 
-1. On the **Local** tab, choose **Add local resource**\.
+1. On the the **Local resources** tab, choose **Add local resource**\.
 
-1. On the **Create a local resource** page, use the following values:
+1. On the **Add a local resource** page, use the following values:
    + For **Resource name**, enter **videoCoreSharedMemory**\.
    + For **Resource type**, choose **Device**\.
-   + For **Device path**, enter **/dev/vcsm**\.
+   + For **Local device path**, enter **/dev/vcsm**\.
 
      The device path is the local absolute path of the device resource\. This path can refer only to a character device or block device under `/dev`\.
-   + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
+   + For **System group owner and file access permissions**, choose **Automatically add file system permissions of the system group that owns the resource**\.
 
-     The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group owner file access permission](access-local-resources.md#lra-group-owner)\.  
-![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/local-resource-vcsm.png)
+     The **Group owner file access permission** option lets you grant additional file access permissions to the Lambda process\. For more information, see [Group owner file access permission](access-local-resources.md#lra-group-owner)\.
 
-1. Under **Lambda function affiliations**, choose **Select**\.
+1. At the bottom of the page, choose **Add resource**\.
 
-1. Choose **optimizedImageClassification**, choose **Read and write access**, and then choose **Done**\.  
-![\[Lambda function affiliation properties with Done highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-ml2-local-resource-vcsm.png)
-
-   Next, you add a local device resource for the camera interface\.
-
-1. At the bottom of the page, choose **Add another resource**\.
-
-1. On the **Create a local resource** page, use the following values:
+1. From the **Resources** tab, create another local resource by choosing **Add** and use the following values:
    + For **Resource name**, enter **videoCoreInterface**\.
    + For **Resource type**, choose **Device**\.
-   + For **device path**, enter **/dev/vchiq**\.
-   + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.  
-![\[The Create a local resource page with edited resource properties.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-inference/local-resource-vchiq.png)
+   + For **Local device path**, enter **/dev/vchiq**\.
+   + For **System group owner and file access permissions**, choose **Automatically add file system permissions of the system group that owns the resource**\.
 
-1. Under **Lambda function affiliations**, choose **Select**\.
-
-1.  Choose **optimizedImageClassification**, choose **Read and write access**, and then choose **Done**\. 
-
-1.  Choose **Save**\. 
+1. Choose **Add resource**\. 
 
 ## Step 7: Add subscriptions to the Greengrass group<a name="ml-console-dlc-add-subscription"></a>
 
 In this step, add subscriptions to the group\. These subscriptions enable the Lambda function to send prediction results to AWS IoT by publishing to an MQTT topic\.
 
-1. On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.  
-![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-subscriptions.png)
+1. On the group configuration page, choose the **Subscriptions** tab, and then choose **Add subscription**\.
 
-1. On the **Select your source and target** page, configure the source and target, as follows:
+1. On the **Create a subscription** page, configure the source and target, as follows:
 
-   1. In **Select a source**, choose **Lambdas**, and then choose **optimizedImageClassification**\.
+   1. In **Source type**, choose **Lambda function**, and then choose **optimizedImageClassification**\.
 
-   1. In **Select a target**, choose **Services**, and then choose **IoT Cloud**\.
+   1. In **Target type**, choose **Service**, and then choose **IoT Cloud**\.
 
-   1. Choose **Next**\.  
-![\[The Select your source and target page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-ml2-subsc-1.png)
+   1. In the **Topic filter**, enter **/resnet\-50/predictions**, and then choose **Create subscription**\. 
 
-1.  On the **Filter your data with a topic** page, in **Optional topic filter**, enter **/resnet\-50/predictions**, and then choose **Next**\.   
-![\[The Filter your data with a topic page with Next highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-ml2-topic-filter-s1.png)
+1. Add a second subscription\. Choose the **Subscriptions** tab, choose **Add subscription**, and configure the source and target, as follows: 
 
-1. Choose **Finish**\.
+   1. In **Source type**, choose **Services**, and then choose **IoT Cloud**\.
 
-1.  Add a second subscription\. On the **Select your source and target** page, configure the source and target, as follows: 
+   1. In **Target type**, choose **Lambda function**, and then choose **optimizedImageClassification**\.
 
-   1. In **Select a source**, choose **Services**, and then choose **IoT Cloud**\.
-
-   1. In **Select a target**, choose **Lambdas**, and then choose **optimizedImageClassification**\.
-
-   1. Choose **Next**\.
-
-1.  On the **Filter your data with a topic** page, in **Optional topic filter**, enter **/resnet\-50/test**, and then choose **Next**\.
-
-1. Choose **Finish**\.
+   1. In the **Topic filter**, enter **/resnet\-50/test**, and then choose **Create subscription**\.
 
 ## Step 8: Deploy the Greengrass group<a name="ml-console-dlc-deploy-group"></a>
 
@@ -452,18 +409,17 @@ In this step, deploy the current version of the group definition to the Greengra
       sudo ./greengrassd start
       ```
 
-1. On the group configuration page, choose **Deployments**, and from the **Actions** menu, choose **Deploy**\.  
-![\[The group page with Deployments and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-deployments-deploy.png)
+1. On the group configuration page, choose **Deploy**\.
 
-1. On the **Configure how devices discover your core** page, choose **Automatic detection**\.
+1. On the **Lambda functions** tab, select **IP detector** and choose **Edit**\.
 
-   This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
-![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-discovery.png)
+1. From the **Edit IP detector settings** dialog box, select **Automatically detect and override MQTT broker endpoints** and choose **Save**\.
+
+   This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.
 **Note**  
 If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
-    The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.   
-![\[The Deployments page with a successful deployment status highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/gg-ml2-successful-deployment.png)
+    The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Completed**\. 
 
    For more information about deployments, see [Deploy AWS IoT Greengrass groups to an AWS IoT Greengrass core](deployments.md)\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
@@ -477,19 +433,17 @@ If using the NVIDIA Jetson example, make sure to use the `resnet-18/predictions`
 **Note**  
 If a monitor is attached to the Raspberry Pi, the live camera feed is displayed in a preview window\.
 
-1. On the AWS IoT console home page, choose **Test**\.  
-![\[The navigation pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)
+1. On the AWS IoT console home page, under **Test**, choose **MQTT test client**\.
 
-1.  For **Subscriptions**, choose **Subscribe to a Topic**\. Use the following values\. Leave the remaining options at their defaults\. 
+1. For **Subscriptions**, choose **Subscribe to a Topic**\. Use the following values\. Leave the remaining options at their defaults\. 
    + For **Subscription topic**, enter **/resnet\-50/predictions**\.
-   + For **MQTT payload display**, choose **Display payloads as strings**\.
+   + Under **Additional configuration**, for **MQTT payload display**, choose **Display payloads as strings**\.
 
-1. Choose **Subscribe to topic**\.
+1. Choose **Subscribe**\.
 
-1. On the `/resnet-50/predictions` page, specify the `/resnet-50/test` topic to publish to\. Choose **Publish to topic**\. 
+1. Choose **Publish to a topic**, enter **/resnet\-50/test** as the **Topic name**, and choose **Publish**\. 
 
-1.  If the test is successful, the published message causes the Raspberry Pi camera to capture an image\. A message from the Lambda function appears at the bottom of the page\. This message contains the prediction result of the image, using the format: predicted class name, probability, and peak memory usage\.   
-![\[The Subscriptions page showing test results with message data.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/ml-dlc-inference/prediction-results.png)
+1.  If the test is successful, the published message causes the Raspberry Pi camera to capture an image\. A message from the Lambda function appears at the bottom of the page\. This message contains the prediction result of the image, using the format: predicted class name, probability, and peak memory usage\. 
 
 ## Configuring an Intel Atom<a name="atom-lambda-dlc-config"></a>
 
@@ -511,25 +465,25 @@ If you use a camera, make sure that the `awscam` APT package is installed and up
  We recommend that you run your Lambda function without containerization unless your business case requires it\. This helps enable access to your device GPU and camera without configuring device resources\. If you run without containerization, you must also grant root access to your AWS IoT Greengrass Lambda functions\. 
 
    1. **To run without containerization:**
-      + For **Run as**, choose **Another user ID/group ID**\. For **UID**, enter **0**\. For **GUID**, enter **0**\.
+      + For **System user and group**, choose **Another user ID/group ID**\. For **System user ID**, enter **0**\. For **System group ID**, enter **0**\.
 
         This allows your Lambda function to run as root\. For more information about running as root, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
 **Tip**  
 You also must update your `config.json` file to grant root access to your Lambda function\. For the procedure, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
-      + For **Containerization**, choose **No container**\.
+      + For **Lambda function containerization**, choose **No container**\.
 
         For more information about running without containerization, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations)\.
       + Increase the **Timeout** value to 2 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
-      +  For **Read access to /sys directory**, choose **Enable**\. 
-      +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
+      +  For **Pinned**, choose **True**\. 
+      + Under **Additional Parameters**, for **Read access to /sys directory**, choose **Enabled**\. 
 
    1.  **To run in containerized mode instead:** 
 **Note**  
 We do not recommend running in containerized mode unless your business case requires it\.
       +  Increase the **Memory limit** value to 3000 MB\. 
       + Increase the **Timeout** value to 2 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
-      +  For **Read access to /sys directory**, choose **Enable**\. 
-      +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
+      +  For **Pinned**, choose **True**\. 
+      + Under **Additional Parameters**, for **Read access to /sys directory**, choose **Enabled**\. 
 
 1.  Add your Neo\-optimized model resource to the group\. Upload the model resources in the `resnet50` directory of the sample package you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. This directory contains precompiled model artifacts for an image classification model trained with Resnet\-50\. Follow the procedure in [Step 5: Add a SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources) with the following updates\. 
    + Compress the files inside the `resnet50` directory into a file named `resnet50.zip`\.
@@ -540,17 +494,15 @@ We do not recommend running in containerized mode unless your business case requ
 **Note**  
  If you run in non\-containerized mode, AWS IoT Greengrass can access your device GPU without configuring device resources\. 
 
-   1. On the group configuration page, choose **Resources**\.  
-![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-resources.png)
+   1. On the group configuration page, choose the **Resources** tab\.
 
-   1. On the **Local** tab, choose **Add a local resource**\.
+   1. In the **Local resources** section, choose **Add local resource**\.
 
    1. Define the resource:
       + For **Resource name**, enter **renderD128**\.
       + For **Resource type**, choose **Device**\.
-      + For **Device path**, enter **/dev/dri/renderD128**\.
-      + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
-      + For **Lambda function affiliations**, grant **Read and write access** to your Lambda function\.
+      + For **Local device path**, enter **/dev/dri/renderD128**\.
+      + For **System group owner and file access permissions**, choose **Automatically add file system permissions of the system group that owns the resource**\.
 
 ## Configuring an NVIDIA Jetson TX2<a name="jetson-lambda-dlc-config"></a>
 
@@ -574,20 +526,20 @@ We do not recommend running in containerized mode unless your business case requ
         This allows your Lambda function to run as root\. For more information about running as root, see [Setting the default access identity for Lambda functions in a group](lambda-group-config.md#lambda-access-identity-groupsettings)\.
 **Tip**  
 You also must update your `config.json` file to grant root access to your Lambda function\. For the procedure, see [Running a Lambda function as root](lambda-group-config.md#lambda-running-as-root)\.
-      + For **Containerization**, choose **No container**\.
+      + For **Lambda function containerization**, choose **No container**\.
 
         For more information about running without containerization, see [Considerations when choosing Lambda function containerization](lambda-group-config.md#lambda-containerization-considerations)\.
       + Increase the **Timeout** value to 5 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
-      +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
-      +  For **Read access to /sys directory**, choose **Enable**\. 
+      +  For **Pinned**, choose **True**\. 
+      + Under **Additional Parameters**, for **Read access to /sys directory**, choose **Enabled**\. 
 
    1.  **To run in containerized mode instead:** 
 **Note**  
 We do not recommend running in containerized mode unless your business case requires it\.
       +  Increase the **Memory limit** value\. To use the provided model in GPU mode, use at least 2000 MB\. 
       + Increase the **Timeout** value to 5 minutes\. This ensures that the request does not time out too early\. It takes a few minutes after setup to run inference\.
-      +  For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\. 
-      +  For **Read access to /sys directory**, choose **Enable**\. 
+      +  For **Pinned**, choose **True**\. 
+      + Under **Additional Parameters**, for **Read access to /sys directory**, choose **Enabled**\. 
 
 1.  Add your Neo\-optimized model resource to the group\. Upload the model resources in the `resnet18` directory of the sample package you unzipped in [Step 3: Create an inference Lambda function](#ml-console-dlc-create-lambda)\. This directory contains precompiled model artifacts for an image classification model trained with Resnet\-18\. Follow the procedure in [Step 5: Add a SageMaker Neo\-optimized model resource to the Greengrass group](#ml-console-dlc-add-resources) with the following updates\. 
    + Compress the files inside the `resnet18` directory into a file named `resnet18.zip`\.
@@ -598,16 +550,14 @@ We do not recommend running in containerized mode unless your business case requ
 **Note**  
  If you run in non\-containerized mode, AWS IoT Greengrass can access your device GPU without configuring device resources\. 
 
-   1. On the group configuration page, choose **Resources**\.  
-![\[The group configuration page with Resources highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-resources.png)
+   1. On the group configuration page, choose the **Resources** tab\.
 
-   1. On the **Local** tab, choose **Add a local resource**\.
+   1. In the **Local resources** section, choose **Add local resource**\.
 
    1. Define each resource:
       + For **Resource name** and **Device path**, use the values in the following table\. Create one device resource for each row in the table\.
       + For **Resource type**, choose **Device**\.
-      + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
-      + For **Lambda function affiliations**, grant **Read and write access** to your Lambda function\.
+      + For **System group owner and file access permissions**, choose **Automatically add file system permissions of the system group that owns the resource**\.
 
              
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/ml-dlc-console.html)
@@ -616,8 +566,7 @@ We do not recommend running in containerized mode unless your business case requ
 **Note**  
  If you run in non\-containerized mode, AWS IoT Greengrass can access your device camera without configuring device resources\. 
    + For **Resource type**, choose **Volume**\.
-   + For **Group owner file access permission**, choose **Automatically add OS group permissions of the Linux group that owns the resource**\.
-   + For **Lambda function affiliations**, grant **Read and write access** to your Lambda function\.
+   + For **System group owner and file access permissions**, choose **Automatically add file system permissions of the system group that owns the resource**\.
 
           
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/ml-dlc-console.html)
@@ -627,7 +576,7 @@ We do not recommend running in containerized mode unless your business case requ
    + For your second topic filter, enter **/resnet\-18/test**\.
 
 1.  Update your test subscriptions to use the correct directory\. Follow the procedure in [Test the inference example](#ml-console-dlc-test-app) with the following updates\. 
-   +  For **Subscriptions**, choose **Subscribe to a Topic**\. For **Subscription topic**, enter **/resnet\-18/predictions**\. 
+   +  For **Subscriptions**, choose **Subscribe to a topic**\. For **Subscription topic**, enter **/resnet\-18/predictions**\. 
    +  On the `/resnet-18/predictions` page, specify the `/resnet-18/test` topic to publish to\. 
 
 ## Troubleshooting AWS IoT Greengrass ML inference<a name="ml-inference-troubleshooting"></a>

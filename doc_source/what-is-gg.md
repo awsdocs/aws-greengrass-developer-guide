@@ -86,7 +86,7 @@ The following tabs describe what's new and changed in AWS IoT Greengrass Core so
 Bug fixes and improvements:  
 + Improved resilience if sudden power loss occurs during a deployment\.
 + Fixed an issue where stream manager data corruption could prevent the AWS IoT Greengrass Core software from starting\.
-+ Fixed an issue where new AWS IoT devices couldn't connect to the core in certain scenarios\.
++ Fixed an issue where new client devices couldn't connect to the core in certain scenarios\.
 + Fixed an issue where stream manager stream names couldn't contain `.log`\.
 
 1\.11\.5  
@@ -314,7 +314,7 @@ A list of Lambda functions that run locally on the core, with associated configu
 
 E: Subscription definition  
 A list of subscriptions that enable communication using MQTT messages\. A subscription defines:  
-+ A message source and message target\. These can be devices, Lambda functions, connectors, AWS IoT Core, and the local shadow service\.
++ A message source and message target\. These can be client devices, Lambda functions, connectors, AWS IoT Core, and the local shadow service\.
 + A topic or subject that's used to filter messages\.
 For more information, see [Managed subscriptions in the MQTT messaging workflow](gg-sec.md#gg-msg-workflow)\.
 
@@ -322,7 +322,7 @@ F: Connector definition
 A list of connectors that run locally on the core, with associated configuration data\. For more information, see [Integrate with services and protocols using Greengrass connectors](connectors.md)\.
 
 G: Device definition  
-A list of AWS IoT things \(devices\) that are members of the Greengrass group, with associated configuration data\. For more information, see [Devices in AWS IoT Greengrass](#devices)\.
+A list of AWS IoT things \(known as client devices or devices\) that are members of the Greengrass group, with associated configuration data\. For more information, see [Devices in AWS IoT Greengrass](#devices)\.
 
 H: Resource definition  
 A list of local resources, machine learning resources, and secret resources on the Greengrass core, with associated configuration data\. For more information, see [Access local resources with Lambda functions and connectors](access-local-resources.md), [Perform machine learning inference](ml-inference.md), and [Deploy secrets to the AWS IoT Greengrass core](secrets.md)\.
@@ -334,12 +334,12 @@ When deployed, the Greengrass group definition, Lambda functions, connectors, re
 A Greengrass group can contain two types of AWS IoT device:
 
 Greengrass core  
-A Greengrass core is a device that runs the AWS IoT Greengrass Core software, which allows it to communicate directly with AWS IoT Core and the AWS IoT Greengrass service\. A core has its own device certificate used for authenticating with AWS IoT Core\. It has a device shadow and an entry in the AWS IoT Core registry\. Greengrass cores run a local Lambda runtime, deployment agent, and IP address tracker that sends IP address information to the AWS IoT Greengrass service to allow Greengrass devices to automatically discover their group and core connection information\. For more information, see [Configure the AWS IoT Greengrass core](gg-core.md)\.  
+A Greengrass core is a device that runs the AWS IoT Greengrass Core software, which allows it to communicate directly with AWS IoT Core and the AWS IoT Greengrass service\. A core has its own device certificate used for authenticating with AWS IoT Core\. It has a device shadow and an entry in the AWS IoT Core registry\. Greengrass cores run a local Lambda runtime, deployment agent, and IP address tracker that sends IP address information to the AWS IoT Greengrass service to allow client devices to automatically discover their group and core connection information\. For more information, see [Configure the AWS IoT Greengrass core](gg-core.md)\.  
 A Greengrass group must contain exactly one core\.
 
-Device connected to a Greengrass core  <a name="greengrass-devices"></a>
-Connected devices \(also called *Greengrass devices*\) also have their own device certificate for AWS IoT Core authentication, a device shadow, and an entry in the AWS IoT Core registry\. <a name="gg-device-discovery"></a>Greengrass devices can run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](#iot-device-sdk) or [AWS IoT Greengrass Discovery API](gg-discover-api.md) to get discovery information used to connect and authenticate with the core in the same Greengrass group\. To learn how to use the AWS IoT console to create and configure a device for AWS IoT Greengrass, see [Module 4: Interacting with devices in an AWS IoT Greengrass group](module4.md)\. Or, for examples that show you how to use the AWS CLI to create and configure a device for AWS IoT Greengrass, see [create\-device\-definition](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-device-definition.html) in the *AWS CLI Command Reference*\.  
-In a Greengrass group, you can create subscriptions that allow devices to communicate over MQTT with Lambda functions, connectors, and other devices in the group, and with AWS IoT Core or the local shadow service\. MQTT messages are routed through the core\. If the core device loses connectivity to the cloud, devices can continue to communicate over the local network\. Devices can vary in size, from smaller microcontroller\-based devices to large appliances\. Currently, a Greengrass group can contain up to 2500 devices\. A device can be a member of up to 10 groups\.  
+Client device  <a name="greengrass-devices"></a>
+Client devices \(also called *connected devices*, *Greengrass devices*, or *devices*\) are devices that connect to a Greengrass core over MQTT\. They have their own device certificate for AWS IoT Core authentication, a device shadow, and an entry in the AWS IoT Core registry\. <a name="gg-device-discovery"></a>Client devices can run [FreeRTOS](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-lib-gg-connectivity.html) or use the [AWS IoT Device SDK](#iot-device-sdk) or [AWS IoT Greengrass Discovery API](gg-discover-api.md) to get discovery information used to connect and authenticate with the core in the same Greengrass group\. To learn how to use the AWS IoT console to create and configure a client device for AWS IoT Greengrass, see [Module 4: Interacting with client devices in an AWS IoT Greengrass group](module4.md)\. Or, for examples that show you how to use the AWS CLI to create and configure a client device for AWS IoT Greengrass, see [create\-device\-definition](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-device-definition.html) in the *AWS CLI Command Reference*\.  
+In a Greengrass group, you can create subscriptions that allow client devices to communicate over MQTT with Lambda functions, connectors, and other client devices in the group, and with AWS IoT Core or the local shadow service\. MQTT messages are routed through the core\. If the core device loses connectivity to the cloud, client devices can continue to communicate over the local network\. Client devices can vary in size, from smaller microcontroller\-based devices to large appliances\. Currently, a Greengrass group can contain up to 2,500 client devices\. A client device can be a member of up to 10 groups\.  
 <a name="sitewise-connector-opcua-support"></a>OPC\-UA is an information exchange standard for industrial communication\. To implement support for OPC\-UA on the Greengrass core, you can use the [IoT SiteWise connector](iot-sitewise-connector.md)\. The connector sends industrial device data from OPC\-UA servers to asset properties in AWS IoT SiteWise\.
 
 The following table shows how these device types are related\.
@@ -362,8 +362,8 @@ The operations specific to Greengrass that are available in the AWS SDKs are als
 
 AWS IoT Device SDK  <a name="iot-device-sdk"></a>
 The AWS IoT Device SDK helps devices connect to AWS IoT Core and AWS IoT Greengrass\. For more information, see [AWS IoT Device SDKs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-sdks.html) in the *AWS IoT Developer Guide*\.  
-<a name="iot-device-sdk-discovery"></a>Devices can use any of the AWS IoT Device SDK v2 platforms to discover connectivity information for a Greengrass core\. Connectivity information includes:  <a name="iot-device-sdk-discovery-list"></a>
-+ The IDs of the Greengrass groups that the device belongs to\.
+<a name="iot-device-sdk-discovery"></a>Client devices can use any of the AWS IoT Device SDK v2 platforms to discover connectivity information for a Greengrass core\. Connectivity information includes:  <a name="iot-device-sdk-discovery-list"></a>
++ The IDs of the Greengrass groups that the client device belongs to\.
 + The IP addresses of the Greengrass core in each group\. These are also called *core endpoints*\.
 + The group CA certificate, which devices use for mutual authentication with the core\. For more information, see [Device connection workflow](gg-sec.md#gg-sec-connection)\.
 In v1 of the AWS IoT Device SDKs, only the C\+\+ and Python platforms provide built\-in discovery support\.
@@ -716,7 +716,7 @@ Running Java on an OpenWrt distribution isn't officially supported\. However, if
 Bug fixes and improvements:  
 + Improved resilience if sudden power loss occurs during a deployment\.
 + Fixed an issue where stream manager data corruption could prevent the AWS IoT Greengrass Core software from starting\.
-+ Fixed an issue where new AWS IoT devices couldn't connect to the core in certain scenarios\.
++ Fixed an issue where new client devices couldn't connect to the core in certain scenarios\.
 + Fixed an issue where stream manager stream names couldn't contain `.log`\.
 
 1\.11\.5  
@@ -870,10 +870,11 @@ v1\.8
 
 Docker image  
 Docker images have the AWS IoT Greengrass Core software and dependencies installed on Amazon Linux 2 \(x86\_64\) and Alpine Linux \(x86\_64, Armv7l, or AArch64\) base images\. You can use prebuilt images to start experimenting with AWS IoT Greengrass\.  
-Starting with v1\.11\.6 of the AWS IoT Greengrass Core software, the Greengrass Docker images no longer include Python 2\.7, because Python 2\.7 reached end\-of\-life in 2020 and no longer receives security updates\. If you choose to update to these Docker images, we recommend that you validate that your applications work with the new Docker images before you deploy the updates to production devices\. If you require Python 2\.7 for your application that uses a Greengrass Docker image, you can modify the Greengrass Dockerfile to include Python 2\.7 for your application\.
+<a name="docker-images-end-of-maintenance"></a>On June 30, 2022, AWS IoT Greengrass ended maintenance for AWS IoT Greengrass Core software v1\.x Docker images that are published to Amazon Elastic Container Registry \(Amazon ECR\) and Docker Hub\. You can continue to download these Docker images from Amazon ECR and Docker Hub until June 30, 2023, which is 1 year after maintenance ended\. However, the AWS IoT Greengrass Core software v1\.x Docker images no longer receive security patches or bug fixes after maintenance ended on June 30, 2022\. If you run a production workload that depends on these Docker images, we recommend that you build your own Docker images using the Dockerfiles that AWS IoT Greengrass provides\. For more information, see [AWS IoT Greengrass Version 1 maintenance policy](maintenance-policy.md)\.
 Download a prebuilt image from [ Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or Amazon Elastic Container Registry \(Amazon ECR\)\.  
 + For Docker Hub, use the *version* tag to download a specific version of the Greengrass Docker image\. To find tags for all available images, check the **Tags** page on Docker Hub\. 
 + For Amazon ECR, use the `latest` tag to download the latest available version of the Greengrass Docker image\. For more information about listing available image versions and downloading images from Amazon ECR, see [Running AWS IoT Greengrass in a Docker container](run-gg-in-docker-container.md)\.
+Starting with v1\.11\.6 of the AWS IoT Greengrass Core software, the Greengrass Docker images no longer include Python 2\.7, because Python 2\.7 reached end\-of\-life in 2020 and no longer receives security updates\. If you choose to update to these Docker images, we recommend that you validate that your applications work with the new Docker images before you deploy the updates to production devices\. If you require Python 2\.7 for your application that uses a Greengrass Docker image, you can modify the Greengrass Dockerfile to include Python 2\.7 for your application\.
 AWS IoT Greengrass doesn’t provide Docker images for AWS IoT Greengrass Core software v1\.11\.1\.  
 By default, `alpine-aarch64` and `alpine-armv7l` images can run only on Arm\-based hosts\. To run these images on an x86 host, you can install [QEMU](https://www.qemu.org/) and mount the QEMU libraries on the host\. For example:  
 
@@ -887,7 +888,7 @@ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
 Lambda functions use the AWS IoT Greengrass Core SDK to interact with the AWS IoT Greengrass core locally\. This allows deployed Lambda functions to:<a name="gg-core-sdk-functionality"></a>
 + Exchange MQTT messages with AWS IoT Core\.
-+ Exchange MQTT messages with connectors, devices, and other Lambda functions in the Greengrass group\.
++ Exchange MQTT messages with connectors, client devices, and other Lambda functions in the Greengrass group\.
 + Interact with the local shadow service\.
 + Invoke other local Lambda functions\.
 + Access [secret resources](secrets.md)\.

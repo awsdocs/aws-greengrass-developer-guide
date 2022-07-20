@@ -6,20 +6,20 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
 # Test communications<a name="comms-test"></a>
 
-1. On your computer, open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows\. Just as in [Module 5](module5.md), one window is for the GG\_Switch device and the other is for the GG\_TrafficLight device\. You use them to run the same commands that you ran in Module 5\.
+1. On your computer, open two [command\-line](https://en.wikipedia.org/wiki/Command-line_interface) windows\. Just as in [Module 5](module5.md), one window is for the GG\_Switch client device and the other is for the GG\_TrafficLight client device\. You use them to run the same commands that you ran in Module 5\.
 
-   Run the following commands for the GG\_Switch device:
-
-   ```
-   cd path-to-certs-folder
-   python lightController.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert switch.cert.pem --key switch.private.key --thingName GG_TrafficLight --clientId GG_Switch
-   ```
-
-   Run the following commands for the GG\_TrafficLight device:
+   Run the following commands for the GG\_Switch client device:
 
    ```
    cd path-to-certs-folder
-   python trafficLight.py --endpoint AWS_IOT_ENDPOINT --rootCA root-ca-cert.pem --cert light.cert.pem --key light.private.key --thingName GG_TrafficLight --clientId GG_TrafficLight
+   python lightController.py --endpoint AWS_IOT_ENDPOINT --rootCA AmazonRootCA1.pem --cert switchCertId-certificate.pem.crt --key switchCertId-private.pem.key --thingName GG_TrafficLight --clientId GG_Switch
+   ```
+
+   Run the following commands for the GG\_TrafficLight client device:
+
+   ```
+   cd path-to-certs-folder
+   python trafficLight.py --endpoint AWS_IOT_ENDPOINT --rootCA AmazonRootCA1.pem --cert lightCertId-certificate.pem.crt --key lightCertId-private.pem.key --thingName GG_TrafficLight --clientId GG_TrafficLight
    ```
 
    Every 20 seconds, the switch updates the shadow state to G, Y, and R, and the light displays its new state\.
@@ -59,7 +59,7 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
    For more information, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
-This is the end of the basic tutorial\. You should now understand the AWS IoT Greengrass programming model and its fundamental concepts, including AWS IoT Greengrass cores, groups, subscriptions, devices, and the deployment process for Lambda functions running at the edge\.
+This is the end of the basic tutorial\. You should now understand the AWS IoT Greengrass programming model and its fundamental concepts, including AWS IoT Greengrass cores, groups, subscriptions, client devices, and the deployment process for Lambda functions running at the edge\.
 
 You can delete the DynamoDB table and the Greengrass Lambda functions and subscriptions\. To stop communications between the AWS IoT Greengrass core device and the AWS IoT cloud, open a terminal on the core device and run one of the following commands:
 + To shut down the AWS IoT Greengrass core device:

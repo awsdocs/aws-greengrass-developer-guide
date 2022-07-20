@@ -400,7 +400,7 @@ Get the ARN of the core definition version to add to your new group version\. To
    aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
    ```
 **Note**  
-<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** tab\.
 
 1. <a name="copy-target-group-id"></a>Copy the `Id` of the target group from the output\. You use this to get the core definition version and when you deploy the group\.
 

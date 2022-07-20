@@ -6,7 +6,7 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
 # Run Lambda functions on the AWS IoT Greengrass core<a name="lambda-functions"></a>
 
-AWS IoT Greengrass provides a containerized Lambda runtime environment for user\-defined code that you author in AWS Lambda\. Lambda functions that are deployed to an AWS IoT Greengrass core run in the core's local Lambda runtime\. Local Lambda functions can be triggered by local events, messages from the cloud, and other sources, which brings local compute functionality to connected devices\. For example, you can use Greengrass Lambda functions to filter device data before transmitting the data to the cloud\.
+AWS IoT Greengrass provides a containerized Lambda runtime environment for user\-defined code that you author in AWS Lambda\. Lambda functions that are deployed to an AWS IoT Greengrass core run in the core's local Lambda runtime\. Local Lambda functions can be triggered by local events, messages from the cloud, and other sources, which brings local compute functionality to client devices\. For example, you can use Greengrass Lambda functions to filter device data before transmitting the data to the cloud\.
 
 To deploy a Lambda function to a core, you add the function to a Greengrass group \(by referencing the existing Lambda function\), configure group\-specific settings for the function, and then deploy the group\. If the function accesses AWS services, you also must add any required permissions to the [Greengrass group role](group-role.md)\.
 
@@ -40,7 +40,7 @@ AWS provides three SDKs that can be used by Greengrass Lambda functions running 
 **AWS IoT Greengrass Core SDK**  <a name="lambda-sdks-core"></a>
 Enables local Lambda functions to interact with the core to:  <a name="gg-core-sdk-functionality"></a>
 + Exchange MQTT messages with AWS IoT Core\.
-+ Exchange MQTT messages with connectors, devices, and other Lambda functions in the Greengrass group\.
++ Exchange MQTT messages with connectors, client devices, and other Lambda functions in the Greengrass group\.
 + Interact with the local shadow service\.
 + Invoke other local Lambda functions\.
 + Access [secret resources](secrets.md)\.
@@ -143,7 +143,7 @@ Greengrass Lambda functions support several methods of communicating with other 
 Lambda functions can send and receive MQTT messages using a publish\-subscribe pattern that's controlled by subscriptions\.
 
 This communication flow allows Lambda functions to exchange messages with the following entities:
-+ Devices in the group\.
++ Client devices in the group\.
 + Connectors in the group\.
 + Other Lambda functions in the group\.
 + AWS IoT\.
@@ -152,7 +152,7 @@ This communication flow allows Lambda functions to exchange messages with the fo
 A subscription defines a message source, a message target, and a topic \(or subject\) that's used to route messages from the source to the target\. Messages that are published to a Lambda function are passed to the function's registered handler\. Subscriptions enable more security and provide predictable interactions\. For more information, see [Managed subscriptions in the MQTT messaging workflow](gg-sec.md#gg-msg-workflow)\.
 
 **Note**  
-When the core is offline, Greengrass Lambda functions can exchange messages with devices, connectors, other functions, and local shadows, but messages to AWS IoT are queued\. For more information, see [MQTT message queue for cloud targets](gg-core.md#mqtt-message-queue)\.
+When the core is offline, Greengrass Lambda functions can exchange messages with client devices, connectors, other functions, and local shadows, but messages to AWS IoT are queued\. For more information, see [MQTT message queue for cloud targets](gg-core.md#mqtt-message-queue)\.
 
 ### Other communication flows<a name="lambda-other-communication"></a>
 + To interact with local device and volume resources and machine learning models on a core device, Greengrass Lambda functions use platform\-specific operating system interfaces\. For example, you can use the `open` method in the [os](https://docs.python.org/2/library/os.html) module in Python functions\. To allow a function to access a resource, the function must be *affiliated* with the resource and granted `read-only` or `read-write` permission\. For more information, including AWS IoT Greengrass core version availability, see [Access local resources with Lambda functions and connectors](access-local-resources.md) and [Accessing machine learning resources from Lambda function code](access-ml-resources.md#access-resource-function-code)\.
@@ -167,7 +167,7 @@ Greengrass Lambda functions can't communicate with AWS or other cloud services w
 
 ## Retrieve the input MQTT topic \(or subject\)<a name="lambda-get-mqtt-topic"></a>
 
-AWS IoT Greengrass uses subscriptions to control the exchange of MQTT messages between devices, Lambda functions, and connectors in a group, and with AWS IoT or the local shadow service\. Subscriptions define a message source, message target, and an MQTT topic used to route messages\. When the target is a Lambda function, the function's handler is invoked when the source publishes a message\. For more information, see [Communication using MQTT messages](#lambda-messages)\.
+AWS IoT Greengrass uses subscriptions to control the exchange of MQTT messages between client devices, Lambda functions, and connectors in a group, and with AWS IoT or the local shadow service\. Subscriptions define a message source, message target, and an MQTT topic used to route messages\. When the target is a Lambda function, the function's handler is invoked when the source publishes a message\. For more information, see [Communication using MQTT messages](#lambda-messages)\.
 
 The following example shows how a Lambda function can get the input topic from the `context` that's passed to the handler\. It does this by accessing the `subject` key from the context hierarchy \(`context.client_context.custom['subject']`\)\. The example also parses the input JSON message and then publishes the parsed topic and message\.
 
@@ -222,11 +222,11 @@ To test the function, add it to your group using the default configuration setti
 
 After the deployment is completed, invoke the function\.
 
-1. In the AWS IoT console, open the **Test** page\.
+1. In the AWS IoT console, open the **MQTT test client** page\.
 
-1. Subscribe to the `test/topic_results` topic\.
+1. Subscribe to the `test/topic_results` topic by selecting the **Subscribe to a topic** tab\.
 
-1. Publish a message to the `test/input_message` topic\. For this example, you must include the `test-key` property in the JSON messsage\.
+1. Publish a message to the `test/input_message` topic by selecting the **Publish to a topic** tab\. For this example, you must include the `test-key` property in the JSON messsage\.
 
    ```
    {

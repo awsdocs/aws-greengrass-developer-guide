@@ -109,7 +109,7 @@ On platforms that require a reboot, your input values from the previous session,
 **Note**  
 Make sure that the AWS Region selected in the console is the same one that you used to configure your Greengrass environment\. By default, the Region is US West \(Oregon\)\.
 
-   1. In the navigation pane, choose **Greengrass**, then choose **Classic \(V1\)**, and then choose **Groups** to locate the newly created group\. 
+   1. In the navigation pane, expand **Greengrass devices**, then choose **Groups \(V1\)** to locate the newly created group\. 
 
 1. <a name="quick-start-next-steps"></a>If you included the Hello World Lambda function, Greengrass device setup deploys the Greengrass group to your core device\. To test the Lambda function, or for information about how to remove the Lambda function from the group, continue to [Verify the Lambda function is running on the core device](lambda-check.md) in Module 3\-1 of the Getting Started tutorial\.
 **Note**  

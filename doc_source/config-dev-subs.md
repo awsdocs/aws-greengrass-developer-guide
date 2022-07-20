@@ -8,60 +8,46 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
 Shadows can be synced to AWS IoT when the AWS IoT Greengrass core is connected to the internet\. In this module, you first use local shadows without syncing to the cloud\. Then, you enable cloud syncing\.
 
-Each device has its own shadow\. For more information, see [Device shadow service for AWS IoT](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) in the *AWS IoT Developer Guide*\.
+Each client device has its own shadow\. For more information, see [Device shadow service for AWS IoT](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) in the *AWS IoT Developer Guide*\.
 
-1. From the **Devices** page, add two new devices in your AWS IoT Greengrass group\. For detailed steps of this process, see [Create AWS IoT devices in an AWS IoT Greengrass group](device-group.md)\.
-   + Name the devices **GG\_Switch** and **GG\_TrafficLight**\.
-   + Generate and download the 1\-Click default security resources for both devices\.
-   + Make a note of the hash component in the file names of the security resources for the devices\. You use these values later\.
+1. On the group configuration page, choose the **Client devices** tab\.
 
-      
-![\[Screenshot showing the two devices, GG_TrafficLight and GG_Switch.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-078.png)
+1. From the **Client devices** tab, add two new client devices in your AWS IoT Greengrass group\. For detailed steps of this process, see [Create client devices in an AWS IoT Greengrass group](device-group.md)\.
+   + Name the client devices **GG\_Switch** and **GG\_TrafficLight**\.
+   + Generate and download the security resources for both client devices\.
+   + Make a note of the certificate ID in the file names of the security resources for the client devices\. You use these values later\.
 
-1. Decompress the downloaded certificates and keys for both devices into a single folder on your computer\. For example, run the following command for each `.tar.gz` file\.
+1. Create a folder on your computer for these client devices' security credentials\. Copy the certificates and keys into this folder\.
 
-   ```
-   tar -xzf hash-setup.tar.gz
-   ```
-**Note**  
-On Windows, you can decompress `.tar.gz` files using a tool such as [7\-Zip](http://www.7-zip.org/) or [WinZip](http://www.winzip.com/)\.
-
-1. Copy the `root-ca-cert.pem` file that you downloaded in the [previous module](device-group.md#root-ca-device) to this folder\.
-
-1. Make sure that the devices are set to use local shadows\. If not, choose the ellipsis \(**…**\), and then choose **Make local only**\.  
-![\[Screenshot with LOCAL SHADOW ONLY highlighted for both devices.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-079.png)
+1. Make sure that the client devices are set to use local shadows and not sync with the AWS Cloud\. If not, select the client device, choose **Sync shadow**, and then choose **Disable shadow sync with cloud**\.
 
 1. <a name="module5-subscriptions"></a>Add the subscriptions in the following table to your group\. For example, to create the first subscription:
 
-   1. On the group configuration page, choose **Subscriptions**, and then choose **Add subscription**\.
+   1. On the group configuration page, choose the **Subscriptions** tab, and then choose **Add**\.
 
-   1. Under **Select a source**, choose **Devices**, and then choose **GG\_Switch**\.
+   1. For **Source type**, choose **Client device**, and then choose **GG\_Switch**\.
 
-   1. Under **Select a target**, choose **Services**, and then choose **Local Shadow Service**\.
-
-   1. Choose **Next**\.
+   1. For **Target type**, choose **Service**, and then choose **Local Shadow Service**\.
 
    1. For **Topic filter**, enter **$aws/things/GG\_TrafficLight/shadow/update**
 
-   1. Choose **Next**, and then choose **Finish**\.
+   1. Choose **Create subscription**\.
 
    The topics must be entered exactly as shown in the table\. Although it's possible to use wildcards to consolidate some of the subscriptions, we don't recommend this practice\. For more information, see [Shadow MQTT topics](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html) in the *AWS IoT Developer Guide*\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/config-dev-subs.html)
 
-   The new subscriptions are displayed on the **Subscriptions** page\. To see the full topic path of a subscription, hover your mouse over the **Topic** column\.  
-![\[Tabular data on the Subscriptions page. The page contains Source, Target, and Topic columns.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-080.png)
+   The new subscriptions are displayed on the **Subscriptions** tab\.
 **Note**  
 For information about the `$` character, see [Reserved topics](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html#reserved-topics)\.
 
-1. <a name="enable-automatic-detection"></a>Make sure that automatic detection is enabled so the Greengrass core can publish a list of its IP addresses\. Devices use this information to discover the core\.
+1. <a name="enable-automatic-detection"></a>Make sure that automatic detection is enabled so the Greengrass core can publish a list of its IP addresses\. Client devices use this information to discover the core\. Do the following:
 
-   1. On the group configuration page, choose **Settings**\.
+   1. On the group configuration page, choose the **Lambda functions** tab\.
 
-   1. Under **Core connectivity information**, for **Local connection detection**, choose **Automatically detect and override connection information**\.
+   1. Under **System Lambda functions**, choose **IP detector**, and then choose **Edit**\.
+
+   1. In the **Edit IP detector settings**, choose **Automatically detect and override MQTT broker endpoints**, and then choose **Save**\.
 
 1. Make sure that the Greengrass daemon is running, as described in [Deploy cloud configurations to a core device](configs-core.md)\.
 
-1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
-![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-040.png)
-
-   This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+1. <a name="console-actions-deploy"></a>On the group configuration page, choose **Deploy**\.

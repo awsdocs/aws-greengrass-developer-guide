@@ -196,8 +196,6 @@ The `snapd` daemon is preinstalled on Ubuntu\.
    ```
    sudo snap install --channel=edge snapd; sudo snap refresh --channel=edge snapd
    ```
-**Note**  
-`snapd` support for the AWS IoT Greengrass snap hasn't reached the stable channel\. We recommend that you use `--channel=edge` instead of `--channel=stable`\.
 
 1. Run the `snap list` command to check if you have the AWS IoT Greengrass snap installed\.
 
@@ -269,24 +267,6 @@ The `snapd` daemon is preinstalled on Ubuntu\.
      1.11.x/edge:      1.11.3 2021-06-15 (59) 111MB -
    ```
 
-1. To run the AWS IoT Greengrass snap, connect the following interfaces:
-**Important**  
-You must first connect `greengrass-support-no-container` and never disconnect it\.
-
-   ```
-   sudo snap connect aws-iot-greengrass:greengrass-support-no-container
-   sudo snap connect aws-iot-greengrass:hardware-observe
-   sudo snap connect aws-iot-greengrass:home-for-hooks
-   sudo snap connect aws-iot-greengrass:hugepages-control
-   sudo snap connect aws-iot-greengrass:log-observe
-   sudo snap connect aws-iot-greengrass:mount-observe
-   sudo snap connect aws-iot-greengrass:network
-   sudo snap connect aws-iot-greengrass:network-bind
-   sudo snap connect aws-iot-greengrass:network-control
-   sudo snap connect aws-iot-greengrass:process-control
-   sudo snap connect aws-iot-greengrass:system-observe
-   ```
-
 1. To access specific resources that your Lambda functions need, you can connect to additional interfaces\.
 
    Run the following command to get the list of AWS IoT Greengrass snap supported interfaces:
@@ -329,15 +309,13 @@ You must first connect `greengrass-support-no-container` and never disconnect it
 
    If you see a hyphen \(\-\) in the Slot column, the corresponding interface isn't connected\.
 
-1. Follow [Configure AWS IoT Greengrass on AWS IoT](https://docs.aws.amazon.com/greengrass/latest/developerguide/gg-config.html) to create a Greengrass group and download the security resources and configuration file; for example, `c6973960cc-setup.tar.gz`\.
-
-   This compressed file contains the core device certificate and cryptographic keys that enable secure communications between AWS IoT Core and the `config.json` file that contains configuration information specific to your Greengrass core\. This information includes the location of certificate files and the AWS IoT Core endpoint\.
+1. Follow [Installing the AWS IoT Greengrass Core software](module2.md) to create an AWS IoT thing, a Greengrass group, security resources that enable secure communications with AWS IoT, and the AWS IoT Greengrass Core software configuration file\. The configuration file, `config.json`, contains configuration specific to your Greengrass core, such as the location of certificate files and the AWS IoT device data endpoint\.
 **Note**  
-If you downloaded the file to a different device, follow the first two steps in [Start AWS IoT Greengrass on the core device](https://docs.aws.amazon.com/greengrass/latest/developerguide/gg-device-start.html) to transfer the files to the AWS IoT Greengrass core device\.
+If you downloaded the file to a different device, follow this [step](start-greengrass.md#transfer-files-to-device) to transfer the files to the AWS IoT Greengrass core device\.
 
-1. For the AWS IoT Greengrass snap, make sure that you update the [config\.json](https://docs.aws.amazon.com/greengrass/latest/developerguide/gg-core.html#config-json) file, as shown in the following:
-   + Replace *hash* with the 10\-digit hash number that is used for your security resources and configuration file names\.
-   + Run the `tar -xzf hash-setup.tar.gz -C my-certs/` command to decompress the `hash-setup.tar.gz` file\.
+1. For the AWS IoT Greengrass snap, make sure that you update the [config\.json](gg-core.md#config-json) file, as shown in the following:
+   + Replace each instance of *certificateId* with the certificate ID in the name of the certificate and key files\.
+   + If you downloaded a different Amazon root CA certificate than Amazon Root CA 1, replace each instance of *AmazonRootCA1\.pem* with the name of the Amazon root CA file\.
 
    ```
    {
@@ -345,14 +323,14 @@ If you downloaded the file to a different device, follow the first two steps in 
      "crypto" : {
        "principals" : {
          "SecretsManager" : {
-           "privateKeyPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/hash.private.key"
+           "privateKeyPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/certificateId-private.pem.keyy"
          },
          "IoTCertificate" : {
-           "privateKeyPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/hash.private.key",
-           "certificatePath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/hash.cert.pem"
+           "privateKeyPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/certificateId-private.pem.key",
+           "certificatePath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/certificateId-certificate.pem.crt"
          }
        },
-       "caPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/root.ca.pem"
+       "caPath" : "file:///snap/aws-iot-greengrass/current/greengrass/certs/AmazonRootCA1.pem"
      },
      "writeDirectory": "/var/snap/aws-iot-greengrass/current/ggc-write-directory",
      "pidFileDirectory": "/var/snap/aws-iot-greengrass/current/pidFileDirectory"
@@ -405,17 +383,19 @@ If you get an error, you can use the `snap run` command for a detailed error mes
 
    1. Sign in to the AWS IoT Greengrass console\.
 
-   1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+   1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
    1. Under **Greengrass groups**, choose the target group\.
 
-   1. On the group configuration page, in the navigation pane, choose **Settings**\.
+   1. On the group configuration page, in the navigation pane, choose the **Lambda functions** tab\.
 
-   1. Under **Lambda runtime environment**, do the following:
+   1. Under **Default Lambda function runtime environment**, choose **Edit**, and do the following:
 
-      1. For **Default Lambda function user ID/ group ID**, choose **Another user ID/group ID**, and then enter **584788** for both **UID \(number\)** and **GID \(number\)**\.
+      1. For **Default system user and group**, choose **Another user ID/group ID**, and then enter **584788** for both **System user ID \(number\)** and **System group ID \(number\)**\.
 
       1. For **Default Lambda function containerization**, choose **No container**\.
+
+      1. Choose **Save**\.
 
 ### Stopping the AWS IoT Greengrass daemon<a name="gg-snap-stop"></a>
 
@@ -530,7 +510,7 @@ When you upgrade to a new version of the AWS IoT Greengrass Core software, you c
 
 1. Download the [AWS IoT Greengrass Core software](what-is-gg.md#gg-core-download-tab) installation package that you want to upgrade to\.
 
-1. Copy the package to the destination core device\. For instructions that show how to transfer files, see this [step](gg-device-start.md#transfer-files-to-device)\.
+1. Copy the package to the destination core device\. For instructions that show how to transfer files, see this [step](start-greengrass.md#transfer-files-to-device)\.
 **Note**  
 You copy your current certificates, keys, and configuration file to the new installation later\.
 

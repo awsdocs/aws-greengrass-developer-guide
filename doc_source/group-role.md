@@ -37,14 +37,13 @@ The user who is signed in to the console must have permissions to manage the rol
 
 Follow these steps to find the role that is attached to a Greengrass group\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
-![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings.png)
+1. <a name="shared-group-settings"></a>On the group configuration page, choose **View settings**\.
 
-If a role is attached to the group, it appears under **Group Role**\.
+If a role is attached to the group, it appears under **Group role**\.
 
  
 
@@ -68,18 +67,17 @@ After the role is configured, use the AWS IoT console to add the role to the gro
 **Note**  
 This procedure is required only to choose a role for the group\. It's not required after changing the permissions of the currently selected group role\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
-![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings.png)
+1. <a name="shared-group-settings"></a>On the group configuration page, choose **View settings**\.
 
-1. Under **Group Role**, choose to add or change the role:
-   + To add the role, choose **Add Role**\.
-   + To choose a different role, choose the ellipses \(**…**\) for the role, and then choose **Edit IAM Role**\.
+1. Under **Group role**, choose to add or change the role:
+   + To add the role, choose **Associate role** and then select your role from your list of roles\. These are the roles in your AWS account that define AWS IoT Greengrass as a trusted entity\.
+   + To choose a different role, choose **Edit role** and then select your role from your list of roles\.
 
-1. On the **Your Group's IAM Role** page, choose the target role from your list of roles, and then choose **Save**\. These are the roles in your AWS account that define AWS IoT Greengrass as a trusted entity\.
+1. Choose **Save**\.
 
  
 
@@ -87,16 +85,15 @@ This procedure is required only to choose a role for the group\. It's not requir
 
 Follow these steps to detach the role from a Greengrass group\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="shared-group-settings"></a>On the group configuration page, choose **Settings**\.  
-![\[Group settings page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings.png)
+1. <a name="shared-group-settings"></a>On the group configuration page, choose **View settings**\.
 
-1. Under **Group Role**, choose the ellipses \(**…**\) for the role, and then choose **Remove IAM Role**\.
+1. Under **Group role**, choose **Disassociate role**\. 
 
-   This step removes the role from the group but doesn't delete the role\. If you want to delete the role, use the IAM console\.
+1. In the confirmation dialog box, choose **Disassociate role**\. This step removes the role from the group but doesn't delete the role\. If you want to delete the role, use the IAM console\.
 
 ## Managing the Greengrass group role \(CLI\)<a name="manage-group-role-cli"></a>
 

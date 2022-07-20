@@ -49,8 +49,7 @@ Depending on your distribution, you might need to install `zip` first \(for exam
    + For **Runtime**, choose **Python 3\.7**\.
    + For **Permissions**, keep the default setting\. This creates an execution role that grants basic Lambda permissions\. This role isn't used by AWS IoT Greengrass\.
 
-   Choose **Create function**\.  
-![\[The "Basic information" section with the "Function name" field set to "Greengrass_HelloWorld" and the "Runtime" field set to "Python 3.7".\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-023.png)
+   Choose **Create function**\.
 
 1. Upload your Lambda function deployment package:
 

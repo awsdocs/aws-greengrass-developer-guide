@@ -104,21 +104,17 @@ If you're running an earlier version and you don't want to use telemetry, you do
 
 The following shows how to update the telemetry settings of a Greengrass core in the AWS IoT Greengrass console\.
 
-1. Sign in to the [AWS IoT Greengrass console](https://console.aws.amazon.com/greengrass/)\.
-
-1. In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. Under **Greengrass groups**, choose your target group\.
 
-1. In the navigation pane, choose **Cores**\.
+1. On the group configuration page, in the **Overview** section, choose your **Greengrass core**\.
 
-1. Under **Cores**, choose your target core\.
+1. On the core's configuration page, choose the **Telemetry** tab\.
 
-1. In the navigation pane, choose **Telemetry**\.
+1. In the **System health telemetry** section, choose **Configure**\.
 
-1. On the **System Health Telemetry** page, choose **Edit**\.
-
-1. Under **Configure telemetry**, choose **Enable** or **Disable**, and then choose **Update**\.
+1. In **Configure telemetry**, select Telemetry to enable or disable the Telemetry status\.
 **Important**  
 By default, the telemetry feature is enabled for AWS IoT Greengrass Core software v1\.11\.0 or later\.
 
@@ -370,29 +366,31 @@ Use the following steps to use the AWS Management Console to create an EventBrid
 
 1. Under **Name and description**, enter a name and description for the rule\.
 
-1. Under **Define pattern**, configure the rule pattern\.
+1. Choose **Event bus**\- and enable the rule on the selected event bus\.\.
 
-   1. Choose **Event pattern**\.
+1. Select the **Rule type** and choose **Rule with an event pattern**\.
 
-   1. Choose **Pre\-defined pattern by service**\.
+1. Choose **Next**\.
 
-   1. For **Service provider**, choose **AWS**\.
+1. For **Event source**, choose **AWS events or EventBridge partner events**\.
 
-   1. For **Service name**, choose **Greengrass**\.
+1. For **Sample event**, choose **AWS events**, and select **Greengrass Telemetry Data**\.
 
-   1. For **Event type**, select **Greengrass Telemetry Data**\.
+1. In **Event pattern**, make the following selections: 
 
-1. Under **Select event bus**, keep the default event bus options\.
+   1. For **Event source**, choose **AWS services**\.
 
-1. Under **Select targets**, configure your target\. The following example uses an Amazon SQS queue, but you can configure other target types\.
+   1. For **AWS service**, choose **Greengrass**\.
 
-   1. For **Target**, choose **SQS queue**\.
+   1. For **Event type**, choose **Greengrass Telemetry Data**\.
 
-   1. For **Queue\***, choose your target queue\.
+1. Choose **Next**\.
 
-1. Under **Tags \- optional**, define tags for the rule or leave the fields empty\.
+1. For **Target 1**, choose **AWS service**\.
 
-1. Choose **Create**\.
+1. For **Select a target**, choose **SQS queue**\.
+
+1. For **Queue**, choose your function\.
 
 ### Create an event rule to get telemetry data \(CLI\)<a name="create-telemetry-event-rule-cli"></a>
 

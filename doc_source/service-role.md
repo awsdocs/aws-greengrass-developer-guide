@@ -38,10 +38,9 @@ The user who is signed in to the console must have permissions to view, create, 
 
 Use the following steps to find the service role that AWS IoT Greengrass is using in the current AWS Region\.
 
-1. <a name="iot-settings"></a>In the [AWS IoT console](https://console.aws.amazon.com/iot/), in the navigation pane, choose **Settings**\.
+1. <a name="iot-settings"></a>From the [AWS IoT console](https://console.aws.amazon.com/iot/) navigation pane, choose **Settings**\.
 
-1. Scroll to the **Greengrass service role** section to see your service role and its policies\.  
-![\[The Greengrass service role displayed on the Settings page of the AWS IoT console.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-iot-settings-service-role.png)
+1. Scroll to the **Greengrass service role** section to see your service role and its policies\.
 
    If you don't see a service role, you can let the console create or configure one for you\. For more information, see [Create the Greengrass service role](#create-service-role-console)\.
 
@@ -77,15 +76,15 @@ If you create a service role, return to the AWS IoT console and attach the role 
 
 Use the following procedure to choose a different Greengrass service role to attach to your AWS account in the AWS Region currently selected in the console\.
 
-1. <a name="iot-settings"></a>In the [AWS IoT console](https://console.aws.amazon.com/iot/), in the navigation pane, choose **Settings**\.
+1. <a name="iot-settings"></a>From the [AWS IoT console](https://console.aws.amazon.com/iot/) navigation pane, choose **Settings**\.
 
-1. Under **Greengrass service role**, choose **Choose different role**\.
+1. Under **Greengrass service role**, choose **Change role**\.
 
-   The IAM roles in your AWS account that define AWS IoT Greengrass as a trusted entity are displayed in the **Choose the Greengrass service role** dialog box\. 
+   The **Update Greengrass service role** dialog box opens and shows the IAM roles in your AWS account that define AWS IoT Greengrass as a trusted entity\.
 
-1. Choose your Greengrass service role\.
+1. Choose the Greengrass service role to attach\.
 
-1. Choose **Save**\.
+1. Choose **Attach role**\.
 
 **Note**  
 To allow the console to create a default Greengrass service role for you, choose **Create role for me** instead of choosing a role from the list\. The **Create role for me** link does not appear if a role named `Greengrass_ServiceRole` is in your AWS account\.
@@ -99,11 +98,11 @@ Use the following procedure to detach the Greengrass service role from your AWS 
 **Important**  
 Detaching the service role might interrupt active operations\.
 
-1. <a name="iot-settings"></a>In the [AWS IoT console](https://console.aws.amazon.com/iot/), in the navigation pane, choose **Settings**\.
+1. <a name="iot-settings"></a>From the [AWS IoT console](https://console.aws.amazon.com/iot/) navigation pane, choose **Settings**\.
 
-1. Under **Greengrass service role**, choose **Detach**\.
+1. Under **Greengrass service role**, choose **Detach role**\.
 
-1. In the confirmation dialog box, choose **Detach role**\.
+1. In the confirmation dialog box, choose **Detach**\.
 
 **Note**  
 If you no longer need the role, you can delete it in the IAM console\. For more information, see [Deleting roles or instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html) in the *IAM User Guide*\.  
@@ -126,7 +125,7 @@ Use the following procedure to find out if a Greengrass service role is associat
 + Get the service role\. Replace *region* with your AWS Region \(for example, `us-west-2`\)\.
 
   ```
-  aws greengrass get-service-role-for-account --region region
+  aws Greengrass get-service-role-for-account --region region
   ```
 
   If a Greengrass service role is already associated with your account, the following role metadata is returned\.

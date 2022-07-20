@@ -96,7 +96,7 @@ Management tasks for the secret resources in your Greengrass group include addin
 
 In the AWS IoT Greengrass API, these changes are implemented by using versions\.
 
-The AWS IoT Greengrass API uses versions to manage groups\. Versions are immutable, so to add or change group components—for example, the group's devices, functions, and resources—you must create versions of new or updated components\. Then, you create and deploy a group version that contains the target version of each component\. To learn more about groups, see [AWS IoT Greengrass groups](what-is-gg.md#gg-group)\.
+The AWS IoT Greengrass API uses versions to manage groups\. Versions are immutable, so to add or change group components—for example, the group's client devices, functions, and resources—you must create versions of new or updated components\. Then, you create and deploy a group version that contains the target version of each component\. To learn more about groups, see [AWS IoT Greengrass groups](what-is-gg.md#gg-group)\.
 
 For example, to change the set of staging labels for a secret resource:
 

@@ -6,33 +6,32 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
 # Configure subscriptions<a name="config-subs"></a>
 
-In this step, you enable the HelloWorld\_Publisher device to send MQTT messages to the HelloWorld\_Subscriber device\.
+In this step, you enable the HelloWorld\_Publisher client device to send MQTT messages to the HelloWorld\_Subscriber client device\.
 
-1. On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.
+1. On the group configuration page, choose the **Subscriptions** tab, and then choose **Add**\.
 
-1. Configure the subscription\.
-   + Under **Select a source**, choose **Devices**, and then choose **HelloWorld\_Publisher**\.
-   + Under **Select a target**, choose **Devices**, and then choose **HelloWorld\_Subscriber**\.
-   + Choose **Next**\.
+1. On the **Create a subscription** page, do the following to configure the subscription:
 
-      
-![\[Screenshot of the Select your source and target page with HelloWorld_Publisher, HelloWorld_Subscriber, and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-072.png)
+   1. For **Source type**, choose **Client device**, and then choose **HelloWorld\_Publisher**\.
 
-1. For **Topic filter**, enter **hello/world/pubsub**, choose **Next**, and then choose **Finish**\.
+   1. Under **Target type**, choose **Client device**, and then choose **HelloWorld\_Subscriber**\.
+
+   1. For **Topic filter**, enter **hello/world/pubsub**\.
 **Note**  
-You can delete subscriptions from the previous modules\. On the group's **Subscriptions** page, choose the ellipsis \(**…**\) associated with a subscription, and then choose **Delete**\.
+You can delete subscriptions from the previous modules\. On the group's **Subscriptions** page, select the subscriptions to delete, and then choose **Delete**\.
 
-1. <a name="enable-automatic-detection"></a>Make sure that automatic detection is enabled so the Greengrass core can publish a list of its IP addresses\. Devices use this information to discover the core\.
+   1. Choose **Create subscription**\.
 
-   1. On the group configuration page, choose **Settings**\.
+1. <a name="enable-automatic-detection"></a>Make sure that automatic detection is enabled so the Greengrass core can publish a list of its IP addresses\. Client devices use this information to discover the core\. Do the following:
 
-   1. Under **Core connectivity information**, for **Local connection detection**, choose **Automatically detect and override connection information**\.
+   1. On the group configuration page, choose the **Lambda functions** tab\.
+
+   1. Under **System Lambda functions**, choose **IP detector**, and then choose **Edit**\.
+
+   1. In the **Edit IP detector settings**, choose **Automatically detect and override MQTT broker endpoints**, and then choose **Save**\.
 
 1. Make sure that the Greengrass daemon is running, as described in [Deploy cloud configurations to a core device](configs-core.md)\.
 
-1. <a name="console-actions-deploy"></a>On the group configuration page, from **Actions**, choose **Deploy**\.  
-![\[Screenshot of the Group page with the Deploy action highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-040.png)
+1. <a name="console-actions-deploy"></a>On the group configuration page, choose **Deploy**\.
 
-   This deploys the group configuration to your AWS IoT Greengrass core device\. For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
-
-The deployment status is displayed below the group name on the page header\. To see deployment details, choose **Deployments**\.
+The deployment status is displayed below the group name on the page header\. To see deployment details, choose the **Deployments** tab\.

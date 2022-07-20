@@ -55,25 +55,16 @@ This example Python file is stored in the AWS IoT Greengrass Core SDK repository
 
 1. In the AWS IoT console, add the Lambda function that you just created to your AWS IoT Greengrass group:
 
-   1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.
+   1. On the group configuration page, choose **Lambda functions**, and then under **My Lambda functions**, choose **Add**\.
 
-   1. Choose **Use existing Lambda**\.  
-![\[Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-096.2.png)
+   1. For **Lambda function**, choose **GG\_Car\_Aggregator**\.
 
-   1. Choose **GG\_Car\_Aggregator**, and then choose **Next**\.  
-![\[GG_Car_Aggregator and Next highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-096.3.png)
+   1. For **Lambda function version**, choose the alias to the version that you published\.
 
-   1. Choose **Alias: GG\_CarAggregator**, and then choose **Finish**\.  
-![\[Alias: GG_CarAggregator and Finish highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-096.4.png)
+   1. For **Memory limit**, enter **64 MB**\.
+
+   1. For **Pinned**, choose **True**\.
+
+   1. Choose **Add Lambda function**\.
 **Note**  
 You can remove other Lambda functions from earlier modules\.
-
-1. Edit the Lambda function configuration:
-
-   1. Choose the ellipsis \(**…**\) associated with the Lambda function, and then choose **Edit Configuration**\.  
-![\[The Edit Configuration option highlighted for the Lambda function.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-097.5.png)
-
-   1. Under **Memory limit**, enter **64 MB**\.
-
-   1. Under **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**, and then choose **Update**\.  
-![\[GG_Car_Aggregator configuration page with Make this function long-lived and keep it running indefinitely highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-098.png)

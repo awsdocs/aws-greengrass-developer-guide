@@ -70,7 +70,9 @@ Follow these steps to use the console to configure permissions for IDT for AWS I
       }
       ```
 
-   1. Choose **Review policy**\.
+   1. Choose **Next: Tags**\.
+
+   1. Choose **Next: Review**\.
 
    1. For **Name**, enter **IDTUsageMetricsIAMPermissions**\. Under **Summary**, review the permissions granted by your policy\.
 

@@ -6,13 +6,13 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
 # Greengrass Discovery RESTful API<a name="gg-discover-api"></a>
 
-All devices that communicate with an AWS IoT Greengrass core must be a member of a Greengrass group\. Each group must have a Greengrass core\. The Discovery API enables devices to retrieve information required to connect to a Greengrass core that is in the same Greengrass group as the device\. When a device first comes online, it can connect to the AWS IoT Greengrass service and use the Discovery API to find:
-+ The group to which it belongs\. A device can be a member of up to 10 groups\.
+All client devices that communicate with an AWS IoT Greengrass core must be a member of a Greengrass group\. Each group must have a Greengrass core\. The Discovery API enables devices to retrieve information required to connect to a Greengrass core that is in the same Greengrass group as the client device\. When a client device first comes online, it can connect to the AWS IoT Greengrass service and use the Discovery API to find:
++ The group to which it belongs\. A client device can be a member of up to 10 groups\.
 + The IP address and port for the Greengrass core in the group\.
 + The group CA certificate, which can be used to authenticate the Greengrass core device\.
 
 **Note**  
-Devices can also use the AWS IoT Device SDKs to discover connectivity information for a Greengrass core\. For more information, see [AWS IoT Device SDK](what-is-gg.md#iot-device-sdk)\.
+Client devices can also use the AWS IoT Device SDKs to discover connectivity information for a Greengrass core\. For more information, see [AWS IoT Device SDK](what-is-gg.md#iot-device-sdk)\.
 
 To use this API, send HTTP requests to the Discovery API endpoint\. For example:
 
@@ -70,7 +70,7 @@ Retrieving the connectivity information requires a policy that allows the caller
 
 ## Example discover response documents<a name="gg-discover-response-doc"></a>
 
-The following document shows the response for a device that is a member of a group with one Greengrass core, one endpoint, and one group CA certificate:
+The following document shows the response for a client device that is a member of a group with one Greengrass core, one endpoint, and one group CA certificate:
 
 ```
 {
@@ -98,7 +98,7 @@ The following document shows the response for a device that is a member of a gro
 }
 ```
 
-The following document shows the response for a device that is a member of two groups with one Greengrass core, multiple endpoints, and multiple group CA certificates:
+The following document shows the response for a client device that is a member of two groups with one Greengrass core, multiple endpoints, and multiple group CA certificates:
 
 ```
 {

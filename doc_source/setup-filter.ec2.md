@@ -22,28 +22,25 @@ Or, to use a script that sets up your environment and installs the AWS IoT Green
    1. In the navigation pane of the Amazon EC2 console, choose **Security Groups**\.  
 ![\[Navigation pane with Security Groups highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-002.6.1.png)
 
-   1. Select the security group for the instance that you just launched, and then choose the **Inbound** tab\.  
-![\[Inbound tab highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-002.6.2.png)
+   1. Select the security group for the instance that you just launched, and then choose the **Inbound rules** tab\.
 
-   1. Choose **Edit**\.
+   1. Choose **Edit inbound rules**\.
 
       To enable port 8883, you add a custom TCP rule to the security group\. For more information, see [ Adding rules to a security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule) in the *Amazon EC2 User Guide for Linux Instances*\.
 
-   1. On the **Edit inbound rules** page, choose **Add Rule**, enter the following settings, and then choose **Save**\.
+   1. On the **Edit inbound rules** page, choose **Add rule**, enter the following settings, and then choose **Save**\.
       + For **Type**, choose **Custom TCP Rule**\.
-      + For **Port Range**, enter **8883**\.
+      + For **Port range**, enter **8883**\.
       + For **Source**, choose **Anywhere**\.
       + For **Description**, enter **MQTT Communications**\.
 
-         
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-002.6.3.png)
+       
 
 1. Connect to your Amazon EC2 instance\.
 
    1. In the navigation pane, choose **Instances**, choose your instance, and then choose **Connect**\.
 
-   1. Follow the instructions on the **Connect To Your Instance** page to connect to your instance [ by using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) and your private key file\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-002.6.4.png)
+   1. Follow the instructions on the **Connect To Your Instance** page to connect to your instance [ by using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) and your private key file\.
 
    You can use [PuTTY](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) for Windows or Terminal for macOS\. For more information, see [ Connect to your Linux instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the *Amazon EC2 User Guide for Linux Instances*\.
 

@@ -12,8 +12,8 @@ You can download a Dockerfile [through Amazon CloudFront](what-is-gg.md#gg-docke
 
 To help you get started experimenting with AWS IoT Greengrass, AWS also provides prebuilt Docker images that have the AWS IoT Greengrass Core software and dependencies installed\. You can download an image from [Docker Hub](https://hub.docker.com/r/amazon/aws-iot-greengrass) or [Amazon Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) \(Amazon ECR\)\. These prebuilt images use Amazon Linux 2 \(x86\_64\) and Alpine Linux \(x86\_64, Armv7l, or AArch64\) base images\.
 
-**Warning**  <a name="docker-images-python-2.7-removal"></a>
-Starting with v1\.11\.6 of the AWS IoT Greengrass Core software, the Greengrass Docker images no longer include Python 2\.7, because Python 2\.7 reached end\-of\-life in 2020 and no longer receives security updates\. If you choose to update to these Docker images, we recommend that you validate that your applications work with the new Docker images before you deploy the updates to production devices\. If you require Python 2\.7 for your application that uses a Greengrass Docker image, you can modify the Greengrass Dockerfile to include Python 2\.7 for your application\.
+**Important**  
+<a name="docker-images-end-of-maintenance"></a>On June 30, 2022, AWS IoT Greengrass ended maintenance for AWS IoT Greengrass Core software v1\.x Docker images that are published to Amazon Elastic Container Registry \(Amazon ECR\) and Docker Hub\. You can continue to download these Docker images from Amazon ECR and Docker Hub until June 30, 2023, which is 1 year after maintenance ended\. However, the AWS IoT Greengrass Core software v1\.x Docker images no longer receive security patches or bug fixes after maintenance ended on June 30, 2022\. If you run a production workload that depends on these Docker images, we recommend that you build your own Docker images using the Dockerfiles that AWS IoT Greengrass provides\. For more information, see [AWS IoT Greengrass Docker software](what-is-gg.md#gg-docker-download)\.
 
 This topic describes how to download the AWS IoT Greengrass Docker image from Amazon ECR and run it on a Windows, macOS, or Linux \(x86\_64\) platform\. The topic contains the following steps:
 
@@ -27,7 +27,7 @@ This topic describes how to download the AWS IoT Greengrass Docker image from Am
 
 1. [Deploy Lambda functions to the Docker container](#docker-add-lambdas)
 
-1. [\(Optional\) Deploy devices that interact with Greengrass in the Docker container](#docker-add-devices)
+1. [\(Optional\) Deploy client devices that interact with Greengrass in the Docker container](#docker-add-devices)
 
 The following features aren't supported when you run AWS IoT Greengrass in a Docker container:<a name="docker-image-unsupported-features"></a>
 + [Connectors](connectors.md) that run in **Greengrass container** mode\. To run a connector in a Docker container, the connector must run in **No container** mode\. To find connectors that support **No container** mode, see [AWS\-provided Greengrass connectors](connectors-list.md)\. Some of these connectors have an isolation mode parameter that you must set to **No container**\.
@@ -73,7 +73,12 @@ To upgrade to a later AWS CLI version 1, you must repeat the MSI installation pr
 
 ## Step 1: Get the AWS IoT Greengrass container image from Amazon ECR<a name="docker-pull-image"></a>
 
-AWS provides Docker images that have the AWS IoT Greengrass Core software installed\. For steps that show how to pull the `latest` image from Amazon ECR, choose your operating system:
+AWS provides Docker images that have the AWS IoT Greengrass Core software installed\.
+
+**Warning**  <a name="docker-images-python-2.7-removal"></a>
+Starting with v1\.11\.6 of the AWS IoT Greengrass Core software, the Greengrass Docker images no longer include Python 2\.7, because Python 2\.7 reached end\-of\-life in 2020 and no longer receives security updates\. If you choose to update to these Docker images, we recommend that you validate that your applications work with the new Docker images before you deploy the updates to production devices\. If you require Python 2\.7 for your application that uses a Greengrass Docker image, you can modify the Greengrass Dockerfile to include Python 2\.7 for your application\.
+
+For steps that show how to pull the `latest` image from Amazon ECR, choose your operating system:
 
 ### Pull the container image \(Linux\)<a name="docker-pull-image-linux"></a>
 
@@ -179,7 +184,7 @@ The `latest` image contains the latest stable version of the AWS IoT Greengrass 
 ## Step 2: Create and configure the Greengrass group and core<a name="docker-config-gg"></a>
 
 The Docker image has the AWS IoT Greengrass Core software installed, but you must create a Greengrass group and core\. This includes downloading certificates and the core configuration file\.
-+ Follow the steps in [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)\. Skip the step where you download the AWS IoT Greengrass Core software\. The software and its runtime dependencies are already set up in the Docker image\.
++ Follow the steps in [Module 2: Installing the AWS IoT Greengrass Core software](module2.md)\. Skip the steps where you download and run the AWS IoT Greengrass Core software\. The software and its runtime dependencies are already set up in the Docker image\.
 
 ## Step 3: Run AWS IoT Greengrass locally<a name="docker-run-gg"></a>
 
@@ -189,33 +194,22 @@ After your group is configured, you're ready to configure and start the core\. F
 
 Run the following commands in your computer terminal\.
 
-1. <a name="docker-untar-files"></a>Decompress the certificates and configuration file \(that you downloaded when you created your Greengrass group\) into a known location, such as `/tmp`\. For example:
+1. <a name="docker-create-certs-folder"></a>Create a folder for the device's security resources, and move the certificate and keys into that folder\. Run the following commands\. Replace *path\-to\-security\-files* with the path to the security resources, and replace *certificateId* with the certificate ID in the file names\.
 
    ```
-   tar xvzf hash-setup.tar.gz -C /tmp/
+   mkdir /tmp/certs
+   mv path-to-security-files/certificateId-certificate.pem.crt /tmp/certs
+   mv path-to-security-files/certificateId-public.pem.key /tmp/certs
+   mv path-to-security-files/certificateId-private.pem.key /tmp/certs
+   mv path-to-security-files/AmazonRootCA1.pem /tmp/certs
    ```
 
-1. <a name="docker-root-ca"></a>Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. <a name="docker-create-config-folder"></a>Create a folder for the device's configuration, and move the AWS IoT Greengrass Core configuration file to that folder\. Run the following commands\. Replace *path\-to\-config\-file* with the path to the configuration file\.
 
-   Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
-
-   Replace `/tmp` with the path to the directory\.
-**Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some Amazon Web Services Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
-   + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
-
-     ```
-     cd /tmp/certs/
-     sudo wget -O root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
-     ```
-   + For legacy endpoints, download a VeriSign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you use an ATS endpoint and ATS root CA certificate\.
-
-     ```
-     cd /tmp/certs/
-     sudo wget -O root.ca.pem https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem
-     ```
-**Note**  
-The `wget -O` parameter is the capital letter O\.
+   ```
+   mkdir /tmp/config
+   mv path-to-config-file/config.json /tmp/config
+   ```
 
 1. <a name="docker-docker-run"></a>Start AWS IoT Greengrass and bind\-mount the certificates and configuration file in the Docker container\.
 
@@ -244,33 +238,22 @@ The `wget -O` parameter is the capital letter O\.
 
 Run the following commands in your computer terminal\.
 
-1. <a name="docker-untar-files"></a>Decompress the certificates and configuration file \(that you downloaded when you created your Greengrass group\) into a known location, such as `/tmp`\. For example:
+1. <a name="docker-create-certs-folder"></a>Create a folder for the device's security resources, and move the certificate and keys into that folder\. Run the following commands\. Replace *path\-to\-security\-files* with the path to the security resources, and replace *certificateId* with the certificate ID in the file names\.
 
    ```
-   tar xvzf hash-setup.tar.gz -C /tmp/
+   mkdir /tmp/certs
+   mv path-to-security-files/certificateId-certificate.pem.crt /tmp/certs
+   mv path-to-security-files/certificateId-public.pem.key /tmp/certs
+   mv path-to-security-files/certificateId-private.pem.key /tmp/certs
+   mv path-to-security-files/AmazonRootCA1.pem /tmp/certs
    ```
 
-1. <a name="docker-root-ca"></a>Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. <a name="docker-create-config-folder"></a>Create a folder for the device's configuration, and move the AWS IoT Greengrass Core configuration file to that folder\. Run the following commands\. Replace *path\-to\-config\-file* with the path to the configuration file\.
 
-   Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
-
-   Replace `/tmp` with the path to the directory\.
-**Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some Amazon Web Services Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
-   + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
-
-     ```
-     cd /tmp/certs/
-     sudo wget -O root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
-     ```
-   + For legacy endpoints, download a VeriSign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you use an ATS endpoint and ATS root CA certificate\.
-
-     ```
-     cd /tmp/certs/
-     sudo wget -O root.ca.pem https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem
-     ```
-**Note**  
-The `wget -O` parameter is the capital letter O\.
+   ```
+   mkdir /tmp/config
+   mv path-to-config-file/config.json /tmp/config
+   ```
 
 1. <a name="docker-docker-run"></a>Start AWS IoT Greengrass and bind\-mount the certificates and configuration file in the Docker container\.
 
@@ -297,35 +280,22 @@ The `wget -O` parameter is the capital letter O\.
 
 ### Run Greengrass locally \(Windows\)<a name="docker-run-gg-windows"></a>
 
-1. Use a utility such as WinZip or 7\-Zip to decompress the certificates and configuration file that you downloaded when you created your Greengrass group\. For more information, see the [WinZip](https://www.winzip.com/win/en/tar-file.html) documentation\.
+1. Create a folder for the device's security resources, and move the certificate and keys into that folder\. Run the following commands in a command prompt\. Replace *path\-to\-security\-files* with the path to the security resources, and replace *certificateId* with the certificate ID in the file names\.
 
-   Locate the downloaded `hash-setup.tar.gz` file on your computer and then decompress the file into `C:\Users\%USERNAME%\Downloads\`\.
+   ```
+   mkdir C:\Users\%USERNAME%\Downloads\certs
+   move path-to-security-files\certificateId-certificate.pem.crt C:\Users\%USERNAME%\Downloads\certs
+   move path-to-security-files\certificateId-public.pem.key C:\Users\%USERNAME%\Downloads\certs
+   move path-to-security-files\certificateId-private.pem.key C:\Users\%USERNAME%\Downloads\certs
+   move path-to-security-files\AmazonRootCA1.pem C:\Users\%USERNAME%\Downloads\certs
+   ```
 
-1. Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+1. Create a folder for the device's configuration, and move the AWS IoT Greengrass Core configuration file to that folder\. Run the following commands in a command prompt\. Replace *path\-to\-config\-file* with the path to the configuration file\.
 
-   Run the following commands to download the root CA certificate to the directory where you decompressed the certificates and configuration file\. Certificates enable your device to connect to AWS IoT over TLS\.
-**Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some Amazon Web Services Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
-   + For ATS endpoints \(preferred\), download the appropriate ATS root CA certificate\. The following example downloads `AmazonRootCA1.pem`\.
-     + If you have [curl](https://curl.haxx.se/download.html) installed, run the following commands in your command prompt\.
-
-       ```
-       cd C:\Users\%USERNAME%\Downloads\certs
-       curl https://www.amazontrust.com/repository/AmazonRootCA1.pem -o root.ca.pem
-       ```
-     + Otherwise, in a web browser, open the [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem) certificate\. Save the document as `root.ca.pem` in the `C:\Users\%USERNAME%\Downloads\certs` directory, which contains the decompressed certificates\.
-**Note**  
-Depending on your browser, save the file directly from the browser or copy the displayed key to the clipboard and save it in Notepad\.
-   + For legacy endpoints, download a VeriSign root CA certificate\. Although legacy endpoints are acceptable for the purposes of this tutorial, we recommend that you use an ATS endpoint and ATS root CA certificate\.
-     + If you have [curl](https://curl.haxx.se/download.html) installed, run the following commands in your command prompt\.
-
-       ```
-       cd C:\Users\%USERNAME%\Downloads\certs
-       curl https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem -o root.ca.pem
-       ```
-     + Otherwise, in a web browser, open the [VeriSign Class 3 Public Primary G5 root CA certificate](https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem)\. Save the document as `root.ca.pem` in the `C:\Users\%USERNAME%\Downloads\certs` directory, which contains the decompressed certificates\.
-**Note**  
-Depending on your browser, save the file directly from the browser or copy the displayed key to the clipboard and save it in Notepad\.
+   ```
+   mkdir C:\Users\%USERNAME%\Downloads\config
+   move path-to-config-file\config.json C:\Users\%USERNAME%\Downloads\config
+   ```
 
 1. Start AWS IoT Greengrass and bind\-mount the certificates and configuration file in the Docker container\. Run the following commands in your command prompt\.
 
@@ -352,15 +322,19 @@ If the container doesn't open the shell and exits immediately, you can debug the
 
 When you run AWS IoT Greengrass in a Docker container, all Lambda functions must run without containerization\. In this step, you set the default containerization for the group to **No container**\. You must do this before you deploy the group for the first time\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-group"></a>Choose the group whose settings you want to change\.
 
-1. <a name="group-choose-settings"></a>Choose **Settings**\.
+1. Choose the **Lamba functions** tab\.
 
-1. Under **Lambda runtime environment**, choose **No container**\.
+1. Under **Default Lambda function runtime environment**, choose **Edit**\.
 
-1. Choose **Update default Lambda execution configuration**\. Review the message in the confirmation window, and then choose **Continue**\.
+1. In the **Edit default Lambda function runtime environment**, under **Default Lambda function containerization**, change the containerization settings\.
+
+1. Choose **Save**\.
+
+The changes take effect when the group is deployed\.
 
 For more information, see [Setting default containerization for Lambda functions in a group](lambda-group-config.md#lambda-containerization-groupsettings)\.
 
@@ -372,10 +346,10 @@ By default, Lambda functions use the group containerization setting\. If you ove
 You can deploy long\-lived Lambda functions to the Greengrass Docker container\.
 + Follow the steps in [Module 3 \(part 1\): Lambda functions on AWS IoT Greengrass](module3-I.md) to deploy a long\-lived Hello World Lambda function to the container\.
 
-## Step 6: \(Optional\) Deploy devices that interact with Greengrass running in the Docker container<a name="docker-add-devices"></a>
+## Step 6: \(Optional\) Deploy client devices that interact with Greengrass running in the Docker container<a name="docker-add-devices"></a>
 
-You can also deploy Greengrass devices that interact with AWS IoT Greengrass when it's running in a Docker container\.
-+ Follow the steps in [Module 4: Interacting with devices in an AWS IoT Greengrass group](module4.md) to deploy devices that connect to the core and send MQTT messages\.
+You can also deploy client devices that interact with AWS IoT Greengrass when it's running in a Docker container\.
++ Follow the steps in [Module 4: Interacting with client devices in an AWS IoT Greengrass group](module4.md) to deploy client devices that connect to the core and send MQTT messages\.
 
 ## Stopping the AWS IoT Greengrass Docker container<a name="docker-stop"></a>
 

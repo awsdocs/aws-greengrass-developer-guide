@@ -6,9 +6,9 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 
 # Install the AWS IoT Device SDK for Python<a name="IoT-SDK"></a>
 
-AWS IoT devices can use the AWS IoT Device SDK for Python to communicate with AWS IoT and AWS IoT Greengrass core devices \(using the Python programming language\)\. For more information, including requirements, see the AWS IoT Device SDK for Python [ Readme](https://github.com/aws/aws-iot-device-sdk-python) on GitHub\.
+Client devices can use the AWS IoT Device SDK for Python to communicate with AWS IoT and AWS IoT Greengrass core devices \(using the Python programming language\)\. For more information, including requirements, see the AWS IoT Device SDK for Python [ Readme](https://github.com/aws/aws-iot-device-sdk-python) on GitHub\.
 
-In this step, you install the SDK and get the `basicDiscovery.py` sample function used by the simulated devices on your computer\.
+In this step, you install the SDK and get the `basicDiscovery.py` sample function used by the simulated client devices on your computer\.
 
 1. To install the SDK on your computer, with all required components, choose your operating system:
 
@@ -260,6 +260,6 @@ If you're running Python 3, use print\(ssl\.OPENSSL\_VERSION\)\.
 
 1. After the AWS IoT Device SDK for Python is installed, navigate to the `samples` folder and open the `greengrass` folder\.
 
-   For this tutorial, you copy the `basicDiscovery.py` sample function, which uses the certificates and keys that you downloaded in [Create AWS IoT devices in an AWS IoT Greengrass group](device-group.md)\.
+   For this tutorial, you copy the `basicDiscovery.py` sample function, which uses the certificates and keys that you downloaded in [Create client devices in an AWS IoT Greengrass group](device-group.md)\.
 
 1. Copy `basicDiscovery.py` to the folder that contains the HelloWorld\_Publisher and HelloWorld\_Subscriber device certificates and keys\.

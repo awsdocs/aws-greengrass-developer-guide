@@ -16,34 +16,27 @@ In this step, you:
 
  
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. Under **Greengrass groups**, choose the group that you created in [Module 2](module2.md)\.
 
-1. On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
-![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas.png)
+1. On the group configuration page, choose the **Lambda functions** tab, and then scroll down to the **My Lambda functions** section and choose **Add Lambda function**\.
 
-1. Choose **Use existing Lambda**\.  
-![\[Screenshot of Add a Lambda to your Greengrass Group with the Use existing Lambda button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-032.png)
+1. Select the name of the Lambda function you created in the previous step \(**Greengrass\_HelloWorld**, not the alias name\)\.
 
-1. Search for the name of the Lambda you created in the previous step \(**Greengrass\_HelloWorld**, not the alias name\), select it, and then choose **Next**:  
-![\[Screenshot of Use existing Lambda with Greengrass_HelloWorld and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-033.png)
+1. For the version, choose **Alias: GG\_HelloWorld**\.
 
-1. For the version, choose **Alias: GG\_HelloWorld**, and then choose **Finish**\. You should see the **Greengrass\_HelloWorld** Lambda function in your group, using the **GG\_HelloWorld** alias\.
-
-1. Choose the ellipsis \(**…**\), and then choose **Edit Configuration**:  
-![\[Screenshot of MyFirstGroup with the ellipsis and Edit Configuration highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-034.png)
-
-1. On the **Group\-specific Lambda configuration** page, make the following changes:
+1. In the **Lambda function configuration** section, make the following changes:
+   + Set the **System user and group** to **Use group default**\.
+   + Set the **Lambda function containerization** to **Use group default**\.
    + Set **Timeout** to 25 seconds\. This Lambda function sleeps for 5 seconds before each invocation\.
-   + For **Lambda lifecycle**, choose **Make this function long\-lived and keep it running indefinitely**\.
+   + For **Pinned**, choose **True**\.
 
-      
-![\[Screenshot of the configuration page with 25 (seconds) and the Make this function long-lived and keep it running indefinitely radio button selected.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-035.png)
+    
 **Note**  
 <a name="long-lived-lambda"></a>A *long\-lived* \(or *pinned*\) Lambda function starts automatically after AWS IoT Greengrass starts and keeps running in its own container\. This is in contrast to an *on\-demand* Lambda function, which starts when invoked and stops when there are no tasks left to run\. For more information, see [Lifecycle configuration for Greengrass Lambda functions](lambda-functions.md#lambda-lifecycle)\.
 
-1. Keep the default values for all other fields, such as **Run as**, **Containerization**, and **Input payload data type**, and choose **Update** to save your changes\. For information about Lambda function properties, see [Controlling execution of Greengrass Lambda functions by using group\-specific configuration](lambda-group-config.md)\.
+1. Choose **Add Lambda function** to save your changes\. For information about Lambda function properties, see [Controlling execution of Greengrass Lambda functions by using group\-specific configuration](lambda-group-config.md)\.
 
    Next, create a subscription that allows the Lambda function to send [MQTT](http://mqtt.org/) messages to AWS IoT Core\.
 
@@ -64,33 +57,23 @@ A subscription is directed in the sense that messages flow in a specific directi
 
    The `Greengrass_HelloWorld` Lambda function sends messages only to the `hello/world` topic in AWS IoT Core, so you only need to create one subscription from the Lambda function to AWS IoT Core\. You create this in the next step\.
 
-1. On the group configuration page, choose **Subscriptions**, and then choose **Add your first Subscription**\.  
-![\[Screenshot of the Group configuration page, with Subscription and Add your first Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-036.png)
+1. On the group configuration page, choose the **Subscriptions** tab, and then choose **Add subscription**\.
 
    For an example that shows you how to create a subscription using the AWS CLI, see [create\-subscription\-definition](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/greengrass/create-subscription-definition.html) in the *AWS CLI Command Reference*\.
 
-1. In **Select a source**, choose **Select**\. Then, on the **Lambdas** tab, choose **Greengrass\_HelloWorld** as the source\.   
-![\[Screenshot of the Select a source page with Lambdas and Greengrass_HelloWorld highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-037.png)
+1. In the **Source type**, choose **Lambda function** and, for the **Source**, choose **Greengrass\_HelloWorld**\.
 
-1. For **Select a target**, choose **Select**\. Then, on the **Service** tab, choose **IoT Cloud**, and then choose **Next**\.  
-![\[The Select a target with the Services tab, IoT Cloud and the Next button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-038.png)
+1. For the **Target type**, choose **Service** and, for the **Target** select **IoT Cloud**\.
 
-1. For **Topic filter**, enter **hello/world**, and then choose **Next**\.  
-![\[Screenshot with hello/world highlighted under Topic filter.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-039.png)
-
-1. Choose **Finish**\.
+1. For **Topic filter**, enter **hello/world**, and then choose **Create subscription**\.
 
 1. Configure the group's logging settings\. For this tutorial, you configure AWS IoT Greengrass system components and user\-defined Lambda functions to write logs to the file system of the core device\.
 
-   1. On the group configuration page, choose **Settings**\.
+   1. On the group configuration page, choose the **Logs** tab\.
 
-   1. For **Local logs configuration**, choose **Edit**\.
+   1. In the **Local logs configuration** section, choose **Edit**\.
 
-   1. On the **Configure Group logging** page, choose **Add another log type**\.
-
-   1. For event source, choose **User Lambdas** and **Greengrass system**, and then choose **Update**\.
-
-   1. Keep the default values for logging level and disk space limit, and then choose **Save**\.
+   1. On the **Edit local logs configuration** dialog box, keep the default values for both log levels and storage sizes, and then choose **Save**\.
 
    You can use logs to troubleshoot any issues you might encounter when running this tutorial\. When troubleshooting issues, you can temporarily change the logging level to **Debug**\. For more information, see [Accessing file system logs](greengrass-logs-overview.md#gg-logs-local)\.
 
@@ -100,6 +83,8 @@ This tutorial doesn't use stream manager, but it does use the **Default Group cr
 
    To disable stream manager:
 
-   1. On the group settings page, under **Stream manager**, choose **Edit**\.
+   1. On the group settings page, choose the **Lambda functions** tab\.
+
+   1. Under the **System Lambda functions** section, select **Stream manager** and choose **Edit**\.
 
    1. Choose **Disable**, and then choose **Save**\.

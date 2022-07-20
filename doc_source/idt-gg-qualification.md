@@ -59,7 +59,7 @@ The `Software Packages Dependencies` test case in this test group is not applica
 Deployment  
 Validates that Lambda functions can be deployed on your device\.  
 MQTT  
-Verifies the AWS IoT Greengrass message router functionality by checking local communication between the Greengrass core and AWS IoT devices\.  
+Verifies the AWS IoT Greengrass message router functionality by checking local communication between the Greengrass core and client devices, which are local IoT devices\.  
 Over\-the\-Air \(OTA\)  
 Validates that your device can successfully perform an OTA update of the AWS IoT Greengrass Core software\.  
 <a name="n-a-docker"></a>This test group is not applicable when testing in a [Docker container](docker-config-setup.md)\.  

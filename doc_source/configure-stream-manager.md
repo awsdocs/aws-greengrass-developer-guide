@@ -86,58 +86,50 @@ When you use the console to enable stream manager and deploy the group, the memo
 
 ### To check if stream manager is enabled \(console\)<a name="check-stream-manager-console"></a>
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="group-choose-settings"></a>Choose **Settings**\.
+1. Choose the **Lambda functions tab**\.
 
-1. Under **Stream manager**, check the enabled or disabled status\. Any custom stream manager settings that are configured are also displayed\.  
-![\[The Stream manager section on the Settings page of the AWS IoT console.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-settings-stream-manager.png)
+1. Under **System Lambda functions**, select **Stream manager**, and choose **Edit**\.
+
+1. Check the enabled or disabled status\. Any custom stream manager settings that are configured are also displayed\.
 
  
 
 ### To enable or disable stream manager during group creation \(console\)<a name="enable-stream-manager-console-new-group"></a>
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. Choose **Create Group**\. Your choice on the next page determines how you configure stream manager for the group\.
 
-1. To create the group with default group settings, which also enables stream manager with default stream manager settings:
+1. Proceed through the **Name your Group** and choose a **Greengrass core** pages\.
 
-   1. Choose **Use default creation**\.
+1. Choose **Create group**\.
 
-   1. Skip to [step 5](#continue-create-group)\.
+1. On the group configuration page, choose the **Lambda functions** tab, select **Stream manager**, and choose **Edit**\.
+   + To enable stream manager with default settings, choose **Enable with default settings**\.
 
-1. To create the group with custom group settings:
+      
+   + To enable stream manager with custom settings, choose **Customize settings**\.
 
-   1. Choose **Customize**\.
+     1. On the **Configure Stream manager** page, choose **Enable with custom settings**\.
 
-   1. Proceed through the **Name your Group** and **Attach an IAM Role to your Group** pages\.
-
-   1. On the **Stream manager** page, configure stream manager for the group:
-      + To enable stream manager with default settings, choose **Use defaults**\.
+     1. Under **Custom settings**, enter values for stream manager parameters\. For more information, see [Stream manager parameters](#stream-manager-parameters)\. Leave fields empty to allow AWS IoT Greengrass to use their default values\.
 
          
-      + To enable stream manager with custom settings, choose **Customize settings**\.
+   + To disable stream manager, choose **Disable**\.
 
-        1. On the **Configure stream manager** page, choose **Enable**\.
+     1. On the **Configure stream manager** page, choose **Disable**\.
 
-        1. Under **Custom settings**, enter values for stream manager parameters\. For more information, see [Stream manager parameters](#stream-manager-parameters)\. Leave fields empty to allow AWS IoT Greengrass to use their default values\.
+         
 
-            
-      + To disable stream manager, choose **Customize settings**\.
-
-        1. On the **Configure stream manager** page, choose **Disable**\.
-
-              
-![\[The Stream manager page in the create group workflow.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/create-group-stream-manager.png)
-
-1. Choose **Next**\.
+1. Choose **Save**\.
 
 1. <a name="continue-create-group"></a>Continue through the remaining pages to create your group\.
 
-1. On the **Connect your Core device** page, download your security resources, review the information, and then choose **Finish**\.
+1. On the **Client devices** page, download your security resources, review the information, and then choose **Finish**\.
 **Note**  
 When stream manager is enabled, you must [install the Java 8 runtime](stream-manager.md#stream-manager-requirements) on the core device before you deploy the group\.
 
@@ -145,31 +137,29 @@ When stream manager is enabled, you must [install the Java 8 runtime](stream-man
 
 ### To enable or disable stream manager for an existing group \(console\)<a name="enable-stream-manager-console-existing-group"></a>
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="group-choose-settings"></a>Choose **Settings**\.
+1. Choose the **Lambda functions tab**\.
 
-1. The enabled or disabled status is displayed under **Stream manager**, along with any custom stream manager settings\. Choose **Edit**\.
+1. Under **System Lambda functions**, select **Stream manager**, and choose **Edit**\.
 
-1. Choose **Enable** or **Disable**\.
-
-1. Choose **Save**\.
+1. Check the enabled or disabled status\. Any custom stream manager settings that are configured are also displayed\.
 
  
 
 ### To change stream manager settings \(console\)<a name="change-stream-manager-console"></a>
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="group-choose-settings"></a>Choose **Settings**\.
+1. Choose the **Lambda functions tab**\.
 
-1. The enabled or disabled status is displayed under **Stream manager**, along with any custom stream manager settings\. Choose **Edit**\.
+1. Under **System Lambda functions**, select **Stream manager**, and choose **Edit**\.
 
-1. Edit values for [stream manager parameters](#stream-manager-parameters)\. Leave fields empty to allow AWS IoT Greengrass to use default values for the corresponding parameters\.
+1. Check the enabled or disabled status\. Any custom stream manager settings that are configured are also displayed\.
 
 1. Choose **Save**\.
 
@@ -208,7 +198,7 @@ Stream manager is enabled if your deployed function definition version includes 
    aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
    ```
 **Note**  
-<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** tab\.
 
 1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` values from the target group in the output\.
 
@@ -327,7 +317,7 @@ The following example configuration enables stream manager with custom values fo
    aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
    ```
 **Note**  
-<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** tab\.
 
 1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` values from the target group in the output\.
 

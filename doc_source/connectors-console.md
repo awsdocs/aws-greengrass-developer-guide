@@ -66,12 +66,11 @@ For more information about this process, see [ Step 1: Create and store your sec
 
 1. <a name="create-secret-step-create"></a>Choose **Store a new secret**\.
 
-1. <a name="create-secret-step-othertype"></a>Under **Select secret type**, choose **Other type of secrets**\.
+1. <a name="create-secret-step-othertype"></a>Under **Choose secret type**, choose **Other type of secret**\.
 
-1. Under **Specify the key/value pairs to be stored for this secret**, on the **Plaintext** tab, enter your Twilio auth token\. Remove all of the JSON formatting and enter only the token value\.  
-![\[Specifying the secret's value in the Secrets Manager console.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/connectors/secret-twilio-auth-token.png)
+1. Under **Specify the key/value pairs to be stored for this secret**, on the **Plaintext** tab, enter your Twilio auth token\. Remove all of the JSON formatting and enter only the token value\.
 
-1. <a name="create-secret-step-encryption"></a>Keep **DefaultEncryptionKey** selected for the encryption key, and then choose **Next**\.
+1. <a name="create-secret-step-encryption"></a>Keep **aws/secretsmanager** selected for the encryption key, and then choose **Next**\.
 **Note**  
 You aren't charged by AWS KMS if you use the default AWS managed key that Secrets Manager creates in your account\.
 
@@ -79,7 +78,7 @@ You aren't charged by AWS KMS if you use the default AWS managed key that Secret
 **Note**  
 By default, the Greengrass service role allows AWS IoT Greengrass to get the value of secrets with names that start with *greengrass\-*\. For more information, see [secrets requirements](secrets.md#secrets-reqs)\.
 
-1. <a name="create-secret-step-rotation"></a>This tutorial doesn't require rotation, so choose **Disable automatic rotation**, and then choose **Next**\.
+1. <a name="create-secret-step-rotation"></a>This tutorial doesn't require rotation, so choose disable automatic rotation, and then choose **Next**\.
 
 1. <a name="create-secret-step-review"></a>On the **Review** page, review your settings, and then choose **Store**\.
 
@@ -89,42 +88,44 @@ By default, the Greengrass service role allows AWS IoT Greengrass to get the val
 
 In this step, you add a *secret resource* to the Greengrass group\. This resource is a reference to the secret that you created in the previous step\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="create-secret-resource-step-choosegroup"></a>Choose the group that you want to add the secret resource to\.
 
-1. <a name="create-secret-resource-step-secretstab"></a>On the group configuration page, choose **Resources**, and then choose **Secret**\. This tab displays the secret resources that belong to the group\. You can add, edit, and remove secret resources from this tab\.  
-![\[The Secret tab on the group's Resources page.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-resources-secret-zero.png)
+1. <a name="create-secret-resource-step-secretstab"></a>On the group configuration page, choose the **Resources** tab, and then scroll down to the **Secrets** section\. The **Secrets** section displays the secret resources that belong to the group\. You can add, edit, and remove secret resources from this section\.
 **Note**  
 Alternatively, the console allows you to create a secret and secret resource when you configure a connector or Lambda function\. You can do this from the connector's **Configure parameters** page or the Lambda function's **Resources** page\.
 
-1. <a name="create-secret-resource-step-addsecretresource"></a>Choose **Add a secret resource**\.
+1. <a name="create-secret-resource-step-addsecretresource"></a>Choose **Add** under the **Secrets** section\.
 
-1. On the **Add a secret resource to your group** page, choose **Select**, and then choose **greengrass\-TwilioAuthToken**\.
+1. On the **Add a secret resource** page, enter **MyTwilioAuthToken** for the **Resource name**\.
 
-1. <a name="create-secret-resource-step-selectlabels"></a>On the **Select labels \(Optional\)** page, choose **Next**\. The AWSCURRENT staging label represents the latest version of the secret\. This label is always included in a secret resource\.
+1. For the **Secret**, choose **greengrass\-TwilioAuthToken**\.
+
+1. <a name="create-secret-resource-step-selectlabels"></a>In the **Select labels \(Optional\)** section, the AWSCURRENT staging label represents the latest version of the secret\. This label is always included in a secret resource\.
 **Note**  
 This tutorial requires the AWSCURRENT label only\. You can optionally include labels that are required by your Lambda function or connector\.
 
-1. On the **Name your secret resource** page, enter **MyTwilioAuthToken**, and then choose **Save**\.
+1. Choose **Add resource**\.
 
 ## Step 3: Add a connector to the Greengrass group<a name="connectors-console-create-connector"></a>
 
 In this step, you configure parameters for the [Twilio Notifications connector](twilio-notifications-connector.md) and add it to the group\.
 
-1. On the group configuration page, choose **Connectors**, and then choose **Add a connector**\.  
-![\[The Connectors page with Add a connector highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-connectors-zero.png)
+1. On the group configuration page, choose **Connectors**, and then choose **Add a connector**\.
 
-1. On the **Select a connector** page, choose **Twilio Notifications**, and then choose **Next**\.
+1. On the **Add connector** page, choose **Twilio Notifications**\.
 
-1. On the **Configure parameters** page:
-   + For **Twilio auth token resource**, choose **MyTwilioAuthToken**\. This is the secret resource that you created in the previous step\.
+1. Choose the version\.
+
+1. In the **Configuration** section:
+   + For **Twilio auth token resource**, enter the resource that you created in the previous step\.
 **Note**  
-When you choose the resource, the **ARN of Twilio auth token secret** property is populated for you\.
+When you enter the resource, the **ARN of Twilio auth token secret** property is populated for you\.
    + For **Default from phone number**, enter your Twilio\-enabled phone number\.
    + For **Twilio account SID**, enter your Twilio account SID\.
 
-1. Choose **Add**\.
+1. Choose **Add resource**\.
 
 ## Step 4: Create a Lambda function deployment package<a name="connectors-console-create-deployment-package"></a>
 
@@ -239,15 +240,15 @@ Now you're ready to add the Lambda function to your Greengrass group\.
 
 In this step, you add the Lambda function to the group and then configure its lifecycle and environment variables\. For more information, see [Controlling execution of Greengrass Lambda functions by using group\-specific configuration](lambda-group-config.md)\.
 
-1. <a name="choose-add-lambda"></a>On the group configuration page, choose **Lambdas**, and then choose **Add Lambda**\.  
-![\[The group page with Lambdas and Add Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas.png)
+1. <a name="choose-add-lambda"></a>On the group configuration page, choose the **Lambda functions** tab\.
 
-1. <a name="add-lambda-to-group-console"></a>On the **Add a Lambda to your Greengrass Group** page, choose **Use existing Lambda**\.  
-![\[The Add a Lambda to your Greengrass Group page with Use existing Lambda highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-lambdas-existing-lambda.png)
+1. Under **My Lambda functions**, choose **Add**\.
 
-1. On the **Use existing Lambda** page, choose **TempMonitor**, and then choose **Next**\.
+1. On the **Add Lambda function** page, choose **TempMonitor** for your Lambda function\.
 
-1. On the **Select a Lambda version** page, choose **Alias:GG\_TempMonitor**, and then choose **Finish**\.
+1. For **Lambda function version**, choose **Alias: GG\_TempMonitor**\.
+
+1. Choose **Add Lambda function**\.
 
 ## Step 7: Add subscriptions to the Greengrass group<a name="connectors-console-create-subscription"></a>
 
@@ -255,34 +256,31 @@ In this step, you add the Lambda function to the group and then configure its li
 
 <a name="connectors-how-to-add-subscriptions-p2"></a>For this tutorial, you also create subscriptions that allow the function to receive simulated temperature readings from AWS IoT and allow AWS IoT to receive status information from the connector\.
 
-1. <a name="shared-subscriptions-addsubscription"></a>On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.  
-![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-subscriptions.png)
+1. <a name="shared-subscriptions-addsubscription"></a>On the group configuration page, choose the **Subscriptions** tab, and then choose **Add Subscription**\.
 
-1. On the **Select your source and target** page, configure the source and target, as follows:
+1. On the **Create a subscription** page, configure the source and target, as follows:
 
-   1. For **Select a source**, choose **Lambdas**, and then choose **TempMonitor**\.
+   1. For **Source type**, choose **Lambda function**, and then choose **TempMonitor**\.
 
-   1. For **Select a target**, choose **Connectors**, and then choose **Twilio Notifications**\.
+   1. For **Target type**, choose **Connector**, and then choose **Twilio Notifications**\.
 
-   1. Choose **Next**\.
+1. For the **Topic filter**, choose **twilio/txt**\.
 
-1. On the **Filter your data with a topic** page, for **Required topic syntax**, choose **twilio/txt**, and then choose **Next**\.
-
-1. Choose **Finish**\.
+1. Choose **Create subscription**\.
 
 1. Repeat steps 1 \- 4 to create a subscription that allows AWS IoT to publish messages to the function\.
 
-   1. For **Select a source**, choose **Services**, and then choose **IoT Cloud**\.
+   1. For **Source type**, choose **Service**, and then choose **IoT Cloud**\.
 
-   1. For **Select a target**, choose **Lambdas**, and then choose **TempMonitor**\.
+   1. For **Select a target**, choose **Lambda function**, and then choose **TempMonitor**\.
 
    1. For **Topic filter**, enter **temperature/input**\.
 
 1. Repeat steps 1 \- 4 to create a subscription that allows the connector to publish messages to AWS IoT\.
 
-   1. For **Select a source**, choose **Connectors**, and then choose **Twilio Notifications**\.
+   1. For **Source type**, choose **Connector**, and then choose **Twilio Notifications**\.
 
-   1. For **Select a target**, choose **Services**, and then choose **IoT Cloud**\.
+   1. For **Target type**, choose **Service**, and then choose **IoT Cloud**\.
 
    1. For **Topic filter**, **twilio/message/status** is entered for you\. This is the predefined topic that the connector publishes to\.
 
@@ -309,27 +307,30 @@ The version in the path depends on the AWS IoT Greengrass Core software version 
       sudo ./greengrassd start
       ```
 
-1. <a name="shared-deploy-group-deploy"></a>On the group configuration page, choose **Deployments**, and from the **Actions** menu, choose **Deploy**\.  
-![\[The group page with Deployments and Deploy highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-deployments-deploy.png)
+1. <a name="shared-deploy-group-deploy"></a>On the group configuration page, choose **Deploy**\.
 
-1. <a name="shared-deploy-group-ipconfig"></a>If prompted, on the **Configure how devices discover your core** page, choose **Automatic detection**\.
+1. <a name="shared-deploy-group-ipconfig"></a>
 
-   This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.  
-![\[The Configure how devices discover your core page with Automatic detection highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-discovery.png)
+   1. In the **Lambda functions** tab, under the **System Lambda functions** section, select **IP detector** and choose **Edit**\.
+
+   1. In the **Edit IP detector settings** dialog box, select ** Automatically detect and override MQTT broker endpoints**\.
+
+   1. Choose **Save**\.
+
+      This enables devices to automatically acquire connectivity information for the core, such as IP address, DNS, and port number\. Automatic detection is recommended, but AWS IoT Greengrass also supports manually specified endpoints\. You're only prompted for the discovery method the first time that the group is deployed\.
 **Note**  
 If prompted, grant permission to create the [Greengrass service role](service-role.md) and associate it with your AWS account in the current AWS Region\. This role allows AWS IoT Greengrass to access your resources in AWS services\.
 
-   The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Successfully completed**\.
+      The **Deployments** page shows the deployment timestamp, version ID, and status\. When completed, the status displayed for the deployment should be **Completed**\.
 
-   For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
+      For troubleshooting help, see [Troubleshooting AWS IoT Greengrass](gg-troubleshooting.md)\.
 
 **Note**  
 <a name="one-conn-version"></a>A Greengrass group can contain only one version of the connector at a time\. For information about upgrading a connector version, see [Upgrading connector versions](connectors.md#upgrade-connector-versions)\.
 
 ## Test the solution<a name="connectors-console-test-solution"></a>
 
-1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.  
-![\[The left pane in the AWS IoT console with Test highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-test.png)
+1. <a name="choose-test-page"></a>On the AWS IoT console home page, choose **Test**\.
 
 1. For **Subscribe to topic**, use the following values, and then choose **Subscribe**\. The Twilio Notifications connector publishes status information to this topic\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/connectors-console.html)

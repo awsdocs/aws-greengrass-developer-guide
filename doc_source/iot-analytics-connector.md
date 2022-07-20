@@ -9,12 +9,12 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 **Warning**  <a name="connectors-extended-life-phase-warning"></a>
 This connector has moved into the *extended life phase*, and AWS IoT Greengrass won't release updates that provide features, enhancements to existing features, security patches, or bug fixes\. For more information, see [AWS IoT Greengrass Version 1 maintenance policy](maintenance-policy.md)\.
 
-The IoT Analytics connector sends local device data to AWS IoT Analytics\. You can use this connector as a central hub to collect data from sensors on the Greengrass core device and from [connected Greengrass devices](what-is-gg.md#greengrass-devices)\. The connector sends the data to AWS IoT Analytics channels in the current AWS account and Region\. It can send data to a default destination channel and to dynamically specified channels\.
+The IoT Analytics connector sends local device data to AWS IoT Analytics\. You can use this connector as a central hub to collect data from sensors on the Greengrass core device and from [connected client devices](what-is-gg.md#greengrass-devices)\. The connector sends the data to AWS IoT Analytics channels in the current AWS account and Region\. It can send data to a default destination channel and to dynamically specified channels\.
 
 **Note**  
 AWS IoT Analytics is a fully managed service that allows you to collect, store, process, and query IoT data\. In AWS IoT Analytics, the data can be further analyzed and processed\. For example, it can be used to train ML models for monitoring machine health or to test new modeling strategies\. For more information, see [What is AWS IoT Analytics?](https://docs.aws.amazon.com/iotanalytics/latest/userguide/welcome.html) in the *AWS IoT Analytics User Guide*\.
 
-The connector accepts formatted and unformatted data on [input MQTT topics](#iot-analytics-connector-data-input)\. It supports two predefined topics where the destination channel is specified inline\. It can also receive messages on customer\-defined topics that are [configured in subscriptions](connectors.md#connectors-inputs-outputs)\. This can be used to route messages from devices that publish to fixed topics or handle unstructured or stack\-dependent data from resource\-constrained devices\.
+The connector accepts formatted and unformatted data on [input MQTT topics](#iot-analytics-connector-data-input)\. It supports two predefined topics where the destination channel is specified inline\. It can also receive messages on customer\-defined topics that are [configured in subscriptions](connectors.md#connectors-inputs-outputs)\. This can be used to route messages from client devices that publish to fixed topics or handle unstructured or stack\-dependent data from resource\-constrained devices\.
 
 This connector uses the [https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage](https://docs.aws.amazon.com/iotanalytics/latest/userguide/api.html#cli-iotanalytics-batchputmessage) API to send data \(as a JSON or base64\-encoded string\) to the destination channel\. The connector can process raw data into a format that conforms to API requirements\. The connector buffers input messages in per\-channel queues and asynchronously processes the batches\. It provides parameters that allow you to control queueing and batching behavior and to restrict memory consumption\. For example, you can configure the maximum queue size, batch interval, memory size, and number of active channels\.
 
@@ -212,7 +212,7 @@ In the AWS IoT Greengrass console, you can add a connector from the group's **Co
 
 ## Input data<a name="iot-analytics-connector-data-input"></a>
 
-This connector accepts data on predefined and customer\-defined MQTT topics\. Publishers can be Greengrass devices, Lambda functions, or other connectors\.
+This connector accepts data on predefined and customer\-defined MQTT topics\. Publishers can be client devices, Lambda functions, or other connectors\.
 
 Predefined topics  
 The connector supports the following two structured MQTT topics that allow publishers to specify the channel name inline\.  
@@ -227,7 +227,7 @@ The connector supports the following two structured MQTT topics that allow publi
 
 Customer\-defined topics  
 The connector supports the `#` topic syntax, which allows it to accept input messages on any MQTT topic that you configure in a subscription\. We recommend that you specify a topic path instead of using only the `#` wildcard in your subscriptions\. These messages are sent to the default channel that you specify for the connector\.  
-Input messages on customer\-defined topics are treated as binary data\. They can use any message format and can contain any data type\. You can use customer\-defined topics to route messages from devices that publish to fixed topics\. You can also use them to accept input data from devices that can't process the data into a formatted message to send to the connector\.  
+Input messages on customer\-defined topics are treated as binary data\. They can use any message format and can contain any data type\. You can use customer\-defined topics to route messages from devices that publish to fixed topics\. You can also use them to accept input data from client devices that can't process the data into a formatted message to send to the connector\.  
 For more information about subscriptions and MQTT topics, see [Inputs and outputs](connectors.md#connectors-inputs-outputs)\.
 
 The group role must allow the `iotanalytics:BatchPutMessage` action on all destination channels\. For more information, see [Requirements](#iot-analytics-connector-req)\.
@@ -271,7 +271,7 @@ The connector's response output doesn't include an ID correlation for these inpu
 None\.
 
 **Topic filter:** `#`  
-Use this topic to send any message format to the default channel\. This is especially useful when your devices publish to fixed topics or when you want to send data to the default channel from devices that can't process the data into the connector's [supported message format](#iot-analytics-connector-data-input-json)\.  
+Use this topic to send any message format to the default channel\. This is especially useful when your client devices publish to fixed topics or when you want to send data to the default channel from client devices that can't process the data into the connector's [supported message format](#iot-analytics-connector-data-input-json)\.  
 You define the topic syntax in the subscription that you create to connect this connector to the data source\. We recommend that you specify a topic path instead of using only the `#` wildcard in your subscriptions\.  
 The connector data doesn't parse the messages that are published to this input topic\. All input messages are treated as binary data\. Before sending the messages to AWS IoT Analytics, the connector encodes and formats them to conform with `BatchPutMessage` API requirements:  
 + The connector base64\-encodes the raw data and includes the encoded payload in an outbound `BatchPutMessage` request\.

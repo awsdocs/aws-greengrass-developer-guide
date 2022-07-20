@@ -58,8 +58,8 @@ The following considerations apply to volume resources that are under the host's
 ## Group owner file access permission<a name="lra-group-owner"></a>
 
 An AWS IoT Greengrass Lambda function process normally runs as `ggc_user` and `ggc_group`\. However, you can give additional file access permissions to the Lambda function process in the local resource definition, as follows:
-+ To add the permissions of the Linux group that owns the resource, use the `GroupOwnerSetting#AutoAddGroupOwner` parameter or **Automatically add OS group permissions of the Linux group that owns the resource** console option\.
-+ To add the permissions of a different Linux group, use the `GroupOwnerSetting#GroupOwner` parameter or **Specify another OS group to add permission** console option\. The `GroupOwner` value is ignored if `GroupOwnerSetting#AutoAddGroupOwner` is true\.
++ To add the permissions of the Linux group that owns the resource, use the `GroupOwnerSetting#AutoAddGroupOwner` parameter or **Automatically add file system permissions of the system group that owns the resource** console option\.
++ To add the permissions of a different Linux group, use the `GroupOwnerSetting#GroupOwner` parameter or **Specify another system group to add file system permissions** console option\. The `GroupOwner` value is ignored if `GroupOwnerSetting#AutoAddGroupOwner` is true\.
 
 An AWS IoT Greengrass Lambda function process inherits all of the file system permissions of `ggc_user`, `ggc_group`, and the Linux group \(if added\)\. For the Lambda function to access a resource, the Lambda function process must have the required permissions to the resource\. You can use the `chmod(1)` command to change the permission of the resource, if necessary\.
 

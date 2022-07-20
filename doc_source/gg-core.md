@@ -684,8 +684,8 @@ Communication between Greengrass devices and AWS IoT Core or AWS IoT Greengrass 
 | Endpoint | Port | Description | 
 | --- | --- | --- | 
 | greengrass\.region\.amazonaws\.com | 443 |  Used for control plane operations for group management\.  | 
-| `prefix-ats.iot.region.amazonaws.com` or `prefix.iot.region.amazonaws.com` | MQTT: 8883 or 443 HTTPS: 8443 or 443 |  Used for data plane operations for device management, such as shadow sync\. Allow the use of one or both endpoints, depending on whether your core and connected devices use Amazon Trust Services \(preferred\) root CA certificates, legacy root CA certificates, or both\. For more information, see [Service endpoints must match the root CA certificate type](#certificate-endpoints)\.  | 
-| `greengrass-ats.iot.region.amazonaws.com` or `greengrass.iot.region.amazonaws.com` | 8443 or 443 |  Used for device discovery operations\. Allow the use of one or both endpoints, depending on whether your core and connected devices use Amazon Trust Services \(preferred\) root CA certificates, legacy root CA certificates, or both\. For more information, see [Service endpoints must match the root CA certificate type](#certificate-endpoints)\.  Clients that connect on port 443 must implement the [ Application Layer Protocol Negotiation \(ALPN\)](https://tools.ietf.org/html/rfc7301) TLS extension and pass `x-amzn-http-ca` as the `ProtocolName` in the `ProtocolNameList`\. For more information, see [Protocols](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html) in the *AWS IoT Developer Guide*\.   | 
+| `prefix-ats.iot.region.amazonaws.com` or `prefix.iot.region.amazonaws.com` | MQTT: 8883 or 443 HTTPS: 8443 or 443 |  Used for data plane operations for device management, such as shadow sync\. Allow the use of one or both endpoints, depending on whether your core and client devices use Amazon Trust Services \(preferred\) root CA certificates, legacy root CA certificates, or both\. For more information, see [Service endpoints must match the root CA certificate type](#certificate-endpoints)\.  | 
+| `greengrass-ats.iot.region.amazonaws.com` or `greengrass.iot.region.amazonaws.com` | 8443 or 443 |  Used for device discovery operations\. Allow the use of one or both endpoints, depending on whether your core and client devices use Amazon Trust Services \(preferred\) root CA certificates, legacy root CA certificates, or both\. For more information, see [Service endpoints must match the root CA certificate type](#certificate-endpoints)\.  Clients that connect on port 443 must implement the [ Application Layer Protocol Negotiation \(ALPN\)](https://tools.ietf.org/html/rfc7301) TLS extension and pass `x-amzn-http-ca` as the `ProtocolName` in the `ProtocolNameList`\. For more information, see [Protocols](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html) in the *AWS IoT Developer Guide*\.   | 
 | \*\.s3\.amazonaws\.com | 443 |  Used for deployment operations and over\-the\-air updates\. This format includes the `*` character because endpoint prefixes are controlled internally and might change at any time\.  | 
 | logs\.region\.amazonaws\.com | 443 |  Required if the Greengrass group is configured to write logs to CloudWatch\.  | 
 
@@ -822,7 +822,7 @@ One way to make the *greengrass\-root* directory read\-only is to mount the dire
 
 ## Configure MQTT settings<a name="configure-mqtt"></a>
 
-In the AWS IoT Greengrass environment, local devices, Lambda functions, connectors, and system components can communicate with each other and with AWS IoT Core\. All communication goes through the core, which manages the [subscriptions](gg-sec.md#gg-msg-workflow) that authorize MQTT communication between entities\.
+In the AWS IoT Greengrass environment, local client devices, Lambda functions, connectors, and system components can communicate with each other and with AWS IoT Core\. All communication goes through the core, which manages the [subscriptions](gg-sec.md#gg-msg-workflow) that authorize MQTT communication between entities\.
 
 For information about MQTT settings you can configure for AWS IoT Greengrass, see the following sections:
 + [Message quality of service](#message-quality-of-service)
@@ -858,7 +858,7 @@ For more information about MQTT and QoS, see [Getting Started](https://mqtt.org/
   For more information, including how to enable the core to establish a persistent session with AWS Cloud targets, see [MQTT persistent sessions with AWS IoT Core](#mqtt-persistent-sessions)\.
 
 **Communication with local targets**  
-All local communication uses QoS 0\. The core makes one attempt to send a message to a local target, which can be a Greengrass Lambda function, connector, or [connected device](what-is-gg.md#greengrass-devices)\. The core doesn't store messages or confirm delivery\. Messages can be dropped anywhere between components\.  
+All local communication uses QoS 0\. The core makes one attempt to send a message to a local target, which can be a Greengrass Lambda function, connector, or [client device](what-is-gg.md#greengrass-devices)\. The core doesn't store messages or confirm delivery\. Messages can be dropped anywhere between components\.  
 Although direct communication between Lambda functions doesn't use MQTT messaging, the behavior is the same\.
 
 ### MQTT message queue for cloud targets<a name="mqtt-message-queue"></a>
@@ -899,7 +899,7 @@ The following procedure uses the [https://docs.aws.amazon.com/cli/latest/referen
    aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
    ```
 **Note**  
-<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** tab\.
 
 1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` values from the target group in the output\.
 
@@ -981,7 +981,7 @@ This feature is available for AWS IoT Greengrass Core v1\.10 and later\.
 
 A Greengrass core can establish a persistent session with the AWS IoT message broker\. A persistent session is an ongoing connection that allows the core to receive messages sent while the core is offline\. The core is the client in the connection\.
 
-In a persistent session, the AWS IoT message broker saves all subscriptions the core makes during the connection\. If the core disconnects, the AWS IoT message broker stores unacknowledged and new messages published as QoS 1 and destined for local targets, such as Lambda functions and [connected devices](what-is-gg.md#greengrass-devices)\. When the core reconnects, the persistent session is resumed and the AWS IoT message broker sends stored messages to the core at a maximum rate of 10 messages per second\. Persistent sessions have a default expiry period of 1 hour, which begins when the message broker detects that the core disconnects\. For more information, see [MQTT persistent sessions](https://docs.aws.amazon.com/iot/latest/developerguide/mqtt-persistent-sessions.html) in the *AWS IoT Developer Guide*\.
+In a persistent session, the AWS IoT message broker saves all subscriptions the core makes during the connection\. If the core disconnects, the AWS IoT message broker stores unacknowledged and new messages published as QoS 1 and destined for local targets, such as Lambda functions and [client devices](what-is-gg.md#greengrass-devices)\. When the core reconnects, the persistent session is resumed and the AWS IoT message broker sends stored messages to the core at a maximum rate of 10 messages per second\. Persistent sessions have a default expiry period of 1 hour, which begins when the message broker detects that the core disconnects\. For more information, see [MQTT persistent sessions](https://docs.aws.amazon.com/iot/latest/developerguide/mqtt-persistent-sessions.html) in the *AWS IoT Developer Guide*\.
 
 AWS IoT Greengrass uses the spooler system component \(the `GGCloudSpooler` Lambda function\) to create subscriptions that have AWS IoT as the source\. You can use the following `GGCloudSpooler` environment variable to configure persistent sessions\.
 + **GG\_CONFIG\_SUBSCRIPTION\_QUALITY**\. The quality of subscriptions that have AWS IoT as the source\. The following are valid values:
@@ -1012,7 +1012,7 @@ The following procedure uses the [https://docs.aws.amazon.com/cli/latest/referen
    aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
    ```
 **Note**  
-<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** tab\.
 
 1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` values from the target group in the output\.
 
@@ -1143,7 +1143,7 @@ Greengrass devices are also fully integrated with the Fleet Indexing service of 
 
 This feature requires AWS IoT Greengrass Core v1\.10 or later\.
 
-The Greengrass core acts as the local message broker for MQTT messaging between local Lambda functions, connectors, and [Greengrass devices](what-is-gg.md#greengrass-devices)\. By default, the core uses port 8883 for MQTT traffic on the local network\. You might want to change the port to avoid a conflict with other software that runs on port 8883\.
+The Greengrass core acts as the local message broker for MQTT messaging between local Lambda functions, connectors, and [client devices](what-is-gg.md#greengrass-devices)\. By default, the core uses port 8883 for MQTT traffic on the local network\. You might want to change the port to avoid a conflict with other software that runs on port 8883\.
 
 **To configure the port number that the core uses for local MQTT traffic**
 
@@ -1183,15 +1183,16 @@ The Greengrass core acts as the local message broker for MQTT messaging between 
 
 1. If [automatic IP detection](#ip-auto-detect) is enabled for the core, the configuration is complete\.
 
-   If automatic IP detection is not enabled, you must update the connectivity information for the core\. This allows Greengrass devices to receive the correct port number during discovery operations to acquire core connectivity information\. You can use the AWS IoT console or AWS IoT Greengrass API to update the core connectivity information\. For this procedure, you update the port number only\. The local IP address for the core remains the same\.  
+   If automatic IP detection is not enabled, you must update the connectivity information for the core\. This allows client devices to receive the correct port number during discovery operations to acquire core connectivity information\. You can use the AWS IoT console or AWS IoT Greengrass API to update the core connectivity information\. For this procedure, you update the port number only\. The local IP address for the core remains the same\.  
 **To update the connectivity information for the core \(console\)**  
 
-   1. On the group configuration page, choose **Cores**, and then choose the core\.
+   1. On the group configuration page, choose the Greengrass core\.
 
-   1. On the core details page, choose **Connectivity**, and then choose **Edit**\.
+   1. On the core details page, choose the **MQTT broker endpoints** tab\.
 
-   1. Choose **Add another connection**, enter your current local IP address and the new port number\. The following example sets the port number `9000` for the IP address `192.168.1.8`\.  
-![\[The core as client and local message broker.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-cores-connectivity-edit.png)
+   1. Choose **Manage endpoints** and then choose **Add endpoint** 
+
+   1. Enter your current local IP address and the new port number\. The following example sets the port number `9000` for the IP address `192.168.1.8`\.
 
    1. Remove the obsolete endpoint, and then choose **Update**  
 **To update the connectivity information for the core \(API\)**  
@@ -1228,12 +1229,12 @@ The default timeout is 5 seconds\. The minimum timeout is 5 seconds\.
 
 ## Activate automatic IP detection<a name="ip-auto-detect"></a>
 
-You can configure AWS IoT Greengrass to enable devices in a Greengrass group to automatically discover the Greengrass core\. When enabled, the core watches for changes to its IP addresses\. If an address changes, the core publishes an updated list of addresses\. These addresses are made available to devices that are in the same Greengrass group as the core\.
+You can configure AWS IoT Greengrass to enable client devices in a Greengrass group to automatically discover the Greengrass core\. When enabled, the core watches for changes to its IP addresses\. If an address changes, the core publishes an updated list of addresses\. These addresses are made available to client devices that are in the same Greengrass group as the core\.
 
 **Note**  
-The AWS IoT policy for connected devices must grant the `greengrass:Discover` permission to allow devices to retrieve connectivity information for the core\. For more information about the policy statement, see [Discovery authorization](gg-discover-api.md#gg-discover-auth)\.
+The AWS IoT policy for client devices must grant the `greengrass:Discover` permission to allow devices to retrieve connectivity information for the core\. For more information about the policy statement, see [Discovery authorization](gg-discover-api.md#gg-discover-auth)\.
 
-To enable this feature from the AWS IoT Greengrass console, choose **Automatic detection** when you deploy your Greengrass group for the first time\. You can also enable or disable this feature on the group's **Settings** page under **Core connectivity information**\. Automatic IP detection is enabled if **Automatically detect and override connection information** is selected\.
+To enable this feature from the AWS IoT Greengrass console, choose **Automatic detection** when you deploy your Greengrass group for the first time\. You can also enable or disable this feature on the group configuration page by choosing the **Lambda functions** tab and selecting the **IP detector**\. Automatic IP detection is enabled if **Automatically detect and override MQTT broker endpoints** is selected\.
 
 To manage automatic discovery with the AWS IoT Greengrass API, you must configure the `IPDetector` system Lambda function\. The following procedure shows how to use the [ create\-function\-definition\-version](https://docs.aws.amazon.com/cli/latest/reference/greengrass/create-function-definition-version.html) CLI command to configure automatic discovery of the Greengrass core\.
 
@@ -1249,7 +1250,7 @@ To manage automatic discovery with the AWS IoT Greengrass API, you must configur
    aws greengrass list-groups --query "Groups[?Name=='MyGroup']"
    ```
 **Note**  
-<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** page\.
+<a name="find-group-ids-console"></a>You can also find these values in the AWS IoT console\. The group ID is displayed on the group's **Settings** page\. Group version IDs are displayed on the group's **Deployments** tab\.
 
 1. <a name="copy-group-id-latestversion"></a>Copy the `Id` and `LatestVersion` values from the target group in the output\.
 

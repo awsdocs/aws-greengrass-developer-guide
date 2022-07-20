@@ -9,7 +9,7 @@ AWS IoT Greengrass Version 1 no longer receives feature updates, and will receiv
 This feature is available for AWS IoT Greengrass Core v1\.1 and later\.
 
 You might want to reset a group's deployments to:
-+ Delete the group \(for example, when the group's core has been reimaged\.\)
++ Delete the group, such as when you want to move the group's core to another group, or the group's core has been reimaged\. Before you delete a group, you must reset the group's deployments to use the core with another Greengrass group\.
 + Move the group's core to a different group\.
 + Revert the group to its state before any deployments\.
 + Remove the deployment configuration from the core device\.
@@ -25,12 +25,13 @@ The reset deployments operation first cleans up all deployment information store
 
 You can reset group deployments from group configuration page in the AWS IoT console\.
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. Choose the target group\.
 
-1. From **Actions**, choose **Reset Deployments**\.  
-![\[The Deployments page for a Greengrass group.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-deployments.png)
+1. From the **Deployments** tab, choose **Reset deployments**\.
+
+1. In the **Reset deployments for this Greengrass Group** dialog box, type **confirm** to agree, and choose **Reset deployment**\.
 
 ## Reset deployments with the AWS IoT Greengrass API<a name="reset-deployments-api"></a>
 

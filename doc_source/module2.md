@@ -16,5 +16,6 @@ Before you begin, make sure that you have completed the setup steps in [Module 1
 This module should take less than 30 minutes to complete\.
 
 **Topics**
-+ [Configure AWS IoT Greengrass on AWS IoT](gg-config.md)
-+ [Start AWS IoT Greengrass on the core device](gg-device-start.md)
++ [Provision an AWS IoT thing to use as a Greengrass core](provision-core.md)
++ [Create an AWS IoT Greengrass group for the core](create-group.md)
++ [Install and run AWS IoT Greengrass on the core device](start-greengrass.md)

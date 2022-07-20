@@ -674,21 +674,21 @@ When you use the Greengrass Docker application deployment connector, you should 
 
 AWS IoT Greengrass supports the following communication channels between Greengrass components and Docker containers:
 + Greengrass Lambda functions can use REST APIs to communicate with processes in Docker containers\. You can set up a server in a Docker container that opens a port\. Lambda functions can communicate with the container on this port\.
-+ Processes in Docker containers can exchange MQTT messages through the local Greengrass message broker\. You can set up the Docker container as a Greengrass device in the Greengrass group and then create subscriptions to allow the container to communicate with Greengrass Lambda functions, devices, and other connectors in the group, or with AWS IoT and the local shadow service\. For more information, see [Configure MQTT communication with Docker containers](#docker-app-connector-mqtt-communication)\.
++ Processes in Docker containers can exchange MQTT messages through the local Greengrass message broker\. You can set up the Docker container as a client device in the Greengrass group and then create subscriptions to allow the container to communicate with Greengrass Lambda functions, client devices, and other connectors in the group, or with AWS IoT and the local shadow service\. For more information, see [Configure MQTT communication with Docker containers](#docker-app-connector-mqtt-communication)\.
 + Greengrass Lambda functions can update a shared file to pass information to Docker containers\. You can use the Compose file to bind mount the shared file path for a Docker container\.
 
 ### Configure MQTT communication with Docker containers<a name="docker-app-connector-mqtt-communication"></a>
 
-You can configure a Docker container as a Greengrass device and add it to a Greengrass group\. Then, you can create subscriptions that allow MQTT communication between the Docker container and Greengrass components or AWS IoT\. In the following procedure, you create a subscription that allows the Docker container device to receive shadow update messages from the local shadow service\. You can follow this pattern to create other subscriptions\.
+You can configure a Docker container as a client device and add it to a Greengrass group\. Then, you can create subscriptions that allow MQTT communication between the Docker container and Greengrass components or AWS IoT\. In the following procedure, you create a subscription that allows the Docker container device to receive shadow update messages from the local shadow service\. You can follow this pattern to create other subscriptions\.
 
 **Note**  
 This procedure assumes that you have already created a Greengrass group and a Greengrass core \(v1\.10 or later\)\. For information about creating a Greengrass group and core, see [Getting started with AWS IoT Greengrass](gg-gs.md)\.
 
-**To configure a Docker container as a Greengrass device and add it to a Greengrass group**
+**To configure a Docker container as a client device and add it to a Greengrass group**
 
-1. Create a directory on the core device to store the certificates and keys used to authenticate the Greengrass device\.
+1. Create a folder on the core device to store the certificates and keys used to authenticate the Greengrass device\.
 
-   The file path must be mounted on the Docker container you want to start\. The following snippet shows how to mount a file path in your Compose file\. In this example, *path\-to\-device\-certs* represents the directory you created in this step\.
+   The file path must be mounted on the Docker container you want to start\. The following snippet shows how to mount a file path in your Compose file\. In this example, *path\-to\-device\-certs* represents the folder you created in this step\.
 
    ```
    version: '3.3'
@@ -699,39 +699,100 @@ This procedure assumes that you have already created a Greengrass group and a Gr
          -  /path-to-device-certs/:/path-accessible-in-container
    ```
 
-1. <a name="console-gg-groups"></a>In the AWS IoT console, in the navigation pane, choose **Greengrass**, **Classic \(V1\)**, **Groups**\.
+1. <a name="console-gg-groups"></a>In the AWS IoT console navigation pane, under **Manage**, expand **Greengrass devices**, and then choose **Groups \(V1\)**\.
 
 1. <a name="group-choose-target-group"></a>Choose the target group\.
 
-1. <a name="gg-group-add-device"></a>On the group configuration page, choose **Devices**, and then choose **Add Device**\.  
-![\[Screenshot of the Devices page with the Add your first Device button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-066.png)
+1. <a name="gg-group-add-device"></a>On the group configuration page, choose **Client devices**, and then choose **Associate**\.
 
-1. <a name="gg-group-create-device"></a>On the **Add a Device** page, choose **Create New Device**\.
+1. <a name="gg-group-create-device"></a>In the **Associate a client device with this group** modal, choose **Create new AWS IoT thing**\.
 
-1. On the **Create a Registry entry for a device** page, enter a name for the device, and then choose **Next**\.
+   The **Create things** page opens in a new tab\.
 
-1. <a name="gg-group-generate-default-device-certs"></a>On the **Set up security** page, for **1\-Click**, choose **Use Defaults**\. This option generates a device certificate with an attached [AWS IoT policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) and public and private key\.
+1. <a name="gg-group-create-single-thing"></a>On the **Create things** page, choose **Create single thing**, and then choose **Next**\.
 
-1. On the **Download security credentials** page, download the certificates and keys to the directory you created in step 1, and then choose **Finish**\.  
-![\[Screenshot of the Download security credentials page with the Download these resources as a tar.gz button highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/gg-get-started-070.png)
+1. On the **Specify thing properties** page, enter a name for the device, and then choose **Next**\.
 
-1. Decompress the `hash-setup.tar.gz` file\. For example, run the following command\. The *hash* placeholder is the hash in the name of the `tar.gz` file you downloaded \(for example, `bcc5afd26d`\)\.
+1. <a name="gg-group-create-device-configure-certificate"></a>On the **Configure device certificate** page, choose **Next**\.
 
-   ```
-   cd /path-to-device-certs
-   tar -xzf hash-setup.tar.gz
-   ```
+1. <a name="gg-group-create-device-attach-policy"></a>On the **Attach policies to certificate** page, do one of the following:
+   + Select an existing policy that grants permissions that client devices require, and then choose **Create thing**\.
 
-1. Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\.
+     A modal opens where you can download the certificates and keys that the device uses to connect to the AWS Cloud and the core\.
+   + Create and attach a new policy that grants client device permissions\. Do the following:
+
+     1. Choose **Create policy**\.
+
+        The **Create policy** page opens in a new tab\.
+
+     1. On the **Create policy** page, do the following:
+
+        1. For **Policy name**, enter a name that describes the policy, such as **GreengrassV1ClientDevicePolicy**\.
+
+        1. On the **Policy statements** tab, under **Policy document**, choose **JSON**\.
+
+        1. Enter the following policy document\. This policy allows the client device to discover Greengrass cores and communicate on all MQTT topics\. For information about how to restrict this policy's access, see [Device authentication and authorization for AWS IoT Greengrass](device-auth.md)\.
+
+           ```
+           {
+             "Version": "2012-10-17",
+             "Statement": [
+               {
+                 "Effect": "Allow",
+                 "Action": [
+                   "iot:Publish",
+                   "iot:Subscribe",
+                   "iot:Connect",
+                   "iot:Receive"
+                 ],
+                 "Resource": [
+                   "*"
+                 ]
+               },
+               {
+                 "Effect": "Allow",
+                 "Action": [
+                   "greengrass:*"
+                 ],
+                 "Resource": [
+                   "*"
+                 ]
+               }
+             ]
+           }
+           ```
+
+        1. Choose **Create** to create the policy\.
+
+     1. Return to the browser tab with the **Attach policies to certificate** page open\. Do the following:
+
+        1. In the **Policies** list, select the policy that you created, such as **GreengrassV1ClientDevicePolicy**\.
+
+           If you don't see the policy, choose the refresh button\.
+
+        1. Choose **Create thing**\.
+
+           A modal opens where you can download the certificates and keys that the device uses to connect to the AWS Cloud and the core\.
+
+1. <a name="gg-group-create-device-download-certs"></a>In the **Download certificates and keys** modal, download the device's certificates\.
 **Important**  
-Your root CA certificate type must match your endpoint\. Use an ATS root CA certificate with an ATS endpoint \(preferred\) or a VeriSign root CA certificate with a legacy endpoint\. Only some Amazon Web Services Regions support legacy endpoints\. For more information, see [Service endpoints must match the root CA certificate type](gg-core.md#certificate-endpoints)\.
+Before you choose **Done**, download the security resources\.
 
-   Download the appropriate ATS root CA certificate to the core device\. For example, you can use the following `wget` commands to download `AmazonRootCA1.pem` to your file path\.
+   Do the following:
 
-   ```
-   cd /path-to-device-certs
-   sudo wget -O root.ca.pem https://www.amazontrust.com/repository/AmazonRootCA1.pem
-   ```
+   1. For **Device certificate**, choose **Download** to download the device certificate\.
+
+   1. For **Public key file**, choose **Download** to download the public key for the certificate\.
+
+   1. For **Private key file**, choose **Download** to download the private key file for the certificate\.
+
+   1. Review [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html) in the *AWS IoT Developer Guide* and choose the appropriate root CA certificate\. We recommend that you use Amazon Trust Services \(ATS\) endpoints and ATS root CA certificates\. Under **Root CA certificates**, choose **Download** for a root CA certificate\.
+
+   1. Choose **Done**\.
+
+   Make a note of the certificate ID that's common in the file names for the device certificate and keys\. You need it later\.
+
+1. Copy the certificates and keys into the folder that you created in step 1\.
 
 Next, create a subscription in the group\. For this example, you create a subscription allows the Docker container device to receive MQTT messages from the local shadow service\.
 
@@ -740,8 +801,7 @@ The maximum size of a shadow document is 8 KB\. For more information, see [AWS I
 
 **To create a subscription that allows the Docker container device to receive MQTT messages from the local shadow service**
 
-1. <a name="shared-subscriptions-addsubscription"></a>On the group configuration page, choose **Subscriptions**, and then choose **Add Subscription**\.  
-![\[The group page with Subscriptions and Add Subscription highlighted.\]](http://docs.aws.amazon.com/greengrass/v1/developerguide/images/console-group-subscriptions.png)
+1. <a name="shared-subscriptions-addsubscription"></a>On the group configuration page, choose the **Subscriptions** tab, and then choose **Add Subscription**\.
 
 1. On the **Select your source and target** page, configure the source and target, as follows:
 
@@ -778,9 +838,9 @@ host = "myPrefix.iot.region.amazonaws.com"
 topic = "$aws/things/MyDockerDevice/shadow/update/accepted"
 
 # Replace these paths based on the download location of the certificates for the Docker container.
-rootCAPath = "/path-accessible-in-container/rootCA.pem"
-certificatePath = "/path-accessible-in-container/certId.cert.pem"
-privateKeyPath = "/path-accessible-in-container/certId.private.key"
+rootCAPath = "/path-accessible-in-container/AmazonRootCA1.pem"
+certificatePath = "/path-accessible-in-container/certId-certificate.pem.crt"
+privateKeyPath = "/path-accessible-in-container/certId-private.pem.key"
 
 
 # Discover Greengrass cores.
