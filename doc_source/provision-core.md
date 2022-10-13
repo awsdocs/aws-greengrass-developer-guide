@@ -88,16 +88,6 @@ In this section, you register your device as an AWS IoT thing to use it as a Gre
 
         1. Choose **Create** to create the policy\.
 
-     1. Return to the browser tab with the **Attach policies to certificate** page open\. Do the following:
-
-        1. In the **Policies** list, select the policy that you created, such as **GreengrassV1CorePolicy**\.
-
-           If you don't see the policy, choose the refresh button\.
-
-        1. Choose **Create thing**\.
-
-           A modal opens where you can download the certificates and keys that the core uses to connect to AWS IoT\.
-
 1. Return to the browser tab with the **Attach policies to certificate** page open\. Do the following:
 
    1. In the **Policies** list, select the policy that you created, such as **GreengrassV1CorePolicy**\.
